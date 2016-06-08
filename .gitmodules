@@ -1,0 +1,6 @@
+[submodule "ezyfox-core"]
+	path = ezyfox-core
+	url = https://github.com/youngmonkeys/ezyfox-core.git
+[submodule "ezyfox-sfs2x"]
+	path = ezyfox-sfs2x
+	url = https://github.com/youngmonkeys/ezyfox-sfs2x.git
