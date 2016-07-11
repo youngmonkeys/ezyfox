@@ -17,7 +17,7 @@
 
 #Synopsis
 
-This project support to create a server side game application more efficiently and more quickly (user smartfox server engine)
+This project supports to create a server side game application more efficiently and more quickly (use smartfox server engine)
 
 #Code Example
 
@@ -85,7 +85,7 @@ Let's say you want to listen a "bet" request from client and you also you want t
     @ResponseParam("2")
     private int roomId;
     
-    public void execute(AppContext context, VideoPokerUser user) {
+    public void execute(AppContext context, MyUser user) {
         MyRoom room = 
                 context.command(FindRoom.class).by(roomId);
         context.command(Log.class).from(this).info("user {} has just betted {} chips", 
@@ -119,7 +119,7 @@ Let's say you need validate a parameter in a request from client (i.e money in "
     @ResponseParam("2")
     private int roomId;
     
-    public void execute(AppContext context, VideoPokerUser user) throws Exception {
+    public void execute(AppContext context, MyUser user) throws Exception {
         if(money <= 0) {
             context.command(Response.class)
                 .command("2").recipient(user).execute();
@@ -154,12 +154,12 @@ We must spend a lot of time to declare, init variables. Some time we also have t
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-core</artifactId>
-		<version>1.0.5</version>
+		<version>1.0.6</version>
 	</dependency>
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-sfs2x</artifactId>
-		<version>1.0.5</version>
+		<version>1.0.6</version>
 	</dependency>
 ```
 
