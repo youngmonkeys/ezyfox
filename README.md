@@ -62,7 +62,7 @@ This project supports to create a server side game application more efficiently 
         context.command(Log.class).from(this).info("user " + user.getName() 
               + " joined room " + room.getName());
         context.command(Response.class)
-            .command("1").recipient(user).data(room).execute();
+            .command("1").recipients(user).data(room).execute();
     }
     
 }
@@ -122,7 +122,7 @@ Let's say you need validate a parameter in a request from client (i.e money in "
     public void execute(AppContext context, MyUser user) throws Exception {
         if(money <= 0) {
             context.command(Response.class)
-                .command("2").recipient(user).execute();
+                .command("2").recipients(user).execute();
             throw new BadRequestException();
         }
     }
@@ -154,12 +154,12 @@ We must spend a lot of time to declare, init variables. Some time we also have t
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-core</artifactId>
-		<version>1.1.1</version>
+		<version>1.1.3</version>
 	</dependency>
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-sfs2x</artifactId>
-		<version>1.1.1</version>
+		<version>1.1.3</version>
 	</dependency>
 ```
 
