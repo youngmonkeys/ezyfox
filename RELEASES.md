@@ -2,6 +2,7 @@
 
 - Add serialize and deserialize features, example: 
 
+```java
 public class BetRequestSerializer implements ObjectSerializer {
 
     @Override
@@ -13,7 +14,9 @@ public class BetRequestSerializer implements ObjectSerializer {
     }
 
 }
+```
 
+```java
 public class BetRequestDeserializer implements ObjectDeserializer {
 
     @SuppressWarnings("unchecked")
@@ -25,8 +28,33 @@ public class BetRequestDeserializer implements ObjectDeserializer {
     }
 
 }
+```
 
+```java
 context.command(AddObjectSerializer.class)
 	.add(BetRequestListener.class, new BetRequestSerializer());
 context.command(AddObjectDeserializer.class)
 	.add(BetRequestDeserializer.class, new BetRequestDeserializer());
+```
+
+**version 1.1.4**
+
+- add AdditionalClientRequestListeners annotation
+- add AdditionalServerEventHandlers annotation
+- add ParamsMapper annotation
+
+Example:
+
+```java
+@ParamsMapper(serializer = BetRequestSerializer.class,
+              deserializer = BetRequestDeserializer.class)
+public class BetRequestListener {
+	// source code
+}
+```
+
+```java
+@AdditionalClientRequestListeners(classes = {ExClientRequestListener.class})
+@AdditionalServerEventHandlers(classes = {ExServereEventHandler.class})
+```
+
