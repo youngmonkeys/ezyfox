@@ -58,3 +58,18 @@ public class BetRequestListener {
 @AdditionalServerEventHandlers(classes = {ExServereEventHandler.class})
 ```
 
+**version 1.1.5**
+
+- update AdditionalClientRequestListeners and AdditionalServerEventHandlers annotation
+
+Example:
+
+```java
+@AdditionalClientRequestListeners({
+        "com.tvd12.ezyfox.videopoker.interceptor.BetRequestInterceptor"
+})
+@AdditionalServerEventHandlers({
+        "com.tvd12.ezyfox.videopoker.event.ServerReadyEventHandler"
+})
+```
+
