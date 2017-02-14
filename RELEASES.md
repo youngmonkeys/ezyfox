@@ -73,3 +73,18 @@ Example:
 })
 ```
 
+**version 1.2.6**
+
+- add PropagateRequest command
+
+Example:
+
+```java
+context.command(PropagateRequest.class)
+    .command("deal")
+    .param("money", 1000)
+    .param("auto", true)
+    .user(current())
+    .execute();
+```
+
