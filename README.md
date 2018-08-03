@@ -15,11 +15,11 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.tvd12/ezyfox-sfs2x/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.tvd12/ezyfox-sfs2x)
 [![Javadoc](https://javadoc-emblem.rhcloud.com/doc/com.tvd12/ezyfox-sfs2x/badge.svg)](http://www.javadoc.io/doc/com.tvd12/ezyfox-sfs2x)
 
-#Synopsis
+# Synopsis
 
 This project supports to create a server side game application more efficiently and more quickly (use smartfox server engine)
 
-#Code Example
+# Code Example
 
 **1. Handle server ready event**
 ```java
@@ -130,7 +130,7 @@ Let's say you need validate a parameter in a request from client (i.e money in "
 }
 ```
 
-#Motivation
+# Motivation
 
 We have used smartfox server engine, we must use key-value object like SFSObject, SFSUser, SFSRoom e.t.c, they make our source code too complex, hard to read, hard to map, example:
 
@@ -148,30 +148,30 @@ We have used smartfox server engine, we must use key-value object like SFSObject
 
 We must spend a lot of time to declare, init variables. Some time we also have two or three user agent for each game, and mapping an user agent to key-value object is hard. We think using POJO is good idea, so we make this project.
 
-#Installation
+# Installation
 
 ```xml
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-core</artifactId>
-		<version>1.2.6</version>
+		<version>1.2.8</version>
 	</dependency>
 	<dependency>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-sfs2x</artifactId>
-		<version>1.2.6</version>
+		<version>1.2.8</version>
 	</dependency>
 ```
 
-#API Reference
+# API Reference
 
 http://www.javadoc.io/doc/com.tvd12/ezyfox-core
 
-#Tests
+# Tests
 
 mvn test
 
-#Contributors
+# Contributors
 
 - Project management 
   - [NamCV](mailto:cungvinhnam@gmail.com)
