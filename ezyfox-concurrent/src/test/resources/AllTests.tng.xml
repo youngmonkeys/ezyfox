@@ -3,27 +3,27 @@
 <suite name="AllTests">
 	<test name="All">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.testing"></package>
+			<package name="com.tvd12.ezyfox.testing"></package>
 		</packages>
 	</test>
 	<test name="Concurrent">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.testing.concurrent"></package>
+			<package name="com.tvd12.ezyfox.testing.concurrent"></package>
 		</packages>
 	</test>
 	<test name="Helper">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.testing.helper"></package>
+			<package name="com.tvd12.ezyfox.testing.helper"></package>
 		</packages>
 	</test>
 	<test name="Function">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.testing.function"></package>
+			<package name="com.tvd12.ezyfox.testing.function"></package>
 		</packages>
 	</test>
 	<test name="Reflect">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.testing.reflect"></package>
+			<package name="com.tvd12.ezyfox.testing.reflect"></package>
 		</packages>
 	</test>
 </suite>

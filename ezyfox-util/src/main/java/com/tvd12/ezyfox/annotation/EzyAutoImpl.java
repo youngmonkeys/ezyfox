@@ -1,0 +1,18 @@
+package com.tvd12.ezyfox.annotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import com.tvd12.ezyfox.annotation.EzyKeyValue;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE })
+public @interface EzyAutoImpl {
+
+	String value() default "";
+	
+	EzyKeyValue[] properties() default {};
+	
+}

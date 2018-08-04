@@ -3,12 +3,12 @@
 <suite name="AllTests">
 	<test name="All">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.codec.testing"></package>
+			<package name="com.tvd12.ezyfox.codec.testing"></package>
 		</packages>
 	</test>
 	<test name="Performance">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.codec.testing.performance"></package>
+			<package name="com.tvd12.ezyfox.codec.testing.performance"></package>
 		</packages>
 	</test>
 </suite>

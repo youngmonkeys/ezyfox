@@ -3,7 +3,7 @@
 <suite name="AllTests">
 	<test name="Codec">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.testing.codec"></package>
+			<package name="com.tvd12.ezyfox.testing.codec"></package>
 		</packages>
 	</test>
 </suite>

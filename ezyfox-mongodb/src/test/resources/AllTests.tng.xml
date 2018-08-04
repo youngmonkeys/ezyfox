@@ -3,12 +3,12 @@
 <suite name="AllTests">
 	<test name="All">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.mongodb.testing"></package>
+			<package name="com.tvd12.ezyfox.mongodb.testing"></package>
 		</packages>
 	</test>
 	<test name="Query">
 		<packages>
-			<package name="com.tvd12.ezyfoxserver.mongodb.testing.query"></package>
+			<package name="com.tvd12.ezyfox.mongodb.testing.query"></package>
 		</packages>
 	</test>
 </suite>
