@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.tvd12</groupId>
+		<artifactId>ezyfox</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>ezyfox-hazelcast-bean</artifactId>
+	<name>ezyfox-hazelcast-bean</name>
+	<version>1.0.0</version>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<ezy.bean.version>1.0.0</ezy.bean.version>
+        <ezy.hazelcast.version>1.0.0</ezy.hazelcast.version>
+	</properties>
+	
+	<dependencies>
+        <dependency>
+			<groupId>com.tvd12</groupId>
+			<artifactId>ezyfox-hazelcast</artifactId>
+			<version>${ezy.hazelcast.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tvd12</groupId>
+			<artifactId>ezyfox-bean</artifactId>
+			<version>${ezy.bean.version}</version>
+		</dependency>
+	</dependencies>
+</project>
