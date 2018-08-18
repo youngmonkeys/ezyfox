@@ -44,10 +44,10 @@ public final class EzyPrints {
 	}
 	
 	public static String insertBegin(String str, String ch, int maxlen) {
-		String answer = str;
-		while(answer.length() < maxlen)
-			answer = ch + answer;
-		return answer;
+		StringBuilder builder = new StringBuilder(str);
+		while(builder.length() < maxlen)
+			builder.insert(0, ch);
+		return builder.toString();
 	}
 	
 }
