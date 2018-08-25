@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.annotation.EzyAutoImpl;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.impl.EzySimpleBeanContext;
@@ -44,6 +45,9 @@ public class EzySimpleBeanContextTest {
 				.put("cmd", "1zz")
 				.build());
 		assert prototype == null;
+		
+		context.getSingletons(EzyAutoImpl.class);
+		context.getPrototypeSuppliers(EzyAutoImpl.class);
 	}
 	
 }

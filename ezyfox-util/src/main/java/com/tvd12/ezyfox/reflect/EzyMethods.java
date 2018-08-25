@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,5 +52,16 @@ public final class EzyMethods {
 	@SuppressWarnings("rawtypes")
 	public static List<Method> getDeclaredMethods(Class clazz) {
 		return Lists.newArrayList(clazz.getDeclaredMethods());
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static List<Method> getPublicMethods(Class clazz) {
+		List<Method> methods = getMethods(clazz);
+		List<Method> answer = new ArrayList<>();
+		for(Method method : methods) {
+			if(Modifier.isPublic(method.getModifiers()))
+				answer.add(method);
+		}
+		return answer;
 	}
 }

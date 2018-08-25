@@ -95,6 +95,11 @@ public class EzySimpleBeanContext
 	}
 	
 	@Override
+	public List getSingletons(Class annotationClass) {
+		return singletonFactory.getSingletons(annotationClass);
+	}
+	
+	@Override
 	public <T> T getPrototype(String name, Class<T> type) {
 		EzyPrototypeSupplier supplier = prototypeFactory.getSupplier(name, type);
 		if(supplier == null)
@@ -125,6 +130,11 @@ public class EzySimpleBeanContext
 	@Override
 	public List<EzyPrototypeSupplier> getPrototypeSuppliers(Map properties) {
 		return prototypeFactory.getSuppliers(properties);
+	}
+	
+	@Override
+	public List<EzyPrototypeSupplier> getPrototypeSuppliers(Class annotationClass) {
+		return prototypeFactory.getSuppliers(annotationClass);
 	}
 	
 	@Override
