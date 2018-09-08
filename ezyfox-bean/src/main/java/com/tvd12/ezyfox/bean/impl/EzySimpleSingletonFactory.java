@@ -91,7 +91,7 @@ public class EzySimpleSingletonFactory
 		for(EzyBeanKey key : objectsByKey.keySet()) {
 			Class type = key.getType();
 			if(type.isAnnotationPresent(annoClass))
-				list.add(objectsByKey.get(type));
+				list.add(objectsByKey.get(key));
 		}
 		return list;
 	}

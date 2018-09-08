@@ -17,9 +17,13 @@ import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT32;
 import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT8;
 import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_NEGATIVE_FIXINT;
 
+import java.util.AbstractCollection;
+import java.util.AbstractList;
 import java.util.AbstractMap;
+import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +33,8 @@ import java.util.Set;
 
 import com.tvd12.ezyfox.codec.EzyAbstractToBytesSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.entity.EzyArrayList;
+import com.tvd12.ezyfox.entity.EzyHashMap;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.function.EzyParser;
 import com.tvd12.ezyfox.io.EzyBytes;
@@ -89,11 +95,17 @@ public class MsgPackSimpleSerializer
 		
 		parsers.put(Map.class, this::parseMap);
 		parsers.put(AbstractMap.class, this::parseMap);
+		parsers.put(HashMap.class, this::parseMap);
 		parsers.put(EzyObject.class, this::parseObject);
+		parsers.put(EzyHashMap.class, this::parseObject);
 		parsers.put(EzyArray.class, this::parseArray);
+		parsers.put(EzyArrayList.class, this::parseArray);
 		parsers.put(Collection.class, this::parseCollection);
+		parsers.put(AbstractCollection.class, this::parseCollection);
 		parsers.put(Set.class, this::parseCollection);
+		parsers.put(AbstractSet.class, this::parseCollection);
 		parsers.put(List.class, this::parseCollection);
+		parsers.put(AbstractList.class, this::parseCollection);
 		parsers.put(HashSet.class, this::parseCollection);
 		parsers.put(ArrayList.class, this::parseCollection);
 	}

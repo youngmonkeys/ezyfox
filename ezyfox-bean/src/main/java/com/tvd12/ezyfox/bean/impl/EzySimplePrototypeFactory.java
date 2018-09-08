@@ -57,7 +57,7 @@ public class EzySimplePrototypeFactory
 		for(EzyBeanKey key : supplierByKey.keySet()) {
 			Class type = key.getType();
 			if(type.isAnnotationPresent(annoClass))
-				list.add(supplierByKey.get(type));
+				list.add(supplierByKey.get(key));
 		}
 		return list;
 	}

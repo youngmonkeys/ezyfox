@@ -136,7 +136,7 @@ public abstract class EzySimpleSingletonLoader
 		Object value = getOrCreateSingleton(
 				method.getType(), getBeanName(method), context);
 		method.invoke(singleton, value);
-		getLogger().debug("{} invoke method: {} with value: {}", clazz, method.getName(), value);
+		getLogger().debug("{} invoke method: {} with value: {}", singleton, method.getName(), value);
 	}
 	
 	private void callPostInit(Object singleton) {

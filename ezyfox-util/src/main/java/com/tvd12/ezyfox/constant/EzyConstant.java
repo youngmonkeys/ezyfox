@@ -4,10 +4,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.tvd12.ezyfox.constant.EzyConstant;
-import com.tvd12.ezyfox.constant.EzyHasIntId;
-import com.tvd12.ezyfox.constant.EzyHasName;
-
 public interface EzyConstant extends EzyHasIntId, EzyHasName {
 
 	// the counter utility
