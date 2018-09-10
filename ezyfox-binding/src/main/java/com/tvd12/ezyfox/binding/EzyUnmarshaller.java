@@ -3,8 +3,17 @@ package com.tvd12.ezyfox.binding;
 import java.util.Collection;
 import java.util.Map;
 
+@SuppressWarnings("rawtypes")
 public interface EzyUnmarshaller {
 
+	/**
+	 * check contains unwrapper or not
+	 * 
+	 * @param objectType the object type
+	 * @return contains or not
+	 */
+	boolean containsUnwrapper(Class objectType);
+	
 	/**
 	 * unwrap a value to pojo
 	 * 
@@ -31,7 +40,6 @@ public interface EzyUnmarshaller {
 	 * @param itemType the item type
 	 * @return a collection
 	 */
-	@SuppressWarnings("rawtypes")
 	<T> Collection<T> unmarshalCollection(
 			Object value, Class collectionType, Class<T> itemType);
 	
@@ -44,7 +52,6 @@ public interface EzyUnmarshaller {
 	 * @param valueType the value type
 	 * @return the map
 	 */
-	@SuppressWarnings("rawtypes")
 	<K,V> Map<K,V> unmarshalMap(
 			Object value, Class mapType, Class<K> keyType, Class<V> valueType);
 	
@@ -55,7 +62,6 @@ public interface EzyUnmarshaller {
 	 * @param value the value
 	 * @return a object
 	 */
-	@SuppressWarnings("rawtypes")
 	<T> T unmarshal(Class<? extends EzyReader> readerClass, Object value);
 	
 }

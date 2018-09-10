@@ -12,6 +12,7 @@ import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 
 import com.mongodb.WriteResult;
+import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.database.query.EzyFindAndModifyOptions;
 import com.tvd12.ezyfox.database.query.EzyUpdateOperations;
 import com.tvd12.ezyfox.function.EzyApply;
@@ -28,6 +29,7 @@ public abstract class EzyDatastoreRepository<I, E>
 		implements EzyMongoRepository<I, E>, EzyDatastoreAware {
 
 	@Setter
+	@EzyAutoBind
 	protected Datastore datastore;
 	
 	protected abstract Class<E> getEntityType();

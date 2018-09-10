@@ -13,7 +13,6 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<morphia.version>1.3.2</morphia.version>
-		<ezy.bean.version>1.0.0</ezy.bean.version>
 		<ezy.mongodb.version>1.0.0</ezy.mongodb.version>
 	</properties>
 	<dependencies>
@@ -26,12 +25,6 @@
 			<groupId>org.mongodb.morphia</groupId>
 			<artifactId>morphia</artifactId>
 			<version>${morphia.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-bean</artifactId>
-			<version>${ezy.bean.version}</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

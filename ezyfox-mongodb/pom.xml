@@ -37,7 +37,6 @@
 			<groupId>com.tvd12</groupId>
 			<artifactId>ezyfox-bean</artifactId>
 			<version>${ezy.bean.version}</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
