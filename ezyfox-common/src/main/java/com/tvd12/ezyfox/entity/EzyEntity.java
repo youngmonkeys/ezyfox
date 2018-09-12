@@ -15,7 +15,7 @@ import com.tvd12.ezyfox.util.EzyProperties;
 public abstract class EzyEntity implements EzyProperties {
 
     // map of key/value properties of model
-    protected Map<Object, Object> properties 
+    protected final Map<Object, Object> properties 
     		= new ConcurrentHashMap<>();
     
     /*
