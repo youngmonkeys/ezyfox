@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadFactory;
 import com.tvd12.ezyfox.concurrent.EzyErrorScheduledExecutorService;
 import com.tvd12.ezyfox.concurrent.EzyThreadFactory;
 
-public class EzyExecutors {
+public final class EzyExecutors {
 
 	private EzyExecutors() {
 	}
