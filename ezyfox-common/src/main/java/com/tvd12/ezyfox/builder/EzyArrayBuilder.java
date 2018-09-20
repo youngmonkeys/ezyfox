@@ -42,7 +42,8 @@ public interface EzyArrayBuilder extends EzyBuilder<EzyArray> {
 	 */
 	@SuppressWarnings("rawtypes")
 	default EzyArrayBuilder append(EzyBuilder builder) {
-		return this.append(builder.build());
+		Object value = builder.build();
+		return this.append(value);
 	}
 	
 }

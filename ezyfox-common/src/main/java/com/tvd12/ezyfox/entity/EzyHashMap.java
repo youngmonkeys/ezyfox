@@ -6,29 +6,25 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.BiFunction;
 
-import com.tvd12.ezyfox.entity.EzyHashMap;
-import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 
-import lombok.Setter;
-
-@SuppressWarnings("unchecked")
-public class EzyHashMap implements EzyObject {
+@SuppressWarnings({"unchecked", "rawtypes"})
+public class EzyHashMap extends EzyTransformable implements EzyObject {
 	private static final long serialVersionUID = 2273868568933801751L;
 	
-	protected HashMap<Object, Object> map = new HashMap<>();
+	protected final HashMap<Object, Object> map = new HashMap<>();
 	
-	@Setter
-	protected transient EzyInputTransformer inputTransformer;
-	@Setter
-	protected transient EzyOutputTransformer outputTransformer;
-	
-	public EzyHashMap() {
+	public EzyHashMap(
+			EzyInputTransformer inputTransformer,
+			EzyOutputTransformer outputTransformer) {
+		super(inputTransformer, outputTransformer);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public EzyHashMap(Map map) {
+	public EzyHashMap(Map map,
+			EzyInputTransformer inputTransformer,
+			EzyOutputTransformer outputTransformer) {
+		this(inputTransformer, outputTransformer);
 		this.map.putAll(map);
 	}
 	
@@ -38,14 +34,14 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public <V> V put(Object key, Object value) {
-		return (V) map.put(key, transformInput(value));
+		V answer = (V) map.put(key, transformInput(value));
+		return answer;
 	}
 	
 	/*
 	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyObject#putAll(java.util.Map)
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public void putAll(Map m) {
 		for(Object key : m.keySet())
@@ -58,17 +54,18 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public <V> V get(Object key, Class<V> type) {
-		return (V) getValue(key, type);
+		V value = (V) getValue(key, type);
+		return value;
 	}
 	
 	/*
 	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyRoObject#getValue(java.lang.Object, java.lang.Class)
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public Object getValue(Object key, Class type) {
-		return transformOutput(map.get(key), type);
+		Object answer = transformOutput(map.get(key), type);
+		return answer;
 	}
 	
 	/*
@@ -77,16 +74,17 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public <V> V remove(Object key) {
-		return (V) map.remove(key);
+		V answer = (V) map.remove(key);
+		return answer;
 	}
 	
 	/*
 	 * 
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public <V> V compute(Object key, BiFunction func) {
-		return (V) map.compute(key, func);
+		V answer = (V) map.compute(key, func);
+		return answer;
 	}
 	
 	/*
@@ -95,7 +93,8 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public int size() {
-		return map.size();
+		int size = map.size();
+		return size;
 	}
 
 	/*
@@ -104,7 +103,8 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return map.isEmpty();
+		boolean answer = map.isEmpty();
+		return answer;
 	}
 
 	/*
@@ -113,7 +113,8 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public boolean containsKey(Object key) {
-		return map.containsKey(key);
+		boolean answer = map.containsKey(key);
+		return answer;
 	}
 	
 	/*
@@ -122,7 +123,8 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public boolean isNotNullValue(Object key) {
-		return map.get(key) != null;
+		boolean answer = map.get(key) != null;
+		return answer;
 	}
 
 	/*
@@ -131,7 +133,8 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public <V> V get(Object key) {
-		return (V) map.get(key);
+		V value = (V) map.get(key);
+		return value;
 	}
 
 	/*
@@ -140,7 +143,8 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public Set<Object> keySet() {
-		return map.keySet();
+		Set<Object> set = map.keySet();
+		return set;
 	}
 	
 	/*
@@ -149,7 +153,8 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public Set<Entry<Object, Object>> entrySet() {
-		return map.entrySet();
+		Set<Entry<Object, Object>> entries = map.entrySet();
+		return entries;
 	}
 
 	/*
@@ -165,7 +170,6 @@ public class EzyHashMap implements EzyObject {
 	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyRoObject#toMap()
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public Map toMap() {
 		return new HashMap<>(map);
@@ -177,9 +181,9 @@ public class EzyHashMap implements EzyObject {
 	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
-		EzyHashMap clone = new EzyHashMap(map);
-		clone.setInputTransformer(inputTransformer);
-		clone.setOutputTransformer(outputTransformer);
+		EzyHashMap clone = new EzyHashMap(
+				map, 
+				inputTransformer, outputTransformer);
 		return clone;
 	}
 	
@@ -197,12 +201,13 @@ public class EzyHashMap implements EzyObject {
 	}
 	
 	private Object transformInput(Object input) {
-		return inputTransformer.transform(input);
+		Object answer = inputTransformer.transform(input);
+		return answer;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	private Object transformOutput(Object output, Class type) {
-		return outputTransformer.transform(output, type);
+		Object answer = outputTransformer.transform(output, type);
+		return answer;
 	}
 	
 	@Override

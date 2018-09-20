@@ -38,7 +38,7 @@ public class EzySimpleInputTransformer
 	}
 	
 	protected Object transformNonNullValue(Object value) {
-		return transformNonNullValue(value, getTransformers());
+		return transformNonNullValue(value, transformers);
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -71,11 +71,6 @@ public class EzySimpleInputTransformer
 	protected Object transformBuilder(
 			Object value, Map<Class, EzyToObject> transformers) {
 		return transformNonNullValue(((EzyBuilder)value).build());
-	}
-	
-	@SuppressWarnings("rawtypes")
-	protected Map<Class, EzyToObject> getTransformers() {
-		return transformers;
 	}
 	
 	@SuppressWarnings("rawtypes")

@@ -13,45 +13,55 @@ public final class EzyBase64 {
 	}
 	
 	public static byte[] encode(byte[] input) {
-		return Base64.encodeBase64(input);
+		byte[] answer = Base64.encodeBase64(input);
+		return answer;
 	}
 	
 	public static byte[] decode(byte[] input) {
-		return Base64.decodeBase64(input);
+		byte[] answer = Base64.decodeBase64(input);
+		return answer;
 	}
 	
 	public static byte[] decode(String input) {
-		return Base64.decodeBase64(input);
+		byte[] answer = Base64.decodeBase64(input);
+		return answer;
 	}
 	
 	public static byte[] encode(String input) {
-		return Base64.encodeBase64(EzyStrings.getUtfBytes(input));
+		byte[] answer = Base64.encodeBase64(EzyStrings.getUtfBytes(input));
+		return answer;
 	}
 	
 	public static String encodeUtf(String input) {
-		return Base64.encodeBase64String(EzyStrings.getUtfBytes(input));
+		String answer = Base64.encodeBase64String(EzyStrings.getUtfBytes(input));
+		return answer;
 	}
 	
 	public static String decodeUtf(String input) {
-		return EzyStrings.newUtf(Base64.decodeBase64(input));
+		String answer = EzyStrings.newUtf(Base64.decodeBase64(input));
+		return answer;
 	}
 	
 	public static String encode2utf(byte[] input) {
-		return EzyStrings.newUtf(encode(input));
+		String answer = EzyStrings.newUtf(encode(input));
+		return answer;
 	}
 	
 	public static String decode2utf(byte[] input) {
-		return EzyStrings.newUtf(decode(input));
+		String answer = EzyStrings.newUtf(decode(input));
+		return answer;
 	}
 	
 	public static String encode(double[] doubleArray) {
 		byte[] bytes = toByteArray(doubleArray);
-		return encode2utf(bytes);
+		String answer = encode2utf(bytes);
+		return answer;
 	}
 
 	public static double[] decode2doubles(String base64Encoded) {
 		byte[] bytes = decode(base64Encoded);
-		return toDoubleArray(bytes);
+		double[] answer = toDoubleArray(bytes);
+		return answer;
 	}
 	
 }

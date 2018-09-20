@@ -128,7 +128,7 @@ public class EzyArray1Test extends EzyEntityTest {
 	
 	@Test(expectedExceptions = {IllegalStateException.class})
 	public void test2() {
-		EzyArray array = new EzyArrayList() {
+		EzyArray array = new EzyArrayList(null, null, null) {
 			private static final long serialVersionUID = 8714822620207886718L;
 
 			@Override

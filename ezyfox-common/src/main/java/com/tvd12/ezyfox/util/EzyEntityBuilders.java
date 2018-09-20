@@ -2,17 +2,26 @@ package com.tvd12.ezyfox.util;
 
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
+import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
-import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzyEntityBuilders extends EzyLoggable {
 	
+	protected EzyArray newArray() {
+		return EzyEntityFactory.newArray();
+	}
+
+	protected EzyObject newObject() {
+		return EzyEntityFactory.newObject();
+	}
+	
 	protected EzyArrayBuilder newArrayBuilder() {
-		return EzyEntityFactory.create(EzyArrayBuilder.class);
+		return EzyEntityFactory.newArrayBuilder();
 	}
 
 	protected EzyObjectBuilder newObjectBuilder() {
-		return EzyEntityFactory.create(EzyObjectBuilder.class);
+		return EzyEntityFactory.newObjectBuilder();
 	}
 	
 }

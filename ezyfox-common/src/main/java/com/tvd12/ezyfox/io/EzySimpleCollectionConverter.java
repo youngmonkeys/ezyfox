@@ -25,7 +25,7 @@ public class EzySimpleCollectionConverter implements EzyCollectionConverter {
 	protected <T> T convert(Object value, Class type) {
 		if(converters.containsKey(type))
 			return (T) converters.get(type).transform(value);
-		throw new IllegalArgumentException("can not convert " + type);
+		throw new IllegalArgumentException("has no converter with: " + type);
 	}
 	
 	protected <T> T toArray(Object array, Class type) {

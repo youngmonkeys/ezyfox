@@ -53,7 +53,7 @@ public class EzySimpleOutputTransformer
 	
 	@SuppressWarnings("rawtypes")
 	protected Object transformNonNullValue(Object value, Class type) {
-		return transformNonNullValue(value, type, getTransformers());
+		return transformNonNullValue(value, type, transformers);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -65,11 +65,6 @@ public class EzySimpleOutputTransformer
 		if(type.isEnum())
 			return Enum.valueOf(type, value.toString());
 		return value;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	protected Map<Class, EzyToObject> getTransformers() {
-		return transformers;
 	}
 	
 	//tank

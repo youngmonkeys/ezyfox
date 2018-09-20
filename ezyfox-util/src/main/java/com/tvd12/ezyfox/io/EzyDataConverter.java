@@ -159,11 +159,11 @@ public final class EzyDataConverter {
      */
     public static boolean[] collectionToPrimitiveBoolArray(
             Collection<Boolean> value) {
-    	int count = 0;
-    	boolean[] answer = new boolean[value.size()];
-    	for(Boolean item : value)
-    		answer[count ++] = item;
-    	return answer;
+	    	int count = 0;
+	    	boolean[] answer = new boolean[value.size()];
+	    	for(Boolean item : value)
+	    		answer[count ++] = item;
+	    	return answer;
     }
     
     /**
@@ -174,11 +174,11 @@ public final class EzyDataConverter {
      */
     public static byte[] collectionToPrimitiveByteArray(
             Collection<Byte> value) {
-    	int count = 0;
-    	byte[] answer = new byte[value.size()];
-    	for(Byte item : value)
-    		answer[count ++] = item;
-    	return answer;
+	    	int count = 0;
+	    	byte[] answer = new byte[value.size()];
+	    	for(Byte item : value)
+	    		answer[count ++] = item;
+	    	return answer;
     }
     
     /**
@@ -189,11 +189,11 @@ public final class EzyDataConverter {
      */
     public static char[] collectionToPrimitiveCharArray(
             Collection<Character> value) {
-    	int count = 0;
-    	char[] answer = new char[value.size()];
-    	for(Character item : value)
-    		answer[count ++] = item;
-    	return answer;
+	    	int count = 0;
+	    	char[] answer = new char[value.size()];
+	    	for(Character item : value)
+	    		answer[count ++] = item;
+	    	return answer;
     }
     
     /**
@@ -204,11 +204,11 @@ public final class EzyDataConverter {
      */
     public static byte[] charCollectionToPrimitiveByteArray(
             Collection<Character> value) {
-    	int count = 0;
-    	byte[] answer = new byte[value.size()];
-    	for(Character item : value)
-    		answer[count ++] = (byte) item.charValue();
-    	return answer;
+	    	int count = 0;
+	    	byte[] answer = new byte[value.size()];
+	    	for(Character item : value)
+	    		answer[count ++] = (byte) item.charValue();
+	    	return answer;
     }
     
     /**
@@ -219,11 +219,11 @@ public final class EzyDataConverter {
      */
     public static double[] collectionToPrimitiveDoubleArray(
             Collection<Double> value) {
-    	int count = 0;
-    	double[] answer = new double[value.size()];
-    	for(Double item : value)
-    		answer[count ++] = item;
-    	return answer;
+	    	int count = 0;
+	    	double[] answer = new double[value.size()];
+	    	for(Double item : value)
+	    		answer[count ++] = item;
+	    	return answer;
     }
     
     /**
@@ -234,11 +234,11 @@ public final class EzyDataConverter {
      */
     public static float[] collectionToPrimitiveFloatArray(
             Collection<Float> value) {
-    	int count = 0;
-    	float[] answer = new float[value.size()];
-    	for(Float item : value)
-    		answer[count ++] = item;
-    	return answer;
+	    	int count = 0;
+	    	float[] answer = new float[value.size()];
+	    	for(Float item : value)
+	    		answer[count ++] = item;
+	    	return answer;
     }
     
     /**
@@ -260,11 +260,11 @@ public final class EzyDataConverter {
      */
     public static long[] collectionToPrimitiveLongArray(
             Collection<Long> value) {
-    	int count = 0;
-    	long[] answer = new long[value.size()];
-    	for(Long item : value)
-    		answer[count ++] = item;
-    	return answer;
+	    	int count = 0;
+	    	long[] answer = new long[value.size()];
+	    	for(Long item : value)
+	    		answer[count ++] = item;
+	    	return answer;
     }
     
     /**
@@ -275,11 +275,11 @@ public final class EzyDataConverter {
      */
     public static short[] collectionToPrimitiveShortArray(
             Collection<Short> value) {
-    	int count = 0;
-    	short[] answer = new short[value.size()];
-    	for(Short item : value)
-    		answer[count ++] = item;
-    	return answer;
+	    	int count = 0;
+	    	short[] answer = new short[value.size()];
+	    	for(Short item : value)
+	    		answer[count ++] = item;
+	    	return answer;
     }
     
     /**
@@ -317,7 +317,7 @@ public final class EzyDataConverter {
      * @return a list object
      */
 	public static <T> List<T> arrayToList(T[] value) {
-    	return Lists.newArrayList(value);
+		return Lists.newArrayList(value);
     }
 	
 	/**
@@ -498,7 +498,7 @@ public final class EzyDataConverter {
      */
     public static Collection<Boolean> primitiveArrayToBoolCollection(
             boolean[] value) {
-        return Arrays.asList(ArrayUtils.toObject(value));
+        return EzyPrimitiveTypes.toList(value);
     }
     
     /**
@@ -509,7 +509,7 @@ public final class EzyDataConverter {
      */
     public static Collection<Byte> primitiveArrayToByteCollection(
             byte[] value) {
-        return Arrays.asList(ArrayUtils.toObject(value));
+        return EzyPrimitiveTypes.toList(value);
     }
     
     /**
@@ -520,7 +520,7 @@ public final class EzyDataConverter {
      */
     public static Collection<Character> primitiveArrayToCharCollection(
             char[] value) {
-        return Arrays.asList(ArrayUtils.toObject(value));
+        return EzyPrimitiveTypes.toList(value);
     }
     
     /**
@@ -531,7 +531,7 @@ public final class EzyDataConverter {
      */
     public static Collection<Double> primitiveArrayToDoubleCollection(
             double[] value) {
-        return Arrays.asList(ArrayUtils.toObject(value));
+        return EzyPrimitiveTypes.toList(value);
     }
     
     /**
@@ -542,7 +542,7 @@ public final class EzyDataConverter {
      */
     public static Collection<Float> primitiveArrayToFloatCollection(
             float[] value) {
-        return Arrays.asList(ArrayUtils.toObject(value));
+        return EzyPrimitiveTypes.toList(value);
     }
     
     /**
@@ -553,7 +553,7 @@ public final class EzyDataConverter {
      */
     public static Collection<Integer> primitiveArrayToIntCollection(
             int[] value) {
-        return Arrays.asList(ArrayUtils.toObject(value));
+        return EzyPrimitiveTypes.toList(value);
     }
     
     /**
@@ -564,7 +564,7 @@ public final class EzyDataConverter {
      */
     public static Collection<Long> primitiveArrayToLongCollection(
             long[] value) {
-        return Arrays.asList(ArrayUtils.toObject(value));
+        return EzyPrimitiveTypes.toList(value);
     }
     
     /**
@@ -575,7 +575,7 @@ public final class EzyDataConverter {
      */
     public static Collection<Short> primitiveArrayToShortCollection(
             short[] value) {
-        return Arrays.asList(ArrayUtils.toObject(value));
+        return EzyPrimitiveTypes.toList(value);
     }
     
     /**

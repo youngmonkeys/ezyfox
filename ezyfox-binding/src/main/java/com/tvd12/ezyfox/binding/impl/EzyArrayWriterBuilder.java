@@ -55,11 +55,7 @@ public class EzyArrayWriterBuilder
 							.equal()
 							.clazz(EzyEntityFactory.class)
 							.dot()
-							.append("create")
-							.bracketopen()
-							.clazz(EzyArrayBuilder.class)
-							.append(".class")
-							.bracketclose()
+							.append("newArrayBuilder()")
 							);
 		for(Object element : getElements()) {
 			EzyInstruction instruction = null;

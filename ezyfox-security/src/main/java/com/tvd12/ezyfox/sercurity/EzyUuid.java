@@ -8,7 +8,8 @@ public final class EzyUuid {
 	}
 	
 	public static UUID random() {
-		return UUID.randomUUID();
+		UUID answer = UUID.randomUUID();
+		return answer;
 	}
 	
 }

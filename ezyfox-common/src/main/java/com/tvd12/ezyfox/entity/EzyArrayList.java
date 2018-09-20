@@ -1,44 +1,45 @@
 package com.tvd12.ezyfox.entity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.tvd12.ezyfox.entity.EzyArray;
-import com.tvd12.ezyfox.entity.EzyArrayList;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 
-import lombok.Setter;
-
-@SuppressWarnings("unchecked")
-public class EzyArrayList implements EzyArray {
+@SuppressWarnings({"unchecked", "rawtypes"})
+public class EzyArrayList extends EzyTransformable implements EzyArray {
 	private static final long serialVersionUID = 5952111146742741007L;
 	
-	protected ArrayList<Object> list = new ArrayList<>();
+	protected final ArrayList<Object> list = new ArrayList<>();
 	
-	@Setter
-	protected transient EzyInputTransformer inputTransformer;
-	@Setter
-	protected transient EzyOutputTransformer outputTransformer;
-	@Setter
-	protected transient EzyCollectionConverter collectionConverter;
+	protected final transient EzyCollectionConverter collectionConverter;
 	
-	public EzyArrayList() {
+	public EzyArrayList(
+			EzyInputTransformer inputTransformer,
+			EzyOutputTransformer outputTransformer,
+			EzyCollectionConverter collectionConverter) {
+		super(inputTransformer, outputTransformer);
+		this.collectionConverter = collectionConverter;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public EzyArrayList(Collection items) {
-		list.addAll(items);
+	public EzyArrayList(
+			Collection items,
+			EzyInputTransformer inputTransformer,
+			EzyOutputTransformer outputTransformer,
+			EzyCollectionConverter collectionConverter) {
+		this(inputTransformer, outputTransformer, collectionConverter);
+		this.list.addAll(items);
+		
 	}
 
 	@Override
 	public <T> T get(int index) {
-		return (T)list.get(index);
+		T answer = (T)list.get(index);
+		return answer;
 	}
 	
 	/*
@@ -47,17 +48,18 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public <T> T get(int index, Class<T> type) {
-		return (T) getValue(index, type);
+		T answer = (T) getValue(index, type);
+		return answer;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyRoArray#getValue(int, java.lang.Class)
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public Object getValue(int index, Class type) {
-		return transformOutput(list.get(index), type);
+		Object answer = transformOutput(list.get(index), type);
+		return answer;
 	}
 	
 	/*
@@ -66,7 +68,11 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public boolean isNotNullValue(int index) {
-		return index < size() ? list.get(index) != null : false;
+		boolean answer = false;
+		int size = size();
+		if(index < size)
+			answer = list.get(index) != null;
+		return answer;
 	}
 	
 	/*
@@ -75,7 +81,12 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public EzyArray sub(int fromIndex, int toIndex) {
-		return new EzyArrayList(list.subList(fromIndex, toIndex));
+		List<Object> subList = list.subList(fromIndex, toIndex);
+		return new EzyArrayList(
+				subList,
+				inputTransformer,
+				outputTransformer,
+				collectionConverter);
 	}
 
 	/*
@@ -84,17 +95,18 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public void add(Object... items) {
-		add(Arrays.asList(items));
+		for(Object item : items)
+			this.add(item);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyArray#add(java.util.Collection)
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public void add(Collection items) {
-		items.forEach(this::add);
+		for(Object item : items)
+			this.add(item);
 	}
 	
 	/*
@@ -103,7 +115,8 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public int size() {
-		return list.size();
+		int size = list.size();
+		return size;
 	}
 
 	/*
@@ -112,7 +125,8 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public boolean isEmpty() {
-		return list.isEmpty();
+		boolean answer = list.isEmpty();
+		return answer;
 	}
 
 	/*
@@ -121,7 +135,8 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public <T> T set(int index, Object item) {
-		return (T) list.set(index, transformInput(item));
+		T answer = (T) list.set(index, transformInput(item));
+		return answer;
 	}
 
 	/*
@@ -130,7 +145,8 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public <T> T remove(int index) {
-		return (T) list.remove(index);
+		T answer = (T) list.remove(index);
+		return answer;
 	}
 	
 	/*
@@ -148,14 +164,14 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public Iterator<Object> iterator() {
-		return list.iterator();
+		Iterator<Object> it = list.iterator();
+		return it;
 	}
 	
 	/*
 	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyRoArray#toList()
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public List toList() {
 		return new ArrayList<>(list);
@@ -167,7 +183,8 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public <T> List<T> toList(Class<T> type) {
-		return toList();
+		List<T> list = toList();
+		return list;
 	}
 	
 	/*
@@ -176,20 +193,22 @@ public class EzyArrayList implements EzyArray {
 	 */
 	@Override
 	public <T,A> A toArray(Class<T> type) {
-		return getCollectionConverter().toArray(list, type);
+		A array = collectionConverter.toArray(list, type);
+		return array;
 	}
 	
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public Object clone() throws CloneNotSupportedException {
-		EzyArrayList clone = new EzyArrayList((Collection) list.clone());
-		clone.setInputTransformer(inputTransformer);
-		clone.setOutputTransformer(outputTransformer);
-		clone.setCollectionConverter(getCollectionConverter());
+		Collection listClone = (Collection) list.clone();
+		EzyArrayList clone = new EzyArrayList(
+				listClone,
+				inputTransformer,
+				outputTransformer,
+				collectionConverter);
 		return clone;
 	}
 	
@@ -224,7 +243,8 @@ public class EzyArrayList implements EzyArray {
 	 * @return the transformed value
 	 */
 	protected Object transformInput(Object input) {
-		return inputTransformer.transform(input);
+		Object answer = inputTransformer.transform(input);
+		return answer;
 	}
 
 	/**
@@ -234,9 +254,9 @@ public class EzyArrayList implements EzyArray {
 	 * @param type the output type
 	 * @return the transformed value
 	 */
-	@SuppressWarnings("rawtypes")
 	private Object transformOutput(Object output, Class type) {
-		return outputTransformer.transform(output, type);
+		Object answer = outputTransformer.transform(output, type);
+		return answer;
 	}
 	
 	/*
@@ -246,10 +266,6 @@ public class EzyArrayList implements EzyArray {
 	@Override
 	public String toString() {
 		return list.toString();
-	}
-	
-	protected EzyCollectionConverter getCollectionConverter() {
-		return collectionConverter;
 	}
 
 }

@@ -8,8 +8,10 @@ import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.builder.EzySimpleArrayBuilder;
 import com.tvd12.ezyfox.builder.EzySimpleObjectBuilder;
-import com.tvd12.ezyfox.concurrent.EzyLazyInitializer;
-import com.tvd12.ezyfox.factory.EzyEntityBuilderCreator;
+import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.entity.EzyArrayList;
+import com.tvd12.ezyfox.entity.EzyHashMap;
+import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
@@ -17,7 +19,7 @@ import com.tvd12.ezyfox.io.EzySimpleCollectionConverter;
 import com.tvd12.ezyfox.io.EzySimpleInputTransformer;
 import com.tvd12.ezyfox.io.EzySimpleOutputTransformer;
 
-public class EzySimpleEntityBuilderCreator implements EzyEntityBuilderCreator {
+public class EzySimpleEntityCreator implements EzyEntityCreator {
 
 	private static final EzyInputTransformer INPUT_TRANSFORMER 
 			= new EzySimpleInputTransformer();
@@ -27,18 +29,40 @@ public class EzySimpleEntityBuilderCreator implements EzyEntityBuilderCreator {
 			= new EzySimpleCollectionConverter();
 	
 	@SuppressWarnings("rawtypes")
-	private EzyLazyInitializer<Map<Class, Supplier>> suppliers 
-			= new EzyLazyInitializer<>(this::defaultSuppliers);
+	private final Map<Class, Supplier> suppliers = defaultSuppliers();
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T create(Class<T> productType) {
-		return (T) getSuppliers().get(productType).get();
+		Supplier<T> supplier = suppliers.get(productType);
+		T answer = supplier.get();
+		return answer;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	protected Map<Class, Supplier> getSuppliers() {
-		return suppliers.get();
+	public EzyObject newObject() {
+		return new EzyHashMap(
+				getInputTransformer(), 
+				getOutputTransformer());
+	}
+	
+	public EzyArray newArray() {
+		return new EzyArrayList(
+				getInputTransformer(),
+				getOutputTransformer(),
+				getCollectionConverter());
+	}
+	
+	public EzyObjectBuilder newObjectBuilder() {
+		return new EzySimpleObjectBuilder(
+				getInputTransformer(),
+				getOutputTransformer());
+	}
+	
+	public EzyArrayBuilder newArrayBuilder() {
+		return new EzySimpleArrayBuilder(
+				getInputTransformer(),
+				getOutputTransformer(),
+				getCollectionConverter());
 	}
 	
 	protected EzyInputTransformer getInputTransformer() {
@@ -56,19 +80,10 @@ public class EzySimpleEntityBuilderCreator implements EzyEntityBuilderCreator {
 	@SuppressWarnings("rawtypes")
 	private final Map<Class, Supplier> defaultSuppliers() {
 		Map<Class, Supplier> answer = new ConcurrentHashMap<>();
-		answer.put(EzyObjectBuilder.class, () -> {
-			return new EzySimpleObjectBuilder.Creator()
-					.inputTransformer(getInputTransformer())
-					.outputTransformer(getOutputTransformer())
-					.create();
-		});
-		answer.put(EzyArrayBuilder.class, () -> {
-			return new EzySimpleArrayBuilder.Creator()
-				.inputTransformer(getInputTransformer())
-				.outputTransformer(getOutputTransformer())
-				.collectionConverter(getCollectionConverter())
-				.create();
-		});
+		answer.put(EzyObject.class, this::newObject);
+		answer.put(EzyArray.class, this::newArray);
+		answer.put(EzyObjectBuilder.class, this::newObjectBuilder);
+		answer.put(EzyArrayBuilder.class, this::newArrayBuilder);
 		return answer;
 	}
 
