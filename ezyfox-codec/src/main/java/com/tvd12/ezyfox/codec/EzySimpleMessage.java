@@ -2,9 +2,7 @@ package com.tvd12.ezyfox.codec;
 
 import java.util.Arrays;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class EzySimpleMessage implements EzyMessage {
@@ -12,8 +10,6 @@ public class EzySimpleMessage implements EzyMessage {
 	private int size;
 	private byte[] content;
 	private EzyMessageHeader header;
-	
-	@Setter(AccessLevel.NONE)
 	private int byteCount;
 	
 	public EzySimpleMessage(EzyMessageHeader header, byte[] content, int size) {
