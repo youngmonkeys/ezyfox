@@ -1,18 +1,23 @@
 package com.tvd12.ezyfox.codec;
 
-import com.tvd12.ezyfox.codec.EzyMessageHeader;
-
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class EzySimpleMessageHeader implements EzyMessageHeader {
 
 	protected boolean bigSize;
 	protected boolean encrypted;
 	protected boolean compressed;
 	protected boolean text;
+	
+	public EzySimpleMessageHeader(
+			boolean bigSize,
+			boolean encrypted, boolean compressed, boolean text) {
+		this.bigSize = bigSize;
+		this.encrypted = encrypted;
+		this.compressed = compressed;
+		this.text = text;
+	}
 	
 	@Override
 	public String toString() {

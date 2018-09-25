@@ -2,14 +2,10 @@ package com.tvd12.ezyfox.codec;
 
 import java.util.Arrays;
 
-import com.tvd12.ezyfox.codec.EzyMessage;
-import com.tvd12.ezyfox.codec.EzyMessageHeader;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
 public class EzySimpleMessage implements EzyMessage {
 
@@ -20,7 +16,10 @@ public class EzySimpleMessage implements EzyMessage {
 	@Setter(AccessLevel.NONE)
 	private int byteCount;
 	
-	public void countBytes() {
+	public EzySimpleMessage(EzyMessageHeader header, byte[] content, int size) {
+		this.header = header;
+		this.content = content;
+		this.size = size;
 		this.byteCount = 1 + getSizeLength() + getContent().length;
 	}
 	

@@ -1,7 +1,6 @@
 package com.tvd12.ezyfox.codec;
 
 import com.tvd12.ezyfox.codec.EzyMessageHeader;
-import com.tvd12.ezyfox.codec.EzyMessageHeaderBuilder;
 
 public class EzyMessageHeaderReader {
 	
@@ -22,12 +21,11 @@ public class EzyMessageHeaderReader {
 	}
 	
 	public EzyMessageHeader read(byte header) {
-		return EzyMessageHeaderBuilder.newInstance()
-				.bigSize(readBigSize(header))
-				.encrypted(readEncrypted(header))
-				.compressed(readCompressed(header))
-				.text(readText(header))
-				.build();
+		return new EzySimpleMessageHeader(
+				readBigSize(header),
+				readEncrypted(header),
+				readCompressed(header),
+				readText(header));
 	}
 	
 }
