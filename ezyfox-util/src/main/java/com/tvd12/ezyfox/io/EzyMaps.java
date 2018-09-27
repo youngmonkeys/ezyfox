@@ -12,7 +12,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
-import com.tvd12.ezyfox.helper.EzyLazyInitHelper;
 import com.tvd12.ezyfox.util.EzyObjects;
 
 public final class EzyMaps {
@@ -106,13 +105,18 @@ public final class EzyMaps {
     }
     
     public static <K,V> List<V> getValues(Map<K, V> map, Predicate<V> predicate) {
-        return map.values().stream().filter(predicate).collect(Collectors.toList());
+        return map.values().stream()
+        		.filter(predicate)
+        		.collect(Collectors.toList());
     }
     
     public static <K,V> V putIfAbsent(Map<K, V> map, K key, V value) {
-    		return EzyLazyInitHelper.init(map, 
-    			() -> map.get(key), 
-    			() -> map.computeIfAbsent(key, (k) -> value));
+    		if(map == null)
+    			throw new NullPointerException("map is null");
+    		synchronized (map) {
+    			V v = map.computeIfAbsent(key, (k) -> value);
+    			return v;
+		}
     }
     
 	@SuppressWarnings("unchecked")
@@ -126,21 +130,41 @@ public final class EzyMaps {
     }
     
     public static <K,E> void addItemsToSet(Map<K, Set<E>> map, K key, Collection<E> items) {
-    		putIfAbsent(map, key, new HashSet<>()).addAll(items);
+    		synchronized (map) {
+    			Set<E> set = map.get(key);
+    			if(set == null) {
+    				set = new HashSet<>();
+    				map.put(key, set);
+    			}
+    			set.addAll(items);
+		}
     }
     
     public static <K,E> void addItemsToList(Map<K, List<E>> map, K key, Collection<E> items) {
-    		putIfAbsent(map, key, new ArrayList<>()).addAll(items);
+	    	synchronized (map) {
+			List<E> set = map.get(key);
+			if(set == null) {
+				set = new ArrayList<>();
+				map.put(key, set);
+			}
+			set.addAll(items);
+		}
     }
     
     @SuppressWarnings("unchecked")
 	public static <K,E> void removeItems(Map<K, ? extends Collection<E>> map, K key, E... items) {
-    		removeItems(map, key, Lists.newArrayList(items));
+    		if(map.containsKey(key)) {
+			Collection<E> collection = map.get(key);
+			for(E item : items)
+				collection.remove(item);
+		}
     }
     
     public static <K,E> void removeItems(Map<K, ? extends Collection<E>> map, K key, Collection<E> items) {
-    		if(map.containsKey(key))
-            map.get(key).removeAll(items);
+    		if(map.containsKey(key)) {
+    			Collection<E> collection = map.get(key);
+    			collection.removeAll(items);
+    		}
     }
     
 	// =============================================
