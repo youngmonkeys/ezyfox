@@ -10,48 +10,39 @@ public class MsgPackObjectToMessage implements EzyObjectToMessage {
 
 	private EzyObjectToBytes objectToBytes;
 	
-	protected MsgPackObjectToMessage(Builder builder) {
-		this.objectToBytes = builder.newObjectToBytes();
+	public MsgPackObjectToMessage() {
+		this.objectToBytes = new MsgPackObjectToBytes(newSerializer());
+	}
+	
+	protected EzyMessageSerializer newSerializer() {
+		EzyMessageSerializer serializer = new MsgPackSimpleSerializer();
+		return serializer;
 	}
 	
 	@Override
 	public EzyMessage convert(Object object) {
-		return convert(convertObject(object));
+		EzyMessage message = convert(convertObject(object));
+		return message;
 	}
 	
 	private byte[] convertObject(Object object) {
-		return objectToBytes.convert(object);
+		byte[] bytes = objectToBytes.convert(object);
+		return bytes;
 	}
 	
 	private EzyMessage convert(byte[] content) {
-		return new EzySimpleMessage(newHeader(content), content, content.length);
+		EzyMessage message = new EzySimpleMessage(newHeader(content), content, content.length);
+		return message;
 	}
 	
 	private EzyMessageHeader newHeader(byte[] content) {
-		return new EzySimpleMessageHeader(isBigMessage(content), false, false, false);
+		EzyMessageHeader header = new EzySimpleMessageHeader(isBigMessage(content), false, false, false);
+		return header;
 	}
 	
 	private boolean isBigMessage(byte[] content) {
-		return content.length > MsgPackConstant.MAX_SMALL_MESSAGE_SIZE;
-	}
-	
-	public static Builder builder() {
-		return new Builder();
-	}
-	
-	public static class Builder {
-
-		public EzyObjectToMessage build() {
-			return new MsgPackObjectToMessage(this);
-		}
-		
-		protected EzyObjectToBytes newObjectToBytes() {
-			return MsgPackObjectToBytes.builder().serializer(newSerializer()).build();
-		}
-		
-		protected EzyMessageSerializer newSerializer() {
-			return new MsgPackSimpleSerializer();
-		}
+		boolean answer = content.length > MsgPackConstant.MAX_SMALL_MESSAGE_SIZE;
+		return answer;
 	}
 	
 }
