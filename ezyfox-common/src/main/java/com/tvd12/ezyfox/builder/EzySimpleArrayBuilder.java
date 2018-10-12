@@ -1,20 +1,18 @@
 package com.tvd12.ezyfox.builder;
 
-import com.tvd12.ezyfox.builder.EzyArrayBuilder;
-import com.tvd12.ezyfox.builder.EzyHasInOutTransformer;
-import com.tvd12.ezyfox.builder.EzySimpleArrayBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
+import com.tvd12.ezyfox.entity.EzyTransformable;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 
 public class EzySimpleArrayBuilder
-		extends EzyHasInOutTransformer
+		extends EzyTransformable
 		implements EzyArrayBuilder {
 
-	protected EzyArray product;
-	protected EzyCollectionConverter collectionConverter;
+	protected final EzyArray product;
+	protected final EzyCollectionConverter collectionConverter;
 	
 	public EzySimpleArrayBuilder(
 			EzyInputTransformer inputTransformer, 
@@ -26,10 +24,9 @@ public class EzySimpleArrayBuilder
 	}
 	
 	protected EzyArray newProduct() {
-		EzyArrayList answer = new EzyArrayList();
-		answer.setInputTransformer(inputTransformer);
-		answer.setOutputTransformer(outputTransformer);
-		answer.setCollectionConverter(collectionConverter);
+		EzyArrayList answer = new EzyArrayList(
+				inputTransformer, 
+				outputTransformer, collectionConverter);
 		return answer;
 	}
 	
@@ -68,22 +65,6 @@ public class EzySimpleArrayBuilder
 	@Override
 	public EzyArray build() {
 		return product;
-	}
-	
-	public static class Creator extends AbstractCreator<EzySimpleArrayBuilder, Creator> {
-		
-		protected EzyCollectionConverter collectionConverter;
-		
-		public Creator collectionConverter(EzyCollectionConverter converter) {
-			this.collectionConverter = converter;
-			return this;
-		}
-		
-		@Override
-		public EzySimpleArrayBuilder create() {
-			return new EzySimpleArrayBuilder(
-					inputTransformer, outputTransformer, collectionConverter);
-		}
 	}
 
 }

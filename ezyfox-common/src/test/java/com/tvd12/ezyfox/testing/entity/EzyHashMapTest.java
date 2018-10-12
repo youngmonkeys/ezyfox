@@ -19,6 +19,10 @@ public class EzyHashMapTest extends BaseTest {
 	public static class ExEzyHashMap extends EzyHashMap {
 		private static final long serialVersionUID = -5733872612446105669L;
 		
+		public ExEzyHashMap() {
+			super(null, null);
+		}
+		
 		@SuppressWarnings("unchecked")
 		@Override
 		public <V> V put(Object key, Object value) {

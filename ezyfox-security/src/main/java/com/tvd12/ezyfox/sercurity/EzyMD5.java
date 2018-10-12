@@ -10,11 +10,13 @@ public final class EzyMD5 {
 	}
 	
 	public static String cryptUtf(String input) {
-		return cryptUtf(input, "$1$ezyfox");
+		String answer = cryptUtf(input, "$1$ezyfox");
+		return answer;
 	}
 	
 	public static String cryptUtf(String input, String salt) {
-		return Md5Crypt.md5Crypt(EzyStrings.getUtfBytes(input), salt);
+		String answer = Md5Crypt.md5Crypt(EzyStrings.getUtfBytes(input), salt);
+		return answer;
 	}
 	
 }

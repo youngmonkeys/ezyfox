@@ -35,7 +35,8 @@ public interface EzyObjectBuilder extends EzyBuilder<EzyObject> {
 	 */
 	@SuppressWarnings("rawtypes")
 	default EzyObjectBuilder append(Object key, EzyBuilder builder) {
-		return this.append(key, builder.build());
+		Object value = builder.build();
+		return this.append(key, value);
 	}
 	
 }

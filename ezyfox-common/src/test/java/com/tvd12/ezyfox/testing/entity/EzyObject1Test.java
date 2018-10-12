@@ -52,7 +52,7 @@ public class EzyObject1Test extends EzyEntityTest {
 	
 	@Test(expectedExceptions = IllegalStateException.class)
 	public void test2() {
-		EzyObject object = new EzyHashMap() {
+		EzyObject object = new EzyHashMap(null, null) {
 			private static final long serialVersionUID = -4366815253239566713L;
 
 			@Override

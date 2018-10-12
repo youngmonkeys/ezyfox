@@ -21,15 +21,13 @@ import com.tvd12.ezyfox.util.EzyCollectionFactory;
 import com.tvd12.ezyfox.util.EzyEntityBuilders;
 import com.tvd12.ezyfox.util.EzyMapFactory;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class EzySimpleUnmarshaller
 		extends EzyEntityBuilders
 		implements EzyUnmarshaller {
 
-	@SuppressWarnings("rawtypes")
 	protected final Map<Class, EzyReader> readersByType;
-	@SuppressWarnings("rawtypes")
 	protected final Map<Class, EzyReader> readersByObjectType;
-	@SuppressWarnings("rawtypes")
 	protected Map<Class, EzyUnwrapper> unwrappersByObjectType;
 	
 	protected final EzyMapFactory mapFactory = new EzyMapFactory();
@@ -41,44 +39,44 @@ public class EzySimpleUnmarshaller
 		this.unwrappersByObjectType  = new ConcurrentHashMap<>();
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addReader(EzyReader reader) {
 		readersByType.put(reader.getClass(), reader);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addReaders(Iterable<EzyReader> readers) {
 		readers.forEach(this::addReader);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addReader(Class type, EzyReader reader) {
 		readersByObjectType.put(type, reader);
 		readersByType.put(reader.getClass(), reader);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addReaders(Map<Class, EzyReader> readers) {
 		readers.keySet().forEach(key -> addReader(key, readers.get(key)));
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addUnwrapper(Class type, EzyUnwrapper unwrapper) {
 		unwrappersByObjectType.put(type, unwrapper);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addUnwrappers(Map<Class, EzyUnwrapper> unwrappers) {
 		unwrappers.keySet().forEach(key -> addUnwrapper(key, unwrappers.get(key)));
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
-	public void unwrap(Object value, Object output) {
-		unwrappersByObjectType.get(output.getClass()).unwrap(this, value, output);;
+	public boolean containsUnwrapper(Class objectType) {
+		boolean answer = unwrappersByObjectType.containsKey(objectType);
+		return answer;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public void unwrap(Object value, Object output) {
+		EzyUnwrapper unwrapper = unwrappersByObjectType.get(output.getClass());
+		if(unwrapper != null)
+			unwrapper.unwrap(this, value, output);;
+	}
+	
 	@Override
 	public <T> T unmarshal(Object value, Class<T> outType) {
 		if(value == null)
@@ -91,7 +89,6 @@ public class EzySimpleUnmarshaller
 		throw new IllegalArgumentException("has no reader for " + outType);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public <K, V> Map<K, V> unmarshalMap(
 			Object value, Class mapType, Class<K> keyType, Class<V> valueType) {
@@ -102,7 +99,6 @@ public class EzySimpleUnmarshaller
 		return map;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	@Override
 	public <T> Collection<T> unmarshalCollection(
 			Object value, Class collectionType, Class<T> itemType) {
@@ -111,7 +107,6 @@ public class EzySimpleUnmarshaller
 		return unmarshalCollection(((EzyArray)value).iterator(), collectionType, itemType);
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private <T> Collection<T> unmarshalCollection(
 			Iterator iterator, Class collectionType, Class<T> itemType) {
 		Collection<T> collection = collectionFactory.newCollection(collectionType);
@@ -120,7 +115,6 @@ public class EzySimpleUnmarshaller
 		return collection;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public <T> T unmarshal(Class<? extends EzyReader> readerClass, Object value) {
 		if(readersByType.containsKey(readerClass))
@@ -129,14 +123,12 @@ public class EzySimpleUnmarshaller
 			value + ", " + readerClass.getName() + " is not reader class");
 	}
 	
-	@SuppressWarnings("rawtypes")
 	private Map<Class, EzyReader> defaultReadersByType() {
 		Map<Class, EzyReader> map = new ConcurrentHashMap<>();
 		readersByObjectType.values().forEach(w -> map.put(w.getClass(), w));
 		return map;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	private Map<Class, EzyReader> defaultReaders() {
 		Map<Class, EzyReader> map = new ConcurrentHashMap<>();
 		Set<Class> normalTypes = EzyTypes.ALL_TYPES;
@@ -149,12 +141,10 @@ public class EzySimpleUnmarshaller
 		return map;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	private EzyReader defaultReader() {
 		return (um, o) -> o;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Object[] readArray(EzyArray array, Class componentType) {
 		Object[] answer = (Object[]) Array.newInstance(componentType, array.size());
 		for(int i = 0 ; i < array.size() ; i++) 

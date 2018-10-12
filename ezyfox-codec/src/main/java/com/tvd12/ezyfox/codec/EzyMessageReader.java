@@ -1,10 +1,6 @@
 package com.tvd12.ezyfox.codec;
 
 import com.tvd12.ezyfox.exception.EzyMaxRequestSizeException;
-import com.tvd12.ezyfox.codec.EzyMessage;
-import com.tvd12.ezyfox.codec.EzyMessageBuilder;
-import com.tvd12.ezyfox.codec.EzyMessageHeader;
-import com.tvd12.ezyfox.codec.EzyMessageHeaderReader;
 
 public abstract class EzyMessageReader<B> {
 	
@@ -60,11 +56,7 @@ public abstract class EzyMessageReader<B> {
 	}
 	
 	public EzyMessage get() {
-		return EzyMessageBuilder.newInstance()
-				.header(header)
-				.size(size)
-				.content(content)
-				.build();
+		return new EzySimpleMessage(header, content, size);
 	}
 	
 	private void readHeader(byte header) {

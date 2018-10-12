@@ -2,19 +2,17 @@ package com.tvd12.ezyfox.builder;
 
 import java.util.Map;
 
-import com.tvd12.ezyfox.builder.EzyHasInOutTransformer;
-import com.tvd12.ezyfox.builder.EzyObjectBuilder;
-import com.tvd12.ezyfox.builder.EzySimpleObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyHashMap;
 import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.entity.EzyTransformable;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 
 public class EzySimpleObjectBuilder 
-		extends EzyHasInOutTransformer 
+		extends EzyTransformable 
 		implements EzyObjectBuilder {
 
-	protected EzyObject product;
+	protected final EzyObject product;
 	
 	public EzySimpleObjectBuilder(
 			EzyInputTransformer inputTransformer, 
@@ -24,9 +22,7 @@ public class EzySimpleObjectBuilder
 	}
 	
 	protected EzyHashMap newProduct() {
-		EzyHashMap answer = new EzyHashMap();
-		answer.setInputTransformer(inputTransformer);
-		answer.setOutputTransformer(outputTransformer);
+		EzyHashMap answer = new EzyHashMap(inputTransformer, outputTransformer);
 		return answer;
 	}
 
@@ -58,13 +54,6 @@ public class EzySimpleObjectBuilder
 	@Override
 	public EzyObject build() {
 		return this.product;
-	}
-	
-	public static class Creator extends AbstractCreator<EzySimpleObjectBuilder, Creator> {
-		@Override
-		public EzySimpleObjectBuilder create() {
-			return new EzySimpleObjectBuilder(inputTransformer, outputTransformer);
-		}
 	}
 	
 }

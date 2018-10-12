@@ -122,7 +122,6 @@ public interface EzyRoArray extends EzyData {
 	/**
 	 * Get value by index but not cast
 	 * 
-	 * @param <T> the value
 	 * @param index the index
 	 * @param type the value type
 	 * @param def the default value

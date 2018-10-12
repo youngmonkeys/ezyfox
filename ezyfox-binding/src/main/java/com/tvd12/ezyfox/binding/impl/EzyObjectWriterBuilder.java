@@ -55,11 +55,7 @@ public class EzyObjectWriterBuilder
 							.equal()
 							.clazz(EzyEntityFactory.class)
 							.dot()
-							.append("create")
-							.bracketopen()
-							.clazz(EzyObjectBuilder.class)
-							.append(".class")
-							.bracketclose()
+							.append("newObjectBuilder()")
 							);
 		for(Object element : getElements()) {
 			methodBody.append(newInstructionByElement(element));
