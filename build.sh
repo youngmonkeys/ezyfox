@@ -1,27 +1,27 @@
-mvn clean install
-mvn clean install -f ezyfox-util
-mvn clean install -f ezyfox-io
-mvn clean install -f ezyfox-concurrent
-mvn clean install -f ezyfox-security
-mvn clean install -f ezyfox-common
-mvn clean install -f ezyfox-binding
-mvn clean install -f ezyfox-bean
-mvn clean install -f ezyfox-mapping
-mvn clean install -f ezyfox-codec
-mvn clean install -f ezyfox-jackson
-mvn clean install -f ezyfox-msgpack
-mvn clean install -f ezyfox-identifier
-mvn clean install -f ezyfox-data
-mvn clean install -f ezyfox-database
-mvn clean install -f ezyfox-mongodb
-mvn clean install -f ezyfox-morphia
-mvn clean install -f ezyfox-hazelcast
-mvn clean install -f ezyfox-hazelcast-bean
-mvn clean install -f ezyfox-hazelcast-mongodb
-mvn clean install -f ezyfox-hazelcast-morphia
-mvn clean install -f ezyfox-morphia
-mvn clean install -f ezyfox-monitor
-mvn clean install -f ezyfox-message
-mvn clean install -f ezyfox-elasticsearch
-mvn clean install -f ezyfox-kafka
-mvn clean install -f ezyfox-rabbitmq
+mvn clean install -Dmaven.test.skip=true
+mvn clean install -Dmaven.test.skip=true -f ezyfox-util
+mvn clean install -Dmaven.test.skip=true -f ezyfox-io
+mvn clean install -Dmaven.test.skip=true -f ezyfox-concurrent
+mvn clean install -Dmaven.test.skip=true -f ezyfox-security
+mvn clean install -Dmaven.test.skip=true -f ezyfox-common
+mvn clean install -Dmaven.test.skip=true -f ezyfox-binding
+mvn clean install -Dmaven.test.skip=true -f ezyfox-bean
+mvn clean install -Dmaven.test.skip=true -f ezyfox-mapping
+mvn clean install -Dmaven.test.skip=true -f ezyfox-codec
+mvn clean install -Dmaven.test.skip=true -f ezyfox-jackson
+mvn clean install -Dmaven.test.skip=true -f ezyfox-msgpack
+mvn clean install -Dmaven.test.skip=true -f ezyfox-identifier
+mvn clean install -Dmaven.test.skip=true -f ezyfox-data
+mvn clean install -Dmaven.test.skip=true -f ezyfox-database
+mvn clean install -Dmaven.test.skip=true -f ezyfox-mongodb
+mvn clean install -Dmaven.test.skip=true -f ezyfox-morphia
+mvn clean install -Dmaven.test.skip=true -f ezyfox-hazelcast
+mvn clean install -Dmaven.test.skip=true -f ezyfox-hazelcast-bean
+mvn clean install -Dmaven.test.skip=true -f ezyfox-hazelcast-mongodb
+mvn clean install -Dmaven.test.skip=true -f ezyfox-hazelcast-morphia
+mvn clean install -Dmaven.test.skip=true -f ezyfox-morphia
+mvn clean install -Dmaven.test.skip=true -f ezyfox-monitor
+mvn clean install -Dmaven.test.skip=true -f ezyfox-message
+mvn clean install -Dmaven.test.skip=true -f ezyfox-elasticsearch
+mvn clean install -Dmaven.test.skip=true -f ezyfox-kafka
+mvn clean install -Dmaven.test.skip=true -f ezyfox-rabbitmq

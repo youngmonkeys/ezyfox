@@ -1,0 +1,27 @@
+mvn clean install
+mvn clean install -f ezyfox-util
+mvn clean install -f ezyfox-io
+mvn clean install -f ezyfox-concurrent
+mvn clean install -f ezyfox-security
+mvn clean install -f ezyfox-common
+mvn clean install -f ezyfox-binding
+mvn clean install -f ezyfox-bean
+mvn clean install -f ezyfox-mapping
+mvn clean install -f ezyfox-codec
+mvn clean install -f ezyfox-jackson
+mvn clean install -f ezyfox-msgpack
+mvn clean install -f ezyfox-identifier
+mvn clean install -f ezyfox-data
+mvn clean install -f ezyfox-database
+mvn clean install -f ezyfox-mongodb
+mvn clean install -f ezyfox-morphia
+mvn clean install -f ezyfox-hazelcast
+mvn clean install -f ezyfox-hazelcast-bean
+mvn clean install -f ezyfox-hazelcast-mongodb
+mvn clean install -f ezyfox-hazelcast-morphia
+mvn clean install -f ezyfox-morphia
+mvn clean install -f ezyfox-monitor
+mvn clean install -f ezyfox-message
+mvn clean install -f ezyfox-elasticsearch
+mvn clean install -f ezyfox-kafka
+mvn clean install -f ezyfox-rabbitmq
