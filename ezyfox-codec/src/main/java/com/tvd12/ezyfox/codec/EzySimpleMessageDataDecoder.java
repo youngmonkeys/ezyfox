@@ -73,4 +73,9 @@ public class EzySimpleMessageDataDecoder
 		old.get(bytes);
 		return ByteBuffer.wrap(bytes);
 	}
+	
+	@Override
+	public void reset() {
+		queue.clear();
+	}
 }

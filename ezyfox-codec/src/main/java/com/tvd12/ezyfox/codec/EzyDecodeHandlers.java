@@ -6,8 +6,9 @@ import java.util.Map;
 import java.util.Queue;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.util.EzyResettable;
 
-public abstract class EzyDecodeHandlers {
+public abstract class EzyDecodeHandlers implements EzyResettable {
 
 	protected EzyIDecodeState state;
 	protected Map<EzyIDecodeState, EzyDecodeHandler> handlers;
@@ -27,6 +28,11 @@ public abstract class EzyDecodeHandlers {
 	
 	protected EzyIDecodeState firstState() {
 		return EzyDecodeState.PREPARE_MESSAGE;
+	}
+	
+	@Override
+	public void reset() {
+		this.state = firstState();
 	}
 	
 	public abstract static class Builder implements EzyBuilder<EzyDecodeHandlers> {
