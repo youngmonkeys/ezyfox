@@ -73,7 +73,7 @@
 		<commons.io.version>2.5</commons.io.version>
 		<lombok.version>1.16.20</lombok.version>
 		<slf4j.version>1.7.25</slf4j.version>
-		<jackson.version>2.9.4</jackson.version>
+		<jackson.version>2.9.7</jackson.version>
 
 		<directory.lib>lib</directory.lib>
 		<deploy.path>${env.EZYFOX_SERVER_HOME}</deploy.path>

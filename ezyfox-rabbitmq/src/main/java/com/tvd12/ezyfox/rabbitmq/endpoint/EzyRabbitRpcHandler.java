@@ -20,10 +20,9 @@ import java.io.IOException;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.QueueingConsumer;
+import com.rabbitmq.client.Delivery;
 import com.rabbitmq.client.RpcServer;
 
-@SuppressWarnings("deprecation")
 public class EzyRabbitRpcHandler extends RpcServer {
 	
 	public EzyRabbitRpcHandler(Channel channel, String queueName) throws IOException {
@@ -31,7 +30,7 @@ public class EzyRabbitRpcHandler extends RpcServer {
 	}
 
 	@Override
-	public void processRequest(QueueingConsumer.Delivery request)
+	public void processRequest(Delivery request)
 	        throws IOException {
 	        AMQP.BasicProperties requestProperties = request.getProperties();
 	        String correlationId = requestProperties.getCorrelationId();
@@ -49,7 +48,7 @@ public class EzyRabbitRpcHandler extends RpcServer {
 	}
 	
 	protected byte[] handleCall(
-			QueueingConsumer.Delivery request, BasicProperties.Builder replyPropertiesBuilder) {
+			Delivery request, BasicProperties.Builder replyPropertiesBuilder) {
 		return handleCall(request.getBody(), replyPropertiesBuilder);
 	}
 	
