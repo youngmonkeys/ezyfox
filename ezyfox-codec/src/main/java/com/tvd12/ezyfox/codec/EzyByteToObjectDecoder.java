@@ -3,7 +3,9 @@ package com.tvd12.ezyfox.codec;
 import java.nio.ByteBuffer;
 import java.util.Queue;
 
-public interface EzyByteToObjectDecoder {
+import com.tvd12.ezyfox.util.EzyResettable;
+
+public interface EzyByteToObjectDecoder extends EzyResettable {
 
 	Object decode(EzyMessage message) throws Exception;
 	

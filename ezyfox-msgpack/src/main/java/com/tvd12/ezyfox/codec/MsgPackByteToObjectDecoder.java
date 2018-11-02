@@ -27,4 +27,9 @@ public class MsgPackByteToObjectDecoder implements EzyByteToObjectDecoder {
 		handlers.handle(bytes, out);
 	}
 	
+	@Override
+	public void reset() {
+		handlers.reset();
+	}
+	
 }
