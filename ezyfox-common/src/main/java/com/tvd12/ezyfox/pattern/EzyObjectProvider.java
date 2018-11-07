@@ -9,15 +9,11 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.Supplier;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.concurrent.EzyExecutors;
-import com.tvd12.ezyfox.function.EzyVoid;
 import com.tvd12.ezyfox.util.EzyDestroyable;
 import com.tvd12.ezyfox.util.EzyLoggable;
-import com.tvd12.ezyfox.util.EzyProcessor;
-import com.tvd12.ezyfox.util.EzyReturner;
 import com.tvd12.ezyfox.util.EzyStartable;
 
 public abstract class EzyObjectProvider<T> 
@@ -77,21 +73,19 @@ public abstract class EzyObjectProvider<T>
 	}
 	
 	protected final T provideObject() {
-		return returnWithLock(this::provideObject0);
+		lock.lock();
+		try {
+			return provideObject0();
+		}
+		finally {
+			lock.unlock();
+		}
 	}
 	
 	private final T provideObject0() {
 		T object = createObject();
 		providedObjects.add(object);
 		return object;
-	}
-	
-	protected void runWithLock(EzyVoid applier) {
-		EzyProcessor.processWithLock(applier, lock);
-	}
-	
-	protected <R> R returnWithLock(Supplier<R> supplier) {
-		return EzyReturner.returnWithLock(supplier, lock);
 	}
 	
 	@Override
