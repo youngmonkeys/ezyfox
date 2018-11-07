@@ -15,13 +15,15 @@ public class EzySimpleStringDataDecoder
 	
 	@Override
 	public void decode(String bytes, EzyCallback<Object> callback) throws Exception {
-		callback.call(decoder.decode(bytes));
+		Object answer = decoder.decode(bytes);
+		callback.call(answer);
 	}
 	
 	@Override
 	public void decode(byte[] bytes, int offset, int len, EzyCallback<Object> callback) throws Exception {
 		ByteBuffer buffer = newBuffer(bytes, offset, len);
-		callback.call(decoder.decode(buffer));
+		Object answer = decoder.decode(buffer);
+		callback.call(answer);
 	}
 	
 	private ByteBuffer newBuffer(byte[] bytes, int offset, int len) {
