@@ -10,12 +10,14 @@ public class EzySimpleStringDataEncoder implements EzyStringDataEncoder {
 	
 	@Override
 	public byte[] encode(Object data) throws Exception {
-		return encoder.encode(data);
+		byte[] answer = encoder.encode(data);
+		return answer;
 	}
 	
 	@Override
 	public <T> T encode(Object data, Class<T> outType) throws Exception {
-		return encoder.encode(data, outType);
+		T answer = encoder.encode(data, outType);
+		return answer;
 	}
 
 }
