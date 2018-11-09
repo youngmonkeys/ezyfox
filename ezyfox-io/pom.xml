@@ -15,6 +15,7 @@
 
 	<properties>
 		<ezy.util.version>1.0.0</ezy.util.version>
+		<commons.io.version>2.6</commons.io.version>
 	</properties>
 
 	<dependencies>
@@ -22,6 +23,11 @@
 			<groupId>com.tvd12</groupId>
 			<artifactId>ezyfox-util</artifactId>
 			<version>${ezy.util.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.io.version}</version>
 		</dependency>
 	</dependencies>
 
