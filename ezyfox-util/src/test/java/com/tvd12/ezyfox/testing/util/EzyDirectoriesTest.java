@@ -53,9 +53,6 @@ public class EzyDirectoriesTest extends BaseTest {
 		URL[] urls = directories.getURLs();
 		assertEquals(urls.length, 6);
 		
-		urls = directories.getURLs(null, false);
-		assertEquals(urls.length, 0);
-		
 		urls = directories.getURLs(new String[] {"txt"});
 		assertEquals(urls.length, 2);
 		

@@ -3,7 +3,9 @@ package com.tvd12.ezyfox.sercurity;
 import static com.tvd12.ezyfox.io.EzyDoubleArrays.toByteArray;
 import static com.tvd12.ezyfox.io.EzyDoubleArrays.toDoubleArray;
 
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 
 import com.tvd12.ezyfox.io.EzyStrings;
 
@@ -13,32 +15,43 @@ public final class EzyBase64 {
 	}
 	
 	public static byte[] encode(byte[] input) {
-		byte[] answer = Base64.encodeBase64(input);
+		Encoder encoder = Base64.getEncoder();
+		byte[] answer = encoder.encode(input);
 		return answer;
 	}
 	
 	public static byte[] decode(byte[] input) {
-		byte[] answer = Base64.decodeBase64(input);
+		Decoder decoder = Base64.getDecoder();
+		byte[] answer = decoder.decode(input);
 		return answer;
 	}
 	
 	public static byte[] decode(String input) {
-		byte[] answer = Base64.decodeBase64(input);
+		Decoder decoder = Base64.getDecoder();
+		byte[] answer = decoder.decode(input);
 		return answer;
 	}
 	
 	public static byte[] encode(String input) {
-		byte[] answer = Base64.encodeBase64(EzyStrings.getUtfBytes(input));
+		Encoder encoder = Base64.getEncoder();
+		byte[] bytes = EzyStrings.getUtfBytes(input);
+		byte[] answer = encoder.encode(bytes);
 		return answer;
 	}
 	
 	public static String encodeUtf(String input) {
-		String answer = Base64.encodeBase64String(EzyStrings.getUtfBytes(input));
+		Encoder encoder = Base64.getEncoder();
+		byte[] bytes = EzyStrings.getUtfBytes(input);
+		byte[] output = encoder.encode(bytes);
+		String answer = EzyStrings.newUtf(output);
 		return answer;
 	}
 	
 	public static String decodeUtf(String input) {
-		String answer = EzyStrings.newUtf(Base64.decodeBase64(input));
+		Decoder decoder = Base64.getDecoder();
+		byte[] bytes = EzyStrings.getUtfBytes(input);
+		byte[] output = decoder.decode(bytes);
+		String answer = EzyStrings.newUtf(output);
 		return answer;
 	}
 	

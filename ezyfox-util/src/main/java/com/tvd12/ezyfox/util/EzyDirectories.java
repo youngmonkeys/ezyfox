@@ -8,11 +8,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 
-import org.apache.commons.io.FileUtils;
-
-import com.tvd12.ezyfox.util.EzyDirectories;
-import com.tvd12.ezyfox.util.EzyFolderTreePrinter;
-
 /**
  * @author tavandung12
  *
@@ -22,7 +17,7 @@ public class EzyDirectories {
     private File directory;
     
     public URL[] getURLs() throws IOException {
-        return getURLs(getFiles(null));
+        return getURLs(getFiles());
     }
     
     public URL[] getURLs(String[] extensions) throws IOException {
@@ -34,7 +29,7 @@ public class EzyDirectories {
     }
     
     public Collection<File> getFiles() {
-    		return getFiles(null);
+    		return EzyFileUtil.listFiles(directory, true);
     	}
     
     public Collection<File> getFiles(String[] extensions) {
@@ -42,10 +37,10 @@ public class EzyDirectories {
     }
     
     public Collection<File> getFiles(String[] extensions, boolean recursive) {
-        return FileUtils.listFiles(directory, extensions, recursive);
+        return EzyFileUtil.listFiles(directory, extensions, recursive);
     }
     
-    public String printTree( boolean printFile) {
+    public String printTree(boolean printFile) {
     		return EzyFolderTreePrinter.builder()
     			.printFile(printFile)
     			.build()
@@ -53,7 +48,11 @@ public class EzyDirectories {
     }
     
     private URL[] getURLs(Collection<File> files) throws IOException {
-        return FileUtils.toURLs(files.toArray(new File[files.size()]));
+    		int index = 0;
+    		URL[] urls = new URL[files.size()];
+        for (File file : files)
+            urls[index ++] = file.toURI().toURL();
+        return urls;
     }
     
     public EzyDirectories directory(File directory) {

@@ -67,10 +67,8 @@
 		<joda.time.version>2.9.9</joda.time.version>
 		<google.guava.version>23.0</google.guava.version>
 		<reflections.version>0.9.11</reflections.version>
-		<commons.codec.version>1.11</commons.codec.version>
-		<properties.file.version>1.0.4</properties.file.version>
-
-		<commons.io.version>2.5</commons.io.version>
+		<commons.lang3.version>3.8.1</commons.lang3.version>
+		<properties.file.version>1.0.5</properties.file.version>
 		<lombok.version>1.16.20</lombok.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<jackson.version>2.9.7</jackson.version>
@@ -80,11 +78,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>${commons.codec.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -96,9 +89,9 @@
 			<version>${properties.file.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons.io.version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons.lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
