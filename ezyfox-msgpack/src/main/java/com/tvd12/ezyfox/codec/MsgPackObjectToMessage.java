@@ -36,7 +36,7 @@ public class MsgPackObjectToMessage implements EzyObjectToMessage {
 	}
 	
 	private EzyMessageHeader newHeader(byte[] content) {
-		EzyMessageHeader header = new EzySimpleMessageHeader(isBigMessage(content), false, false, false);
+		EzyMessageHeader header = new EzySimpleMessageHeader(isBigMessage(content), false, false, false, false);
 		return header;
 	}
 	

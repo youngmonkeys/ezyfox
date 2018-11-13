@@ -30,4 +30,11 @@ public interface EzyMessageHeader {
 	 */
 	boolean isText(); // bit 4
 	
+	/**
+	 * Check whether message is raw bytes or not
+	 * 
+	 * @return true or false
+	 */
+	boolean isRawBytes(); // bit 5
+	
 }

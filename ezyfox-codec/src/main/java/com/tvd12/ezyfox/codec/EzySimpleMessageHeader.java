@@ -9,14 +9,18 @@ public class EzySimpleMessageHeader implements EzyMessageHeader {
 	protected boolean encrypted;
 	protected boolean compressed;
 	protected boolean text;
+	protected boolean rawBytes;
 	
 	public EzySimpleMessageHeader(
 			boolean bigSize,
-			boolean encrypted, boolean compressed, boolean text) {
+			boolean encrypted, 
+			boolean compressed, 
+			boolean text, boolean rawBytes) {
 		this.bigSize = bigSize;
 		this.encrypted = encrypted;
 		this.compressed = compressed;
 		this.text = text;
+		this.rawBytes = rawBytes;
 	}
 	
 	@Override
@@ -34,6 +38,9 @@ public class EzySimpleMessageHeader implements EzyMessageHeader {
 					.append(", ")
 				.append("text: ")
 					.append(text)
+					.append(", ")
+				.append("rawBytes: ")
+					.append(rawBytes)
 				.append(">")
 				.toString();
 	}

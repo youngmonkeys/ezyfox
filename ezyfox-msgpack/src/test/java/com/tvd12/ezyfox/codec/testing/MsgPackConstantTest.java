@@ -10,4 +10,7 @@ public class MsgPackConstantTest extends BaseTest {
 		return MsgPackConstant.class;
 	}
 	
+	public static void main(String[] args) {
+		System.out.println(MsgPackConstant.MAX_SMALL_MESSAGE_SIZE);
+	}
 }

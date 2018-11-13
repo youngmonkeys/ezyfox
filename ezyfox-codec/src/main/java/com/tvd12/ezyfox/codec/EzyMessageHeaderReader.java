@@ -20,12 +20,17 @@ public class EzyMessageHeaderReader {
 		return (header & (1 << 3)) != 0;
 	}
 	
+	protected boolean readRawBytes(byte header) {
+		return (header & (1 << 4)) != 0;
+	}
+	
 	public EzyMessageHeader read(byte header) {
 		return new EzySimpleMessageHeader(
 				readBigSize(header),
 				readEncrypted(header),
 				readCompressed(header),
-				readText(header));
+				readText(header),
+				readRawBytes(header));
 	}
 	
 }
