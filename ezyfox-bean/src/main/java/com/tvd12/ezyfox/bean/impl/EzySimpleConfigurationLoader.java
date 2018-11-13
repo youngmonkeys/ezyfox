@@ -100,7 +100,7 @@ public class EzySimpleConfigurationLoader
 		for(Class<?> type : types) {
 			EzyMethod method = singletonMethods.remove(type);
 			if(method != null) {
-				getLogger().debug("add singleton of {} with method {}", type, method);
+				logger.debug("add singleton of {} with method {}", type, method);
 				addSingletonByMethod(method, configurator);
 			}
 		}

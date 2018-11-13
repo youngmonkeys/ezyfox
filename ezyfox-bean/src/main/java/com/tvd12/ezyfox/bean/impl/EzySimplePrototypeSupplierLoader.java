@@ -84,7 +84,7 @@ public abstract class EzySimplePrototypeSupplierLoader
 		implClass.detach();
 		EzyPrototypeSupplier supplier = (EzyPrototypeSupplier)answerClass.newInstance();
 		factory.addSupplier(getPrototypeName(), supplier, getAnnotationProperties());
-		getLogger().debug("add prototype supplier of " + implClassName);
+		logger.debug("add prototype supplier of " + implClassName);
 		return supplier;
 	}
 	
@@ -295,7 +295,8 @@ public abstract class EzySimplePrototypeSupplierLoader
 	}
 	
 	private void printMethodContent(String methodContent) {
-		if(debug) getLogger().debug("reader: method content \n{}", methodContent);
+		if(debug) 
+			logger.debug("reader: method content \n{}", methodContent);
 	}
 	
 }

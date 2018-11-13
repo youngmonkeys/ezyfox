@@ -46,7 +46,7 @@ public class EzySimpleMapConfigsFetcher
 	    	mapCfg.setMapStoreConfig(newMapStoreConfig(name));
 	    	applyCommonConfig(mapCfg);
 	    	applyConfig(name, mapCfg);
-	    	getLogger().debug("config map: {}", name);
+	    	logger.debug("config map: {}", name);
 	    	return mapCfg;
     }
 	

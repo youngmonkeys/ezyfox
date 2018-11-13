@@ -50,7 +50,7 @@ public abstract class EzyAbstractWriterBuilder
 		implClass.addMethod(CtNewMethod.make(methodContent, implClass));
 		Class answerClass = implClass.toClass();
 		implClass.detach();
-		getLogger().debug("class {} has generated", implClassName);
+		logger.debug("class {} has generated", implClassName);
 		return (EzyWriter) answerClass.newInstance();
 	}
 	
@@ -105,7 +105,8 @@ public abstract class EzyAbstractWriterBuilder
 	}
 	
 	protected void printMethodContent(String methodContent) {
-		if(isDebug()) getLogger().debug("writer: method content \n{}", methodContent);
+		if(isDebug()) 
+			logger.debug("writer: method content \n{}", methodContent);
 	}
 	
 	protected abstract boolean isDebug();

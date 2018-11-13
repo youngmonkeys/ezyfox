@@ -74,7 +74,7 @@ public abstract class EzySimpleSingletonLoader
 		Object singleton = factory.getSingleton(name, getSingletonClass());
 		if(singleton == null) {
 			singleton = newSingletonByConstructor(context, parameterTypes);
-			getLogger().debug("add singleton with name {} of {}, object = {}", name, singleton.getClass(), singleton);
+			logger.debug("add singleton with name {} of {}, object = {}", name, singleton.getClass(), singleton);
 		}
 		return singleton;
 	}
@@ -123,7 +123,7 @@ public abstract class EzySimpleSingletonLoader
 		Object value = getOrCreateSingleton(
 				field.getType(), getBeanName(field), context);
 		field.set(singleton, value);
-		getLogger().debug("{} set field: {} with value: {}", clazz, field.getName(), value);
+		logger.debug("{} set field: {} with value: {}", clazz, field.getName(), value);
 	}
 	
 	private void setValueToBindingMethods(Object singleton, EzyBeanContext context) {
@@ -136,7 +136,7 @@ public abstract class EzySimpleSingletonLoader
 		Object value = getOrCreateSingleton(
 				method.getType(), getBeanName(method), context);
 		method.invoke(singleton, value);
-		getLogger().debug("{} invoke method: {} with value: {}", singleton, method.getName(), value);
+		logger.debug("{} invoke method: {} with value: {}", singleton, method.getName(), value);
 	}
 	
 	private void callPostInit(Object singleton) {
@@ -166,7 +166,7 @@ public abstract class EzySimpleSingletonLoader
 			Class paramType, String beanName, EzyBeanContext context) {
 		EzyMethod method = methodsByType.remove(paramType);
 		if(method != null) {
-			getLogger().debug("add singleton of {} with method {}", paramType, method);
+			logger.debug("add singleton of {} with method {}", paramType, method);
 			return new EzyByMethodSingletonLoader(method, configurator, methodsByType).load(context);
 		}
 		if(isAbstractClass(paramType)) {

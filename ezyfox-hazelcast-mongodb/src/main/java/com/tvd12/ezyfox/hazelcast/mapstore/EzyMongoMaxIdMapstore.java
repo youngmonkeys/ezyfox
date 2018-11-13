@@ -21,7 +21,7 @@ public class EzyMongoMaxIdMapstore extends EzyMongoCollectionMapstore<String, Lo
     		Bson filter = getFilter(key);
     		Document first = collection.find(filter).first();
         Long answer = first != null ? first.getLong("maxId") : 0L;
-        getLogger().info("load maxId of: {} max: {}", key, answer);
+        logger.info("load maxId of: {} max: {}", key, answer);
         return answer;
     }
     

@@ -87,7 +87,7 @@ public abstract class EzyObjectPool<T>
 					removeStaleObjects();
 				}
 				catch(Exception e) {
-					getLogger().error("object poll validation error", e);
+					logger.error("object poll validation error", e);
 				}
 			}
 			
@@ -113,7 +113,7 @@ public abstract class EzyObjectPool<T>
 			private void removeUnusedObjects0(int size) {
 				for(int i = 0 ; i < size ; i++)
 					releaseObject0(pool.poll());
-				getLogger().info("object pool: remove {} excessive objects, remain {}", size, pool.size());
+				logger.info("object pool: remove {} excessive objects, remain {}", size, pool.size());
 			}
 		};
 	}
@@ -191,7 +191,7 @@ public abstract class EzyObjectPool<T>
 			shutdownAll();
 		}
 		catch(Exception e) {
-			getLogger().error(getClass().getSimpleName() + " error", e);
+			logger.error(getClass().getSimpleName() + " error", e);
 		}
 	}
 	
