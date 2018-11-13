@@ -4,23 +4,23 @@ import com.tvd12.ezyfox.codec.EzyMessageHeader;
 
 public class EzyMessageHeaderReader {
 	
-	protected boolean readBigSize(byte header) {
+	public static boolean readBigSize(byte header) {
 		return (header & 1 << 0) != 0;
 	}
 	
-	protected boolean readEncrypted(byte header) {
+	public static boolean readEncrypted(byte header) {
 		return (header & (1 << 1)) != 0;
 	}
 	
-	protected boolean readCompressed(byte header) {
+	public static boolean readCompressed(byte header) {
 		return (header & (1 << 2)) != 0;
 	}
 	
-	protected boolean readText(byte header) {
+	public static boolean readText(byte header) {
 		return (header & (1 << 3)) != 0;
 	}
 	
-	protected boolean readRawBytes(byte header) {
+	public static boolean readRawBytes(byte header) {
 		return (header & (1 << 4)) != 0;
 	}
 	
