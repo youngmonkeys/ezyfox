@@ -26,14 +26,10 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 	
 	@Override
 	public final List<Object> getElements(EzyClass clazz, int accessType) {
-		getLogger().debug("start scan {}", clazz);
-		
+		logger.debug("start scan {}", clazz);
 		initialize(clazz, accessType);
-		
 		List<Object> elements = doGetElements(clazz, accessType);
-		
-		getLogger().debug("finish scan {}", clazz);
-		
+		logger.debug("finish scan {}", clazz);
 		return elements;
 	}
 	
@@ -80,7 +76,7 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 		Set<EzyMethod> remainMethods = new HashSet<>(methods);
 		
 		for(EzyField field : fields) {
-			getLogger().debug("scan field {}", field.getName());
+			logger.debug("scan field {}", field.getName());
 			
 			EzyMethod method = methodsByFieldName.get(field.getName());
 			
@@ -90,7 +86,7 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 				}
 				else {
 					elements.add(null);
-					getLogger().debug("unknown generic type of method {}, ignore it", method.getName());
+					logger.debug("unknown generic type of method {}, ignore it", method.getName());
 				}
 				remainMethods.remove(method);
 			} 
@@ -99,22 +95,22 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 					elements.add(field);
 				}
 				else {
-					getLogger().debug("unknown generic type of field {}, ignore it", field.getName());
+					logger.debug("unknown generic type of field {}, ignore it", field.getName());
 					elements.add(null);
 				}
 			} 
 			else {
-				getLogger().debug("field {} has not getter/setter, ignore it", field.getName());
+				logger.debug("field {} has not getter/setter, ignore it", field.getName());
 			}
 		}
 		for(EzyMethod method : remainMethods) {
-			getLogger().debug("scan method {}", method.getName());
+			logger.debug("scan method {}", method.getName());
 			
 			if(isValidGenericMethod(method)) {
 				elements.add(method);
 			}
 			else {
-				getLogger().debug("unknown generic type of method {}, ignore it", method.getName());
+				logger.debug("unknown generic type of method {}, ignore it", method.getName());
 			}
 		}
 		return elements;
@@ -124,38 +120,38 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 		List<Object> elements = new ArrayList<>();
 		
 		for(String property : indexes) {
-			getLogger().debug("scan property {}", property);
+			logger.debug("scan property {}", property);
 			
 			EzyMethod method = methodsByFieldName.get(property);
 			
 			if(method != null) {
 				if(!isValidGenericMethod(method)) {
-					getLogger().debug("unknown generic type of method {}, ignore it", method.getName());
+					logger.debug("unknown generic type of method {}, ignore it", method.getName());
 				}
 				else {
 					elements.add(method); continue;
 				}
 			}
 			else {
-				getLogger().debug("has no getter/setter method map to property {}", property);
+				logger.debug("has no getter/setter method map to property {}", property);
 			}
 			
 			EzyField field = fieldsByName.get(property);
 			
 			if(field != null) {
 				if(!field.isPublic()) {
-					getLogger().debug("has no public field map to property {}", property);
+					logger.debug("has no public field map to property {}", property);
 				}
 				else if(isValidGenericField(field)) {
 					elements.add(field);
 				}
 				else {
-					getLogger().debug("unknown generic type of field {}, ignore it", field.getName());
+					logger.debug("unknown generic type of field {}, ignore it", field.getName());
 				}
 			}
 			else {
 				elements.add(null);
-				getLogger().debug("nothing map to property {}, ignore it", property);
+				logger.debug("nothing map to property {}, ignore it", property);
 			}
 			
 		}
@@ -168,13 +164,13 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 		List<Object> elements = new ArrayList<>();
 		
 		for(EzyField field : fields) {
-			getLogger().debug("scan field {}", field.getName());
+			logger.debug("scan field {}", field.getName());
 			
 			EzyMethod method = methodsByFieldName.get(field.getName());
 			
 			if(method != null) {
 				if(!isValidGenericMethod(method)) {
-					getLogger().debug("unknown generic type of method {}, ignore it", method.getName());
+					logger.debug("unknown generic type of method {}, ignore it", method.getName());
 				}
 				else {
 					elements.add(method);
@@ -183,14 +179,14 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 			}
 			else if(field.isPublic()) {
 				if(!isValidGenericField(field)) {
-					getLogger().debug("unknown generic type of field {}, ignore it", field.getName());
+					logger.debug("unknown generic type of field {}, ignore it", field.getName());
 				}
 				else {
 					elements.add(field);
 				}
 			}
 			else {
-				getLogger().debug("field {} has not getter/setter, ignore it", field.getName());
+				logger.debug("field {} has not getter/setter, ignore it", field.getName());
 			}
 		}
 		for(EzyMethod method : methods) {
@@ -198,7 +194,7 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 				elements.add(method);
 			}
 			else {
-				getLogger().debug("unknown generic type of method {}, ignore it", method.getName());
+				logger.debug("unknown generic type of method {}, ignore it", method.getName());
 			}
 		}
 		
@@ -217,7 +213,7 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 			}
 			else { 
 				answer.add(null);
-				getLogger().debug("has not property at index {}, so at this index value is null", index);
+				logger.debug("has not property at index {}, so at this index value is null", index);
 			}
 		}
 		return answer;

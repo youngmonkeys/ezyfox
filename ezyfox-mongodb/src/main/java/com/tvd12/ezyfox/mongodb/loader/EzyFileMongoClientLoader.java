@@ -53,7 +53,7 @@ public class EzyFileMongoClientLoader extends EzyPropertiesMongoClientLoader {
     
     @Override
     protected void preload() {
-    	getLogger().info("load mongo client config from file: {}", file.getAbsolutePath());
+    		logger.info("load mongo client config from file: {}", file.getAbsolutePath());
         this.properties.putAll(loadInputStream());
     }
     

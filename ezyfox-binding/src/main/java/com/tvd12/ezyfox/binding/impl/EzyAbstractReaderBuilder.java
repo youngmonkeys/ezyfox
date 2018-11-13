@@ -63,7 +63,7 @@ public abstract class EzyAbstractReaderBuilder
 		implClass.addMethod(CtNewMethod.make(methodContent, implClass));
 		Class answerClass = implClass.toClass();
 		implClass.detach();
-		getLogger().debug("class {} has generated", implClassName);
+		logger.debug("class {} has generated", implClassName);
 		return answerClass.newInstance();
 	}
 	
@@ -159,7 +159,8 @@ public abstract class EzyAbstractReaderBuilder
 	}
 	
 	protected void printMethodContent(String methodContent) {
-		if(isDebug()) getLogger().debug("reader: method content \n{}", methodContent);
+		if(isDebug()) 
+			logger.debug("reader: method content \n{}", methodContent);
 	}
 	
 	protected abstract boolean isDebug();

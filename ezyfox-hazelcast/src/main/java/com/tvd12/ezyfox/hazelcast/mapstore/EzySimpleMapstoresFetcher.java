@@ -88,7 +88,7 @@ public class EzySimpleMapstoresFetcher
 		
 		public Builder addMapstore(String mapName, MapStore mapstore) {
 			this.mapstores.put(mapName, mapstore);
-			getLogger().debug("add mapstore {} of class {}", mapName, mapstore.getClass().getName());
+			logger.debug("add mapstore {} of class {}", mapName, mapstore.getClass().getName());
 			return this;
 		}
 		
@@ -114,7 +114,7 @@ public class EzySimpleMapstoresFetcher
 			if(MapStore.class.isAssignableFrom(clazz))
 				this.mapstoreClassMap.put(mapNameSupplier.get(), clazz);
 			else
-				getLogger().warn("{} doesn't implements {}, ignore it", clazz, MapStore.class);
+				logger.warn("{} doesn't implements {}, ignore it", clazz, MapStore.class);
 			return this;
 		}
 		

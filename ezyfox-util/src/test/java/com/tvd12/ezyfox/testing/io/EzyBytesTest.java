@@ -37,6 +37,13 @@ public class EzyBytesTest extends BaseTest {
 	}
 	
 	@Test
+	public void test2() {
+		byte[] a = new byte[] {1, 2, 3};
+		byte[] b = EzyBytes.copy(a, 1, 2);
+		assertEquals(b, new byte[] {2, 3});
+	}
+	
+	@Test
 	public void mergePerformaceTest() {
 		byte[][] bytess = new byte[5][100];
 		for(int i = 0 ; i < bytess.length ; i++) {

@@ -49,7 +49,7 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
 			trySetUpThread(thread);
 		}
 		catch(Exception e) {
-			getLogger().warn("can not setup thread " + thread.getName(), e);
+			logger.warn("can not setup thread " + thread.getName(), e);
 		}
 	}
 	

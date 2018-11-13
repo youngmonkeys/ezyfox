@@ -4,10 +4,14 @@ import com.tvd12.ezyfox.exception.EzyMaxRequestSizeException;
 
 public abstract class EzyMessageReader<B> {
 	
-	private int size;
-	private byte[] content;
-	private EzyMessageHeader header;
-	private EzyMessageHeaderReader headerReader = newMessageHeaderReader(); 
+	protected int size;
+	protected byte[] content;
+	protected byte headerByte;
+	protected byte[] sizeBytes;
+	protected EzyMessageHeader header;
+	protected EzyMessageHeaderReader headerReader = newMessageHeaderReader();
+	
+	private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
 	
 	public EzyMessageReader() {
 		clear();
@@ -16,7 +20,7 @@ public abstract class EzyMessageReader<B> {
 	protected abstract int remaining(B buffer);
 	protected abstract byte readByte(B buffer);
 	protected abstract int readMessgeSize(B buffer);
-	protected abstract void readMessageContent(B buffer, byte[] content);
+	protected abstract void readMessageContent(B buffer, byte[] content, int offset, int length);
 	
 	protected EzyMessageHeaderReader newMessageHeaderReader() {
 		return new EzyMessageHeaderReader();
@@ -26,7 +30,7 @@ public abstract class EzyMessageReader<B> {
 		int remaining = remaining(buffer);
 		if(remaining < getHeaderLength())
 			return false;
-		byte headerByte = readByte(buffer);
+		headerByte = readByte(buffer);
 		readHeader(headerByte);
 		return true;
 	}
@@ -45,14 +49,27 @@ public abstract class EzyMessageReader<B> {
 		int remaining = remaining(buffer);
 		if(remaining < size)
 			return false;
-		this.content = new byte[size];
-		readMessageContent(buffer, content);
+		boolean rawBytes = isRawBytes();
+		if(rawBytes) {
+			int offset = getHeaderLength() + sizeBytes.length;
+			int rawSize = size + offset;
+			this.content = new byte[rawSize];
+			this.content[0] = headerByte;
+			System.arraycopy(sizeBytes, 0, sizeBytes.length, 1, sizeBytes.length);
+			readMessageContent(buffer, content, offset, size);
+		}
+		else {
+			this.content = new byte[size];
+			readMessageContent(buffer, content, 0, size);
+		}
 		return true;
 	}
 	
 	public void clear() {
 		this.size = 0;
-		this.content = new byte[0];
+		this.headerByte = 0;
+		this.sizeBytes = EMPTY_BYTE_ARRAY;
+		this.content = EMPTY_BYTE_ARRAY;
 	}
 	
 	public EzyMessage get() {
@@ -65,6 +82,10 @@ public abstract class EzyMessageReader<B> {
 	
 	protected int getSizeLength() {
 		return header.isBigSize() ? 4 : 2;
+	}
+	
+	protected boolean isRawBytes() {
+		return header.isRawBytes();
 	}
 	
 	protected int getHeaderLength() {

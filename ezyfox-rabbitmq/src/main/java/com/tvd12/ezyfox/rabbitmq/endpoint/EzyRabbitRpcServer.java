@@ -27,7 +27,7 @@ public class EzyRabbitRpcServer extends EzyRabbitEndpoint {
 	
 	@Override
 	public void start() throws Exception {
-		getLogger().info("start server queue = {}", queue);
+		logger.info("start server queue = {}", queue);
 		server = newServer();
 		server.mainloop();
 	}

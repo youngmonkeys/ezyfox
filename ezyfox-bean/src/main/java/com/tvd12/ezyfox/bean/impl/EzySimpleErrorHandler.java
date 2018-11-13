@@ -9,7 +9,7 @@ public class EzySimpleErrorHandler
 
 	@Override
 	public void handle(Throwable error) {
-		getLogger().warn("error", error);
+		logger.warn("error", error);
 	}
 	
 }

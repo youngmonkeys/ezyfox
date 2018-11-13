@@ -41,10 +41,10 @@ public abstract class EzySimpleRepositoriesImplementer
 	@Override
 	public EzyRepositoriesImplementer repositoryInterface(Class<?> itf) {
 		if(!Modifier.isInterface(itf.getModifiers())) {
-			getLogger().warn("class {} is not an interface, ignore its", itf.getSimpleName());
+			logger.warn("class {} is not an interface, ignore its", itf.getSimpleName());
 		}
 		else if(!EzyMongoRepository.class.isAssignableFrom(itf)) {
-			getLogger().warn("interface {} doestn't extends {}, ignore its", 
+			logger.warn("interface {} doestn't extends {}, ignore its", 
 					itf.getSimpleName(), EzyMongoRepository.class.getSimpleName());
 		}
 		else {

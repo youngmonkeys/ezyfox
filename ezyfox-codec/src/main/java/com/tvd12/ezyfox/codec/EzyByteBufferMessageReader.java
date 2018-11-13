@@ -20,12 +20,13 @@ public class EzyByteBufferMessageReader extends EzyMessageReader<ByteBuffer> {
 	
 	@Override
 	protected int readMessgeSize(ByteBuffer buffer) {
-		return EzyInts.bin2uint(EzyBytes.copy(buffer, getSizeLength()));
+		sizeBytes = EzyBytes.copy(buffer, getSizeLength());
+		return EzyInts.bin2uint(sizeBytes);
 	}
 	
 	@Override
-	protected void readMessageContent(ByteBuffer buffer, byte[] content) {
-		buffer.get(content);
+	protected void readMessageContent(ByteBuffer buffer, byte[] content, int offset, int length) {
+		buffer.get(content, offset, length);
 	}
 
 }

@@ -17,6 +17,12 @@ public final class EzyBytes {
 		return EzyByteBuffers.getBytes(buffer, size);
 	}
 	
+	public static byte[] copy(byte[] bytes, int offset, int length) {
+		byte[] answer = new byte[length];
+		System.arraycopy(bytes, offset, answer, 0, length);
+		return answer;
+	}
+	
 	public static byte[] getBytes(int first, int value, int size) {
 		return getBytes(first, (long)value, size);
 	}

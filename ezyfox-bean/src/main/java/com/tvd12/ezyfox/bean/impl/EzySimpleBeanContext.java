@@ -413,8 +413,8 @@ public class EzySimpleBeanContext
 			Set<EzyBeanKey> keySet = new HashSet<>(unloadedSingletons.keySet());
 			for(EzyBeanKey key : keySet) {
 				Set<Class<?>> uncompleted = unloadedSingletons.get(key);
-				getLogger().debug("unload bean: {}, uncompleted: {}", key, uncompleted);
-				getLogger().debug("try load bean {} again", key);
+				logger.debug("unload bean: {}, uncompleted: {}", key, uncompleted);
+				logger.debug("try load bean {} again", key);
 				loadUncompletedSingletons(context, key, uncompleted, finish);
 			}
 			if(finish) {
@@ -427,7 +427,7 @@ public class EzySimpleBeanContext
 				EzyBeanContext context, EzyBeanKey key, Set<Class<?>> uncompleted, boolean finish) {
 			Object singleton = getSingletonOfErrorBeanKey0(context, key, finish);
 			if(singleton == null) return;
-			getLogger().debug("found singleton {} with key {}", singleton, key);
+			logger.debug("found singleton {} with key {}", singleton, key);
 			for(Class<?> clazz : uncompleted) {
 				createAndLoadSingleton(context, clazz, true);
 			}

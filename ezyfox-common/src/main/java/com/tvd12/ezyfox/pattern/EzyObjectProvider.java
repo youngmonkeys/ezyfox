@@ -62,7 +62,7 @@ public abstract class EzyObjectProvider<T>
 					removeStaleObjects();
 				}
 				catch(Exception e) {
-					getLogger().error("object provider validation error", e);
+					logger.error("object provider validation error", e);
 				}
 			}
 			
@@ -95,7 +95,7 @@ public abstract class EzyObjectProvider<T>
 			shutdownAll();
 		}
 		catch(Exception e) {
-			getLogger().error(getClass().getSimpleName() + " error", e);
+			logger.error(getClass().getSimpleName() + " error", e);
 		}
 	}
 	
