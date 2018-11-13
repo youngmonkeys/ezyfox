@@ -6,6 +6,8 @@ import java.util.Map;
 
 public interface EzyMapCollection<K,E,V extends Collection<E>> extends Map<K,V> {
 
+	void addItem(K key, E item);
+	
 	void addItems(K key, Collection<E> items);
 	
 	void deepClear();

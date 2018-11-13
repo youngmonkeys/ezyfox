@@ -11,8 +11,23 @@ public abstract class EzyHashMapCollection<K,E,V extends Collection<E>>
 	private static final long serialVersionUID = 3535251482476794711L;
 
 	@Override
+	public void addItem(K key, E item) {
+		V current = get(key);
+		if(current == null) {
+			current = newCollection();
+			put(key, current);
+		}
+		current.add(item);
+	}
+	
+	@Override
 	public void addItems(K key, Collection<E> items) {
-		computeIfAbsent(key, k -> newCollection()).addAll(items);
+		V current = get(key);
+		if(current == null) {
+			current = newCollection();
+			put(key, current);
+		}
+		current.addAll(items);
 	}
 	
 	public V getItems(K key) {

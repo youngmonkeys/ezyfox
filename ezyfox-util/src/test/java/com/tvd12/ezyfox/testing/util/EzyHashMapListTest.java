@@ -23,6 +23,11 @@ public class EzyHashMapListTest extends BaseTest {
 		map.addItems("a", Lists.newArrayList("a", "b", "c"));
 		assert map.getItems("a").size() == 3;
 		map.deepClear();
+		assert map.size() == 0;
+		map.addItem("a", "x");
+		assert map.getItems("a").size() == 1;
+		map.addItem("a", "y");
+		assert map.getItems("a").size() == 2;
 	}
 	
 }
