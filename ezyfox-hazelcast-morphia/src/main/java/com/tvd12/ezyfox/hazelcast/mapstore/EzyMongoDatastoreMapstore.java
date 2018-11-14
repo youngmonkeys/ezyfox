@@ -3,12 +3,10 @@
  */
 package com.tvd12.ezyfox.hazelcast.mapstore;
 
-import org.mongodb.morphia.Datastore;
-
-import com.tvd12.ezyfox.hazelcast.mapstore.EzyAbstractMapstore;
 import com.tvd12.ezyfox.morphia.EzyDatastoreAware;
 
 import lombok.Setter;
+import xyz.morphia.Datastore;
 
 /**
  * @author tavandung12

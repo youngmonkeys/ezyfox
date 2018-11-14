@@ -1,10 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import java.nio.ByteBuffer;
-
-import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
-import com.tvd12.ezyfox.codec.EzyStringToObjectDecoder;
-
 public class JacksonByteToMessageDecoder implements EzyStringToObjectDecoder {
 
 	private final EzyMessageDeserializer deserializer;
@@ -20,7 +15,7 @@ public class JacksonByteToMessageDecoder implements EzyStringToObjectDecoder {
 	}
 	
 	@Override
-	public Object decode(ByteBuffer bytes) throws Exception {
+	public Object decode(byte[] bytes) throws Exception {
 		Object answer = deserializer.deserialize(bytes);
 		return answer;
 	}

@@ -4,16 +4,16 @@ import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.mapping.Mapper;
-
 import com.google.common.collect.Sets;
 import com.mongodb.MongoClient;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.reflect.EzyPackages;
 import com.tvd12.ezyfox.util.EzyLoggable;
+
+import xyz.morphia.Datastore;
+import xyz.morphia.Morphia;
+import xyz.morphia.annotations.Entity;
+import xyz.morphia.mapping.Mapper;
 
 @SuppressWarnings("rawtypes")
 public class EzyDataStoreBuilder

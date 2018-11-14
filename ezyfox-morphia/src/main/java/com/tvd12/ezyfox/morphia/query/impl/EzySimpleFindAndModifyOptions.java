@@ -2,9 +2,9 @@ package com.tvd12.ezyfox.morphia.query.impl;
 
 import java.util.concurrent.TimeUnit;
 
-import org.mongodb.morphia.FindAndModifyOptions;
-
 import com.tvd12.ezyfox.database.query.EzyFindAndModifyOptions;
+
+import xyz.morphia.FindAndModifyOptions;
 
 public final class EzySimpleFindAndModifyOptions implements EzyFindAndModifyOptions {
 

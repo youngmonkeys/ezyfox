@@ -3,14 +3,6 @@ package com.tvd12.ezyfox.morphia.repository;
 import java.util.Collection;
 import java.util.List;
 
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.DeleteOptions;
-import org.mongodb.morphia.FindAndModifyOptions;
-import org.mongodb.morphia.UpdateOptions;
-import org.mongodb.morphia.query.FindOptions;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-
 import com.mongodb.WriteResult;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.database.query.EzyFindAndModifyOptions;
@@ -23,6 +15,13 @@ import com.tvd12.ezyfox.morphia.query.impl.EzySimpleUpdateOperations;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 import lombok.Setter;
+import xyz.morphia.Datastore;
+import xyz.morphia.DeleteOptions;
+import xyz.morphia.FindAndModifyOptions;
+import xyz.morphia.UpdateOptions;
+import xyz.morphia.query.FindOptions;
+import xyz.morphia.query.Query;
+import xyz.morphia.query.UpdateOperations;
 
 public abstract class EzyDatastoreRepository<I, E> 
 		extends EzyLoggable

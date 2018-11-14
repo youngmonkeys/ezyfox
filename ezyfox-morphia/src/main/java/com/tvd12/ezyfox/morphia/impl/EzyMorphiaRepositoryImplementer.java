@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.morphia.impl;
 
-import org.mongodb.morphia.Datastore;
-
 import com.tvd12.ezyfox.mongodb.bean.EzySimpleRepositoryImplementer;
 import com.tvd12.ezyfox.morphia.EzyDatastoreAware;
 import com.tvd12.ezyfox.morphia.repository.EzyDatastoreRepository;
+
+import xyz.morphia.Datastore;
 
 public class EzyMorphiaRepositoryImplementer extends EzySimpleRepositoryImplementer {
 

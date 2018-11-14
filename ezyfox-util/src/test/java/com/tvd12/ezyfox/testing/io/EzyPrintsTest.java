@@ -24,6 +24,12 @@ public class EzyPrintsTest extends BaseTest {
 		System.err.println(EzyPrints.print(new short[] {1, 2, 3}));
 		System.err.println(EzyPrints.print(new String[] {"x", "y", "z"}));
 		System.err.println(EzyPrints.print(Lists.newArrayList("x", "y", "z")));
+		
+		int[][] array2dInts = new int[][] {{1, 2, 3}, {4, 5, 6}};
+		System.out.println(EzyPrints.print2d(array2dInts));
+		
+		String[][] array2dStrings = new String[][] {{"1", "2", "3"}, {"4", "5", "6"}};
+		System.out.println(EzyPrints.print2d(array2dStrings));
 	}
 	
 	@Override

@@ -1,6 +1,6 @@
 package com.tvd12.ezyfox.morphia;
 
-import org.mongodb.morphia.Datastore;
+import xyz.morphia.Datastore;
 
 public interface EzyDatastoreAware {
 

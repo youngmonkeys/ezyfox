@@ -2,13 +2,11 @@ package com.tvd12.ezyfox.hazelcast.mapstore;
 
 import java.util.Properties;
 
-import org.mongodb.morphia.Datastore;
-
 import com.hazelcast.core.MapStore;
-import com.tvd12.ezyfox.hazelcast.mapstore.EzyMongoDatabaseMapstoreCreator;
 import com.tvd12.ezyfox.morphia.EzyDatastoreAware;
 
 import lombok.Setter;
+import xyz.morphia.Datastore;
 
 public class EzyMongoDatastoreMapstoreCreator 
 		extends EzyMongoDatabaseMapstoreCreator

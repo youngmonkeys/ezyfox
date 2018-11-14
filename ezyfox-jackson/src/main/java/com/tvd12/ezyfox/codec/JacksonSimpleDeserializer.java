@@ -44,7 +44,8 @@ public class JacksonSimpleDeserializer
 	protected JsonNode readTree(byte[] data) {
 		try {
 			return objectMapper.readTree(data);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			throw new IllegalArgumentException("read tree error", e);
 		} 
 	}
@@ -52,7 +53,8 @@ public class JacksonSimpleDeserializer
 	protected JsonNode readTree(String text) {
 		try {
 			return objectMapper.readTree(text);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			throw new IllegalArgumentException("read tree error", e);
 		} 
 	}
