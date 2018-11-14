@@ -1,13 +1,11 @@
 package com.tvd12.ezyfox.hazelcast.entity;
 
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-
 import com.tvd12.ezyfox.hazelcast.constant.EzyMapNames;
-import com.tvd12.ezyfox.hazelcast.entity.EzyAbstractAccount;
 
 import lombok.Getter;
 import lombok.Setter;
+import xyz.morphia.annotations.Entity;
+import xyz.morphia.annotations.Id;
 
 @Getter
 @Setter

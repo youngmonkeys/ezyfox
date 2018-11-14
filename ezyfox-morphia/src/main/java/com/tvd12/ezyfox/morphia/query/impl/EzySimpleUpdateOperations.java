@@ -2,12 +2,12 @@ package com.tvd12.ezyfox.morphia.query.impl;
 
 import java.util.List;
 
-import org.mongodb.morphia.query.PushOptions;
-import org.mongodb.morphia.query.UpdateOperations;
-
 import com.tvd12.ezyfox.database.query.EzyPushOptions;
 import com.tvd12.ezyfox.database.query.EzyUpdateOperations;
 import com.tvd12.ezyfox.function.EzyApply;
+
+import xyz.morphia.query.PushOptions;
+import xyz.morphia.query.UpdateOperations;
 
 public final class EzySimpleUpdateOperations<T> implements EzyUpdateOperations<T> {
 

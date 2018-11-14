@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.morphia.query.impl;
 
-import org.mongodb.morphia.query.PushOptions;
-
 import com.tvd12.ezyfox.database.query.EzyPushOptions;
+
+import xyz.morphia.query.PushOptions;
 
 public final class EzySimplePushOptions implements EzyPushOptions {
 

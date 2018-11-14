@@ -3,8 +3,6 @@ package com.tvd12.ezyfox.morphia.testing;
 import java.io.InputStream;
 import java.util.Map;
 
-import org.mongodb.morphia.Datastore;
-
 import com.mongodb.MongoClient;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
@@ -17,6 +15,8 @@ import com.tvd12.ezyfox.morphia.bean.EzyMorphiaRepositories;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.stream.EzyAnywayInputStreamLoader;
 import com.tvd12.test.base.BaseTest;
+
+import xyz.morphia.Datastore;
 
 public class BaseMongoDBTest extends BaseTest {
 

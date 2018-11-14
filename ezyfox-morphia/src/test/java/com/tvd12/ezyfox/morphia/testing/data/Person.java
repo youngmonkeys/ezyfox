@@ -5,11 +5,11 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
 
 import lombok.Getter;
 import lombok.Setter;
+import xyz.morphia.annotations.Entity;
+import xyz.morphia.annotations.Id;
 
 @Setter
 @Getter

@@ -1,6 +1,5 @@
 package com.tvd12.ezyfox.morphia.testing.query;
 
-import org.mongodb.morphia.query.UpdateOperations;
 import org.testng.annotations.Test;
 
 import com.google.common.collect.Lists;
@@ -8,6 +7,8 @@ import com.tvd12.ezyfox.morphia.query.impl.EzySimpleUpdateOperations;
 import com.tvd12.ezyfox.morphia.testing.BaseMongoDBTest;
 import com.tvd12.ezyfox.morphia.testing.data.Cat;
 import com.tvd12.ezyfox.morphia.testing.data.Kitty;
+
+import xyz.morphia.query.UpdateOperations;
 
 public class EzySimpleUpdateOperationsTest extends BaseMongoDBTest {
 
