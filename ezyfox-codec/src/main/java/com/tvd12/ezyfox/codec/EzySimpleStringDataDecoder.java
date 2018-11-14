@@ -1,16 +1,16 @@
 package com.tvd12.ezyfox.codec;
 
-import java.nio.ByteBuffer;
-
 import com.tvd12.ezyfox.callback.EzyCallback;
+import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzySimpleStringDataDecoder
-		extends EzyAbstractMessageDataDecoder<EzyStringToObjectDecoder>
+		extends EzyLoggable
 		implements EzyStringDataDecoder {
+	
+	protected final EzyStringToObjectDecoder decoder;
 
 	public EzySimpleStringDataDecoder(EzyStringToObjectDecoder decoder) {
-		super(decoder);
-		this.buffer = ByteBuffer.allocate(32768);
+		this.decoder = decoder;
 	}
 	
 	@Override
@@ -20,21 +20,13 @@ public class EzySimpleStringDataDecoder
 	}
 	
 	@Override
-	public void decode(byte[] bytes, int offset, int len, EzyCallback<Object> callback) throws Exception {
-		ByteBuffer buffer = newBuffer(bytes, offset, len);
-		Object answer = decoder.decode(buffer);
+	public void decode(byte[] bytes, EzyCallback<Object> callback) throws Exception {
+		Object answer = decoder.decode(bytes);
 		callback.call(answer);
 	}
-	
-	private ByteBuffer newBuffer(byte[] bytes, int offset, int len) {
-		ByteBuffer used = buffer;
-		int capacity = len - offset;
-		if(buffer.capacity() < capacity)
-			used = ByteBuffer.allocate(capacity);
-		used.clear();
-		used.put(bytes, offset, len);
-		used.flip();
-		return used;
+
+	@Override
+	public void destroy() {
 	}
 	
 }
