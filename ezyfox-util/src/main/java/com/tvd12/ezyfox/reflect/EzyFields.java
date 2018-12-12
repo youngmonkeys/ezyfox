@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.reflect.EzyFieldFinder;
 
 public final class EzyFields {

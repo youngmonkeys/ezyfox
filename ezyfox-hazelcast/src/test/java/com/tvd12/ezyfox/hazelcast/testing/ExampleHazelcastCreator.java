@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.hazelcast.testing;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.EvictionPolicy;
 import com.hazelcast.config.MapStoreConfig.InitialLoadMode;

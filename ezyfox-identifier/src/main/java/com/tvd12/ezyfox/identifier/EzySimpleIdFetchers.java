@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.reflect.EzyPackages;
 import com.tvd12.ezyfox.util.EzyHasIdEntity;

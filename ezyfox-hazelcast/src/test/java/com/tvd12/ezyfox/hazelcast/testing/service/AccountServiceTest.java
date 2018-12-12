@@ -4,7 +4,7 @@ import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.hazelcast.entity.EzyAbstractAccount;
 import com.tvd12.ezyfox.hazelcast.entity.EzyAccount;
 import com.tvd12.ezyfox.hazelcast.factory.EzyAbstractAccoutFactory;

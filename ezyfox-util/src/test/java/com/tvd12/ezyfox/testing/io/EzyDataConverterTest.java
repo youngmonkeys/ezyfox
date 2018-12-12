@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzyDataConverter;
 import com.tvd12.test.base.BaseTest; 
 

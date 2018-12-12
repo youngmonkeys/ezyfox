@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.identifier.EzyIdSetter;
 import com.tvd12.ezyfox.identifier.EzySimpleIdSetterImplementer;
 import com.tvd12.ezyfox.identifier.EzySimpleIdSetters;

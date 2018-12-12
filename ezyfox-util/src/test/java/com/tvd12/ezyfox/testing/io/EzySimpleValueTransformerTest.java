@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.io.EzyValueConverter;
 import com.tvd12.test.base.BaseTest;

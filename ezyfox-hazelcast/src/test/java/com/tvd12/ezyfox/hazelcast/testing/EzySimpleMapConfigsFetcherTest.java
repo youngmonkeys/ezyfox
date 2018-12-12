@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.hazelcast.testing;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.hazelcast.EzySimpleMapConfigsFetcher;
 import com.tvd12.test.base.BaseTest;
 

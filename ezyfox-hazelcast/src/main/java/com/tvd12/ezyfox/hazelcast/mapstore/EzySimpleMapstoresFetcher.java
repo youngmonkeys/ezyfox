@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.base.Supplier;
-import com.google.common.collect.Sets;
+import java.util.function.Supplier;
+import com.tvd12.ezyfox.collect.Sets;
 import com.hazelcast.core.MapStore;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.database.annotation.EzyMapstore;

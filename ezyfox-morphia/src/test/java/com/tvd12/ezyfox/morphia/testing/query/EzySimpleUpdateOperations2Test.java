@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.morphia.query.impl.EzySimpleFindAndModifyOptions;
 import com.tvd12.ezyfox.morphia.query.impl.EzySimpleUpdateOperations;
 import com.tvd12.ezyfox.morphia.testing.BaseMongoDBTest;

@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.mongodb.MongoClient;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.reflect.EzyPackages;

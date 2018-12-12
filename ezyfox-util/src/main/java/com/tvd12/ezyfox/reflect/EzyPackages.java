@@ -4,10 +4,10 @@ import java.lang.annotation.Annotation;
 import java.util.Set;
 import java.util.function.Function;
 
-import org.reflections.Configuration;
-import org.reflections.Reflections;
-import org.reflections.util.ConfigurationBuilder;
-import org.reflections.util.Utils;
+import com.tvd12.reflections.Configuration;
+import com.tvd12.reflections.Reflections;
+import com.tvd12.reflections.util.ConfigurationBuilder;
+import com.tvd12.reflections.util.Utils;
 
 public final class EzyPackages {
 
@@ -23,10 +23,8 @@ public final class EzyPackages {
 	
 	private static Set<Class<?>> 
 			scanPackage(String packageName, Function<Reflections, Set<Class<?>>> function) {
-		Reflections.log = null;
 		Reflections reflections = new Reflections(packageName);
 		Set<Class<?>> classes = function.apply(reflections);
-		Reflections.log = Utils.findLogger(Reflections.class);
 		return classes;
 	}
 	

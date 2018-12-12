@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.testing.util;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.util.EzySum;
 import com.tvd12.test.base.BaseTest;
 

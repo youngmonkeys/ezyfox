@@ -12,8 +12,8 @@ import java.util.Set;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.util.EzyMapBuilder;
 import com.tvd12.test.base.BaseTest;

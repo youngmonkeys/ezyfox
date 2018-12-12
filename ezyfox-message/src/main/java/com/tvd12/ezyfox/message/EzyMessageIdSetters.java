@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.message;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.identifier.EzySimpleIdSetters;
 import com.tvd12.ezyfox.message.annotation.EzyMessage;
 

@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.hazelcast.testing.service;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.hazelcast.impl.EzySimpleServiceImplementer;
 import com.tvd12.ezyfox.hazelcast.service.EzySimpleHazelcastMapService;
 import com.tvd12.ezyfox.hazelcast.testing.HazelcastBaseTest;

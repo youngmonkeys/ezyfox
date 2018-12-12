@@ -1,6 +1,6 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.reflections.Reflections;
+import com.tvd12.reflections.Reflections;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.annotation.EzyAutoImpl;

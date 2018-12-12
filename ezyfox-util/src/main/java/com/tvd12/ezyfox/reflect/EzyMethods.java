@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
-import org.reflections.ReflectionUtils;
+import com.tvd12.reflections.ReflectionUtils;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.reflect.EzyMethodFinder;
 
 public final class EzyMethods {

@@ -65,8 +65,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<joda.time.version>2.9.9</joda.time.version>
-		<google.guava.version>23.0</google.guava.version>
-		<reflections.version>0.9.11</reflections.version>
+		<reflections.version>0.9.12</reflections.version>
 		<commons.lang3.version>3.8.1</commons.lang3.version>
 		<properties.file.version>1.0.5</properties.file.version>
 		<lombok.version>1.16.20</lombok.version>
@@ -82,6 +81,7 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.tvd12</groupId>
@@ -94,17 +94,12 @@
 			<version>${commons.lang3.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${google.guava.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>${joda.time.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.reflections</groupId>
+			<groupId>com.tvd12</groupId>
 			<artifactId>reflections</artifactId>
 			<version>${reflections.version}</version>
 		</dependency>

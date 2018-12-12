@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.codec.testing;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.codec.MsgPackConstant;
 import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;

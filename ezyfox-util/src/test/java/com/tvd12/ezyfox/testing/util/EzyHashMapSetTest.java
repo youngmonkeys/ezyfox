@@ -4,7 +4,7 @@ import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.util.EzyHashMapSet;
 import com.tvd12.ezyfox.util.EzyMapSet;
 import com.tvd12.test.base.BaseTest;
