@@ -70,19 +70,11 @@
 		<properties.file.version>1.0.5</properties.file.version>
 		<lombok.version>1.16.20</lombok.version>
 		<slf4j.version>1.7.25</slf4j.version>
-		<jackson.version>2.9.7</jackson.version>
-
 		<directory.lib>lib</directory.lib>
 		<deploy.path>${env.EZYFOX_SERVER_HOME}</deploy.path>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
-			<optional>true</optional>
-		</dependency>
 		<dependency>
 			<groupId>com.tvd12</groupId>
 			<artifactId>properties-file</artifactId>

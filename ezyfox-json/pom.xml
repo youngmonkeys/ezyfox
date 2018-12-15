@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -8,27 +7,27 @@
 		<artifactId>ezyfox</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<artifactId>ezyfox-jackson</artifactId>
+	<artifactId>ezyfox-json</artifactId>
 	<version>1.0.0</version>
-	<name>ezyfox-jackson</name>
+	<name>ezyfox-json</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<properties>
-		<ezy.codec.version>1.0.0</ezy.codec.version>
-		<ezy.json.version>1.0.0</ezy.json.version>
+		<ezy.common.version>1.0.0</ezy.common.version>
+		<jackson.version>2.9.7</jackson.version>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-codec</artifactId>
-			<version>${ezy.codec.version}</version>
+			<artifactId>ezyfox-common</artifactId>
+			<version>${ezy.common.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-json</artifactId>
-			<version>${ezy.json.version}</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 	</dependencies>
-	
+
 </project>

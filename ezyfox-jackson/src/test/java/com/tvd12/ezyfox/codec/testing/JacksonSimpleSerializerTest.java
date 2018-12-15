@@ -23,6 +23,7 @@ import com.tvd12.ezyfox.codec.JacksonSimpleSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
+import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
 import com.tvd12.ezyfox.sercurity.EzyBase64;
 import com.tvd12.test.base.BaseTest;
 
@@ -30,8 +31,7 @@ import lombok.Data;
 
 public class JacksonSimpleSerializerTest extends BaseTest {
 
-	private ObjectMapper objectMapper 
-				= new ObjectMapper();
+	private ObjectMapper objectMapper = newObjectMapper();
 	private EzyMessageSerializer serializer 
 				= new JacksonSimpleSerializer(objectMapper);
 	private EzyMessageDeserializer deserializer
@@ -137,5 +137,8 @@ public class JacksonSimpleSerializerTest extends BaseTest {
 	public static class ClassC {
 		private String name = "dungtv"; 
 	}
-	
+
+	private ObjectMapper newObjectMapper() {
+		return JacksonObjectMapperBuilder.newInstance().build();
+	}
 }
