@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.factory.EzyLiteEntityFactory;

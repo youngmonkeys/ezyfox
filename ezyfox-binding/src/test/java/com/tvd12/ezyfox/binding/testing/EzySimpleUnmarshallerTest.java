@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.impl.EzySimpleUnmarshaller;

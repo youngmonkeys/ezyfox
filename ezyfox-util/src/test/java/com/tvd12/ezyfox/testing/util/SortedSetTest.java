@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.testing.util;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 
 public class SortedSetTest {
 

@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.util.EzyReturner;
 
 public final class EzyClasses {

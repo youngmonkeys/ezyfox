@@ -1,6 +1,6 @@
 package com.tvd12.ezyfox.database.service;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 
 public interface EzySaveManyService<E> {
 

@@ -14,7 +14,7 @@ import com.tvd12.ezyfox.function.EzyParser;
 public class JacksonSimpleSerializer 
 		extends EzyAbstractByTypeSerializer {
 
-	protected ObjectMapper objectMapper;
+	protected final ObjectMapper objectMapper;
 	
 	public JacksonSimpleSerializer(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
@@ -36,10 +36,6 @@ public class JacksonSimpleSerializer
 	@Override
 	protected <T> T parseWithNoParser(Object value, Class<T> outType) {
 		return (T)writeValueAsBytes(value);
-	}
-	
-	protected byte[] parseObject(Object obj) {
-		return parseObject((EzyObject)obj);
 	}
 	
 	protected byte[] writeValueAsBytes(Object obj) {
@@ -66,19 +62,19 @@ public class JacksonSimpleSerializer
 		objectParsers.put(byte[].class, new EzyParser<EzyObject, byte[]>() {
 			@Override
 			public byte[] parse(EzyObject input) {
-				return writeValueAsBytes(input.toMap());
+				return writeValueAsBytes(input);
 			}
 		});
 		objectParsers.put(String.class, new EzyParser<EzyObject, String>() {
 			@Override
 			public String parse(EzyObject input) {
-				return writeValueAsString(input.toMap());
+				return writeValueAsString(input);
 			}
 		});
 		objectParsers.put(ByteBuffer.class, new EzyParser<EzyObject, ByteBuffer>() {
 			@Override
 			public ByteBuffer parse(EzyObject input) {
-				return ByteBuffer.wrap(writeValueAsBytes(input.toMap()));
+				return ByteBuffer.wrap(writeValueAsBytes(input));
 			}
 		});
 		
@@ -87,19 +83,19 @@ public class JacksonSimpleSerializer
 		arrayParsers.put(byte[].class, new EzyParser<EzyArray, byte[]>() {
 			@Override
 			public byte[] parse(EzyArray input) {
-				return writeValueAsBytes(input.toList());
+				return writeValueAsBytes(input);
 			}
 		});
 		arrayParsers.put(String.class, new EzyParser<EzyArray, String>() {
 			@Override
 			public String parse(EzyArray input) {
-				return writeValueAsString(input.toList());
+				return writeValueAsString(input);
 			}
 		});
 		arrayParsers.put(ByteBuffer.class, new EzyParser<EzyArray, ByteBuffer>() {
 			@Override
 			public ByteBuffer parse(EzyArray input) {
-				return ByteBuffer.wrap(writeValueAsBytes(input.toList()));
+				return ByteBuffer.wrap(writeValueAsBytes(input));
 			}
 		});
 	}

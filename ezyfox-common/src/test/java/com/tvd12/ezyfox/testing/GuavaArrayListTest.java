@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.testing;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
 

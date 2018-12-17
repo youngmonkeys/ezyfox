@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.query.EntryObject;
 import com.hazelcast.query.Predicate;

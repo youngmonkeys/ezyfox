@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyHashMap;
 import com.tvd12.ezyfox.entity.EzyObject;

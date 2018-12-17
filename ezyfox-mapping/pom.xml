@@ -12,14 +12,14 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<ezy.common.version>1.0.0</ezy.common.version>
+		<ezy.json.version>1.0.0</ezy.json.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-common</artifactId>
-			<version>${ezy.common.version}</version>
+			<artifactId>ezyfox-json</artifactId>
+			<version>${ezy.json.version}</version>
 		</dependency>
 	</dependencies>
 

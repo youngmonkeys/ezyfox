@@ -8,7 +8,7 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.elasticsearch.EzyIndexTypes;
 import com.tvd12.ezyfox.elasticsearch.EzyIndexedDataClasses;

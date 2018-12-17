@@ -9,11 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.codec.EzyMessageByTypeSerializer;
 import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
-import com.tvd12.ezyfox.codec.JacksonObjectMapperBuilder;
 import com.tvd12.ezyfox.codec.JacksonSimpleDeserializer;
 import com.tvd12.ezyfox.codec.JacksonSimpleSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
+import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
 

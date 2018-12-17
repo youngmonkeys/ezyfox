@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzySimpleCollectionConverter;

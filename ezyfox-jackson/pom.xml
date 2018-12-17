@@ -15,6 +15,7 @@
 	
 	<properties>
 		<ezy.codec.version>1.0.0</ezy.codec.version>
+		<ezy.json.version>1.0.0</ezy.json.version>
 	</properties>
 	
 	<dependencies>
@@ -22,6 +23,11 @@
 			<groupId>com.tvd12</groupId>
 			<artifactId>ezyfox-codec</artifactId>
 			<version>${ezy.codec.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tvd12</groupId>
+			<artifactId>ezyfox-json</artifactId>
+			<version>${ezy.json.version}</version>
 		</dependency>
 	</dependencies>
 	

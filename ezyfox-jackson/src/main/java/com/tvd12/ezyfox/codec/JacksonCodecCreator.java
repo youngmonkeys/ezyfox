@@ -1,9 +1,7 @@
 package com.tvd12.ezyfox.codec;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tvd12.ezyfox.codec.EzyCodecCreator;
-import com.tvd12.ezyfox.codec.EzyMessageByTypeSerializer;
-import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
+import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
 
 public class JacksonCodecCreator implements EzyCodecCreator {
 

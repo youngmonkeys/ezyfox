@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 
 public final class EzyFileUtil {
 

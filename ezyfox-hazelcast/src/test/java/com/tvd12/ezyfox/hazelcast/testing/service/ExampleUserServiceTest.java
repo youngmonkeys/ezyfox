@@ -2,8 +2,8 @@ package com.tvd12.ezyfox.hazelcast.testing.service;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.hazelcast.testing.HazelcastBaseTest;
 import com.tvd12.ezyfox.hazelcast.testing.entity.ExampleUser;
 import com.tvd12.ezyfox.hazelcast.testing.service.impl.ExampleUserServiceImpl;

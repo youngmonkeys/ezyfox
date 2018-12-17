@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
@@ -23,6 +23,7 @@ import com.tvd12.ezyfox.codec.JacksonSimpleSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
+import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
 import com.tvd12.ezyfox.sercurity.EzyBase64;
 import com.tvd12.test.base.BaseTest;
 
@@ -30,8 +31,7 @@ import lombok.Data;
 
 public class JacksonSimpleSerializerTest extends BaseTest {
 
-	private ObjectMapper objectMapper 
-				= new ObjectMapper();
+	private ObjectMapper objectMapper = newObjectMapper();
 	private EzyMessageSerializer serializer 
 				= new JacksonSimpleSerializer(objectMapper);
 	private EzyMessageDeserializer deserializer
@@ -137,5 +137,8 @@ public class JacksonSimpleSerializerTest extends BaseTest {
 	public static class ClassC {
 		private String name = "dungtv"; 
 	}
-	
+
+	private ObjectMapper newObjectMapper() {
+		return JacksonObjectMapperBuilder.newInstance().build();
+	}
 }

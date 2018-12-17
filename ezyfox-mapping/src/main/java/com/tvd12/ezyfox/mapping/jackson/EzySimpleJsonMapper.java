@@ -3,10 +3,10 @@ package com.tvd12.ezyfox.mapping.jackson;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.tvd12.ezyfox.json.EzyJsonMapper;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-public class EzySimpleJsonMapper 
-        extends EzyLoggable implements EzyJsonMapper {
+public class EzySimpleJsonMapper extends EzyLoggable implements EzyJsonMapper {
 
 	private final ObjectMapper mapper;
 	

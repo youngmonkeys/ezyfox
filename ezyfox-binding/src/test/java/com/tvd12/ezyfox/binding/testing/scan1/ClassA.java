@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.binding.testing.scan1;
 
 import java.util.List;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 
 import lombok.Getter;
 import lombok.Setter;

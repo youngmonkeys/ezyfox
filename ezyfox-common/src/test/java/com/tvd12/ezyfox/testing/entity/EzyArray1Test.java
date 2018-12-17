@@ -8,8 +8,8 @@ import java.util.Date;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;

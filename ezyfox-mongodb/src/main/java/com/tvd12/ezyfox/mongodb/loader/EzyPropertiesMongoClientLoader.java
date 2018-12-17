@@ -6,7 +6,7 @@ package com.tvd12.ezyfox.mongodb.loader;
 import java.util.Map;
 import java.util.Properties;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;

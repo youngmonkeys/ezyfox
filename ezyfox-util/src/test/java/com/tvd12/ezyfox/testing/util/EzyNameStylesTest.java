@@ -20,6 +20,11 @@ public class EzyNameStylesTest extends BaseTest {
 		assertEquals(EzyNameStyles.toLowerHyphen("ezyFox"), "ezy-fox");
 		assertEquals(EzyNameStyles.toLowerHyphen("Ezyfox"), "ezyfox");
 		assertEquals(EzyNameStyles.toLowerHyphen("ezyfox"), "ezyfox");
+		assertEquals(EzyNameStyles.toLowerHyphen("URIParser"), "uri-parser");
+		assertEquals(EzyNameStyles.toLowerHyphen("URabcIParser"), "u-rabc-i-parser");
+		assertEquals(EzyNameStyles.toLowerHyphen("UR123IParser"), "u-r123-i-parser");
+		assertEquals(EzyNameStyles.toLowerHyphen("URIParSER"), "uri-par-ser");
+		assertEquals(EzyNameStyles.toLowerHyphen("URIParseR"), "uri-parse-r");
 	}
 	
 }

@@ -18,7 +18,7 @@ public class JacksonSimpleDeserializer
 		extends EzyLiteEntityBuilders
 		implements EzyMessageDeserializer {
 	
-	protected ObjectMapper objectMapper;
+	protected final ObjectMapper objectMapper;
 	
 	public JacksonSimpleDeserializer(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;

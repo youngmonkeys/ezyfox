@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;

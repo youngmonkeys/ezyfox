@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Sets;
 
 public final class EzySets {
 

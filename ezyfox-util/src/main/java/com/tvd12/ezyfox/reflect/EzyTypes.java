@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.collect.Sets;
 
 @SuppressWarnings("rawtypes")
 public final class EzyTypes {
