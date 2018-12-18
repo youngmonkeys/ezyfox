@@ -16,6 +16,7 @@
 	<properties>
 		<ezy.codec.version>1.0.0</ezy.codec.version>
 		<ezy.json.version>1.0.0</ezy.json.version>
+		<jackson.version>2.9.7</jackson.version>
 	</properties>
 	
 	<dependencies>
@@ -28,6 +29,11 @@
 			<groupId>com.tvd12</groupId>
 			<artifactId>ezyfox-json</artifactId>
 			<version>${ezy.json.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 	</dependencies>
 	

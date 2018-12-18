@@ -10,7 +10,7 @@ public class EzySimpleJsonMapper extends EzyLoggable implements EzyJsonMapper {
 
 	private final ObjectMapper mapper;
 	
-	protected EzySimpleJsonMapper(Builder builder) {
+	public EzySimpleJsonMapper(Builder builder) {
 		this.mapper = EzyObjectMapperBuilder.objectMapperBuilder().build();
 		this.mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		this.mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
