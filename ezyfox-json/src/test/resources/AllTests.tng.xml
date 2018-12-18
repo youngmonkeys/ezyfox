@@ -3,7 +3,7 @@
 <suite name="AllTests">
 	<test name="All">
 		<packages>
-			<package name="com.tvd12.ezyfox.jackson.testing"></package>
+			<package name="com.tvd12.ezyfox.json.testing"></package>
 		</packages>
 	</test>
 </suite>
