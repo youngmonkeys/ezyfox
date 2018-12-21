@@ -3,7 +3,6 @@ package com.tvd12.ezyfox.bean.impl;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyBeanNameTranslator;
@@ -40,10 +38,12 @@ import com.tvd12.ezyfox.bean.supplier.EzyQueueSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzySetSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyStackSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyTreeMapSupplier;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 import com.tvd12.ezyfox.properties.EzySimplePropertiesReader;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyPackages;
+import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.util.EzyHashMapSet;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyMapSet;
@@ -190,11 +190,12 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder scan(String packageName) {
-			singletonClasses.addAll(getAnnotatedClasses(packageName, EzySingleton.class));
-			prototypeClasses.addAll(getAnnotatedClasses(packageName, EzyPrototype.class));
-			packagesScanClasses.addAll(getAnnotatedClasses(packageName, EzyPackagesScan.class));
-			configurationClasses.addAll(getAnnotatedClasses(packageName, EzyConfiguration.class));
-			configurationBeforeClasses.addAll(getAnnotatedClasses(packageName, EzyConfigurationBefore.class));
+			EzyReflection reflection = EzyPackages.scanPackage(packageName);
+			singletonClasses.addAll(reflection.getAnnotatedClasses(EzySingleton.class));
+			prototypeClasses.addAll(reflection.getAnnotatedClasses(EzyPrototype.class));
+			packagesScanClasses.addAll(reflection.getAnnotatedClasses(EzyPackagesScan.class));
+			configurationClasses.addAll(reflection.getAnnotatedClasses(EzyConfiguration.class));
+			configurationBeforeClasses.addAll(reflection.getAnnotatedClasses(EzyConfigurationBefore.class));
 			return this;
 		}
 		
@@ -345,10 +346,6 @@ public class EzySimpleBeanContext
 			loadConfigurationClasses(context);
 			tryLoadUncompletedSingletonsAgain(context, true);
 			return context;
-		}
-		
-		private Set<Class<?>> getAnnotatedClasses(String packageName, Class<? extends Annotation> annClass) {
-			return EzyPackages.getAnnotatedClasses(packageName, annClass);
 		}
 		
 		private void addScannedSingletonsToFactory(EzyBeanContext context) {
