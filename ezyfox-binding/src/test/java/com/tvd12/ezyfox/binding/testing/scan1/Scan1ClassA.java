@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyReader;
 import com.tvd12.ezyfox.binding.annotation.EzyWriter;
+import com.tvd12.ezyfox.collect.Lists;
 
 import lombok.Getter;
 import lombok.Setter;

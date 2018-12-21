@@ -1,13 +1,11 @@
 package com.tvd12.ezyfox.binding.impl;
 
-import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.binding.EzyBindingContext;
 import com.tvd12.ezyfox.binding.EzyBindingContextBuilder;
 import com.tvd12.ezyfox.binding.EzyMarshaller;
@@ -24,9 +22,11 @@ import com.tvd12.ezyfox.binding.annotation.EzyTemplateImpl;
 import com.tvd12.ezyfox.binding.annotation.EzyWriterImpl;
 import com.tvd12.ezyfox.binding.template.EzyMapArrayWriter;
 import com.tvd12.ezyfox.binding.template.EzyMapObjectWriter;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyPackages;
+import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 @SuppressWarnings({ "rawtypes" })
@@ -123,20 +123,21 @@ public class EzySimpleBindingContext
 		 */
 		@Override
 		public EzyBindingContextBuilder scan(String packageName) {
+			EzyReflection reflection = EzyPackages.scanPackage(packageName);
 			objectBindingClasses.addAll(
-					getAnnotatedClasses(packageName, EzyObjectBinding.class));
+					reflection.getAnnotatedClasses(EzyObjectBinding.class));
 			arrayBindingClasses.addAll(
-					getAnnotatedClasses(packageName, EzyArrayBinding.class));
+					reflection.getAnnotatedClasses(EzyArrayBinding.class));
 			writerImplClasses.addAll(
-					getAnnotatedClasses(packageName, EzyWriterImpl.class));
+					reflection.getAnnotatedClasses(EzyWriterImpl.class));
 			readerImplClasses.addAll(
-					getAnnotatedClasses(packageName, EzyReaderImpl.class));
+					reflection.getAnnotatedClasses(EzyReaderImpl.class));
 			addTemplateClasses(
-					getAnnotatedClasses(packageName, EzyTemplateImpl.class));
+					reflection.getAnnotatedClasses(EzyTemplateImpl.class));
 			packagesScanClasses.addAll(
-					getAnnotatedClasses(packageName, EzyPackagesScan.class));
+					reflection.getAnnotatedClasses(EzyPackagesScan.class));
 			configurationClasses.addAll(
-					getAnnotatedClasses(packageName, EzyConfiguration.class));
+					reflection.getAnnotatedClasses(EzyConfiguration.class));
 			return this;
 		}
 		
@@ -379,11 +380,6 @@ public class EzySimpleBindingContext
 			if(!answer.isEmpty())
 				return answer;
 			return EzyClasses.flatSuperAndInterfaceClasses(clazz);
-		}
-		
-		private Set<Class<?>> getAnnotatedClasses(
-				String packageName, Class<? extends Annotation> annClass) {
-			return EzyPackages.getAnnotatedClasses(packageName, annClass);
 		}
 		
 	}

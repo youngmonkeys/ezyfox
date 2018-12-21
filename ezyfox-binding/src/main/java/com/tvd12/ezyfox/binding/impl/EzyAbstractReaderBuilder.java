@@ -6,8 +6,8 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
 import com.tvd12.ezyfox.asm.EzyFunction;
-import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
+import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyPostRead;

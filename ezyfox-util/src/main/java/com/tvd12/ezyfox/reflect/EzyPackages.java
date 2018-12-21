@@ -7,9 +7,19 @@ import java.util.function.Function;
 import com.tvd12.reflections.Configuration;
 import com.tvd12.reflections.Reflections;
 import com.tvd12.reflections.util.ConfigurationBuilder;
-import com.tvd12.reflections.util.Utils;
 
 public final class EzyPackages {
+	
+	private EzyPackages() {
+	}
+	
+	public static EzyReflection scanPackage(String packet) {
+		return new EzyReflectionProxy(packet);
+	}
+	
+	public static EzyReflection scanPackages(Set<String> packages) {
+		return new EzyReflectionProxy(packages);
+	}
 
 	public static Set<Class<?>> getAnnotatedClasses(
 			String packageName, Class<? extends Annotation> annClass) {
@@ -52,13 +62,11 @@ public final class EzyPackages {
 	
 	private static Set<Class<?>> 
 			scanPackage(ClassLoader classLoader, String packageName, Function<Reflections, Set<Class<?>>> function) {
-		Reflections.log = null;
 		Configuration configuration = ConfigurationBuilder
 				.build(packageName)
 				.addClassLoader(classLoader);
 		Reflections reflections = new Reflections(configuration);
 		Set<Class<?>> classes = function.apply(reflections);
-		Reflections.log = Utils.findLogger(Reflections.class);
 		return classes;
 	}
 	
