@@ -26,6 +26,7 @@
 		    <groupId>org.msgpack</groupId>
 		    <artifactId>msgpack</artifactId>
 		    <version>${msgpack.version}</version>
+		    <optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

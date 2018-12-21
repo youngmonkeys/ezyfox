@@ -61,48 +61,14 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<joda.time.version>2.9.9</joda.time.version>
-		<reflections.version>0.9.12</reflections.version>
-		<commons.lang3.version>3.8.1</commons.lang3.version>
-		<properties.file.version>1.0.5</properties.file.version>
 		<lombok.version>1.16.20</lombok.version>
-		<slf4j.version>1.7.25</slf4j.version>
 		<directory.lib>lib</directory.lib>
 		<deploy.path>${env.EZYFOX_SERVER_HOME}</deploy.path>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.tvd12</groupId>
-			<artifactId>properties-file</artifactId>
-			<version>${properties.file.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons.lang3.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${joda.time.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.tvd12</groupId>
-			<artifactId>reflections</artifactId>
-			<version>${reflections.version}</version>
-		</dependency>
-
-		<!-- slf4j log -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
