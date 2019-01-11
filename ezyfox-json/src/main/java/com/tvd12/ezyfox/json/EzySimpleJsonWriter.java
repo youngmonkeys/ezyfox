@@ -52,9 +52,10 @@ public class EzySimpleJsonWriter implements EzyJsonWriter {
 					output.append(nexIndent).append(EzyStrings.quote(key)).append(": ");
 					String valueAsString = writeAsString(value, nexIndent);
 					output.append(valueAsString);
-					if((index ++) < size - 1)
+					if((index ++) < size - 1) {
 						output.append(",");
-					output.append("\n");
+						output.append("\n");
+					}
 				}
 				output.append("\n");
 			}
