@@ -14,7 +14,7 @@
 
 	<properties>
 		<ezy.common.version>1.0.0</ezy.common.version>
-		<jackson.version>2.9.7</jackson.version>
+		<jackson.version>2.9.8</jackson.version>
 	</properties>
 
 	<dependencies>

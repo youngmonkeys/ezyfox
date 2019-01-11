@@ -16,7 +16,7 @@
 	<properties>
 		<ezy.codec.version>1.0.0</ezy.codec.version>
 		<ezy.json.version>1.0.0</ezy.json.version>
-		<jackson.version>2.9.7</jackson.version>
+		<jackson.version>2.9.8</jackson.version>
 	</properties>
 	
 	<dependencies>
