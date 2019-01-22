@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.hazelcast.service;
+package com.tvd12.ezyfox.database.service;
 
 public interface EzyMaxIdServiceAware {
 

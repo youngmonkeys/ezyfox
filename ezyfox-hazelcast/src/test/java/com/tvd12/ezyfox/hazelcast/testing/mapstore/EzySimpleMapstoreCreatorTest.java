@@ -17,9 +17,11 @@ public class EzySimpleMapstoreCreatorTest extends BaseTest {
 		EzySimpleMapstoreCreator creator = new EzySimpleMapstoreCreator();
 		creator.setMapstoresFetcher(fetcher);
 		try {
+			System.out.println(creator.create("example_users", new Properties()));
 			creator.create("no", new Properties());
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

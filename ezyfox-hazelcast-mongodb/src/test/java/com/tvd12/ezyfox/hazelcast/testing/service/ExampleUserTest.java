@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.hazelcast.testing.service;
 import org.testng.annotations.Test;
 
 import com.hazelcast.core.IMap;
-import com.tvd12.ezyfox.hazelcast.service.EzySimpleMaxIdService;
+import com.tvd12.ezyfox.hazelcast.service.EzyTransactionalMaxIdService;
 import com.tvd12.ezyfox.hazelcast.testing.HazelcastBaseTest;
 import com.tvd12.ezyfox.hazelcast.testing.constant.Entities;
 import com.tvd12.ezyfox.hazelcast.testing.entity.ExampleUser;
@@ -12,7 +12,7 @@ public class ExampleUserTest extends HazelcastBaseTest {
 
 	@Test
 	public void test() throws Exception {
-		EzySimpleMaxIdService service = new EzySimpleMaxIdService();
+		EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService();
 		service.setHazelcastInstance(HZ_INSTANCE);
 		service.setMapTransactionFactory(MAP_TRANSACTION_FACTORY);
 		long userId1 = service.incrementAndGet(Entities.USER);

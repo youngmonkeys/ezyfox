@@ -14,7 +14,8 @@ import com.hazelcast.core.MapStore;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.database.annotation.EzyMapstore;
 import com.tvd12.ezyfox.reflect.EzyClasses;
-import com.tvd12.ezyfox.reflect.EzyPackages;
+import com.tvd12.ezyfox.reflect.EzyReflection;
+import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzySimpleMapstoresFetcher
@@ -56,12 +57,12 @@ public class EzySimpleMapstoresFetcher
 			extends EzyLoggable
 			implements EzyBuilder<EzyMapstoresFetcher> {
 
+		protected Set<String> packagesToScan = new HashSet<>();
 		protected Map<String, Object> mapstores = new HashMap<>();
 		protected Map<String, Class<?>> mapstoreClassMap = new HashMap<>();
 		
 		public Builder scan(String packageName) {
-			Set<Class<?>> classes = getMapstoreClasses(packageName);;
-			classes.forEach(this::addMapstoreClass);
+			this.packagesToScan.add(packageName);
 			return this;
 		}
 		
@@ -94,6 +95,10 @@ public class EzySimpleMapstoresFetcher
 		
 		@Override
 		public EzySimpleMapstoresFetcher build() {
+			EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
+			Set<Class<?>> mapstoreClasses = reflection.getAnnotatedClasses(EzyMapstore.class);
+			for(Class<?> clazz : mapstoreClasses)
+				addMapstoreClass(clazz);
 			for(String mapName : mapstoreClassMap.keySet()) {
 				Class clazz = mapstoreClassMap.get(mapName);
 				Object mapstore = newMapstore(clazz);
@@ -104,10 +109,6 @@ public class EzySimpleMapstoresFetcher
 		
 		protected Object newMapstore(Class<?> mapstoreClass) {
 			return EzyClasses.newInstance(mapstoreClass);
-		}
-		
-		private Set<Class<?>> getMapstoreClasses(String packageName) {
-			return EzyPackages.getAnnotatedClasses(packageName, EzyMapstore.class);
 		}
 		
 		private Builder addMapstoreClass(Supplier<String> mapNameSupplier, Class clazz) {

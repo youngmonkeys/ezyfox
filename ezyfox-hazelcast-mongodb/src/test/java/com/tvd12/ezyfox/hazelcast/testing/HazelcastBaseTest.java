@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import com.hazelcast.core.HazelcastInstance;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import com.tvd12.ezyfox.database.service.EzyMaxIdService;
 import com.tvd12.ezyfox.hazelcast.factory.EzyMapTransactionFactory;
 import com.tvd12.ezyfox.hazelcast.factory.EzySimpleMapTransactionFactory;
-import com.tvd12.ezyfox.hazelcast.service.EzyMaxIdService;
-import com.tvd12.ezyfox.hazelcast.service.EzySimpleMaxIdService;
+import com.tvd12.ezyfox.hazelcast.service.EzyTransactionalMaxIdService;
 import com.tvd12.ezyfox.hazelcast.testing.ExampleHazelcastCreator;
 import com.tvd12.ezyfox.hazelcast.testing.HazelcastBaseTest;
 import com.tvd12.ezyfox.io.EzyMaps;
@@ -46,7 +46,7 @@ public abstract class HazelcastBaseTest extends BaseTest {
 	}
 	
 	private static EzyMaxIdService newMaxIdService() {
-		EzySimpleMaxIdService service = new EzySimpleMaxIdService(HZ_INSTANCE);
+		EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService(HZ_INSTANCE);
 		service.setMapTransactionFactory(MAP_TRANSACTION_FACTORY);
 		return service;
 	}

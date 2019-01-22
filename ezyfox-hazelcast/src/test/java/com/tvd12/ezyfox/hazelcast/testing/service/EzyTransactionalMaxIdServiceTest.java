@@ -14,17 +14,17 @@ import com.hazelcast.core.IMap;
 import com.hazelcast.core.TransactionalMap;
 import com.tvd12.ezyfox.function.EzyExceptionFunction;
 import com.tvd12.ezyfox.hazelcast.factory.EzyMapTransactionFactory;
-import com.tvd12.ezyfox.hazelcast.service.EzySimpleMaxIdService;
+import com.tvd12.ezyfox.hazelcast.service.EzyTransactionalMaxIdService;
 import com.tvd12.ezyfox.hazelcast.testing.HazelcastBaseTest;
 import com.tvd12.ezyfox.hazelcast.transaction.EzyMapApplyTransaction;
 import com.tvd12.ezyfox.hazelcast.transaction.EzyMapReturnTransaction;
 import com.tvd12.ezyfox.hazelcast.transaction.EzyTransactionOptions;
 
-public class EzySimpleMaxIdServiceTest extends HazelcastBaseTest {
+public class EzyTransactionalMaxIdServiceTest extends HazelcastBaseTest {
 
 	@Test
 	public void test() throws Exception {
-		final EzySimpleMaxIdService service = new EzySimpleMaxIdService(HZ_INSTANCE);
+		final EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService(HZ_INSTANCE);
 		service.setMapTransactionFactory(MAP_TRANSACTION_FACTORY);
 		
 		List<Long> nums = new ArrayList<>();
@@ -36,13 +36,43 @@ public class EzySimpleMaxIdServiceTest extends HazelcastBaseTest {
 		}
 		for(int i = 0 ; i < threads.length ; i++) {
 			threads[i].start();
-			threads[i].join();
+//			threads[i].join();
 		}
+		
+		Thread.sleep(2000L);
 		
 		System.out.println(nums);
 		for(int i = 0 ; i < nums.size() - 1 ; i++) {
 			if(nums.get(i + 1) != nums.get(i) + 1) {
-				System.err.println("error in " + i);
+				System.err.println("transaction xxx: error in " + i);
+			}
+		}
+		
+	}
+	
+	@Test
+	public void test11() throws Exception {
+		final EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService(HZ_INSTANCE);
+		service.setMapTransactionFactory(MAP_TRANSACTION_FACTORY);
+		
+		List<Long> nums = new ArrayList<>();
+		Thread[] threads = new Thread[1000];
+		for(int i = 0 ; i < threads.length ; i++) {
+			threads[i] = new Thread(() -> {
+				nums.add(service.incrementAndGet("somethingx", 2));
+			});
+		}
+		for(int i = 0 ; i < threads.length ; i++) {
+			threads[i].start();
+//			threads[i].join();
+		}
+		
+		Thread.sleep(2000L);
+		
+		System.out.println(nums);
+		for(int i = 0 ; i < nums.size() - 1 ; i++) {
+			if(nums.get(i + 1) != nums.get(i) + 2) {
+				System.err.println("transaction yyy: error in " + i);
 			}
 		}
 		
@@ -50,7 +80,7 @@ public class EzySimpleMaxIdServiceTest extends HazelcastBaseTest {
 	
 	@Test(expectedExceptions = {IllegalStateException.class})
 	public void test2() {
-		EzySimpleMaxIdService service = new EzySimpleMaxIdService();
+		EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService();
 		service.setHazelcastInstance(HZ_INSTANCE);
 		service.setMapTransactionFactory(new EzyMapTransactionFactory() {
 			
@@ -91,7 +121,7 @@ public class EzySimpleMaxIdServiceTest extends HazelcastBaseTest {
 		IMap map = mock(IMap.class);
 		HazelcastInstance hzInstance = mock(HazelcastInstance.class);
 		when(hzInstance.getMap(anyString())).thenReturn(map);
-		EzySimpleMaxIdService service = new EzySimpleMaxIdService(hzInstance);
+		EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService(hzInstance);
 		service.setMapTransactionFactory(MAP_TRANSACTION_FACTORY);
 		service.loadAll();
 	}
