@@ -1,113 +1,119 @@
 package com.tvd12.ezyfox.rabbitmq.endpoint;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.AMQP.BasicProperties;
-import com.tvd12.ezyfox.rabbitmq.EzyRpcProcedureCaller;
-import com.tvd12.ezyfox.rabbitmq.codec.EzyRpcProcedureDeserializer;
-import com.tvd12.ezyfox.rabbitmq.codec.EzyRpcSimpleProcedureDeserializer;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcProcedure;
-import com.tvd12.ezyfox.rabbitmq.exception.EzyRpcException;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Delivery;
+import com.rabbitmq.client.RpcServer;
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitRpcCallHandler;
 
-public class EzyRabbitRpcServer extends EzyRabbitEndpoint {
+import lombok.Setter;
 
-	protected EzyRabbitRpcHandler server;
-	protected Map<String, Object> queueArguments;
-	protected EzyRpcProcedureCaller procedureCaller;
-	protected EzyRpcProcedureDeserializer procedureDeserializer;
+public class EzyRabbitRpcServer extends RpcServer {
 	
-	protected EzyRabbitRpcServer(Builder builder) {
-		super(builder);
-		this.queueArguments = builder.queueArguments;
-		this.procedureCaller = builder.procedureCaller;
-		this.procedureDeserializer = builder.newProcedureDeserializer();
+	@Setter
+	protected EzyRabbitRpcCallHandler callHandler;
+	protected String exchange;
+	protected String replyRoutingKey;
+	protected String queueName;
+	
+	public EzyRabbitRpcServer(
+			Channel channel, 
+			String exchange,
+			String replyRoutingKey) throws IOException {
+		this(channel, exchange, replyRoutingKey, null);
 	}
 	
+	public EzyRabbitRpcServer(
+			Channel channel, 
+			String exchange, 
+			String replyRoutingKey,
+			String queueName) throws IOException {
+		super(channel, queueName);
+		this.exchange = exchange;
+		this.replyRoutingKey = replyRoutingKey;
+		this.queueName = queueName;
+	}
+
 	@Override
-	public void start() throws Exception {
-		logger.info("start server queue = {}", queue);
-		server = newServer();
-		server.mainloop();
+	public void processRequest(Delivery request)
+	        throws IOException {
+	        AMQP.BasicProperties requestProperties = request.getProperties();
+	        String correlationId = requestProperties.getCorrelationId();
+	        if (correlationId != null) {
+	            AMQP.BasicProperties.Builder replyPropertiesBuilder = new AMQP.BasicProperties.Builder();
+	            byte[] replyBody = handleCall(request, replyPropertiesBuilder);
+	            replyPropertiesBuilder.correlationId(correlationId);
+	            AMQP.BasicProperties replyProperties = replyPropertiesBuilder.build();
+	            getChannel().basicPublish(exchange, replyRoutingKey, replyProperties, replyBody);
+	        } else {
+	            handleCast(request);
+	        }
 	}
 	
-	protected EzyRabbitRpcHandler newServer() throws IOException {
-		return new EzyRabbitRpcHandler(channel, queue) {
-			public byte[] handleCall(byte[] requestBody, 
-					BasicProperties.Builder replyPropertiesBuilder) {
-				return doHandleCall(requestBody, replyPropertiesBuilder);
-			}
-		};
-	}
-	
-	protected byte[] doHandleCall(byte[] requestBody, 
+	protected byte[] handleCall(
+			Delivery request, 
 			BasicProperties.Builder replyPropertiesBuilder) {
-		int code = 200;
-		String message = "success";
-		byte[] responseBody = null;
-		try {
-			EzyRpcProcedure procedure = getProcedure(requestBody);
-			Object answer = executeProcedure(procedure);
-			responseBody = serializeToBytes(answer);
-		}
-		catch (EzyRpcException e) {
-			code = e.getCode();
-			message = e.getMessage();
-		}
-		Map<String, Object> headers = new HashMap<>();
-		headers.put("code", code);
-		headers.put("msg", message);
-		replyPropertiesBuilder.headers(headers);
-		return responseBody;
+		byte[] answer = callHandler.handleCall(request, replyPropertiesBuilder);
+		return answer;
 	}
 	
-	protected Object executeProcedure(EzyRpcProcedure procedure) 
-			throws EzyRpcException {
-		return procedureCaller.call(procedure);
-	}
-	
-	protected EzyRpcProcedure getProcedure(byte[] body) {
-		return procedureDeserializer.deserialize(body);
-	}
-	
-	protected BasicProperties newReplyProps(BasicProperties rev) {
-		return new BasicProperties.Builder()
-	        .correlationId(rev.getCorrelationId())
-	        .build();
+	public void stop() throws Exception {
+		this.callHandler = null;
+		this.close();
 	}
 	
 	public static Builder builder() {
 		return new Builder();
 	}
 	
-	public static class Builder extends EzyRabbitEndpoint.Builder<Builder> {
-		protected Map<String, Object> queueArguments;
-		protected EzyRpcProcedureCaller procedureCaller;
-		protected EzyRpcProcedureDeserializer procedureDeserializer;
+	public static class Builder implements EzyBuilder<EzyRabbitRpcServer> {
+		protected Channel channel = null;
+		protected String exchange = "";
+		protected String replyRoutingKey = "";
+		protected String queueName = null;
+		protected EzyRabbitRpcCallHandler callHandler = null;
 		
-		public Builder queueArguments(Map<String, Object> queueArguments) {
-			this.queueArguments = queueArguments;
+		public Builder channel(Channel channel) {
+			this.channel = channel;
 			return this;
 		}
 		
-		public Builder procedureCaller(EzyRpcProcedureCaller procedureCaller) {
-			this.procedureCaller = procedureCaller;
+		public Builder exchange(String exchange) {
+			this.exchange = exchange;
+			return this;
+		}
+		
+		public Builder queueName(String queueName) {
+			this.queueName = queueName;
+			return this;
+		}
+		
+		public Builder replyRoutingKey(String replyRoutingKey) {
+			this.replyRoutingKey = replyRoutingKey;
+			return this;
+		}
+		
+		public Builder callHandler(EzyRabbitRpcCallHandler callHandler) {
+			this.callHandler = callHandler;
 			return this;
 		}
 		
 		@Override
 		public EzyRabbitRpcServer build() {
-			return new EzyRabbitRpcServer(this);
-		}
-
-		protected Map<String, Object> getQueueArguments() {
-			return queueArguments != null ? queueArguments : new HashMap<>();
+			try {
+				EzyRabbitRpcServer server = new EzyRabbitRpcServer(
+						channel, exchange, replyRoutingKey, queueName);
+				server.setCallHandler(callHandler);
+				return server;
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		}
 		
-		protected EzyRpcProcedureDeserializer newProcedureDeserializer() {
-			return new EzyRpcSimpleProcedureDeserializer(messageDeserializer);
-		}
 	}
 	
 }

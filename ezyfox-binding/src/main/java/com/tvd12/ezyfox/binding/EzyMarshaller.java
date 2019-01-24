@@ -7,4 +7,9 @@ public interface EzyMarshaller {
 	@SuppressWarnings("rawtypes")
 	<T> T marshal(Class<? extends EzyWriter> writerClass, Object object);
 	
+	@SuppressWarnings("rawtypes")
+	default <T> T marshal(Object object, Class<? extends EzyWriter> writerClass) {
+		return marshal(writerClass, object);
+	}
+	
 }

@@ -1,21 +1,23 @@
 package com.tvd12.ezyfox.rabbitmq;
 
 import com.rabbitmq.client.Channel;
-import com.tvd12.ezyfox.binding.EzyMarshaller;
-import com.tvd12.ezyfox.codec.EzyMessageSerializer;
+import com.tvd12.ezyfox.codec.EzyEntitySerializer;
 import com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessage;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-import lombok.Setter;
-
-@Setter
 public class EzyRabbitSimpleClient 
 		extends EzyLoggable 
-		implements EzyRabbitClient, EzyRabbitChannelAware {
+		implements EzyRabbitClient {
 
-	protected Channel channel;
-	protected EzyMarshaller marshaller;
-	protected EzyMessageSerializer messageSerializer;
+	protected final Channel channel;
+	protected final EzyEntitySerializer entitySerializer;
+	
+	public EzyRabbitSimpleClient(
+			Channel channel, 
+			EzyEntitySerializer entitySerializer) {
+		this.channel = channel;
+		this.entitySerializer = entitySerializer;
+	}
 	
 	@Override
 	public void shutdown() {
@@ -40,8 +42,7 @@ public class EzyRabbitSimpleClient
 	}
 	
 	protected byte[] object2bytes(Object object) {
-		Object value = marshaller.marshal(object);
-		byte[] bytes = messageSerializer.serialize(value);
+		byte[] bytes = entitySerializer.serialize(object);
 		return bytes;
 	}
 	

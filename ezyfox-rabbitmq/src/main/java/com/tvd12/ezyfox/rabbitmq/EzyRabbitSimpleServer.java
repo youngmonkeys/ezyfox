@@ -10,8 +10,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.ShutdownSignalException;
-import com.tvd12.ezyfox.binding.EzyUnmarshaller;
-import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
+import com.tvd12.ezyfox.codec.EzyEntityDeserializer;
 import com.tvd12.ezyfox.message.handler.EzyListMessageHandlers;
 import com.tvd12.ezyfox.message.handler.EzyMessageHandler;
 import com.tvd12.ezyfox.message.handler.EzyMessageHandlers;
@@ -22,25 +21,15 @@ import com.tvd12.ezyfox.util.EzyExceptionHandlers;
 import com.tvd12.ezyfox.util.EzyListExceptionHandlers;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-import lombok.Setter;
-
 public class EzyRabbitSimpleServer
 		extends EzyLoggable
-		implements EzyRabbitServer, EzyRabbitChannelAware, Consumer, Runnable {
+		implements EzyRabbitServer, Consumer, Runnable {
 
-	@Setter
 	protected Channel channel;
-	@Setter
 	protected ExecutorService startService;
-	@Setter
 	protected EzyRabbitServerConfig serverConfig;
-	@Setter
 	protected EzyRabbitMessageConfig messageConfig;
-
-	@Setter
-	protected EzyUnmarshaller unmarshaller;
-	@Setter
-	protected EzyMessageDeserializer messageDeserializer;
+	protected EzyEntityDeserializer entityDeserializer;
 	
 	protected EzyMessageHandlers messageHandlers = new EzyListMessageHandlers();
 	protected EzyExceptionHandlers exceptionHandlers = new EzyListExceptionHandlers();
@@ -120,8 +109,7 @@ public class EzyRabbitSimpleServer
 	}
 	
 	protected Object bytes2object(byte[] bytes) {
-		Object data = messageDeserializer.deserialize(bytes);
-		Object object = unmarshaller.unmarshal(data, messageConfig.getBodyType());
+		Object object = entityDeserializer.deserialize(bytes, messageConfig.getBodyType());
 		return object;
 	}
 

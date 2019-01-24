@@ -4,26 +4,19 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.tvd12.ezyfox.binding.EzyBindingContext;
-import com.tvd12.ezyfox.binding.EzyMarshaller;
-import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
-import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
-import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
-import com.tvd12.ezyfox.concurrent.EzyExecutors;
 import com.tvd12.ezyfox.message.handler.EzyMessageHandler;
 import com.tvd12.ezyfox.rabbitmq.EzyRabbitClient;
 import com.tvd12.ezyfox.rabbitmq.EzyRabbitServer;
-import com.tvd12.ezyfox.rabbitmq.EzyRabbitServerConfigBuilder;
-import com.tvd12.ezyfox.rabbitmq.EzyRabbitSimpleClient;
 import com.tvd12.ezyfox.rabbitmq.EzyRabbitSimpleServer;
 import com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessage;
 import com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessageBuilder;
-import com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessageConfigBuilder;
 import com.tvd12.ezyfox.rabbitmq.testing.entity.HelloMessage;
 import com.tvd12.ezyfox.util.EzyExceptionHandler;
 
 public class ClientServerTest {
 
+	@SuppressWarnings("unused")
 	private EzyBindingContext bindingContext;
 	
 	public ClientServerTest() {
@@ -46,29 +39,30 @@ public class ClientServerTest {
 	}
 	
 	private EzyRabbitClient newClient() throws Exception {
-		EzyMarshaller marshaller = bindingContext.newMarshaller();
-		Channel channel = createChannel();
-		EzyRabbitSimpleClient client = new EzyRabbitSimpleClient();
-		client.setChannel(channel);
-		client.setMarshaller(marshaller);
-		client.setMessageSerializer(new MsgPackSimpleSerializer());
-		return client;
+//		EzyMarshaller marshaller = bindingContext.newMarshaller();
+//		Channel channel = createChannel();
+//		EzyRabbitSimpleClient client = new EzyRabbitSimpleClient();
+//		client.setChannel(channel);
+//		client.setMarshaller(marshaller);
+//		client.setMessageSerializer(new MsgPackSimpleSerializer());
+//		return client;
+		return null;
 	}
 	
 	private EzyRabbitServer newServer() throws Exception {
-		EzyUnmarshaller unmarshaller = bindingContext.newUnmarshaller();
-		Channel channel = createChannel();
+//		EzyUnmarshaller unmarshaller = bindingContext.newUnmarshaller();
+//		Channel channel = createChannel();
 		EzyRabbitSimpleServer server = new EzyRabbitSimpleServer();
-		server.setChannel(channel);
-		server.setUnmarshaller(unmarshaller);
-		server.setMessageConfig(EzyRabbitMessageConfigBuilder.messageConfigBuilder()
-				.bodyType(HelloMessage.class)
-				.build());
-		server.setMessageDeserializer(new MsgPackSimpleDeserializer());
-		server.setServerConfig(EzyRabbitServerConfigBuilder.serverConfigBuilder()
-				.queue("example-queue")
-				.build());
-		server.setStartService(EzyExecutors.newSingleThreadExecutor("rabbit-server"));
+//		server.setChannel(channel);
+//		server.setUnmarshaller(unmarshaller);
+//		server.setMessageConfig(EzyRabbitMessageConfigBuilder.messageConfigBuilder()
+//				.bodyType(HelloMessage.class)
+//				.build());
+//		server.setMessageDeserializer(new MsgPackSimpleDeserializer());
+//		server.setServerConfig(EzyRabbitServerConfigBuilder.serverConfigBuilder()
+//				.queue("example-queue")
+//				.build());
+//		server.setStartService(EzyExecutors.newSingleThreadExecutor("rabbit-server"));
 		server.addMessagesHandler(new EzyMessageHandler<EzyRabbitMessage>() {
 			@Override
 			public void handleMessage(EzyRabbitMessage message) {
@@ -91,6 +85,7 @@ public class ClientServerTest {
 				.build();
 	}
 	
+	@SuppressWarnings("unused")
 	private Channel createChannel() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
