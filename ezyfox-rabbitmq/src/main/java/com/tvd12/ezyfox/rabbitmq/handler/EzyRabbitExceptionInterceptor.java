@@ -1,6 +1,6 @@
 package com.tvd12.ezyfox.rabbitmq.handler;
 
-public interface RabbitExceptionInterceptor {
+public interface EzyRabbitExceptionInterceptor {
 	
 	void intercept(String cmd, Object requestData, Exception e);
 	

@@ -12,8 +12,8 @@ import com.tvd12.ezyfox.exception.EzyTimeoutException;
 import com.tvd12.ezyfox.exception.InternalServerErrorException;
 import com.tvd12.ezyfox.exception.NotFoundException;
 import com.tvd12.ezyfox.message.EzyMessageTypeFetcher;
-import com.tvd12.ezyfox.rabbitmq.constant.RabbitKeys;
-import com.tvd12.ezyfox.rabbitmq.constant.RabbitStatusCodes;
+import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitKeys;
+import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitStatusCodes;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyStoppable;
 
@@ -61,16 +61,16 @@ public class EzyRabbitRpcCaller extends EzyLoggable implements EzyStoppable {
     protected void processResponseHeaders(Map<String, Object> responseHeaders) {
     		if(responseHeaders == null)
     			return;
-    		if(!responseHeaders.containsKey(RabbitKeys.STATUS))
+    		if(!responseHeaders.containsKey(EzyRabbitKeys.STATUS))
     			return;
-    		int status = (int)responseHeaders.get(RabbitKeys.STATUS);
-        String message = (String)responseHeaders.get(RabbitKeys.MESSAGE);
-        int code = (int) responseHeaders.get(RabbitKeys.ERROR_CODE);
-        if (status == RabbitStatusCodes.NOT_FOUND)
+    		int status = (int)responseHeaders.get(EzyRabbitKeys.STATUS);
+        String message = (String)responseHeaders.get(EzyRabbitKeys.MESSAGE);
+        int code = (int) responseHeaders.get(EzyRabbitKeys.ERROR_CODE);
+        if (status == EzyRabbitStatusCodes.NOT_FOUND)
             throw new NotFoundException(message);
-        if (status == RabbitStatusCodes.BAD_REQUEST)
+        if (status == EzyRabbitStatusCodes.BAD_REQUEST)
             throw new BadRequestException(code, message);
-        if (status == RabbitStatusCodes.INTERNAL_SERVER_ERROR)
+        if (status == EzyRabbitStatusCodes.INTERNAL_SERVER_ERROR)
             throw new InternalServerErrorException(message);
     }
     
