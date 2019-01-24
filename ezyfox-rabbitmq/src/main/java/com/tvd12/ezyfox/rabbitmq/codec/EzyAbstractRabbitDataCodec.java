@@ -14,7 +14,6 @@ public abstract class EzyAbstractRabbitDataCodec implements EzyRabbitDataCodec {
 	protected EzyMarshaller marshaller;
 	protected EzyUnmarshaller unmarshaller;
 	protected Map<String, Class> requestTypeMap;
-	protected Map<String, Class> responseTypeMap;
 	
 	public EzyAbstractRabbitDataCodec() {
 	}
@@ -27,13 +26,9 @@ public abstract class EzyAbstractRabbitDataCodec implements EzyRabbitDataCodec {
 		this.marshaller = marshaller;
 		this.unmarshaller = unmarshaller;
 		this.requestTypeMap = requestTypeMap;
-		this.responseTypeMap = responseTypeMap;
 	}
 	
-	protected Object marshallEntity(String cmd, Object entity) {
-		Class responseType = responseTypeMap.get(cmd);
-		if(responseType == null)
-			throw new IllegalArgumentException("has no response type with command: " + cmd);
+	protected Object marshallEntity(Object entity) {
 		Object answer = marshaller.marshal(entity);
 		return answer;
 	}

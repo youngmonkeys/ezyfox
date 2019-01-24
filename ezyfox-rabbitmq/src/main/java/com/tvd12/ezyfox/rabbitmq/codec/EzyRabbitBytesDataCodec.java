@@ -46,8 +46,8 @@ public class EzyRabbitBytesDataCodec extends EzyAbstractRabbitDataCodec  {
 	}
 
 	@Override
-	public byte[] serialize(String cmd, Object response) {
-		Object data = marshallEntity(cmd, response);
+	public byte[] serialize(Object response) {
+		Object data = marshallEntity(response);
 		byte[] bytes = messageSerializer.serialize(data);
 		return bytes;
 	}

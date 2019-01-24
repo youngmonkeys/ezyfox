@@ -70,7 +70,7 @@ public class EzyRabbitRpcHandler
             if (actionInterceptor != null)
                 actionInterceptor.intercept(cmd, requestEntity);
             responseEntity = requestHandlers.handle(cmd, requestEntity);
-            responseBytes = dataCodec.serialize(cmd, responseEntity);
+            responseBytes = dataCodec.serialize(responseEntity);
             if (actionInterceptor != null)
                 actionInterceptor.intercept(cmd, requestEntity, responseEntity);
         }

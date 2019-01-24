@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.rabbitmq;
 
-import static com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessageBuilder.messageBuilder;
-
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 
@@ -10,15 +8,9 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.ShutdownSignalException;
-import com.tvd12.ezyfox.codec.EzyEntityDeserializer;
-import com.tvd12.ezyfox.message.handler.EzyListMessageHandlers;
-import com.tvd12.ezyfox.message.handler.EzyMessageHandler;
-import com.tvd12.ezyfox.message.handler.EzyMessageHandlers;
-import com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessage;
-import com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessageConfig;
-import com.tvd12.ezyfox.util.EzyExceptionHandler;
-import com.tvd12.ezyfox.util.EzyExceptionHandlers;
-import com.tvd12.ezyfox.util.EzyListExceptionHandlers;
+import com.tvd12.ezyfox.pattern.EzyDataHandler;
+import com.tvd12.ezyfox.pattern.EzyDataHandlers;
+import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitDataDeserializer;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzyRabbitSimpleServer
@@ -28,11 +20,16 @@ public class EzyRabbitSimpleServer
 	protected Channel channel;
 	protected ExecutorService startService;
 	protected EzyRabbitServerConfig serverConfig;
-	protected EzyRabbitMessageConfig messageConfig;
-	protected EzyEntityDeserializer entityDeserializer;
+	protected EzyRabbitDataDeserializer dataDeserializer;
+	protected EzyDataHandlers requestHandlers;
 	
-	protected EzyMessageHandlers messageHandlers = new EzyListMessageHandlers();
-	protected EzyExceptionHandlers exceptionHandlers = new EzyListExceptionHandlers();
+	public EzyRabbitSimpleServer(
+			EzyRabbitServerConfig serverConfig,
+			Channel channel,
+			EzyRabbitDataDeserializer dataDeserializer,
+			EzyDataHandlers requestHandlers,
+			ExecutorService startService) {
+	}
 	
 	@Override
 	public void run() {
@@ -64,17 +61,6 @@ public class EzyRabbitSimpleServer
 		);
 	}
 	
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void addMessagesHandler(EzyMessageHandler messageHandler) {
-		messageHandlers.addMessageHandler(messageHandler);
-	}
-	
-	@Override
-	public void addExceptionHandler(EzyExceptionHandler exceptionHandler) {
-		exceptionHandlers.addExceptionHandler(exceptionHandler);
-	}
-	
 	@Override
 	public void handleConsumeOk(String consumerTag) {
 	}
@@ -87,30 +73,21 @@ public class EzyRabbitSimpleServer
 	public void handleCancel(String consumerTag) throws IOException {
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	public void handleDelivery(String consumerTag,
             Envelope envelope,
             AMQP.BasicProperties properties,
             byte[] body) throws IOException {
+		String cmd = properties.getType();
+		EzyDataHandler handler = requestHandlers.getHandler(cmd);
 		try {
-			Object object = bytes2object(body);
-			EzyRabbitMessage message = messageBuilder()
-					.body(object)
-					.exchange(envelope.getExchange())
-					.routingKey(envelope.getRoutingKey())
-					.properties(properties)
-					.build();
-			messageHandlers.handleMessage(message);
+			Object requestData = dataDeserializer.deserialize(cmd, body);
+			handler.handleData(requestData);
 		}
 		catch(Exception e) {
-			exceptionHandlers.handleException(Thread.currentThread(), e);
+			handler.handleException(Thread.currentThread(), e);
 		}
-	}
-	
-	protected Object bytes2object(byte[] bytes) {
-		Object object = entityDeserializer.deserialize(bytes, messageConfig.getBodyType());
-		return object;
 	}
 
 	@Override

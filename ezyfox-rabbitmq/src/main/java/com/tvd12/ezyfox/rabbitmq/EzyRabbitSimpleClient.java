@@ -1,22 +1,28 @@
 package com.tvd12.ezyfox.rabbitmq;
 
+import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
-import com.tvd12.ezyfox.codec.EzyEntitySerializer;
-import com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessage;
+import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitDataSerializer;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzyRabbitSimpleClient 
 		extends EzyLoggable 
 		implements EzyRabbitClient {
 
-	protected final Channel channel;
-	protected final EzyEntitySerializer entitySerializer;
+	protected Channel channel;
+	protected String exchange;
+	protected String routingKey;
+	protected EzyRabbitDataSerializer dataSerializer;
 	
 	public EzyRabbitSimpleClient(
 			Channel channel, 
-			EzyEntitySerializer entitySerializer) {
+			String exchange,
+			String routingKey,
+			EzyRabbitDataSerializer dataSerializer) {
 		this.channel = channel;
-		this.entitySerializer = entitySerializer;
+		this.exchange = exchange;
+		this.routingKey = routingKey;
+		this.dataSerializer = dataSerializer;
 	}
 	
 	@Override
@@ -24,26 +30,20 @@ public class EzyRabbitSimpleClient
 	}
 	
 	@Override
-	public void send(EzyRabbitMessage message) {
+	public void send(String cmd, Object data) {
 		try {
-			byte[] body = object2bytes(message.getBody());
+			byte[] body = dataSerializer.serialize(data);
+			BasicProperties properties = new BasicProperties.Builder()
+					.type(cmd)
+					.build();
 			channel.basicPublish(
-					message.getExchange(), 
-					message.getRoutingKey(), 
-					message.isMandatory(), 
-					message.isImmediate(), 
-					message.getProperties(),
-					body
+					exchange, 
+					routingKey, properties, body
 			);
 		}
 		catch(Exception e) {
-			throw new IllegalArgumentException("can't send message: " + message, e);
+			throw new IllegalArgumentException("can't send cmd: " + cmd + " with data: " + data, e);
 		}
-	}
-	
-	protected byte[] object2bytes(Object object) {
-		byte[] bytes = entitySerializer.serialize(object);
-		return bytes;
 	}
 	
 }

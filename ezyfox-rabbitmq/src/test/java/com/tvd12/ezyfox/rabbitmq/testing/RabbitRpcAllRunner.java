@@ -49,7 +49,7 @@ public class RabbitRpcAllRunner extends EzyLoggable {
 				.unmarshaller(unmarshaller)
 				.messageSerializer(messageSerializer)
 				.messageDeserializer(messageDeserializer)
-				.mapRequestResponseType("fibonaci", int.class, int.class)
+				.mapRequestType("fibonaci", int.class)
 				.build();
 		this.requestHandlers = new EzyRabbitRequestHandlers();
 		this.requestHandlers.addHandler("fibonaci", a -> {
