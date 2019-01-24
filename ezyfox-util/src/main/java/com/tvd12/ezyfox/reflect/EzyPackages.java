@@ -20,6 +20,10 @@ public final class EzyPackages {
 	public static EzyReflection scanPackages(Set<String> packages) {
 		return new EzyReflectionProxy(packages);
 	}
+	
+	public static EzyReflection scanPackages(Iterable<String> packages) {
+		return new EzyReflectionProxy(packages);
+	}
 
 	public static Set<Class<?>> getAnnotatedClasses(
 			String packageName, Class<? extends Annotation> annClass) {

@@ -191,11 +191,7 @@ public class EzySimpleBeanContext
 		@Override
 		public EzyBeanContextBuilder scan(String packageName) {
 			EzyReflection reflection = EzyPackages.scanPackage(packageName);
-			singletonClasses.addAll(reflection.getAnnotatedClasses(EzySingleton.class));
-			prototypeClasses.addAll(reflection.getAnnotatedClasses(EzyPrototype.class));
-			packagesScanClasses.addAll(reflection.getAnnotatedClasses(EzyPackagesScan.class));
-			configurationClasses.addAll(reflection.getAnnotatedClasses(EzyConfiguration.class));
-			configurationBeforeClasses.addAll(reflection.getAnnotatedClasses(EzyConfigurationBefore.class));
+			addAllClasses(reflection);
 			return this;
 		}
 		
@@ -212,7 +208,8 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder scan(Iterable<String> packageNames) {
-			packageNames.forEach(this::scan);
+			EzyReflection reflection = EzyPackages.scanPackages(packageNames);
+			addAllClasses(reflection);
 			return this;	
 		}
 		
@@ -463,6 +460,14 @@ public class EzySimpleBeanContext
 				}
 			}
 			throw EzySingletonException.implementationNotFound(key, unloadedSingletons.get(key));
+		}
+		
+		private void addAllClasses(EzyReflection reflection) {
+			singletonClasses.addAll(reflection.getAnnotatedClasses(EzySingleton.class));
+			prototypeClasses.addAll(reflection.getAnnotatedClasses(EzyPrototype.class));
+			packagesScanClasses.addAll(reflection.getAnnotatedClasses(EzyPackagesScan.class));
+			configurationClasses.addAll(reflection.getAnnotatedClasses(EzyConfiguration.class));
+			configurationBeforeClasses.addAll(reflection.getAnnotatedClasses(EzyConfigurationBefore.class));
 		}
 		
 		private EzyPropertiesReader getPropertiesReader() {

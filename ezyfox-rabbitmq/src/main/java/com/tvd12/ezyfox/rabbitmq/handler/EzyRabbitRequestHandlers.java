@@ -18,7 +18,7 @@ public class EzyRabbitRequestHandlers {
         throw new IllegalArgumentException("has no handler with command: " + cmd);
     }
 
-	public Object handle(String cmd, Object request) {
+	public Object handle(String cmd, Object request) throws Exception {
         EzyRabbitRequestHandler handler = getHandler(cmd);
         Object answer = handler.handle(request);
         return answer;
