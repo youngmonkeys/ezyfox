@@ -12,7 +12,7 @@
 	<version>1.0.0</version>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<mongodb.version>3.4.0</mongodb.version>
+		<mongodb.version>3.9.1</mongodb.version>
 		<ezy.bean.version>1.0.0</ezy.bean.version>
 		<ezy.io.version>1.0.0</ezy.io.version>
 		<ezy.database.version>1.0.0</ezy.database.version>

@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.io;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.util.Collection;
 
 public final class EzyStrings {
 	
@@ -62,6 +63,32 @@ public final class EzyStrings {
 		for(int i = 0 ; i < count ; i++)
 			builder.append(ch);
 		return builder.toString();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static String wrap(
+			Collection collection,
+			String open, 
+			String close, 
+			String separator, boolean noWrapIfNull) {
+		if(collection == null) {
+			if(noWrapIfNull)
+				return NULL;
+			return new StringBuilder()
+					.append(open)
+					.append(close)
+					.toString();
+		}
+		int size = collection.size();
+		StringBuilder builder = new StringBuilder(open);
+		int index = 0;
+		for(Object item : collection) {
+			builder.append(item);
+			if((++ index) < size)
+				builder.append(separator);
+		}
+		return builder.append(close).toString();
+		
 	}
 	
 }

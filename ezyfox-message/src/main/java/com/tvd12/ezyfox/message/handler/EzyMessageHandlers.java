@@ -1,8 +1,10 @@
 package com.tvd12.ezyfox.message.handler;
 
 @SuppressWarnings("rawtypes")
-public interface EzyMessageHandlers extends EzyMessageHandler {
+public interface EzyMessageHandlers {
 
-	void addMessageHandler(EzyMessageHandler handler);
+	EzyMessageHandler getHandler(Object messageType);
+	
+	void addHandler(Object messageType, EzyMessageHandler handler);
 	
 }

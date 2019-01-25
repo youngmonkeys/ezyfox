@@ -124,20 +124,7 @@ public class EzySimpleBindingContext
 		@Override
 		public EzyBindingContextBuilder scan(String packageName) {
 			EzyReflection reflection = EzyPackages.scanPackage(packageName);
-			objectBindingClasses.addAll(
-					reflection.getAnnotatedClasses(EzyObjectBinding.class));
-			arrayBindingClasses.addAll(
-					reflection.getAnnotatedClasses(EzyArrayBinding.class));
-			writerImplClasses.addAll(
-					reflection.getAnnotatedClasses(EzyWriterImpl.class));
-			readerImplClasses.addAll(
-					reflection.getAnnotatedClasses(EzyReaderImpl.class));
-			addTemplateClasses(
-					reflection.getAnnotatedClasses(EzyTemplateImpl.class));
-			packagesScanClasses.addAll(
-					reflection.getAnnotatedClasses(EzyPackagesScan.class));
-			configurationClasses.addAll(
-					reflection.getAnnotatedClasses(EzyConfiguration.class));
+			this.addAllClasses(reflection);
 			return this;
 		}
 		
@@ -154,7 +141,8 @@ public class EzySimpleBindingContext
 		 */
 		@Override
 		public EzyBindingContextBuilder scan(Iterable<String> packageNames) {
-			packageNames.forEach(this::scan);
+			EzyReflection reflection = EzyPackages.scanPackages(packageNames);
+			addAllClasses(reflection);
 			return this;
 		}
 		
@@ -380,6 +368,23 @@ public class EzySimpleBindingContext
 			if(!answer.isEmpty())
 				return answer;
 			return EzyClasses.flatSuperAndInterfaceClasses(clazz);
+		}
+		
+		private void addAllClasses(EzyReflection reflection) {
+			objectBindingClasses.addAll(
+					reflection.getAnnotatedClasses(EzyObjectBinding.class));
+			arrayBindingClasses.addAll(
+					reflection.getAnnotatedClasses(EzyArrayBinding.class));
+			writerImplClasses.addAll(
+					reflection.getAnnotatedClasses(EzyWriterImpl.class));
+			readerImplClasses.addAll(
+					reflection.getAnnotatedClasses(EzyReaderImpl.class));
+			addTemplateClasses(
+					reflection.getAnnotatedClasses(EzyTemplateImpl.class));
+			packagesScanClasses.addAll(
+					reflection.getAnnotatedClasses(EzyPackagesScan.class));
+			configurationClasses.addAll(
+					reflection.getAnnotatedClasses(EzyConfiguration.class));
 		}
 		
 	}

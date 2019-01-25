@@ -4,134 +4,97 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
-import com.rabbitmq.client.AMQP.BasicProperties;
-import com.rabbitmq.client.RpcClient.Response;
-import com.tvd12.ezyfox.rabbitmq.EzyRpcClient;
-import com.tvd12.ezyfox.rabbitmq.codec.EzyRpcProcedureSerializer;
-import com.tvd12.ezyfox.rabbitmq.codec.EzyRpcSimpleProcedureSerializer;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcHeaders;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcProcedure;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcResponseEntity;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcSimpleHeaders;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcSimpleResponseEntity;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcValueProcedure;
-import com.tvd12.ezyfox.rabbitmq.factory.EzyCorrelationIdFactory;
-import com.tvd12.ezyfox.rabbitmq.factory.EzySimpleCorrelationIdFactory;
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.RpcClient;
 import com.rabbitmq.client.ShutdownSignalException;
+import com.rabbitmq.utility.BlockingCell;
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.rabbitmq.EzyCorrelationIdFactory;
+import com.tvd12.ezyfox.rabbitmq.factory.EzySimpleCorrelationIdFactory;
 
-public class EzyRabbitRpcClient 
-		extends EzyRabbitEndpoint implements EzyRpcClient {
+public class EzyRabbitRpcClient extends RpcClient {
 
-	protected int timeout;
-	protected String exchange;
-	protected String routingKey;
-	protected String replyQueue;
-	
 	protected EzyCorrelationIdFactory correlationIdFactory;
-	protected EzyRpcProcedureSerializer procedureSerializer;
 	
-	protected EzyRabbitRpcCaller client;
-	
-	protected EzyRabbitRpcClient(Builder builder) {
-		super(builder);
-		this.timeout = builder.timeout;
-		this.exchange = builder.exchange;
-		this.replyQueue = builder.replyQueue;
-		this.routingKey = builder.routingKey;
-		this.procedureSerializer = builder.getProcedureSeriazlier();
-		this.correlationIdFactory = builder.getCorrelationIdFactory();
-	}
-	
-	@Override
-	public void start() throws Exception {
-		this.client = newClient();
-	}
-	
-	protected EzyRabbitRpcCaller newClient() throws IOException {
-		return new EzyRabbitRpcCaller(channel, exchange, routingKey, replyQueue, timeout);
-	}
-	
-	@Override
-	public EzyRpcResponseEntity sync(EzyRpcProcedure procedure) {
-		try {
-			return call(procedure);
-		}
-		catch(Exception e) {
-			throw new IllegalArgumentException(e);
-		}
-	}
-	
-	public EzyRpcResponseEntity call(EzyRpcProcedure procedure) 
-			throws IOException, ShutdownSignalException, TimeoutException {
-        return call(procedure, newCorrelationId());
+	public EzyRabbitRpcClient(
+			Channel channel, 
+			String exchange, 
+			String routingKey,
+			String replyQueueName, int timeout) throws IOException {
+        this(channel, 
+        		exchange, 
+        		routingKey, 
+        		replyQueueName,
+        		timeout, new EzySimpleCorrelationIdFactory());
     }
 	
-	protected EzyRpcResponseEntity call(EzyRpcProcedure procedure, String corrId) 
-			throws IOException, ShutdownSignalException, TimeoutException {
-		byte[] body = serializeProcedure(procedure);
-		BasicProperties props = newReplyProperties(corrId);
-		Response response = client.doCall(props, body);
-		Object responseBody = deserializeResult(response.getBody(), getReturnType(procedure));
-		EzyRpcHeaders responseHeader = newResponseHeaders(response.getProperties().getHeaders());
-		return newResponseEntity(responseHeader, responseBody);
-	}
-	
-	protected EzyRpcResponseEntity newResponseEntity(EzyRpcHeaders headers, Object body) {
-		return EzyRpcSimpleResponseEntity.builder().headers(headers).body(body).build();
-	}
-	
-	@SuppressWarnings("rawtypes")
-	protected EzyRpcHeaders newResponseHeaders(Map headers) {
-		return EzyRpcSimpleHeaders.builder().putAll(headers).build();
-	}
-	
-	@SuppressWarnings("rawtypes")
-	protected Class getReturnType(EzyRpcProcedure procedure) {
-		if(!(procedure instanceof EzyRpcValueProcedure))
-			return null;
-		return ((EzyRpcValueProcedure) procedure).getReturnType();
-	}
-	
-	@SuppressWarnings("rawtypes")
-	protected <T> T deserializeResult(byte[] result, Class type) {
-		return deserializeToObject(result);
-	}
-	
-	protected byte[] serializeProcedure(EzyRpcProcedure procedure) {
-		return procedureSerializer.serialize(procedure);
-	}
-	
-	protected BasicProperties newReplyProperties(String correlationId) {
-		return new BasicProperties.Builder()
-                .correlationId(correlationId)
-                .replyTo(replyQueue)
-                .build();
-	}
-	
-	protected String newCorrelationId() {
-		return correlationIdFactory.newCorrelationId();
+	public EzyRabbitRpcClient(
+			Channel channel, 
+			String exchange, 
+			String routingKey,
+			String replyQueueName,
+			int timeout, 
+			EzyCorrelationIdFactory correlationIdFactory) throws IOException {
+        super(channel, exchange, routingKey, replyQueueName, timeout);
+        this.correlationIdFactory = correlationIdFactory;
+    }
+ 
+	public Response doCall(AMQP.BasicProperties props, byte[] message, int timeout)
+	        throws IOException, ShutdownSignalException, TimeoutException {
+        checkConsumer();
+        BlockingCell<Object> k = new BlockingCell<Object>();
+        Map<String, BlockingCell<Object>> continuationMap = getContinuationMap();
+        String replyId = correlationIdFactory.newCorrelationId();
+        props = ((props==null) ? new AMQP.BasicProperties.Builder() : props.builder())
+                .correlationId(replyId).build();
+        synchronized (continuationMap) {
+            continuationMap.put(replyId, k);
+        }
+        publish(props, message);
+        Object reply;
+        try {
+            reply = k.uninterruptibleGet(timeout);
+        } catch (TimeoutException ex) {
+            // Avoid potential leak.  This entry is no longer needed by caller.
+        		synchronized (continuationMap) {
+        			continuationMap.remove(replyId);
+        		}
+            throw ex;
+        }
+        if (reply instanceof ShutdownSignalException) {
+            ShutdownSignalException sig = (ShutdownSignalException) reply;
+            ShutdownSignalException wrapper =
+                new ShutdownSignalException(sig.isHardError(),
+                                            sig.isInitiatedByApplication(),
+                                            sig.getReason(),
+                                            sig.getReference());
+            wrapper.initCause(sig);
+            throw wrapper;
+        } else {
+            return (Response) reply;
+        }
 	}
 	
 	public static Builder builder() {
 		return new Builder();
 	}
 	
-	public static class Builder extends EzyRabbitEndpoint.Builder<Builder> {
-		protected int timeout = 3000;
-		protected String replyQueue = "hello-queue";
-		protected String routingKey = "hola";
-		protected String exchange = "hello-exchange";
-		
+	public static class Builder implements EzyBuilder<EzyRabbitRpcClient> {
+		protected int timeout;
+		protected Channel channel; 
+		protected String exchange; 
+		protected String routingKey; 
+		protected String replyQueueName;
 		protected EzyCorrelationIdFactory correlationIdFactory;
-		protected EzyRpcProcedureSerializer procedureSerializer;
 		
 		public Builder timeout(int timeout) {
 			this.timeout = timeout;
 			return this;
 		}
 		
-		public Builder replyQueue(String replyQueue) {
-			this.replyQueue = replyQueue;
+		public Builder channel(Channel channel) {
+			this.channel = channel;
 			return this;
 		}
 		
@@ -145,30 +108,36 @@ public class EzyRabbitRpcClient
 			return this;
 		}
 		
-		@Override
-		public EzyRabbitRpcClient build() {
-			return new EzyRabbitRpcClient(this);
+		public Builder replyQueueName(String replyQueueName) {
+			this.replyQueueName = replyQueueName;
+			return this;
 		}
 		
-		protected String getReplyQueue() {
+		public Builder correlationIdFactory(EzyCorrelationIdFactory correlationIdFactory) {
+			this.correlationIdFactory = correlationIdFactory;
+			return this;
+		}
+		
+		@Override
+		public EzyRabbitRpcClient build() {
 			try {
-				return channel.queueDeclare().getQueue();
-			} catch (IOException e) {
-				throw new IllegalStateException(e);
+				return new EzyRabbitRpcClient(
+						channel, 
+						exchange, 
+						routingKey, 
+						replyQueueName, 
+						timeout, getCorrelationIdFactory());
+			}
+			catch(Exception e) {
+				throw new RuntimeException(e);
 			}
 		}
 		
-		protected EzyCorrelationIdFactory getCorrelationIdFactory() {
+		private EzyCorrelationIdFactory getCorrelationIdFactory() {
 			if(correlationIdFactory != null)
 				return correlationIdFactory;
 			return new EzySimpleCorrelationIdFactory();
 		}
-		
-		protected EzyRpcProcedureSerializer getProcedureSeriazlier() {
-			if(procedureSerializer != null)
-				return procedureSerializer;
-			return new EzyRpcSimpleProcedureSerializer(messageSerializer);
-		}
-		
 	}
+	
 }

@@ -1,48 +1,49 @@
 package com.tvd12.ezyfox.rabbitmq;
 
+import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
-import com.tvd12.ezyfox.binding.EzyMarshaller;
-import com.tvd12.ezyfox.codec.EzyMessageSerializer;
-import com.tvd12.ezyfox.rabbitmq.message.EzyRabbitMessage;
+import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitDataSerializer;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-import lombok.Setter;
-
-@Setter
 public class EzyRabbitSimpleClient 
 		extends EzyLoggable 
-		implements EzyRabbitClient, EzyRabbitChannelAware {
+		implements EzyRabbitClient {
 
 	protected Channel channel;
-	protected EzyMarshaller marshaller;
-	protected EzyMessageSerializer messageSerializer;
+	protected String exchange;
+	protected String routingKey;
+	protected EzyRabbitDataSerializer dataSerializer;
+	
+	public EzyRabbitSimpleClient(
+			Channel channel, 
+			String exchange,
+			String routingKey,
+			EzyRabbitDataSerializer dataSerializer) {
+		this.channel = channel;
+		this.exchange = exchange;
+		this.routingKey = routingKey;
+		this.dataSerializer = dataSerializer;
+	}
 	
 	@Override
 	public void shutdown() {
 	}
 	
 	@Override
-	public void send(EzyRabbitMessage message) {
+	public void send(String cmd, Object data) {
 		try {
-			byte[] body = object2bytes(message.getBody());
+			byte[] body = dataSerializer.serialize(data);
+			BasicProperties properties = new BasicProperties.Builder()
+					.type(cmd)
+					.build();
 			channel.basicPublish(
-					message.getExchange(), 
-					message.getRoutingKey(), 
-					message.isMandatory(), 
-					message.isImmediate(), 
-					message.getProperties(),
-					body
+					exchange, 
+					routingKey, properties, body
 			);
 		}
 		catch(Exception e) {
-			throw new IllegalArgumentException("can't send message: " + message, e);
+			throw new IllegalArgumentException("can't send cmd: " + cmd + " with data: " + data, e);
 		}
-	}
-	
-	protected byte[] object2bytes(Object object) {
-		Object value = marshaller.marshal(object);
-		byte[] bytes = messageSerializer.serialize(value);
-		return bytes;
 	}
 	
 }

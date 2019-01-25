@@ -1,60 +1,156 @@
-// Copyright (c) 2007-Present Pivotal Software, Inc.  All rights reserved.
-//
-// This software, the RabbitMQ Java client library, is triple-licensed under the
-// Mozilla Public License 1.1 ("MPL"), the GNU General Public License version 2
-// ("GPL") and the Apache License version 2 ("ASL"). For the MPL, please see
-// LICENSE-MPL-RabbitMQ. For the GPL, please see LICENSE-GPL2.  For the ASL,
-// please see LICENSE-APACHE2.
-//
-// This software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND,
-// either express or implied. See the LICENSE file for specific language governing
-// rights and limitations of this software.
-//
-// If you have any questions regarding licensing, please contact us at
-// info@rabbitmq.com.
-
 package com.tvd12.ezyfox.rabbitmq.endpoint;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.AMQP.BasicProperties;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Delivery;
-import com.rabbitmq.client.RpcServer;
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.exception.BadRequestException;
+import com.tvd12.ezyfox.exception.NotFoundException;
+import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitDataCodec;
+import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitErrorCodes;
+import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitKeys;
+import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitStatusCodes;
+import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitRequestHandlers;
+import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitRpcCallHandler;
+import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitActionInterceptor;
+import com.tvd12.ezyfox.util.EzyLoggable;
+import com.tvd12.ezyfox.util.EzyStartable;
+import com.tvd12.ezyfox.util.EzyStoppable;
 
-public class EzyRabbitRpcHandler extends RpcServer {
+import lombok.Setter;
+
+public class EzyRabbitRpcHandler
+		extends EzyLoggable
+		implements EzyRabbitRpcCallHandler, EzyStartable, EzyStoppable {
+
+	@Setter
+	protected EzyRabbitActionInterceptor actionInterceptor;
+
+	protected EzyRabbitRpcServer server;
+	protected EzyRabbitDataCodec dataCodec;
+	protected EzyRabbitRequestHandlers requestHandlers;
 	
-	public EzyRabbitRpcHandler(Channel channel, String queueName) throws IOException {
-		super(channel, queueName);
+	public EzyRabbitRpcHandler(
+			EzyRabbitRpcServer server,
+			EzyRabbitDataCodec dataCodec,
+			EzyRabbitRequestHandlers requestHandlers) {
+		this.server = server;
+		this.server.setCallHandler(this);
+		this.dataCodec = dataCodec;
+		this.requestHandlers = requestHandlers;
 	}
-
+	
 	@Override
-	public void processRequest(Delivery request)
-	        throws IOException {
-	        AMQP.BasicProperties requestProperties = request.getProperties();
-	        String correlationId = requestProperties.getCorrelationId();
-	        String replyTo = requestProperties.getReplyTo();
-	        if (correlationId != null && replyTo != null)
-	        {
-	            AMQP.BasicProperties.Builder replyPropertiesBuilder = new AMQP.BasicProperties.Builder();
-	            byte[] replyBody = handleCall(request, replyPropertiesBuilder);
-	            replyPropertiesBuilder.correlationId(correlationId);
-	            AMQP.BasicProperties replyProperties = replyPropertiesBuilder.build();
-	            getChannel().basicPublish("", replyTo, replyProperties, replyBody);
-	        } else {
-	            handleCast(request);
-	        }
+	public void start() throws Exception {
+		server.mainloop();
 	}
 	
-	protected byte[] handleCall(
-			Delivery request, BasicProperties.Builder replyPropertiesBuilder) {
-		return handleCall(request.getBody(), replyPropertiesBuilder);
+	@Override
+	public void stop() {
+		try {
+			server.stop();
+		} catch (Exception e) {
+			logger.error("stop rpc server error", e);
+		}
 	}
 	
-	protected byte[] handleCall(
-			byte[] requestBody, BasicProperties.Builder replyPropertiesBuilder) {
-		return new byte[0];
-	}
+	@Override
+	public byte[] handleCall(
+			BasicProperties requestProperties,
+			byte[] requestBody, 
+			BasicProperties.Builder replyPropertiesBuilder) {
+        String cmd = requestProperties.getType();
+        Object requestEntity = null;
+        byte[] responseBytes = null;
+        Object responseEntity = null;
+        try
+        {
+            requestEntity = dataCodec.deserialize(cmd, requestBody);
+            if (actionInterceptor != null)
+                actionInterceptor.intercept(cmd, requestEntity);
+            responseEntity = requestHandlers.handle(cmd, requestEntity);
+            responseBytes = dataCodec.serialize(responseEntity);
+            if (actionInterceptor != null)
+                actionInterceptor.intercept(cmd, requestEntity, responseEntity);
+        }
+        catch (Exception e)
+        {
+            responseBytes = new byte[0];
+            Map<String, Object> responseHeaders = new HashMap<String, Object>();
+            if (e instanceof NotFoundException) {
+            		responseHeaders.put(EzyRabbitKeys.STATUS, EzyRabbitStatusCodes.NOT_FOUND);
+            }
+            else if (e instanceof BadRequestException) {
+            		BadRequestException badEx = (BadRequestException)e;
+                responseHeaders.put(EzyRabbitKeys.STATUS, EzyRabbitStatusCodes.BAD_REQUEST);
+                responseHeaders.put(EzyRabbitKeys.ERROR_CODE, badEx.getCode());
+            }
+            else if (e instanceof IllegalArgumentException) {
+            		responseHeaders.put(EzyRabbitKeys.STATUS, EzyRabbitStatusCodes.BAD_REQUEST);
+            		responseHeaders.put(EzyRabbitKeys.ERROR_CODE, EzyRabbitErrorCodes.INVALID_ARGUMENT);
+            }
+            else if(e instanceof UnsupportedOperationException) {
+            		responseHeaders.put(EzyRabbitKeys.STATUS, EzyRabbitStatusCodes.BAD_REQUEST);
+            		responseHeaders.put(EzyRabbitKeys.ERROR_CODE, EzyRabbitErrorCodes.UNSUPPORTED_OPERATION);
+            }
+            else {
+            		responseHeaders.put(EzyRabbitKeys.STATUS, EzyRabbitStatusCodes.INTERNAL_SERVER_ERROR);
+            }
 
+            responseHeaders.put(EzyRabbitKeys.MESSAGE, e.getMessage());
+            replyPropertiesBuilder.headers(responseHeaders);
+
+            if (actionInterceptor != null)
+                actionInterceptor.intercept(cmd, requestEntity, e);
+        }
+        return responseBytes;
+	}
+	
+	protected BasicProperties newReplyProps(BasicProperties rev) {
+		return new BasicProperties.Builder()
+	        .correlationId(rev.getCorrelationId())
+	        .build();
+	}
+	
+	public static Builder builder() {
+		return new Builder();
+	}
+	
+	public static class Builder implements EzyBuilder<EzyRabbitRpcHandler> {
+		protected EzyRabbitRpcServer server;
+		protected EzyRabbitDataCodec dataCodec;
+		protected EzyRabbitRequestHandlers requestHandlers;
+		protected EzyRabbitActionInterceptor actionInterceptor;
+		
+		public Builder server(EzyRabbitRpcServer server) {
+			this.server = server;
+			return this;
+		}
+		
+		public Builder dataCodec(EzyRabbitDataCodec dataCodec) {
+			this.dataCodec = dataCodec;
+			return this;
+		}
+		
+		public Builder server(EzyRabbitRequestHandlers requestHandlers) {
+			this.requestHandlers = requestHandlers;
+			return this;
+		}
+		
+		public Builder server(EzyRabbitActionInterceptor actionInterceptor) {
+			this.actionInterceptor = actionInterceptor;
+			return this;
+		}
+		
+		@Override
+		public EzyRabbitRpcHandler build() {
+			EzyRabbitRpcHandler product = new EzyRabbitRpcHandler(
+					server,
+					dataCodec,
+					requestHandlers);
+			return product;
+		}
+	}
+	
 }

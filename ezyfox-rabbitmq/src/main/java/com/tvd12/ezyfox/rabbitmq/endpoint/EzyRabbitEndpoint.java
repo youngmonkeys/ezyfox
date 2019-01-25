@@ -2,8 +2,6 @@ package com.tvd12.ezyfox.rabbitmq.endpoint;
 
 import com.rabbitmq.client.Channel;
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
-import com.tvd12.ezyfox.codec.EzyMessageSerializer;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyStartable;
 
@@ -13,22 +11,10 @@ public abstract class EzyRabbitEndpoint
 
 	protected String queue;
 	protected Channel channel;
-	protected EzyMessageSerializer messageSerializer;
-	protected EzyMessageDeserializer messageDeserializer;
 	
-	protected EzyRabbitEndpoint(Builder<?> builder) {
-        this.queue = builder.queue;
-        this.channel = builder.channel;
-        this.messageSerializer = builder.messageSerializer;
-        this.messageDeserializer = builder.messageDeserializer;
-	}
-	
-	protected byte[] serializeToBytes(Object value) {
-		return messageSerializer.serialize(value);
-	}
-	
-	protected <T> T deserializeToObject(byte[] value) {
-		return messageDeserializer.deserialize(value);
+	protected EzyRabbitEndpoint(String queue, Channel channel) {
+        this.queue = queue;
+        this.channel = channel;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -36,8 +22,6 @@ public abstract class EzyRabbitEndpoint
 			implements EzyBuilder<EzyRabbitEndpoint> {
 		protected String queue;
 		protected Channel channel;
-		protected EzyMessageSerializer messageSerializer;
-		protected EzyMessageDeserializer messageDeserializer;
 		
 		public B queue(String queue) {
 			this.queue = queue;
@@ -46,16 +30,6 @@ public abstract class EzyRabbitEndpoint
 		
 		public B channel(Channel channel) {
 			this.channel = channel;
-			return (B)this;
-		}
-		
-		public B messageSerializer(EzyMessageSerializer messageSerializer) {
-			this.messageSerializer = messageSerializer;
-			return (B)this;
-		}
-		
-		public B messageDeserializer(EzyMessageDeserializer messageDeserializer) {
-			this.messageDeserializer = messageDeserializer;
 			return (B)this;
 		}
 		

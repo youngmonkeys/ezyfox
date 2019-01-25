@@ -25,6 +25,7 @@ public class EzyPointWriterImpl implements EzyWriter {
 		builder.append("localDateTime", (Object)arg0.marshal(object.getLocalDateTime()));
 		builder.append("clazz", (Object)arg0.marshal(object.getClazz()));
 		builder.append("data1", (Object)arg0.marshal(TestData1WriterImpl.class, object.getData1()));
+		builder.append("data1", (Object)arg0.marshal(object.getData1(), TestData1WriterImpl.class));
 		return builder.build();
 	}
 

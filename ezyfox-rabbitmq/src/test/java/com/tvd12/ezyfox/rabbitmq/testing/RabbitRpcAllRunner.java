@@ -1,39 +1,78 @@
 package com.tvd12.ezyfox.rabbitmq.testing;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.tvd12.ezyfox.binding.EzyBindingContext;
+import com.tvd12.ezyfox.binding.EzyMarshaller;
+import com.tvd12.ezyfox.binding.EzyUnmarshaller;
+import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
+import com.tvd12.ezyfox.codec.EzyEntityCodec;
 import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
 import com.tvd12.ezyfox.codec.EzyMessageSerializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
-import com.tvd12.ezyfox.rabbitmq.EzyRpcProcedureCaller;
+import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitBytesDataCodec;
+import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitBytesEntityCodec;
+import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitDataCodec;
 import com.tvd12.ezyfox.rabbitmq.endpoint.EzyRabbitConnectionFactoryBuilder;
+import com.tvd12.ezyfox.rabbitmq.endpoint.EzyRabbitRpcCaller;
 import com.tvd12.ezyfox.rabbitmq.endpoint.EzyRabbitRpcClient;
+import com.tvd12.ezyfox.rabbitmq.endpoint.EzyRabbitRpcHandler;
 import com.tvd12.ezyfox.rabbitmq.endpoint.EzyRabbitRpcServer;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcProcedure;
-import com.tvd12.ezyfox.rabbitmq.entity.EzyRpcSimpleProcedure;
+import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitRequestHandlers;
+import com.tvd12.ezyfox.util.EzyLoggable;
 
-public class RabbitRpcAllRunner {
+public class RabbitRpcAllRunner extends EzyLoggable {
 
-	public static void main(String[] args) throws Exception {
-		EzyEntityFactory.create(EzyArrayBuilder.class);
-		startServer();
-		sleep();
-//		asynRpc();
-		rpc();
+	private EzyMarshaller marshaller;
+	private EzyUnmarshaller unmarshaller;
+	private EzyMessageSerializer messageSerializer;
+	private EzyMessageDeserializer messageDeserializer;
+
+	private EzyBindingContext bindingContext;
+	private EzyEntityCodec entityCodec;
+	private EzyRabbitDataCodec dataCodec;
+	private EzyRabbitRequestHandlers requestHandlers;
+	
+	public RabbitRpcAllRunner() {
+		this.messageSerializer = newMessageSerializer();
+		this.messageDeserializer = newMessageDeserializer();
+		this.bindingContext = newBindingContext();
+		this.marshaller = bindingContext.newMarshaller();
+		this.unmarshaller = bindingContext.newUnmarshaller();
+		this.entityCodec = new EzyRabbitBytesEntityCodec(marshaller, unmarshaller, messageSerializer, messageDeserializer);
+		this.dataCodec = EzyRabbitBytesDataCodec.builder()
+				.marshaller(marshaller)
+				.unmarshaller(unmarshaller)
+				.messageSerializer(messageSerializer)
+				.messageDeserializer(messageDeserializer)
+				.mapRequestType("fibonaci", int.class)
+				.build();
+		this.requestHandlers = new EzyRabbitRequestHandlers();
+		this.requestHandlers.addHandler("fibonaci", a -> {
+			return (int)a + 3;
+		});
 	}
 	
-	protected static void startServer() throws Exception {
+	public static void main(String[] args) throws Exception {
+		EzyEntityFactory.create(EzyArrayBuilder.class);
+		RabbitRpcAllRunner runner = new RabbitRpcAllRunner();
+		runner.startServer();
+		runner.sleep();
+//		runner.asynRpc();
+		runner.rpc();
+	}
+	
+	protected void startServer() throws Exception {
 		new Thread(()-> {
 			try {
 				System.out.println("thread-" + Thread.currentThread().getName() + ": start server");
-				newServer().start();
+				EzyRabbitRpcServer server = newServer();
+				EzyRabbitRpcHandler handler = new EzyRabbitRpcHandler(server, dataCodec, requestHandlers);
+				handler.start();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -41,11 +80,11 @@ public class RabbitRpcAllRunner {
 		
 	}
 	
-	protected static void sleep() throws Exception {
+	protected void sleep() throws Exception {
 		Thread.sleep(1000);
 	}
 	
-	protected static void asynRpc() {
+	protected void asynRpc() {
 		new Thread() {
 			public void run() {
 				try {
@@ -58,81 +97,69 @@ public class RabbitRpcAllRunner {
 		.start();
 	}
 	
-	protected static void rpc() throws Exception {
+	protected void rpc() throws Exception {
 		EzyRabbitRpcClient client = newClient();
-		client.start();
+		EzyRabbitRpcCaller caller = new EzyRabbitRpcCaller(client, entityCodec);
 		System.out.println("thread-" + Thread.currentThread().getName() + ": start rpc");
-		client.sync(newProcedure());
 		long start = System.currentTimeMillis();
-		for(int i = 0 ; i < 1000 ; i++)
-			client.sync(newProcedure());
-//			System.out.println("i = " + i + ", result = " + client.sync(newProcedure()));
+		for(int i = 0 ; i < 1000 ; i++) {
+			System.out.println("rabbit rpc start call: " + i);
+			int result = caller.call("fibonaci", 100, int.class);
+			System.out.println("i = " + i + ", result = " + result);
+		}
 		System.out.println("elapsed = " + (System.currentTimeMillis() - start));
 	}
 	
-	protected static EzyRpcProcedure newProcedure() {
-		EzyRpcSimpleProcedure procedure = new EzyRpcSimpleProcedure();
-		procedure.setParent("");
-		procedure.setName("");
-		procedure.setArguments(EzyEntityFactory.create(EzyArrayBuilder.class).append(100).build());
-		procedure.setReturnType(int.class);
-		return procedure;
-	}
-	
-	protected static EzyRabbitRpcClient newClient() throws Exception {
+	protected EzyRabbitRpcClient newClient() throws Exception {
 		ConnectionFactory connectionFactory = new EzyRabbitConnectionFactoryBuilder()
 			.build();
 		Connection connection = connectionFactory.newConnection();
 		Channel channel = connection.createChannel();
 		channel.basicQos(1);
+		channel.exchangeDeclare("rmqia-rpc-exchange", "direct");
 		channel.queueDeclare("rmqia-rpc-queue", false, false, false, null);
 		channel.queueDeclare("rmqia-rpc-client-queue", false, false, false, null);
 		channel.queueBind("rmqia-rpc-queue", "rmqia-rpc-exchange", "rmqia-rpc-routing-key");
+		channel.queueBind("rmqia-rpc-client-queue", "rmqia-rpc-exchange", "rmqia-rpc-client-routing-key");
 		return EzyRabbitRpcClient.builder()
 				.timeout(300 * 1000)
 				.channel(channel)
-				.queue("rmqia-rpc-queue")
 				.exchange("rmqia-rpc-exchange")
 				.routingKey("rmqia-rpc-routing-key")
-				.replyQueue("rmqia-rpc-client-queue")
-				.messageSerializer(newMessageSerializer())
-				.messageDeserializer(newMessageDeserializer())
+				.replyQueueName("rmqia-rpc-client-queue")
 				.build();
 	}
 	
-	protected static EzyRabbitRpcServer newServer() throws Exception {
+	protected EzyRabbitRpcServer newServer() throws Exception {
 		ConnectionFactory connectionFactory = new EzyRabbitConnectionFactoryBuilder()
 				.build();
-			Connection connection = connectionFactory.newConnection();
-			Channel channel = connection.createChannel();
-			channel.basicQos(1);
-			channel.queueDeclare("rmqia-rpc-queue", false, false, false, null);
+		Connection connection = connectionFactory.newConnection();
+		Channel channel = connection.createChannel();
+		channel.basicQos(1);
+		channel.exchangeDeclare("rmqia-rpc-exchange", "direct");
+		channel.queueDeclare("rmqia-rpc-queue", false, false, false, null);
+		channel.queueBind("rmqia-rpc-queue", "rmqia-rpc-exchange", "rmqia-rpc-routing-key");
+		channel.queueBind("rmqia-rpc-client-queue", "rmqia-rpc-exchange", "rmqia-rpc-client-routing-key");
 		return EzyRabbitRpcServer.builder()
-				.queue("rmqia-rpc-queue")
+				.queueName("rmqia-rpc-queue")
+				.exchange("rmqia-rpc-exchange")
+				.replyRoutingKey("rmqia-rpc-client-routing-key")
 				.channel(channel)
-				.messageSerializer(newMessageSerializer())
-				.messageDeserializer(newMessageDeserializer())
-				.procedureCaller(new EzyRpcProcedureCaller() {
-					
-					@Override
-					public Object call(EzyRpcProcedure procedure) {
-						int n = procedure.getArguments().get(0, int.class);
-						return n + 3;
-					}
-				})
 				.build();
 	}
 	
-	protected static EzyMessageSerializer newMessageSerializer() {
+	protected EzyMessageSerializer newMessageSerializer() {
 		return new MsgPackSimpleSerializer();
 	}
 	
-	protected static EzyMessageDeserializer newMessageDeserializer() {
+	protected EzyMessageDeserializer newMessageDeserializer() {
 		return new MsgPackSimpleDeserializer();
 	}
 	
-	protected static Logger getLogger() {
-		return LoggerFactory.getLogger(RabbitRpcAllRunner.class);
+	private EzyBindingContext newBindingContext() {
+		return EzySimpleBindingContext.builder()
+				.scan("com.tvd12.ezyfox.rabbitmq.testing.entity")
+				.build();
 	}
 	
 }

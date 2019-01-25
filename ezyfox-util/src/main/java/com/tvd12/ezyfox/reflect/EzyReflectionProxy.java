@@ -16,6 +16,10 @@ public class EzyReflectionProxy implements EzyReflection {
 	public EzyReflectionProxy(Set<String> packages) {
 		this.reflections = new Reflections(packages);
 	}
+	
+	public EzyReflectionProxy(Iterable<String> packages) {
+		this.reflections = new Reflections(packages);
+	}
 
 	@Override
 	public Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annClass) {
