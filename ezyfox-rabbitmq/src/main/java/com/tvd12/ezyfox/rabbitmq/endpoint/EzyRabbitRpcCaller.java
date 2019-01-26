@@ -64,8 +64,8 @@ public class EzyRabbitRpcCaller extends EzyLoggable implements EzyStoppable {
     		if(!responseHeaders.containsKey(EzyRabbitKeys.STATUS))
     			return;
     		int status = (int)responseHeaders.get(EzyRabbitKeys.STATUS);
-        String message = (String)responseHeaders.get(EzyRabbitKeys.MESSAGE);
-        int code = (int) responseHeaders.get(EzyRabbitKeys.ERROR_CODE);
+        String message = responseHeaders.get(EzyRabbitKeys.MESSAGE).toString();
+        Integer code = (Integer) responseHeaders.get(EzyRabbitKeys.ERROR_CODE);
         if (status == EzyRabbitStatusCodes.NOT_FOUND)
             throw new NotFoundException(message);
         if (status == EzyRabbitStatusCodes.BAD_REQUEST)

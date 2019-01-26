@@ -2,6 +2,8 @@ package com.tvd12.ezyfox.rabbitmq.endpoint;
 
 import java.util.concurrent.ThreadFactory;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.ExceptionHandler;
 import com.rabbitmq.client.impl.ForgivingExceptionHandler;
@@ -14,8 +16,14 @@ public class EzyRabbitConnectionFactoryBuilder implements EzyBuilder<ConnectionF
 	protected String password = "guest";
 	protected String host = "localhost";
 	protected String vhost = "/";
+	protected String uri = null;
 	protected ThreadFactory threadFactory;
 	protected ExceptionHandler exceptionHandler;
+	
+	public EzyRabbitConnectionFactoryBuilder uri(String uri) {
+		this.uri = uri;
+		return this;
+	}
 	
 	public EzyRabbitConnectionFactoryBuilder host(String host) {
 		this.host = host;
@@ -54,14 +62,28 @@ public class EzyRabbitConnectionFactoryBuilder implements EzyBuilder<ConnectionF
 	@Override
 	public ConnectionFactory build() {
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost(host);
-		factory.setPort(port);
+		if(StringUtils.isEmpty(uri)) {
+			factory.setHost(host);
+			factory.setPort(port);
+			factory.setUsername(username);
+			factory.setPassword(password);
+			factory.setVirtualHost(vhost);
+		}
+		else {
+			setConnectionURI(factory);
+		}
 		factory.setThreadFactory(getThreadFactory());
-		factory.setUsername(username);
-		factory.setPassword(password);
-		factory.setVirtualHost(vhost);
 		factory.setExceptionHandler(getExceptionHandler());
 		return factory;
+	}
+	
+	private void setConnectionURI(ConnectionFactory connectionFactory) {
+		try {
+			connectionFactory.setUri(uri);
+		}
+		catch(Exception e) {
+			throw new IllegalArgumentException("uri: " + uri + " is invalid", e);
+		}
 	}
 	
 	private ThreadFactory getThreadFactory() {
