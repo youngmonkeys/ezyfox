@@ -97,6 +97,8 @@ public class EzySimpleUnmarshaller
 			return (T) reader.read(this, value);
 		if(outType.isArray())
 			return (T) readArray((EzyArray)value, outType.getComponentType());
+		if(outType.isEnum())
+			return (T) Enum.valueOf((Class<Enum>)outType, value.toString());
 		throw new IllegalArgumentException("has no reader for " + outType);
 	}
 	
