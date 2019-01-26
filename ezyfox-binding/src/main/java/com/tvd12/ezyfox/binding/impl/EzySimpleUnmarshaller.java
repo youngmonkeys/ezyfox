@@ -19,6 +19,7 @@ import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.EzyUnwrapper;
 import com.tvd12.ezyfox.binding.reader.EzyConcurrentHashMapReader;
+import com.tvd12.ezyfox.binding.reader.EzyDefaultReader;
 import com.tvd12.ezyfox.binding.reader.EzyListReader;
 import com.tvd12.ezyfox.binding.reader.EzyMapReader;
 import com.tvd12.ezyfox.binding.reader.EzySetReader;
@@ -143,13 +144,13 @@ public class EzySimpleUnmarshaller
 		Map<Class, EzyReader> map = new ConcurrentHashMap<>();
 		Set<Class> normalTypes = EzyTypes.ALL_TYPES;
 		for(Class normalType : normalTypes)
-			map.put(normalType, defaultReader());
-		map.put(Date.class, defaultReader());
-		map.put(Class.class, defaultReader());
-		map.put(LocalDate.class, defaultReader());
-		map.put(LocalDateTime.class, defaultReader());
-		map.put(EzyArray.class, defaultReader());
-		map.put(EzyObject.class, defaultReader());
+			map.put(normalType, EzyDefaultReader.getInstance());
+		map.put(Date.class, EzyDefaultReader.getInstance());
+		map.put(Class.class, EzyDefaultReader.getInstance());
+		map.put(LocalDate.class, EzyDefaultReader.getInstance());
+		map.put(LocalDateTime.class, EzyDefaultReader.getInstance());
+		map.put(EzyArray.class, EzyDefaultReader.getInstance());
+		map.put(EzyObject.class, EzyDefaultReader.getInstance());
 		map.put(Map.class, EzyMapReader.getInstance());
 		map.put(HashMap.class, EzyMapReader.getInstance());
 		map.put(TreeMap.class, EzyTreeMapReader.getInstance());
@@ -160,10 +161,6 @@ public class EzySimpleUnmarshaller
 		map.put(HashSet.class, EzySetReader.getInstance());
 		map.put(Collection.class, EzyListReader.getInstance());
 		return map;
-	}
-	
-	private EzyReader defaultReader() {
-		return (um, o) -> o;
 	}
 	
 	private Object[] readArray(EzyArray array, Class componentType) {

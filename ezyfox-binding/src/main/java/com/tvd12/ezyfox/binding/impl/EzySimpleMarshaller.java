@@ -10,15 +10,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyWriter;
+import com.tvd12.ezyfox.binding.writer.EzyDefaultWriter;
+import com.tvd12.ezyfox.binding.writer.EzyIterableWriter;
+import com.tvd12.ezyfox.binding.writer.EzyMapWriter;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
-import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyMaps;
@@ -97,59 +98,30 @@ public class EzySimpleMarshaller
 		Map<Class, EzyWriter> map = new ConcurrentHashMap<>();
 		Set<Class> normalTypes = EzyTypes.ALL_TYPES;
 		for(Class normalType : normalTypes)
-			map.put(normalType, defaultWriter());
-		map.put(Date.class, defaultWriter());
-		map.put(Class.class, defaultWriter());
-		map.put(LocalDate.class, defaultWriter());
-		map.put(LocalDateTime.class, defaultWriter());
-		map.put(EzyArray.class, defaultWriter());
-		map.put(EzyObject.class, defaultWriter());
-		map.put(Map.class, mapWriter());
-		map.put(HashMap.class, mapWriter());
-		map.put(TreeMap.class, mapWriter());
-		map.put(ConcurrentHashMap.class, mapWriter());
-		map.put(List.class, collectionWriter());
-		map.put(Set.class, collectionWriter());
-		map.put(ArrayList.class, collectionWriter());
-		map.put(HashSet.class, collectionWriter());
-		map.put(Collection.class, collectionWriter());
+			map.put(normalType, EzyDefaultWriter.getInstance());
+		map.put(Date.class, EzyDefaultWriter.getInstance());
+		map.put(Class.class, EzyDefaultWriter.getInstance());
+		map.put(LocalDate.class, EzyDefaultWriter.getInstance());
+		map.put(LocalDateTime.class, EzyDefaultWriter.getInstance());
+		map.put(EzyArray.class, EzyDefaultWriter.getInstance());
+		map.put(EzyObject.class, EzyDefaultWriter.getInstance());
+		map.put(Map.class, EzyMapWriter.getInstance());
+		map.put(HashMap.class, EzyMapWriter.getInstance());
+		map.put(TreeMap.class, EzyMapWriter.getInstance());
+		map.put(ConcurrentHashMap.class, EzyMapWriter.getInstance());
+		map.put(List.class, EzyIterableWriter.getInstance());
+		map.put(Set.class, EzyIterableWriter.getInstance());
+		map.put(ArrayList.class, EzyIterableWriter.getInstance());
+		map.put(HashSet.class, EzyIterableWriter.getInstance());
+		map.put(Collection.class, EzyIterableWriter.getInstance());
+		map.put(Iterable.class, EzyIterableWriter.getInstance());
 		return map;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	private EzyWriter defaultWriter() {
-		return (m, o) -> o;
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private EzyWriter mapWriter() {
-		return (m, o) -> {
-			EzyObjectBuilder builder = newObjectBuilder();
-			Map map = (Map)o;
-			map.entrySet().forEach(e -> writeEntry(builder, (Entry) e));
-			return builder.build();
-		};
-	} 
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private EzyWriter collectionWriter() {
-		return (m, o) -> {
-			EzyArrayBuilder builder = newArrayBuilder();
-			Collection collection = (Collection)o;
-			collection.forEach(i -> builder.append((Object)marshal(i)));
-			return builder.build();
-		};
 	}
 	
 	private EzyArray writeArray(Object[] array) {
 		EzyArrayBuilder builder = newArrayBuilder();
 		Arrays.stream(array).forEach(o -> builder.append((Object)marshal(o)));
 		return builder.build();
-	}
-	
-	@SuppressWarnings("rawtypes")
-	private void writeEntry(EzyObjectBuilder builder, Entry entry) {
-		builder.append(marshal(entry.getKey()), (Object)marshal(entry.getValue()));
 	}
 
 }
