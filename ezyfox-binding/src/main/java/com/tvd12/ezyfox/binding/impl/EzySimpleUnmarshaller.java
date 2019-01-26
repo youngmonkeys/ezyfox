@@ -3,16 +3,26 @@ package com.tvd12.ezyfox.binding.impl;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.EzyUnwrapper;
+import com.tvd12.ezyfox.binding.reader.EzyConcurrentHashMapReader;
+import com.tvd12.ezyfox.binding.reader.EzyListReader;
+import com.tvd12.ezyfox.binding.reader.EzyMapReader;
+import com.tvd12.ezyfox.binding.reader.EzySetReader;
+import com.tvd12.ezyfox.binding.reader.EzyTreeMapReader;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyMaps;
@@ -138,6 +148,17 @@ public class EzySimpleUnmarshaller
 		map.put(Class.class, defaultReader());
 		map.put(LocalDate.class, defaultReader());
 		map.put(LocalDateTime.class, defaultReader());
+		map.put(EzyArray.class, defaultReader());
+		map.put(EzyObject.class, defaultReader());
+		map.put(Map.class, EzyMapReader.getInstance());
+		map.put(HashMap.class, EzyMapReader.getInstance());
+		map.put(TreeMap.class, EzyTreeMapReader.getInstance());
+		map.put(ConcurrentHashMap.class, EzyConcurrentHashMapReader.getInstance());
+		map.put(List.class, EzyListReader.getInstance());
+		map.put(Set.class, EzySetReader.getInstance());
+		map.put(ArrayList.class, EzyListReader.getInstance());
+		map.put(HashSet.class, EzySetReader.getInstance());
+		map.put(Collection.class, EzyListReader.getInstance());
 		return map;
 	}
 	

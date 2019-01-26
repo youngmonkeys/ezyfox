@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.util;
 
+import java.util.Collection;
 import java.util.function.Function;
 
 public final class EzySum {
@@ -81,6 +82,13 @@ public final class EzySum {
 		long total = 0;
 		for(Long number : numbers)
 			total += number;
+		return total;
+	}
+	
+	public static long sumToLongs(Collection<? extends Number> numbers) {
+		long total = 0;
+		for(Number number : numbers)
+			total += number.longValue();
 		return total;
 	}
 	
