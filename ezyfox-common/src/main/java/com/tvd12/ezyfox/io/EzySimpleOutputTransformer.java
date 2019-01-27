@@ -61,7 +61,7 @@ public class EzySimpleOutputTransformer
 			Object value, Class type, Map<Class, EzyToObject> transformers) {
 		EzyToObject trans = transformers.get(type);
 		if(trans != null)
-			return transformers.get(type).transform(value);
+			return trans.transform(value);
 		if(type.isEnum())
 			return Enum.valueOf(type, value.toString());
 		return value;

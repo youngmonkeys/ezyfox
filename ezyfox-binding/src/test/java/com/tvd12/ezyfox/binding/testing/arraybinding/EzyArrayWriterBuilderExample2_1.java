@@ -13,16 +13,16 @@ public class EzyArrayWriterBuilderExample2_1 {
 
 	@Test
 	public void test() throws Exception {
+		EzyArrayWriterBuilder.setDebug(true);
+		EzyArrayReaderBuilder.setDebug(true);
 		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
 				.scan("com.tvd12.ezyfox.binding.testing.arraybinding")
 				.build();
 		EzyMarshaller marshaller = context.newMarshaller();
-		EzyArrayWriterBuilder.setDebug(true);
 		EzyArray array = marshaller.marshal(new ClassC());
 		System.out.println(array);
 		
 		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		EzyArrayReaderBuilder.setDebug(true);
 		ClassC classC = unmarshaller.unmarshal(array, ClassC.class);
 		System.out.println(classC);
 	}
