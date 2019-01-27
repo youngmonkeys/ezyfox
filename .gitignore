@@ -9,3 +9,5 @@ test-output/
 *.idea/
 *.iml
 .iml
+logs/
+*/logs/

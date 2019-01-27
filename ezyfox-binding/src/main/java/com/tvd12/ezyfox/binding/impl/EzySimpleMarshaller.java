@@ -3,7 +3,6 @@ package com.tvd12.ezyfox.binding.impl;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -120,7 +119,10 @@ public class EzySimpleMarshaller
 	
 	private EzyArray writeArray(Object[] array) {
 		EzyArrayBuilder builder = newArrayBuilder();
-		Arrays.stream(array).forEach(o -> builder.append((Object)marshal(o)));
+		for(Object item : array) {
+			Object value = marshal(item);
+			builder.append(value);
+		}
 		return builder.build();
 	}
 

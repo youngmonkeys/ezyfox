@@ -13,7 +13,7 @@ import lombok.ToString;
 
 @Setter
 @Getter
-@EzyArrayBinding(indexes = {"map1", "list1", "map2", "list2", "longs1", "classAs1"})
+@EzyArrayBinding(indexes = {"map1", "list1", "map2", "list2", "longs1", "classAs1", "classA"})
 @ToString
 public class ClassC {
 	private Map<String, String> map1 = newMap1();
@@ -22,6 +22,7 @@ public class ClassC {
 	private List<ClassA> list2 = Lists.newArrayList(new ClassA());
 	private Long[] longs1 = new Long[] {10L, 11L, 12L};
 	private ClassA[] classAs1 = new ClassA[] {new ClassA()};
+	private ClassA classA = new ClassA();
 	
 	protected Map<String, String> newMap1() {
 		Map<String, String> map = new HashMap<>();
