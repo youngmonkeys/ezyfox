@@ -97,8 +97,11 @@ public class EzyRabbitRpcHandler
             else {
             		responseHeaders.put(EzyRabbitKeys.STATUS, EzyRabbitStatusCodes.INTERNAL_SERVER_ERROR);
             }
-
-            responseHeaders.put(EzyRabbitKeys.MESSAGE, e.getMessage());
+            
+            String errorMessage = e.getMessage();
+            if(errorMessage == null)
+            		errorMessage = e.toString();
+            responseHeaders.put(EzyRabbitKeys.MESSAGE, errorMessage);
             replyPropertiesBuilder.headers(responseHeaders);
 
             if (actionInterceptor != null)
