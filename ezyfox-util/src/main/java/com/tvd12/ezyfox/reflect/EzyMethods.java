@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
 import com.tvd12.reflections.ReflectionUtils;
@@ -28,6 +29,22 @@ public final class EzyMethods {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static List<Method> getMethods(Class clazz) {
+		List<Method> methods = new ArrayList<>();
+		Set<Method> all = ReflectionUtils.getAllMethods(clazz);
+		for(Method i : all) {
+			boolean valid = true;
+			for(Method k : methods) {
+				if(isOverriddenMethod(i, k)) {
+					valid = false; break;
+				}
+			}
+			if(valid) methods.add(i);
+		}
+		return methods;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static List<Method> getAllMethods(Class clazz) {
 		return new ArrayList<>(ReflectionUtils.getAllMethods(clazz));
 	}
 	
@@ -63,5 +80,40 @@ public final class EzyMethods {
 				answer.add(method);
 		}
 		return answer;
+	}
+	
+	public static boolean isOverriddenMethod(Method a, Method b) {
+		try {
+			if(a.equals(b))
+				return false;
+			if(a.getName().equals(b.getName())) {
+				boolean answer = false;
+				Class<?> dca = a.getDeclaringClass();
+				Class<?> dcb = b.getDeclaringClass();
+				if(dca.isAssignableFrom(dcb)) {
+					try {
+						dcb.getDeclaredMethod(a.getName(), a.getParameterTypes());
+						answer = true;
+					}
+					catch(NoSuchMethodException e) {
+						answer = false;
+					}
+				}
+				else if(dcb.isAssignableFrom(dca)) {
+					try {
+						dca.getDeclaredMethod(b.getName(), b.getParameterTypes());
+						answer = true;
+					}
+					catch(NoSuchMethodException e) {
+						answer = false;
+					}
+				}
+				return answer;
+			}
+			return false;
+		}
+		catch(Exception e) {
+			throw new IllegalArgumentException("can't check overridden of method: " + a + ", " + b, e);
+		}
 	}
 }

@@ -4,10 +4,13 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.List;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.reflect.EzyMethod;
 import com.tvd12.ezyfox.reflect.EzyMethods;
 import com.tvd12.test.base.BaseTest;
 
@@ -29,6 +32,13 @@ public class EzyMethodsTest extends BaseTest {
 		List<Method> methods = EzyMethods.getPublicMethods(ClassC.class);
 		System.out.println("public methods: " + methods);
 		assertEquals(methods.size(), 5);
+	}
+	
+	@Test
+	public void test3() {
+		EzyClass clazz = new EzyClass(World.class);
+		Collection<EzyMethod> methods = clazz.getMethods();
+		System.out.println("test3: " + methods);
 	}
 	
 	public static class ClassC extends ClassB {
@@ -56,6 +66,21 @@ public class EzyMethodsTest extends BaseTest {
 		public void setName(String name) {
 			
 		}
+	}
+	
+	public static interface Hello {
+		
+		String getMessageType();
+		
+	}
+	
+	public static class World implements Hello {
+
+		@Override
+		public String getMessageType() {
+			return "hello world";
+		}
+		
 	}
 	
 }
