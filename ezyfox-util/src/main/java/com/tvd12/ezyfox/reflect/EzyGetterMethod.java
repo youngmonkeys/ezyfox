@@ -34,6 +34,8 @@ public class EzyGetterMethod extends EzyByFieldMethod {
 			return name;
 		if(name.startsWith("get"))
 			return super.getFieldName();
+		if(name.startsWith("is"))
+			return EzyMethods.getFieldName(method, 2);
 		return name;
 	}
 	

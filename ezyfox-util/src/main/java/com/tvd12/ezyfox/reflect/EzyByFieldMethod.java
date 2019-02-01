@@ -17,9 +17,7 @@ public abstract class EzyByFieldMethod
 	}
 	
 	public String getFieldName() {
-		String name = method.getName();
-		name = name.substring(3);
-		return name.substring(0, 1).toLowerCase() + name.substring(1);
+		return EzyMethods.getFieldName(method, 3);
 	}
 	
 	public boolean isMapType() {

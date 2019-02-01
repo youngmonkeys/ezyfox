@@ -48,8 +48,12 @@ public class EzyMethod implements EzyReflectElement {
 	}
 	
 	public boolean isGetter() {
+		String methodName = method.getName();
 		return  isPublic() &&
-				method.getName().startsWith("get") &&
+				(
+					methodName.startsWith("get") ||
+					methodName.startsWith("is")
+				) &&
 				method.getParameterCount() == 0 &&
 				method.getReturnType() != void.class;
 	}

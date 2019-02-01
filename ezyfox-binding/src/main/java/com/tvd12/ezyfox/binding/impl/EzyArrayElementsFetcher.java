@@ -4,10 +4,8 @@ import static com.tvd12.ezyfox.binding.EzyAccessType.NONE;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyIndex;
@@ -73,7 +71,7 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 			List<EzyField> fields, List<? extends EzyMethod> methods) {
 		
 		List<Object> elements = new ArrayList<>();
-		Set<EzyMethod> remainMethods = new HashSet<>(methods);
+		List<EzyMethod> remainMethods = new ArrayList<>(methods);
 		
 		for(EzyField field : fields) {
 			logger.debug("scan field {}", field.getName());
