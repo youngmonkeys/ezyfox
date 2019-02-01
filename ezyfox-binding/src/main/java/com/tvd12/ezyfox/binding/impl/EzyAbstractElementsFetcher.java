@@ -27,6 +27,25 @@ import com.tvd12.ezyfox.util.EzyLoggable;
 public abstract class EzyAbstractElementsFetcher 
 		extends EzyLoggable 
 		implements EzyElementsFetcher {
+
+	protected List<? extends EzyMethod> methodList;
+	protected Map<String, ? extends EzyMethod> methodsByFieldName;
+	
+	@Override
+	public final List<Object> getElements(EzyClass clazz, int accessType) {
+		logger.debug("start scan {}", clazz);
+		init(clazz, accessType);
+		List<Object> elements = doGetElements(clazz, accessType);
+		logger.debug("finish scan {}", clazz);
+		return elements;
+	}
+	
+	protected final void init(EzyClass clazz, int accessType) {
+		this.methodList = getMethodList(clazz);
+		this.methodsByFieldName = mapMethodsByFieldName(methodList);
+	}
+	
+	protected abstract List<Object> doGetElements(EzyClass clazz, int accessType);
 	
 	protected final List<EzyField> getFields(EzyClass clazz, int accessType) {
 		List<EzyField> fields = new ArrayList<>();
@@ -42,7 +61,7 @@ public abstract class EzyAbstractElementsFetcher
 	protected final List<? extends EzyMethod> getMethods(EzyClass clazz, int accessType) {
 		List<EzyMethod> methods = new ArrayList<>();
 		if((accessType & METHODS) > 0) {
-			methods.addAll(getMethods(clazz));
+			methods.addAll(methodList);
 		}
 		else if((accessType & DECLARED_METHODS) > 0) {
 			methods.addAll(getDeclaredMethods(clazz));
@@ -57,12 +76,8 @@ public abstract class EzyAbstractElementsFetcher
 		return true;
 	}
 	
-	protected abstract List<? extends EzyMethod> getMethods(EzyClass clazz);
+	protected abstract List<? extends EzyMethod> getMethodList(EzyClass clazz);
 	protected abstract List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz);
-	
-	protected final Map<String, ? extends EzyMethod> getMethodsByFieldName(EzyClass clazz) {
-		return mapMethodsByFieldName(getMethods(clazz));
-	}
 	
 	private final Map<String, ? extends EzyMethod> 
 			mapMethodsByFieldName(List<? extends EzyMethod> methods) {

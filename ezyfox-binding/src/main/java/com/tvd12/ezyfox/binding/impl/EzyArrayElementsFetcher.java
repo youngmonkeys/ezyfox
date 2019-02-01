@@ -20,22 +20,8 @@ import com.tvd12.ezyfox.reflect.EzyMethod;
 //================== fetcher by array ================
 public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher {
 	
-	private Map<String, ? extends EzyMethod> methodsByFieldName;
-	
 	@Override
-	public final List<Object> getElements(EzyClass clazz, int accessType) {
-		logger.debug("start scan {}", clazz);
-		initialize(clazz, accessType);
-		List<Object> elements = doGetElements(clazz, accessType);
-		logger.debug("finish scan {}", clazz);
-		return elements;
-	}
-	
-	private void initialize(EzyClass clazz, int accessType) {
-		this.methodsByFieldName = getMethodsByFieldName(clazz);
-	}
-	
-	private List<Object> doGetElements(EzyClass clazz, int accessType) {
+	protected List<Object> doGetElements(EzyClass clazz, int accessType) {
 		String[] indexes = getIndexes(clazz);
 		if(indexes.length > 0) {
 			return getElementsByCustomIndexes(clazz, indexes);
@@ -188,6 +174,8 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 			}
 		}
 		for(EzyMethod method : methods) {
+			logger.debug("scan method {}", method.getName());
+			
 			if(isValidGenericMethod(method)) {
 				elements.add(method);
 			}

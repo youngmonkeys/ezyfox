@@ -36,7 +36,7 @@ public class EzyAbstractReaderBuilderTest extends BaseTest {
 			return new EzyObjectElementsFetcher() {
 
 				@Override
-				protected List<? extends EzyMethod> getMethods(EzyClass clazz) {
+				protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
 					return clazz.getSetterMethods();
 				}
 

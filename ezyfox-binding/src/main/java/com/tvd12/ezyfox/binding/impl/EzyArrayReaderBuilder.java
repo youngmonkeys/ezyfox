@@ -234,7 +234,7 @@ class EzyArrayReaderElementsFetcher extends EzyArrayElementsFetcher {
 	private final EzyGenericSetterValidator setterValidator = new EzyGenericSetterValidator();
 	
 	@Override
-	protected List<? extends EzyMethod> getMethods(EzyClass clazz) {
+	protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
 		return clazz.getSetterMethods();
 	}
 	
