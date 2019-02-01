@@ -66,7 +66,8 @@ public class EzyLists {
      * @return a new list
      */
     public static <T> List<T> filter(Collection<T> coll, Predicate<T> predicate) {
-       return coll.stream().filter(predicate).collect(Collectors.toList());
+    		List<T> answer = coll.stream().filter(predicate).collect(Collectors.toList());
+    		return answer;
     }
     
     /**

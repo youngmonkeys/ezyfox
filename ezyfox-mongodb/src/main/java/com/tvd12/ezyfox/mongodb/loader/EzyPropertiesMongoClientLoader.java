@@ -6,8 +6,8 @@ package com.tvd12.ezyfox.mongodb.loader;
 import java.util.Map;
 import java.util.Properties;
 
-import com.tvd12.ezyfox.collect.Lists;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.tvd12.ezyfox.util.EzyLoggable;
@@ -58,7 +58,8 @@ public class EzyPropertiesMongoClientLoader
     protected MongoClient createMongoClient() {
         return new MongoClient(
                 new ServerAddress(getHost(), getPort()), 
-                Lists.newArrayList(createCredential()));
+                createCredential(),
+                MongoClientOptions.builder().build());
     }
     
     protected MongoCredential createCredential() {

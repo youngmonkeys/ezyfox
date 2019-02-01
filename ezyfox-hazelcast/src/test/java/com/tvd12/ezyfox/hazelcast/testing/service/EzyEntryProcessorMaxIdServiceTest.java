@@ -62,7 +62,7 @@ public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
 //			threads[i].join();
 		}
 		
-		Thread.sleep(2000L);
+		Thread.sleep(3000L);
 		
 		System.out.println(nums);
 		for(int i = 0 ; i < nums.size() - 1 ; i++) {

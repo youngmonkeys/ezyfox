@@ -3,10 +3,7 @@ package com.tvd12.ezyfox.binding.impl;
 import static com.tvd12.ezyfox.binding.EzyAccessType.NONE;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import com.tvd12.ezyfox.binding.annotation.EzyValue;
 import com.tvd12.ezyfox.io.EzyLists;
@@ -17,22 +14,8 @@ import com.tvd12.ezyfox.reflect.EzyMethod;
 //=========================== fetcher by object =====================
 public abstract class EzyObjectElementsFetcher extends EzyAbstractElementsFetcher {
 	
-	private Map<String, ? extends EzyMethod> methodsByFieldName;
-	
 	@Override
-	public final List<Object> getElements(EzyClass clazz, int accessType) {
-		logger.debug("start scan {}", clazz);
-		initialize(clazz, accessType);
-		List<Object> elements = doGetElements(clazz, accessType);
-		logger.debug("finish scan {}", clazz);
-		return elements;
-	}
-	
-	private void initialize(EzyClass clazz, int accessType) {
-		this.methodsByFieldName = getMethodsByFieldName(clazz);
-	}
-	
-	private List<Object> doGetElements(EzyClass clazz, int accessType) {
+	protected List<Object> doGetElements(EzyClass clazz, int accessType) {
 		return accessType == NONE
 			 ? getAnnotatedElements(clazz) 
 			 : getNativeElements(clazz, accessType);
@@ -54,7 +37,7 @@ public abstract class EzyObjectElementsFetcher extends EzyAbstractElementsFetche
 			List<EzyField> fields, List<? extends EzyMethod> methods) {
 		
 		List<Object> elements = new ArrayList<>();
-		Set<EzyMethod> remainMethods = new HashSet<>(methods);
+		List<EzyMethod> remainMethods = new ArrayList<>(methods);
 		
 		for(EzyField field : fields) {
 			logger.debug("scan field {}", field.getName());
