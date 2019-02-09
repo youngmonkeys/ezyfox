@@ -1,12 +1,12 @@
 package com.tvd12.ezyfox.data;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.tvd12.ezyfox.data.annotation.EzyIndexedData;
-import com.tvd12.ezyfox.reflect.EzyPackages;
+import com.tvd12.ezyfox.reflect.EzyReflection;
+import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 @SuppressWarnings("rawtypes")
@@ -15,9 +15,10 @@ public class EzySimpleIndexedDataClassesFetcher
 		implements EzyIndexedDataClassesFetcher {
 
 	protected Set<Class> classes = new HashSet<>();
+	protected Set<String> packagesToScan = new HashSet<>();
 	
 	public EzyIndexedDataClassesFetcher scan(String packageName) {
-		this.classes.addAll(getAnnotatedClasses(packageName, EzyIndexedData.class));
+		packagesToScan.add(packageName);
 		return this;
 	}
 	
@@ -49,11 +50,15 @@ public class EzySimpleIndexedDataClassesFetcher
 	
 	@Override
 	public Set<Class> getIndexedDataClasses() {
+		Set<Class<?>> annotatedClasses = getAnnotatedClasses();
+		classes.addAll(annotatedClasses);
 		return classes;
 	}
 	
-	private Set<Class<?>> getAnnotatedClasses(String packageName, Class<? extends Annotation> annClass) {
-		return EzyPackages.getAnnotatedClasses(packageName, annClass);
+	private Set<Class<?>> getAnnotatedClasses() {
+		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
+		Set<Class<?>> answer = reflection.getAnnotatedClasses(EzyIndexedData.class);
+		return answer;
 	}
 	
 }

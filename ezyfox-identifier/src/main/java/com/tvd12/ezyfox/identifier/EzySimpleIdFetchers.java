@@ -1,19 +1,11 @@
 package com.tvd12.ezyfox.identifier;
 
-import java.lang.annotation.Annotation;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.collect.Sets;
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.reflect.EzyPackages;
-import com.tvd12.ezyfox.util.EzyHasIdEntity;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-@SuppressWarnings("rawtypes")
 public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
 
 	protected Map<Class<?>, EzyIdFetcher> entityIdFetchers = new ConcurrentHashMap<>();
@@ -38,40 +30,9 @@ public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
 		return new Builder();
 	}
 	
-	public static class Builder implements EzyBuilder<EzyIdFetchers> {
+	public static class Builder extends EzyIdEncapsulationBuilder<EzyIdFetchers, Builder> {
 
-		protected Set<Class> entityClasses = new HashSet<>();
 		protected Map<Class<?>, EzyIdFetcher> entityIdFetchers = new HashMap<>();
-
-		public Builder scan(String packageName) {
-			this.entityClasses.addAll(getHasIdClasses(packageName));
-			this.entityClasses.addAll(getAnnotatedClasses(packageName));
-			return this;
-		}
-
-		public Builder scan(String... packageNames) {
-			return scan(Sets.newHashSet(packageNames));
-		}
-
-		public Builder scan(Iterable<String> packageNames) {
-			packageNames.forEach(this::scan);
-			return this;
-		}
-
-		public Builder addClass(Class clazz) {
-			if (isHasIdClass(clazz) || isAnnotatedClass(clazz))
-				this.entityClasses.add(clazz);
-			return this;
-		}
-
-		public Builder addClasses(Class... classes) {
-			return addClasses(Sets.newHashSet(classes));
-		}
-
-		public Builder addClasses(Iterable<Class> classes) {
-			classes.forEach(this::addClass);
-			return this;
-		}
 
 		public Builder addIdFetcher(Class<?> clazz, EzyIdFetcher fetcher) {
 			this.entityIdFetchers.put(clazz, fetcher);
@@ -83,30 +44,18 @@ public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
 				this.addIdFetcher(key, fetchers.get(key));
 			return this;
 		}
-
+		
 		@Override
-		public EzyIdFetchers build() {
-			this.prebuild();
+		protected EzyIdFetchers newProduct() {
 			return new EzySimpleIdFetchers(this);
 		}
-		
-		protected void prebuild() {
-			parseEntityClasses();
-		}
-		
+
+		@Override
 		protected void parseEntityClasses() {
 			for (Class<?> entityClass : entityClasses) {
 				EzyIdFetcher fetcher = newIdFetcher(entityClass);
 				entityIdFetchers.put(entityClass, fetcher);
 			}
-		}
-
-		protected boolean isHasIdClass(Class<?> clazz) {
-			return EzyHasIdEntity.class.isAssignableFrom(clazz);
-		}
-
-		protected Set<Class<? extends Annotation>> getAnnotationClasses() {
-			return new HashSet<>();
 		}
 
 		protected EzyIdFetcher newIdFetcher(Class<?> clazz) {
@@ -116,24 +65,6 @@ public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
 
 		protected EzyIdFetcherImplementer newIdFetcherImplementer(Class<?> clazz) {
 			return new EzySimpleIdFetcherImplementer(clazz);
-		}
-
-		protected boolean isAnnotatedClass(Class<?> clazz) {
-			for (Class<? extends Annotation> annClass : getAnnotationClasses())
-				if (clazz.isAnnotationPresent(annClass))
-					return true;
-			return false;
-		}
-
-		protected Set<Class<?>> getAnnotatedClasses(String packageName) {
-			Set<Class<?>> classes = new HashSet<>();
-			for (Class<? extends Annotation> annClass : getAnnotationClasses())
-				classes.addAll(EzyPackages.getAnnotatedClasses(packageName, annClass));
-			return classes;
-		}
-
-		protected Set<Class<?>> getHasIdClasses(String packageName) {
-			return EzyPackages.getExtendsClasses(packageName, EzyHasIdEntity.class);
 		}
 
 	}
