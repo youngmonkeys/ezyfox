@@ -5,6 +5,8 @@ import java.util.Set;
 
 public interface EzyReflection {
 
+	Set<Class<?>> getExtendsClasses(Class<?> parentClass);
+	
 	Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotationClass);
 	
 }

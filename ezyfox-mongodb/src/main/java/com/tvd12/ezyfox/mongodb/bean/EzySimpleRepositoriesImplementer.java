@@ -7,25 +7,28 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.annotation.EzyAutoImpl;
-import com.tvd12.ezyfox.io.EzyLists;
+import com.tvd12.ezyfox.collect.Sets;
+import com.tvd12.ezyfox.io.EzySets;
 import com.tvd12.ezyfox.mongodb.EzyMongoRepository;
-import com.tvd12.ezyfox.reflect.EzyPackages;
+import com.tvd12.ezyfox.reflect.EzyReflection;
+import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 public abstract class EzySimpleRepositoriesImplementer
 		extends EzyLoggable
 		implements EzyRepositoriesImplementer {
 
+	protected Set<String> packagesToScan;
 	protected Set<Class<?>> autoImplInterfaces;
 	
 	public EzySimpleRepositoriesImplementer() {
+		this.packagesToScan = new HashSet<>();
 		this.autoImplInterfaces = new HashSet<>();
 	}
 	
 	public EzyRepositoriesImplementer scan(String packageName) {
-		autoImplInterfaces.addAll(getAutoImplRepoInterfaces(packageName));
+		packagesToScan.add(packageName);
 		return this;
 	}
 	
@@ -66,6 +69,8 @@ public abstract class EzySimpleRepositoriesImplementer
 	
 	@Override
 	public Map<Class<?>, Object> implement(Object template) {
+		Collection<Class<?>> scannedInterfaces = getAutoImplRepoInterfaces();
+		autoImplInterfaces.addAll(scannedInterfaces);
 		Map<Class<?>, Object> repositories = new ConcurrentHashMap<>();
 		for(Class<?> itf : autoImplInterfaces) {
 			Object repo = implementRepoInterface(itf, template);
@@ -81,13 +86,10 @@ public abstract class EzySimpleRepositoriesImplementer
 	
 	protected abstract EzySimpleRepositoryImplementer newRepoImplementer(Class<?> itf);
 	
-	private Set<Class<?>> getRepoInterfaces(String packageName) {
-		return EzyPackages.getExtendsClasses(packageName, EzyMongoRepository.class);
-	}
-	
-	private Collection<Class<?>> getAutoImplRepoInterfaces(String packageName) {
-		Set<Class<?>> classes = getRepoInterfaces(packageName);
-		return EzyLists.filter(classes, this::isAutoImplRepoInterface);
+	private Collection<Class<?>> getAutoImplRepoInterfaces() {
+		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
+		Set<Class<?>> classes = reflection.getExtendsClasses(EzyMongoRepository.class);
+		return EzySets.filter(classes, this::isAutoImplRepoInterface);
 	}
 	
 	private boolean isAutoImplRepoInterface(Class<?> clazz) {

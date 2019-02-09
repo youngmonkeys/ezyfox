@@ -1,11 +1,5 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static org.testng.Assert.assertTrue;
-
-import java.util.Set;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyPackages;
 import com.tvd12.test.base.BaseTest;
 
@@ -14,25 +8,6 @@ public class EzyPackagesTest extends BaseTest {
 	public java.lang.Class<?> getTestClass() {
 		return EzyPackages.class;
 	};
-	
-	@Test
-	public void test() {
-		assertTrue(EzyPackages.getAnnotatedClasses(
-				"com.tvd12.ezyfox.testing.reflect", ExampleAnnotation.class)
-				.contains(ClassA.class));
-	}
-	
-	@Test
-	public void test1() {
-		Set<Class<?>> set = EzyPackages.getExtendsClasses(
-				"com.tvd12.ezyfox.testing.reflect", InterfaceA.class);
-		System.out.println(set);
-		
-		set = EzyPackages.getExtendsClasses(
-				"com.tvd12.ezyfox.testing.reflect", ClassA.class);
-		System.out.println(set);
-		
-	}
 	
 	@ExampleAnnotation
 	public static class ClassA {

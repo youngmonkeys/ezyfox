@@ -3,12 +3,12 @@ package com.tvd12.ezyfox.hazelcast.bean;
 import java.util.Map;
 
 import com.hazelcast.core.HazelcastInstance;
-import com.tvd12.ezyfox.hazelcast.impl.EzySimpleSerivcesImplementer;
+import com.tvd12.ezyfox.hazelcast.impl.EzySimpleServicesImplementer;
 
 public interface EzyServicesImplementer {
 	
 	public static EzyServicesImplementer servicesImplementer() {
-		return new EzySimpleSerivcesImplementer();
+		return new EzySimpleServicesImplementer();
 	}
 	
 	public abstract EzyServicesImplementer scan(String packageName);

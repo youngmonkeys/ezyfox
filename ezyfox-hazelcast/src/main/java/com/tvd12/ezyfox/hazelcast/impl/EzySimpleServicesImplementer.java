@@ -8,26 +8,28 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.collect.Sets;
 import com.hazelcast.core.HazelcastInstance;
 import com.tvd12.ezyfox.annotation.EzyAutoImpl;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.hazelcast.annotation.EzyMapServiceAutoImpl;
 import com.tvd12.ezyfox.hazelcast.bean.EzyServicesImplementer;
 import com.tvd12.ezyfox.hazelcast.service.EzyHazelcastMapService;
-import com.tvd12.ezyfox.io.EzyLists;
+import com.tvd12.ezyfox.io.EzySets;
 import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyPackages;
+import com.tvd12.ezyfox.reflect.EzyReflection;
+import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-public class EzySimpleSerivcesImplementer
+public class EzySimpleServicesImplementer
 		extends EzyLoggable
 		implements EzyServicesImplementer {
 
+	protected Set<String> packagesToScan = new HashSet<>();
 	protected Set<Class<?>> autoImplInterfaces = new HashSet<>();
 	protected Map<String, Class<?>> autoImplInterfaceMap = new HashMap<>();
 	
 	public EzyServicesImplementer scan(String packageName) {
-		autoImplInterfaces.addAll(getAutoImplRepoInterfaces(packageName));
+		packagesToScan.add(packageName);
 		return this;
 	}
 	
@@ -48,33 +50,32 @@ public class EzySimpleSerivcesImplementer
 	
 	@Override
 	public Map<Class<?>, Object> implement(HazelcastInstance hzInstance) {
+		Collection<Class<?>> scannedInterfaces = getAutoImplServiceInterfaces();
+		autoImplInterfaces.addAll(scannedInterfaces);
 		Map<Class<?>, Object> repositories = new ConcurrentHashMap<>();
 		for(Class<?> itf : autoImplInterfaces) {
-			Object repo = newRepoImplementer(itf).implement(hzInstance);
+			Object repo = newServiceImplementer(itf).implement(hzInstance);
 			repositories.put(itf, repo);
 		}
 		for(String mapName : autoImplInterfaceMap.keySet()) {
 			Class<?> itf = autoImplInterfaceMap.get(mapName);
-			Object repo = newRepoImplementer(itf).implement(hzInstance, mapName);
+			Object repo = newServiceImplementer(itf).implement(hzInstance, mapName);
 			repositories.put(itf, repo);
 		}
 		return repositories;
 	}
 	
-	private EzySimpleServiceImplementer newRepoImplementer(Class<?> itf) {
+	private EzySimpleServiceImplementer newServiceImplementer(Class<?> itf) {
 		return new EzySimpleServiceImplementer(new EzyClass(itf));
 	}
 	
-	private Set<Class<?>> getRepoInterfaces(String packageName) {
-		return EzyPackages.getExtendsClasses(packageName, EzyHazelcastMapService.class);
+	private Collection<Class<?>> getAutoImplServiceInterfaces() {
+		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
+		Set<Class<?>> classes = reflection.getExtendsClasses(EzyHazelcastMapService.class);
+		return EzySets.filter(classes, this::isAutoImplServiceInterface);
 	}
 	
-	private Collection<Class<?>> getAutoImplRepoInterfaces(String packageName) {
-		Set<Class<?>> classes = getRepoInterfaces(packageName);
-		return EzyLists.filter(classes, this::isAutoImplRepoInterface);
-	}
-	
-	private boolean isAutoImplRepoInterface(Class<?> clazz) {
+	private boolean isAutoImplServiceInterface(Class<?> clazz) {
 		return  (clazz.isAnnotationPresent(EzyAutoImpl.class) || 
 				 clazz.isAnnotationPresent(EzyMapServiceAutoImpl.class)) &&
 				Modifier.isPublic(clazz.getModifiers()) &&

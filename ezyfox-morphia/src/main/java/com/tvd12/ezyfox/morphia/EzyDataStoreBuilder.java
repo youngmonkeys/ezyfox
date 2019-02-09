@@ -1,13 +1,13 @@
 package com.tvd12.ezyfox.morphia;
 
-import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.tvd12.ezyfox.collect.Sets;
 import com.mongodb.MongoClient;
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.reflect.EzyPackages;
+import com.tvd12.ezyfox.collect.Sets;
+import com.tvd12.ezyfox.reflect.EzyReflection;
+import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 import xyz.morphia.Datastore;
@@ -23,9 +23,11 @@ public class EzyDataStoreBuilder
 	protected String databaseName;
 	protected MongoClient mongoClient;
 	protected Set<Class> entityClasses;
+	protected Set<String> packagesToScan;
 	
 	public EzyDataStoreBuilder() {
 		this.entityClasses = new HashSet<>();
+		this.packagesToScan = new HashSet<>();
 	}
 	
 	public static EzyDataStoreBuilder dataStoreBuilder() {
@@ -43,7 +45,19 @@ public class EzyDataStoreBuilder
 	}
 	
 	public EzyDataStoreBuilder scan(String packageName) {
-		this.entityClasses.addAll(getAnnotatedClasses(packageName, Entity.class));
+		this.packagesToScan.add(packageName);
+		return this;
+	}
+	
+	public EzyDataStoreBuilder scan(String... packageNames) {
+		for(String packageName : packageNames)
+			scan(packageName);
+		return this;
+	}
+	
+	public EzyDataStoreBuilder scan(Iterable<String> packageNames) {
+		for(String packageName : packageNames)
+			scan(packageName);
 		return this;
 	}
 	
@@ -69,13 +83,19 @@ public class EzyDataStoreBuilder
 	}
 	
 	private Datastore newDataStore(Mapper mapper) {
+		Set<Class<?>> annotatedClasses = getAnnotatedClasses();
+		entityClasses.addAll(annotatedClasses);
 		Morphia morphia = new Morphia(mapper, entityClasses);
-		return morphia.createDatastore(mongoClient, databaseName);
+		Datastore datastore = morphia.createDatastore(mongoClient, databaseName);
+		return datastore;
 	}
 	
-	private Set<Class<?>> getAnnotatedClasses(
-			String packageName, Class<? extends Annotation> annClass) {
-		return EzyPackages.getAnnotatedClasses(packageName, annClass);
+	private Set<Class<?>> getAnnotatedClasses() {
+		if(packagesToScan.isEmpty())
+			return new HashSet<>();
+		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
+		Set<Class<?>> classes = reflection.getAnnotatedClasses(Entity.class);
+		return classes;
 	}
 	
 }
