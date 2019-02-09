@@ -87,6 +87,8 @@ public abstract class EzySimpleRepositoriesImplementer
 	protected abstract EzySimpleRepositoryImplementer newRepoImplementer(Class<?> itf);
 	
 	private Collection<Class<?>> getAutoImplRepoInterfaces() {
+		if(packagesToScan.isEmpty())
+			return new HashSet<>();
 		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
 		Set<Class<?>> classes = reflection.getExtendsClasses(EzyMongoRepository.class);
 		return EzySets.filter(classes, this::isAutoImplRepoInterface);

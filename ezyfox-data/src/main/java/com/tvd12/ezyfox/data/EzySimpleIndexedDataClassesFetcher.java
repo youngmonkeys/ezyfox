@@ -56,6 +56,8 @@ public class EzySimpleIndexedDataClassesFetcher
 	}
 	
 	private Set<Class<?>> getAnnotatedClasses() {
+		if(packagesToScan.isEmpty())
+			return new HashSet<>();
 		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
 		Set<Class<?>> answer = reflection.getAnnotatedClasses(EzyIndexedData.class);
 		return answer;

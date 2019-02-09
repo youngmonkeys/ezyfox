@@ -61,6 +61,8 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
 	protected abstract void parseEntityClasses();
 	
 	protected void scanAllPackages() {
+		if(packagesToScan.isEmpty()) 
+			return;
 		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
 		Set<Class<?>> hasIdClasses = reflection.getExtendsClasses(EzyHasIdEntity.class);
 		Set<Class<?>> annotatedClasses = new HashSet<>();

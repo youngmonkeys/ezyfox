@@ -95,9 +95,8 @@ public class EzySimpleMapstoresFetcher
 		
 		@Override
 		public EzySimpleMapstoresFetcher build() {
-			EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
-			Set<Class<?>> mapstoreClasses = reflection.getAnnotatedClasses(EzyMapstore.class);
-			for(Class<?> clazz : mapstoreClasses)
+			Set<Class<?>> annotatedClasses = scanAnnotatedClasses();
+			for(Class<?> clazz : annotatedClasses)
 				addMapstoreClass(clazz);
 			for(String mapName : mapstoreClassMap.keySet()) {
 				Class clazz = mapstoreClassMap.get(mapName);
@@ -105,6 +104,14 @@ public class EzySimpleMapstoresFetcher
 				addMapstore(mapName, (MapStore) mapstore);
 			}
 			return new EzySimpleMapstoresFetcher(this);
+		}
+		
+		private Set<Class<?>> scanAnnotatedClasses() {
+			if(packagesToScan.isEmpty())
+				return new HashSet<>();
+			EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
+			Set<Class<?>> annotatedClasses = reflection.getAnnotatedClasses(EzyMapstore.class);
+			return annotatedClasses;
 		}
 		
 		protected Object newMapstore(Class<?> mapstoreClass) {
