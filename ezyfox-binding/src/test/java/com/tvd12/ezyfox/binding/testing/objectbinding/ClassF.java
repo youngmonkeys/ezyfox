@@ -6,8 +6,8 @@ import java.util.Map;
 import com.tvd12.ezyfox.binding.EzyAccessType;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyWriter;
-import com.tvd12.ezyfox.binding.template.EzyMapArrayWriter;
-import com.tvd12.ezyfox.binding.template.EzyMapObjectWriter;
+import com.tvd12.ezyfox.binding.writer.EzyMapArrayWriter;
+import com.tvd12.ezyfox.binding.writer.EzyMapObjectWriter;
 
 import lombok.Getter;
 import lombok.Setter;
