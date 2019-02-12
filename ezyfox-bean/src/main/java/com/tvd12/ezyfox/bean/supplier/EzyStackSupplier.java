@@ -7,14 +7,23 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
 public class EzyStackSupplier implements EzyPrototypeSupplier {
 
+	private static final EzyStackSupplier INSTANCE = new EzyStackSupplier();
+
+	private EzyStackSupplier() {
+	}
+
+	public static EzyStackSupplier getInstance() {
+		return INSTANCE;
+	}
+
 	@Override
 	public Object supply(EzyBeanContext context) {
 		return new Stack<>();
 	}
-	
+
 	@Override
 	public Class<?> getObjectType() {
 		return Stack.class;
 	}
-	
+
 }

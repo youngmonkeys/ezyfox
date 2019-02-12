@@ -475,20 +475,20 @@ public class EzySimpleBeanContext
 		}
 		
 		private void addDefaultPrototypeSuppliers() {
-			prototypeFactory.addSupplier(new EzyArrayListSupplier());
-			prototypeFactory.addSupplier(new EzyCollectionSupplier());
-			prototypeFactory.addSupplier(new EzyConcurrentHashMapSupplier());
-			prototypeFactory.addSupplier(new EzyCopyOnWriteArrayListSupplier());
-			prototypeFactory.addSupplier(new EzyCopyOnWriteArraySetSupplier());
-			prototypeFactory.addSupplier(new EzyHashMapSupplier());
-			prototypeFactory.addSupplier(new EzyHashSetSupplier());
-			prototypeFactory.addSupplier(new EzyLinkedListSupplier());
-			prototypeFactory.addSupplier(new EzyListSupplier());
-			prototypeFactory.addSupplier(new EzyMapSupplier());
-			prototypeFactory.addSupplier(new EzyQueueSupplier());
-			prototypeFactory.addSupplier(new EzySetSupplier());
-			prototypeFactory.addSupplier(new EzyStackSupplier());
-			prototypeFactory.addSupplier(new EzyTreeMapSupplier());
+			prototypeFactory.addSupplier(EzyArrayListSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyCollectionSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyConcurrentHashMapSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyCopyOnWriteArrayListSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyCopyOnWriteArraySetSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyHashMapSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyHashSetSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyLinkedListSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyListSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyMapSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyQueueSupplier.getInstance());
+			prototypeFactory.addSupplier(EzySetSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyStackSupplier.getInstance());
+			prototypeFactory.addSupplier(EzyTreeMapSupplier.getInstance());
 		}
 		
 	}

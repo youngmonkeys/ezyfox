@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.binding.template;
+package com.tvd12.ezyfox.binding.writer;
 
 import java.util.Map;
 
@@ -12,6 +12,15 @@ import com.tvd12.ezyfox.util.EzyEntityBuilders;
 public class EzyMapObjectWriter
 		extends EzyEntityBuilders
 		implements EzyWriter<Map, EzyObject> {
+	
+	private static final EzyMapObjectWriter INSTANCE = new EzyMapObjectWriter();
+	
+	private EzyMapObjectWriter() {
+	}
+	
+	public static EzyMapObjectWriter getInstance() {
+		return INSTANCE;
+	}
 
 	@Override
 	public EzyObject write(EzyMarshaller marshaller, Map map) {

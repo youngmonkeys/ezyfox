@@ -8,14 +8,23 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
 public class EzyListSupplier implements EzyPrototypeSupplier {
 
+	private static final EzyListSupplier INSTANCE = new EzyListSupplier();
+
+	private EzyListSupplier() {
+	}
+
+	public static EzyListSupplier getInstance() {
+		return INSTANCE;
+	}
+
 	@Override
 	public Object supply(EzyBeanContext context) {
 		return new ArrayList<>();
 	}
-	
+
 	@Override
 	public Class<?> getObjectType() {
 		return List.class;
 	}
-	
+
 }
