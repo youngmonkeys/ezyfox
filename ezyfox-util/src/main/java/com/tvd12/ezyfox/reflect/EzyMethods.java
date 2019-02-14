@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
@@ -34,23 +35,8 @@ public final class EzyMethods {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static List<Method> getMethods(Class clazz) {
-		List<Method> methods = new ArrayList<>();
-		List<Method> all = ReflectionUtils.getAllMethodList(clazz);
-		for(Method i : all) {
-			boolean valid = true;
-			for(Method k : methods) {
-				if(isOverriddenMethod(i, k)) {
-					valid = false; break;
-				}
-			}
-			if(valid) methods.add(i);
-		}
+		List<Method> methods = ReflectionUtils.getAllMethodList(clazz);
 		return methods;
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static List<Method> getAllMethods(Class clazz) {
-		return ReflectionUtils.getAllMethodList(clazz);
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -85,6 +71,39 @@ public final class EzyMethods {
 				answer.add(method);
 		}
 		return answer;
+	}
+	
+	public static List<Method> filterOverriddenMethods(List<Method> allMethods) {
+		List<Method> methods = new ArrayList<>();
+		for(Method i : allMethods) {
+			boolean valid = true;
+			for(Method k : methods) {
+				if(isOverriddenMethod(i, k)) {
+					valid = false; break;
+				}
+			}
+			if(valid) methods.add(i);
+		}
+		return methods;
+	}
+	
+	public static List<EzyMethod> filterOverriddenMethods(Collection<EzyMethod> allMethods) {
+		List<EzyMethod> methods = new ArrayList<>();
+		for(EzyMethod i : allMethods) {
+			boolean valid = true;
+			for(EzyMethod k : methods) {
+				if(isOverriddenMethod(i, k)) {
+					valid = false; break;
+				}
+			}
+			if(valid) methods.add(i);
+		}
+		return methods;
+	}
+	
+	public static boolean isOverriddenMethod(EzyMethod a, EzyMethod b) {
+		boolean answer = isOverriddenMethod(a.getMethod(), b.getMethod());
+		return answer; 
 	}
 	
 	public static boolean isOverriddenMethod(Method a, Method b) {

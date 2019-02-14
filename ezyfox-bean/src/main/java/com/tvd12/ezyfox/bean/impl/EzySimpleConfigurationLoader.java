@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.*;
+import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
+import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
 
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
@@ -90,9 +91,10 @@ public class EzySimpleConfigurationLoader
 	private void addSingletonByField(EzyField field, Object configurator) {
 		String beanName = getSingletonName(field);
 		Object current = singletonFactory.getSingleton(beanName, field.getType());
-		if(current == null)
-			new EzyByFieldSingletonLoader(
-					field, configurator, singletonMethods).load(context);
+		if(current == null) {
+			EzySingletonLoader loader = new EzyByFieldSingletonLoader(field, configurator, singletonMethods);
+			loader.load(context);
+		}
 	}
 	
 	private void addSingletonByMethods(Object configurator) {
@@ -110,8 +112,8 @@ public class EzySimpleConfigurationLoader
 		String beanName = getSingletonName(method);
 		Object current = singletonFactory.getSingleton(beanName, method.getReturnType());
 		if(current == null) {
-			new EzyByMethodSingletonLoader(
-					method, configurator, singletonMethods).load(context);
+			EzySingletonLoader loader = new EzyByMethodSingletonLoader(method, configurator, singletonMethods);
+			loader.load(context);
 		}
 	}
 	
@@ -123,8 +125,10 @@ public class EzySimpleConfigurationLoader
 	private void addPrototypeByField(EzyField field, Object configurator) {
 		String beanName = getPrototypeName(field);
 		Object current = prototypeFactory.getSupplier(beanName, field.getType());
-		if(current == null)
-			new EzyByFieldPrototypeSupplierLoader(field, configurator).load(prototypeFactory);
+		if(current == null) {
+			EzyPrototypeSupplierLoader loader = new EzyByFieldPrototypeSupplierLoader(field, configurator);
+			loader.load(prototypeFactory);
+		}
 	}
 	
 	private void addPrototypeByMethods(Object configurator) {
@@ -139,7 +143,8 @@ public class EzySimpleConfigurationLoader
 		String beanName = getPrototypeName(method);
 		Object current = prototypeFactory.getSupplier(beanName, method.getReturnType());
 		if(current == null) {
-			new EzyByMethodPrototypeSupplierLoader(method, configurator).load(prototypeFactory);
+			EzyPrototypeSupplierLoader loader = new EzyByMethodPrototypeSupplierLoader(method, configurator);
+			loader.load(prototypeFactory);
 		}
 	}
 	

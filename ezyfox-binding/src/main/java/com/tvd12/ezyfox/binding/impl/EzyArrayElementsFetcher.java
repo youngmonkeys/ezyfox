@@ -9,7 +9,6 @@ import java.util.Map;
 
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyIndex;
-import com.tvd12.ezyfox.io.EzyLists;
 import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.reflect.EzyAnnotatedElement;
 import com.tvd12.ezyfox.reflect.EzyByFieldMethod;
@@ -50,7 +49,7 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 		return getAnnotatedElements(
 				clazz, 
 				getAnnotedFields(clazz), 
-				getAnnotedMethods(clazz));
+				getAnnotatedMethods(clazz));
 	}
 	
 	private List<Object> getElementsByNativeIndexes(
@@ -213,18 +212,13 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 		return clazz.getFields(f -> f.isAnnotated(EzyIndex.class));
 	}
 	
-	private List<? extends EzyMethod> getAnnotedMethods(EzyClass clazz) {
-		List<EzyMethod> methods = EzyLists.filter(clazz.getMethods(), this::shouldAddAnnotatedMethod);
-		return EzyLists.newArrayList(methods, this::newByFieldMethod);
-	}
-	
-	private boolean shouldAddAnnotatedMethod(EzyMethod method) {
+	@Override
+	protected boolean shouldAddAnnotatedMethod(EzyMethod method) {
 		return  method.isPublic() &&
 				method.isAnnotated(EzyIndex.class) && 
 				isValidAnnotatedMethod(method);
 	}
 	
-	protected abstract EzyMethod newByFieldMethod(EzyMethod method);
 	protected abstract boolean isValidAnnotatedMethod(EzyMethod method);
 	
 	private String[] getIndexes(EzyClass clazz) {

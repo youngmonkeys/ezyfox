@@ -1,6 +1,8 @@
 package com.tvd12.ezyfox.bean.impl;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.reflect.EzyClass;
@@ -13,7 +15,11 @@ public class EzyByConstructorSingletonLoader
 	protected final Constructor<?> constructor;
 	
 	protected EzyByConstructorSingletonLoader(EzyClass clazz) {
-		super(clazz);
+		this(clazz, new ArrayList<>());
+	}
+	
+	protected EzyByConstructorSingletonLoader(EzyClass clazz, List<Class<?>> stackCallClasses) {
+		super(clazz, stackCallClasses);
 		this.constructor = getConstructor(clazz);
 	}
 	

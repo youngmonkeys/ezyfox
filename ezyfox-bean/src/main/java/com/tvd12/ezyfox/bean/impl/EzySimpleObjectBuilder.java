@@ -15,6 +15,7 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyMethods;
 import com.tvd12.ezyfox.reflect.EzyReflectElement;
 import com.tvd12.ezyfox.reflect.EzySetterMethod;
 import com.tvd12.ezyfox.util.EzyLoggable;
@@ -114,7 +115,8 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 	private List<EzySetterMethod> 
 			getValidMethods(EzyClass clazz, Predicate<EzyMethod> predicate) {
 		List<EzyMethod> methods = clazz.getMethods();
-		List<EzyMethod> valid = EzyLists.filter(methods, predicate);
+		List<EzyMethod> valid0 = EzyLists.filter(methods, predicate);
+		List<EzyMethod> valid = EzyMethods.filterOverriddenMethods(valid0);
 		return EzyLists.newArrayList(valid, EzySetterMethod::new);
 	}
 	

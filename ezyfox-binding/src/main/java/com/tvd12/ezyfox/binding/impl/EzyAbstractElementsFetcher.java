@@ -6,6 +6,7 @@ import static com.tvd12.ezyfox.binding.EzyAccessType.FIELDS;
 import static com.tvd12.ezyfox.binding.EzyAccessType.METHODS;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.tvd12.ezyfox.reflect.EzyByFieldMethod;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyMethods;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 /**
@@ -29,6 +31,7 @@ public abstract class EzyAbstractElementsFetcher
 		implements EzyElementsFetcher {
 
 	protected List<? extends EzyMethod> methodList;
+	protected List<? extends EzyMethod> unoverriddenMethodList;
 	protected Map<String, ? extends EzyMethod> methodsByFieldName;
 	
 	@Override
@@ -42,7 +45,8 @@ public abstract class EzyAbstractElementsFetcher
 	
 	protected final void init(EzyClass clazz, int accessType) {
 		this.methodList = getMethodList(clazz);
-		this.methodsByFieldName = mapMethodsByFieldName(methodList);
+		this.unoverriddenMethodList = filterOverriddenMethods(methodList);
+		this.methodsByFieldName = mapMethodsByFieldName(unoverriddenMethodList);
 	}
 	
 	protected abstract List<Object> doGetElements(EzyClass clazz, int accessType);
@@ -61,12 +65,27 @@ public abstract class EzyAbstractElementsFetcher
 	protected final List<? extends EzyMethod> getMethods(EzyClass clazz, int accessType) {
 		List<EzyMethod> methods = new ArrayList<>();
 		if((accessType & METHODS) > 0) {
-			methods.addAll(methodList);
+			methods.addAll(unoverriddenMethodList);
 		}
 		else if((accessType & DECLARED_METHODS) > 0) {
 			methods.addAll(getDeclaredMethods(clazz));
 		}
-		return EzyLists.filter(methods, m -> !isIgnoredMethod(m, clazz));
+		List<? extends EzyMethod> answer = EzyLists.filter(methods, m -> !isIgnoredMethod(m, clazz));
+		return answer;
+	}
+	
+	protected final List<? extends EzyMethod> getAnnotatedMethods(EzyClass clazz) {
+		List<EzyMethod> methods0 = EzyLists.filter(clazz.getMethods(), this::shouldAddAnnotatedMethod);
+		List<? extends EzyMethod> methods = filterOverriddenMethods(methods0);
+		return EzyLists.newArrayList(methods, this::newByFieldMethod);
+	}
+	
+	protected abstract boolean shouldAddAnnotatedMethod(EzyMethod method);
+	protected abstract EzyMethod newByFieldMethod(EzyMethod method);
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected final List<? extends EzyMethod> filterOverriddenMethods(Collection allMethods) {
+		return EzyMethods.filterOverriddenMethods(allMethods);
 	}
 	
 	protected boolean isValidGenericField(EzyField field) {
@@ -91,4 +110,5 @@ public abstract class EzyAbstractElementsFetcher
 		EzyField field = clazz.getField(fieldName);
 		return field == null ? false : field.isAnnotated(EzyIgnore.class);
 	}
+	
 }

@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.binding.testing.testing1;
+package com.tvd12.ezyfox.binding.testing.testing2;
 
 import org.testng.annotations.Test;
 
@@ -6,10 +6,10 @@ import com.tvd12.ezyfox.binding.EzyBindingContext;
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.impl.EzyArrayReaderBuilder;
-import com.tvd12.ezyfox.binding.impl.EzyObjectReaderBuilder;
 import com.tvd12.ezyfox.binding.impl.EzyArrayWriterBuilder;
+import com.tvd12.ezyfox.binding.impl.EzyObjectReaderBuilder;
 import com.tvd12.ezyfox.binding.impl.EzyObjectWriterBuilder;
-import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.test.base.BaseTest;
 
 public class BindingTest extends BaseTest {
@@ -21,12 +21,12 @@ public class BindingTest extends BaseTest {
 		EzyArrayReaderBuilder.setDebug(true);
 		EzyObjectReaderBuilder.setDebug(true);
 		EzyBindingContext context = EzyBindingContext.builder()
-				.scan("com.tvd12.ezyfox.binding.testing.testing1")
+				.scan("com.tvd12.ezyfox.binding.testing.testing2")
 				.build();
 		EzyMarshaller marshaller = context.newMarshaller();
-		EzyArray array = marshaller.marshal(new ClassA());
+		EzyObject object = marshaller.marshal(new ClassA());
 		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		InterfaceA interfaceA = unmarshaller.unmarshal(array, InterfaceA.class);
+		InterfaceA interfaceA = unmarshaller.unmarshal(object, InterfaceA.class);
 		System.out.println(interfaceA);
 	}
 	
