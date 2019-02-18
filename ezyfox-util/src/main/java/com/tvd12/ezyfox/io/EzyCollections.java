@@ -59,7 +59,7 @@ public final class EzyCollections {
      * @return the sum value
      */
     public static <T> int flatMapToInt(Collection<T> coll, Function<T, Integer> measurer) {
-    	return coll.stream().flatMapToInt((t) -> IntStream.of(measurer.apply(t))).sum();
+    		return coll.stream().flatMapToInt((t) -> IntStream.of(measurer.apply(t))).sum();
     }
 	
 	/**
