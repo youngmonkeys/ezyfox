@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tvd12.ezyfox.binding.annotation.EzyValue;
-import com.tvd12.ezyfox.io.EzyLists;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
@@ -127,17 +126,12 @@ public abstract class EzyObjectElementsFetcher extends EzyAbstractElementsFetche
 		return clazz.getFields(f -> f.isAnnotated(EzyValue.class));
 	}
 	
-	private List<? extends EzyMethod> getAnnotatedMethods(EzyClass clazz) {
-		List<EzyMethod> methods = EzyLists.filter(clazz.getMethods(), this::shouldAddAnnotatedMethod);
-		return EzyLists.newArrayList(methods, this::newByFieldMethod);
-	}
-	
-	private boolean shouldAddAnnotatedMethod(EzyMethod method) {
+	@Override
+	protected boolean shouldAddAnnotatedMethod(EzyMethod method) {
 		return  method.isPublic() &&
 				method.isAnnotated(EzyValue.class) && 
 				isValidAnnotatedMethod(method);
 	}
 	
-	protected abstract EzyMethod newByFieldMethod(EzyMethod method);
 	protected abstract boolean isValidAnnotatedMethod(EzyMethod method);
 }

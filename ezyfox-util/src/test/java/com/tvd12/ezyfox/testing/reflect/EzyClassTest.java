@@ -37,7 +37,7 @@ public class EzyClassTest extends BaseTest {
 		assertTrue(clazz.getMethod(m -> m.getName().equals("getE")) != null);
 		assertTrue(clazz.getPublicMethod(m -> m.getName().equals("getE")) != null);
 		System.err.println("size = " + clazz.getMethods(m -> !m.getName().contains("D")).size());
-		assertEquals(clazz.getMethods(m -> !m.getName().contains("D")).size(), 9 + 1);
+		assertEquals(clazz.getMethods(m -> !m.getName().contains("D")).size(), 9 + 2);
 		assertEquals(clazz.getFields().size(), 10 + 2);
 		assertEquals(clazz.getWritableFields().size(), 9 + 2);
 		assertEquals(clazz.getPublicFields().size(), 4);
@@ -46,7 +46,7 @@ public class EzyClassTest extends BaseTest {
 		clazz.getMethods(m -> !m.getName().contains("D"), m -> new EzyMethod(m.getMethod()));
 		assertTrue(clazz.toString().equals(A.class.toString()));
 		assertEquals(clazz.getClazz(), A.class);
-		assertEquals(clazz.getMethods().size(), 11 + 1);
+		assertEquals(clazz.getMethods().size(), 11 + 2);
 		
 		assertEquals(clazz.getDeclaredFields().size(), 6 + 1);
 		assertEquals(clazz.getDeclaredMethods().size(), 6 + 1);

@@ -363,11 +363,14 @@ public class EzySimpleBeanContext
 			String beanName = getSingletonName(type);
 			Object current = singletonFactory.getSingleton(beanName, type);
 			if(current != null && !reload) return current;
+			List<Class<?>> stackCallClasses = new ArrayList<>();
 			try {
-				return new EzyByConstructorSingletonLoader(new EzyClass(type)).load(context);
+				EzySingletonLoader loader = new EzyByConstructorSingletonLoader(new EzyClass(type), stackCallClasses);
+				return loader.load(context);
 			}
 			catch(EzyNewSingletonException e) {
-				unloadedSingletons.addItems(e.getErrorKey(), e.getSingletonClass());
+				for(Class<?> clazz : stackCallClasses)
+					unloadedSingletons.addItems(e.getErrorKey(), clazz);
 				return null;
 			}
 		}
@@ -438,7 +441,7 @@ public class EzySimpleBeanContext
 					unloadedSingletons.remove(key);
 				}
 			}
-			if(finish && singleton != null) { 
+			if(singleton != null) { 
 				unloadedSingletons.remove(key);
 			}
 			return singleton;

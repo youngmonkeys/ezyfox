@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.bean.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
@@ -16,8 +18,17 @@ public class EzyByFieldSingletonLoader
 	protected final EzyField field;
 	
 	public EzyByFieldSingletonLoader(
-			EzyField field, Object configurator, Map<Class<?>, EzyMethod> methodsByType) {
-		super(new EzyClass(field.getType()), configurator, methodsByType);
+			EzyField field, 
+			Object configurator, 
+			Map<Class<?>, EzyMethod> methodsByType) {
+		this(field, configurator, methodsByType, new ArrayList<>());
+	}
+	
+	public EzyByFieldSingletonLoader(
+			EzyField field, 
+			Object configurator, 
+			Map<Class<?>, EzyMethod> methodsByType, List<Class<?>> stackCallClasses) {
+		super(new EzyClass(field.getType()), configurator, methodsByType, stackCallClasses);
 		this.field = field;
 	}
 	

@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import com.tvd12.ezyfox.binding.EzyBindingContext;
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
+import com.tvd12.ezyfox.binding.impl.EzyArrayReaderBuilder;
+import com.tvd12.ezyfox.binding.impl.EzyObjectReaderBuilder;
 import com.tvd12.ezyfox.binding.impl.EzyArrayWriterBuilder;
 import com.tvd12.ezyfox.binding.impl.EzyObjectWriterBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
@@ -16,6 +18,8 @@ public class BindingTest extends BaseTest {
 	public void test() {
 		EzyArrayWriterBuilder.setDebug(true);
 		EzyObjectWriterBuilder.setDebug(true);
+		EzyArrayReaderBuilder.setDebug(true);
+		EzyObjectReaderBuilder.setDebug(true);
 		EzyBindingContext context = EzyBindingContext.builder()
 				.scan("com.tvd12.ezyfox.binding.testing.testing1")
 				.build();

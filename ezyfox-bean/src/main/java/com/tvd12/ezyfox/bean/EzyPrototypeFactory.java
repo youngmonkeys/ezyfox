@@ -5,6 +5,8 @@ import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 public interface EzyPrototypeFactory {
+	
+	EzyPrototypeSupplier getSupplier(Class objectType);
 
 	EzyPrototypeSupplier getSupplier(String objectName, Class objectType);
 	

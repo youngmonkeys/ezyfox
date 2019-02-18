@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.bean.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
@@ -13,12 +15,19 @@ public class EzyByMethodSingletonLoader
 		implements EzySingletonLoader {
 
 	protected final EzyMethod method;
-	
+
 	public EzyByMethodSingletonLoader(
 			EzyMethod method, 
 			Object configurator, 
 			Map<Class<?>, EzyMethod> methodsByType) {
-		super(new EzyClass(method.getReturnType()), configurator, methodsByType);
+		this(method, configurator, methodsByType, new ArrayList<>());
+	}
+	
+	public EzyByMethodSingletonLoader(
+			EzyMethod method, 
+			Object configurator, 
+			Map<Class<?>, EzyMethod> methodsByType, List<Class<?>> stackCallClasses) {
+		super(new EzyClass(method.getReturnType()), configurator, methodsByType, stackCallClasses);
 		this.method = method;
 	}
 	

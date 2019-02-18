@@ -21,16 +21,20 @@ public abstract class EzySimpleSingletonLoader
 
 	protected final Object configurator;
 	protected final Map<Class<?>, EzyMethod> methodsByType;
+	protected final List<Class<?>> stackCallClasses;
 	
-	protected EzySimpleSingletonLoader(EzyClass clazz) {
-		this(clazz, null, new HashMap<>());
+	protected EzySimpleSingletonLoader(EzyClass clazz, List<Class<?>> stackCallClasses) {
+		this(clazz, null, new HashMap<>(), stackCallClasses);
 	}
 	
 	protected EzySimpleSingletonLoader(
-			EzyClass clazz, Object configurator, Map<Class<?>, EzyMethod> methodsByType) {
+			EzyClass clazz, 
+			Object configurator, 
+			Map<Class<?>, EzyMethod> methodsByType, List<Class<?>> stackCallClasses) {
 		super(clazz);
 		this.configurator = configurator;
 		this.methodsByType = methodsByType;
+		this.stackCallClasses = stackCallClasses;
 	}
 	
 	@Override
@@ -57,6 +61,7 @@ public abstract class EzySimpleSingletonLoader
 		detectCircularDependency(parameterTypes, log);
 		String name = getSingletonName();
 		Object singleton = getOrCreateSingleton(context, name, parameterTypes);
+		stackCallClasses.add(getSingletonClass());
 		Map properties = getAnnotationProperties();
 		Object answer = factory.addSingleton(name, singleton, properties);
 		setPropertiesToFields(singleton, context);
@@ -167,12 +172,14 @@ public abstract class EzySimpleSingletonLoader
 		EzyMethod method = methodsByType.remove(paramType);
 		if(method != null) {
 			logger.debug("add singleton of {} with method {}", paramType, method);
-			return new EzyByMethodSingletonLoader(method, configurator, methodsByType).load(context);
+			EzySingletonLoader loader = new EzyByMethodSingletonLoader(method, configurator, methodsByType, stackCallClasses);
+			return loader.load(context);
 		}
 		if(isAbstractClass(paramType)) {
 			throw new EzyNewSingletonException(getSingletonClass(), paramType, beanName);
 		}
-		return new EzyByConstructorSingletonLoader(new EzyClass(paramType)).load(context);
+		EzySingletonLoader loader = new EzyByConstructorSingletonLoader(new EzyClass(paramType), stackCallClasses);
+		return loader.load(context);
 	}
 	
 	protected void detectCircularDependency(Class[] parameterTypes, StringBuilder log) {

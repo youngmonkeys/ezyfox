@@ -29,6 +29,11 @@ public class EzySimplePrototypeFactory
 			= new ConcurrentHashMap<>();
 	
 	@Override
+	public EzyPrototypeSupplier getSupplier(Class objectType) {
+		return getSupplier(getBeanName(objectType), objectType);
+	}
+	
+	@Override
 	public EzyPrototypeSupplier getSupplier(String objectName, Class objectType) {
 		String realname = translateBeanName(objectName, objectType);
 		return supplierByKey.get(of(realname, objectType));

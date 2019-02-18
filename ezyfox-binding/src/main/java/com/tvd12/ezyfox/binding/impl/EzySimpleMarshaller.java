@@ -25,13 +25,12 @@ import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.reflect.EzyTypes;
 import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class EzySimpleMarshaller
 		extends EzyEntityBuilders
 		implements EzyMarshaller {
 
-	@SuppressWarnings("rawtypes")
 	protected final Map<Class, EzyWriter> writersByType;
-	@SuppressWarnings("rawtypes")
 	protected final Map<Class, EzyWriter> writersByObjectType;
 	
 	public EzySimpleMarshaller() {
@@ -39,28 +38,26 @@ public class EzySimpleMarshaller
 		this.writersByType = defaultWritersByType();
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addWriter(EzyWriter writer) {
 		writersByType.put(writer.getClass(), writer);
+		Class<?> objectType = writer.getObjectType();
+		if(objectType != null)
+			writersByObjectType.put(objectType, writer);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addWriters(Iterable<EzyWriter> writers) {
 		writers.forEach(this::addWriter);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addWriter(Class type, EzyWriter writer) {
 		writersByObjectType.put(type, writer);
 		writersByType.put(writer.getClass(), writer);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void addWriters(Map<Class, EzyWriter> writers) {
 		writers.keySet().forEach(key -> addWriter(key, writers.get(key)));
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public <T> T marshal(Object object) {
 		if(object == null)
@@ -76,7 +73,6 @@ public class EzySimpleMarshaller
 		throw new IllegalArgumentException("has no writer for " + object.getClass());
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public <T> T marshal(Class<? extends EzyWriter> writerClass, Object object) {
 		if(writersByType.containsKey(writerClass))
@@ -85,14 +81,12 @@ public class EzySimpleMarshaller
 			object + ", " + writerClass.getName() + " is not writer class");
 	}
 	
-	@SuppressWarnings("rawtypes")
 	private Map<Class, EzyWriter> defaultWritersByType() {
 		Map<Class, EzyWriter> map = new ConcurrentHashMap<>();
 		writersByObjectType.values().forEach(w -> map.put(w.getClass(), w));
 		return map;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	private Map<Class, EzyWriter> defaultWriters() {
 		Map<Class, EzyWriter> map = new ConcurrentHashMap<>();
 		Set<Class> normalTypes = EzyTypes.ALL_TYPES;

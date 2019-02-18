@@ -59,6 +59,9 @@ public class EzySimpleUnmarshaller
 	
 	public void addReader(EzyReader reader) {
 		readersByType.put(reader.getClass(), reader);
+		Class<?> objectType = reader.getObjectType();
+		if(objectType != null)
+			readersByObjectType.put(objectType, reader);
 	}
 	
 	public void addReaders(Iterable<EzyReader> readers) {
@@ -192,5 +195,5 @@ public class EzySimpleUnmarshaller
 			answer[i] = unmarshal((Object)array.get(i), componentType);
 		return answer;
 	}
-	
+
 }
