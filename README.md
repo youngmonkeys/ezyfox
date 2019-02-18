@@ -2,7 +2,7 @@
 
 # Documentation
 
-[https://tvd12.com/](https://tvd12.com/){:target="_blank"}
+[https://tvd12.com/](https://tvd12.com/)
 
 # License
 
