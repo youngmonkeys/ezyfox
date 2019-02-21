@@ -140,6 +140,8 @@ public class EzySimpleUnmarshaller
 	
 	@Override
 	public <T> T unmarshal(Class<? extends EzyReader> readerClass, Object value) {
+		if(value == null)
+			return null;
 		if(readersByType.containsKey(readerClass))
 			return (T) readersByType.get(readerClass).read(this, value);
 		throw new IllegalArgumentException("can't unmarshal value " + 

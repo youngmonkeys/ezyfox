@@ -75,6 +75,8 @@ public class EzySimpleMarshaller
 	
 	@Override
 	public <T> T marshal(Class<? extends EzyWriter> writerClass, Object object) {
+		if(object == null)
+			return null;
 		if(writersByType.containsKey(writerClass))
 			return (T) writersByType.get(writerClass).write(this, object);
 		throw new IllegalArgumentException("can't marshal object " + 

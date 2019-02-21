@@ -16,8 +16,7 @@ public class EzyMapArrayWriter
 	
 	private static final EzyMapArrayWriter INSTANCE = new EzyMapArrayWriter();
 	
-	private EzyMapArrayWriter() {
-	}
+	private EzyMapArrayWriter() {}
 	
 	public static EzyMapArrayWriter getInstance() {
 		return INSTANCE;
@@ -36,5 +35,8 @@ public class EzyMapArrayWriter
 		}
 		return arrayBuilder.build();
 	}
+	
+	@Override
+	public Class<?> getObjectType() { return null; }
 
 }
