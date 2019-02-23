@@ -14,8 +14,7 @@ import com.tvd12.ezyfox.collect.Sets;
 
 public final class EzySets {
 
-	private EzySets() {
-    }
+	private EzySets() {}
     
 	/**
 	 * Combine some set of items

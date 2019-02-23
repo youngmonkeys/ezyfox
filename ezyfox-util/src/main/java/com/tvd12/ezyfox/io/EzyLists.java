@@ -19,11 +19,10 @@ import com.tvd12.ezyfox.collect.Lists;
  * @author tavandung12
  *
  */
-public class EzyLists {
+public final class EzyLists {
 
 	// prevent new instance
-    private EzyLists() {
-    }
+    private EzyLists() {}
     
     /**
      * Combine some collections to one

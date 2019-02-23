@@ -4,12 +4,14 @@ import java.util.Collection;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
+import java.util.function.ToLongFunction;
 import java.util.stream.IntStream;
 
 public final class EzyCollections {
 
-	private EzyCollections() {
-	}
+	private EzyCollections() {}
 	
 	public static boolean isEmpty(Collection<?> coll) {
 		return coll != null ? coll.isEmpty() : true;
@@ -48,6 +50,42 @@ public final class EzyCollections {
      */
     public static <T> int countItems(Collection<T> coll, Predicate<T> predicate) {
         return (int) coll.stream().filter(predicate).count();
+    }
+    
+    /**
+     * sum all items
+     * 
+     * @param <T> the value type
+     * @param coll the collection
+     * @param mapper the mapper function
+     * @return the sum value
+     */
+    public static <T> double sumItemsToDouble(Collection<T> coll, ToDoubleFunction<T> mapper) {
+		return coll.stream().mapToDouble(mapper).sum();
+    }
+    
+    /**
+     * sum all items
+     * 
+     * @param <T> the value type
+     * @param coll the collection
+     * @param mapper the mapper function
+     * @return the sum value
+     */
+    public static <T> int sumItemsToInt(Collection<T> coll, ToIntFunction<T> mapper) {
+    		return coll.stream().mapToInt(mapper).sum();
+    }
+    
+    /**
+     * sum all items
+     * 
+     * @param <T> the value type
+     * @param coll the collection
+     * @param mapper the mapper function
+     * @return the sum value
+     */
+    public static <T> long sumItemsToLong(Collection<T> coll, ToLongFunction<T> mapper) {
+		return coll.stream().mapToLong(mapper).sum();
     }
     
     /**
