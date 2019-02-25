@@ -15,17 +15,20 @@ import com.tvd12.ezyfox.rabbitmq.factory.EzySimpleCorrelationIdFactory;
 
 public class EzyRabbitRpcClient extends RpcClient {
 
-	protected EzyCorrelationIdFactory correlationIdFactory;
+	protected final String replyRoutingKey;
+	protected final EzyCorrelationIdFactory correlationIdFactory;
 	
 	public EzyRabbitRpcClient(
 			Channel channel, 
 			String exchange, 
 			String routingKey,
-			String replyQueueName, int timeout) throws IOException {
+			String replyQueueName,
+			String replyRoutingKey, int timeout) throws IOException {
         this(channel, 
         		exchange, 
         		routingKey, 
         		replyQueueName,
+        		replyRoutingKey,
         		timeout, new EzySimpleCorrelationIdFactory());
     }
 	
@@ -34,9 +37,11 @@ public class EzyRabbitRpcClient extends RpcClient {
 			String exchange, 
 			String routingKey,
 			String replyQueueName,
+			String replyRoutingKey,
 			int timeout, 
 			EzyCorrelationIdFactory correlationIdFactory) throws IOException {
         super(channel, exchange, routingKey, replyQueueName, timeout);
+        this.replyRoutingKey = replyRoutingKey;
         this.correlationIdFactory = correlationIdFactory;
     }
  
@@ -46,12 +51,16 @@ public class EzyRabbitRpcClient extends RpcClient {
         BlockingCell<Object> k = new BlockingCell<Object>();
         Map<String, BlockingCell<Object>> continuationMap = getContinuationMap();
         String replyId = correlationIdFactory.newCorrelationId();
-        props = ((props==null) ? new AMQP.BasicProperties.Builder() : props.builder())
-                .correlationId(replyId).build();
+        AMQP.BasicProperties.Builder propertiesBuilder = 
+        		props != null ? props.builder() : new AMQP.BasicProperties.Builder();
+        	AMQP.BasicProperties newProperties = propertiesBuilder
+        			.correlationId(replyId)
+        			.replyTo(replyRoutingKey)
+        			.build();
         synchronized (continuationMap) {
             continuationMap.put(replyId, k);
         }
-        publish(props, message);
+        publish(newProperties, message);
         Object reply;
         try {
             reply = k.uninterruptibleGet(timeout);
@@ -86,6 +95,7 @@ public class EzyRabbitRpcClient extends RpcClient {
 		protected String exchange; 
 		protected String routingKey; 
 		protected String replyQueueName;
+		protected String replyRoutingKey; 
 		protected EzyCorrelationIdFactory correlationIdFactory;
 		
 		public Builder timeout(int timeout) {
@@ -113,6 +123,11 @@ public class EzyRabbitRpcClient extends RpcClient {
 			return this;
 		}
 		
+		public Builder replyRoutingKey(String replyRoutingKey) {
+			this.replyRoutingKey = replyRoutingKey;
+			return this;
+		}
+		
 		public Builder correlationIdFactory(EzyCorrelationIdFactory correlationIdFactory) {
 			this.correlationIdFactory = correlationIdFactory;
 			return this;
@@ -126,6 +141,7 @@ public class EzyRabbitRpcClient extends RpcClient {
 						exchange, 
 						routingKey, 
 						replyQueueName, 
+						replyRoutingKey,
 						timeout, getCorrelationIdFactory());
 			}
 			catch(Exception e) {
