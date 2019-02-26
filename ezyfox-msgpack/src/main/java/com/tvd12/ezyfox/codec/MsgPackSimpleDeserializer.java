@@ -20,11 +20,19 @@ public class MsgPackSimpleDeserializer
 		extends EzyLiteEntityBuilders
 		implements EzyMessageDeserializer {
 
-	private MsgPackTypeParser typeParser = new MsgPackTypeParser();
-	private MapSizeDeserializer mapSizeDeserializer = new MapSizeDeserializer();
-	private ArraySizeDeserializer arraySizeDeserializer = new ArraySizeDeserializer();
-	private StringSizeDeserializer stringSizeDeserializer = new StringSizeDeserializer();
-	private Map<MsgPackType, EzyParser<ByteBuffer, Object>> parsers = defaultParsers();
+	protected final MsgPackTypeParser typeParser;
+	protected final MapSizeDeserializer mapSizeDeserializer;
+	protected final ArraySizeDeserializer arraySizeDeserializer;
+	protected final StringSizeDeserializer stringSizeDeserializer;
+	protected final Map<MsgPackType, EzyParser<ByteBuffer, Object>> parsers;
+	
+	public MsgPackSimpleDeserializer() {
+		this.typeParser = new MsgPackTypeParser();
+		this.mapSizeDeserializer = new MapSizeDeserializer();
+		this.arraySizeDeserializer = new ArraySizeDeserializer();
+		this.stringSizeDeserializer = new StringSizeDeserializer();
+		this.parsers = defaultParsers();
+	}
 	
 	@SuppressWarnings("unchecked")
 	public Object deserialize(ByteBuffer buffer) {

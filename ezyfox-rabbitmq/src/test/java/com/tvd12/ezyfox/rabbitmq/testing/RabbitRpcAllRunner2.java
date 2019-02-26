@@ -25,7 +25,7 @@ import com.tvd12.ezyfox.rabbitmq.endpoint.EzyRabbitRpcServer;
 import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitRequestHandlers;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-public class RabbitRpcAllRunner extends EzyLoggable {
+public class RabbitRpcAllRunner2 extends EzyLoggable {
 
 	private EzyMarshaller marshaller;
 	private EzyUnmarshaller unmarshaller;
@@ -37,7 +37,7 @@ public class RabbitRpcAllRunner extends EzyLoggable {
 	private EzyRabbitDataCodec dataCodec;
 	private EzyRabbitRequestHandlers requestHandlers;
 	
-	public RabbitRpcAllRunner() {
+	public RabbitRpcAllRunner2() {
 		this.messageSerializer = newMessageSerializer();
 		this.messageDeserializer = newMessageDeserializer();
 		this.bindingContext = newBindingContext();
@@ -59,7 +59,7 @@ public class RabbitRpcAllRunner extends EzyLoggable {
 	
 	public static void main(String[] args) throws Exception {
 		EzyEntityFactory.create(EzyArrayBuilder.class);
-		RabbitRpcAllRunner runner = new RabbitRpcAllRunner();
+		RabbitRpcAllRunner2 runner = new RabbitRpcAllRunner2();
 		runner.startServer();
 		runner.sleep();
 //		runner.asynRpc();
@@ -119,14 +119,17 @@ public class RabbitRpcAllRunner extends EzyLoggable {
 		channel.exchangeDeclare("rmqia-rpc-exchange", "direct");
 		channel.queueDeclare("rmqia-rpc-queue", false, false, false, null);
 		channel.queueDeclare("rmqia-rpc-client-queue", false, false, false, null);
+		channel.queueDeclare("rmqia-rpc-client-queue-private", false, false, false, null);
 		channel.queueBind("rmqia-rpc-queue", "rmqia-rpc-exchange", "rmqia-rpc-routing-key");
 		channel.queueBind("rmqia-rpc-client-queue", "rmqia-rpc-exchange", "rmqia-rpc-client-routing-key");
+		channel.queueBind("rmqia-rpc-client-queue-private", "rmqia-rpc-exchange", "rmqia-rpc-client-routing-key-private");
 		return EzyRabbitRpcClient.builder()
 				.timeout(300 * 1000)
 				.channel(channel)
 				.exchange("rmqia-rpc-exchange")
 				.routingKey("rmqia-rpc-routing-key")
-				.replyQueueName("rmqia-rpc-client-queue")
+				.replyQueueName("rmqia-rpc-client-queue-private")
+				.replyRoutingKey("rmqia-rpc-client-routing-key-private")
 				.build();
 	}
 	
@@ -139,8 +142,10 @@ public class RabbitRpcAllRunner extends EzyLoggable {
 		channel.exchangeDeclare("rmqia-rpc-exchange", "direct");
 		channel.queueDeclare("rmqia-rpc-queue", false, false, false, null);
 		channel.queueDeclare("rmqia-rpc-client-queue", false, false, false, null);
+		channel.queueDeclare("rmqia-rpc-client-queue-private", false, false, false, null);
 		channel.queueBind("rmqia-rpc-queue", "rmqia-rpc-exchange", "rmqia-rpc-routing-key");
 		channel.queueBind("rmqia-rpc-client-queue", "rmqia-rpc-exchange", "rmqia-rpc-client-routing-key");
+		channel.queueBind("rmqia-rpc-client-queue-private", "rmqia-rpc-exchange", "rmqia-rpc-client-routing-key-private");
 		return EzyRabbitRpcServer.builder()
 				.queueName("rmqia-rpc-queue")
 				.exchange("rmqia-rpc-exchange")

@@ -1,22 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_ARRAY16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_BIN16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_BIN32_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_BIN8_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXARRAY_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXMAP_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXSTR_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_MAP16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_POSITIVE_FIXINT;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_STR16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_STR8_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT8;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT16;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT32;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT8;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_NEGATIVE_FIXINT;
-
 import java.util.AbstractCollection;
 import java.util.AbstractList;
 import java.util.AbstractMap;
@@ -54,13 +37,23 @@ public class MsgPackSimpleSerializer
 		extends EzyAbstractToBytesSerializer 
 		implements EzyCastToByte {
 
-	protected IntSerializer intSerializer = new IntSerializer();
-	protected FloatSerializer floatSerializer = new FloatSerializer();
-	protected DoubleSerializer doubleSerializer = new DoubleSerializer();
-	protected BinSizeSerializer binSizeSerializer = new BinSizeSerializer();
-	protected MapSizeSerializer mapSizeSerializer = new MapSizeSerializer();
-	protected ArraySizeSerializer arraySizeSerializer = new ArraySizeSerializer();
-	protected StringSizeSerializer stringSizeSerializer = new StringSizeSerializer();
+	protected final MsgPackIntSerializer intSerializer;
+	protected final MsgPackFloatSerializer floatSerializer;
+	protected final MsgPackDoubleSerializer doubleSerializer;
+	protected final MsgPackBinSizeSerializer binSizeSerializer;
+	protected final MsgPackMapSizeSerializer mapSizeSerializer;
+	protected final MsgPackArraySizeSerializer arraySizeSerializer;
+	protected final MsgPackStringSizeSerializer stringSizeSerializer;
+	
+	public MsgPackSimpleSerializer() {
+		this.intSerializer = MsgPackIntSerializer.getInstance();
+		this.floatSerializer = MsgPackFloatSerializer.getInstance();
+		this.doubleSerializer = MsgPackDoubleSerializer.getInstance();
+		this.binSizeSerializer = MsgPackBinSizeSerializer.getInstance();
+		this.mapSizeSerializer = MsgPackMapSizeSerializer.getInstance();
+		this.arraySizeSerializer = MsgPackArraySizeSerializer.getInstance();
+		this.stringSizeSerializer = MsgPackStringSizeSerializer.getInstance();
+	}
 
 	@Override
 	protected void addParsers(Map<Class<?>, EzyParser<Object, byte[]>> parsers) {
@@ -404,201 +397,6 @@ public class MsgPackSimpleSerializer
 	
 	protected byte[] parseMapSize(int size) {
 		return mapSizeSerializer.serialize(size);
-	}
-	
-}
-
-class BinSizeSerializer implements EzyCastToByte {
-	
-	public byte[] serialize(int size) {
-		if(size <= MAX_BIN8_SIZE)
-			return parse8(size);
-		if(size <= MAX_BIN16_SIZE)
-			return parse16(size);
-		return parse32(size);
-	}
-	
-	private byte[] parse8(int size) {
-		return new byte[] {
-			cast(0xc4), cast(size)
-		};
-	}
-	
-	private byte[] parse16(int size) {
-		return EzyBytes.getBytes(0xc5 , size, 2);
-	}
-	
-	private byte[] parse32(int size) {
-		return EzyBytes.getBytes(0xc6 , size, 4);
-	}
-}
-
-class StringSizeSerializer implements EzyCastToByte {
-	
-	public byte[] serialize(int size) {
-		if(size <= MAX_FIXSTR_SIZE)
-			return parseFix(size);
-		if(size <= MAX_STR8_SIZE)
-			return parse8(size);
-		if(size <= MAX_STR16_SIZE)
-			return parse16(size);
-		return parse32(size);
-	}
-	
-	private byte[] parseFix(int size) {
-		return new byte[] {
-			cast(0xa0 | size)
-		};
-	}
-	
-	private byte[] parse8(int size) {
-		return EzyBytes.getBytes(0xd9, size, 1);
-	}
-	
-	private byte[] parse16(int size) {
-		return EzyBytes.getBytes(0xda, size, 2);
-	}
-	
-	private byte[] parse32(int size) {
-		return EzyBytes.getBytes(0xdb, size, 4);
-	}
-}
-
-class ArraySizeSerializer implements EzyCastToByte {
-	
-	public byte[] serialize(int size) {
-		if(size <= MAX_FIXARRAY_SIZE)
-			return parseFix(size);
-		if(size <= MAX_ARRAY16_SIZE)
-			return parse16(size);
-		return parse32(size);
-	}
-	
-	private byte[] parseFix(int size) {
-		return new byte[] {
-			cast(0x90 | size)
-		};
-	}
-	
-	private byte[] parse16(int size) {
-		return EzyBytes.getBytes(0xdc, size, 2);
-	}
-	
-	private byte[] parse32(int size) {
-		return EzyBytes.getBytes(0xdd, size, 4);
-	}
-}
-
-class MapSizeSerializer implements EzyCastToByte {
-	
-	public byte[] serialize(int size) {
-		if(size <= MAX_FIXMAP_SIZE)
-			return parseFix(size);
-		if(size <= MAX_MAP16_SIZE)
-			return parse16(size);
-		return parse32(size);
-	}
-	
-	private byte[] parseFix(int size) {
-		return new byte[] {
-			cast(0x80 | size)
-		};
-	}
-	
-	private byte[] parse16(int size) {
-		return EzyBytes.getBytes(0xde, size, 2);
-	}
-	
-	private byte[] parse32(int size) {
-		return EzyBytes.getBytes(0xdf, size, 4);
-	}
-}
-
-class IntSerializer implements EzyCastToByte {
-	
-	public byte[] serialize(long value) {
-		return value >= 0 
-				? parsePositive(value) 
-				: parseNegative(value);
-	}
-	
-	private byte[] parsePositive(long value) {
-		if(value <= MAX_POSITIVE_FIXINT)
-			return parsePositiveFix(value);
-		if(value < MAX_UINT8)
-			return parseU8(value);
-		if(value < MAX_BIN16_SIZE)
-			return parseU16(value);
-		if(value < MAX_BIN32_SIZE)
-			return parseU32(value);
-		return parseU64(value);
-	}
-	
-	private byte[] parsePositiveFix(long value) {
-		return new byte[] {cast(0x0 | value)};
-	}
-	
-	private byte[] parseU8(long value) {
-		return EzyBytes.getBytes(0xcc, value, 1);
-	}
-	
-	private byte[] parseU16(long value) {
-		return EzyBytes.getBytes(0xcd, value, 2);
-	}
-	
-	private byte[] parseU32(long value) {
-		return EzyBytes.getBytes(0xce, value, 4);
-	}
-	
-	private byte[] parseU64(long value) {
-		return EzyBytes.getBytes(0xcf, value, 8);
-	}
-	
-	private byte[] parseNegative(long value) {
-		if(value >= MIN_NEGATIVE_FIXINT)
-			return parseNegativeFix(value);
-		if(value >= MIN_INT8)
-			return parse8(value);
-		if(value >= MIN_INT16)
-			return parse16(value);
-		if(value >= MIN_INT32)
-			return parse32(value);
-		return parse64(value);
-	}
-	
-	private byte[] parseNegativeFix(long value) {
-		return new byte[] {cast(0xe0 | value)};
-	}
-	
-	private byte[] parse8(long value) {
-		return EzyBytes.getBytes(0xd0, value, 1);
-	}
-	
-	private byte[] parse16(long value) {
-		return EzyBytes.getBytes(0xd1, value, 2);
-	}
-	
-	private byte[] parse32(long value) {
-		return EzyBytes.getBytes(0xd2, value, 4);
-	}
-	
-	private byte[] parse64(long value) {
-		return EzyBytes.getBytes(0xd3, value, 8);
-	}
-}
-
-class DoubleSerializer implements EzyCastToByte {
-	
-	public byte[] serialize(double value) {
-		return EzyBytes.getBytes(cast(0xcb), value);
-	}
-	
-}
-
-class FloatSerializer implements EzyCastToByte {
-	
-	public byte[] serialize(float value) {
-		return EzyBytes.getBytes(cast(0xca), value);
 	}
 	
 }

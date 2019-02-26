@@ -10,12 +10,15 @@ import com.tvd12.ezyfox.codec.EzySimpleMessageToBytes;
 
 public class MsgPackCodecCreator implements EzyCodecCreator {
 
-	protected final EzyMessageToBytes messageToBytes 
-			= new EzySimpleMessageToBytes();
-	protected final EzyObjectToMessage objectToMessage 
-			= new MsgPackObjectToMessage();
-	protected final EzyMessageDeserializer deserializer 
-			= new MsgPackSimpleDeserializer();
+	protected final EzyMessageToBytes messageToBytes;
+	protected final EzyObjectToMessage objectToMessage; 
+	protected final EzyMessageDeserializer deserializer; 
+	
+	public MsgPackCodecCreator() {
+		this.messageToBytes = new EzySimpleMessageToBytes();
+		this.objectToMessage = new MsgPackObjectToMessage();
+		this.deserializer = new MsgPackSimpleDeserializer();
+	}
 	
 	@Override
 	public EzyByteToObjectDecoder newDecoder(int maxRequestSize) {

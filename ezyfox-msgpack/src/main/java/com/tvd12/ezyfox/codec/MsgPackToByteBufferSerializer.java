@@ -38,13 +38,23 @@ public class MsgPackToByteBufferSerializer
 		extends EzyAbstractToByteBufferSerializer 
 		implements EzyCastToByte {
 
-	protected IntSerializer intSerializer = new IntSerializer();
-	protected FloatSerializer floatSerializer = new FloatSerializer();
-	protected DoubleSerializer doubleSerializer = new DoubleSerializer();
-	protected BinSizeSerializer binSizeSerializer = new BinSizeSerializer();
-	protected MapSizeSerializer mapSizeSerializer = new MapSizeSerializer();
-	protected ArraySizeSerializer arraySizeSerializer = new ArraySizeSerializer();
-	protected StringSizeSerializer stringSizeSerializer = new StringSizeSerializer();
+	protected final MsgPackIntSerializer intSerializer;
+	protected final MsgPackFloatSerializer floatSerializer;
+	protected final MsgPackDoubleSerializer doubleSerializer;
+	protected final MsgPackBinSizeSerializer binSizeSerializer;
+	protected final MsgPackMapSizeSerializer mapSizeSerializer;
+	protected final MsgPackArraySizeSerializer arraySizeSerializer;
+	protected final MsgPackStringSizeSerializer stringSizeSerializer;
+	
+	public MsgPackToByteBufferSerializer() {
+		this.intSerializer = MsgPackIntSerializer.getInstance();
+		this.floatSerializer = MsgPackFloatSerializer.getInstance();
+		this.doubleSerializer = MsgPackDoubleSerializer.getInstance();
+		this.binSizeSerializer = MsgPackBinSizeSerializer.getInstance();
+		this.mapSizeSerializer = MsgPackMapSizeSerializer.getInstance();
+		this.arraySizeSerializer = MsgPackArraySizeSerializer.getInstance();
+		this.stringSizeSerializer = MsgPackStringSizeSerializer.getInstance();
+	}
 
 	@Override
 	protected void addParsers(Map<Class<?>, EzyParser<Object, ByteBuffer>> parsers) {
