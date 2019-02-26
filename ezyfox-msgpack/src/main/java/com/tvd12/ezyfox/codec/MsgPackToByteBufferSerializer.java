@@ -38,13 +38,13 @@ public class MsgPackToByteBufferSerializer
 		extends EzyAbstractToByteBufferSerializer 
 		implements EzyCastToByte {
 
-	protected IntSerializer intSerializer = new IntSerializer();
-	protected FloatSerializer floatSerializer = new FloatSerializer();
-	protected DoubleSerializer doubleSerializer = new DoubleSerializer();
-	protected BinSizeSerializer binSizeSerializer = new BinSizeSerializer();
-	protected MapSizeSerializer mapSizeSerializer = new MapSizeSerializer();
-	protected ArraySizeSerializer arraySizeSerializer = new ArraySizeSerializer();
-	protected StringSizeSerializer stringSizeSerializer = new StringSizeSerializer();
+	protected final IntSerializer intSerializer = new IntSerializer();
+	protected final FloatSerializer floatSerializer = new FloatSerializer();
+	protected final DoubleSerializer doubleSerializer = new DoubleSerializer();
+	protected final BinSizeSerializer binSizeSerializer = new BinSizeSerializer();
+	protected final MapSizeSerializer mapSizeSerializer = new MapSizeSerializer();
+	protected final ArraySizeSerializer arraySizeSerializer = new ArraySizeSerializer();
+	protected final StringSizeSerializer stringSizeSerializer = new StringSizeSerializer();
 
 	@Override
 	protected void addParsers(Map<Class<?>, EzyParser<Object, ByteBuffer>> parsers) {

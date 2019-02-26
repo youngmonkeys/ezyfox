@@ -2,9 +2,9 @@ package com.tvd12.ezyfox.codec;
 
 public class MsgPackObjectToBytes implements EzyObjectToBytes {
 
-	private EzyMessageSerializer serializer;
+	protected final EzyMessageSerializer serializer;
 	
-	protected MsgPackObjectToBytes(EzyMessageSerializer serializer) {
+	public MsgPackObjectToBytes(EzyMessageSerializer serializer) {
 		this.serializer = serializer;
 	}
 	

@@ -8,7 +8,7 @@ import com.tvd12.ezyfox.codec.EzyObjectToMessage;
 
 public class MsgPackObjectToMessage implements EzyObjectToMessage {
 
-	private EzyObjectToBytes objectToBytes;
+	protected final EzyObjectToBytes objectToBytes;
 	
 	public MsgPackObjectToMessage() {
 		this.objectToBytes = new MsgPackObjectToBytes(newSerializer());
