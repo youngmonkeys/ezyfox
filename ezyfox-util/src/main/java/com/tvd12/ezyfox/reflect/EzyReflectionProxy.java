@@ -21,6 +21,18 @@ public class EzyReflectionProxy implements EzyReflection {
 		this.reflections = new Reflections(packages);
 	}
 	
+	public EzyReflectionProxy(String packet, ClassLoader classLoader) {
+		this.reflections = new Reflections(packet, classLoader);
+	}
+	
+	public EzyReflectionProxy(Set<String> packages, ClassLoader classLoader) {
+		this.reflections = new Reflections(packages, classLoader);
+	}
+	
+	public EzyReflectionProxy(Iterable<String> packages, ClassLoader classLoader) {
+		this.reflections = new Reflections(packages, classLoader);
+	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Set<Class<?>> getExtendsClasses(Class parentClass) {
