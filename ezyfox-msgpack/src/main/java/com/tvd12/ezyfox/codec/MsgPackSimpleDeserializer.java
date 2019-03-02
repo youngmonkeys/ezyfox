@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
-import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.function.EzyParser;
@@ -14,10 +13,10 @@ import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyInts;
 import com.tvd12.ezyfox.io.EzyLongs;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.util.EzyLiteEntityBuilders;
+import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
 public class MsgPackSimpleDeserializer
-		extends EzyLiteEntityBuilders
+		extends EzyEntityBuilders
 		implements EzyMessageDeserializer {
 
 	protected final MsgPackTypeParser typeParser;

@@ -14,9 +14,9 @@ import static com.tvd12.ezyfox.io.EzyDataConverter.collectionToWrapperFloatArray
 import static com.tvd12.ezyfox.io.EzyDataConverter.collectionToWrapperIntArray;
 import static com.tvd12.ezyfox.io.EzyDataConverter.collectionToWrapperLongArray;
 import static com.tvd12.ezyfox.io.EzyDataConverter.collectionToWrapperShortArray;
+import static com.tvd12.ezyfox.io.EzyDataConverter.toByteWrapperArray;
 import static com.tvd12.ezyfox.io.EzyDataConverter.toCharWrapperArray;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -27,17 +27,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.function.EzyToObject;
-import com.tvd12.ezyfox.io.EzyDates;
 import com.tvd12.ezyfox.reflect.EzyClasses;
+import com.tvd12.ezyfox.sercurity.EzyBase64;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzySimpleOutputTransformer
 		extends EzyLoggable
-		implements EzyOutputTransformer, Serializable {
+		implements EzyOutputTransformer {
 	private static final long serialVersionUID = 8067491929651725682L;
 	
 	@SuppressWarnings("rawtypes")
-	private final Map<Class, EzyToObject> transformers = defaultTransformers();
+	protected final Map<Class, EzyToObject> transformers = defaultTransformers();
 	
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -98,46 +98,46 @@ public class EzySimpleOutputTransformer
 				return value;
 			}
 		});
-		answer.put(byte.class, new EzyToObject<Byte>() {
+		answer.put(byte.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Byte value) {
-				return value;
+			public Object transform(Number value) {
+				return value.byteValue();
 			}
 		});
-		answer.put(char.class, new EzyToObject<Byte>() {
+		answer.put(char.class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Byte value) {
-				return (char)value.byteValue();
+			public Object transform(Object value) {
+				return EzyNumbersConverter.objectToChar(value);
 			}
 		});
-		answer.put(double.class, new EzyToObject<Double>() {
+		answer.put(double.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Double value) {
-				return value;
+			public Object transform(Number value) {
+				return value.doubleValue();
 			}
 		});
-		answer.put(float.class, new EzyToObject<Float>() {
+		answer.put(float.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Float value) {
-				return value;
+			public Object transform(Number value) {
+				return value.floatValue();
 			}
 		});
-		answer.put(int.class, new EzyToObject<Integer>() {
+		answer.put(int.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Integer value) {
-				return value;
+			public Object transform(Number value) {
+				return value.intValue();
 			}
 		});
-		answer.put(long.class, new EzyToObject<Long>() {
+		answer.put(long.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Long value) {
-				return value;
+			public Object transform(Number value) {
+				return value.longValue();
 			}
 		});
-		answer.put(short.class, new EzyToObject<Short>() {
+		answer.put(short.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Short value) {
-				return value;
+			public Object transform(Number value) {
+				return value.shortValue();
 			}
 		});
 	}
@@ -150,46 +150,46 @@ public class EzySimpleOutputTransformer
 				return value;
 			}
 		});
-		answer.put(Byte.class, new EzyToObject<Byte>() {
+		answer.put(Byte.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Byte value) {
-				return value;
+			public Object transform(Number value) {
+				return value.byteValue();
 			}
 		});
-		answer.put(Character.class, new EzyToObject<Byte>() {
+		answer.put(Character.class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Byte value) {
-				return (char)value.byteValue();
+			public Object transform(Object value) {
+				return EzyNumbersConverter.objectToChar(value);
 			}
 		});
-		answer.put(Double.class, new EzyToObject<Double>() {
+		answer.put(Double.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Double value) {
-				return value;
+			public Object transform(Number value) {
+				return value.doubleValue();
 			}
 		});
-		answer.put(Float.class, new EzyToObject<Float>() {
+		answer.put(Float.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Float value) {
-				return value;
+			public Object transform(Number value) {
+				return value.floatValue();
 			}
 		});
-		answer.put(Integer.class, new EzyToObject<Integer>() {
+		answer.put(Integer.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Integer value) {
-				return value;
+			public Object transform(Number value) {
+				return value.intValue();
 			}
 		});
-		answer.put(Long.class, new EzyToObject<Long>() {
+		answer.put(Long.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Long value) {
-				return value;
+			public Object transform(Number value) {
+				return value.longValue();
 			}
 		});
-		answer.put(Short.class, new EzyToObject<Short>() {
+		answer.put(Short.class, new EzyToObject<Number>() {
 			@Override
-			public Object transform(Short value) {
-				return value;
+			public Object transform(Number value) {
+				return value.shortValue();
 			}
 		});
 		answer.put(String.class, new EzyToObject<String>() {
@@ -200,106 +200,150 @@ public class EzySimpleOutputTransformer
 		});
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	protected void addPrimitiveArrayTransformers(Map<Class, EzyToObject> answer) {
-		answer.put(boolean[].class, new EzyToObject<Collection<Boolean>>() {
+		answer.put(boolean[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Boolean> value) {
-				return collectionToPrimitiveBoolArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToPrimitiveBoolArray((Collection)value);
+				return ((EzyArray)value).toArray(boolean.class);
 			}
 		});
-		answer.put(byte[].class, new EzyToObject<byte[]>() {
+		answer.put(byte[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(byte[] value) {
-				return value;
+			public Object transform(Object value) {
+				if(value instanceof byte[])
+					return value;
+				if(value instanceof String)
+					return EzyBase64.decode((String)value);
+				return ((EzyArray)value).toArray(byte.class);
 			}
 		});
-		answer.put(char[].class, new EzyToObject<byte[]>() {
+		answer.put(char[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(byte[] value) {
-				return byteArrayToCharArray(value);
+			public Object transform(Object value) {
+				if(value instanceof byte[])
+					return byteArrayToCharArray((byte[])value);
+				if(value instanceof String)
+					return ((String)value).toCharArray();
+				return ((EzyArray)value).toArray(char.class);
 			}
 		});
-		answer.put(double[].class, new EzyToObject<Collection<Double>>() {
+		answer.put(double[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Double> value) {
-				return collectionToPrimitiveDoubleArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToPrimitiveDoubleArray((Collection)value);
+				return ((EzyArray)value).toArray(double.class);
 			}
 		});
-		answer.put(float[].class, new EzyToObject<Collection<Float>>() {
+		answer.put(float[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Float> value) {
-				return collectionToPrimitiveFloatArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToPrimitiveFloatArray((Collection)value);
+				return ((EzyArray)value).toArray(float.class);
 			}
 		});
-		answer.put(int[].class, new EzyToObject<Collection<Integer>>() {
+		answer.put(int[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Integer> value) {
-				return collectionToPrimitiveIntArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToPrimitiveIntArray((Collection)value);
+				return ((EzyArray)value).toArray(int.class);
 			}
 		});
-		answer.put(long[].class, new EzyToObject<Collection<Long>>() {
+		answer.put(long[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Long> value) {
-				return collectionToPrimitiveLongArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToPrimitiveLongArray((Collection)value);
+				return ((EzyArray)value).toArray(long.class);
 			}
 		});
-		answer.put(short[].class, new EzyToObject<Collection<Short>>() {
+		answer.put(short[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Short> value) {
-				return collectionToPrimitiveShortArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToPrimitiveShortArray((Collection)value);
+				return ((EzyArray)value).toArray(short.class);
 			}
 		});
-		answer.put(String[].class, new EzyToObject<Collection<String>>() {
+		answer.put(String[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<String> value) {
-				return collectionToStringArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToStringArray((Collection)value);
+				return ((EzyArray)value).toArray(String.class);
 			}
 		});
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	protected void addWrapperArrayTransformers(Map<Class, EzyToObject> answer) {
-		answer.put(Boolean[].class, new EzyToObject<Collection<Boolean>>() {
+		answer.put(Boolean[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Boolean> value) {
-				return collectionToWrapperBoolArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToWrapperBoolArray((Collection)value);
+				return ((EzyArray)value).toArray(Boolean.class);
 			}
 		});
-		answer.put(Character[].class, new EzyToObject<byte[]>() {
+		answer.put(Byte[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(byte[] value) {
-				return toCharWrapperArray(value);
+			public Object transform(Object value) {
+				if(value instanceof byte[])
+					return toByteWrapperArray((byte[])value);
+				return ((EzyArray)value).toArray(Byte.class);
 			}
 		});
-		answer.put(Double[].class, new EzyToObject<Collection<Double>>() {
+		answer.put(Character[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Double> value) {
-				return collectionToWrapperDoubleArray(value);
+			public Object transform(Object value) {
+				if(value instanceof byte[])
+					return toCharWrapperArray((byte[])value);
+				return ((EzyArray)value).toArray(Character.class);
 			}
 		});
-		answer.put(Float[].class, new EzyToObject<Collection<Float>>() {
+		answer.put(Double[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Float> value) {
-				return collectionToWrapperFloatArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToWrapperDoubleArray((Collection)value);
+				return ((EzyArray)value).toArray(Double.class);
 			}
 		});
-		answer.put(Integer[].class, new EzyToObject<Collection<Integer>>() {
+		answer.put(Float[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Integer> value) {
-				return collectionToWrapperIntArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToWrapperFloatArray((Collection)value);
+				return ((EzyArray)value).toArray(Float.class);
 			}
 		});
-		answer.put(Long[].class, new EzyToObject<Collection<Long>>() {
+		answer.put(Integer[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Long> value) {
-				return collectionToWrapperLongArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToWrapperIntArray((Collection)value);
+				return ((EzyArray)value).toArray(Integer.class);
 			}
 		});
-		answer.put(Short[].class, new EzyToObject<Collection<Short>>() {
+		answer.put(Long[].class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(Collection<Short> value) {
-				return collectionToWrapperShortArray(value);
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToWrapperLongArray((Collection)value);
+				return ((EzyArray)value).toArray(Long.class);
+			}
+		});
+		answer.put(Short[].class, new EzyToObject<Object>() {
+			@Override
+			public Object transform(Object value) {
+				if(value instanceof Collection)
+					return collectionToWrapperShortArray((Collection)value);
+				return ((EzyArray)value).toArray(Short.class);
 			}
 		});
 	}

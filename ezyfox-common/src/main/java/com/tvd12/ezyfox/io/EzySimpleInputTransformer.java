@@ -5,7 +5,6 @@ import static com.tvd12.ezyfox.io.EzyDataConverter.charArrayToByteArray;
 import static com.tvd12.ezyfox.io.EzyDataConverter.charWrapperArrayToPrimitiveByteArray;
 import static com.tvd12.ezyfox.io.EzyDataConverter.toPrimitiveByteArray;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -15,12 +14,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.function.EzyToObject;
-import com.tvd12.ezyfox.io.EzyDates;
 import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
 public class EzySimpleInputTransformer
 		extends EzyEntityBuilders
-		implements EzyInputTransformer, Serializable {
+		implements EzyInputTransformer {
 	private static final long serialVersionUID = 5436415615070699119L;
 	
 	@SuppressWarnings("rawtypes")

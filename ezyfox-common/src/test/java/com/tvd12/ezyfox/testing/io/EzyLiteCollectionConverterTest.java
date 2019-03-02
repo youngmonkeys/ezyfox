@@ -8,14 +8,13 @@ import java.util.Collection;
 
 import org.testng.annotations.Test;
 
-import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.entity.EzyArray;
-import com.tvd12.ezyfox.factory.EzyLiteEntityFactory;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
-import com.tvd12.ezyfox.io.EzyLiteCollectionConverter;
-import com.tvd12.ezyfox.io.EzyLiteOutputTransformer;
 import com.tvd12.ezyfox.io.EzySimpleCollectionConverter;
+import com.tvd12.ezyfox.io.EzySingletonCollectionConverter;
 import com.tvd12.ezyfox.sercurity.EzyBase64;
 import com.tvd12.ezyfox.testing.CommonBaseTest;
 
@@ -25,7 +24,7 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
 	
 	public EzyLiteCollectionConverterTest() {
 		super();
-		this.collectionConverter = new EzyLiteCollectionConverter(new EzyLiteOutputTransformer());
+		this.collectionConverter = EzySingletonCollectionConverter.getInstance();
 	}
 	
 //	@Test
@@ -224,7 +223,7 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
 	@Test
 	public void test5() {
 		try {
-			Method method = EzyLiteCollectionConverter.class
+			Method method = EzySimpleCollectionConverter.class
 					.getDeclaredMethod("toArray", Object.class, Class.class);
 			method.setAccessible(true);
 			method.invoke(collectionConverter, new String("abc"), String.class);
@@ -235,7 +234,7 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
 	
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void test6() {
-		new EzySimpleCollectionConverter().toArray(Lists.newArrayList(), Void.class);
+		EzySingletonCollectionConverter.getInstance().toArray(Lists.newArrayList(), Void.class);
 	}
 	
 	@Test
@@ -243,7 +242,7 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
 		newArrayBuilder()
 			.append(new byte[] {1,2,3}, new byte[] {4,5,6}, new byte[]{7,8,9})
 			.build();
-		EzyArray array = EzyLiteEntityFactory.create(EzyArrayBuilder.class)
+		EzyArray array = EzyEntityFactory.create(EzyArrayBuilder.class)
 			.append(EzyBase64.encode2utf(new byte[] {1,2,3}))
 			.append(EzyBase64.encode2utf(new byte[] {4,5,6}))
 			.append(EzyBase64.encode2utf(new byte[] {7,8,9}))

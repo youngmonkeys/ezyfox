@@ -15,19 +15,12 @@ import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
-import com.tvd12.ezyfox.io.EzySimpleCollectionConverter;
-import com.tvd12.ezyfox.io.EzySimpleInputTransformer;
-import com.tvd12.ezyfox.io.EzySimpleOutputTransformer;
+import com.tvd12.ezyfox.io.EzySingletonCollectionConverter;
+import com.tvd12.ezyfox.io.EzySingletonInputTransformer;
+import com.tvd12.ezyfox.io.EzySingletonOutputTransformer;
 
 public class EzySimpleEntityCreator implements EzyEntityCreator {
 
-	private static final EzyInputTransformer INPUT_TRANSFORMER 
-			= new EzySimpleInputTransformer();
-	private static final EzyOutputTransformer OUTPUT_TRANSFORMER 
-			= new EzySimpleOutputTransformer();
-	private static final EzyCollectionConverter COLLECTION_CONVERTER 
-			= new EzySimpleCollectionConverter();
-	
 	@SuppressWarnings("rawtypes")
 	private final Map<Class, Supplier> suppliers = defaultSuppliers();
 	
@@ -66,15 +59,15 @@ public class EzySimpleEntityCreator implements EzyEntityCreator {
 	}
 	
 	protected EzyInputTransformer getInputTransformer() {
-		return INPUT_TRANSFORMER;
+		return EzySingletonInputTransformer.getInstance();
 	}
 	
 	protected EzyOutputTransformer getOutputTransformer() {
-		return OUTPUT_TRANSFORMER;
+		return EzySingletonOutputTransformer.getInstance();
 	}
 	
 	protected EzyCollectionConverter getCollectionConverter() {
-		return COLLECTION_CONVERTER;
+		return EzySingletonCollectionConverter.getInstance();
 	}
 	
 	@SuppressWarnings("rawtypes")
