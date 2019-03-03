@@ -36,7 +36,7 @@ public class MyTestObjectPool extends EzyObjectPool<MyTestObject> {
 		}
 
 		@Override
-		protected String getProductName() {
+		protected String getValidationThreadPoolName() {
 			return "test-object";
 		}
 
