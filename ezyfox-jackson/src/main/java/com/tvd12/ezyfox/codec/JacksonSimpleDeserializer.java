@@ -8,14 +8,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
-import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyByteBuffers;
-import com.tvd12.ezyfox.util.EzyLiteEntityBuilders;
+import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
 public class JacksonSimpleDeserializer
-		extends EzyLiteEntityBuilders
+		extends EzyEntityBuilders
 		implements EzyMessageDeserializer {
 	
 	protected final ObjectMapper objectMapper;

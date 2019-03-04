@@ -3,8 +3,11 @@ package com.tvd12.ezyfox.pattern;
 import static com.tvd12.ezyfox.util.EzyProcessor.processWithLogException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
@@ -14,6 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.concurrent.EzyExecutors;
+import com.tvd12.ezyfox.exception.EzyNotImplementedException;
 import com.tvd12.ezyfox.util.EzyDestroyable;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyStartable;
@@ -22,11 +26,12 @@ public abstract class EzyObjectPool<T>
 		extends EzyLoggable 
 		implements EzyStartable, EzyDestroyable {
 	
-	protected final Queue<T> pool;
 	protected final int minObjects;
 	protected final int maxObjects;
+	protected final long validationDelay;
 	protected final long validationInterval;
-	protected final List<T> borrowedObjects;
+	protected final Queue<T> objectQueue;
+	protected final Set<T> borrowedObjects;
 	protected final EzyObjectFactory<T> objectFactory;
 	protected final ScheduledExecutorService validationService;
 	
@@ -34,26 +39,34 @@ public abstract class EzyObjectPool<T>
 	
 	@SuppressWarnings({ "rawtypes", "unchecked"})
 	protected EzyObjectPool(Builder builder) {
-		this.pool = builder.getPool();
 		this.minObjects = builder.minObjects;
 		this.maxObjects = builder.maxObjects;
 		this.objectFactory = builder.getObjectFactory();
-		this.borrowedObjects = builder.newBorrowedObjects();
+		this.validationDelay = builder.validationDelay;
 		this.validationInterval = builder.validationInterval;
 		this.validationService = builder.getValidationService();
+		this.objectQueue = newObjectQueue();
+		this.borrowedObjects = newBorrowedObjects();
+		this.initializeObjects();
 	}
 	
-	protected final void initializeObjects() {
-		for(int i = 0 ; i < minObjects ; i++)
-			pool.add(createObject());
+	protected Queue<T> newObjectQueue() {
+		return new ConcurrentLinkedQueue<>();
+	}
+	
+	protected Set<T> newBorrowedObjects() {
+		return Collections.synchronizedSet(new HashSet<>());
+	}
+	
+	protected void initializeObjects() {
+		for(int i = 0 ; i < minObjects ; i++) {
+			T newObject = createObject();
+			objectQueue.add(newObject);
+		}
 	}
 	
 	protected T createObject() {
 		return objectFactory.newProduct();
-	}
-	
-	private void releaseObject0(T object) {
-		releaseObject(object);
 	}
 	
 	protected void releaseObject(T object) {
@@ -64,7 +77,13 @@ public abstract class EzyObjectPool<T>
     }
 	
 	protected List<T> getRemainObjects() {
-		return new ArrayList<>(pool);
+		lock.lock();
+		try {
+			return new ArrayList<>(objectQueue);
+		}
+		finally {
+			lock.unlock();
+		}
 	}
 	
 	@Override
@@ -74,7 +93,7 @@ public abstract class EzyObjectPool<T>
 	
 	protected void startValidationService() {
 		validationService.scheduleWithFixedDelay(newValidationTask(), 
-				validationInterval, validationInterval, TimeUnit.MILLISECONDS);
+				validationDelay, validationInterval, TimeUnit.MILLISECONDS);
 	}
 	
 	protected Runnable newValidationTask() {
@@ -83,7 +102,7 @@ public abstract class EzyObjectPool<T>
 			@Override
 			public void run() {
 				try {
-					removeObjects(pool.size());
+					removeExcessiveObjects();
 					removeStaleObjects();
 				}
 				catch(Exception e) {
@@ -91,45 +110,39 @@ public abstract class EzyObjectPool<T>
 				}
 			}
 			
-			private void removeObjects(int poolSize) {
-				if(poolSize > maxObjects)
-					removeObjects0(poolSize);
-			}
-			
-			private void removeObjects0(int poolSize) {
-				removeUnusedObjects(poolSize - maxObjects);
-			}
-			
-			private void removeUnusedObjects(int size) {
+			private void removeExcessiveObjects() {
 				lock.lock();
 				try {
-					removeUnusedObjects0(size);
+					int poolSize = objectQueue.size();
+					if(poolSize > maxObjects)
+						removeExcessiveObjects(poolSize - maxObjects);
 				}
 				finally {
 					lock.unlock();
 				}
 			}
 			
-			private void removeUnusedObjects0(int size) {
+			private void removeExcessiveObjects(int size) {
 				for(int i = 0 ; i < size ; i++)
-					releaseObject0(pool.poll());
-				logger.info("object pool: remove {} excessive objects, remain {}", size, pool.size());
+					releaseObject(objectQueue.poll());
+				logger.info("object objectQueue: remove {} excessive objects, remain {}", size, objectQueue.size());
 			}
 		};
 	}
 	
 	protected void removeStaleObjects() {
-		removeStaleObjects0();
-	}
-	
-	protected void removeStaleObjects0() {
-		removeStaleObjects(getCanBeStaleObjects());
+		List<T> objects = getCanBeStaleObjects();
+		removeStaleObjects(objects);
 	}
 	
 	protected void removeStaleObjects(List<T> objects) {
-		for(T object : objects)
+		List<T> staleObjects = new ArrayList<>();
+		for(T object : objects) {
 			if(isStaleObject(object))
-				removeStaleObject(object);
+				staleObjects.add(object);
+		}
+		for(T object : objects)
+			removeStaleObject(object);
 	}
 	
 	protected void removeStaleObject(T object) {
@@ -144,50 +157,49 @@ public abstract class EzyObjectPool<T>
 	}
 
 	protected final T borrowObject() {
-		lock.lock();
-		try {
-			return borrowObject0();
-		}
-		finally {
-			lock.unlock();
-		}
-	}
-	
-	private final T borrowObject0() {
 		T obj = borrowOrNewObject();
 		borrowedObjects.add(obj);
 		return obj;
 	}
 	
 	protected final boolean returnObject(T object) {
-		lock.lock();
-		try {
-			return returnObject0(object);
-		}
-		finally {
-			lock.unlock();
-		}
+		return object != null ? doReturnObject(object) : false;
     }
 	
-	private final boolean returnObject0(T object) {
-		return object != null ? doReturnObject(object) : false;
-	}
-	
 	private T borrowOrNewObject() {
-		T rvalue = pool.poll();
+		T rvalue = pollObject();
 		if(rvalue == null)
 			rvalue = createObject();
 		return rvalue;
 	}
 	
+	private T pollObject() {
+		T object = null;
+		lock.lock();
+		try {
+			object = objectQueue.poll();
+		}
+		finally {
+			lock.unlock();
+		}
+		return object;
+	}
+	
 	private boolean doReturnObject(T object) {
         borrowedObjects.remove(object);
-        return pool.offer(object);
+        lock.lock();
+        try {
+        		return objectQueue.offer(object);
+        }
+        finally {
+			lock.unlock();
+		}
     }
 	
 	@Override
 	public void destroy() {
 		try {
+			clearAll();
 			shutdownAll();
 		}
 		catch(Exception e) {
@@ -195,89 +207,87 @@ public abstract class EzyObjectPool<T>
 		}
 	}
 	
+	protected void clearAll() {
+		borrowedObjects.clear();
+	}
+	
 	protected void shutdownAll() {
 		processWithLogException(validationService::shutdown);
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public static abstract class Builder<T, B extends Builder> 
 			implements EzyBuilder<EzyObjectPool<T>> {
 		
-		private Queue<T> pool;
-		private int minObjects = 300;
-		private int maxObjects = 300;
-		private long validationInterval = 3 * 1000;
+		protected Queue<T> pool;
+		protected int minObjects = 300;
+		protected int maxObjects = 300;
+		protected long validationInterval = 100;
+		protected long validationDelay = 3 * 1000;
 		protected EzyObjectFactory<T> objectFactory;
-		private ScheduledExecutorService validationService;
+		protected ScheduledExecutorService validationService;
 		
-		@SuppressWarnings("unchecked")
 		public B pool(Queue<T> pool) {
 			this.pool = pool;
 			return (B)this;
 		}
 		
-		@SuppressWarnings("unchecked")
 		public B minObjects(int minObjects) {
 			this.minObjects = minObjects;
 			return (B)this;
 		}
 		
-		@SuppressWarnings("unchecked")
 		public B maxObjects(int maxObjects) {
 			this.maxObjects = maxObjects;
 			return (B)this;
 		}
 		
-		@SuppressWarnings("unchecked")
 		public B objectFactory(EzyObjectFactory<T> objectFactory) {
 			this.objectFactory = objectFactory;
 			return (B)this;
 		}
 		
-		@SuppressWarnings("unchecked")
+		public B validationDelay(long validationDelay) {
+			this.validationDelay = validationDelay;
+			return (B)this;
+		}
+		
 		public B validationInterval(long validationInterval) {
 			this.validationInterval = validationInterval;
 			return (B)this;
 		}
 		
-		@SuppressWarnings("unchecked")
 		public B validationService(ScheduledExecutorService validationService) {
 			this.validationService = validationService;
 			return (B)this;
 		}
 		
-		protected abstract String getProductName();
-		
-		protected Queue<T> getPool() {
-			return pool != null ? pool : newPool();
+		protected int getValidationThreadPoolSize() {
+			return 1;
 		}
 		
-		protected Queue<T> newPool() {
-		    return new ConcurrentLinkedQueue<>();
-		}
+		protected abstract String getValidationThreadPoolName();
 		
 		protected EzyObjectFactory<T> getObjectFactory() {
 		    return objectFactory != null ? objectFactory : newObjectFactory(); 
 		}
 		
-		protected abstract EzyObjectFactory<T> newObjectFactory();
+		protected EzyObjectFactory<T> newObjectFactory() {
+			throw new EzyNotImplementedException("you must implement newObjectFactory method when objectFactory is null");
+		}
 		
 		protected ScheduledExecutorService getValidationService() {
 			return validationService != null ? validationService : newValidationService(); 
 		}
 		
 		protected ScheduledExecutorService newValidationService() {
-			ScheduledExecutorService service = EzyExecutors.newScheduledThreadPool(3, newThreadFactory());
+			ScheduledExecutorService service = EzyExecutors.newScheduledThreadPool(getValidationThreadPoolSize(), newValidationThreadFactory());
 			Runtime.getRuntime().addShutdownHook(new Thread(() -> service.shutdown()));
 			return service;
 		}
 		
-		protected ThreadFactory newThreadFactory() {
-			return EzyExecutors.newThreadFactory(getProductName());
-		}
-		
-		protected List<T> newBorrowedObjects() {
-			return new ArrayList<>();
+		protected ThreadFactory newValidationThreadFactory() {
+			return EzyExecutors.newThreadFactory(getValidationThreadPoolName());
 		}
 		
 	}

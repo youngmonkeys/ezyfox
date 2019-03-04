@@ -1,23 +1,23 @@
 package com.tvd12.ezyfox.testing.io;
 
+import static org.testng.Assert.assertEquals;
+
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
-import com.tvd12.ezyfox.factory.EzyLiteEntityFactory;
-import com.tvd12.ezyfox.io.EzyLiteOutputTransformer;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
+import com.tvd12.ezyfox.io.EzySingletonOutputTransformer;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.sercurity.EzyBase64;
 import com.tvd12.ezyfox.testing.entity.EzyEntityTest;
 
-import static org.testng.Assert.*;
-
 public class EzyLiteOutputTransformerTest extends EzyEntityTest {
 
-	private EzyOutputTransformer transformer = new EzyLiteOutputTransformer();
+	private EzyOutputTransformer transformer = EzySingletonOutputTransformer.getInstance();
 	
 	@Test
 	public void test() {
@@ -339,12 +339,12 @@ public class EzyLiteOutputTransformerTest extends EzyEntityTest {
 	
 	@Override
 	protected EzyObjectBuilder newObjectBuilder() {
-		return EzyLiteEntityFactory.create(EzyObjectBuilder.class);
+		return EzyEntityFactory.create(EzyObjectBuilder.class);
 	}
 	
 	@Override
 	protected EzyArrayBuilder newArrayBuilder() {
-		return EzyLiteEntityFactory.create(EzyArrayBuilder.class);
+		return EzyEntityFactory.create(EzyArrayBuilder.class);
 	}
 	
 	public static void main(String[] args) {

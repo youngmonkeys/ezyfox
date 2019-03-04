@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
-import com.tvd12.ezyfox.io.EzySimpleCollectionConverter;
+import com.tvd12.ezyfox.io.EzySingletonCollectionConverter;
 import com.tvd12.ezyfox.sercurity.EzyBase64;
 import com.tvd12.ezyfox.testing.CommonBaseTest;
 
@@ -20,7 +20,7 @@ public class EzySimpleCollectionConverterTest extends CommonBaseTest {
 	
 	public EzySimpleCollectionConverterTest() {
 		super();
-		this.collectionConverter = new EzySimpleCollectionConverter();
+		this.collectionConverter = EzySingletonCollectionConverter.getInstance();
 	}
 	
 	@Test
@@ -242,7 +242,7 @@ public class EzySimpleCollectionConverterTest extends CommonBaseTest {
 	
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void test6() {
-		new EzySimpleCollectionConverter().toArray(Lists.newArrayList(), Void.class);
+		EzySingletonCollectionConverter.getInstance().toArray(Lists.newArrayList(), Void.class);
 	}
 	
 }

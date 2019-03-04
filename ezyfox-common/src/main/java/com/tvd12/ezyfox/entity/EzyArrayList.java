@@ -16,7 +16,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 	
 	protected final ArrayList<Object> list = new ArrayList<>();
 	
-	protected final transient EzyCollectionConverter collectionConverter;
+	protected final EzyCollectionConverter collectionConverter;
 	
 	public EzyArrayList(
 			EzyInputTransformer inputTransformer,

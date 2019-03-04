@@ -1,6 +1,8 @@
 package com.tvd12.ezyfox.io;
 
-public interface EzyInputTransformer {
+import java.io.Serializable;
+
+public interface EzyInputTransformer extends Serializable {
 
 	Object transform(Object value);
 	
