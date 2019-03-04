@@ -26,11 +26,11 @@ public abstract class EzyObjectPool<T>
 		extends EzyLoggable 
 		implements EzyStartable, EzyDestroyable {
 	
-	protected final Queue<T> pool;
 	protected final int minObjects;
 	protected final int maxObjects;
 	protected final long validationDelay;
 	protected final long validationInterval;
+	protected final Queue<T> objectQueue;
 	protected final Set<T> borrowedObjects;
 	protected final EzyObjectFactory<T> objectFactory;
 	protected final ScheduledExecutorService validationService;
@@ -45,18 +45,23 @@ public abstract class EzyObjectPool<T>
 		this.validationDelay = builder.validationDelay;
 		this.validationInterval = builder.validationInterval;
 		this.validationService = builder.getValidationService();
-		this.pool = new ConcurrentLinkedQueue<>();
-		this.borrowedObjects = Collections.synchronizedSet(new HashSet<>());
+		this.objectQueue = newObjectQueue();
+		this.borrowedObjects = newBorrowedObjects();
+		this.initializeObjects();
 	}
 	
-	protected final void initializeObjects() {
-		lock.lock();
-		try {
-			for(int i = 0 ; i < minObjects ; i++)
-				pool.add(createObject());
-		}
-		finally {
-			lock.unlock();
+	protected Queue<T> newObjectQueue() {
+		return new ConcurrentLinkedQueue<>();
+	}
+	
+	protected Set<T> newBorrowedObjects() {
+		return Collections.synchronizedSet(new HashSet<>());
+	}
+	
+	protected void initializeObjects() {
+		for(int i = 0 ; i < minObjects ; i++) {
+			T newObject = createObject();
+			objectQueue.add(newObject);
 		}
 	}
 	
@@ -74,7 +79,7 @@ public abstract class EzyObjectPool<T>
 	protected List<T> getRemainObjects() {
 		lock.lock();
 		try {
-			return new ArrayList<>(pool);
+			return new ArrayList<>(objectQueue);
 		}
 		finally {
 			lock.unlock();
@@ -108,10 +113,9 @@ public abstract class EzyObjectPool<T>
 			private void removeExcessiveObjects() {
 				lock.lock();
 				try {
-					int poolSize = pool.size();
-					if(poolSize > maxObjects) {
+					int poolSize = objectQueue.size();
+					if(poolSize > maxObjects)
 						removeExcessiveObjects(poolSize - maxObjects);
-					}
 				}
 				finally {
 					lock.unlock();
@@ -120,8 +124,8 @@ public abstract class EzyObjectPool<T>
 			
 			private void removeExcessiveObjects(int size) {
 				for(int i = 0 ; i < size ; i++)
-					releaseObject(pool.poll());
-				logger.info("object pool: remove {} excessive objects, remain {}", size, pool.size());
+					releaseObject(objectQueue.poll());
+				logger.info("object objectQueue: remove {} excessive objects, remain {}", size, objectQueue.size());
 			}
 		};
 	}
@@ -173,7 +177,7 @@ public abstract class EzyObjectPool<T>
 		T object = null;
 		lock.lock();
 		try {
-			object = pool.poll();
+			object = objectQueue.poll();
 		}
 		finally {
 			lock.unlock();
@@ -185,7 +189,7 @@ public abstract class EzyObjectPool<T>
         borrowedObjects.remove(object);
         lock.lock();
         try {
-        		return pool.offer(object);
+        		return objectQueue.offer(object);
         }
         finally {
 			lock.unlock();

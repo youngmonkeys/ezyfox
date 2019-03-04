@@ -38,7 +38,11 @@ public abstract class EzyObjectProvider<T>
 		this.validationDelay = builder.validationDelay;
 		this.validationInterval = builder.validationInterval;
 		this.validationService = builder.getValidationService();
-		this.providedObjects = Collections.synchronizedSet(new HashSet<>());
+		this.providedObjects = newProvidedObjects();
+	}
+	
+	protected Set<T> newProvidedObjects() {
+		return Collections.synchronizedSet(new HashSet<>());
 	}
 	
 	protected T createObject() {

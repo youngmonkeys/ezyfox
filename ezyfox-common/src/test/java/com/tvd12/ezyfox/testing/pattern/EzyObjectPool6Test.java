@@ -1,5 +1,10 @@
 package com.tvd12.ezyfox.testing.pattern;
 
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ScheduledExecutorService;
+
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.concurrent.EzyExecutors;
@@ -19,11 +24,10 @@ public class EzyObjectPool6Test {
 				.build();
 		provider.start();
 		provider.newString();
-		Thread.sleep(500);
+		Thread.sleep(300);
 		provider.newString();
 		provider.newString();
-		Thread.sleep(500);
-//		provider.getAddedStrings();
+		Thread.sleep(300);
 		provider.destroy();
 		
 	}
@@ -52,17 +56,80 @@ public class EzyObjectPool6Test {
 				.objectFactory(new StringFactory())
 				.build();
 		provider.start();
-		Thread.sleep(500);
+		Thread.sleep(300);
 		try {
 			provider.newString();
 		}
 		catch(Exception e) {
 		}
 		provider.newString();
-		Thread.sleep(500);
-//		provider.getAddedStrings();
+		Thread.sleep(300);
+		provider.destroy();
+	}
+	
+	@Test
+	public void test4() throws Exception {
+		TestObjectPool3 provider = TestObjectPool3.builder()
+				.maxObjects(2)
+				.validationDelay(100)
+				.validationInterval(100)
+				.objectFactory(new StringFactory())
+				.build();
+		provider.start();
+		provider.newString();
+		Thread.sleep(300);
+		provider.newString();
+		provider.newString();
+		provider.returnString("default");
+		provider.returnString(null);
+		Thread.sleep(300);
 		provider.destroy();
 		
+	}
+	
+	@Test(expectedExceptions = {IllegalStateException.class})
+	public void test5() throws Exception {
+		TestObjectPool3 provider = TestObjectPool3.builder()
+				.maxObjects(2)
+				.validationDelay(100)
+				.validationInterval(100)
+				.objectFactory(new StringFactory())
+				.build();
+		provider.getRemainString();
+	}
+	
+	@Test
+	public void test6() throws Exception {
+		TestObjectPool3 provider = TestObjectPool3.builder()
+				.maxObjects(2)
+				.validationDelay(100)
+				.validationInterval(100)
+				.objectFactory(new StringFactory())
+				.build();
+		provider.start();
+		Thread.sleep(300);
+	}
+	
+	@Test(expectedExceptions = {IllegalStateException.class})
+	public void test7() throws Exception {
+		TestObjectPool4 provider = TestObjectPool4.builder()
+				.maxObjects(2)
+				.validationDelay(100)
+				.validationInterval(100)
+				.objectFactory(new StringFactory())
+				.build();
+		provider.newString();
+	}
+	
+	@Test(expectedExceptions = {IllegalStateException.class})
+	public void test8() throws Exception {
+		TestObjectPool4 provider = TestObjectPool4.builder()
+				.maxObjects(2)
+				.validationDelay(100)
+				.validationInterval(100)
+				.objectFactory(new StringFactory())
+				.build();
+		provider.returnString("default");
 	}
 	
 	private static class StringFactory implements EzyObjectFactory<String> {
@@ -71,7 +138,142 @@ public class EzyObjectPool6Test {
 		public String newProduct() {
 			return "default";
 		}
+	}
+	
+	private static class ConcurrentLinkedQueueEx2 extends ConcurrentLinkedQueue<String> {
+		private static final long serialVersionUID = -6293369343194182159L;
 		
+		@Override
+		public String poll() {
+			throw new IllegalStateException();
+		}
+		
+		@Override
+		public boolean offer(String e) {
+			throw new IllegalStateException();
+		}
+	}
+	
+	private static class ConcurrentLinkedQueueEx1 extends ConcurrentLinkedQueue<String> {
+		private static final long serialVersionUID = -6293369343194182159L;
+
+		protected boolean sizePassed = false;
+		
+		@Override
+		public String[] toArray() {
+			throw new IllegalStateException();
+		}
+		
+		@Override
+		public int size() {
+			if(!sizePassed) {
+				sizePassed = true;
+				throw new IllegalStateException();
+			}
+			return super.size();
+		}
+	}
+	
+	private static class TestObjectPool4 extends EzyObjectPool<String> {
+		
+		protected TestObjectPool4(Builder builder) {
+			super(builder);
+		}
+		
+		@Override
+		protected Queue<String> newObjectQueue() {
+			return new ConcurrentLinkedQueueEx2();
+		}
+		
+		@Override
+		protected void initializeObjects() {
+		}
+		
+		public String newString() {
+			return borrowObject();
+		}
+		
+		public boolean returnString(String str) {
+			return returnObject(str);
+		}
+		
+		public static Builder builder() {
+			return new Builder();
+		}
+		
+		public static class Builder extends EzyObjectPool.Builder<String, Builder> {
+
+			@Override
+			public TestObjectPool4 build() {
+				return new TestObjectPool4(this);
+			}
+
+			@Override
+			protected String getValidationThreadPoolName() {
+				return "test";
+			}
+			
+			@Override
+			public EzyObjectFactory<String> getObjectFactory() {
+				return super.getObjectFactory();
+			}
+			
+			@Override
+			public ScheduledExecutorService getValidationService() {
+				return super.getValidationService();
+			}
+		}
+	}
+	
+	private static class TestObjectPool3 extends EzyObjectPool<String> {
+		
+		protected TestObjectPool3(Builder builder) {
+			super(builder);
+		}
+		
+		@Override
+		protected Queue<String> newObjectQueue() {
+			return new ConcurrentLinkedQueueEx1();
+		}
+		
+		public String newString() {
+			return borrowObject();
+		}
+		
+		public boolean returnString(String str) {
+			return returnObject(str);
+		}
+		
+		public List<String> getRemainString() {
+			return getRemainObjects();
+		}
+		
+		public static Builder builder() {
+			return new Builder();
+		}
+		
+		public static class Builder extends EzyObjectPool.Builder<String, Builder> {
+
+			@Override
+			public TestObjectPool3 build() {
+				return new TestObjectPool3(this);
+			}
+
+			@Override
+			protected String getValidationThreadPoolName() {
+				return "test";
+			}
+			
+			@Override
+			public EzyObjectFactory<String> getObjectFactory() {
+				return super.getObjectFactory();
+			}
+			
+			@Override
+			public ScheduledExecutorService getValidationService() {
+				return super.getValidationService();
+			}
+		}
 	}
 	
 	private static class TestObjectPool2 extends TestObjectPool {
@@ -104,9 +306,13 @@ public class EzyObjectPool6Test {
 		protected String createObject() {
 			if(!createObjectPassed ) {
 				createObjectPassed = true;
-				throw new IllegalStateException();
 			}
 			return super.createObject();
+		}
+		
+		@Override
+		protected boolean isStaleObject(String object) {
+			return super.isStaleObject(object);
 		}
 		
 		public static Builder builder() {
@@ -130,6 +336,11 @@ public class EzyObjectPool6Test {
 		
 		public String newString() {
 			return borrowObject();
+		}
+		
+		@Override
+		protected boolean isStaleObject(String object) {
+			return true;
 		}
 		
 		public static Builder builder() {

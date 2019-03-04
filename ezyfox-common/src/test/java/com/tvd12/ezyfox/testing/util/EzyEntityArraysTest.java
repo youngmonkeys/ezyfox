@@ -17,6 +17,8 @@ public class EzyEntityArraysTest extends BaseTest {
 	@Test
 	public void test() {
 		EzyEntityArrays.newArray(new ArrayList<>());
+		EzyEntityArrays.newArray();
+		EzyEntityArrays.newArray(1, 2, 3);
 	}
 	
 }
