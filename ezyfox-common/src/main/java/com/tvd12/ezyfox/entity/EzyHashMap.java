@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.entity;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -76,6 +77,16 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 	public <V> V remove(Object key) {
 		V answer = (V) map.remove(key);
 		return answer;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.tvd12.ezyfox.entity.EzyObject#removeAll(java.util.Collection)
+	 */
+	@Override
+	public void removeAll(Collection keys) {
+		for(Object key : keys)
+			map.remove(key);
 	}
 	
 	/*

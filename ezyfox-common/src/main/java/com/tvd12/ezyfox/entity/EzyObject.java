@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.entity;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiFunction;
 
@@ -41,6 +42,14 @@ public interface EzyObject extends EzyRoObject {
      * @return the removed value
      */
     <V> V remove(Object key);
+    
+    /**
+     * remove a set of keys
+     * 
+     * @param keys the key set to remove
+     */
+    @SuppressWarnings("rawtypes")
+	void removeAll(Collection keys);
     
     /**
      * @see java.util.Map#compute(java.lang.Object, java.util.function.BiFunction)
