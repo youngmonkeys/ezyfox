@@ -21,11 +21,10 @@ public abstract class EzyAbstractMapstoreFactory
 	
     @Override
     public final MapLoader newMapStore(String mapName, Properties properties) {
-    	Object map = newMapstore(mapName, properties);
-    	if(map instanceof EzyPostInit)
-    		((EzyPostInit)map).postInit();
-    	return (MapLoader) map;
-    	
+    		Object map = newMapstore(mapName, properties);
+	    	if(map instanceof EzyPostInit)
+	    		((EzyPostInit)map).postInit();
+	    	return (MapLoader) map;
     }
     
 	protected abstract Object newMapstore(String mapName, Properties properties);

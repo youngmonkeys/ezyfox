@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.binding.reader;
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 
-public class EzyIntegerReader implements EzyReader<Number, Integer> {
+public final class EzyIntegerReader implements EzyReader<Number, Integer> {
 
 	private static final EzyIntegerReader INSTANCE = new EzyIntegerReader();
 	

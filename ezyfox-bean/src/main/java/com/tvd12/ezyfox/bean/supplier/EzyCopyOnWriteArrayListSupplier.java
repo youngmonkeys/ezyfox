@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyCopyOnWriteArrayListSupplier implements EzyPrototypeSupplier {
+public final class EzyCopyOnWriteArrayListSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyCopyOnWriteArrayListSupplier INSTANCE = new EzyCopyOnWriteArrayListSupplier();
 

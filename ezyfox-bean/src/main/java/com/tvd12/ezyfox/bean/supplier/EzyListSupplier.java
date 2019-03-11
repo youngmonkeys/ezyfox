@@ -6,7 +6,7 @@ import java.util.List;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyListSupplier implements EzyPrototypeSupplier {
+public final class EzyListSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyListSupplier INSTANCE = new EzyListSupplier();
 

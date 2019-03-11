@@ -5,7 +5,7 @@ import java.util.HashSet;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyHashSetSupplier implements EzyPrototypeSupplier {
+public final class EzyHashSetSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyHashSetSupplier INSTANCE = new EzyHashSetSupplier();
 

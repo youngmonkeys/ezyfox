@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyLinkedListSupplier implements EzyPrototypeSupplier {
+public final class EzyLinkedListSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyLinkedListSupplier INSTANCE = new EzyLinkedListSupplier();
 

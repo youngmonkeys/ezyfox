@@ -9,7 +9,7 @@ import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
 @SuppressWarnings("rawtypes")
-public class EzyMapObjectWriter
+public final class EzyMapObjectWriter
 		extends EzyEntityBuilders
 		implements EzyWriter<Map, EzyObject> {
 	

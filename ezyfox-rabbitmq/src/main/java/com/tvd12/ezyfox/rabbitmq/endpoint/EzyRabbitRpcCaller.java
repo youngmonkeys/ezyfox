@@ -50,8 +50,8 @@ public class EzyRabbitRpcCaller extends EzyLoggable implements EzyStoppable {
         		.build();
         byte[] requestMessage = entityCodec.serialize(data);
         Response responseData = rawCall(requestProperties, requestMessage);
-        BasicProperties reponseProperties = responseData.getProperties();
-        Map<String, Object> responseHeaders = reponseProperties.getHeaders();
+        BasicProperties responseProperties = responseData.getProperties();
+        Map<String, Object> responseHeaders = responseProperties.getHeaders();
         processResponseHeaders(responseHeaders);
         byte[] responseBody = responseData.getBody();
         T responseEntity = entityCodec.deserialize(responseBody, returnType);
