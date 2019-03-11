@@ -6,7 +6,7 @@ import java.util.Collection;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyCollectionSupplier implements EzyPrototypeSupplier {
+public final class EzyCollectionSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyCollectionSupplier INSTANCE = new EzyCollectionSupplier();
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyHashMapSupplier implements EzyPrototypeSupplier {
+public final class EzyHashMapSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyHashMapSupplier INSTANCE = new EzyHashMapSupplier();
 

@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyConcurrentHashMapSupplier implements EzyPrototypeSupplier {
+public final class EzyConcurrentHashMapSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyConcurrentHashMapSupplier INSTANCE = new EzyConcurrentHashMapSupplier();
 

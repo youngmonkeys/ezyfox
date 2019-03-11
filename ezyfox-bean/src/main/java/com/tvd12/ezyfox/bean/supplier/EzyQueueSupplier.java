@@ -6,7 +6,7 @@ import java.util.Queue;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyQueueSupplier implements EzyPrototypeSupplier {
+public final class EzyQueueSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyQueueSupplier INSTANCE = new EzyQueueSupplier();
 

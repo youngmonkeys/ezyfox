@@ -6,7 +6,7 @@ import java.util.Map;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyMapSupplier implements EzyPrototypeSupplier {
+public final class EzyMapSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyMapSupplier INSTANCE = new EzyMapSupplier();
 

@@ -7,7 +7,7 @@ import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 
 @SuppressWarnings("rawtypes")
-public class EzyIterableWriter implements EzyWriter<Iterable, EzyArray> {
+public final class EzyIterableWriter implements EzyWriter<Iterable, EzyArray> {
 
 	private static final EzyIterableWriter INSTANCE = new EzyIterableWriter();
 	

@@ -5,7 +5,7 @@ import java.util.TreeMap;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyTreeMapSupplier implements EzyPrototypeSupplier {
+public final class EzyTreeMapSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyTreeMapSupplier INSTANCE = new EzyTreeMapSupplier();
 	

@@ -8,7 +8,7 @@ import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.entity.EzyArray;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
-public class EzyListReader implements EzyReader<EzyArray, List> {
+public final class EzyListReader implements EzyReader<EzyArray, List> {
 
 	private static final EzyListReader INSTANCE = new EzyListReader();
 	

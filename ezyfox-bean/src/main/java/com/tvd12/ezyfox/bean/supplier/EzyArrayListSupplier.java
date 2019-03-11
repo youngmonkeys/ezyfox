@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
-public class EzyArrayListSupplier implements EzyPrototypeSupplier {
+public final class EzyArrayListSupplier implements EzyPrototypeSupplier {
 
 	private static final EzyArrayListSupplier INSTANCE = new EzyArrayListSupplier();
 
