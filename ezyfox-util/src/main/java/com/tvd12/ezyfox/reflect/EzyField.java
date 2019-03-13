@@ -6,13 +6,9 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyFields;
-import com.tvd12.ezyfox.reflect.EzyGenericElement;
-import com.tvd12.ezyfox.reflect.EzyKnownTypeElement;
-import com.tvd12.ezyfox.reflect.EzyReflectElement;
 import com.tvd12.ezyfox.util.EzyEquals;
 import com.tvd12.ezyfox.util.EzyHashCodes;
 
@@ -63,8 +59,14 @@ public class EzyField
 		return field.getType();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public String getGetterMethod() {
-		return "get" + getMethodSuffix();
+		Class<?> type = field.getType();
+		Set<Class> booleanTypes = EzyTypes.BOOLEAN_TYPES;
+		String prefix = "get";
+		if(booleanTypes.contains(type))
+			prefix = "is";
+		return prefix + getMethodSuffix();
 	}
 	
 	public String getSetterMethod() {
