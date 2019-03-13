@@ -23,6 +23,7 @@ import com.tvd12.ezyfox.collect.Sets;
 @SuppressWarnings("rawtypes")
 public final class EzyTypes {
 
+	public static final Set<Class> BOOLEAN_TYPES = booleanTypes();
 	public static final Set<Class> PRIMITIVE_TYPES = primitiveTypes();
 	public static final Set<Class> WRAPPER_TYPES = wrapperTypes();
 	public static final Set<Class> ARRAY_PRIMITIVE_TYPES = arrayPrimitiveTypes();
@@ -35,6 +36,14 @@ public final class EzyTypes {
 	public static final Map<Class, Class> PRIMITIVE_WRAPPER_TYPES_MAP = mapPrimitiveAndWrapperTypes();
 	
 	private EzyTypes() {
+	}
+	
+	private static final Set<Class> booleanTypes() {
+		Set<Class> set = Sets.newHashSet(
+				boolean.class,
+				Boolean.class
+		);
+		return Collections.unmodifiableSet(set);
 	}
 	
 	private static final Set<Class> primitiveTypes() {

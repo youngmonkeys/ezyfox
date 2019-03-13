@@ -39,6 +39,9 @@ public class EzyFieldTest extends BaseTest {
 		assertEquals(ab.getSetterMethod(), "setAb");
 		assertTrue(ab.isMapType());
 		
+		EzyField xyz = new EzyField(ClassA.class.getDeclaredField("xyz"));
+		assertEquals(xyz.getGetterMethod(), "isXyz");
+		
 		assert !a.equals(null);
 		assert a.equals(a);
 		assert a.equals(new EzyField(a.getField()));
@@ -49,6 +52,7 @@ public class EzyFieldTest extends BaseTest {
 		protected String a;
 		protected Map<String,String> ab;
 		protected List<String> abc;
+		protected boolean xyz;
 	}
 	
 }
