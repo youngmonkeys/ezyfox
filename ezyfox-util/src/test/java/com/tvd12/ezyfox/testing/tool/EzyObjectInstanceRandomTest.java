@@ -1,5 +1,8 @@
 package com.tvd12.ezyfox.testing.tool;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +35,9 @@ public class EzyObjectInstanceRandomTest {
 	@Setter
 	@ToString
 	public static class ClassA {
+		private Date date;
+		private LocalDate localDate;
+		private LocalDateTime localDateTime;
 		private Boolean aa;
 		private Byte ab;
 		private Character ac;

@@ -5,8 +5,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -305,6 +308,21 @@ public class EzyObjectInstanceRandom {
 				builder.append(DEFAULT_STRINGS[index]);
 			}
 			return builder.toString();
+		});
+		randoms.put(Date.class, () -> {
+			Date now = new Date();
+			long nowMilis = now.getTime();
+			Random random = new Random();
+			int nextDays = 1 + random.nextInt(5);
+			long nextMilis = nowMilis + nextDays * 24 * 60 * 60 * 1000;
+			Date nextTime = new Date(nextMilis);
+			return nextTime;
+		});
+		randoms.put(LocalDate.class, () -> {
+			return LocalDate.now();
+		});
+		randoms.put(LocalDateTime.class, () -> {
+			return LocalDateTime.now();
 		});
 		return randoms;
 	}
