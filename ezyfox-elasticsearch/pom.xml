@@ -14,7 +14,7 @@
 		<ezy.message.version>1.0.0</ezy.message.version>
 		<ezy.binding.version>1.0.0</ezy.binding.version>
 		<ezy.data.version>1.0.0</ezy.data.version>
-		<elasticsearch.version>6.0.0</elasticsearch.version>
+		<elasticsearch.version>6.6.2</elasticsearch.version>
 		<log4j.core.version>2.10.0</log4j.core.version>
 	</properties>
 
@@ -43,11 +43,13 @@
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>transport</artifactId>
 			<version>${elasticsearch.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-high-level-client</artifactId>
 			<version>${elasticsearch.version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

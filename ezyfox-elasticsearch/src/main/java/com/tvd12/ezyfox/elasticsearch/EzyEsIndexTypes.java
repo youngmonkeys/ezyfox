@@ -1,6 +1,5 @@
 package com.tvd12.ezyfox.elasticsearch;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,12 +7,11 @@ import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.util.EzyHashMapSet;
 import com.tvd12.ezyfox.util.EzyMapSet;
 
-public class EzyIndexTypes implements Serializable {
-	private static final long serialVersionUID = 8736647948412035159L;
+public class EzyEsIndexTypes {
 	
-	protected EzyMapSet<String, String> indexTypes = new EzyHashMapSet<>();
+	protected final EzyMapSet<String, String> indexTypes;
 	
-	protected EzyIndexTypes(Builder builder) {
+	protected EzyEsIndexTypes(Builder builder) {
 		this.indexTypes = builder.indexTypes;
 	}
 	
@@ -27,10 +25,10 @@ public class EzyIndexTypes implements Serializable {
 		return types.iterator().next();
 	}
 	
-	public EzyIndexType getIndexType() {
+	public EzyEsIndexType getIndexType() {
 		String index = getIndex();
 		String type = getType();
-		return new EzyIndexType(index, type);
+		return new EzyEsIndexType(index, type);
 	}
 	
 	public Set<String> getIndexes() {
@@ -41,15 +39,19 @@ public class EzyIndexTypes implements Serializable {
 		return new HashSet<>(indexTypes.getItems(index));
 	}
 	
-	public Set<EzyIndexType> getIndexTypes() {
-		Set<EzyIndexType> set = new HashSet<>();
+	public Set<EzyEsIndexType> getIndexTypes() {
+		Set<EzyEsIndexType> set = new HashSet<>();
 		for(String index : indexTypes.keySet()) {
 			Set<String> types = indexTypes.getItems(index);
 			for(String type : types) {
-				set.add(new EzyIndexType(index, type));
+				set.add(new EzyEsIndexType(index, type));
 			}
 		}
 		return set;
+	}
+	
+	public void merge(EzyEsIndexTypes other) {
+		this.indexTypes.putAll(other.indexTypes);
 	}
 	
 	@Override
@@ -61,31 +63,31 @@ public class EzyIndexTypes implements Serializable {
 		return new Builder();
 	}
 	
-	public static class Builder implements EzyBuilder<EzyIndexTypes> {
+	public static class Builder implements EzyBuilder<EzyEsIndexTypes> {
 
 		protected EzyMapSet<String, String> indexTypes = new EzyHashMapSet<>();
 		
-		public Builder add(EzyIndexType indexType) {
+		public Builder add(EzyEsIndexType indexType) {
 			this.indexTypes.addItems(indexType.getIndex(), indexType.getType());
 			return this;
 		}
 		
-		public Builder add(EzyIndexTypes indexTypes) {
+		public Builder add(EzyEsIndexTypes indexTypes) {
 			return add(indexTypes.getIndexTypes());
 		}
 		
 		public Builder add(String index, String type) {
-			return add(new EzyIndexType(index, type));
+			return add(new EzyEsIndexType(index, type));
 		}
 		
-		public Builder add(Iterable<EzyIndexType> indexTypes) {
+		public Builder add(Iterable<EzyEsIndexType> indexTypes) {
 			indexTypes.forEach(this::add);
 			return this;
 		}
 		
 		@Override
-		public EzyIndexTypes build() {
-			return new EzyIndexTypes(this);
+		public EzyEsIndexTypes build() {
+			return new EzyEsIndexTypes(this);
 		}
 		
 	}

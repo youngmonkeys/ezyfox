@@ -10,7 +10,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class EzyIndexType implements Serializable {
+public class EzyEsIndexType implements Serializable {
 	private static final long serialVersionUID = 1424057194255086651L;
 	
 	protected String index;
@@ -18,7 +18,7 @@ public class EzyIndexType implements Serializable {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return new EzyEquals<EzyIndexType>()
+		return new EzyEquals<EzyEsIndexType>()
 				.function(o -> o.index)
 				.function(o -> o.type)
 				.equals(obj);

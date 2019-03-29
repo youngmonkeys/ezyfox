@@ -5,10 +5,6 @@ import java.util.Set;
 @SuppressWarnings("rawtypes")
 public interface EzyIndexedDataClassesFetcher {
 	
-	static EzyIndexedDataClassesFetcher newInstance() {
-		return new EzySimpleIndexedDataClassesFetcher(); 
-	}
-
 	EzyIndexedDataClassesFetcher scan(String packageName);
 	
 	EzyIndexedDataClassesFetcher scan(String... packageNames);
