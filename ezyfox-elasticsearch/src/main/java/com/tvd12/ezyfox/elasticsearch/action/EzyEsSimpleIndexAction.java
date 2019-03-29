@@ -37,6 +37,7 @@ public class EzyEsSimpleIndexAction implements EzyEsIndexAction {
 		return this;
 	}
 	
+	@Override
 	public RequestOptions getRequestOptions() {
 		if(requestOptions == null)
 			return RequestOptions.DEFAULT;

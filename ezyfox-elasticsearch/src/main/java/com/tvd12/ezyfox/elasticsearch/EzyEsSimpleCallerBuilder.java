@@ -11,8 +11,11 @@ import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.data.EzyIndexedDataIdFetchers;
 import com.tvd12.ezyfox.data.annotation.EzyIndexedData;
+import com.tvd12.ezyfox.elasticsearch.action.EzyEsActionTypes;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsAbstractActionHandler;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsActionHandler;
+import com.tvd12.ezyfox.elasticsearch.handler.EzyEsIndexActionHandler;
+import com.tvd12.ezyfox.elasticsearch.handler.EzyEsSearchActionHandler;
 import com.tvd12.ezyfox.identifier.EzyIdFetchers;
 import com.tvd12.ezyfox.message.annotation.EzyMessage;
 import com.tvd12.ezyfox.reflect.EzyReflection;
@@ -29,6 +32,11 @@ public class EzyEsSimpleCallerBuilder implements EzyEsCallerBuilder {
 	
 	protected Set<String> indexedPackagesToScan = new HashSet<>();
 	protected Map<String, EzyEsActionHandler> actionHandlers = new HashMap<>();
+	
+	public EzyEsSimpleCallerBuilder() {
+		this.actionHandlers.put(EzyEsActionTypes.INDEX, new EzyEsIndexActionHandler());
+		this.actionHandlers.put(EzyEsActionTypes.SEARCH, new EzyEsSearchActionHandler());
+	}
 	
 	public EzyEsSimpleCallerBuilder scanIndexedClasses(String packageToScan) {
 		this.indexedPackagesToScan.add(packageToScan);

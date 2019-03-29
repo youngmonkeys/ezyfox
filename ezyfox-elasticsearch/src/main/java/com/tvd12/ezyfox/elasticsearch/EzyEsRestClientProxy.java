@@ -6,6 +6,8 @@ import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 
@@ -30,5 +32,9 @@ public class EzyEsRestClientProxy implements EzyEsClientProxy {
 		return elasticsearchClient.index(indexRequest, options);
 	}
 	
+	@Override
+	public SearchResponse search(SearchRequest searchRequest, RequestOptions options) throws IOException {
+		return elasticsearchClient.search(searchRequest, options);
+	}
 	
 }
