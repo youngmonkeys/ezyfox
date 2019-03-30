@@ -2,8 +2,8 @@ package com.tvd12.ezyfox.elasticsearch.util;
 
 import static com.tvd12.ezyfox.util.EzyNameStyles.toLowerHyphen;
 
-import com.tvd12.ezyfox.elasticsearch.EzyIndexType;
-import com.tvd12.ezyfox.elasticsearch.EzyIndexTypes;
+import com.tvd12.ezyfox.elasticsearch.EzyEsIndexType;
+import com.tvd12.ezyfox.elasticsearch.EzyEsIndexTypes;
 import com.tvd12.ezyfox.elasticsearch.annotation.EzyDataIndex;
 
 public final class EzyDataIndexAnnotations {
@@ -18,14 +18,14 @@ public final class EzyDataIndexAnnotations {
 		return new String[] {toLowerHyphen(clazz.getSimpleName())};
 	}
 	
-	public static EzyIndexTypes getIndexTypes(Class<?> clazz, EzyDataIndex anno) {
+	public static EzyEsIndexTypes getIndexTypes(Class<?> clazz, EzyDataIndex anno) {
 		String index = anno.index();
 		String[] types = getTypes(clazz, anno);
-		EzyIndexTypes.Builder builder = EzyIndexTypes.builder();
+		EzyEsIndexTypes.Builder builder = EzyEsIndexTypes.builder();
 		for(String type : types) {
-			builder.add(new EzyIndexType(index, type));
+			builder.add(new EzyEsIndexType(index, type));
 		}
-		EzyIndexTypes indexTypes = builder.build();
+		EzyEsIndexTypes indexTypes = builder.build();
 		return indexTypes;
 	}
 	

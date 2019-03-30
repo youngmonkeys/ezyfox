@@ -65,7 +65,7 @@ public class EzyObjectInstanceRandom {
 		return randomValue;
 	}
 	
-	public Object randomObject(Class<?> clazz, boolean includeAllFields) {
+	public <T> T randomObject(Class<T> clazz, boolean includeAllFields) {
 		Object instance = randomObject(
 				clazz, 
 				includeAllFields, 
@@ -76,7 +76,14 @@ public class EzyObjectInstanceRandom {
 					field.getField().setAccessible(true);
 					field.set(params[0], params[2]);
 				});
-		return instance;
+		return (T)instance;
+	}
+	
+	public <T> List<T> randomObjectList(Class<T> itemClass, int size, boolean includeAllFields) {
+		List<T> list = new ArrayList<>();
+		for(int i = 0 ; i < size ; i++)
+			list.add(randomObject(itemClass, includeAllFields));
+		return list;
 	}
 	
 	public Object randomObjectValue(Class<?> valueType) {

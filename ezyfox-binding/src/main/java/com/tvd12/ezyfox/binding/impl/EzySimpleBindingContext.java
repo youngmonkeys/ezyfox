@@ -193,6 +193,17 @@ public class EzySimpleBindingContext
 			classes.forEach(this::addClass);
 			return this;
 		}
+
+		/*
+		 * (non-Javadoc)
+		 * @see com.tvd12.ezyfox.binding.EzyBindingContextBuilder#addAllClasses(java.lang.Object)
+		 */
+		@Override
+		public EzyBindingContextBuilder addAllClasses(Object reflection) {
+			if(reflection instanceof EzyReflection)
+				addAllClasses((EzyReflection)reflection);
+			return this;
+		}
 		
 		/* (non-Javadoc)
 		 * @see com.tvd12.ezyfox.binding.impl.EzyBindingContextBuilder#addTemplate(java.lang.Object)

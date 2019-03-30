@@ -198,17 +198,14 @@ public abstract class EzySimplePrototypeSupplierLoader
 		String propertyName = getPropertyName(field);
 		body.append(new EzyInstruction("\t", "\n", false)
 				.append("if(arg0.containsProperty(\"" + propertyName + "\"))"));
-		body.append(new EzyInstruction("\t\t", "\n")
-				.append("object.")
-				.append(field.getName())
-				.equal()
-				.brackets(propertyType)
-				.append("arg0.getProperty")
-				.bracketopen()
-				.string(propertyName)
-				.comma()
-				.clazz(propertyType, true)
-				.bracketclose());
+		EzyInstruction instruction = new EzyInstruction("\t\t", "\n")
+			.append("object.")
+			.append(field.getName())
+			.equal();
+		EzyInstruction getPropertyInstruction = newGetPropertyInstruction(propertyType, propertyName);
+		instruction
+			.cast(propertyType, getPropertyInstruction.toString());
+		body.append(instruction);
 	}
 	
 	private void addSetPropertyInstruction(EzyFunction.EzyBody body, EzySetterMethod method) {
@@ -216,18 +213,26 @@ public abstract class EzySimplePrototypeSupplierLoader
 		String propertyName = getPropertyName(method);
 		body.append(new EzyInstruction("\t", "\n", false)
 				.append("if(arg0.containsProperty(\"" + propertyName + "\"))"));
-		body.append(new EzyInstruction("\t\t", "\n")
-				.append("object.")
-				.append(method.getName())
-				.bracketopen()
-				.brackets(propertyType)
+		EzyInstruction instruction = new EzyInstruction("\t\t", "\n")
+			.append("object.")
+			.append(method.getName())
+			.bracketopen();
+		EzyInstruction getPropertyInstruction = newGetPropertyInstruction(propertyType, propertyName);
+		instruction
+			.cast(propertyType, getPropertyInstruction.toString())
+			.bracketclose();
+		body.append(instruction);
+	}
+	
+	private EzyInstruction newGetPropertyInstruction(Class<?> propertyType, String propertyName) {
+		EzyInstruction getPropertyInstruction = new EzyInstruction("", "", false)
 				.append("arg0.getProperty")
 				.bracketopen()
 				.string(propertyName)
 				.comma()
 				.clazz(propertyType, true)
-				.bracketclose()
-				.bracketclose());
+				.bracketclose();
+		return getPropertyInstruction;
 	}
 	
 	private void addBindingValueInstructions(EzyFunction.EzyBody body) {

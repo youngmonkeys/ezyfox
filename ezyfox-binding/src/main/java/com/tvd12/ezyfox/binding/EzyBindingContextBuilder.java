@@ -20,6 +20,8 @@ public interface EzyBindingContextBuilder {
 	EzyBindingContextBuilder addClasses(Class... classes);
 
 	EzyBindingContextBuilder addClasses(Iterable<Class> classes);
+	
+	EzyBindingContextBuilder addAllClasses(Object reflection);
 
 	EzyBindingContextBuilder addTemplate(Object template);
 
