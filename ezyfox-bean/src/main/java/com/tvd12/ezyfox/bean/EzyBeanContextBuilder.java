@@ -30,6 +30,8 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	
 	EzyBeanContextBuilder addPrototypeSupplier(String objectName, EzyPrototypeSupplier supplier);
 	
+	EzyBeanContextBuilder addAllClasses(Object reflection);
+	
 	EzyBeanContextBuilder errorHandler(EzyErrorHandler handler);
 	
 	EzyBeanContextBuilder addProperties(Map properties);

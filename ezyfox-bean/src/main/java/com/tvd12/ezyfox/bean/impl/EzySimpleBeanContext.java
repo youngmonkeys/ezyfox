@@ -285,6 +285,17 @@ public class EzySimpleBeanContext
 
 		/*
 		 * (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addAllClasses(java.lang.Object)
+		 */
+		@Override
+		public EzyBeanContextBuilder addAllClasses(Object reflection) {
+			if(reflection instanceof EzyReflection)
+				addAllClasses((EzyReflection)reflection);
+			return this;
+		}
+		
+		/*
+		 * (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#errorHandler(com.tvd12.ezyfox.bean.EzyErrorHandler)
 		 */
 		@Override
