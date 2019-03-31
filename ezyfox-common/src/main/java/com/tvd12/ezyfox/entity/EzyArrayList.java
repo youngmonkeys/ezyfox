@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
+import com.tvd12.ezyfox.util.EzyArrayToList;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class EzyArrayList extends EzyTransformable implements EzyArray {
@@ -174,7 +175,9 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 	 */
 	@Override
 	public List toList() {
-		return new ArrayList<>(list);
+		EzyArrayToList arrayToList = EzyArrayToList.getInstance();
+		List list = arrayToList.toList(this);
+		return list;
 	}
 	
 	/*

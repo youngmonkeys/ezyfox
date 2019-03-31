@@ -9,6 +9,7 @@ import java.util.function.BiFunction;
 
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
+import com.tvd12.ezyfox.util.EzyObjectToMap;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class EzyHashMap extends EzyTransformable implements EzyObject {
@@ -183,7 +184,9 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 	 */
 	@Override
 	public Map toMap() {
-		return new HashMap<>(map);
+		EzyObjectToMap objectToMap = EzyObjectToMap.getInstance();
+		Map map = objectToMap.toMap(this);
+		return map;
 	}
 	
 	/*
