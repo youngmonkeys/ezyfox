@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.bean;
 
+import java.util.Collection;
 import java.util.Map;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
@@ -13,6 +14,8 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	EzyBeanContextBuilder scan(String... packageNames);
 
 	EzyBeanContextBuilder scan(Iterable<String> packageNames);
+	
+	EzyBeanContextBuilder scan(Collection<String> packageNames);
 
 	EzyBeanContextBuilder addSingleton(String name, Object singleton);
 
