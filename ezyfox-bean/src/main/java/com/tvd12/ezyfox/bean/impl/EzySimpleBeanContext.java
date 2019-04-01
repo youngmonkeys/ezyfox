@@ -4,6 +4,7 @@ import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -208,8 +209,18 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder scan(Iterable<String> packageNames) {
-			EzyReflection reflection = EzyPackages.scanPackages(packageNames);
-			addAllClasses(reflection);
+			Collection<String> set = new HashSet<>();
+			for(String packet : packageNames)
+				set.add(packet);
+			return scan(set);	
+		}
+		
+		@Override
+		public EzyBeanContextBuilder scan(Collection<String> packageNames) {
+			if(packageNames.size() > 0) {
+				EzyReflection reflection = EzyPackages.scanPackages(packageNames);
+				addAllClasses(reflection);
+			}
 			return this;	
 		}
 		

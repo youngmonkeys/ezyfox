@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.binding.impl;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -141,9 +142,19 @@ public class EzySimpleBindingContext
 		 */
 		@Override
 		public EzyBindingContextBuilder scan(Iterable<String> packageNames) {
-			EzyReflection reflection = EzyPackages.scanPackages(packageNames);
-			addAllClasses(reflection);
-			return this;
+			Collection<String> set = new HashSet<>();
+			for(String packet : packageNames)
+				set.add(packet);
+			return scan(set);
+		}
+		
+		@Override
+		public EzyBindingContextBuilder scan(Collection<String> packageNames) {
+			if(packageNames.size() > 0) {
+				EzyReflection reflection = EzyPackages.scanPackages(packageNames);
+				addAllClasses(reflection);
+			}
+			return this;	
 		}
 		
 		/* (non-Javadoc)
