@@ -13,7 +13,9 @@ import com.tvd12.ezyfox.elasticsearch.action.EzyEsActionTypes;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsAbstractActionHandler;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsActionHandler;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsIndexActionHandler;
+import com.tvd12.ezyfox.elasticsearch.handler.EzyEsLogUncaughtExceptionHandler;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsSearchActionHandler;
+import com.tvd12.ezyfox.elasticsearch.handler.EzyEsUncaughtExceptionHandler;
 import com.tvd12.ezyfox.identifier.EzyIdFetchers;
 import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
@@ -21,11 +23,14 @@ import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 @SuppressWarnings({"rawtypes"})
 public class EzyEsSimpleCallerBuilder implements EzyEsCallerBuilder {
 
+	protected int maxQueueSize = 10000;
+	protected int threadPoolSize = 3;
 	protected EzyEsClientProxy clientProxy;
 	protected EzyMarshaller marshaller;
 	protected EzyUnmarshaller unmarshaller;
 	protected EzyIdFetchers idFetchers;
 	protected EzyIndexedDataClasses indexedDataClasses;
+	protected EzyEsUncaughtExceptionHandler uncaughtExceptionHandler;
 	
 	protected Set<String> indexedPackagesToScan = new HashSet<>();
 	protected Map<String, EzyEsActionHandler> actionHandlers = new HashMap<>();
@@ -35,11 +40,25 @@ public class EzyEsSimpleCallerBuilder implements EzyEsCallerBuilder {
 		this.actionHandlers.put(EzyEsActionTypes.SEARCH, new EzyEsSearchActionHandler());
 	}
 	
+	@Override
+	public EzyEsSimpleCallerBuilder maxQueueSize(int maxQueueSize) {
+		this.maxQueueSize = maxQueueSize;
+		return this;
+	}
+	
+	@Override
+	public EzyEsSimpleCallerBuilder threadPoolSize(int threadPoolSize) {
+		this.threadPoolSize = threadPoolSize;
+		return this;
+	}
+	
+	@Override
 	public EzyEsSimpleCallerBuilder scanIndexedClasses(String packageToScan) {
 		this.indexedPackagesToScan.add(packageToScan);
 		return this;
 	}
 	
+	@Override
 	public EzyEsSimpleCallerBuilder clientProxy(EzyEsClientProxy clientProxy) {
 		this.clientProxy = clientProxy;
 		return this;
@@ -52,9 +71,17 @@ public class EzyEsSimpleCallerBuilder implements EzyEsCallerBuilder {
 	}
 	
 	@Override
+	public EzyEsSimpleCallerBuilder uncaughtExceptionHandler(EzyEsUncaughtExceptionHandler uncaughtExceptionHandler) {
+		this.uncaughtExceptionHandler = uncaughtExceptionHandler;
+		return this;
+	}
+	
+	@Override
 	public EzyEsCaller build() {
 		this.scanIndexedClasses();
 		this.resetupActionHandlers();
+		if(uncaughtExceptionHandler == null)
+			this.uncaughtExceptionHandler = new EzyEsLogUncaughtExceptionHandler();
 		return new EzyEsSimpleCaller(this);
 	}
 	
