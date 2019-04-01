@@ -14,6 +14,8 @@ public interface EzyIndexedDataClassesBuilder
 	
 	EzyIndexedDataClassesBuilder addIndexedDataClasses(Iterable<Class> classes);
 	
+	EzyIndexedDataClassesBuilder addIndexedDataClasses(Object reflection);
+	
 	EzyIndexedDataClassesBuilder addIndexedDataClasses(Map<Class, EzyEsIndexTypes> map);
 	
 	EzyIndexedDataClassesBuilder addIndexedDataClass(Class clazz, EzyEsIndexTypes indexTypes);

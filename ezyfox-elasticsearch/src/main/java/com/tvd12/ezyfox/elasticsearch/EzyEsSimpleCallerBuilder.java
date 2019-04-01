@@ -1,6 +1,5 @@
 package com.tvd12.ezyfox.elasticsearch;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -10,18 +9,16 @@ import com.tvd12.ezyfox.binding.EzyBindingContext;
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.data.EzyIndexedDataIdFetchers;
-import com.tvd12.ezyfox.data.annotation.EzyIndexedData;
 import com.tvd12.ezyfox.elasticsearch.action.EzyEsActionTypes;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsAbstractActionHandler;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsActionHandler;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsIndexActionHandler;
 import com.tvd12.ezyfox.elasticsearch.handler.EzyEsSearchActionHandler;
 import com.tvd12.ezyfox.identifier.EzyIdFetchers;
-import com.tvd12.ezyfox.message.annotation.EzyMessage;
 import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes"})
 public class EzyEsSimpleCallerBuilder implements EzyEsCallerBuilder {
 
 	protected EzyEsClientProxy clientProxy;
@@ -86,16 +83,14 @@ public class EzyEsSimpleCallerBuilder implements EzyEsCallerBuilder {
 	}
 	
 	protected EzyIndexedDataClasses newIndexedDataClasses(EzyReflection reflection) {
-		Set annotatedClasses = reflection.getAnnotatedClasses(EzyIndexedData.class);
 		return EzyIndexedDataClasses.builder()
-				.addIndexedDataClasses(annotatedClasses)
+				.addIndexedDataClasses(reflection)
 				.build();
 	}
 	
 	protected EzyIdFetchers newDataIdFetchers(EzyReflection reflection) {
 		return EzyIndexedDataIdFetchers.builder()
-				.addClasses((Collection)reflection.getAnnotatedClasses(EzyMessage.class))
-				.addClasses((Collection)reflection.getAnnotatedClasses(EzyIndexedData.class))
+				.addClasses(reflection)
 				.build();
 	}
 	

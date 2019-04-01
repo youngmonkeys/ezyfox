@@ -49,6 +49,16 @@ public class EzySimpleIndexedDataClassesFetcher
 	}
 	
 	@Override
+	public EzyIndexedDataClassesFetcher addIndexedDataClasses(Object reflection) {
+		if(reflection instanceof EzyReflection) {
+			EzyReflection ref = (EzyReflection)reflection;
+			Set<Class<?>> annClasses = ref.getAnnotatedClasses(EzyIndexedData.class);
+			this.classes.addAll(annClasses);
+		}
+		return this;
+	}
+	
+	@Override
 	public Set<Class> getIndexedDataClasses() {
 		Set<Class<?>> annotatedClasses = getAnnotatedClasses();
 		classes.addAll(annotatedClasses);
