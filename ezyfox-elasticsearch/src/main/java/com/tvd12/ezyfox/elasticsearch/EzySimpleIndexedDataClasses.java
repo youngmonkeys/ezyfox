@@ -65,6 +65,12 @@ public class EzySimpleIndexedDataClasses implements EzyIndexedDataClasses {
 		}
 		
 		@Override
+		public EzyIndexedDataClassesBuilder addIndexedDataClasses(Object reflection) {
+			this.indexedDataClassFetcher.addIndexedDataClasses(reflection);
+			return this;
+		}
+		
+		@Override
 		public Builder addIndexedDataClasses(Map<Class, EzyEsIndexTypes> map) {
 			this.indexedClassMap.putAll(map);
 			return this;

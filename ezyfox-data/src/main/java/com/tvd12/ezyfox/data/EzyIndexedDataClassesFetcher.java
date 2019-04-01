@@ -17,6 +17,8 @@ public interface EzyIndexedDataClassesFetcher {
 	
 	EzyIndexedDataClassesFetcher addIndexedDataClasses(Iterable<Class> classes);
 	
+	EzyIndexedDataClassesFetcher addIndexedDataClasses(Object reflection);
+	
 	Set<Class> getIndexedDataClasses();
 	
 }

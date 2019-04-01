@@ -45,6 +45,19 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
 		return (B)this;
 	}
 	
+	public B addClasses(Object reflection) {
+		if(reflection instanceof EzyReflection) {
+			EzyReflection ref = (EzyReflection)reflection;
+			Set<Class<?>> hasIdClasses = ref.getExtendsClasses(EzyHasIdEntity.class);
+			Set<Class<?>> annotatedClasses = new HashSet<>();
+			for (Class<? extends Annotation> annClass : getAnnotationClasses())
+				annotatedClasses.addAll(ref.getAnnotatedClasses(annClass));
+			this.entityClasses.addAll(hasIdClasses);
+			this.entityClasses.addAll(annotatedClasses);
+		}
+		return (B)this;
+	}
+	
 	@Override
 	public T build() {
 		preBuild();
@@ -64,12 +77,7 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
 		if(packagesToScan.isEmpty()) 
 			return;
 		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
-		Set<Class<?>> hasIdClasses = reflection.getExtendsClasses(EzyHasIdEntity.class);
-		Set<Class<?>> annotatedClasses = new HashSet<>();
-		for (Class<? extends Annotation> annClass : getAnnotationClasses())
-			annotatedClasses.addAll(reflection.getAnnotatedClasses(annClass));
-		this.entityClasses.addAll(hasIdClasses);
-		this.entityClasses.addAll(annotatedClasses);
+		addClasses(reflection);
 	}
 	
 	protected boolean isHasIdClass(Class<?> clazz) {
