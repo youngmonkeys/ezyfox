@@ -19,10 +19,19 @@ import com.tvd12.ezyfox.io.EzySingletonCollectionConverter;
 import com.tvd12.ezyfox.io.EzySingletonInputTransformer;
 import com.tvd12.ezyfox.io.EzySingletonOutputTransformer;
 
-public class EzySimpleEntityCreator implements EzyEntityCreator {
+public final class EzySimpleEntityCreator implements EzyEntityCreator {
 
 	@SuppressWarnings("rawtypes")
-	private final Map<Class, Supplier> suppliers = defaultSuppliers();
+	private final Map<Class, Supplier> suppliers;
+	private static final EzySimpleEntityCreator INSTANCE = new EzySimpleEntityCreator();
+	
+	private EzySimpleEntityCreator() {
+		this.suppliers = defaultSuppliers();
+	}
+	
+	public static EzySimpleEntityCreator getInstance() {
+		return INSTANCE;
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override

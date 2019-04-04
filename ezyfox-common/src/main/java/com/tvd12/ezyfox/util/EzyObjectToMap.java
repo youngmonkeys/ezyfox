@@ -8,12 +8,7 @@ import com.tvd12.ezyfox.entity.EzyObject;
 
 public class EzyObjectToMap {
 
-	private final EzyArrayToList arrayToList;
 	private static final EzyObjectToMap INSTANCE = new EzyObjectToMap();
-	
-	private EzyObjectToMap() {
-		this.arrayToList = EzyArrayToList.getInstance();
-	}
 	
 	public static EzyObjectToMap getInstance() {
 		return INSTANCE;
@@ -25,15 +20,18 @@ public class EzyObjectToMap {
 		for(Object key : object.keySet()) {
 			Object value = object.get(key);
 			Object skey = key;
+			EzyArrayToList arrayToList = EzyArrayToList.getInstance();
 			if(key instanceof EzyArray)
 				skey = arrayToList.toList((EzyArray)key);
 			else if(key instanceof EzyObject)
 				skey = toMap((EzyObject) key);
 			Object svalue = value;
-			if(value instanceof EzyArray)
-				svalue = arrayToList.toList((EzyArray) value);
-			if(value instanceof EzyObject)
-				svalue = toMap((EzyObject) value);
+			if(value != null) {
+				if(value instanceof EzyArray)
+					svalue = arrayToList.toList((EzyArray) value);
+				if(value instanceof EzyObject)
+					svalue = toMap((EzyObject) value);
+			}
 			answer.put(skey, svalue);
 		}
 		return answer;
