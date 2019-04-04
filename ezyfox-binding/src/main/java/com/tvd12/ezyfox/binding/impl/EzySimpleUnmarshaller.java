@@ -28,9 +28,26 @@ import com.tvd12.ezyfox.binding.reader.EzyIntegerReader;
 import com.tvd12.ezyfox.binding.reader.EzyListReader;
 import com.tvd12.ezyfox.binding.reader.EzyLongReader;
 import com.tvd12.ezyfox.binding.reader.EzyMapReader;
+import com.tvd12.ezyfox.binding.reader.EzyPrimitiveBooleanArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyPrimitiveByteArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyPrimitiveCharArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyPrimitiveDoubleArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyPrimitiveFloatArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyPrimitiveIntArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyPrimitiveLongArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyPrimitiveShortArrayReader;
 import com.tvd12.ezyfox.binding.reader.EzySetReader;
 import com.tvd12.ezyfox.binding.reader.EzyShortReader;
+import com.tvd12.ezyfox.binding.reader.EzyStringArrayReader;
 import com.tvd12.ezyfox.binding.reader.EzyTreeMapReader;
+import com.tvd12.ezyfox.binding.reader.EzyWrapperBooleanArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyWrapperByteArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyWrapperCharacterArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyWrapperDoubleArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyWrapperFloatArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyWrapperIntegerArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyWrapperLongArrayReader;
+import com.tvd12.ezyfox.binding.reader.EzyWrapperShortArrayReader;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyMaps;
@@ -106,7 +123,7 @@ public class EzySimpleUnmarshaller
 		if(reader != null)
 			return (T) reader.read(this, value);
 		if(outType.isArray())
-			return (T) readArray((EzyArray)value, outType.getComponentType());
+			return (T) readArray(value, outType.getComponentType());
 		if(outType.isEnum())
 			return (T) Enum.valueOf((Class<Enum>)outType, value.toString());
 		throw new IllegalArgumentException("has no reader for " + outType);
@@ -156,7 +173,7 @@ public class EzySimpleUnmarshaller
 	
 	private Map<Class, EzyReader> defaultReaders() {
 		Map<Class, EzyReader> map = new ConcurrentHashMap<>();
-		Set<Class> normalTypes = EzyTypes.ALL_TYPES;
+		Set<Class> normalTypes = EzyTypes.NON_ARRAY_TYPES;
 		for(Class normalType : normalTypes)
 			map.put(normalType, EzyDefaultReader.getInstance());
 		map.put(byte.class, EzyByteReader.getInstance());
@@ -173,6 +190,25 @@ public class EzySimpleUnmarshaller
 		map.put(Integer.class, EzyIntegerReader.getInstance());
 		map.put(Long.class, EzyLongReader.getInstance());
 		map.put(Short.class, EzyShortReader.getInstance());
+		
+		map.put(boolean[].class, EzyPrimitiveBooleanArrayReader.getInstance());
+		map.put(byte[].class, EzyPrimitiveByteArrayReader.getInstance());
+		map.put(char[].class, EzyPrimitiveCharArrayReader.getInstance());
+		map.put(double[].class, EzyPrimitiveDoubleArrayReader.getInstance());
+		map.put(float[].class, EzyPrimitiveFloatArrayReader.getInstance());
+		map.put(int[].class, EzyPrimitiveIntArrayReader.getInstance());
+		map.put(long[].class, EzyPrimitiveLongArrayReader.getInstance());
+		map.put(short[].class, EzyPrimitiveShortArrayReader.getInstance());
+		map.put(Boolean[].class, EzyWrapperBooleanArrayReader.getInstance());
+		map.put(Byte[].class, EzyWrapperByteArrayReader.getInstance());
+		map.put(Character[].class, EzyWrapperCharacterArrayReader.getInstance());
+		map.put(Double[].class, EzyWrapperDoubleArrayReader.getInstance());
+		map.put(Float[].class, EzyWrapperFloatArrayReader.getInstance());
+		map.put(Integer[].class, EzyWrapperIntegerArrayReader.getInstance());
+		map.put(Long[].class, EzyWrapperLongArrayReader.getInstance());
+		map.put(Short[].class, EzyWrapperShortArrayReader.getInstance());
+		map.put(String[].class, EzyStringArrayReader.getInstance());
+		
 		map.put(Date.class, EzyDefaultReader.getInstance());
 		map.put(Class.class, EzyDefaultReader.getInstance());
 		map.put(LocalDate.class, EzyDefaultReader.getInstance());
@@ -191,10 +227,26 @@ public class EzySimpleUnmarshaller
 		return map;
 	}
 	
-	private Object[] readArray(EzyArray array, Class componentType) {
+	private Object readArray(Object array, Class componentType) {
+		if(array instanceof EzyArray)
+			return readArrayByArray((EzyArray) array, componentType);
+		else if(array instanceof Collection)
+			return readArrayByCollection((Collection) array, componentType);
+		return array;
+	}
+	
+	private Object readArrayByArray(EzyArray array, Class componentType) {
 		Object[] answer = (Object[]) Array.newInstance(componentType, array.size());
 		for(int i = 0 ; i < array.size() ; i++) 
 			answer[i] = unmarshal((Object)array.get(i), componentType);
+		return answer;
+	}
+	
+	private Object readArrayByCollection(Collection collection, Class componentType) {
+		Object[] answer = (Object[]) Array.newInstance(componentType, collection.size());
+		int index = 0;
+		for(Object item : collection) 
+			answer[index ++] = unmarshal(item, componentType);
 		return answer;
 	}
 
