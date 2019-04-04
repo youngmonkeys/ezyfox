@@ -6,6 +6,7 @@ import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
+import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.io.EzySimpleInputTransformer;
 import com.tvd12.ezyfox.testing.entity.EzyEntityTest;
 
@@ -18,6 +19,7 @@ public class EzySimpleInputTransformerTest extends EzyEntityTest {
 
 	private EzyInputTransformer transformer = new EzySimpleInputTransformer();
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void test() {
 		assertEquals(transform(new boolean[] {true, false, true}), 
@@ -74,8 +76,9 @@ public class EzySimpleInputTransformerTest extends EzyEntityTest {
 		EzyObject[] objects = new EzyObject[] {
 				newObjectBuilder().append("1", "a").build()
 		};
-		assertEquals(((EzyArray)transform(objects)).toList(), 
-				Lists.newArrayList(objects));
+		EzyArray marray = ((EzyArray)transform(objects));
+		assertEquals(marray.toList(), 
+				Lists.newArrayList(EzyMaps.newHashMap("1", "a")));
 		
 		assertEquals(transform(LocalDate.of(2017, 05, 30)), "2017-05-30");
 		

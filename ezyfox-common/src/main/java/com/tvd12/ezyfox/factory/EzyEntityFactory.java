@@ -10,11 +10,11 @@ import com.tvd12.ezyfox.factory.EzySimpleEntityCreator;
 public final class EzyEntityFactory {
 
 	private static final EzyEntityCreator CREATOR 
-			= new EzySimpleEntityCreator();
+			= EzySimpleEntityCreator.getInstance();
 	public static final EzyArray EMPTY_ARRAY
-			= newArray();
+			= CREATOR.newArray();
 	public static final EzyObject EMPTY_OBJECT
-			= newObject();
+			= CREATOR.newObject();
 	
 	private EzyEntityFactory() {
 		// do nothing
