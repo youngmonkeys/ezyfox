@@ -23,7 +23,8 @@ public final class EzyCharacterReader implements EzyReader<Object, Character> {
 		String str = value.toString();
 		if(str.isEmpty())
 			return 0;
-		return str.charAt(0);
+		char ch = str.charAt(0);
+		return ch;
 	}
 	
 }
