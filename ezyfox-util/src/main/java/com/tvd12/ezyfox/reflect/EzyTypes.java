@@ -32,6 +32,7 @@ public final class EzyTypes {
 	public static final Set<Class> TWO_DIMENSIONS_ARRAY_WRAPPER_TYPES = twoDimensionsArrayWrapperTypes();
 	public static final Set<Class> STRING_TYPES = stringTypes();
 	public static final Set<Class> ALL_TYPES = mergeAllTypes();
+	public static final Set<Class> NON_ARRAY_TYPES = nonArrayTypes();
 	public static final Set<Class> COMMON_GENERIC_TYPES = commonGenericTypes();
 	public static final Map<Class, Class> PRIMITIVE_WRAPPER_TYPES_MAP = mapPrimitiveAndWrapperTypes();
 	
@@ -148,6 +149,14 @@ public final class EzyTypes {
 		merge.addAll(Lists.newArrayList(TWO_DIMENSIONS_ARRAY_PRIMITIVE_TYPES));
 		merge.addAll(Lists.newArrayList(TWO_DIMENSIONS_ARRAY_WRAPPER_TYPES));
 		merge.addAll(Lists.newArrayList(STRING_TYPES));
+		return Collections.unmodifiableSet(merge);
+	}
+	
+	private static final Set<Class> nonArrayTypes() {
+		Set<Class> merge = new HashSet<>();
+		merge.addAll(Lists.newArrayList(PRIMITIVE_TYPES));
+		merge.addAll(Lists.newArrayList(WRAPPER_TYPES));
+		merge.add(String.class);
 		return Collections.unmodifiableSet(merge);
 	}
 	
