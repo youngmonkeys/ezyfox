@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.bean;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("rawtypes")
 public interface EzySingletonFactory {
@@ -21,5 +22,7 @@ public interface EzySingletonFactory {
 	Object addSingleton(String name, Object singleton);
 	
 	Object addSingleton(String name, Object singleton, Map properties);
+	
+	Set<Class> getSingletonClasses();
 	
 }

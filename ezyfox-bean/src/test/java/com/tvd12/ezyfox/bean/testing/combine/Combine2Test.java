@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.testng.annotations.Test;
@@ -33,6 +34,8 @@ public class Combine2Test {
 				.addPrototypeClasses(new Class[] {
 						ClassA12.class
 				})
+				.addSingleton("list", new ArrayList<>())
+				.addSingleton("map", new HashMap<>())
 				.addSingleton("singleton2", new SingletonX3());
 		
 		Field prototypeFactoryField = EzySimpleBeanContext.Builder.class

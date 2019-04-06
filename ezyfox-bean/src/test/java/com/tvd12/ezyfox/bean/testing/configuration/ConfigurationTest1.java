@@ -10,7 +10,11 @@ public class ConfigurationTest1 extends BaseTest {
 
 	@Test
 	public void test() {
-		EzyBeanContext context = EzyBeanContext.builder().build();
+		EzyBeanContext context = EzyBeanContext.builder()
+					.addSingletonClass(Singleton1.class)
+					.addSingletonClass(Singleton0.class)
+					.addSingletonClass(SingletonA1.class)
+					.build();
 		context.getSingletonFactory().addSingleton(new AvailableSingleton1());
 		
 		new EzySimpleConfigurationLoader()

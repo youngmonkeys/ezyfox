@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.testng.annotations.Test;
@@ -30,6 +32,8 @@ public class CombineTest {
 				.addProperty("foo", "bar")
 				.addProperty("array", "1,2,3,4,5")
 				.addProperty("ints", Lists.newArrayList(1, 2, 3))
+				.addSingleton("list", new ArrayList<>())
+				.addSingleton("map", new HashMap<>())
 				.addSingletonClasses(new Class[] {
 						SingletonX1.class, 
 						SingletonX2.class,

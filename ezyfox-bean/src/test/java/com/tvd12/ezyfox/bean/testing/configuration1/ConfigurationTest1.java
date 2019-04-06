@@ -11,6 +11,9 @@ public class ConfigurationTest1 extends BaseTest {
 	@Test
 	public void test() {
 		EzyBeanContext context = EzyBeanContext.builder()
+				.addSingletonClass(Singleton0.class)
+				.addSingletonClass(Singleton1.class)
+				.addSingletonClass(SingletonA1.class)
 				.scan("com.tvd12.ezyfox.bean.testing.configuration1")
 				.build();
 		context.getSingletonFactory().addSingleton(new AvailableSingleton1());
