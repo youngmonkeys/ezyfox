@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPropertyFetcher;
@@ -175,7 +176,13 @@ public abstract class EzySimpleSingletonLoader
 			EzySingletonLoader loader = new EzyByMethodSingletonLoader(method, configurator, methodsByType, stackCallClasses);
 			return loader.load(context);
 		}
-		if(isAbstractClass(paramType)) {
+		boolean cannotCreate = isAbstractClass(paramType);
+		if(!cannotCreate) {
+			EzySingletonFactory singletonFactory = context.getSingletonFactory();
+			Set<Class> singletonClasses = singletonFactory.getSingletonClasses();
+			cannotCreate = !singletonClasses.contains(paramType);
+		}
+		if(cannotCreate) {
 			throw new EzyNewSingletonException(getSingletonClass(), paramType, beanName);
 		}
 		EzySingletonLoader loader = new EzyByConstructorSingletonLoader(new EzyClass(paramType), stackCallClasses);

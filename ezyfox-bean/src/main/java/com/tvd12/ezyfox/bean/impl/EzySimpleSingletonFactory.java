@@ -4,6 +4,7 @@ import static com.tvd12.ezyfox.bean.impl.EzyBeanKey.of;
 import static com.tvd12.ezyfox.reflect.EzyClasses.flatSuperAndInterfaceClasses;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,11 +14,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.io.EzyMaps;
 
+import lombok.Getter;
+
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class EzySimpleSingletonFactory
 		extends EzySimpleBeanFactory
 		implements EzySingletonFactory {
 
+	@Getter
+	protected final Set<Class> singletonClasses
+			= new HashSet<>();
 	protected final Map<EzyBeanKey, Object> objectsByKey
 			= new ConcurrentHashMap<>();
 	protected final Map<Object, Map> objectsByProperties
@@ -99,6 +105,10 @@ public class EzySimpleSingletonFactory
 	@Override
 	public Map getProperties(Object singleton) {
 		return objectsByProperties.get(singleton);
+	}
+	
+	public void addSingletonClasses(Set<Class> classes) {
+		this.singletonClasses.addAll(classes);
 	}
 	
 	private String getBeanName(Class<?> type) {

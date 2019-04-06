@@ -160,8 +160,8 @@ public class EzySimpleBeanContext
 		protected Set<Class> configurationClasses;
 		protected Set<Class> configurationBeforeClasses;
 		protected EzyPropertiesReader propertiesReader;
-		protected EzySingletonFactory singletonFactory;
-		protected EzyPrototypeFactory prototypeFactory;
+		protected EzySimpleSingletonFactory singletonFactory;
+		protected EzySimplePrototypeFactory prototypeFactory;
 		protected EzyBeanNameTranslator beanNameTranslator;
 		
 		protected EzyErrorHandler errorHandler;
@@ -356,6 +356,7 @@ public class EzySimpleBeanContext
 			addSingleton("prototypeFactory", prototypeFactory);
 			addSingleton("beanNameTranslator", beanNameTranslator);
 			scanPackagesScanClasses();
+			singletonFactory.addSingletonClasses(singletonClasses);
 			prototypeClasses.removeAll(singletonClasses);
 			loadConfigurationBeforeClasses(context);
 			addScannedSingletonsToFactory(context);

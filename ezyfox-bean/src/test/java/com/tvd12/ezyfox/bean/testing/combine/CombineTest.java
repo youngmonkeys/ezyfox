@@ -1,10 +1,14 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
@@ -26,10 +30,22 @@ public class CombineTest {
 						"com.tvd12.ezyfox.bean.testing.combine.pack1",
 						"com.tvd12.ezyfox.bean.testing.combine.pack2"
 				)
+				.scan(new ArrayList<>())
+				.scan(new Iterable<String>() {
+					
+					@Override
+					public Iterator<String> iterator() {
+						return Lists.newArrayList("com.tvd12.ezyfox.bean.testing.combine.pack2").iterator();
+					}
+				})
+				.addAllClasses(new Object())
+				.addAllClasses(new EzyReflectionProxy("com.tvd12.ezyfox.bean.testing.combine.pack2"))
 				.addProperty("hello", "world")
 				.addProperty("foo", "bar")
 				.addProperty("array", "1,2,3,4,5")
 				.addProperty("ints", Lists.newArrayList(1, 2, 3))
+				.addSingleton("list", new ArrayList<>())
+				.addSingleton("map", new HashMap<>())
 				.addSingletonClasses(new Class[] {
 						SingletonX1.class, 
 						SingletonX2.class,
