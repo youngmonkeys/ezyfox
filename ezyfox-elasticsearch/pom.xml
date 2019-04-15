@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>ezyfox-elasticsearch</artifactId>
 	<name>ezyfox-elasticsearch</name>
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 
 	<properties>
 		<ezy.message.version>1.0.0</ezy.message.version>

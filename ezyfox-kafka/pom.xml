@@ -9,7 +9,7 @@
 	<artifactId>ezyfox-kafka</artifactId>
 	<name>ezyfox-kafka</name>
 	<url>http://maven.apache.org</url>
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 
 	<properties>
 		<ezy.binding.version>1.0.0</ezy.binding.version>

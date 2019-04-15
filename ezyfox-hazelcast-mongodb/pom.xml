@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>ezyfox-hazelcast-mongodb</artifactId>
 	<name>ezyfox-hazelcast-mongodb</name>
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
 		<hazelcast.version>3.8.1</hazelcast.version>
