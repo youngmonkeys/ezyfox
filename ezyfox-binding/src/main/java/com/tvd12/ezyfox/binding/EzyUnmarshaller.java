@@ -19,13 +19,13 @@ public interface EzyUnmarshaller {
 	 * 
 	 * @param value the value
 	 * @param output the output type
-	 * @return a pojo
 	 */
 	void unwrap(Object value, Object output);
 	
 	/**
 	 * unmarshal a value to pojo
 	 * 
+	 * @param <T> output type
 	 * @param value the value
 	 * @param outType the pojo type
 	 * @return a pojo
@@ -35,6 +35,7 @@ public interface EzyUnmarshaller {
 	/**
 	 * unmarshal a value to collection
 	 * 
+	 * @param <T> output item type
 	 * @param value the value 
 	 * @param collectionType the collection type
 	 * @param itemType the item type
@@ -46,6 +47,8 @@ public interface EzyUnmarshaller {
 	/**
 	 * unmarshal value to map
 	 * 
+	 * @param <K> the key type
+	 * @param <V> the value type
 	 * @param value the value
 	 * @param mapType the map type
 	 * @param keyType the key type
@@ -58,6 +61,7 @@ public interface EzyUnmarshaller {
 	/**
 	 * unmarshal value to object
 	 * 
+	 * @param <T> output type
 	 * @param readerClass the reader class
 	 * @param value the value
 	 * @return a object
