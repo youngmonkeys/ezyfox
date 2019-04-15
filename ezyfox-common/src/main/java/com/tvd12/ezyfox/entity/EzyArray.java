@@ -37,6 +37,7 @@ public interface EzyArray extends EzyRoArray {
 	 * @param <T> the value type
 	 * @param index the index
 	 * @param item the item to set
+	 * @return old value
 	 */
 	<T> T set(int index, Object item);
 	
