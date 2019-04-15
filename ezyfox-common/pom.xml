@@ -11,7 +11,7 @@
 
 	<artifactId>ezyfox-common</artifactId>
 
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 	<name>ezyfox-common </name>
 	<url>http://maven.apache.org</url>
 	
