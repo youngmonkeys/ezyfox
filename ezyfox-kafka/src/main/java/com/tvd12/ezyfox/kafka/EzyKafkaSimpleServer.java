@@ -24,11 +24,10 @@ import lombok.Setter;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class EzyKafkaSimpleServer
 		extends EzyLoggable
-		implements EzyKafkaServer, EzyKafkaConsumerAware {
+		implements EzyKafkaServer {
 
 	@Setter
-	protected Consumer consumer;
-	@Setter
+	protected final Consumer consumer;
 	protected long poolTimeOut = 100;
 	@Setter
 	protected EzyApply<Consumer> commitScript;
