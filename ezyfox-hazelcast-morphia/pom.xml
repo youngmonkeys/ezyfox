@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>ezyfox-hazelcast-morphia</artifactId>
 	<name>ezyfox-hazelcast-morphia</name>
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
 		<ezy.morphia.version>1.0.0</ezy.morphia.version>

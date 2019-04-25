@@ -9,7 +9,7 @@
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-codec</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 	<name>ezyfox-codec</name>
 	<url>http://maven.apache.org</url>
 	

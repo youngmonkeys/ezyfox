@@ -8,7 +8,7 @@
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-json</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 	<name>ezyfox-json</name>
 	<url>http://maven.apache.org</url>
 

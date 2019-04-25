@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>ezyfox-mongodb</artifactId>
 	<name>ezyfox-mongodb</name>
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
 		<mongodb.version>3.9.1</mongodb.version>

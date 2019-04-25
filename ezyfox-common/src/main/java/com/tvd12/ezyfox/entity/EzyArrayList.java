@@ -232,7 +232,6 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 	 * add an item to the list
 	 * 
 	 * @param item the item
-	 * @return add successful or not
 	 */
 	@Override
 	public void add(Object item) {

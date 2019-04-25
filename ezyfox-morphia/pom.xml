@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>ezyfox-morphia</artifactId>
 	<name>ezyfox-morphia</name>
-	<version>1.0.0</version>
+	<version>1.0.0</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
 		<morphia.version>1.4.0</morphia.version>
