@@ -11,12 +11,6 @@ import java.util.Properties;
 import com.mongodb.MongoClient;
 import com.tvd12.properties.file.reader.BaseFileReader;
 
-
-
-/**
- * @author dung.tv@zinza.com.vn
- *
- */
 public class EzyFileMongoClientLoader extends EzyPropertiesMongoClientLoader {
 
     private File file;

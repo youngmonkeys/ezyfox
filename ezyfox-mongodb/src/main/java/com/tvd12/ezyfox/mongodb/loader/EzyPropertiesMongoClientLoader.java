@@ -12,10 +12,6 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-/**
- * @author dung.tv@zinza.com.vn
- *
- */
 public class EzyPropertiesMongoClientLoader 
 		extends EzyLoggable 
 		implements EzyMongoClientLoader {
