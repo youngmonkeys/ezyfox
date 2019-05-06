@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.kafka.testing;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -84,7 +85,7 @@ public class KafkaExample3 {
 		Consumer<Long, String> consumer = createConsumer();
 
 		while (true) {
-			final ConsumerRecords<Long, String> consumerRecords = consumer.poll(100);
+			final ConsumerRecords<Long, String> consumerRecords = consumer.poll(Duration.ofMillis(100));
 
 			if (consumerRecords.count() == -1) {
 				break;

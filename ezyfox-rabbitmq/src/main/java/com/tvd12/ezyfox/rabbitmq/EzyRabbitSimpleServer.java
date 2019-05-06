@@ -13,6 +13,7 @@ import com.tvd12.ezyfox.pattern.EzyDataHandlers;
 import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitDataDeserializer;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
+@Deprecated
 public class EzyRabbitSimpleServer
 		extends EzyLoggable
 		implements EzyRabbitServer, Consumer, Runnable {

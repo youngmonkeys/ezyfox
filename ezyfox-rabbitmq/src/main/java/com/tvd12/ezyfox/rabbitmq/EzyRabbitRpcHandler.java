@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.rabbitmq.endpoint;
+package com.tvd12.ezyfox.rabbitmq;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +11,7 @@ import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitDataCodec;
 import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitErrorCodes;
 import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitKeys;
 import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitStatusCodes;
+import com.tvd12.ezyfox.rabbitmq.endpoint.EzyRabbitRpcServer;
 import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitRequestHandlers;
 import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitRpcCallHandler;
 import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitActionInterceptor;
@@ -27,9 +28,9 @@ public class EzyRabbitRpcHandler
 	@Setter
 	protected EzyRabbitActionInterceptor actionInterceptor;
 
-	protected EzyRabbitRpcServer server;
-	protected EzyRabbitDataCodec dataCodec;
-	protected EzyRabbitRequestHandlers requestHandlers;
+	protected final EzyRabbitRpcServer server;
+	protected final EzyRabbitDataCodec dataCodec;
+	protected final EzyRabbitRequestHandlers requestHandlers;
 	
 	public EzyRabbitRpcHandler(
 			EzyRabbitRpcServer server,
@@ -74,8 +75,7 @@ public class EzyRabbitRpcHandler
             if (actionInterceptor != null)
                 actionInterceptor.intercept(cmd, requestEntity, responseEntity);
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             responseBytes = new byte[0];
             Map<String, Object> responseHeaders = new HashMap<String, Object>();
             if (e instanceof NotFoundException) {

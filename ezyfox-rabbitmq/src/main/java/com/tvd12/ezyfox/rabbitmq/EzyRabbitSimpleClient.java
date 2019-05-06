@@ -5,6 +5,7 @@ import com.rabbitmq.client.Channel;
 import com.tvd12.ezyfox.rabbitmq.codec.EzyRabbitDataSerializer;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
+@Deprecated
 public class EzyRabbitSimpleClient 
 		extends EzyLoggable 
 		implements EzyRabbitClient {

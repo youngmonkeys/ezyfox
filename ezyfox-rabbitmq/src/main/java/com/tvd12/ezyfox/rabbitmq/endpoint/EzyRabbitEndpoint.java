@@ -5,6 +5,7 @@ import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyStartable;
 
+@Deprecated
 public abstract class EzyRabbitEndpoint 
 		extends EzyLoggable 
 		implements EzyStartable {

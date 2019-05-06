@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.rabbitmq;
 
 import java.util.Map;
 
+@Deprecated
 public interface EzyRabbitServerConfig {
 
 	String getQueue();

@@ -9,6 +9,7 @@ import com.tvd12.ezyfox.builder.EzyBuilder;
 import lombok.Getter;
 
 @Getter
+@Deprecated
 public class EzyRabbitSimpleServerConfig implements EzyRabbitServerConfig, Serializable {
 	private static final long serialVersionUID = 7480071532492822225L;
 
