@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.kafka.testing;
 
+import java.time.Duration;
 import java.util.Collections;
 
 import org.apache.kafka.clients.consumer.Consumer;
@@ -71,7 +72,7 @@ public class KafkaExample1 {
 		Consumer<Long, EzyObject> consumer = createConsumer();
 
 		while (true) {
-			final ConsumerRecords<Long, EzyObject> consumerRecords = consumer.poll(100);
+			final ConsumerRecords<Long, EzyObject> consumerRecords = consumer.poll(Duration.ofMillis(100));
 
 			if (consumerRecords.count() == -1) {
 				break;

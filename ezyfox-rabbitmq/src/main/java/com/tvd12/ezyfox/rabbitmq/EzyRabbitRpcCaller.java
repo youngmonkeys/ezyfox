@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.rabbitmq.endpoint;
+package com.tvd12.ezyfox.rabbitmq;
 
 import java.io.IOException;
 import java.util.Map;
@@ -14,13 +14,14 @@ import com.tvd12.ezyfox.exception.NotFoundException;
 import com.tvd12.ezyfox.message.EzyMessageTypeFetcher;
 import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitKeys;
 import com.tvd12.ezyfox.rabbitmq.constant.EzyRabbitStatusCodes;
+import com.tvd12.ezyfox.rabbitmq.endpoint.EzyRabbitRpcClient;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyStoppable;
 
 public class EzyRabbitRpcCaller extends EzyLoggable implements EzyStoppable {
 	
-	protected EzyRabbitRpcClient client;
-	protected EzyEntityCodec entityCodec;
+	protected final EzyRabbitRpcClient client;
+	protected final EzyEntityCodec entityCodec;
 
 	public EzyRabbitRpcCaller(
 			EzyRabbitRpcClient client, EzyEntityCodec entityCodec) {

@@ -1,13 +1,13 @@
 package com.tvd12.ezyfox.kafka.testing;
 
+import java.util.Properties;
+
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
-
-import com.tvd12.ezyfox.kafka.builder.EzyKafkaConsumerBuilder;
-import com.tvd12.ezyfox.kafka.builder.EzyKafkaProducerBuilder;
-import com.tvd12.ezyfox.kafka.constant.EzySerializationConfig;
 
 public final class TestUtil {
 
@@ -18,25 +18,21 @@ public final class TestUtil {
 	
 	@SuppressWarnings("rawtypes")
 	public static Producer newProducer() {
-		return EzyKafkaProducerBuilder.producerBuilder()
-				.property(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS)
-				.property(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer")
-				.property(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "com.tvd12.ezyfox.kafka.serialization.EzySimpleSerializer")
-				.property(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "com.tvd12.ezyfox.kafka.serialization.EzySimpleSerializer")
-				.property(EzySerializationConfig.MESSAGE_SERIALIZER, "com.tvd12.ezyfox.codec.MsgPackSimpleSerializer")
-				.property(EzySerializationConfig.MESSAGE_DESERIALIZER, "com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer")
-				.build();
+		Properties properties = new Properties();
+		properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
+		properties.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
+		properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "com.tvd12.ezyfox.kafka.serialization.EzyDefaultSerializer");
+		properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "com.tvd12.ezyfox.kafka.serialization.EzyDefaultSerializer");
+		return new KafkaProducer<>(properties);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public static Consumer newConsumer() {
-		return EzyKafkaConsumerBuilder.consumerBuilder()
-				.property(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS)
-				.property(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer")
-				.property(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "com.tvd12.ezyfox.kafka.serialization.EzySimpleDeserializer")
-				.property(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "com.tvd12.ezyfox.kafka.serialization.EzySimpleDeserializer")
-				.property(EzySerializationConfig.MESSAGE_SERIALIZER, "com.tvd12.ezyfox.codec.MsgPackSimpleSerializer")
-				.property(EzySerializationConfig.MESSAGE_DESERIALIZER, "com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer")
-				.build();
+		Properties properties = new Properties();
+		properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
+		properties.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer");
+		properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "com.tvd12.ezyfox.kafka.serialization.EzyDefaultDeserializer");
+		properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "com.tvd12.ezyfox.kafka.serialization.EzyDefaultDeserializer");
+		return new KafkaConsumer<>(properties);
 	}
 }

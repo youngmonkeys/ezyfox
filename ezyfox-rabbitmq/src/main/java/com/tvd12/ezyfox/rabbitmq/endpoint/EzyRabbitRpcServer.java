@@ -16,9 +16,9 @@ public class EzyRabbitRpcServer extends RpcServer {
 	
 	@Setter
 	protected EzyRabbitRpcCallHandler callHandler;
-	protected String exchange;
-	protected String replyRoutingKey;
-	protected String queueName;
+	protected final String exchange;
+	protected final String replyRoutingKey;
+	protected final String queueName;
 	
 	public EzyRabbitRpcServer(
 			Channel channel, 

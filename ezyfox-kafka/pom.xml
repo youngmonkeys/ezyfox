@@ -16,7 +16,7 @@
 		<ezy.codec.version>1.0.0</ezy.codec.version>
 		<ezy.msgpack.version>1.0.0</ezy.msgpack.version>
 		<ezy.message.version>1.0.0</ezy.message.version>
-		<kafka.version>1.0.0</kafka.version>
+		<kafka.version>2.2.0</kafka.version>
 	</properties>
 
 	<dependencies>
