@@ -16,13 +16,13 @@ public class EzySimpleStringDataDecoder
 	@Override
 	public void decode(String bytes, EzyCallback<Object> callback) throws Exception {
 		Object answer = decoder.decode(bytes);
-		callback.call(answer);
+		callback.call(answer, bytes.length());
 	}
 	
 	@Override
 	public void decode(byte[] bytes, EzyCallback<Object> callback) throws Exception {
 		Object answer = decoder.decode(bytes);
-		callback.call(answer);
+		callback.call(answer, bytes.length);
 	}
 
 	@Override
