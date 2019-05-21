@@ -40,16 +40,17 @@ public class EzyThreadsMonitor {
 				if(cpuTime > 0)
 					totalThreadsCpuTime += cpuTime;
 			}
-			EzyThreadDetail detail = new EzyThreadDetail();
-			detail.setId(threadId);
-			detail.setName(threadName);
-			detail.setCpuTime(cpuTime);
+			EzyThreadDetail detail = EzyThreadDetail.builder()
+					.id(threadId)
+					.name(threadName)
+					.cpuTime(cpuTime)
+					.build();
 			threads.add(detail);
 		}
-		EzyThreadsDetail details = new EzyThreadsDetail();
-		details.setThreads(threads);
-		details.setThreadsSize(threads.size());
-		details.setTotalThreadsCpuTime(totalThreadsCpuTime);
+		EzyThreadsDetail details = EzyThreadsDetail.builder()
+				.threads(threads)
+				.totalThreadsCpuTime(totalThreadsCpuTime)
+				.build();
 		return details;
 	}
 	

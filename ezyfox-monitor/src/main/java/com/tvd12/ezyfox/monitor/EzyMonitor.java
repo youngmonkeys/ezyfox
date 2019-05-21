@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public class EzyMonitor {
 	
-	protected EzyCpuMonitor cpuMonitor;
-	protected EzyMemoryMonitor memoryMonitor;
-	protected EzyThreadsMonitor threadsMonitor;
+	protected final EzyCpuMonitor cpuMonitor;
+	protected final EzyMemoryMonitor memoryMonitor;
+	protected final EzyThreadsMonitor threadsMonitor;
 
 	public EzyMonitor() {
 		this.cpuMonitor = new EzyCpuMonitor();

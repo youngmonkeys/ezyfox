@@ -3,14 +3,40 @@ package com.tvd12.ezyfox.monitor.data;
 import java.util.List;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter
 @Getter
 public class EzyThreadsDetail {
 
-	protected int threadsSize;
-	protected long totalThreadsCpuTime;
-	protected List<EzyThreadDetail> threads;
+	protected final long totalThreadsCpuTime;
+	protected final List<EzyThreadDetail> threads;
+	
+	protected EzyThreadsDetail(Builder builder) {
+		this.threads = builder.threads;
+		this.totalThreadsCpuTime = builder.totalThreadsCpuTime;
+	}
+	
+	public static Builder builder() {
+		return new Builder();
+	}
+	
+	public static class Builder {
+		
+		protected long totalThreadsCpuTime;
+		protected List<EzyThreadDetail> threads;
+		
+		public Builder totalThreadsCpuTime(long totalThreadsCpuTime) {
+			this.totalThreadsCpuTime = totalThreadsCpuTime;
+			return this;
+		}
+		
+		public Builder threads(List<EzyThreadDetail> threads) {
+			this.threads = threads;
+			return this;
+		}
+		
+		public EzyThreadsDetail build() {
+			return new EzyThreadsDetail(this);
+		}
+	}
 	
 }

@@ -8,7 +8,7 @@ public class EzyCpuMonitor {
 
 	protected long lastProcessCpuTime = 0L;
 	protected long lastSystemTime = System.nanoTime();
-	protected OperatingSystemMXBean osMxBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+	protected final OperatingSystemMXBean osMxBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
 	public EzyCpuMonitor() {
 		this.lastProcessCpuTime = osMxBean.getProcessCpuTime();

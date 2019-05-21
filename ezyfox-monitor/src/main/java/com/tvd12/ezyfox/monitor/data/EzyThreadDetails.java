@@ -1,35 +1,26 @@
 package com.tvd12.ezyfox.monitor.data;
 
-import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
-@NoArgsConstructor
 public class EzyThreadDetails extends EzyThreadDetail {
 
-	protected long blockedTime;
-	protected long blockedCount;
-	protected long waitedTime;
-	protected long waitedCount;
-	protected String lockName;
-	protected long lockOwnerId;
-	protected String lockOwnerName;
-	protected boolean inNative;
-	protected boolean suspended;
-	protected Thread.State state;
-	protected String stackTrace;
-	protected String overview;
+	protected final long blockedTime;
+	protected final long blockedCount;
+	protected final long waitedTime;
+	protected final long waitedCount;
+	protected final String lockName;
+	protected final long lockOwnerId;
+	protected final String lockOwnerName;
+	protected final boolean inNative;
+	protected final boolean suspended;
+	protected final Thread.State state;
+	protected final String overview;
 
 	public EzyThreadDetails(ThreadInfo info) {
-		ThreadMXBean tmxBean = getThreadMXBean();
-		this.id = info.getThreadId();
-		this.name = info.getThreadName();
+		super(info);
 		this.blockedTime = info.getBlockedTime();
 		this.blockedCount = info.getBlockedCount();
 		this.waitedTime = info.getWaitedTime();
@@ -40,12 +31,7 @@ public class EzyThreadDetails extends EzyThreadDetail {
 		this.inNative = info.isInNative();
 		this.suspended = info.isSuspended();
 		this.state = info.getThreadState();
-		this.cpuTime = tmxBean.getThreadCpuTime(id);
 		this.overview = info.toString();
-	}
-	
-	protected ThreadMXBean getThreadMXBean() {
-		return ManagementFactory.getThreadMXBean();
 	}
 	
 	@Override
