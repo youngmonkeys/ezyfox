@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.testing.util;
 
+import java.util.Map;
+
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.constant.EzyConstant;
@@ -23,6 +25,13 @@ public class EzyEnumsTest extends BaseTest {
 	@Test(expectedExceptions = {IllegalArgumentException.class})
 	public void test2() {
 		assert EzyEnums.valueOf(ABC.values(), 10) == ABC.A;
+	}
+	
+	@Test
+	public void test3() {
+		Map<Integer, ABC> enumMapInt = EzyEnums.enumMapInt(ABC.class);
+		assert enumMapInt.size() == 3;
+		System.out.println("enumMapInt: " + enumMapInt);
 	}
 
 	public static enum ABC implements EzyConstant {

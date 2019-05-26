@@ -1,7 +1,10 @@
 package com.tvd12.ezyfox.util;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
+import com.tvd12.ezyfox.constant.EzyConstant;
 import com.tvd12.ezyfox.constant.EzyHasIntId;
 
 public final class EzyEnums {
@@ -22,5 +25,17 @@ public final class EzyEnums {
             }
 		}
         throw new IllegalArgumentException("has no enum value with id = " + id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E extends EzyConstant> Map<Integer, E> enumMapInt(
+			Class<E> enumClass) {
+		Object[] values = enumClass.getEnumConstants();
+		Map<Integer, E> answer = new HashMap<>();
+		for(Object value : values) {
+			EzyConstant c = (EzyConstant)value;
+			answer.put(c.getId(), (E)value);
+		}
+		return answer;
 	}
 }
