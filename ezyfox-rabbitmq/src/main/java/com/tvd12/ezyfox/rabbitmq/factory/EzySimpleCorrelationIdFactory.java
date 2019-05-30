@@ -2,7 +2,6 @@ package com.tvd12.ezyfox.rabbitmq.factory;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.tvd12.ezyfox.rabbitmq.EzyCorrelationIdFactory;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzySimpleCorrelationIdFactory

@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.rabbitmq;
+package com.tvd12.ezyfox.rabbitmq.factory;
 
 public interface EzyCorrelationIdFactory {
 

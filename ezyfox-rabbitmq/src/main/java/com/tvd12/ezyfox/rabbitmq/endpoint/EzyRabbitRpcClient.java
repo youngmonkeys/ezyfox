@@ -15,7 +15,7 @@ import com.rabbitmq.client.RpcClient.Response;
 import com.rabbitmq.client.ShutdownSignalException;
 import com.rabbitmq.utility.BlockingCell;
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.rabbitmq.EzyCorrelationIdFactory;
+import com.tvd12.ezyfox.rabbitmq.factory.EzyCorrelationIdFactory;
 import com.tvd12.ezyfox.rabbitmq.factory.EzySimpleCorrelationIdFactory;
 import com.tvd12.ezyfox.rabbitmq.handler.EzyRabbitResponseConsumer;
 import com.tvd12.ezyfox.util.EzyLoggable;
