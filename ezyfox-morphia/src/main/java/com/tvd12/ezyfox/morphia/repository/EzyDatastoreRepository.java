@@ -14,14 +14,15 @@ import com.tvd12.ezyfox.morphia.query.impl.EzySimpleFindAndModifyOptions;
 import com.tvd12.ezyfox.morphia.query.impl.EzySimpleUpdateOperations;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
+import dev.morphia.Datastore;
+import dev.morphia.DeleteOptions;
+import dev.morphia.FindAndModifyOptions;
+import dev.morphia.UpdateOptions;
+import dev.morphia.query.FindOptions;
+import dev.morphia.query.Query;
+import dev.morphia.query.UpdateOperations;
+import dev.morphia.query.internal.MorphiaCursor;
 import lombok.Setter;
-import xyz.morphia.Datastore;
-import xyz.morphia.DeleteOptions;
-import xyz.morphia.FindAndModifyOptions;
-import xyz.morphia.UpdateOptions;
-import xyz.morphia.query.FindOptions;
-import xyz.morphia.query.Query;
-import xyz.morphia.query.UpdateOperations;
 
 public abstract class EzyDatastoreRepository<I, E> 
 		extends EzyLoggable
@@ -35,7 +36,9 @@ public abstract class EzyDatastoreRepository<I, E>
 
 	@Override
 	public long count() {
-		return datastore.getCount(getEntityType());
+		Query<E> query = newQuery();
+		long count = query.count();
+		return count;
 	}
 
 	@Override
@@ -50,39 +53,57 @@ public abstract class EzyDatastoreRepository<I, E>
 
 	@Override
 	public E findById(I id) {
-		return findByField("_id", id);
+		E e = findByField("_id", id);
+		return e;
 	}
 	
 	@Override
 	public E findByField(String field, Object value) {
-		return newQuery(field, value).get();
+		Query<E> query = newQuery(field, value);
+		E e = query.first();
+		return e;
 	}
 	
 	@Override
 	public List<E> findListByIds(Collection<I> ids) {
-		return newQuery().field("_id").in(ids).asList();
+		Query<E> query = newQuery().field("_id").in(ids);
+		MorphiaCursor<E> cursor = query.find();
+		List<E> list = cursor.toList();
+		return list;
 	}
 	
 	@Override
 	public List<E> findListByField(String field, Object value) {
-		return newQuery(field, value).asList();
+		Query<E> query = newQuery(field, value);
+		MorphiaCursor<E> cursor = query.find();
+		List<E> list = cursor.toList();
+		return list;
 	}
 	
 	@Override
 	public List<E> findListByField(String field, Object value, int skip, int limit) {
 		FindOptions options = new FindOptions().skip(skip).limit(limit);
-		return newQuery(field, value).asList(options);
+		Query<E> query = newQuery(field, value);
+		MorphiaCursor<E> cursor = query.find(options);
+		List<E> list = cursor.toList();
+		return list;
 	}
 
 	@Override
 	public List<E> findAll() {
-		return newQuery().asList();
+		Query<E> query = newQuery();
+		MorphiaCursor<E> cursor = query.find();
+		List<E> list = cursor.toList();
+		return list;
 	}
 	
 	@Override
 	public List<E> findAll(int skip, int limit) {
 		FindOptions options = new FindOptions().skip(skip).limit(limit);
-		return newQuery().asList(options);
+		Query<E> query = newQuery();
+		MorphiaCursor<E> cursor = query.find(options);
+		List<E> list = cursor.toList();
+		return list;
 	}
 	
 	@Override
@@ -92,7 +113,8 @@ public abstract class EzyDatastoreRepository<I, E>
 	
 	@Override
 	public void updateOneById(I id, E entity, boolean upsert) {
-		datastore.updateFirst(newQuery("_id", id), entity, upsert);
+		Query<E> query = newQuery("_id", id);
+		datastore.updateFirst(query, entity, upsert);
 	}
 	
 	@Override
@@ -112,7 +134,8 @@ public abstract class EzyDatastoreRepository<I, E>
 	
 	@Override
 	public void updateOneByField(String field, Object value, E entity, boolean upsert) {
-		datastore.updateFirst(newQuery(field, value), entity, upsert);
+		Query<E> query = newQuery(field, value);
+		datastore.updateFirst(query, entity, upsert);
 	}
 	
 	@Override
@@ -138,7 +161,10 @@ public abstract class EzyDatastoreRepository<I, E>
 		UpdateOperations<E> realOperations = datastore.createUpdateOperations(getEntityType());
 		EzyUpdateOperations<E> proxyOperations = new EzySimpleUpdateOperations<>(realOperations);
 		operations.apply(proxyOperations);
-		datastore.updateFirst(query, realOperations, upsert);
+		UpdateOptions updateOptions = new UpdateOptions()
+				.upsert(true)
+				.multi(false);
+		datastore.update(query, realOperations, updateOptions);
 	}
 
 	@Override

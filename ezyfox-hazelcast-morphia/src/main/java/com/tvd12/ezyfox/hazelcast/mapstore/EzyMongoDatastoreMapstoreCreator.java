@@ -5,8 +5,8 @@ import java.util.Properties;
 import com.hazelcast.core.MapStore;
 import com.tvd12.ezyfox.morphia.EzyDatastoreAware;
 
+import dev.morphia.Datastore;
 import lombok.Setter;
-import xyz.morphia.Datastore;
 
 public class EzyMongoDatastoreMapstoreCreator 
 		extends EzyMongoDatabaseMapstoreCreator

@@ -12,6 +12,7 @@
 
 	<properties>
 		<ezy.common.version>1.0.0</ezy.common.version>
+		<ezy.codec.version>1.0.0</ezy.codec.version>
 	</properties>
 
 	<dependencies>
@@ -19,6 +20,12 @@
 			<groupId>com.tvd12</groupId>
 			<artifactId>ezyfox-common</artifactId>
 			<version>${ezy.common.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tvd12</groupId>
+			<artifactId>ezyfox-codec</artifactId>
+			<version>${ezy.codec.version}</version>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

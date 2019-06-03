@@ -6,8 +6,8 @@ import com.tvd12.ezyfox.database.query.EzyPushOptions;
 import com.tvd12.ezyfox.database.query.EzyUpdateOperations;
 import com.tvd12.ezyfox.function.EzyApply;
 
-import xyz.morphia.query.PushOptions;
-import xyz.morphia.query.UpdateOperations;
+import dev.morphia.query.PushOptions;
+import dev.morphia.query.UpdateOperations;
 
 public final class EzySimpleUpdateOperations<T> implements EzyUpdateOperations<T> {
 
@@ -67,13 +67,12 @@ public final class EzySimpleUpdateOperations<T> implements EzyUpdateOperations<T
 
 	@Override
 	public EzyUpdateOperations<T> isolated() {
-		operations.isolated();
-		return this;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean isIsolated() {
-		return operations.isIsolated();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

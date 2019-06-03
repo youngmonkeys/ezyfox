@@ -6,10 +6,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.bson.types.ObjectId;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 import lombok.Getter;
 import lombok.Setter;
-import xyz.morphia.annotations.Entity;
-import xyz.morphia.annotations.Id;
 
 @Setter
 @Getter

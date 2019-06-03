@@ -10,10 +10,9 @@ import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-import xyz.morphia.Datastore;
-import xyz.morphia.Morphia;
-import xyz.morphia.annotations.Entity;
-import xyz.morphia.mapping.Mapper;
+import dev.morphia.Datastore;
+import dev.morphia.Morphia;
+import dev.morphia.annotations.Entity;
 
 @SuppressWarnings("rawtypes")
 public class EzyDataStoreBuilder
@@ -77,15 +76,14 @@ public class EzyDataStoreBuilder
 	
 	@Override
 	public Datastore build() {
-		Mapper mapper = new Mapper();
-		Datastore datastore = newDataStore(mapper);
+		Datastore datastore = newDataStore();
 		return datastore;
 	}
 	
-	private Datastore newDataStore(Mapper mapper) {
+	private Datastore newDataStore() {
 		Set<Class<?>> annotatedClasses = getAnnotatedClasses();
 		entityClasses.addAll(annotatedClasses);
-		Morphia morphia = new Morphia(mapper, entityClasses);
+		Morphia morphia = new Morphia(entityClasses);
 		Datastore datastore = morphia.createDatastore(mongoClient, databaseName);
 		return datastore;
 	}

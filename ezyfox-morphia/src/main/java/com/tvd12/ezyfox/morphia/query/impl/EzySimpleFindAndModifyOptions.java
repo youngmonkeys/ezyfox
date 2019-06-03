@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.tvd12.ezyfox.database.query.EzyFindAndModifyOptions;
 
-import xyz.morphia.FindAndModifyOptions;
+import dev.morphia.FindAndModifyOptions;
 
 public final class EzySimpleFindAndModifyOptions implements EzyFindAndModifyOptions {
 

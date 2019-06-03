@@ -5,8 +5,8 @@ package com.tvd12.ezyfox.hazelcast.mapstore;
 
 import com.tvd12.ezyfox.morphia.EzyDatastoreAware;
 
+import dev.morphia.Datastore;
 import lombok.Setter;
-import xyz.morphia.Datastore;
 
 /**
  * @author tavandung12

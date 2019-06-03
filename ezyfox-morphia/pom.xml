@@ -12,7 +12,7 @@
 	<version>1.0.0</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
-		<morphia.version>1.4.0</morphia.version>
+		<morphia.version>1.5.2</morphia.version>
 		<ezy.mongodb.version>1.0.0</ezy.mongodb.version>
 	</properties>
 	<dependencies>
@@ -22,7 +22,7 @@
 			<version>${ezy.mongodb.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>xyz.morphia.morphia</groupId>
+			<groupId>dev.morphia.morphia</groupId>
 			<artifactId>core</artifactId>
 			<version>${morphia.version}</version>
 		</dependency>

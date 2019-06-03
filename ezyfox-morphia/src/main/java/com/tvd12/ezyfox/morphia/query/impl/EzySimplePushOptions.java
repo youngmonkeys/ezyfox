@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.morphia.query.impl;
 
 import com.tvd12.ezyfox.database.query.EzyPushOptions;
 
-import xyz.morphia.query.PushOptions;
+import dev.morphia.query.PushOptions;
 
 public final class EzySimplePushOptions implements EzyPushOptions {
 

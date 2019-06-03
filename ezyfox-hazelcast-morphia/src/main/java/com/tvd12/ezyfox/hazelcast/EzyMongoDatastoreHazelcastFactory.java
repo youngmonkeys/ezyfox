@@ -4,8 +4,8 @@ import com.tvd12.ezyfox.hazelcast.mapstore.EzyMongoDatabaseMapstoreCreator;
 import com.tvd12.ezyfox.hazelcast.mapstore.EzyMongoDatastoreMapstoreCreator;
 import com.tvd12.ezyfox.morphia.EzyDatastoreAware;
 
+import dev.morphia.Datastore;
 import lombok.Setter;
-import xyz.morphia.Datastore;
 
 @Setter
 public class EzyMongoDatastoreHazelcastFactory 

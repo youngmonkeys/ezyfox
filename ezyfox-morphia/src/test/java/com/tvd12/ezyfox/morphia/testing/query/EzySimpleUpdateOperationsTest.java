@@ -8,7 +8,7 @@ import com.tvd12.ezyfox.morphia.testing.BaseMongoDBTest;
 import com.tvd12.ezyfox.morphia.testing.data.Cat;
 import com.tvd12.ezyfox.morphia.testing.data.Kitty;
 
-import xyz.morphia.query.UpdateOperations;
+import dev.morphia.query.UpdateOperations;
 
 public class EzySimpleUpdateOperationsTest extends BaseMongoDBTest {
 

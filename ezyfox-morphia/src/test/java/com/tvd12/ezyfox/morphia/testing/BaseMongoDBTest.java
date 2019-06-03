@@ -16,7 +16,7 @@ import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.stream.EzyAnywayInputStreamLoader;
 import com.tvd12.test.base.BaseTest;
 
-import xyz.morphia.Datastore;
+import dev.morphia.Datastore;
 
 public class BaseMongoDBTest extends BaseTest {
 

@@ -4,7 +4,7 @@ import com.tvd12.ezyfox.mongodb.bean.EzySimpleRepositoryImplementer;
 import com.tvd12.ezyfox.morphia.EzyDatastoreAware;
 import com.tvd12.ezyfox.morphia.repository.EzyDatastoreRepository;
 
-import xyz.morphia.Datastore;
+import dev.morphia.Datastore;
 
 public class EzyMorphiaRepositoryImplementer extends EzySimpleRepositoryImplementer {
 

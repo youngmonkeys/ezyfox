@@ -2,12 +2,12 @@ package com.tvd12.ezyfox.morphia.testing.data;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import xyz.morphia.annotations.Entity;
-import xyz.morphia.annotations.Id;
 
 @Setter
 @Getter
