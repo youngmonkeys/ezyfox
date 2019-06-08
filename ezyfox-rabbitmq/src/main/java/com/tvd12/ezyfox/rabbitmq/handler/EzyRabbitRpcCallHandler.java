@@ -4,6 +4,21 @@ import com.rabbitmq.client.Delivery;
 import com.rabbitmq.client.AMQP.BasicProperties;
 
 public interface EzyRabbitRpcCallHandler {
+	
+	void handleFire(
+			BasicProperties requestProperties,
+			byte[] requestBody);
+	
+	byte[] handleCall(
+			BasicProperties requestProperties,
+			byte[] requestBody, 
+			BasicProperties.Builder replyPropertiesBuilder);
+	
+	default void handleFire(Delivery request) {
+		handleFire(
+				request.getProperties(),
+				request.getBody());
+	}
 
 	default byte[] handleCall(
 			Delivery request, 
@@ -11,13 +26,6 @@ public interface EzyRabbitRpcCallHandler {
 		return handleCall(
 				request.getProperties(),
 				request.getBody(), replyPropertiesBuilder);
-	}
-	
-	default byte[] handleCall(
-			BasicProperties requestProperties,
-			byte[] requestBody, 
-			BasicProperties.Builder replyPropertiesBuilder) {
-		return new byte[0];
 	}
 	
 }

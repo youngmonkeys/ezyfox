@@ -53,8 +53,12 @@ public class EzyRabbitRpcServer extends RpcServer {
 	            AMQP.BasicProperties replyProperties = replyPropertiesBuilder.build();
 	            getChannel().basicPublish(exchange, responseRoutingKey, replyProperties, replyBody);
 	        } else {
-	            handleCast(request);
+	        		handleFire(request);
 	        }
+	}
+	
+	protected void handleFire(Delivery request) {
+		callHandler.handleFire(request);
 	}
 	
 	protected byte[] handleCall(

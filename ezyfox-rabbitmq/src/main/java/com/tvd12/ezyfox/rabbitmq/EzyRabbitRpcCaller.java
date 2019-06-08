@@ -6,6 +6,7 @@ import java.util.concurrent.TimeoutException;
 
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.RpcClient.Response;
+import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.codec.EzyEntityCodec;
 import com.tvd12.ezyfox.exception.BadRequestException;
 import com.tvd12.ezyfox.exception.EzyTimeoutException;
@@ -36,6 +37,21 @@ public class EzyRabbitRpcCaller extends EzyLoggable implements EzyStoppable {
 		} catch (IOException e) {
 			logger.error("stop rpc client error", e);
 		}
+	}
+	
+	public void fire(Object data) {
+		if (!(data instanceof EzyMessageTypeFetcher))
+            throw new IllegalArgumentException("data class must implement 'EzyMessageTypeFetcher'");
+        EzyMessageTypeFetcher mdata = (EzyMessageTypeFetcher)data;
+        fire(mdata.getMessageType(), data);
+	}
+	
+	public void fire(String cmd, Object data) {
+		BasicProperties requestProperties = new BasicProperties.Builder()
+        		.type(cmd)
+        		.build();
+        byte[] requestMessage = entityCodec.serialize(data);
+        rawFire(requestProperties, requestMessage);
 	}
 	
 	public <T> T call(Object data, Class<T> returnType) {
@@ -75,6 +91,16 @@ public class EzyRabbitRpcCaller extends EzyLoggable implements EzyStoppable {
             throw new InternalServerErrorException(message);
     }
     
+    protected void rawFire(
+    		BasicProperties requestProperties, byte[] requestMessage) {
+    		try {
+			client.doFire(requestProperties, requestMessage);
+		} 
+    		catch (Exception e) {
+    			throw new InternalServerErrorException(e.getMessage(), e);
+		}
+    }
+    
     protected Response rawCall(
     		BasicProperties requestProperties, byte[] requestMessage) {
     		try {
@@ -87,6 +113,32 @@ public class EzyRabbitRpcCaller extends EzyLoggable implements EzyStoppable {
     		catch (TimeoutException e) {
 			throw new EzyTimeoutException("call request: " + requestProperties.getType() + " timeout", e);
 		}
+    }
+    
+    public static Builder builder() {
+    		return new Builder();
+    }
+    
+    public static class Builder implements EzyBuilder<EzyRabbitRpcCaller> {
+    	
+    		protected EzyRabbitRpcClient client;
+    		protected EzyEntityCodec entityCodec;
+    		
+    		public Builder client(EzyRabbitRpcClient client) {
+    			this.client = client;
+    			return this;
+    		}
+    		
+    		public Builder entityCodec(EzyEntityCodec entityCodec) {
+    			this.entityCodec = entityCodec;
+    			return this;
+    		}
+    		
+    		@Override
+    		public EzyRabbitRpcCaller build() {
+    			return new EzyRabbitRpcCaller(client, entityCodec);
+    		}
+    		
     }
 
 }

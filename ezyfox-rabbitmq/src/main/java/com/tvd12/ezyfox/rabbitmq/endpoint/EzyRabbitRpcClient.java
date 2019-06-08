@@ -113,9 +113,20 @@ public class EzyRabbitRpcClient extends EzyLoggable {
         return newConsumer;
     }
 	
+	public void doFire(AMQP.BasicProperties props, byte[] message)
+	        throws IOException {
+		checkConsumer();
+        AMQP.BasicProperties.Builder propertiesBuilder = (props != null) 
+        			? props.builder() 
+        			: new AMQP.BasicProperties.Builder();
+        	AMQP.BasicProperties newProperties = propertiesBuilder
+        			.build();
+        publish(newProperties, message);
+	}
+	
 	public Response doCall(AMQP.BasicProperties props, byte[] message)
 	        throws IOException, TimeoutException {
-	        return doCall(props, message, defaultTimeout);
+		return doCall(props, message, defaultTimeout);
 	}
  
 	public Response doCall(AMQP.BasicProperties props, byte[] message, int timeout)

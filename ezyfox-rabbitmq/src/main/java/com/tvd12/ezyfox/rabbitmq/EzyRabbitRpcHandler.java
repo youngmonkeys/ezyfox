@@ -57,6 +57,26 @@ public class EzyRabbitRpcHandler
 	}
 	
 	@Override
+	public void handleFire(BasicProperties requestProperties, byte[] requestBody) {
+		String cmd = requestProperties.getType();
+        Object requestEntity = null;
+        Object responseEntity = null;
+        try
+        {
+            requestEntity = dataCodec.deserialize(cmd, requestBody);
+            if (actionInterceptor != null)
+                actionInterceptor.intercept(cmd, requestEntity);
+            responseEntity = requestHandlers.handle(cmd, requestEntity);
+            if (actionInterceptor != null)
+                actionInterceptor.intercept(cmd, requestEntity, responseEntity);
+        }
+        catch (Exception e) {
+        		if (actionInterceptor != null)
+                actionInterceptor.intercept(cmd, requestEntity, e);
+        }
+	}
+	
+	@Override
 	public byte[] handleCall(
 			BasicProperties requestProperties,
 			byte[] requestBody, 
@@ -136,12 +156,12 @@ public class EzyRabbitRpcHandler
 			return this;
 		}
 		
-		public Builder server(EzyRabbitRequestHandlers requestHandlers) {
+		public Builder requestHandlers(EzyRabbitRequestHandlers requestHandlers) {
 			this.requestHandlers = requestHandlers;
 			return this;
 		}
 		
-		public Builder server(EzyRabbitActionInterceptor actionInterceptor) {
+		public Builder actionInterceptor(EzyRabbitActionInterceptor actionInterceptor) {
 			this.actionInterceptor = actionInterceptor;
 			return this;
 		}
@@ -152,6 +172,8 @@ public class EzyRabbitRpcHandler
 					server,
 					dataCodec,
 					requestHandlers);
+			if(actionInterceptor != null)
+				product.setActionInterceptor(actionInterceptor);
 			return product;
 		}
 	}
