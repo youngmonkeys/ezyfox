@@ -67,8 +67,11 @@ public final class EzySets {
      * @return a new hash set
      */
     public static <T> Set<T> newHashSet(Collection<T> coll, Collection<T> except) {
-        Set<T> answer = new HashSet<>(coll);
-        answer.removeAll(except);
+    		Set<T> answer = new HashSet<>();
+        for(T item : coll) {
+        		if(!except.contains(item))
+        			answer.add(item);
+        }
         return answer;
     }
     
@@ -108,7 +111,7 @@ public final class EzySets {
      * @return a new hash set
      */
     public static <I, O> Set<O> newHashSet(Collection<I> input, Function<I, O> refactor) {
-    	Set<O> answer = new HashSet<>();
+    		Set<O> answer = new HashSet<>();
         for(I value : input)
             answer.add(refactor.apply(value));
         return answer;
@@ -126,7 +129,7 @@ public final class EzySets {
      * @return the new hash set
      */
     public static <K, V, O> Set<O> newHashSet(Map<K, V> input, BiFunction<K, V, O> refactor) {
-    	Set<O> answer = new HashSet<>();
+    		Set<O> answer = new HashSet<>();
         for(K key : input.keySet())
             answer.add(refactor.apply(key, input.get(key)));
         return answer;
