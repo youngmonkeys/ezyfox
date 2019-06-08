@@ -8,7 +8,7 @@ import com.tvd12.ezyfox.util.EzyEquals;
 
 public class EzyEquals<T> {
 
-	protected List<Function<T, Object>> functions = new ArrayList<>();
+	protected final List<Function<T, Object>> functions = new ArrayList<>();
 	
 	@SuppressWarnings("unchecked")
 	public boolean isEquals(T thiz, Object other) {

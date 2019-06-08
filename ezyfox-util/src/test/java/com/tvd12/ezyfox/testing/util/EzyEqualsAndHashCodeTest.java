@@ -9,6 +9,7 @@ import com.tvd12.ezyfox.util.EzyHashCodes;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -69,6 +70,27 @@ public class EzyEqualsAndHashCodeTest extends BaseTest {
 	}
 	
 	@Test
+	public void testEqualPerformance2() {
+		ClassB classA2 = new ClassB();
+		classA2.setName("name");
+		classA2.setValue("value");
+		classA2.setObject(new BigInteger("123"));
+		
+		ClassB classA3 = new ClassB();
+		classA3.setName("name");
+		classA3.setValue("value");
+		classA3.setObject(new BigInteger("123"));
+		
+		long time = Performance.create()
+			.loop(1000000)
+			.test(() -> {
+				classA2.equals(classA3);
+			})
+			.getTime();
+		System.out.println("equals.time 2 = " + time);
+	}
+	
+	@Test
 	public void testHashCodePerformance() {
 		ClassA classA2 = new ClassA();
 		classA2.setName("name");
@@ -82,6 +104,22 @@ public class EzyEqualsAndHashCodeTest extends BaseTest {
 			})
 			.getTime();
 		System.out.println("hashcode.time = " + time);
+	}
+	
+	@Test
+	public void testHashCodePerformance2() {
+		ClassB classA2 = new ClassB();
+		classA2.setName("name");
+		classA2.setValue("value");
+		classA2.setObject(new BigInteger("123"));
+		
+		long time = Performance.create()
+			.loop(1000000)
+			.test(() -> {
+				classA2.hashCode();
+			})
+			.getTime();
+		System.out.println("hashcode.time 2 = " + time);
 	}
 	
 	@Setter
@@ -112,6 +150,16 @@ public class EzyEqualsAndHashCodeTest extends BaseTest {
 					.append(object)
 					.toHashCode();
 		}
+	}
+	
+	@Setter
+	@Getter
+	@EqualsAndHashCode(of = {"id", "name", "value", "object"})
+	public static class ClassB {
+		private int id;
+		private String name;
+		private String value;
+		private Object object;
 	}
 	
 }
