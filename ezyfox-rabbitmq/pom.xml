@@ -18,13 +18,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-binding</artifactId>
-			<version>${ezy.binding.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-codec</artifactId>
-			<version>${ezy.codec.version}</version>
+			<artifactId>ezyfox-binding-codec</artifactId>
+			<version>${ezy.binding.codec.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.tvd12</groupId>

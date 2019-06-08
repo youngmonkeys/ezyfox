@@ -43,7 +43,12 @@ public class RabbitRpcAllRunner2 extends EzyLoggable {
 		this.bindingContext = newBindingContext();
 		this.marshaller = bindingContext.newMarshaller();
 		this.unmarshaller = bindingContext.newUnmarshaller();
-		this.entityCodec = new EzyRabbitBytesEntityCodec(marshaller, unmarshaller, messageSerializer, messageDeserializer);
+		this.entityCodec = EzyRabbitBytesEntityCodec.builder()
+				.marshaller(marshaller)
+				.unmarshaller(unmarshaller)
+				.messageSerializer(messageSerializer)
+				.messageDeserializer(messageDeserializer)
+				.build();
 		this.dataCodec = EzyRabbitBytesDataCodec.builder()
 				.marshaller(marshaller)
 				.unmarshaller(unmarshaller)

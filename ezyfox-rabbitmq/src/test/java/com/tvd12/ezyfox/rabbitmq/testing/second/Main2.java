@@ -6,6 +6,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.RpcClient;
+import com.rabbitmq.client.RpcClientParams;
 import com.rabbitmq.client.RpcClient.Response;
 import com.rabbitmq.client.RpcServer;
 
@@ -51,7 +52,13 @@ public class Main2 {
 		Channel channel = connection.createChannel();
 		channel.exchangeDeclare("my-exchange", "direct");
 		channel.queueBind("rpc_queue", "my-exchange", "rpc_queue");
-		return new RpcClient(channel, "my-exchange", "rpc_queue", "rpc_queue", 3 * 1000);
+		RpcClientParams params = new RpcClientParams()
+				.channel(channel)
+				.exchange("")
+				.routingKey("rpc_queue")
+				.replyTo("rpc_queue")
+				.timeout(3 * 1000);
+		return new RpcClient(params);
 	}
 	
 	private static RpcServer newRpcServer() throws Exception {
