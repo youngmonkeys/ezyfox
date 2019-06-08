@@ -7,6 +7,7 @@ mvn clean install -Dmaven.test.skip=true -f ezyfox-security & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-common & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-codec & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-binding & ^
+mvn clean install -Dmaven.test.skip=true -f ezyfox-binding-codec & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-bean & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-json & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-mapping & ^

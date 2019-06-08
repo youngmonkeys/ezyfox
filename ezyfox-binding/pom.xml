@@ -16,11 +16,5 @@
 			<artifactId>ezyfox-common</artifactId>
 			<version>${ezy.common.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-codec</artifactId>
-			<version>${ezy.codec.version}</version>
-			<optional>true</optional>
-		</dependency>
 	</dependencies>
 </project>

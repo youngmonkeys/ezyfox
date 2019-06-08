@@ -24,6 +24,7 @@
 		<ezy.bean.version>1.0.0</ezy.bean.version>
 		<ezy.binding.version>1.0.0</ezy.binding.version>
 		<ezy.codec.version>1.0.0</ezy.codec.version>
+		<ezy.binding.codec.version>1.0.0</ezy.binding.codec.version>
 		<ezy.json.version>1.0.0</ezy.json.version>
 		<ezy.jackson.version>1.0.0</ezy.jackson.version>
 		<ezy.mapping.version>1.0.0</ezy.mapping.version>
