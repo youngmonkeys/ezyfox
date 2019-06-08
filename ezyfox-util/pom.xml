@@ -4,20 +4,20 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox</artifactId>
+		<artifactId>ezyfox-versions</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-util</artifactId>
-	<version>1.0.0</version> <!-- ${project.version} -->
+	<version>${ezy.util.version}</version> <!-- ${project.version} -->
 	<name>ezyfox-util</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<reflections.version>0.9.12</reflections.version>
 		<properties.file.version>1.0.7</properties.file.version>
-		<commons.lang3.version>3.8.1</commons.lang3.version>
-		<joda.time.version>2.10.1</joda.time.version>
-		<slf4j.version>1.7.25</slf4j.version>
+		<commons.lang3.version>3.9</commons.lang3.version>
+		<joda.time.version>2.10.2</joda.time.version>
+		<slf4j.version>1.7.26</slf4j.version>
 	</properties>
 
 	<dependencies>

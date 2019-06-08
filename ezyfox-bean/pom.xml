@@ -3,16 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox</artifactId>
+		<artifactId>ezyfox-versions</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-bean</artifactId>
-	<version>1.0.0</version> <!-- ${project.version} -->
+	<version>${ezy.bean.version}</version> <!-- ${project.version} -->
 	<name>ezyfox-bean</name>
-
-	<properties>
-		<ezy.common.version>1.0.0</ezy.common.version>
-	</properties>
 
 	<dependencies>
 		<dependency>

@@ -3,19 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox</artifactId>
+		<artifactId>ezyfox-versions</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-elasticsearch</artifactId>
 	<name>ezyfox-elasticsearch</name>
-	<version>1.0.0</version> <!-- ${project.version} -->
+	<version>${ezy.elasticsearch.version}</version> <!-- ${project.version} -->
 
 	<properties>
-		<ezy.message.version>1.0.0</ezy.message.version>
-		<ezy.binding.version>1.0.0</ezy.binding.version>
-		<ezy.data.version>1.0.0</ezy.data.version>
-		<elasticsearch.version>6.6.2</elasticsearch.version>
-		<log4j.core.version>2.10.0</log4j.core.version>
+		<elasticsearch.version>7.1.1</elasticsearch.version>
 	</properties>
 
 	<dependencies>
@@ -51,18 +47,6 @@
 			<version>${elasticsearch.version}</version>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j.core.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j.core.version}</version>
-            <scope>test</scope>
-        </dependency>
 		
 	</dependencies>
 

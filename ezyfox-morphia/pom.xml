@@ -4,16 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox</artifactId>
+		<artifactId>ezyfox-versions</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-morphia</artifactId>
 	<name>ezyfox-morphia</name>
-	<version>1.0.0</version> <!-- ${project.version} -->
+	<version>${ezy.morphia.version}</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
 		<morphia.version>1.5.2</morphia.version>
-		<ezy.mongodb.version>1.0.0</ezy.mongodb.version>
 	</properties>
 	<dependencies>
 		<dependency>

@@ -1,4 +1,5 @@
 mvn clean install
+mvn clean install -f ezyfox-versions
 mvn clean install -f ezyfox-util
 mvn clean install -f ezyfox-io
 mvn clean install -f ezyfox-concurrent

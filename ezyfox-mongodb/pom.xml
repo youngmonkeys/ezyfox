@@ -4,18 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox</artifactId>
+		<artifactId>ezyfox-versions</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-mongodb</artifactId>
 	<name>ezyfox-mongodb</name>
-	<version>1.0.0</version> <!-- ${project.version} -->
+	<version>${ezy.mongodb.version}</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
-		<mongodb.version>3.9.1</mongodb.version>
-		<ezy.bean.version>1.0.0</ezy.bean.version>
-		<ezy.io.version>1.0.0</ezy.io.version>
-		<ezy.database.version>1.0.0</ezy.database.version>
+		<mongodb.version>3.10.2</mongodb.version>
 	</properties>
 	<dependencies>
 		<dependency>

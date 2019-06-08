@@ -5,17 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox</artifactId>
+		<artifactId>ezyfox-versions</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-security</artifactId>
-	<version>1.0.0</version> <!-- ${project.version} -->
+	<version>${ezy.security.version}</version> <!-- ${project.version} -->
 	<name>ezyfox-security</name>
 	<url>http://maven.apache.org</url>
-	
-	<properties>
-		<ezy.io.version>1.0.0</ezy.io.version>
-	</properties>
 	
 	<dependencies>
 		<dependency>

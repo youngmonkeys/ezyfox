@@ -5,17 +5,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox</artifactId>
+		<artifactId>ezyfox-versions</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-hazelcast-bean</artifactId>
 	<name>ezyfox-hazelcast-bean</name>
-	<version>1.0.0</version> <!-- ${project.version} -->
+	<version>${ezy.hazelcast.bean}</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
-	<properties>
-		<ezy.bean.version>1.0.0</ezy.bean.version>
-        <ezy.hazelcast.version>1.0.0</ezy.hazelcast.version>
-	</properties>
 	
 	<dependencies>
         <dependency>

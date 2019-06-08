@@ -5,16 +5,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox</artifactId>
+		<artifactId>ezyfox-versions</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-msgpack</artifactId>
-	<version>1.0.0</version> <!-- ${project.version} -->
+	<version>${ezy.msgpack.version}</version> <!-- ${project.version} -->
 	<name>ezyfox-msgpack</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<msgpack.version>0.6.12</msgpack.version>
-		<ezy.codec.version>1.0.0</ezy.codec.version>
 	</properties>
 	<dependencies>
 		<dependency>
