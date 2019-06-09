@@ -10,7 +10,7 @@
 	</parent>
 	<artifactId>ezyfox-hazelcast-bean</artifactId>
 	<name>ezyfox-hazelcast-bean</name>
-	<version>${ezy.hazelcast.bean}</version> <!-- ${project.version} -->
+	<version>${ezy.hazelcast.bean.version}</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	
 	<dependencies>
