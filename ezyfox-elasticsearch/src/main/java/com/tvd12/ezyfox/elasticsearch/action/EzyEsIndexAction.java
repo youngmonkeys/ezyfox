@@ -1,16 +1,15 @@
 package com.tvd12.ezyfox.elasticsearch.action;
 
 import java.util.List;
+import java.util.Set;
 
 import org.elasticsearch.client.RequestOptions;
-
-import com.tvd12.ezyfox.elasticsearch.EzyEsIndexTypes;
 
 public interface EzyEsIndexAction extends EzyEsAction {
 	
 	List<Object> getObjects();
 	
-	EzyEsIndexTypes getIndexTypes();
+	Set<String> getIndexes();
 	
 	RequestOptions getRequestOptions();
 	

@@ -11,7 +11,7 @@ import com.tvd12.ezyfox.elasticsearch.EzyEsCaller;
 import com.tvd12.ezyfox.elasticsearch.EzyEsRestClientProxy;
 import com.tvd12.ezyfox.elasticsearch.EzyEsSimpleCaller;
 import com.tvd12.ezyfox.elasticsearch.action.EzyEsSimpleSearchAction;
-import com.tvd12.ezyfox.elasticsearch.testing.data.Person;
+import com.tvd12.ezyfox.elasticsearch.testing.data.PersonResult;
 
 public class SearchDataTest {
 
@@ -28,10 +28,10 @@ public class SearchDataTest {
 				.clientProxy(new EzyEsRestClientProxy(highLevelClient))
 				.build();
 		SearchRequest searchRequest = new SearchRequest();
-		searchRequest.indices("test1");
-		List<Person> persons = client.call(new EzyEsSimpleSearchAction()
+		searchRequest.indices("person");
+		List<PersonResult> persons = client.call(new EzyEsSimpleSearchAction()
 				.searchRequest(searchRequest)
-				.responseItemType(Person.class));
+				.responseItemType(PersonResult.class));
 		System.out.println(persons);
 		try {
 			highLevelClient.close();

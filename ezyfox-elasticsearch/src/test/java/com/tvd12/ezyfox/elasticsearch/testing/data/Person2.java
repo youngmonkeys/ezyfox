@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EzyIndexedData
-@EzyDataIndex(index = "test1", types = {"person1", "men1", "women1"})
+@EzyDataIndex("test1")
 public class Person2 {
 	
 	@EzyId

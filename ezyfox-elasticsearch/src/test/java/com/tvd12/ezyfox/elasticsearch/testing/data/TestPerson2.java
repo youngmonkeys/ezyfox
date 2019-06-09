@@ -3,7 +3,6 @@ package com.tvd12.ezyfox.elasticsearch.testing.data;
 import com.tvd12.ezyfox.annotation.EzyId;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
 import com.tvd12.ezyfox.data.annotation.EzyIndexedData;
-import com.tvd12.ezyfox.elasticsearch.annotation.EzyDataIndex;
 import com.tvd12.ezyfox.elasticsearch.annotation.EzyDataIndexes;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +17,7 @@ import lombok.ToString;
 @EzyObjectBinding
 @EzyIndexedData
 @EzyDataIndexes({
-	@EzyDataIndex(index = "test", types = {"person"}),
+	"test"
 })
 @NoArgsConstructor
 @AllArgsConstructor

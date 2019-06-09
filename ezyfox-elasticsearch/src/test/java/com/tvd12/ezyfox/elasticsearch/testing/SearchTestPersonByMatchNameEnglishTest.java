@@ -32,7 +32,6 @@ public class SearchTestPersonByMatchNameEnglishTest {
 				.build();
 		SearchRequest searchRequest = new SearchRequest();
 		searchRequest.indices("test");
-		searchRequest.types("person");
 		searchRequest.source(new SearchSourceBuilder()
 				.query(QueryBuilders.matchQuery("name.english", "Earth")));
 		List<Person> persons = client.call(new EzyEsSimpleSearchAction()

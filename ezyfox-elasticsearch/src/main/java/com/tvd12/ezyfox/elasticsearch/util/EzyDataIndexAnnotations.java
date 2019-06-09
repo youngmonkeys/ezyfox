@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.elasticsearch.util;
 
-import static com.tvd12.ezyfox.util.EzyNameStyles.toLowerHyphen;
+import java.util.Set;
 
-import com.tvd12.ezyfox.elasticsearch.EzyEsIndexType;
-import com.tvd12.ezyfox.elasticsearch.EzyEsIndexTypes;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.elasticsearch.annotation.EzyDataIndex;
 
 public final class EzyDataIndexAnnotations {
@@ -11,22 +10,13 @@ public final class EzyDataIndexAnnotations {
 	private EzyDataIndexAnnotations() {
 	}
 	
-	public static String[] getTypes(Class<?> clazz, EzyDataIndex anno) {
-		String[] types = anno.types();
-		if(types.length > 0)
-			return anno.types();
-		return new String[] {toLowerHyphen(clazz.getSimpleName())};
+	public static String getIndex(Class<?> clazz, EzyDataIndex anno) {
+		String index = anno.value();
+		return index;
 	}
 	
-	public static EzyEsIndexTypes getIndexTypes(Class<?> clazz, EzyDataIndex anno) {
-		String index = anno.index();
-		String[] types = getTypes(clazz, anno);
-		EzyEsIndexTypes.Builder builder = EzyEsIndexTypes.builder();
-		for(String type : types) {
-			builder.add(new EzyEsIndexType(index, type));
-		}
-		EzyEsIndexTypes indexTypes = builder.build();
-		return indexTypes;
+	public static Set<String> getIndexes(Class<?> clazz, EzyDataIndex anno) {
+		return Sets.newHashSet(getIndex(clazz, anno));
 	}
 	
 }

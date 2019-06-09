@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE })
 public @interface EzyDataIndexes {
 
-	EzyDataIndex[] value();
+	String[] value();
 
 }

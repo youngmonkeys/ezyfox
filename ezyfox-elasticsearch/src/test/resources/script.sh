@@ -4,11 +4,9 @@ curl -XPUT "http://localhost:9200/test" -d'
         "number_of_shards" : 1
     },
     "mappings" : {
-        "one" : {
-            "properties" : {
-                "foo" : { "type" : "text" },
-                "bar" : { "type" : "text" }
-            }
-        }
+        "properties" : {
+			"foo" : { "type" : "text" },
+			"bar" : { "type" : "text" }
+		}
     }
 }'

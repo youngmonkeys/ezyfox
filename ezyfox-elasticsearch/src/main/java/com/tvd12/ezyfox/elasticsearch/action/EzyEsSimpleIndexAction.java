@@ -1,25 +1,26 @@
 package com.tvd12.ezyfox.elasticsearch.action;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.elasticsearch.client.RequestOptions;
 
-import com.tvd12.ezyfox.elasticsearch.EzyEsIndexType;
-import com.tvd12.ezyfox.elasticsearch.EzyEsIndexTypes;
-
 import lombok.Getter;
 
+@Getter
 public class EzyEsSimpleIndexAction implements EzyEsIndexAction {
 
-	@Getter
 	protected List<Object> objects;
 	protected RequestOptions requestOptions;
-	protected EzyEsIndexTypes.Builder indexTypesBuilder;
+	protected Set<String> indexes;
 	
 	public EzyEsSimpleIndexAction() {
 		this.objects = new ArrayList<>();
-		this.indexTypesBuilder = EzyEsIndexTypes.builder();
+		this.indexes = new HashSet<>();
 	}
 	
 	public EzyEsSimpleIndexAction object(Object object) {
@@ -32,8 +33,17 @@ public class EzyEsSimpleIndexAction implements EzyEsIndexAction {
 		return this;
 	}
 	
-	public EzyEsSimpleIndexAction addIndexType(String index, String type) {
-		this.indexTypesBuilder.add(new EzyEsIndexType(index, type));
+	public EzyEsSimpleIndexAction addIndex(String index) {
+		this.indexes.add(index);
+		return this;
+	}
+	
+	public EzyEsSimpleIndexAction addIndexes(String... indexes) {
+		return addIndexes(Arrays.asList(indexes));
+	}
+	
+	public EzyEsSimpleIndexAction addIndexes(Collection<String> indexes) {
+		this.indexes.addAll(indexes);
 		return this;
 	}
 	
@@ -42,12 +52,6 @@ public class EzyEsSimpleIndexAction implements EzyEsIndexAction {
 		if(requestOptions == null)
 			return RequestOptions.DEFAULT;
 		return requestOptions;
-	}
-	
-	@Override
-	public EzyEsIndexTypes getIndexTypes() {
-		EzyEsIndexTypes indexTypes = indexTypesBuilder.build();
-		return indexTypes;
 	}
 	
 	@Override

@@ -13,7 +13,7 @@ import com.tvd12.ezyfox.elasticsearch.util.EzyDataIndexesAnnotations;
 @SuppressWarnings("rawtypes")
 public class EzySimpleIndexedDataClasses implements EzyIndexedDataClasses {
 	
-	protected Map<Class, EzyEsIndexTypes> map = new ConcurrentHashMap<>();
+	protected final Map<Class, Set<String>> map = new ConcurrentHashMap<>();
 	
 	protected EzySimpleIndexedDataClasses(Builder builder) {
 		this.map.putAll(builder.indexedClassMap);
@@ -25,7 +25,7 @@ public class EzySimpleIndexedDataClasses implements EzyIndexedDataClasses {
 	}
 	
 	@Override
-	public EzyEsIndexTypes getIndexTypes(Class clazz) {
+	public Set<String> getIndexes(Class clazz) {
 		if(map.containsKey(clazz))
 			return map.get(clazz);
 		throw new IllegalArgumentException(clazz.getName() + " is not indexed data");
@@ -42,7 +42,7 @@ public class EzySimpleIndexedDataClasses implements EzyIndexedDataClasses {
 
 	public static class Builder implements EzyIndexedDataClassesBuilder {
 		
-		protected Map<Class, EzyEsIndexTypes> indexedClassMap
+		protected Map<Class, Set<String>> indexedClassMap
 				= new ConcurrentHashMap<>();
 		protected EzyIndexedDataClassesFetcher indexedDataClassFetcher 
 				= newIndexedDataClassesFetcher();
@@ -71,13 +71,19 @@ public class EzySimpleIndexedDataClasses implements EzyIndexedDataClasses {
 		}
 		
 		@Override
-		public Builder addIndexedDataClasses(Map<Class, EzyEsIndexTypes> map) {
-			this.indexedClassMap.putAll(map);
+		public Builder addIndexedDataClasses(Map<Class, Set<String>> map) {
+			for(Class clazz : map.keySet())
+				addIndexedDataClass(clazz, map.get(clazz));
 			return this;
 		}
 		
-		public Builder addIndexedDataClass(Class clazz, EzyEsIndexTypes indexTypes) {
-			this.indexedClassMap.put(clazz, indexTypes);
+		public Builder addIndexedDataClass(Class clazz, Set<String> indexes) {
+			Set<String> set = indexedClassMap.get(clazz);
+			if(set == null) {
+				set = new HashSet<>();
+				indexedClassMap.put(clazz, set);
+			}
+			set.addAll(indexes);
 			return this;
 		}
 		
@@ -85,7 +91,7 @@ public class EzySimpleIndexedDataClasses implements EzyIndexedDataClasses {
 		public EzyIndexedDataClasses build() {
 			Set<Class> classes = indexedDataClassFetcher.getIndexedDataClasses();
 			for(Class clazz : classes)
-				addIndexedDataClass(clazz, EzyDataIndexesAnnotations.getIndexTypes(clazz));
+				addIndexedDataClass(clazz, EzyDataIndexesAnnotations.getIndexes(clazz));
 			return new EzySimpleIndexedDataClasses(this);
 		}
 		

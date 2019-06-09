@@ -11,7 +11,7 @@ public interface EzyIndexedDataClasses {
 	
 	Set<Class> getIndexedClasses();
 	
-	EzyEsIndexTypes getIndexTypes(Class clazz);
+	Set<String> getIndexes(Class clazz);
 	
 	
 }
