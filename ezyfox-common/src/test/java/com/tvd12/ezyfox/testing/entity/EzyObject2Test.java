@@ -22,14 +22,14 @@ public class EzyObject2Test extends CommonBaseTest {
 				.append("8", new short[][] {{1,2}, {3,4}})
 				.append("9", new String[][] {{"1","2"}, {"3","4"}})
 				.build();
-		assertEquals(object.get("1", boolean[][].class), new boolean[][] {{true, false}, {false, true}});
-		assertEquals(object.get("2", byte[][].class), new byte[][] {{1,2},{3,4}});
-		assertEquals(object.get("3", char[][].class), new char[][] {{'a', 'b'}, {'c', 'd'}});
-		assertEquals(object.get("4", double[][].class), new double[][] {{1,2},{3,4}});
-		assertEquals(object.get("5", float[][].class), new float[][] {{1,2}, {3,4}});
-		assertEquals(object.get("6", int[][].class), new int[][] {{1,2}, {3,4}});
-		assertEquals(object.get("7", long[][].class), new long[][] {{1,2}, {3,4}});
-		assertEquals(object.get("8", short[][].class), new short[][] {{1,2}, {3,4}});
-		assertEquals(object.get("9", String[][].class), new String[][] {{"1","2"}, {"3","4"}});
+		assertEquals((Object)object.get("1", boolean[][].class), new boolean[][] {{true, false}, {false, true}});
+		assertEquals((Object)object.get("2", byte[][].class), new byte[][] {{1,2},{3,4}});
+		assertEquals((Object)object.get("3", char[][].class), new char[][] {{'a', 'b'}, {'c', 'd'}});
+		assertEquals((Object)object.get("4", double[][].class), new double[][] {{1,2},{3,4}});
+		assertEquals((Object)object.get("5", float[][].class), new float[][] {{1,2}, {3,4}});
+		assertEquals((Object)object.get("6", int[][].class), new int[][] {{1,2}, {3,4}});
+		assertEquals((Object)object.get("7", long[][].class), new long[][] {{1,2}, {3,4}});
+		assertEquals((Object)object.get("8", short[][].class), new short[][] {{1,2}, {3,4}});
+		assertEquals((Object)object.get("9", String[][].class), new String[][] {{"1","2"}, {"3","4"}});
 	}
 }

@@ -110,55 +110,55 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
 		Collection<EzyArray> booleanss = new ArrayList<>();
 		booleanss.add(newArrayBuilder().append(true, false, true).build());
 		booleanss.add(newArrayBuilder().append(false, true, false).build());
-		assertEquals(collectionConverter.toArray(booleanss, boolean[].class), 
+		assertEquals((Object)collectionConverter.toArray(booleanss, boolean[].class), 
 				new boolean[][] {{true, false, true}, {false, true, false}});
 		
 		Collection<EzyArray> bytess = new ArrayList<>();
 		bytess.add(newArrayBuilder().append((byte)1, (byte)2, (byte)3).build());
 		bytess.add(newArrayBuilder().append((byte)4, (byte)5, (byte)6).build());
-		assertEquals(collectionConverter.toArray(bytess, byte[].class), 
+		assertEquals((Object)collectionConverter.toArray(bytess, byte[].class), 
 				new byte[][] {{(byte)1, (byte)2, (byte)3}, {(byte)4, (byte)5, (byte)6}});
 		
 		Collection<EzyArray> characterss = new ArrayList<>();
 		characterss.add(newArrayBuilder().append('a', 'b', 'c').build());
 		characterss.add(newArrayBuilder().append('d', 'e', 'f').build());
-		assertEquals(collectionConverter.toArray(characterss, char[].class), 
+		assertEquals((Object)collectionConverter.toArray(characterss, char[].class), 
 				new char[][] {{'a', 'b', 'c'}, {'d', 'e', 'f'}});
 		
 		Collection<EzyArray> doubless = new ArrayList<>();
 		doubless.add(newArrayBuilder().append(1D, 2D, 3D).build());
 		doubless.add(newArrayBuilder().append(4D, 5D, 6D).build());
-		assertEquals(collectionConverter.toArray(doubless, double[].class), 
+		assertEquals((Object)collectionConverter.toArray(doubless, double[].class), 
 				new double[][] {{1D, 2D, 3D}, {4D, 5D, 6D}});
 		
 		Collection<EzyArray> floatss = new ArrayList<>();
 		floatss.add(newArrayBuilder().append(1F, 2F, 3F).build());
 		floatss.add(newArrayBuilder().append(4F, 5F, 6F).build());
-		assertEquals(collectionConverter.toArray(floatss, float[].class), 
+		assertEquals((Object)collectionConverter.toArray(floatss, float[].class), 
 				new float[][] {{1F, 2F, 3F}, {4F, 5F, 6F}});
 		
 		Collection<EzyArray> integerss = new ArrayList<>();
 		integerss.add(newArrayBuilder().append(1, 2, 3).build());
 		integerss.add(newArrayBuilder().append(4, 5, 6).build());
-		assertEquals(collectionConverter.toArray(integerss, int[].class), 
+		assertEquals((Object)collectionConverter.toArray(integerss, int[].class), 
 				new int[][] {{1, 2, 3}, {4, 5, 6}});
 		
 		Collection<EzyArray> longss = new ArrayList<>();
 		longss.add(newArrayBuilder().append(1L, 2L, 3L).build());
 		longss.add(newArrayBuilder().append(4L, 5L, 6L).build());
-		assertEquals(collectionConverter.toArray(longss, long[].class), 
+		assertEquals((Object)collectionConverter.toArray(longss, long[].class), 
 				new long[][] {{1L, 2L, 3L}, {4L, 5L, 6L}});
 		
 		Collection<EzyArray> shortss = new ArrayList<>();
 		shortss.add(newArrayBuilder().append((short)1, (short)2, (short)3).build());
 		shortss.add(newArrayBuilder().append((short)4, (short)5, (short)6).build());
-		assertEquals(collectionConverter.toArray(shortss, short[].class), 
+		assertEquals((Object)collectionConverter.toArray(shortss, short[].class), 
 				new short[][] {{(short)1, (short)2, (short)3}, {(short)4, (short)5, (short)6}});
 		
 		Collection<EzyArray> stringss = new ArrayList<>();
 		stringss.add(newArrayBuilder().append("a", "b", "c").build());
 		stringss.add(newArrayBuilder().append("d", "e", "f").build());
-		assertEquals(collectionConverter.toArray(stringss, String[].class), 
+		assertEquals((Object)collectionConverter.toArray(stringss, String[].class), 
 				new String[][] {{"a", "b", "c"}, {"d", "e", "f"}});
 	}
 	
@@ -168,55 +168,55 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
 		Collection<EzyArray> booleanss = new ArrayList<>();
 		booleanss.add(newArrayBuilder().append(true, false, true).build());
 		booleanss.add(newArrayBuilder().append(false, true, false).build());
-		assertEquals(collectionConverter.toArray(booleanss, Boolean[].class), 
+		assertEquals((Object)collectionConverter.toArray(booleanss, Boolean[].class), 
 				new Boolean[][] {{true, false, true}, {false, true, false}});
 		
 		Collection<EzyArray> bytess = new ArrayList<>();
 		bytess.add(newArrayBuilder().append((byte)1, (byte)2, (byte)3).build());
 		bytess.add(newArrayBuilder().append((byte)4, (byte)5, (byte)6).build());
-		assertEquals(collectionConverter.toArray(bytess, Byte[].class), 
+		assertEquals((Object)collectionConverter.toArray(bytess, Byte[].class), 
 				new Byte[][] {{(byte)1, (byte)2, (byte)3}, {(byte)4, (byte)5, (byte)6}});
 		
 		Collection<EzyArray> characterss = new ArrayList<>();
 		characterss.add(newArrayBuilder().append('a', 'b', 'c').build());
 		characterss.add(newArrayBuilder().append('d', 'e', 'f').build());
-		assertEquals(collectionConverter.toArray(characterss, Character[].class), 
+		assertEquals((Object)collectionConverter.toArray(characterss, Character[].class), 
 				new Character[][] {{'a', 'b', 'c'}, {'d', 'e', 'f'}});
 		
 		Collection<EzyArray> doubless = new ArrayList<>();
 		doubless.add(newArrayBuilder().append(1D, 2D, 3D).build());
 		doubless.add(newArrayBuilder().append(4D, 5D, 6D).build());
-		assertEquals(collectionConverter.toArray(doubless, Double[].class), 
+		assertEquals((Object)collectionConverter.toArray(doubless, Double[].class), 
 				new Double[][] {{1D, 2D, 3D}, {4D, 5D, 6D}});
 		
 		Collection<EzyArray> floatss = new ArrayList<>();
 		floatss.add(newArrayBuilder().append(1F, 2F, 3F).build());
 		floatss.add(newArrayBuilder().append(4F, 5F, 6F).build());
-		assertEquals(collectionConverter.toArray(floatss, Float[].class), 
+		assertEquals((Object)collectionConverter.toArray(floatss, Float[].class), 
 				new Float[][] {{1F, 2F, 3F}, {4F, 5F, 6F}});
 		
 		Collection<EzyArray> integerss = new ArrayList<>();
 		integerss.add(newArrayBuilder().append(1, 2, 3).build());
 		integerss.add(newArrayBuilder().append(4, 5, 6).build());
-		assertEquals(collectionConverter.toArray(integerss, Integer[].class), 
+		assertEquals((Object)collectionConverter.toArray(integerss, Integer[].class), 
 				new Integer[][] {{1, 2, 3}, {4, 5, 6}});
 		
 		Collection<EzyArray> longss = new ArrayList<>();
 		longss.add(newArrayBuilder().append(1L, 2L, 3L).build());
 		longss.add(newArrayBuilder().append(4L, 5L, 6L).build());
-		assertEquals(collectionConverter.toArray(longss, Long[].class), 
+		assertEquals((Object)collectionConverter.toArray(longss, Long[].class), 
 				new Long[][] {{1L, 2L, 3L}, {4L, 5L, 6L}});
 		
 		Collection<EzyArray> shortss = new ArrayList<>();
 		shortss.add(newArrayBuilder().append((short)1, (short)2, (short)3).build());
 		shortss.add(newArrayBuilder().append((short)4, (short)5, (short)6).build());
-		assertEquals(collectionConverter.toArray(shortss, Short[].class), 
+		assertEquals((Object)collectionConverter.toArray(shortss, Short[].class), 
 				new Short[][] {{(short)1, (short)2, (short)3}, {(short)4, (short)5, (short)6}});
 		
 		Collection<EzyArray> stringss = new ArrayList<>();
 		stringss.add(newArrayBuilder().append("a", "b", "c").build());
 		stringss.add(newArrayBuilder().append("d", "e", "f").build());
-		assertEquals(collectionConverter.toArray(stringss, String[].class), 
+		assertEquals((Object)collectionConverter.toArray(stringss, String[].class), 
 				new String[][] {{"a", "b", "c"}, {"d", "e", "f"}});
 	}
 	
@@ -247,7 +247,7 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
 			.append(EzyBase64.encode2utf(new byte[] {4,5,6}))
 			.append(EzyBase64.encode2utf(new byte[] {7,8,9}))
 			.build();
-		assertEquals(array.toArray(byte[].class), new byte[][] {
+		assertEquals((Object)array.toArray(byte[].class), new byte[][] {
 			{1, 2, 3}, {4, 5, 6}, {7, 8, 9}
 		});
 	}

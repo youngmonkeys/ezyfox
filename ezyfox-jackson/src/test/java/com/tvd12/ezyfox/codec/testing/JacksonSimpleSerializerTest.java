@@ -55,7 +55,7 @@ public class JacksonSimpleSerializerTest extends BaseTest {
 		assertEquals(object.get("doubleValue", Double.class), 123.456D);
 		assertEquals(object.get("classC", EzyObject.class).get("name"), "dungtv");
 		assertEquals(object.get("strs", String[].class), new String[] {"a", "b", "c"});
-		assertEquals(object.get("byteList",  byte[][].class), new byte[][] {{1, 2,3}});
+		assertEquals((Object)object.get("byteList",  byte[][].class), new byte[][] {{1, 2,3}});
 	}
 	
 	@Test

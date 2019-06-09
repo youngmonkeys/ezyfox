@@ -257,71 +257,71 @@ public class EzyLiteOutputTransformerTest extends EzyEntityTest {
 	
 	public void test(EzyObject obj) {
 		//check
-				assertEquals(obj.get("1", boolean[][].class), new boolean[][] {
+				assertEquals((Object)obj.get("1", boolean[][].class), new boolean[][] {
 						new boolean[] {true, false, true},
 						new boolean[] {false, true, false},
 						new boolean[] {true, false, true}});
-				assertEquals(obj.get("2", byte[][].class), new byte[][] {
+				assertEquals((Object)obj.get("2", byte[][].class), new byte[][] {
 						new byte[] {1, 2, 3},
 						new byte[] {4, 5, 6},
 						new byte[] {7, 8, 9}});
-				assertEquals(obj.get("3", char[][].class), new char[][] {
+				assertEquals((Object)obj.get("3", char[][].class), new char[][] {
 						new char[] {1, 2, 3},
 						new char[] {4, 5, 6},
 						new char[] {7, 8, 9}});
-				assertEquals(obj.get("4", double[][].class), new double[][] {
+				assertEquals((Object)obj.get("4", double[][].class), new double[][] {
 						new double[] {1, 2, 3},
 						new double[] {4, 5, 6},
 						new double[] {7, 8, 9}});
-				assertEquals(obj.get("5", float[][].class), new float[][] {
+				assertEquals((Object)obj.get("5", float[][].class), new float[][] {
 						new float[] {1, 2, 3},
 						new float[] {4, 5, 6},
 						new float[] {7, 8, 9}});
-				assertEquals(obj.get("6", int[][].class), new int[][] {
+				assertEquals((Object)obj.get("6", int[][].class), new int[][] {
 						new int[] {1, 2, 3},
 						new int[] {4, 5, 6},
 						new int[] {7, 8, 9}});
-				assertEquals(obj.get("7", long[][].class), new long[][] {
+				assertEquals((Object)obj.get("7", long[][].class), new long[][] {
 						new long[] {1, 2, 3},
 						new long[] {4, 5, 6},
 						new long[] {7, 8, 9}});
-				assertEquals(obj.get("8", short[][].class), new short[][] {
+				assertEquals((Object)obj.get("8", short[][].class), new short[][] {
 						new short[] {1, 2, 3},
 						new short[] {4, 5, 6},
 						new short[] {7, 8, 9}});
-		        assertEquals(obj.get("9", String[][].class), new String[][] {
+		        assertEquals((Object)obj.get("9", String[][].class), new String[][] {
 						new String[] {"1", "2", "3"},
 						new String[] {"4", "5", "6"},
 						new String[] {"7", "8", "9"}});
-				assertEquals(obj.get("10", Boolean[][].class), new Boolean[][] {
+				assertEquals((Object)obj.get("10", Boolean[][].class), new Boolean[][] {
 						new Boolean[] {true, false, true},
 						new Boolean[] {false, true, false},
 						new Boolean[] {true, false, true}});
-				assertEquals(obj.get("11", Byte[][].class), new Byte[][] {
+				assertEquals((Object)obj.get("11", Byte[][].class), new Byte[][] {
 						new Byte[] {1, 2, 3},
 						new Byte[] {4, 5, 6},
 						new Byte[] {7, 8, 9}});
-				assertEquals(obj.get("12", Character[][].class), new Character[][] {
+				assertEquals((Object)obj.get("12", Character[][].class), new Character[][] {
 						new Character[] {1, 2, 3},
 						new Character[] {4, 5, 6},
 						new Character[] {7, 8, 9}});
-				assertEquals(obj.get("13", Double[][].class), new Double[][] {
+				assertEquals((Object)obj.get("13", Double[][].class), new Double[][] {
 						new Double[] {1D, 2D, 3D},
 						new Double[] {4D, 5D, 6D},
 						new Double[] {7D, 8D, 9d}});
-				assertEquals(obj.get("14", Float[][].class), new Float[][] {
+				assertEquals((Object)obj.get("14", Float[][].class), new Float[][] {
 						new Float[] {1F, 2F, 3F},
 						new Float[] {4F, 5F, 6F},
 						new Float[] {7F, 8F, 9F}});
-				assertEquals(obj.get("15", Integer[][].class), new Integer[][] {
+				assertEquals((Object)obj.get("15", Integer[][].class), new Integer[][] {
 						new Integer[] {1, 2, 3},
 						new Integer[] {4, 5, 6},
 						new Integer[] {7, 8, 9}});
-				assertEquals(obj.get("16", Long[][].class), new Long[][] {
+				assertEquals((Object)obj.get("16", Long[][].class), new Long[][] {
 						new Long[] {1L, 2L, 3L},
 						new Long[] {4L, 5L, 6L},
 						new Long[] {7L, 8L, 9L}});
-				assertEquals(obj.get("17", Short[][].class), new Short[][] {
+				assertEquals((Object)obj.get("17", Short[][].class), new Short[][] {
 						new Short[] {1, 2, 3},
 						new Short[] {4, 5, 6},
 						new Short[] {7, 8, 9}});

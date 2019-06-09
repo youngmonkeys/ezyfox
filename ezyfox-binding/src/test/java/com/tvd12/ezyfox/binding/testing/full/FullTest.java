@@ -140,7 +140,7 @@ public class FullTest {
 		
 		unmarshaller.unwrap(new Object(), Object.class);
 		
-		assertEquals(unmarshaller.unmarshal(newArrayBuilder()
+		assertEquals((Object)unmarshaller.unmarshal(newArrayBuilder()
 				.append(newArrayBuilder().append(1, 2))
 				.append(newArrayBuilder().append(3, 4)).build(), int[][].class), 
 				new int[][] {{1, 2}, {3, 4}});
