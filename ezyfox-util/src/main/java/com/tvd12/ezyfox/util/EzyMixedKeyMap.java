@@ -48,6 +48,13 @@ public class EzyMixedKeyMap<V> {
 					throw new IllegalArgumentException("too many value mapping to key: " + key);
 			}
 		}
+		for(Object keyType : keyTypeSet) {
+			Map<Object, V> map = maps.get(keyType);
+			if(map != null) {
+				Object keyValue = keys.get(keyType);
+				map.remove(keyValue);
+			}
+		}
 		return value;
 	}
 	
