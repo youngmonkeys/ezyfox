@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>ezyfox-binding-codec</artifactId>
 	<version>${ezy.binding.codec.version}</version> <!-- ${project.version} -->
-	<name>ezyfox-binding</name>
+	<name>ezyfox-binding-codec</name>
 
 	<dependencies>
 		<dependency>
