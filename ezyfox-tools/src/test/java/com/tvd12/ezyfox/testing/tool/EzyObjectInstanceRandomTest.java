@@ -38,6 +38,18 @@ public class EzyObjectInstanceRandomTest {
 		System.out.println("aList: " + aList);
 	}
 	
+	@Test
+	public void test4() {
+		EzyObjectInstanceRandom random = new EzyObjectInstanceRandom();
+		random.randomObjectList(ClassA.class, 1, true);
+	}
+	
+	@Test
+	public void test5() {
+		EzyObjectInstanceRandom random = new EzyObjectInstanceRandom();
+		random.randomObjectList(ClassA.class, 1, true);
+	}
+	
 	@Getter
 	@Setter
 	@ToString
