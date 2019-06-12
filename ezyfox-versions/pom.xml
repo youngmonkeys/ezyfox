@@ -16,6 +16,7 @@
 	<properties>
 		<!-- ezyfox versions -->
 		<ezy.util.version>1.0.0</ezy.util.version>
+		<ezy.tools.version>1.0.0</ezy.tools.version>
 		<ezy.io.version>1.0.0</ezy.io.version>
 		<ezy.concurrent.version>1.0.0</ezy.concurrent.version>
 		<ezy.security.version>1.0.0</ezy.security.version>

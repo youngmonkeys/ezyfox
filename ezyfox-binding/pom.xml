@@ -16,5 +16,11 @@
 			<artifactId>ezyfox-common</artifactId>
 			<version>${ezy.common.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.tvd12</groupId>
+			<artifactId>ezyfox-tools</artifactId>
+			<version>${ezy.tools.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>
