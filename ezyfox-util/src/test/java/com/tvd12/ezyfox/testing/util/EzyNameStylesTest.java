@@ -27,4 +27,8 @@ public class EzyNameStylesTest extends BaseTest {
 		assertEquals(EzyNameStyles.toLowerHyphen("URIParseR"), "uri-parse-r");
 	}
 	
+	@Test(expectedExceptions = NullPointerException.class)
+	public void test2() {
+		EzyNameStyles.toLowerHyphen(null);
+	}
 }

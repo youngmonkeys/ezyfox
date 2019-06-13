@@ -38,6 +38,8 @@ public class EzySumTest extends BaseTest {
 		
 		assert EzySum.sumToLong(new String[] {"1", "2", "3"}, s -> Long.valueOf(s)) == 6;
 		assert EzySum.sumToLong(Lists.newArrayList("1", "2", "3"), s -> Long.valueOf(s)) == 6;
+		
+		assert EzySum.sumToLongs(Lists.newArrayList(1, 2, 3)) == 6;
 	}
 	
 }

@@ -19,27 +19,31 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
 	
 	@Override
 	public boolean add(E e) {
-		if(elementSet.add(e))
+		boolean success = elementSet.add(e);
+		if(success)
 			return super.add(e);
 		return false;
 	}
 	
 	@Override
 	public void add(int index, E element) {
-		if(elementSet.add(element))
+		boolean success = elementSet.add(element);
+		if(success)
 			super.add(index, element);
 	}
 	
 	@Override
 	public boolean remove(Object o) {
 		super.remove(o);
-		return elementSet.remove(o);
+		boolean contains = elementSet.remove(o);
+		return contains;
 	}
 	
 	@Override
 	public boolean removeAll(Collection<?> c) {
 		super.removeAll(c);
-		return elementSet.removeAll(c);
+		boolean changed = elementSet.removeAll(c);
+		return changed;
 	}
 	
 	@Override
@@ -61,7 +65,8 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
 			}
 		}
 		super.retainAll(toRetain);
-		return elementSet.retainAll(toRetain);
+		boolean changed = elementSet.retainAll(toRetain);
+		return changed;
 	}
 	
 	@Override
@@ -88,7 +93,8 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
 	@Override
 	public boolean removeIf(Predicate<? super E> filter) {
 		super.removeIf(filter);
-		return elementSet.removeIf(filter);
+		boolean removed = elementSet.removeIf(filter);
+		return removed;
 	}
 	
 	@Override
@@ -101,7 +107,7 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
 	@Override
 	public boolean removeLastOccurrence(Object o) {
 		boolean answer = super.removeLastOccurrence(o);
-		elementSet.remove(0);
+		elementSet.remove(o);
 		return answer;
 	}
 	
@@ -125,40 +131,46 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
 				toAdd.add(e);
 			}
 		}
-		return super.addAll(index, toAdd);
+		boolean changed = super.addAll(index, toAdd);
+		return changed;
 	}
 	
 	@Override
 	public void addFirst(E e) {
-		if(elementSet.add(e))
+		boolean success = elementSet.add(e);
+		if(success)
 			super.addFirst(e);
 	}
 	
 	@Override
 	public void addLast(E e) {
-		if(elementSet.add(e))
+		boolean success = elementSet.add(e);
+		if(success)
 			super.addLast(e);
 	}
 	
 	@Override
 	public boolean offer(E e) {
-		if(elementSet.add(e))
-			return super.offer(e);
-		return false;
+		boolean success = elementSet.add(e);
+		if(success)
+			return super.add(e);
+		return success;
 	}
 	
 	@Override
 	public boolean offerFirst(E e) {
-		if(elementSet.add(e))
-			return super.offerFirst(e);
-		return false;
+		boolean success = elementSet.add(e);
+		if(success)
+			super.addFirst(e);
+		return success;
 	}
 	
 	@Override
 	public boolean offerLast(E e) {
-		if(elementSet.add(e))
-			return super.offerLast(e);
-		return false;
+		boolean success = elementSet.add(e);
+		if(success)
+			super.addLast(e);
+		return success;
 	}
 	
 	public E poll() {
@@ -185,27 +197,15 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
 	}
 	
 	@Override
-	public void push(E e) {
-		if(elementSet.add(e))
-			super.push(e);
-	}
-	
-	@Override
-	public E pop() {
-		E e = super.pop();
-		if(e != null)
-			elementSet.remove(e);
-		return e;
-	}
-	
-	@Override
 	public boolean contains(Object o) {
-		return elementSet.contains(o);
+		boolean contains = elementSet.contains(o);
+		return contains;
 	}
 	
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		return elementSet.containsAll(c);
+		boolean containsAll = elementSet.containsAll(c);
+		return containsAll;
 	}
 	
 }

@@ -72,4 +72,17 @@ public class EzyDirectoriesTest extends BaseTest {
 				.printTree(true);
 		System.out.println(tree);
 	}
+	
+	@Test
+	public void test3() {
+		Collection<File> files = new EzyDirectories()
+				.directory("tree-for-test")
+				.getFiles(new String[] {"txt"});
+		System.out.println(files);
+		
+		Collection<File> files1 = new EzyDirectories()
+				.directory("tree-for-test")
+				.getFiles(new String[] {"txt"}, false);
+		System.out.println(files1);
+	}
 }

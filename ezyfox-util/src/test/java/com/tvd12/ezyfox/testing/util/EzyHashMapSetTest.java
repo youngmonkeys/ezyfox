@@ -2,6 +2,8 @@ package com.tvd12.ezyfox.testing.util;
 
 import static org.testng.Assert.assertEquals;
 
+import java.util.HashSet;
+
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.collect.Sets;
@@ -19,6 +21,8 @@ public class EzyHashMapSetTest extends BaseTest {
 		map.removeItems("1", "b", "c");
 		assertEquals(map.get("1"),Sets.newHashSet("a"));
 		map.removeItems("zzz");
+		map.addItems("abc", new HashSet<>());
+		map.addItems("abc", new HashSet<>());
 	}
 	
 }
