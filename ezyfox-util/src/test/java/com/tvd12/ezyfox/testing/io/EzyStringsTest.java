@@ -22,6 +22,8 @@ public class EzyStringsTest extends BaseTest {
 		assertEquals("abc", EzyStrings.newUtf("abc".getBytes("UTF-8")));
 		assertEquals("abc", EzyStrings.newUtf(ByteBuffer.wrap("abc".getBytes("UTF-8")), 3));
 		assertEquals(EzyStrings.getUtfBytes("abc"), "abc".getBytes("UTF-8"));
+		assertEquals(EzyStrings.newString('a', 3), "aaa");
+		assertEquals(EzyStrings.quote(null), "\"null\"");
 	}
 	
 	@Test(expectedExceptions = {IllegalArgumentException.class})

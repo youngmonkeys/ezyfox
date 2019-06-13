@@ -14,7 +14,8 @@ public final class EzyCollections {
 	private EzyCollections() {}
 	
 	public static boolean isEmpty(Collection<?> coll) {
-		return coll != null ? coll.isEmpty() : true;
+		boolean empty = coll != null ? coll.isEmpty() : true;
+		return empty;
 	}
 	
 	/**
@@ -25,7 +26,8 @@ public final class EzyCollections {
 	 * @return the new array
 	 */
 	public static <T> T[] toArray(Collection<T> coll, IntFunction<T[]> applier) {
-		return coll.toArray(applier.apply(coll.size()));
+		T[] array = coll.toArray(applier.apply(coll.size()));
+		return array;
 	}
 	
 	/**
@@ -37,7 +39,8 @@ public final class EzyCollections {
 	 * @return true or false
 	 */
 	public static boolean containsAny(Collection<?> c1, Collection<?> c2) {
-		return c2.stream().anyMatch((i) -> c1.contains(i));
+		boolean containsAny = c2.stream().anyMatch((i) -> c1.contains(i));
+		return containsAny;
     }
 	
 	/**
@@ -49,7 +52,8 @@ public final class EzyCollections {
      * @return the item count
      */
     public static <T> int countItems(Collection<T> coll, Predicate<T> predicate) {
-        return (int) coll.stream().filter(predicate).count();
+        int count = (int) coll.stream().filter(predicate).count();
+        return count;
     }
     
     /**
@@ -61,7 +65,8 @@ public final class EzyCollections {
      * @return the sum value
      */
     public static <T> double sumItemsToDouble(Collection<T> coll, ToDoubleFunction<T> mapper) {
-		return coll.stream().mapToDouble(mapper).sum();
+		double sum = coll.stream().mapToDouble(mapper).sum();
+		return sum;
     }
     
     /**
@@ -73,7 +78,8 @@ public final class EzyCollections {
      * @return the sum value
      */
     public static <T> int sumItemsToInt(Collection<T> coll, ToIntFunction<T> mapper) {
-    		return coll.stream().mapToInt(mapper).sum();
+    		int sum = coll.stream().mapToInt(mapper).sum();
+    		return sum;
     }
     
     /**
@@ -85,7 +91,8 @@ public final class EzyCollections {
      * @return the sum value
      */
     public static <T> long sumItemsToLong(Collection<T> coll, ToLongFunction<T> mapper) {
-		return coll.stream().mapToLong(mapper).sum();
+		long sum = coll.stream().mapToLong(mapper).sum();
+		return sum;
     }
     
     /**
@@ -97,7 +104,8 @@ public final class EzyCollections {
      * @return the sum value
      */
     public static <T> int flatMapToInt(Collection<T> coll, Function<T, Integer> measurer) {
-    		return coll.stream().flatMapToInt((t) -> IntStream.of(measurer.apply(t))).sum();
+    		int sum = coll.stream().flatMapToInt((t) -> IntStream.of(measurer.apply(t))).sum();
+    		return sum;
     }
 	
 	/**

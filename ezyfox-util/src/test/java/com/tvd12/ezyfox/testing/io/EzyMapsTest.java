@@ -162,6 +162,31 @@ public class EzyMapsTest extends BaseTest {
 		assert !EzyMaps.containsAll(map1b, map2b);
 	}
 	
+	@Test(expectedExceptions = NullPointerException.class)
+	public void test12() {
+		EzyMaps.putIfAbsent(null, null, null);
+	}
+	
+	@Test
+	public void test13() {
+		Map<String, String> map = new HashMap<>();
+		EzyMaps.putIfAbsent(map, "1", "2");
+		EzyMaps.putIfAbsent(map, "1", "3");
+		assert map.size() == 1;
+		
+		Map<String, Set<String>> map2 = new HashMap<>();
+		EzyMaps.addItemsToSet(map2, "1", new HashSet<>());
+		EzyMaps.addItemsToSet(map2, "1", new HashSet<>());
+		
+		Map<String, List<String>> map3 = new HashMap<>();
+		EzyMaps.addItemsToList(map3, "1", new ArrayList<>());
+		EzyMaps.addItemsToList(map3, "1", new ArrayList<>());
+		
+		EzyMaps.removeItems(map3, "1", new ArrayList<>());
+		map3.remove("1");
+		EzyMaps.removeItems(map3, "1", new ArrayList<>());
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyMaps.class;

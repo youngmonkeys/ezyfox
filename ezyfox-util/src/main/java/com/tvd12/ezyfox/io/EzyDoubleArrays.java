@@ -9,7 +9,7 @@ public final class EzyDoubleArrays {
 	}
 
 	public static byte[] toByteArray(double[] doubleArray) {
-		ByteBuffer buf = ByteBuffer.allocate(Double.SIZE / Byte.SIZE * doubleArray.length);
+		ByteBuffer buf = ByteBuffer.allocate((Double.SIZE / Byte.SIZE) * doubleArray.length);
 		buf.asDoubleBuffer().put(doubleArray);
 		return buf.array();
 	}

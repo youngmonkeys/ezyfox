@@ -14,6 +14,13 @@ public class EzyByteBuffersTest extends BaseTest {
 		ByteBuffer buffer = ByteBuffer.allocate(8).putLong(1000L);
 		buffer.flip();
 		EzyByteBuffers.getBytes(buffer);
+		
+		ByteBuffer buffer1 = ByteBuffer.allocate(4).putInt(2);
+		buffer1.flip();
+		ByteBuffer buffer2 = ByteBuffer.allocate(4).putInt(3);
+		buffer2.flip();
+		ByteBuffer buffer3 = EzyByteBuffers.merge(new ByteBuffer[] {buffer1, buffer2});
+		assert buffer3.capacity() == 8;
 	}
 	
 	@Override

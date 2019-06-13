@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzyPrints;
+import com.tvd12.ezyfox.io.EzyPrints.Array2DPrinter;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyPrintsTest extends BaseTest {
@@ -30,6 +31,38 @@ public class EzyPrintsTest extends BaseTest {
 		
 		String[][] array2dStrings = new String[][] {{"1", "2", "3"}, {"4", "5", "6"}};
 		System.out.println(EzyPrints.print2d(array2dStrings));
+		
+		System.out.println(EzyPrints.printHex(new byte[] {122, 22}));
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test2() {
+		new Array2DPrinter(null);
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test3() {
+		new Array2DPrinter(new StringBuilder(), null);
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test4() {
+		Array2DPrinter printer = new Array2DPrinter(new StringBuilder(), "null");
+		printer.print(new String[0][0]);
+		printer.print((String[][])null);
+	}
+	
+	@Test
+	public void test5() {
+		StringBuilder builder = new StringBuilder();
+		Array2DPrinter printer = new Array2DPrinter(builder, "null");
+		String[][] strss = new String[4][];
+		strss[0] = null;
+		strss[1] = new String[] {"1", "2", null};
+		strss[2] = new String[] {"1", "2", null, "3"};
+		strss[3] = new String[] {"1", "2"};
+		printer.print(strss);
+		System.out.println(builder);
 	}
 	
 	@Override
