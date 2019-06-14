@@ -51,4 +51,14 @@
 			<package name="com.tvd12.ezyfox.testing.exception"></package>
 		</packages>
 	</test>
+	<test name="Pattern">
+		<packages>
+			<package name="com.tvd12.ezyfox.testing.pattern"></package>
+		</packages>
+	</test>
+	<test name="Collect">
+		<packages>
+			<package name="com.tvd12.ezyfox.testing.collect"></package>
+		</packages>
+	</test>
 </suite>
