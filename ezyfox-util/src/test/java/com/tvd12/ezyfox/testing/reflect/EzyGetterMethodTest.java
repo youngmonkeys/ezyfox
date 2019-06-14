@@ -20,6 +20,9 @@ public class EzyGetterMethodTest extends BaseTest {
 		assertEquals(getter.getFieldName(), "value");
 		assertEquals(getter.getTypeName(), String.class.getTypeName());
 		
+		EzyGetterMethod getter2 = new EzyGetterMethod(
+				ClassA.class.getDeclaredMethod("isHello"));
+		assert getter2.getFieldName().equals("hello");
 	}
 	
 	@Test
@@ -59,6 +62,10 @@ public class EzyGetterMethodTest extends BaseTest {
 		
 		public String get() {
 			return "get";
+		}
+		
+		public boolean isHello() {
+			return true;
 		}
 		
 	}

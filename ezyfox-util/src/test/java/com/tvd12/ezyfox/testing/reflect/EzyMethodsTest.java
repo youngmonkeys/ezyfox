@@ -41,6 +41,69 @@ public class EzyMethodsTest extends BaseTest {
 		System.out.println("test3: " + methods);
 	}
 	
+	@Test
+	public void test4() {
+		List<Method> methods = EzyMethods.getMethods(ClassA2.class);
+		assert EzyMethods.filterOverriddenMethods(methods).size() >= 2;
+		EzyClass clazz = new EzyClass(ClassA2.class);
+		List<EzyMethod> ms = clazz.getMethods();
+		assert EzyMethods.filterOverriddenMethods(ms).size() >= 2;
+	}
+	
+	@Test
+	public void test5() throws Exception {
+		Method m1 = ClassA1.class.getDeclaredMethod("setA");
+		Method m2 = ClassA2.class.getDeclaredMethod("setA");
+		assert !EzyMethods.isOverriddenMethod(m1, m1);
+		assert EzyMethods.isOverriddenMethod(m1, m2);
+		assert EzyMethods.isOverriddenMethod(m2, m1);
+		Method m3 = ClassA1.class.getDeclaredMethod("setA1");
+		assert !EzyMethods.isOverriddenMethod(m1, m3);
+		assert !EzyMethods.isOverriddenMethod(m3, m1);
+		assert !EzyMethods.isOverriddenMethod(m2, m3);
+		assert !EzyMethods.isOverriddenMethod(m3, m2);
+		Method m4 = ClassA2.class.getDeclaredMethod("setA1", String.class);
+		assert !EzyMethods.isOverriddenMethod(m3, m4);
+		assert !EzyMethods.isOverriddenMethod(m4, m3);
+		Method m5 = ClassA3.class.getDeclaredMethod("setA1", String.class);
+		assert !EzyMethods.isOverriddenMethod(m4, m5);
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test6() throws Exception {
+		EzyMethods.isOverriddenMethod((Method)null, null);
+	}
+	
+	public static class ClassA3 {
+		public void setA1(String str) {
+		}
+	}
+	
+	public static class ClassA2 extends ClassA1 {
+
+		public void setB() {
+		}
+		
+		@Override
+		public void setA() {
+			super.setA();
+		}
+		
+		public void setA1(String str) {
+		}
+		
+	}
+	
+	public static class ClassA1 {
+		
+		public void setA() {
+		}
+		
+		public void setA1() {
+		}
+		
+	}
+	
 	public static class ClassC extends ClassB {
 		
 		public static void c1() {

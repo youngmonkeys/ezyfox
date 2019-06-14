@@ -7,7 +7,7 @@ import com.tvd12.reflections.Reflections;
 
 public class EzyReflectionProxy implements EzyReflection {
 	
-	private final Reflections reflections;
+	protected final Reflections reflections;
 	
 	public EzyReflectionProxy(String packet) {
 		this.reflections = new Reflections(packet);

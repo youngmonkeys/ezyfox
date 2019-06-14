@@ -80,6 +80,9 @@ public class EzyClassTest extends BaseTest {
 		
 		assertEquals(clazz.getGetterMethod("getName x"), null);
 		assertEquals(clazz.getSetterMethod("setName z"), null);
+		
+		assert clazz.getPublicMethod(m -> m.getName().equals("getName")).isPresent();
+		assert !clazz.getPublicMethod(m -> m.getName().equals("getNameXYZ")).isPresent();
 	}
 	
 	public static class A2 {
@@ -91,6 +94,9 @@ public class EzyClassTest extends BaseTest {
 		
 		@EzyId
 		public void setName(String name) {
+		}
+		
+		protected void setNo() {
 		}
 		
 	}
