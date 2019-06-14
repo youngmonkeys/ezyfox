@@ -33,6 +33,9 @@ public class EzyCollectionsTest extends BaseTest {
 		assertNull(EzyCollections.getItem(set, (i) -> i.equals("z")));
 		assertEquals(EzyCollections.toArray(Lists.newArrayList("a", "b", "c"), String[]::new), 
 				new String[] {"a", "b", "c"});
+		assertEquals(EzyCollections.sumItemsToDouble(Lists.newArrayList(1, 2, 3), i -> i), 6.0D);
+		assertEquals(EzyCollections.sumItemsToInt(Lists.newArrayList(1, 2, 3), i -> i), 6);
+		assertEquals(EzyCollections.sumItemsToLong(Lists.newArrayList(1, 2, 3), i -> i), 6L);
 	}
 	
 	@Test

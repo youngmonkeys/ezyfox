@@ -29,6 +29,16 @@ public class EzyArraysTest extends BaseTest {
 				(s) -> new Long[s], 
 				s -> Long.valueOf(s));
 		Assert.assertEquals(array, new Long[] {1L, 2L, 3L});
+		byte[] bytes1 = new byte[] {1, 2, 3};
+		byte[] bytes2 = new byte[2];
+		EzyArrays.copy(bytes1, bytes2, 0);
+		assertEquals(bytes2, new byte[] {1, 2});
+		byte[] bytes3 = new byte[5];
+		EzyArrays.copy(bytes1, bytes3, 2);
+		assertEquals(bytes3, new byte[] {0, 0, 1, 2, 3});
+		byte[] bytes4 = new byte[6];
+		EzyArrays.copy(bytes1, bytes4, 2);
+		assertEquals(bytes4, new byte[] {0, 0, 1, 2, 3, 0});
 	}
 	
 	@Test
@@ -66,11 +76,13 @@ public class EzyArraysTest extends BaseTest {
 	public void mergePerformaceTest() {
 		byte[] bytes = new byte[20000];
 		long time1 = Performance.create()
+				.loop(1000)
 				.test(() -> {
 					EzyBytes.merge((byte)1, bytes);
 				})
 				.getTime();
 		long time2 = Performance.create()
+				.loop(1000)
 				.test(() -> {
 					EzyByteBuffers.merge2bytes((byte)1, bytes);
 				})

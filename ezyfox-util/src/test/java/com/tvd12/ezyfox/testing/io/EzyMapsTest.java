@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.mockito.Mockito.*;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.collect.Lists;
@@ -185,6 +186,32 @@ public class EzyMapsTest extends BaseTest {
 		EzyMaps.removeItems(map3, "1", new ArrayList<>());
 		map3.remove("1");
 		EzyMaps.removeItems(map3, "1", new ArrayList<>());
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Test
+	public void test14() {
+		Map map = mock(Map.class);
+		try {
+			when(map.computeIfAbsent(any(), any())).thenThrow(new IllegalArgumentException());
+			EzyMaps.putIfAbsent(map, new Object(), 1);
+		}
+		catch (Exception e) {
+		}
+		try {
+			when(map.put(any(), any())).thenThrow(new RuntimeException());
+			EzyMaps.addItemsToSet(map, new Object(), new HashSet<>());
+			
+		}
+		catch (Exception e) {
+		}
+		
+		try {
+			EzyMaps.addItemsToList(map, new Object(), new HashSet<>());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
