@@ -85,6 +85,16 @@ public class EzyClassTest extends BaseTest {
 		assert !clazz.getPublicMethod(m -> m.getName().equals("getNameXYZ")).isPresent();
 	}
 	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test3() {
+		new EzyClass(ABC.class).getDeclaredConstructor();
+	}
+	
+	public static class ABC {
+		public ABC(String s) {
+		}
+	}
+	
 	public static class A2 {
 		
 		@EzyId

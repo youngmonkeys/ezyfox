@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.tvd12.ezyfox.collect.Sets;
-import com.tvd12.ezyfox.util.EzyReturner;
 
 public final class EzyClasses {
 
@@ -43,41 +42,69 @@ public final class EzyClasses {
 	
 	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(String className) {
-		return EzyReturner.returnWithIllegalArgumentException(
-				() -> (T) getClass(className).newInstance());
+		try {
+			return (T) getClass(className).newInstance();
+		}
+		catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(String className, ClassLoader classLoader) {
-		return EzyReturner.returnWithIllegalArgumentException(
-				() -> (T) getClass(className, classLoader).newInstance());
+		try {
+			return (T) getClass(className, classLoader).newInstance();
+		}
+		catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public static Class getClass(String className) {
-		return EzyReturner.returnWithIllegalArgumentException(
-				() -> Class.forName(className));
+		try {
+			return Class.forName(className);
+		}
+		catch(Exception e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public static Class getClass(String className, ClassLoader classLoader) {
-		return EzyReturner.returnWithIllegalArgumentException(
-				() -> Class.forName(className, true, classLoader));
+		try {
+			return Class.forName(className, true, classLoader);
+		}
+		catch(Exception e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
 	public static <T> T newInstance(Class<T> clazz) {
-		return EzyReturner.returnWithIllegalArgumentException(
-				() -> clazz.newInstance());
+		try {
+			return clazz.newInstance();
+		}
+		catch(Exception e) {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	public static <T> T newInstance(Constructor<T> constructor, Object... arguments) {
-		return EzyReturner.returnWithIllegalArgumentException(
-				() -> constructor.newInstance(arguments));
+		try {
+			return constructor.newInstance(arguments);
+		}
+		catch(Exception e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
 	public static <T> Constructor<T> getConstructor(Class<T> clazz, Class<?>... paramTypes) {
-		return EzyReturner.returnWithIllegalArgumentException(
-				() -> clazz.getDeclaredConstructor(paramTypes));
+		try {
+			return clazz.getDeclaredConstructor(paramTypes);
+		}
+		catch(Exception e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
 	@SuppressWarnings("rawtypes")

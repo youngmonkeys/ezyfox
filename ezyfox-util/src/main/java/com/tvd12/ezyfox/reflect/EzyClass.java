@@ -13,15 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.tvd12.ezyfox.collect.Lists;
-import com.tvd12.ezyfox.reflect.EzyClasses;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyFields;
-import com.tvd12.ezyfox.reflect.EzyGetterMethod;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzyMethods;
-import com.tvd12.ezyfox.reflect.EzyReflectElement;
-import com.tvd12.ezyfox.reflect.EzySetterMethod;
-import com.tvd12.ezyfox.util.EzyReturner;
 
 import lombok.Getter;
 
@@ -87,8 +78,12 @@ public class EzyClass implements EzyReflectElement {
 	
 	@SuppressWarnings("unchecked")
 	public Constructor getDeclaredConstructor(Class... parameterTypes) {
-		return EzyReturner.returnWithIllegalArgumentException(
-				() -> clazz.getDeclaredConstructor(parameterTypes)); 
+		try {
+		    return clazz.getDeclaredConstructor(parameterTypes);
+		}
+		catch (Exception e) {
+		    throw new IllegalArgumentException(e);
+		}
 	}
 
 	public List<EzyMethod> getPublicMethods() {

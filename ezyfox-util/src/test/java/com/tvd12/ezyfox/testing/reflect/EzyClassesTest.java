@@ -28,12 +28,45 @@ public class EzyClassesTest extends BaseTest {
 		EzyClasses.newInstance(ClassA.class);
 	}
 	
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void test3() {
+		EzyClasses.newInstance("A 1", getClass().getClassLoader());
+	}
+	
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void test4() {
+		EzyClasses.getClass("A 1", getClass().getClassLoader());
+	}
+	
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void test5() {
+		EzyClasses.newInstance(ClassB.class);
+	}
+	
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void test6() throws Exception {
+		Constructor<ClassB> c = ClassB.class.getConstructor(String.class);
+		EzyClasses.newInstance(c);
+	}
+	
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void test7() {
+		EzyClasses.getConstructor(ClassB.class);
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyClasses.class;
 	}
 	
 	public static class ClassA {
+	}
+	
+	public static class ClassB {
+		protected ClassB(int a) {}
+		
+		public ClassB(String s) {
+		}
 	}
 	
 }
