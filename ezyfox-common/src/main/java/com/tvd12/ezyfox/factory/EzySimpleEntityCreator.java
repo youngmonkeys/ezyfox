@@ -82,10 +82,10 @@ public final class EzySimpleEntityCreator implements EzyEntityCreator {
 	@SuppressWarnings("rawtypes")
 	private final Map<Class, Supplier> defaultSuppliers() {
 		Map<Class, Supplier> answer = new ConcurrentHashMap<>();
-		answer.put(EzyObject.class, this::newObject);
-		answer.put(EzyArray.class, this::newArray);
-		answer.put(EzyObjectBuilder.class, this::newObjectBuilder);
-		answer.put(EzyArrayBuilder.class, this::newArrayBuilder);
+		answer.put(EzyObject.class, () -> newObject());
+		answer.put(EzyArray.class, () -> newArray());
+		answer.put(EzyObjectBuilder.class, () -> newObjectBuilder());
+		answer.put(EzyArrayBuilder.class, () -> newArrayBuilder());
 		return answer;
 	}
 

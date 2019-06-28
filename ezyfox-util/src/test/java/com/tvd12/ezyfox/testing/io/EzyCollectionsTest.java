@@ -31,7 +31,7 @@ public class EzyCollectionsTest extends BaseTest {
 		Set<String> set = Sets.newHashSet("a", "b", "c");
 		assertEquals(EzyCollections.getItem(set, (i) -> i.equals("b")), "b");
 		assertNull(EzyCollections.getItem(set, (i) -> i.equals("z")));
-		assertEquals(EzyCollections.toArray(Lists.newArrayList("a", "b", "c"), String[]::new), 
+		assertEquals(EzyCollections.toArray(Lists.newArrayList("a", "b", "c"), size -> new String[size]), 
 				new String[] {"a", "b", "c"});
 		assertEquals(EzyCollections.sumItemsToDouble(Lists.newArrayList(1, 2, 3), i -> i), 6.0D);
 		assertEquals(EzyCollections.sumItemsToInt(Lists.newArrayList(1, 2, 3), i -> i), 6);

@@ -31,7 +31,7 @@ public class EzyMixedMapLockProxyProviderTest {
 			Field field = EzyMixedMapLockProxyProvider.class.getDeclaredField("locks");
 			field.setAccessible(true);
 			EzyMixedMap<EzyLockProxy> locks = (EzyMixedMap<EzyLockProxy>) field.get(provider);
-			locks.computeIfAbsent(new Key("1"), ExLockProxy::new);
+			locks.computeIfAbsent(new Key("1"), () -> new ExLockProxy());
 			try {
 				provider.provideLock(new Key("1"));
 			}

@@ -75,9 +75,9 @@ public abstract class EzyAbstractElementsFetcher
 	}
 	
 	protected final List<? extends EzyMethod> getAnnotatedMethods(EzyClass clazz) {
-		List<EzyMethod> methods0 = EzyLists.filter(clazz.getMethods(), this::shouldAddAnnotatedMethod);
+		List<EzyMethod> methods0 = EzyLists.filter(clazz.getMethods(), m -> shouldAddAnnotatedMethod(m));
 		List<? extends EzyMethod> methods = filterOverriddenMethods(methods0);
-		return EzyLists.newArrayList(methods, this::newByFieldMethod);
+		return EzyLists.newArrayList(methods, m -> newByFieldMethod(m));
 	}
 	
 	protected abstract boolean shouldAddAnnotatedMethod(EzyMethod method);

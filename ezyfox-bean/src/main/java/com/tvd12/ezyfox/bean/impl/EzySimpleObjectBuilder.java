@@ -117,7 +117,7 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 		List<EzyMethod> methods = clazz.getMethods();
 		List<EzyMethod> valid0 = EzyLists.filter(methods, predicate);
 		List<EzyMethod> valid = EzyMethods.filterOverriddenMethods(valid0);
-		return EzyLists.newArrayList(valid, EzySetterMethod::new);
+		return EzyLists.newArrayList(valid, m -> new EzySetterMethod(m));
 	}
 	
 	private boolean isValidMethod(EzyMethod method, Class<? extends Annotation> ann) {

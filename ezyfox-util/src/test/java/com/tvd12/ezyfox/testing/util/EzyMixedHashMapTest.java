@@ -27,11 +27,11 @@ public class EzyMixedHashMapTest {
 		ComplexQuery query = new ComplexQuery("1", "1", "foo", "bar", "hello");
 		long time = Performance.create()
 				.test(() -> {
-					map.computeIfAbsent(query, ReentrantLock::new);
+					map.computeIfAbsent(query, () -> new ReentrantLock());
 				})
 				.getTime();
 		System.out.println(time);
-		ReentrantLock value = map.computeIfAbsent(query, ReentrantLock::new);
+		ReentrantLock value = map.computeIfAbsent(query, () -> new ReentrantLock());
 		ReentrantLock value2 = map.get(query);
 		assert value != null;
 		assert value == value2;
@@ -48,8 +48,8 @@ public class EzyMixedHashMapTest {
 		ComplexQuery query1 = new ComplexQuery("1", "1", "foo", "bar", "hello");
 		ComplexQuery query2 = new ComplexQuery("2", "2", "foo2", "bar2", "hello2");
 		EzyMixedMap<ReentrantLock> map = new EzyMixedHashMap<>();
-		map.computeIfAbsent(query1, ReentrantLock::new);
-		map.computeIfAbsent(query2, ReentrantLock::new);
+		map.computeIfAbsent(query1, () -> new ReentrantLock());
+		map.computeIfAbsent(query2, () -> new ReentrantLock());
 		map.get(new ComplexQuery("1", "2", "", "", ""));
 	}
 	
@@ -58,8 +58,8 @@ public class EzyMixedHashMapTest {
 		ComplexQuery query1 = new ComplexQuery("1", "1", "foo", "bar", "hello");
 		ComplexQuery query2 = new ComplexQuery("2", "2", "foo2", "bar2", "hello2");
 		EzyMixedMap<ReentrantLock> map = new EzyMixedHashMap<>();
-		map.computeIfAbsent(query1, ReentrantLock::new);
-		map.computeIfAbsent(query2, ReentrantLock::new);
+		map.computeIfAbsent(query1, () -> new ReentrantLock());
+		map.computeIfAbsent(query2, () -> new ReentrantLock());
 		map.remove(new ComplexQuery("1", "2", "", "", ""));
 	}
 	
@@ -67,7 +67,7 @@ public class EzyMixedHashMapTest {
 	public void test3() {
 		ComplexQuery query1 = new ComplexQuery("1", "1", "foo", "bar", "hello");
 		EzyMixedMap<ReentrantLock> map = new EzyMixedHashMap<>();
-		map.computeIfAbsent(query1, ReentrantLock::new);
+		map.computeIfAbsent(query1, () -> new ReentrantLock());
 		assert map.get(new ComplexQuery2("1", "1", "foo", "bar", "hello", "world")) != null;
 	}
 	
@@ -75,7 +75,7 @@ public class EzyMixedHashMapTest {
 	public void test5() {
 		ComplexQuery query1 = new ComplexQuery("1", "1", "foo", "bar", "hello");
 		EzyMixedMap<ReentrantLock> map = new EzyMixedHashMap<>();
-		map.computeIfAbsent(query1, ReentrantLock::new);
+		map.computeIfAbsent(query1, () -> new ReentrantLock());
 		assert map.remove(new ComplexQuery2("1", "1", "foo", "bar", "hello", "world")) != null;
 	}
 	

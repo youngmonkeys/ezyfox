@@ -71,11 +71,11 @@ public final class EzyStringConveter {
 	
 	// ====================== wrapper array =================
 	public static Boolean[] stringToWrapperBoolArray(String string) {
-		return stringToArray(string, i -> Boolean.valueOf(i), Boolean[]::new);
+		return stringToArray(string, i -> Boolean.valueOf(i), size -> new Boolean[size]);
 	}
 	
 	public static Byte[] stringToWrapperByteArray(String string) {
-		return stringToArray(string, i -> Byte.valueOf(i), Byte[]::new);
+		return stringToArray(string, i -> Byte.valueOf(i), size -> new Byte[size]);
 	}
 	
 	public static Character[] stringToWrapperCharArray(String string) {
@@ -86,23 +86,23 @@ public final class EzyStringConveter {
 	}
 	
 	public static Double[] stringToWrapperDoubleArray(String string) {
-		return stringToArray(string, i -> Double.valueOf(i), Double[]::new);
+		return stringToArray(string, i -> Double.valueOf(i), size -> new Double[size]);
 	}
 	
 	public static Float[] stringToWrapperFloatArray(String string) {
-		return stringToArray(string, i -> Float.valueOf(i), Float[]::new);
+		return stringToArray(string, i -> Float.valueOf(i), size -> new Float[size]);
 	}
 	
 	public static Integer[] stringToWrapperIntArray(String string) {
-		return stringToArray(string, i -> Integer.valueOf(i), Integer[]::new);
+		return stringToArray(string, i -> Integer.valueOf(i), size -> new Integer[size]);
 	}
 	
 	public static Long[] stringToWrapperLongArray(String string) {
-		return stringToArray(string, i -> Long.valueOf(i), Long[]::new);
+		return stringToArray(string, i -> Long.valueOf(i), size -> new Long[size]);
 	}
 	
 	public static Short[] stringToWrapperShortArray(String string) {
-		return stringToArray(string, i -> Short.valueOf(i), Short[]::new);
+		return stringToArray(string, i -> Short.valueOf(i), size -> new Short[size]);
 	}
 	
 	// ====================== two-dimensions primitive array =================
@@ -172,11 +172,11 @@ public final class EzyStringConveter {
 	
 	// ====================== two-dimensions wrapper array =================
 	public static Boolean[][] stringToWrapperBoolArrays(String string) {
-		return stringToArrays(string, i -> Boolean.valueOf(i), Boolean[][]::new, Boolean[]::new);
+		return stringToArrays(string, i -> Boolean.valueOf(i), size -> new Boolean[size][], size -> new Boolean[size]);
 	}
 	
 	public static Byte[][] stringToWrapperByteArrays(String string) {
-		return stringToArrays(string, i -> Byte.valueOf(i), Byte[][]::new, Byte[]::new);
+		return stringToArrays(string, i -> Byte.valueOf(i), size -> new Byte[size][], size -> new Byte[size]);
 	}
 	
 	public static Character[][] stringToWrapperCharArrays(String string) {
@@ -188,27 +188,27 @@ public final class EzyStringConveter {
 	}
 	
 	public static Double[][] stringToWrapperDoubleArrays(String string) {
-		return stringToArrays(string, i -> Double.valueOf(i), Double[][]::new, Double[]::new);
+		return stringToArrays(string, i -> Double.valueOf(i), size -> new Double[size][], size -> new Double[size]);
 	}
 	
 	public static Float[][] stringToWrapperFloatArrays(String string) {
-		return stringToArrays(string, i -> Float.valueOf(i), Float[][]::new, Float[]::new);
+		return stringToArrays(string, i -> Float.valueOf(i), size -> new Float[size][], size -> new Float[size]);
 	}
 	
 	public static Integer[][] stringToWrapperIntArrays(String string) {
-		return stringToArrays(string, i -> Integer.valueOf(i), Integer[][]::new, Integer[]::new);
+		return stringToArrays(string, i -> Integer.valueOf(i), size -> new Integer[size][], size -> new Integer[size]);
 	}
 	
 	public static Long[][] stringToWrapperLongArrays(String string) {
-		return stringToArrays(string, i -> Long.valueOf(i), Long[][]::new, Long[]::new);
+		return stringToArrays(string, i -> Long.valueOf(i), size -> new Long[size][], size -> new Long[size]);
 	}
 	
 	public static Short[][] stringToWrapperShortArrays(String string) {
-		return stringToArrays(string, i -> Short.valueOf(i), Short[][]::new, Short[]::new);
+		return stringToArrays(string, i -> Short.valueOf(i), size -> new Short[size][], size -> new Short[size]);
 	}
 	
 	public static String[][] stringToStringArrays(String string) {
-		return stringToArrays(string, i -> i, String[][]::new, String[]::new);
+		return stringToArrays(string, i -> i, size -> new String[size][], size -> new String[size]);
 	}
 	
 	public static <T> T[] stringToArray(

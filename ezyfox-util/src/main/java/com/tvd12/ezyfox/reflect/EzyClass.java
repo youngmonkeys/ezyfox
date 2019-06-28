@@ -91,11 +91,11 @@ public class EzyClass implements EzyReflectElement {
 	}
 	
 	public List<EzySetterMethod> getSetterMethods() {
-		return getMethods(m -> m.isSetter(), EzySetterMethod::new);
+		return getMethods(m -> m.isSetter(), m -> new EzySetterMethod(m));
 	}
 	
 	public List<EzyGetterMethod> getGetterMethods() {
-		return getMethods(m -> m.isGetter(), EzyGetterMethod::new);
+		return getMethods(m -> m.isGetter(), m -> new EzyGetterMethod(m));
 	}
 	
 	public EzyMethod getSetterMethod(String methodName) {
@@ -176,11 +176,11 @@ public class EzyClass implements EzyReflectElement {
 	}
 	
 	public List<EzySetterMethod> getDeclaredSetterMethods() {
-		return getDeclaredMethods(m -> m.isSetter(), EzySetterMethod::new);
+		return getDeclaredMethods(m -> m.isSetter(), m -> new EzySetterMethod(m));
 	}
 	
 	public List<EzyGetterMethod> getDeclaredGetterMethods() {
-		return getDeclaredMethods(m -> m.isGetter(), EzyGetterMethod::new);
+		return getDeclaredMethods(m -> m.isGetter(), m -> new EzyGetterMethod(m));
 	}
 	
 	public <T extends EzyMethod> List<T> getDeclaredMethods(

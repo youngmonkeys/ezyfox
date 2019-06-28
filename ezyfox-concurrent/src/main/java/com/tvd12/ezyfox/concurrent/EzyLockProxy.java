@@ -10,7 +10,7 @@ import com.tvd12.ezyfox.util.EzyRef;
 
 public class EzyLockProxy extends EzyRef<Lock> implements Lock {
 	
-	public static final Supplier<EzyLockProxy> SUPPLIER = EzyLockProxy::new;
+	public static final Supplier<EzyLockProxy> SUPPLIER = () -> new EzyLockProxy();
 	
 	public EzyLockProxy() {
 		this(new ReentrantLock());
