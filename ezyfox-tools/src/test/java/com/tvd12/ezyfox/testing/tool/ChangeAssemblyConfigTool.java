@@ -11,7 +11,7 @@ import java.util.List;
 public class ChangeAssemblyConfigTool {
 
 	public static void main(String[] args) throws IOException {
-		Path path = Paths.get("/Users/tavandung12/Documents/tvd12/java/projects/ezyfox");
+		Path path = Paths.get("hello world");
 		List<Path> paths = new ArrayList<>();
 		Files.walk(path)
 			.filter(p -> p.toString().endsWith("assembly.xml"))
