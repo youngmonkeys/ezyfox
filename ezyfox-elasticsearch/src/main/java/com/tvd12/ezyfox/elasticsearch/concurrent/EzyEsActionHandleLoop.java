@@ -70,7 +70,7 @@ public class EzyEsActionHandleLoop
 				else if(uncaughtExceptionHandler != null)
 					uncaughtExceptionHandler.uncaughtException(action, exception);
 				else
-					logger.error("call action (" + action.getActionType() + "): " + action + " error", exception);
+					logger.error("call action ({}): {} error", action.getActionType(), action, exception);
 			}
 		}
 	}

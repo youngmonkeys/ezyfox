@@ -21,7 +21,7 @@ public class EzySimpleJsonMapper extends EzyLoggable implements EzyJsonMapper {
 		try {
 			return mapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
-			logger.error("can not read object " + object, e);
+			logger.error("can not read object {}", object, e);
 			return null;
 		}
 	}

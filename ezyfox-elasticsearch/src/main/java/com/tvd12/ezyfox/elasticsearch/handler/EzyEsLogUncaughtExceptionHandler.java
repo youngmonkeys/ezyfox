@@ -9,7 +9,7 @@ public class EzyEsLogUncaughtExceptionHandler
 
 	@Override
 	public void uncaughtException(EzyEsAction action, Throwable e) {
-		logger.error("call action (" + action.getActionType() + "): " + action + " error", e);
+		logger.error("call action ({}): {} error", action.getActionType(), action, e);
 	}
 	
 }

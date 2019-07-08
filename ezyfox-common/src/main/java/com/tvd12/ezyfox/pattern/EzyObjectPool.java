@@ -203,7 +203,7 @@ public abstract class EzyObjectPool<T>
 			shutdownAll();
 		}
 		catch(Exception e) {
-			logger.error(getClass().getSimpleName() + " error", e);
+			logger.error("{} error", getClass().getSimpleName(), e);
 		}
 	}
 	

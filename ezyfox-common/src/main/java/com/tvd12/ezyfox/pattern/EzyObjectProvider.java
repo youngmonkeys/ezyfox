@@ -99,7 +99,7 @@ public abstract class EzyObjectProvider<T>
 			shutdownAll();
 		}
 		catch(Exception e) {
-			logger.error(getClass().getSimpleName() + " error", e);
+			logger.error("{} error", getClass().getSimpleName(), e);
 		}
 	}
 	

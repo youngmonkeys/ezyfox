@@ -84,7 +84,7 @@ public abstract class EzySimplePrototypeSupplierLoader
 		implClass.detach();
 		EzyPrototypeSupplier supplier = (EzyPrototypeSupplier)answerClass.newInstance();
 		factory.addSupplier(getPrototypeName(), supplier, getAnnotationProperties());
-		logger.debug("add prototype supplier of " + implClassName);
+		logger.debug("add prototype supplier of {}", implClassName);
 		return supplier;
 	}
 	

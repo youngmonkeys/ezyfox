@@ -7,18 +7,18 @@ public class EzyRabbitActionLogInterceptor extends EzyLoggable implements EzyRab
 
 	@Override
 	public void intercept(String cmd, Object requestData) {
-		logger.info("request command: " + cmd + " request data: " + requestData);
+		logger.info("request command: {} request data: {}", cmd, requestData);
 	}
 
 	@Override
 	public void intercept(String cmd, Object requestData, Object responseData) {
 		logger.info(
-		        "reponse command: " + cmd + " request data: " + requestData + ", response data: " + responseData);
+		        "reponse command: {} request data: {}, response data: ", cmd, requestData, responseData);
 	}
 
 	@Override
 	public void intercept(String cmd, Object requestData, Exception e) {
-		logger.info("exception command: " + cmd + " request data: " + requestData + " exception: ", e);
+		logger.info("exception command: {} request data: {} exception: ", cmd, requestData, e);
 	}
 
 }

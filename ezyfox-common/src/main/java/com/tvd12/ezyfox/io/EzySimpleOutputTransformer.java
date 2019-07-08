@@ -356,7 +356,7 @@ public class EzySimpleOutputTransformer
 				try {
 					return EzyDates.parse(value);
 				} catch (Exception e) {
-					logger.info("value = " + value + " is invalid", e);
+					logger.info("value: {} is invalid", value, e);
 				}
 				return null;
 			}
@@ -368,7 +368,7 @@ public class EzySimpleOutputTransformer
 				try {
 					return EzyDates.parseDate(value, "yyyy-MM-dd");
 				} catch (Exception e) {
-					logger.info("value = " + value + " is invalid", e);
+					logger.info("value: {} is invalid", value, e);
 				}
 				return null;
 			}
@@ -380,7 +380,7 @@ public class EzySimpleOutputTransformer
 				try {
 					return EzyDates.parseDateTime(value);
 				} catch (Exception e) {
-					logger.info("value = " + value + " is invalid", e);
+					logger.info("value : {} is invalid", value, e);
 				}
 				return null;
 			}
@@ -393,7 +393,7 @@ public class EzySimpleOutputTransformer
 				try {
 					return EzyClasses.getClass(value);
 				} catch (Exception e) {
-					logger.info("value = " + value + " is invalid", e);
+					logger.info("value: {} is invalid", value, e);
 				}
 				return null;
 			}
