@@ -13,10 +13,11 @@ public class EzyLoggerScanner {
 	public static void main(String[] args) throws Exception {
 		AtomicInteger count = new AtomicInteger();
 		EzyFileContentFilter filter = EzyFileContentFilter.builder()
-				.rootDir("../../")
+				.rootDir("../")
 				.fileFilter(p -> p.toString().endsWith(".java"))
 				.lineFilter(l ->
-					l.toLowerCase().contains("logger.")
+					l.toLowerCase().contains("logger.") ||
+					l.contains("getLogger().")
 				)
 				.lineTransformer(l -> {
 					String violate = "NONE";

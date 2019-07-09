@@ -9,7 +9,7 @@ public class EzyLoggableTest extends EzyLoggable {
 
 	@Test
 	public void test() {
-		getLogger().debug("abc");
+		logger.debug("abc");
 	}
 	
 	@Test
