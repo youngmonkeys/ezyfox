@@ -1,8 +1,6 @@
 package com.tvd12.ezyfox.elasticsearch.concurrent;
 
-import java.util.concurrent.ExecutorService;
-
-import com.tvd12.ezyfox.concurrent.EzyExecutors;
+import com.tvd12.ezyfox.concurrent.EzyThreadList;
 import com.tvd12.ezyfox.elasticsearch.action.EzyEsAction;
 import com.tvd12.ezyfox.elasticsearch.action.EzyEsActionWrapper;
 import com.tvd12.ezyfox.elasticsearch.callback.EzyEsActionCallback;
@@ -17,10 +15,9 @@ public class EzyEsActionHandleLoop
 		implements EzyStartable, EzyStoppable {
 
 	protected volatile boolean active;
-	protected final int threadPoolSize;
 	protected final EzyEsActionQueue actionQueue;
+	protected final EzyThreadList executorService;
 	protected final EzyEsUncaughtExceptionHandler uncaughtExceptionHandler;
-	protected ExecutorService executorService;
 	protected static final String THREAD_NAME = "elasticsearch-action-handling";
 	
 	public EzyEsActionHandleLoop(
@@ -28,21 +25,19 @@ public class EzyEsActionHandleLoop
 			EzyEsActionQueue actionQueue,
 			EzyEsUncaughtExceptionHandler uncaughtExceptionHandler) {
 		this.actionQueue = actionQueue;
-		this.threadPoolSize = threadPoolSize;
+		this.executorService = newExecutorService(threadPoolSize);
 		this.uncaughtExceptionHandler = uncaughtExceptionHandler;
 	}
 	
 	@Override
 	public void start() throws Exception {
-		this.executorService = newExecutorService();
-		this.executorService.execute(this::loop);
+		this.active = true;
+		this.executorService.execute();
 	}
 	
 	protected void loop() {
-		this.active = true;
-		while(active) {
+		while(active)
 			this.handleActions();
-		}
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -75,10 +70,9 @@ public class EzyEsActionHandleLoop
 		}
 	}
 	
-	protected ExecutorService newExecutorService() {
-		ExecutorService executorService = EzyExecutors.newFixedThreadPool(
-				threadPoolSize, THREAD_NAME);
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> executorService.shutdown()));
+	protected EzyThreadList newExecutorService(int threadPoolSize) {
+		Runnable task = () -> loop();
+		EzyThreadList executorService = new EzyThreadList(threadPoolSize, task, THREAD_NAME);
 		return executorService;
 	}
 	

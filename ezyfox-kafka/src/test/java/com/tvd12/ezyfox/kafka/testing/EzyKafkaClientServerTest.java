@@ -13,7 +13,7 @@ import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
 import com.tvd12.ezyfox.codec.EzyMessageSerializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
-import com.tvd12.ezyfox.concurrent.EzyExecutors;
+import com.tvd12.ezyfox.concurrent.EzyThreadList;
 import com.tvd12.ezyfox.identifier.EzyIdFetchers;
 import com.tvd12.ezyfox.identifier.EzySimpleIdFetcherImplementer;
 import com.tvd12.ezyfox.kafka.EzyKafkaCaller;
@@ -59,7 +59,7 @@ public class EzyKafkaClientServerTest extends BaseTest {
 	
 	private EzyKafkaHandler newServer() {
 		Consumer consumer = newConsumer();
-		EzyKafkaServer server = new EzyKafkaServer(consumer, 100, EzyExecutors.newFixedThreadPool(1, "test-kafka-server"));
+		EzyKafkaServer server = new EzyKafkaServer(consumer, 100, t -> new EzyThreadList(1, t, "test-kafka-server"));
 		EzyKafkaDataCodec dataCodec = EzyKafkaBytesDataCodec.builder()
 				.unmarshaller(unmarshaller)
 				.messageDeserializer(messageDeserializer)
