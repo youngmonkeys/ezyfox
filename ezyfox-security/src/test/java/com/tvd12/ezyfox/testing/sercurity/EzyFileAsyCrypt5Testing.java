@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.security.KeyPair;
 import java.util.Arrays;
 
-import org.apache.commons.io.FileUtils;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.file.EzyFileReader;
@@ -34,7 +33,7 @@ public class EzyFileAsyCrypt5Testing extends BaseTest {
 	
 	public EzyFileAsyCrypt5Testing() throws IOException {
 		super();
-		FileUtils.forceMkdirParent(fileInput);
+		fileInput.getParentFile().mkdirs();
 		fileWriter.write(fileInput, new String("dungtv").getBytes("UTF-8"));
 	}
 	

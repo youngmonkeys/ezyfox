@@ -12,7 +12,7 @@ public final class EzyMessageDigests {
 		try {
 			return MessageDigest.getInstance(algorithm);
 		} catch (NoSuchAlgorithmException e) {
-			throw new IllegalStateException("has no algorithm: " + algorithm);
+			throw new IllegalArgumentException("has no algorithm: " + algorithm);
 		}
 	}
 	

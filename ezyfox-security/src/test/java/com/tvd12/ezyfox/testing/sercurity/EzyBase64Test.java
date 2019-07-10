@@ -22,6 +22,10 @@ public class EzyBase64Test extends BaseTest {
 		
 		String encodeUtf = EzyBase64.encodeUtf("dungtv");
 		assertEquals(EzyBase64.decodeUtf(encodeUtf), "dungtv");
+		
+		double[] doubleArray = new double[] {1, 2, 3};
+		String doubleArrayEncode = EzyBase64.encode(doubleArray);
+		assertEquals(EzyBase64.decode2doubles(doubleArrayEncode), doubleArray);
 	}
  	
 }
