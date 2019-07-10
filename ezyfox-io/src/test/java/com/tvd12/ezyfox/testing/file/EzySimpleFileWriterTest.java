@@ -1,9 +1,12 @@
 package com.tvd12.ezyfox.testing.file;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
+import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.file.EzyFileWriter;
@@ -53,6 +56,19 @@ public class EzySimpleFileWriterTest extends BaseTest {
 	public void test3() {
 		File file = new File(directory.getAbsolutePath() + File.separator + "EzySimpleFileWriterTest.txt");
 		writer.write(file, "abc", "UTF-8");
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test4() {
+		File file = new File("");
+		FileInputStream inputStream = Mockito.mock(FileInputStream.class);
+		writer.write(file, inputStream);
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test5() {
+		File file = new File("");
+		writer.write(file, "", Charset.forName("UTF-8"));
 	}
 	
 }

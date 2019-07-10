@@ -34,4 +34,9 @@ public class EzySimpleFileReaderTest extends BaseTest {
 		reader.readBytes(new File("\\/xfav"));
 	}
 	
+	@Test(expectedExceptions = {IllegalArgumentException.class})
+	public void test2() {
+		reader.readLines(new File("\\/xfav"), "i dont know");
+	}
+	
 }

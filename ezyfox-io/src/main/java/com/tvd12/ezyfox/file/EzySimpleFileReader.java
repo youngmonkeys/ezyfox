@@ -1,15 +1,12 @@
 package com.tvd12.ezyfox.file;
 
-import static com.tvd12.ezyfox.util.EzyReturner.returnWithIllegalArgumentException;
-
 import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 
-import org.apache.commons.io.FileUtils;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.file.EzyFileReader;
-import com.tvd12.ezyfox.file.EzySimpleFileReader;
 
 public class EzySimpleFileReader implements EzyFileReader {
 	
@@ -18,12 +15,27 @@ public class EzySimpleFileReader implements EzyFileReader {
 
 	@Override
 	public byte[] readBytes(File file) {
-		return returnWithIllegalArgumentException(() -> FileUtils.readFileToByteArray(file));
+		try {
+			Path path = file.toPath();
+			byte[] bytes = Files.readAllBytes(path);
+			return bytes;
+		}
+		catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 	
 	@Override
 	public Collection<String> readLines(File file, String charset) {
-		return returnWithIllegalArgumentException(() -> FileUtils.readLines(file, charset));
+		try {
+			Path path = file.toPath();
+			Charset cs = Charset.forName(charset);
+			Collection<String> lines = Files.readAllLines(path, cs);
+			return lines;
+		}
+		catch (Exception e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
 	public static Builder builder() {
