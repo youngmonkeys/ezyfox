@@ -20,7 +20,7 @@ public final class EzyArrayToList {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List toList(EzyArray array) {
 		List answer = new ArrayList<>();
-		for(int i = 0 ; i < array.size() ; i++) {
+		for(int i = 0 ; i < array.size() ; ++i) {
 			Object item = array.get(i);
 			Object sitem = item;
 			if(item != null) {

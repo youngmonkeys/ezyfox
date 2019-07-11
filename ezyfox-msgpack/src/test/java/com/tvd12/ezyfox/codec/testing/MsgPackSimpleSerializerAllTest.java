@@ -165,7 +165,7 @@ public class MsgPackSimpleSerializerAllTest extends CodecBaseTest {
 	@Test
 	public void test7() {
 		Map<Object, Object> map = new HashMap<>();
-		for(int i = 0 ; i < MsgPackConstant.MAX_MAP16_SIZE + 1 ; i++)
+		for(int i = 0 ; i < MsgPackConstant.MAX_MAP16_SIZE + 1 ; ++i)
 			map.put(String.valueOf(i), i);
 		byte[] bytes = serializer.serialize(map);
 		EzyObject object = deserializer.deserialize(bytes);
@@ -177,7 +177,7 @@ public class MsgPackSimpleSerializerAllTest extends CodecBaseTest {
 	@Test
 	public void test8() {
 		Map<Object, Object> map = new HashMap<>();
-		for(int i = 0 ; i < MsgPackConstant.MAX_MAP16_SIZE ; i++)
+		for(int i = 0 ; i < MsgPackConstant.MAX_MAP16_SIZE ; ++i)
 			map.put(String.valueOf(i), i);
 		byte[] bytes = serializer.serialize(map);
 		EzyObject object = deserializer.deserialize(bytes);
@@ -189,7 +189,7 @@ public class MsgPackSimpleSerializerAllTest extends CodecBaseTest {
 	@Test
 	public void test9() {
 		StringBuilder builder = new StringBuilder();
-		for(int i = 0 ; i < MsgPackConstant.MAX_STR8_SIZE + 1 ; i++)
+		for(int i = 0 ; i < MsgPackConstant.MAX_STR8_SIZE + 1 ; ++i)
 			builder.append(i);
 		String str = builder.toString();
 		long startTime = System.currentTimeMillis();

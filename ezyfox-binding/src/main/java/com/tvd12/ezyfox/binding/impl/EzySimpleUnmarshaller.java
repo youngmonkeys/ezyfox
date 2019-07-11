@@ -237,7 +237,7 @@ public class EzySimpleUnmarshaller
 	
 	private Object readArrayByArray(EzyArray array, Class componentType) {
 		Object[] answer = (Object[]) Array.newInstance(componentType, array.size());
-		for(int i = 0 ; i < array.size() ; i++) 
+		for(int i = 0 ; i < array.size() ; ++i) 
 			answer[i] = unmarshal((Object)array.get(i), componentType);
 		return answer;
 	}

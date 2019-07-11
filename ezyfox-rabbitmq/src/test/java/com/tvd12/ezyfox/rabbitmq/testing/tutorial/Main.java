@@ -15,7 +15,7 @@ public class Main {
 		
 		Producer producer = new Producer("queue");
 		
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 100; ++i) {
 			HashMap message = new HashMap();
 			message.put("message number", i);
 			producer.sendMessage(message);

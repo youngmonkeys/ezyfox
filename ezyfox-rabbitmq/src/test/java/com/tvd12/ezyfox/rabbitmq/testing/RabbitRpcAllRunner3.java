@@ -109,7 +109,7 @@ public class RabbitRpcAllRunner3 extends EzyLoggable {
 		EzyRabbitRpcCaller caller = new EzyRabbitRpcCaller(client, entityCodec);
 		System.out.println("thread-" + Thread.currentThread().getName() + ": start rpc");
 		long start = System.currentTimeMillis();
-		for(int i = 0 ; i < 1000 ; i++) {
+		for(int i = 0 ; i < 1000 ; ++i) {
 			System.out.println("rabbit rpc start call: " + i);
 			int result = caller.call("fibonaci", 100, int.class);
 			System.out.println("i = " + i + ", result = " + result);

@@ -46,8 +46,8 @@ public class EzyBytesTest extends BaseTest {
 	@Test
 	public void mergePerformaceTest() {
 		byte[][] bytess = new byte[5][100];
-		for(int i = 0 ; i < bytess.length ; i++) {
-			for(int k = 0 ; k < bytess[i].length ; k++) {
+		for(int i = 0 ; i < bytess.length ; ++i) {
+			for(int k = 0 ; k < bytess[i].length ; ++k) {
 				bytess[i][k] = 1;
 			}
 		}

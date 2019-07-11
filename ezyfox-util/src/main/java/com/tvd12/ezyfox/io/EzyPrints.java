@@ -36,7 +36,7 @@ public final class EzyPrints {
 	
 	public static String printBits(byte[] bytes) {
 		StringBuilder builder = new StringBuilder();
-		for(int i = 0 ; i < bytes.length ; i++) 
+		for(int i = 0 ; i < bytes.length ; ++i) 
 			builder.append(printBits(bytes[i]));
 		return builder.toString();
 	}
@@ -55,7 +55,7 @@ public final class EzyPrints {
 	
 	public static String printHex(byte[] bytes) {
 		char[] hexChars = new char[bytes.length * 2];
-		for (int i = 0; i < bytes.length; i++) {
+		for (int i = 0; i < bytes.length; ++i) {
 			int v = bytes[i] & 0xFF;
 			hexChars[i * 2] = HEX_ARRAY[v >>> 4];
 			hexChars[i * 2 + 1] = HEX_ARRAY[v & 0x0F];
@@ -106,9 +106,9 @@ public final class EzyPrints {
 
 		public void print(int[][] table) {
 			String[][] strss = new String[table.length][];
-			for (int i = 0; i < table.length; i++) {
+			for (int i = 0; i < table.length; ++i) {
 				strss[i] = new String[table[i].length];
-				for (int k = 0; k < table[i].length; k++)
+				for (int k = 0; k < table[i].length; ++k)
 					strss[i][k] = String.valueOf(table[i][k]);
 			}
 			print(strss);
@@ -144,7 +144,7 @@ public final class EzyPrints {
 		private String getRow(String[] row, int[] widths, int lineLength) {
 			final StringBuilder builder = new StringBuilder(lineLength).append(VERTICAL_BORDER);
 			final int maxWidths = widths.length;
-			for (int i = 0; i < maxWidths; i++) {
+			for (int i = 0; i < maxWidths; ++i) {
 				builder.append(padRight(getCellValue(safeGet(row, i, null)), widths[i])).append(VERTICAL_BORDER);
 			}
 			return builder.toString();
@@ -154,7 +154,7 @@ public final class EzyPrints {
 			final StringBuilder builder = new StringBuilder(256);
 			builder.append(BORDER_KNOT);
 			for (final int w : widths) {
-				for (int i = 0; i < w; i++) {
+				for (int i = 0; i < w; ++i) {
 					builder.append(HORIZONTAL_BORDER);
 				}
 				builder.append(BORDER_KNOT);

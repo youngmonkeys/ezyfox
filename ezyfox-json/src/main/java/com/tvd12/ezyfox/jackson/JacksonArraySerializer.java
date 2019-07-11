@@ -17,7 +17,7 @@ public class JacksonArraySerializer extends StdSerializer<EzyRoArray> {
 	@Override
 	public void serialize(EzyRoArray array, JsonGenerator gen, SerializerProvider provider) throws IOException {
 		gen.writeStartArray();
-		for(int i = 0 ; i < array.size() ; i++) {
+		for(int i = 0 ; i < array.size() ; ++i) {
 			Object item = array.get(i);
 			gen.writeObject(item);
 		}

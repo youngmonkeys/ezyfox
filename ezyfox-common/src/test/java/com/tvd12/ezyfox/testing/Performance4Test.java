@@ -6,7 +6,7 @@ public class Performance4Test {
 
 	public static void main(String[] args) {
 		long start = System.currentTimeMillis();
-		for(int i = 0 ; i < 10000000 ; i++) {
+		for(int i = 0 ; i < 10000000 ; ++i) {
 			ClassA.builder()
 				.a("a")
 				.b("b")

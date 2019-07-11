@@ -10,42 +10,42 @@ public final class EzySum {
 	
 	public static int sumBytes(byte[] numbers) {
 		int total = 0;
-		for(int i = 0 ; i < numbers.length ; i++)
+		for(int i = 0 ; i < numbers.length ; ++i)
 			total += numbers[i];
 		return total;
 	}
 	
 	public static double sumDoubles(double[] numbers) {
 		double total = 0;
-		for(int i = 0 ; i < numbers.length ; i++)
+		for(int i = 0 ; i < numbers.length ; ++i)
 			total += numbers[i];
 		return total;
 	}
 	
 	public static float sumFloats(float[] numbers) {
 		float total = 0;
-		for(int i = 0 ; i < numbers.length ; i++)
+		for(int i = 0 ; i < numbers.length ; ++i)
 			total += numbers[i];
 		return total;
 	}
 	
 	public static int sumInts(int[] numbers) {
 		int total = 0;
-		for(int i = 0 ; i < numbers.length ; i++)
+		for(int i = 0 ; i < numbers.length ; ++i)
 			total += numbers[i];
 		return total;
 	}
 	
 	public static long sumLongs(long[] numbers) {
 		long total = 0;
-		for(int i = 0 ; i < numbers.length ; i++)
+		for(int i = 0 ; i < numbers.length ; ++i)
 			total += numbers[i];
 		return total;
 	}
 	
 	public static int sumShorts(short[] numbers) {
 		int total = 0;
-		for(int i = 0 ; i < numbers.length ; i++)
+		for(int i = 0 ; i < numbers.length ; ++i)
 			total += numbers[i];
 		return total;
 	}

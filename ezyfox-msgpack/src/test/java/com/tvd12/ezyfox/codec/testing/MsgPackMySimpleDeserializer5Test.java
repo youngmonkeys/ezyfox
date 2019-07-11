@@ -18,8 +18,8 @@ public class MsgPackMySimpleDeserializer5Test extends MsgPackCodecTest {
 	public void test1() throws IOException {
 		int size = EzyMath.bin2int(16);
 		EzyArrayBuilder builder = newArrayBuilder();
-		for(int i = 0 ; i < size ; i++)
-//		for(int i = 1 ; i < 500 ; i++) 
+		for(int i = 0 ; i < size ; ++i)
+//		for(int i = 1 ; i < 500 ; ++i) 
 			builder.append(i);
 //		builder.append(300);
 		EzyMessageSerializer serializer = new MsgPackSimpleSerializer();

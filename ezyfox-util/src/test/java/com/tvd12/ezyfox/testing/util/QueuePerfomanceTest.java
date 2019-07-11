@@ -12,7 +12,7 @@ public class QueuePerfomanceTest {
 	@Test
 	public void test() {
 		Queue<String> players = new EzyLinkedListSet<>();
-		for(int i = 0 ; i < 10000 ; i++) {
+		for(int i = 0 ; i < 10000 ; ++i) {
 			String player = new String("player#" + i);
 			players.add(player);
 		}

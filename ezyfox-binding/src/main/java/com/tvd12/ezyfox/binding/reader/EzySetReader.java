@@ -22,7 +22,7 @@ public final class EzySetReader implements EzyReader<EzyArray, Set> {
 	@Override
 	public Set read(EzyUnmarshaller unmarshaller, EzyArray value) {
 		Set answer = new HashSet<>();
-		for(int i = 0 ; i < value.size() ; i++)
+		for(int i = 0 ; i < value.size() ; ++i)
 			answer.add(value.get(i));
 		return answer;
 	}

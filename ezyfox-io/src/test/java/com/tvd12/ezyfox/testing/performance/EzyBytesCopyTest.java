@@ -39,7 +39,7 @@ public class EzyBytesCopyTest {
 		.test(()-> {
 			int passed = 0;
 			byte[] bytes = new byte[EzyBytes.totalBytes(bytess)];
-			for(int i = 0 ; i < bytess.length ; i++) {
+			for(int i = 0 ; i < bytess.length ; ++i) {
 				System.arraycopy(bytess[i], 0, bytes, passed, bytess[i].length);
 				passed += bytess[i].length;
 			}

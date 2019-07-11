@@ -12,7 +12,7 @@ public class EzyThreadList {
 	
 	public EzyThreadList(int size, Runnable task, ThreadFactory threadFactory) {
 		this.threads = new Thread[size];
-		for(int i = 0 ; i < threads.length ; i++)
+		for(int i = 0 ; i < threads.length ; ++i)
 			threads[i] = threadFactory.newThread(task);
 	}
 	

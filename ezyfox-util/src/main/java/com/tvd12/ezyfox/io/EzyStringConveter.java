@@ -12,7 +12,7 @@ public final class EzyStringConveter {
 	public static boolean[] stringToPrimitiveBoolArray(String string) {
 		String[] strs = string.split(",");
 		boolean[] array = new boolean[strs.length];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			array[i] = Boolean.valueOf(strs[i].trim());
 		return array;
 	}
@@ -20,7 +20,7 @@ public final class EzyStringConveter {
 	public static byte[] stringToPrimitiveByteArray(String string) {
 		String[] strs = string.split(",");
 		byte[] array = new byte[strs.length];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			array[i] = Byte.valueOf(strs[i].trim());
 		return array;
 	}
@@ -32,7 +32,7 @@ public final class EzyStringConveter {
 	public static double[] stringToPrimitiveDoubleArray(String string) {
 		String[] strs = string.split(",");
 		double[] array = new double[strs.length];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			array[i] = Double.valueOf(strs[i].trim());
 		return array;
 	}
@@ -40,7 +40,7 @@ public final class EzyStringConveter {
 	public static float[] stringToPrimitiveFloatArray(String string) {
 		String[] strs = string.split(",");
 		float[] array = new float[strs.length];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			array[i] = Float.valueOf(strs[i].trim());
 		return array;
 	}
@@ -48,7 +48,7 @@ public final class EzyStringConveter {
 	public static int[] stringToPrimitiveIntArray(String string) {
 		String[] strs = string.split(",");
 		int[] array = new int[strs.length];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			array[i] = Integer.valueOf(strs[i].trim());
 		return array;
 	}
@@ -56,7 +56,7 @@ public final class EzyStringConveter {
 	public static long[] stringToPrimitiveLongArray(String string) {
 		String[] strs = string.split(",");
 		long[] array = new long[strs.length];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			array[i] = Long.valueOf(strs[i].trim());
 		return array;
 	}
@@ -64,7 +64,7 @@ public final class EzyStringConveter {
 	public static short[] stringToPrimitiveShortArray(String string) {
 		String[] strs = string.split(",");
 		short[] array = new short[strs.length];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			array[i] = Short.valueOf(strs[i].trim());
 		return array;
 	}
@@ -80,7 +80,7 @@ public final class EzyStringConveter {
 	
 	public static Character[] stringToWrapperCharArray(String string) {
 		Character[] array = new Character[string.length()];
-		for(int i = 0 ; i < string.length() ; i++)
+		for(int i = 0 ; i < string.length() ; ++i)
 			array[i] = string.charAt(i);
 		return array;
 	}
@@ -109,7 +109,7 @@ public final class EzyStringConveter {
 	public static boolean[][] stringToPrimitiveBoolArrays(String string) {
 		String[] strs = string.split(";");
 		boolean[][] arrays = new boolean[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToPrimitiveBoolArray(strs[i]);
 		return arrays;
 	}
@@ -117,7 +117,7 @@ public final class EzyStringConveter {
 	public static byte[][] stringToPrimitiveByteArrays(String string) {
 		String[] strs = string.split(";");
 		byte[][] arrays = new byte[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToPrimitiveByteArray(strs[i]);
 		return arrays;
 	}
@@ -125,7 +125,7 @@ public final class EzyStringConveter {
 	public static char[][] stringToPrimitiveCharArrays(String string) {
 		String[] strs = string.split(";");
 		char[][] arrays = new char[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToPrimitiveCharArray(strs[i]);
 		return arrays;
 	}
@@ -133,7 +133,7 @@ public final class EzyStringConveter {
 	public static double[][] stringToPrimitiveDoubleArrays(String string) {
 		String[] strs = string.split(";");
 		double[][] arrays = new double[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToPrimitiveDoubleArray(strs[i]);
 		return arrays;
 	}
@@ -141,7 +141,7 @@ public final class EzyStringConveter {
 	public static float[][] stringToPrimitiveFloatArrays(String string) {
 		String[] strs = string.split(";");
 		float[][] arrays = new float[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToPrimitiveFloatArray(strs[i]);
 		return arrays;
 	}
@@ -149,7 +149,7 @@ public final class EzyStringConveter {
 	public static int[][] stringToPrimitiveIntArrays(String string) {
 		String[] strs = string.split(";");
 		int[][] arrays = new int[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToPrimitiveIntArray(strs[i]);
 		return arrays;
 	}
@@ -157,7 +157,7 @@ public final class EzyStringConveter {
 	public static long[][] stringToPrimitiveLongArrays(String string) {
 		String[] strs = string.split(";");
 		long[][] arrays = new long[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToPrimitiveLongArray(strs[i]);
 		return arrays;
 	}
@@ -165,7 +165,7 @@ public final class EzyStringConveter {
 	public static short[][] stringToPrimitiveShortArrays(String string) {
 		String[] strs = string.split(";");
 		short[][] arrays = new short[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToPrimitiveShortArray(strs[i]);
 		return arrays;
 	}
@@ -182,7 +182,7 @@ public final class EzyStringConveter {
 	public static Character[][] stringToWrapperCharArrays(String string) {
 		String[] strs = string.split(";");
 		Character[][] arrays = new Character[strs.length][];
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToWrapperCharArray(strs[i]);
 		return arrays;
 	}
@@ -215,7 +215,7 @@ public final class EzyStringConveter {
 			String string, Function<String, T> converter, IntFunction<T[]> newer) {
 		String[] strs = string.split(",");
 		T[] array = newer.apply(strs.length);
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			array[i] = converter.apply(strs[i]);
 		return array;
 	}
@@ -224,7 +224,7 @@ public final class EzyStringConveter {
 			String string, Function<String, T> converter, IntFunction<T[][]> newer1, IntFunction<T[]> newer2) {
 		String[] strs = string.split(";");
 		T[][] arrays = newer1.apply(strs.length);
-		for(int i = 0 ; i < strs.length ; i++)
+		for(int i = 0 ; i < strs.length ; ++i)
 			arrays[i] = stringToArray(strs[i], converter, newer2);
 		return arrays;
 	}

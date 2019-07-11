@@ -13,7 +13,7 @@ public final class EzyNameStyles {
 		int length = name.length();
 		int finish = length - 1;
 		StringBuilder builder = new StringBuilder();
-		for(int i = 0 ; i < length ; i++) {
+		for(int i = 0 ; i < length ; ++i) {
 			char ch = name.charAt(i);
 			if(isLowerCase(ch)) {
 				builder.append(ch);

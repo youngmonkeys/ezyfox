@@ -86,7 +86,7 @@ public class EzySetsTest extends BaseTest {
 	
 	private Collection<Character> stringtoChars(String str) {
 		List<Character> answer = new ArrayList<>();
-		for(int i = 0 ; i < str.length() ; i++)
+		for(int i = 0 ; i < str.length() ; ++i)
 			answer.add(str.charAt(i));
 		return answer;
 	}

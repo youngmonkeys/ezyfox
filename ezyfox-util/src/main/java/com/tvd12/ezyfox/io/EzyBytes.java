@@ -89,7 +89,7 @@ public final class EzyBytes {
 	
 	public static byte[] getBytes(long value, int size) {
 		byte[] bytes = new byte[size];
-		for(int i = 0 ; i < size ; i++)
+		for(int i = 0 ; i < size ; ++i)
 			bytes[i] = (byte)((value >> ((size - i - 1) * 8) & 0xff));
 		return bytes;
 	}

@@ -19,7 +19,7 @@ public final class EzyMath {
 	
 	public static long bin2long(int length) {
 		long result = 0;
-		for(int i = 0 ; i < length ; i++)
+		for(int i = 0 ; i < length ; ++i)
 			result |= 1L << i;
 		return result;
 	}
@@ -37,13 +37,13 @@ public final class EzyMath {
 		long result = (long)bytes[0];
 		result = unsigned ? result & 0xff : result;
 		result = result << (len * 8);
-		for(int i = 1 ; i <= len ; i++)
+		for(int i = 1 ; i <= len ; ++i)
 			result |= ((long)bytes[i] & 0xff) << ((len - i) * 8);
 		return result;
 	}
 	
 	public static void xor(byte[] bytes) {
-		for(int i = 0 ; i < bytes.length ; i++)
+		for(int i = 0 ; i < bytes.length ; ++i)
 			bytes[i] ^= 0xff;
 	}
 	

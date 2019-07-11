@@ -24,7 +24,7 @@ public class GetForUpdatePerfomanceTest extends HazelcastBaseTest {
 			txCxt.beginTransaction();
 			try {
 			TransactionalMap<String, Long> map = txCxt.getMap("map");
-			for(int i = 0 ; i < 50 ; i++) {
+			for(int i = 0 ; i < 50 ; ++i) {
 				String key = "" + i;
 				Long oldValue = map.getForUpdate(key);
 				map.set(key, oldValue != null ? oldValue + 1L : 1L);
@@ -43,9 +43,9 @@ public class GetForUpdatePerfomanceTest extends HazelcastBaseTest {
 			}
 		};
 		Thread[] threads = new Thread[1000];
-		for(int i = 0 ; i < threads.length ; i++)
+		for(int i = 0 ; i < threads.length ; ++i)
 			threads[i] = new Thread(runnable);
-		for(int i = 0 ; i < threads.length ; i++)
+		for(int i = 0 ; i < threads.length ; ++i)
 			threads[i].start();
 		while (done.get() < threads.length);
 		Map<String, Long> xmap = HZ_INSTANCE.getMap("map");
@@ -61,7 +61,7 @@ public class GetForUpdatePerfomanceTest extends HazelcastBaseTest {
 		txCxt.beginTransaction();
 		TransactionalMap<Object, Object> map = txCxt.getMap("map");
 		long start = System.currentTimeMillis();
-		for(int i = 0 ; i < 50000 ; i++) {
+		for(int i = 0 ; i < 50000 ; ++i) {
 			map.getForUpdate("" + i);
 			map.set("" + i, i);
 		}

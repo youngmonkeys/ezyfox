@@ -24,12 +24,12 @@ public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
 		
 		List<Long> nums = new ArrayList<>();
 		Thread[] threads = new Thread[1000];
-		for(int i = 0 ; i < threads.length ; i++) {
+		for(int i = 0 ; i < threads.length ; ++i) {
 			threads[i] = new Thread(() -> {
 				nums.add(service.incrementAndGet("something"));
 			});
 		}
-		for(int i = 0 ; i < threads.length ; i++) {
+		for(int i = 0 ; i < threads.length ; ++i) {
 			threads[i].start();
 //			threads[i].join();
 		}
@@ -37,7 +37,7 @@ public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
 		Thread.sleep(2000L);
 		
 		System.out.println(nums);
-		for(int i = 0 ; i < nums.size() - 1 ; i++) {
+		for(int i = 0 ; i < nums.size() - 1 ; ++i) {
 			if(nums.get(i + 1) != nums.get(i) + 1) {
 				System.err.println("entryprocessor xxx: error in " + i);
 			}
@@ -52,12 +52,12 @@ public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
 		
 		List<Long> nums = new ArrayList<>();
 		Thread[] threads = new Thread[1000];
-		for(int i = 0 ; i < threads.length ; i++) {
+		for(int i = 0 ; i < threads.length ; ++i) {
 			threads[i] = new Thread(() -> {
 				nums.add(service.incrementAndGet("somethingy", 2));
 			});
 		}
-		for(int i = 0 ; i < threads.length ; i++) {
+		for(int i = 0 ; i < threads.length ; ++i) {
 			threads[i].start();
 //			threads[i].join();
 		}
@@ -65,7 +65,7 @@ public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
 		Thread.sleep(3000L);
 		
 		System.out.println(nums);
-		for(int i = 0 ; i < nums.size() - 1 ; i++) {
+		for(int i = 0 ; i < nums.size() - 1 ; ++i) {
 			if(nums.get(i + 1) != nums.get(i) + 2) {
 				System.err.println("entryprocessor yyy: error in " + i);
 			}

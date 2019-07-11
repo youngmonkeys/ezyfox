@@ -22,7 +22,7 @@ public abstract class EzyWrapperArrayReader implements EzyReader<Object, Object>
 		int length = array.size();
 		Class<?> outType = getOutType();
 		Object[] answer = newArray(length);
-		for(int i = 0 ; i < length ; i++)
+		for(int i = 0 ; i < length ; ++i)
 			answer[i] = unmarshaller.unmarshal((Object)array.get(i), outType);
 		return answer;
 	}

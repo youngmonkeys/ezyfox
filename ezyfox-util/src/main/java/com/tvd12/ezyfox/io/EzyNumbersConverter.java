@@ -130,7 +130,7 @@ public final class EzyNumbersConverter {
 	
 	public static Character[] numbersToWrapperChars(Object[] value) {
 		Character[] answer = new Character[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = objectToChar(value[i]);
 		return answer;
 	}
@@ -200,56 +200,56 @@ public final class EzyNumbersConverter {
 	//================ wrapper to primitive array ===========
 	public static boolean[] boolArrayWrapperToPrimitive(Boolean[] value) {
 		boolean[] answer = new boolean[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
 	
 	public static byte[] numbersToPrimitiveBytes(Number[] value) {
 		byte[] answer = new byte[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i].byteValue();
 		return answer;
 	}
 	
 	public static char[] numbersToPrimitiveChars(Object[] value) {
 		char[] answer = new char[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = objectToChar(value[i]);
 		return answer;
 	}
 	
 	public static double[] numbersToPrimitiveDoubles(Number[] value) {
 		double[] answer = new double[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i].doubleValue();
 		return answer;
 	}
 	
 	public static float[] numbersToPrimitiveFloats(Number[] value) {
 		float[] answer = new float[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i].floatValue();
 		return answer;
 	}
 	
 	public static int[] numbersToPrimitiveInts(Number[] value) {
 		int[] answer = new int[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i].intValue();
 		return answer;
 	}
 	
 	public static long[] numbersToPrimitiveLongs(Number[] value) {
 		long[] answer = new long[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i].longValue();
 		return answer;
 	}
 	
 	public static short[] numbersToPrimitiveShorts(Number[] value) {
 		short[] answer = new short[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i].shortValue();
 		return answer;
 	}
@@ -257,56 +257,56 @@ public final class EzyNumbersConverter {
 	//====================== primitive to wrapper array =========
 	public static Boolean[] boolArrayPrimitiveToWrapper(boolean[] value) {
 		Boolean[] answer = new Boolean[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
 	
 	public static Byte[] byteArrayPrimitiveToWrapper(byte[] value) {
 		Byte[] answer = new Byte[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
 	
 	public static Character[] charArrayPrimitiveToWrapper(char[] value) {
 		Character[] answer = new Character[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
 	
 	public static Double[] doubleArrayPrimitiveToWrapper(double[] value) {
 		Double[] answer = new Double[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
 	
 	public static Float[] floatArrayPrimitiveToWrapper(float[] value) {
 		Float[] answer = new Float[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
 	
 	public static Integer[] intArrayPrimitiveToWrapper(int[] value) {
 		Integer[] answer = new Integer[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
 	
 	public static Long[] longArrayPrimitiveToWrapper(long[] value) {
 		Long[] answer = new Long[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
 	
 	public static Short[] shortArrayPrimitiveToWrapper(short[] value) {
 		Short[] answer = new Short[value.length];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = value[i];
 		return answer;
 	}
@@ -314,56 +314,56 @@ public final class EzyNumbersConverter {
 	//====================== two-dimensions wrapper array to primitive array =========
 	public static boolean[][] boolArraysWrapperToPrimitive(Boolean[][] value) {
 		boolean[][] answer = new boolean[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = boolArrayWrapperToPrimitive(value[i]);
 		return answer;
 	}
 	
 	public static byte[][] numbersToPrimitiveByteArrays(Number[][] value) {
 		byte[][] answer = new byte[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToPrimitiveBytes(value[i]);
 		return answer;
 	}
 	
 	public static char[][] numbersToPrimitiveCharArrays(Object[][] value) {
 		char[][] answer = new char[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToPrimitiveChars(value[i]);
 		return answer;
 	}
 	
 	public static double[][] numbersToPrimitiveDoubleArrays(Number[][] value) {
 		double[][] answer = new double[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToPrimitiveDoubles(value[i]);
 		return answer;
 	}
 	
 	public static float[][] numbersToPrimitiveFloatArrays(Number[][] value) {
 		float[][] answer = new float[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToPrimitiveFloats(value[i]);
 		return answer;
 	}
 	
 	public static int[][] numbersToPrimitiveIntArrays(Number[][] value) {
 		int[][] answer = new int[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToPrimitiveInts(value[i]);
 		return answer;
 	}
 	
 	public static long[][] numbersToPrimitiveLongArrays(Number[][] value) {
 		long[][] answer = new long[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToPrimitiveLongs(value[i]);
 		return answer;
 	}
 	
 	public static short[][] numbersToPrimitiveShortArrays(Number[][] value) {
 		short[][] answer = new short[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToPrimitiveShorts(value[i]);
 		return answer;
 	}
@@ -371,56 +371,56 @@ public final class EzyNumbersConverter {
 	//====================== two-dimensions wrapper array to primitive array =========
 	public static Boolean[][] boolArraysPrimitiveToWrapper(boolean[][] value) {
 		Boolean[][] answer = new Boolean[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = boolArrayPrimitiveToWrapper(value[i]);
 		return answer;
 	}
 	
 	public static Byte[][] byteArraysPrimitiveToWrapper(byte[][] value) {
 		Byte[][] answer = new Byte[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = byteArrayPrimitiveToWrapper(value[i]);
 		return answer;
 	}
 	
 	public static Character[][] charArraysPrimitiveToWrapper(char[][] value) {
 		Character[][] answer = new Character[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = charArrayPrimitiveToWrapper(value[i]);
 		return answer;
 	}
 	
 	public static Double[][] doubleArraysPrimitiveToWrapper(double[][] value) {
 		Double[][] answer = new Double[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = doubleArrayPrimitiveToWrapper(value[i]);
 		return answer;
 	}
 	
 	public static Float[][] floatArraysPrimitiveToWrapper(float[][] value) {
 		Float[][] answer = new Float[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = floatArrayPrimitiveToWrapper(value[i]);
 		return answer;
 	}
 	
 	public static Integer[][] intArraysPrimitiveToWrapper(int[][] value) {
 		Integer[][] answer = new Integer[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = intArrayPrimitiveToWrapper(value[i]);
 		return answer;
 	}
 	
 	public static Long[][] longArraysPrimitiveToWrapper(long[][] value) {
 		Long[][] answer = new Long[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = longArrayPrimitiveToWrapper(value[i]);
 		return answer;
 	}
 	
 	public static Short[][] shortArraysPrimitiveToWrapper(short[][] value) {
 		Short[][] answer = new Short[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = shortArrayPrimitiveToWrapper(value[i]);
 		return answer;
 	}
@@ -428,49 +428,49 @@ public final class EzyNumbersConverter {
 	//============ numbers to wrapper arrays ==========
 	public static Byte[][] numbersToWrapperByteArrays(Number[][] value) {
 		Byte[][] answer = new Byte[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToWrapperBytes(value[i]);
 		return answer;
 	}
 	
 	public static Character[][] numbersToWrapperCharArrays(Object[][] value) {
 		Character[][] answer = new Character[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToWrapperChars(value[i]);
 		return answer;
 	}
 	
 	public static Double[][] numbersToWrapperDoubleArrays(Number[][] value) {
 		Double[][] answer = new Double[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToWrapperDoubles(value[i]);
 		return answer;
 	}
 	
 	public static Float[][] numbersToWrapperFloatArrays(Number[][] value) {
 		Float[][] answer = new Float[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToWrapperFloats(value[i]);
 		return answer;
 	}
 	
 	public static Integer[][] numbersToWrapperIntArrays(Number[][] value) {
 		Integer[][] answer = new Integer[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToWrapperInts(value[i]);
 		return answer;
 	}
 	
 	public static Long[][] numbersToWrapperLongArrays(Number[][] value) {
 		Long[][] answer = new Long[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToWrapperLongs(value[i]);
 		return answer;
 	}
 	
 	public static Short[][] numbersToWrapperShortArrays(Number[][] value) {
 		Short[][] answer = new Short[value.length][];
-		for(int i = 0 ; i < value.length ; i++)
+		for(int i = 0 ; i < value.length ; ++i)
 			answer[i] = numbersToWrapperShorts(value[i]);
 		return answer;
 	}

@@ -153,7 +153,7 @@ public abstract class EzySimpleSingletonLoader
 	protected final Object[] getArguments(Class[] parameterTypes, EzyBeanContext context) {
 		Object[] arguments = new Object[parameterTypes.length];
 		String[] argumentNames = getConstructorArgumentNames(); 
-		for(int i = 0 ; i < parameterTypes.length ; i++) {
+		for(int i = 0 ; i < parameterTypes.length ; ++i) {
 			arguments[i] = getOrCreateSingleton(parameterTypes[i], argumentNames[i], context);
 		}
 		return arguments;

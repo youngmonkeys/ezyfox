@@ -11,7 +11,7 @@ public class PerformanceTest extends BaseTest {
 	public static void main(String args[]) {
 		System.out.println("\n========= begin =========\n");
 		long start = System.currentTimeMillis();
-		for(int i = 0 ; i < 10000000 ; i++) {
+		for(int i = 0 ; i < 10000000 ; ++i) {
 			Map<String, String> strs = new HashMap<>();
 			strs.put("a", "1");
 			strs.put("b", "2");

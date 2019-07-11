@@ -58,7 +58,7 @@ public class EzyArraysTest extends BaseTest {
 	@Test
 	public void test3() {
 		byte[] bytes = new byte[2000];
-		for(int i = 0 ; i < bytes.length ; i++)
+		for(int i = 0 ; i < bytes.length ; ++i)
 			bytes[i] = 2;
 		byte[] bytes1 = new byte[bytes.length + 1];
 		bytes1[0] = 1;

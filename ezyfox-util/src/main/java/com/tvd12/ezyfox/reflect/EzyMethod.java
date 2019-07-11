@@ -124,7 +124,7 @@ public class EzyMethod implements EzyReflectElement {
 			.append(" ")
 			.append(displayName)
 			.append("(");
-		for(int i = 0 ; i < params.length ; i++) {
+		for(int i = 0 ; i < params.length ; ++i) {
 			builder.append(params[i].getType().getTypeName())
 				.append(" ")
 				.append(params[i].getName());

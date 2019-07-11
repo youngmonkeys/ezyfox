@@ -60,7 +60,7 @@ public final class EzyStrings {
 	
 	public static String newString(char ch, int count) {
 		StringBuilder builder = new StringBuilder();
-		for(int i = 0 ; i < count ; i++)
+		for(int i = 0 ; i < count ; ++i)
 			builder.append(ch);
 		return builder.toString();
 	}

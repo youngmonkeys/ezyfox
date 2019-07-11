@@ -12,7 +12,7 @@ public final class EzyPrimitiveTypes {
 		if (array == null)
 			return null;
 		List<Boolean> list = new ArrayList<>();
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; ++i)
 			list.add(array[i]);
 		return list;
 	}
@@ -21,7 +21,7 @@ public final class EzyPrimitiveTypes {
 		if (array == null)
 			return null;
 		List<Byte> list = new ArrayList<>();
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; ++i)
 			list.add(array[i]);
 		return list;
 	}
@@ -30,7 +30,7 @@ public final class EzyPrimitiveTypes {
 		if (array == null)
 			return null;
 		List<Character> list = new ArrayList<>();
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; ++i)
 			list.add(array[i]);
 		return list;
 	}
@@ -39,7 +39,7 @@ public final class EzyPrimitiveTypes {
 		if (array == null)
 			return null;
 		List<Double> list = new ArrayList<>();
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; ++i)
 			list.add(array[i]);
 		return list;
 	}
@@ -48,7 +48,7 @@ public final class EzyPrimitiveTypes {
 		if (array == null)
 			return null;
 		List<Float> list = new ArrayList<>();
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; ++i)
 			list.add(array[i]);
 		return list;
 	}
@@ -57,7 +57,7 @@ public final class EzyPrimitiveTypes {
 		if (array == null)
 			return null;
 		List<Integer> list = new ArrayList<>();
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; ++i)
 			list.add(array[i]);
 		return list;
 	}
@@ -66,7 +66,7 @@ public final class EzyPrimitiveTypes {
 		if (array == null)
 			return null;
 		List<Long> list = new ArrayList<>();
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; ++i)
 			list.add(array[i]);
 		return list;
 	}
@@ -75,7 +75,7 @@ public final class EzyPrimitiveTypes {
 		if (array == null)
 			return null;
 		List<Short> list = new ArrayList<>();
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; ++i)
 			list.add(array[i]);
 		return list;
 	}

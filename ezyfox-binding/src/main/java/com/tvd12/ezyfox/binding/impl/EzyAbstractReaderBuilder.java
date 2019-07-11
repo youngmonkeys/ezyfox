@@ -76,7 +76,7 @@ public abstract class EzyAbstractReaderBuilder
 	
 	protected String makeMethodContent(EzyMethod readMethod) {
 		String[] paramNames = new String[readMethod.getParameterCount()];
-		for(int i = 0 ; i < paramNames.length ; i++)
+		for(int i = 0 ; i < paramNames.length ; ++i)
 			paramNames[i] = "arg" + i;
 		String paramNamesChain = StringUtils.join(paramNames, ", ");
 		return new EzyFunction(readMethod)

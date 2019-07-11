@@ -12,7 +12,7 @@ public class Performance2Test extends BaseTest {
 		System.out.println("\n========= begin =========\n");
 		long start = System.currentTimeMillis();
 		Map<String, String> strs = new HashMap<>();
-		for(int i = 0 ; i < 10000000 ; i++) {
+		for(int i = 0 ; i < 10000000 ; ++i) {
 			HashMap hm = (HashMap)strs;
 		}
 		long end = System.currentTimeMillis();

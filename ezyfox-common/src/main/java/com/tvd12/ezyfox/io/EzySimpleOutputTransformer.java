@@ -85,7 +85,7 @@ public class EzySimpleOutputTransformer
 	
 	protected EzyObject[] toObjectArray(EzyArray value) {
 		EzyObject[] answer = new EzyObject[value.size()];
-		for(int i = 0 ; i < value.size() ; i++) 
+		for(int i = 0 ; i < value.size() ; ++i) 
 			answer[i] = value.get(i, EzyObject.class);
 		return answer;
 	}
@@ -413,7 +413,7 @@ public class EzySimpleOutputTransformer
 			@Override
 			public Object transform(EzyArray value) {
 				EzyObject[][] answer = new EzyObject[value.size()][];
-				for(int i = 0 ; i < value.size() ; i++)
+				for(int i = 0 ; i < value.size() ; ++i)
 					answer[i] = toObjectArray(value.get(i, EzyArray.class));
 				return answer;
 			}

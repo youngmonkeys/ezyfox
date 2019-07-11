@@ -54,7 +54,7 @@ public class EzyFolderTreePrinter {
 			parent = parent.getParent();
 		}
 		StringBuilder sb = new StringBuilder();
-		for(int i = strings.size() - 1 ; i >= 0 ; i--)
+		for(int i = strings.size() - 1 ; i >= 0 ; --i)
 			sb.append(strings.get(i));
 		return sb.toString();
 	}
@@ -68,7 +68,7 @@ public class EzyFolderTreePrinter {
 		}
 		else {
 			File[] files = file.listFiles();
-			for(int i = 0 ; i < files.length ; i++) {
+			for(int i = 0 ; i < files.length ; ++i) {
 				if(files[i].isFile() && !printFile)
 					continue;
 				EzyFile item = new EzyFile(files[i]);
@@ -128,14 +128,14 @@ public class EzyFolderTreePrinter {
 		
 		private String printTabs() {
 			StringBuilder builder = new StringBuilder();
-			for(int i = 0 ; i < tabSize ; i++)
+			for(int i = 0 ; i < tabSize ; ++i)
 				builder.append(" ");
 			return builder.toString();
 		}
 		
 		private String printBranch() {
 			StringBuilder builder = new StringBuilder(intersectionSymbol);
-			for(int i = 0 ; i < tabSize ; i++)
+			for(int i = 0 ; i < tabSize ; ++i)
 				builder.append(horizontalSymbol);
 			return builder.toString();
 		}

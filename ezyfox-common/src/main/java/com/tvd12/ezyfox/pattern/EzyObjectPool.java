@@ -59,7 +59,7 @@ public abstract class EzyObjectPool<T>
 	}
 	
 	protected void initializeObjects() {
-		for(int i = 0 ; i < minObjects ; i++) {
+		for(int i = 0 ; i < minObjects ; ++i) {
 			T newObject = createObject();
 			objectQueue.add(newObject);
 		}
@@ -123,7 +123,7 @@ public abstract class EzyObjectPool<T>
 			}
 			
 			private void removeExcessiveObjects(int size) {
-				for(int i = 0 ; i < size ; i++)
+				for(int i = 0 ; i < size ; ++i)
 					releaseObject(objectQueue.poll());
 				logger.info("object objectQueue: remove {} excessive objects, remain {}", size, objectQueue.size());
 			}

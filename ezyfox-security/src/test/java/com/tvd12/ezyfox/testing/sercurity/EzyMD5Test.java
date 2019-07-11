@@ -31,7 +31,7 @@ public class EzyMD5Test extends BaseTest {
 	public static class B64 {
 		static String getRandomSalt(int num) {
 			StringBuilder saltString = new StringBuilder();
-	        for (int i = 1; i <= num; i++) 
+	        for (int i = 1; i <= num; ++i) 
 	            saltString.append(B64T.charAt(new Random().nextInt(B64T.length())));
 	       return saltString.toString();
 	    }

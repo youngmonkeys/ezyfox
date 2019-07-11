@@ -81,7 +81,7 @@ public class EzyObjectInstanceRandom {
 	
 	public <T> List<T> randomObjectList(Class<T> itemClass, int size, boolean includeAllFields) {
 		List<T> list = new ArrayList<>();
-		for(int i = 0 ; i < size ; i++)
+		for(int i = 0 ; i < size ; ++i)
 			list.add(randomObject(itemClass, includeAllFields));
 		return list;
 	}
@@ -153,7 +153,7 @@ public class EzyObjectInstanceRandom {
 		Random random = new Random();
 		int maxEntries = 1 + random.nextInt(5);
 		Map<Object, Object> map = new HashMap<>();
-		for(int i = 0 ; i < maxEntries ; i++) {
+		for(int i = 0 ; i < maxEntries ; ++i) {
 			Object key = randomValue(keyValueTypes[0]);
 			Object value = randomValue(keyValueTypes[1]);
 			map.put(key, value);
@@ -182,7 +182,7 @@ public class EzyObjectInstanceRandom {
 			collection = new HashSet<>();
 		else
 			collection = new ArrayList<>();
-		for(int i = 0 ; i < maxItems ; i++) {
+		for(int i = 0 ; i < maxItems ; ++i) {
 			Object value = randomValue(itemType);
 			collection.add(value);
 		}
@@ -193,7 +193,7 @@ public class EzyObjectInstanceRandom {
 		Random random = new Random();
 		int maxLength = 1 + random.nextInt(5);
 		Object array = Array.newInstance(itemType, maxLength);
-		for(int i = 0 ; i < maxLength ; i++) {
+		for(int i = 0 ; i < maxLength ; ++i) {
 			Object itemValue = randomValue(itemType);
 			Array.set(array, i, itemValue);
 		}
@@ -310,7 +310,7 @@ public class EzyObjectInstanceRandom {
 			Random random = new Random();
 			int randomLength = 3 + random.nextInt(DEFAULT_STRINGS.length - 3);
 			StringBuilder builder = new StringBuilder();
-			for(int i = 0 ; i < randomLength ; i++) {
+			for(int i = 0 ; i < randomLength ; ++i) {
 				int index = random.nextInt(DEFAULT_STRINGS.length);
 				builder.append(DEFAULT_STRINGS[index]);
 			}

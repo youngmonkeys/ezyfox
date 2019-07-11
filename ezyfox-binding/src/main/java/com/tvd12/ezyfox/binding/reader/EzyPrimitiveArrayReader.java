@@ -22,7 +22,7 @@ public abstract class EzyPrimitiveArrayReader implements EzyReader<Object, Objec
 		int length = array.size();
 		Class<?> outType = getOutType();
 		Object answer = newArray(length);
-		for(int i = 0 ; i < length ; i++) {
+		for(int i = 0 ; i < length ; ++i) {
 			Object value = unmarshaller.unmarshal((Object)array.get(i), outType);
 			setValue(answer, i, value);
 		}

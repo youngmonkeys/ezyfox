@@ -11,7 +11,7 @@ public class Main {
 		Producer producer = new Producer("queue");
 
 		long time = System.currentTimeMillis();
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 1; ++i) {
 			producer.sendMessage("String message#" + i);
 			System.out.println("Message Number " + i + " sent.");
 		}

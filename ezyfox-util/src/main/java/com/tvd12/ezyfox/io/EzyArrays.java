@@ -13,7 +13,7 @@ public final class EzyArrays {
 	}
 	
 	public static void copy(byte[] from, byte[] to, int toPos) {
-		for(int i = 0 ; i < from.length ; i++) {
+		for(int i = 0 ; i < from.length ; ++i) {
 			int index = toPos + i;
 			if(index < to.length)
 				to[index] = from[i];

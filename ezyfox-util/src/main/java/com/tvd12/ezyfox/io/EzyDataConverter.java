@@ -42,7 +42,7 @@ public final class EzyDataConverter {
      */
     public static char[] byteArrayToCharArray(byte[] value) {
         char[] result = new char[value.length];
-        for(int i = 0 ; i < value.length ; i++)
+        for(int i = 0 ; i < value.length ; ++i)
             result[i] = (char)value[i];
         return result;
     }
@@ -55,7 +55,7 @@ public final class EzyDataConverter {
      */
     public static byte[] charArrayToByteArray(char[] value) {
         byte[] result = new byte[value.length];
-        for(int i = 0 ; i < value.length ; i++)
+        for(int i = 0 ; i < value.length ; ++i)
             result[i] = (byte)value[i];
         return result;
     }
@@ -332,7 +332,7 @@ public final class EzyDataConverter {
 	public static <T> List<T> arrayToList(Object value) {
         List<T> answer = new ArrayList<>();
         int length = Array.getLength(value);
-        for(int i = 0 ; i < length ; i++)
+        for(int i = 0 ; i < length ; ++i)
         		answer.add((T) Array.get(value, i));
         return answer;
     }
