@@ -14,7 +14,7 @@ public class LoggerTest extends EzyLoggable {
 			a();
 		}
 		catch (Exception e) {
-			logger.info("error at: {}", new Date(), e);
+			getLogger().info("error at: {}", new Date(), e);
 		}
 	}
 	
