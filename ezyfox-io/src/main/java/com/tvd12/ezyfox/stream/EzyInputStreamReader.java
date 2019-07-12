@@ -1,7 +1,7 @@
 package com.tvd12.ezyfox.stream;
 
 import java.io.InputStream;
-import java.util.Collection;
+import java.util.List;
 
 public interface EzyInputStreamReader {
 
@@ -11,6 +11,6 @@ public interface EzyInputStreamReader {
 	
 	String readString(InputStream stream, String charset);
 	
-	Collection<String> readLines(InputStream stream, String charset);
+	List<String> readLines(InputStream stream, String charset);
 	
 }

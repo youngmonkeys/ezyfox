@@ -1,5 +1,9 @@
 package com.tvd12.ezyfox.testing.stream;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -57,6 +61,26 @@ public class EzySimpleInputStreamReaderTest extends BaseTest {
 				return bytes[index ++];
 			}
 		}, "UTF-8");
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test3() throws IOException {
+		EzyInputStreamReader reader = EzySimpleInputStreamReader.builder()
+				.build();
+		InputStream inputStream = mock(InputStream.class);
+		when(inputStream.read(any(byte[].class))).thenThrow(new IOException());
+		when(inputStream.read(any(byte[].class), any(int.class), any(int.class))).thenThrow(new IOException());
+		reader.readBytes(inputStream);
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test4() throws IOException {
+		EzyInputStreamReader reader = EzySimpleInputStreamReader.builder()
+				.build();
+		InputStream inputStream = mock(InputStream.class);
+		when(inputStream.read(any(byte[].class))).thenThrow(new IOException());
+		when(inputStream.read(any(byte[].class), any(int.class), any(int.class))).thenThrow(new IOException());
+		reader.readLines(inputStream, "UTF-8");
 	}
 	
 }
