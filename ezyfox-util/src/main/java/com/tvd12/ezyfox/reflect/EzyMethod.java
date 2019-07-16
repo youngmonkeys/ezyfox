@@ -1,5 +1,11 @@
 package com.tvd12.ezyfox.reflect;
 
+import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_GET;
+import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_IS;
+import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_NEW;
+import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_SET;
+import static com.tvd12.ezyfox.reflect.EzyReflections.MODIFIER_PUBLIC;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -8,11 +14,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzyMethods;
-import com.tvd12.ezyfox.reflect.EzyReflectElement;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.util.EzyEquals;
 import com.tvd12.ezyfox.util.EzyHashCodes;
 
@@ -43,7 +46,7 @@ public class EzyMethod implements EzyReflectElement {
 	
 	public boolean isSetter() {
 		return  isPublic() &&
-				method.getName().startsWith("set") &&
+				method.getName().startsWith(METHOD_PREFIX_SET) &&
 				method.getParameterCount() == 1;
 	}
 	
@@ -51,8 +54,8 @@ public class EzyMethod implements EzyReflectElement {
 		String methodName = method.getName();
 		return  isPublic() &&
 				(
-					methodName.startsWith("get") ||
-					methodName.startsWith("is")
+					methodName.startsWith(METHOD_PREFIX_GET) ||
+					methodName.startsWith(METHOD_PREFIX_IS)
 				) &&
 				method.getParameterCount() == 0 &&
 				method.getReturnType() != void.class;
@@ -96,7 +99,9 @@ public class EzyMethod implements EzyReflectElement {
 	
 	public String getFieldName() {
 		String name = getName();
-		if(!name.startsWith("set") && !name.startsWith("get") && !name.startsWith("new"))
+		if(!name.startsWith(METHOD_PREFIX_SET) && 
+				!name.startsWith(METHOD_PREFIX_GET) && 
+				!name.startsWith(METHOD_PREFIX_NEW))
 			return name;
 		if(name.length() <= 3)
 			return name;
@@ -110,7 +115,7 @@ public class EzyMethod implements EzyReflectElement {
 	}
 	
 	public String getPublicDeclaration() {
-		return getDeclaration("public");
+		return getDeclaration(MODIFIER_PUBLIC);
 	}
 	
 	public String getDeclaration(String modifierName) {

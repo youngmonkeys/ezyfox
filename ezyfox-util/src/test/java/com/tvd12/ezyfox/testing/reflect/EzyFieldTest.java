@@ -15,6 +15,8 @@ import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyFields;
 import com.tvd12.test.base.BaseTest;
 
+import lombok.Getter;
+
 public class EzyFieldTest extends BaseTest {
 
 	@Test
@@ -42,6 +44,9 @@ public class EzyFieldTest extends BaseTest {
 		EzyField xyz = new EzyField(ClassA.class.getDeclaredField("xyz"));
 		assertEquals(xyz.getGetterMethod(), "isXyz");
 		
+		EzyField booleanValue = new EzyField(ClassA.class.getDeclaredField("booleanValue"));
+		assertEquals(booleanValue.getGetterMethod(), "getBooleanValue");
+		
 		assert !a.equals(null);
 		assert a.equals(a);
 		assert a.equals(new EzyField(a.getField()));
@@ -53,6 +58,8 @@ public class EzyFieldTest extends BaseTest {
 		protected Map<String,String> ab;
 		protected List<String> abc;
 		protected boolean xyz;
+		@Getter
+		protected Boolean booleanValue;
 	}
 	
 }

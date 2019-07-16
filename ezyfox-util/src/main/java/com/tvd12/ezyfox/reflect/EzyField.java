@@ -1,12 +1,14 @@
 package com.tvd12.ezyfox.reflect;
 
+import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_GET;
+import static com.tvd12.ezyfox.reflect.EzyReflections.*;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.util.EzyEquals;
@@ -59,18 +61,16 @@ public class EzyField
 		return field.getType();
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public String getGetterMethod() {
 		Class<?> type = field.getType();
-		Set<Class> booleanTypes = EzyTypes.BOOLEAN_TYPES;
-		String prefix = "get";
-		if(booleanTypes.contains(type))
-			prefix = "is";
+		String prefix = METHOD_PREFIX_GET;
+		if(type.equals(boolean.class))
+			prefix = METHOD_PREFIX_IS;
 		return prefix + getMethodSuffix();
 	}
 	
 	public String getSetterMethod() {
-		return "set" + getMethodSuffix();
+		return METHOD_PREFIX_SET + getMethodSuffix();
 	}
 	
 	protected String getMethodSuffix() {
