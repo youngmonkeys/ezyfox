@@ -23,7 +23,6 @@ public class EzyCpuMonitor {
 
 		this.lastSystemTime = systemTime;
 		this.lastProcessCpuTime = processCpuTime;
-		
 		int nrocessors = osMxBean.getAvailableProcessors();
 		return cpuLoad / nrocessors;
 	}

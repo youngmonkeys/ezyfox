@@ -14,7 +14,14 @@ public class EzyThreadsMonitor {
 	
 	public int getThreadCount() {
 		ThreadMXBean tmxBean = getThreadMXBean();
-		return tmxBean.getThreadCount();
+		int count = tmxBean.getThreadCount();
+		return count;
+	}
+	
+	public int getDaemonThreadCount() {
+		ThreadMXBean tmxBean = getThreadMXBean();
+		int count = tmxBean.getDaemonThreadCount();
+		return count;
 	}
 	
 	public EzyThreadDetails getThreadDetails(long threadId) {

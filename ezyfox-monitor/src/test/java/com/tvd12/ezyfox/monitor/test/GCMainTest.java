@@ -13,6 +13,7 @@ public class GCMainTest {
 			Thread.sleep(50);
 			Integer abc = new Integer(10);
 			printgc();
+			Thread.sleep(1000);
 		}
 	}
 	
