@@ -6,8 +6,8 @@ import com.sun.management.OperatingSystemMXBean;
 @SuppressWarnings("restriction")
 public class EzyCpuMonitor {
 
-	protected long lastProcessCpuTime = 0L;
-	protected long lastSystemTime = System.nanoTime();
+	protected volatile long lastProcessCpuTime = 0L;
+	protected volatile long lastSystemTime = System.nanoTime();
 	protected final OperatingSystemMXBean osMxBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
 	public EzyCpuMonitor() {
@@ -20,7 +20,6 @@ public class EzyCpuMonitor {
 		long offsetSystemTime = systemTime - lastSystemTime;
 		long offsetProcessCpuTime = processCpuTime - lastProcessCpuTime;
 		double cpuLoad = (1.0D * offsetProcessCpuTime) / offsetSystemTime;
-
 		this.lastSystemTime = systemTime;
 		this.lastProcessCpuTime = processCpuTime;
 		int nrocessors = osMxBean.getAvailableProcessors();
