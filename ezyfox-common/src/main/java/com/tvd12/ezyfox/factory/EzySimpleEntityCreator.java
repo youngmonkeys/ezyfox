@@ -1,7 +1,7 @@
 package com.tvd12.ezyfox.factory;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
@@ -81,7 +81,7 @@ public final class EzySimpleEntityCreator implements EzyEntityCreator {
 	
 	@SuppressWarnings("rawtypes")
 	private final Map<Class, Supplier> defaultSuppliers() {
-		Map<Class, Supplier> answer = new HashMap<>();
+		Map<Class, Supplier> answer = new ConcurrentHashMap<>();
 		answer.put(EzyObject.class, () -> newObject());
 		answer.put(EzyArray.class, () -> newArray());
 		answer.put(EzyObjectBuilder.class, () -> newObjectBuilder());
