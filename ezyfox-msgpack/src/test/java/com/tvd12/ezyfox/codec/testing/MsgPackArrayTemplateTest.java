@@ -8,7 +8,6 @@ import org.msgpack.packer.Packer;
 import org.msgpack.unpacker.Unpacker;
 import org.testng.annotations.Test;
 
-import com.tvd12.ezyfox.codec.MsgPackArrayTemplate;
 import com.tvd12.test.base.BaseTest;
 
 public class MsgPackArrayTemplateTest extends BaseTest {

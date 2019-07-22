@@ -25,7 +25,7 @@
 		    <groupId>org.msgpack</groupId>
 		    <artifactId>msgpack</artifactId>
 		    <version>${msgpack.version}</version>
-		    <optional>true</optional>
+		    <scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

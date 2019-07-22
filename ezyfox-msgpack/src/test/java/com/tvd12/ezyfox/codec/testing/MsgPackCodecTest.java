@@ -4,8 +4,6 @@ import org.msgpack.MessagePack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tvd12.ezyfox.codec.MsgPackArrayTemplate;
-import com.tvd12.ezyfox.codec.MsgPackObjectTemplate;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 

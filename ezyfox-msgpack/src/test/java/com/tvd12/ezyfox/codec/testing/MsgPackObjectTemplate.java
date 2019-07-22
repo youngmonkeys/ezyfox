@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.codec;
+package com.tvd12.ezyfox.codec.testing;
 
 import java.io.IOException;
 
