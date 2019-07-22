@@ -2,13 +2,13 @@ package com.tvd12.ezyfox.io;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
-
-import org.joda.time.DateTime;
 
 public final class EzyDates {
 
@@ -111,11 +111,22 @@ public final class EzyDates {
 	}
 	
 	public static int formatAsInteger(Date date) {
-		DateTime dateTime = new DateTime(date.getTime());
+		LocalDateTime dateTime = dateToDateTime(date);
 		int year = dateTime.getYear();
-		int month = dateTime.getMonthOfYear();
+		int month = dateTime.getMonthValue();
 		int day = dateTime.getDayOfMonth();
 		return year * 10000 + month * 100 + day;
+	}
+	
+	public static LocalDateTime dateToDateTime(Date date) {
+		LocalDateTime dateTime = millisToDateTime(date.getTime());
+		return dateTime;
+	}
+	
+	public static LocalDateTime millisToDateTime(long millis) {
+		Instant instant = Instant.ofEpochMilli(millis);
+		LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+		return dateTime;
 	}
 	
 }
