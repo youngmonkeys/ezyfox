@@ -57,6 +57,34 @@ public class EzyStringsTest extends BaseTest {
 		System.out.println(EzyStrings.wrap(Arrays.asList(1L), "[", "]", ",", false));
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Test
+	public void test5() {
+		assert EzyStrings.isEmpty(null);
+		assert EzyStrings.isEmpty("");
+		assert !EzyStrings.isEmpty(" ");
+		assert !EzyStrings.isEmpty("\t");
+		assert !EzyStrings.isEmpty("\n");
+		assert !EzyStrings.isEmpty("a");
+		
+		assert EzyStrings.isNoContent(null);
+		assert EzyStrings.isNoContent("");
+		assert EzyStrings.isNoContent(" ");
+		assert EzyStrings.isNoContent("\t");
+		assert EzyStrings.isNoContent("\n");
+		assert !EzyStrings.isNoContent("a");
+		
+		System.out.println(EzyStrings.join(new double[] {1.1, 2.2, 3.3}, ","));
+		System.out.println(EzyStrings.join(new int[] {1, 2, 3}, ". "));
+		System.out.println(EzyStrings.join(new long[] {1, 2, 3}, ";- "));
+		System.out.println(EzyStrings.join(new String[] {"a", "b", "c"}, "><"));
+		
+		Collection c1 = Lists.newArrayList("a", "b");
+		System.out.println(EzyStrings.join(c1, ","));
+		Collection<?> c2 = Lists.newArrayList("a", "b");
+		System.out.println(EzyStrings.join(c2, ","));
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyStrings.class;

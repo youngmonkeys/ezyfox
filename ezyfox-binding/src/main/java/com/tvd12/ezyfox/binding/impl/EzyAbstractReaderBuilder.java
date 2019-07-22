@@ -3,14 +3,13 @@ package com.tvd12.ezyfox.binding.impl;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyPostRead;
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
@@ -78,7 +77,7 @@ public abstract class EzyAbstractReaderBuilder
 		String[] paramNames = new String[readMethod.getParameterCount()];
 		for(int i = 0 ; i < paramNames.length ; ++i)
 			paramNames[i] = "arg" + i;
-		String paramNamesChain = StringUtils.join(paramNames, ", ");
+		String paramNamesChain = EzyStrings.join(paramNames, ", ");
 		return new EzyFunction(readMethod)
 				.body()
 					.append(new EzyInstruction("\t", "\n", false)

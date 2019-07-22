@@ -8,8 +8,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.tool.EzyFileTool;
 
 public class EzyCsvFileWriter implements EzyCsvWriter {
@@ -45,7 +44,7 @@ public class EzyCsvFileWriter implements EzyCsvWriter {
 	}
 	
 	protected String rowToLine(Object[] row) {
-		String line = StringUtils.join(row, ',');
+		String line = EzyStrings.join(row, ",");
 		return line;
 	}
 	

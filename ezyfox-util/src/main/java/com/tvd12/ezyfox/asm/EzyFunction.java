@@ -4,8 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 
 public class EzyFunction {
@@ -61,7 +60,7 @@ public class EzyFunction {
 		
 		@Override
 		public String toString() {
-			return StringUtils.join(instructions, "");
+			return EzyStrings.join(instructions, "");
 		}
 	}
 	

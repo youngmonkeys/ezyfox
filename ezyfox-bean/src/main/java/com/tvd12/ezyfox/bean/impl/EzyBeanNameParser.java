@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
@@ -41,9 +40,10 @@ public final class EzyBeanNameParser {
 	public static String getSingletonName(EzySingleton annotation, String defaultName) {
 		if(annotation == null)
 			return defaultName;
-		if(StringUtils.isEmpty(annotation.value()))
+		String value = annotation.value();
+		if(EzyStrings.isNoContent(value))
 			return defaultName;
-		return annotation.value();
+		return value;
 	}
 	
 	// ============ parse prototype ==========
@@ -66,9 +66,10 @@ public final class EzyBeanNameParser {
 	public static String getPrototypeName(EzyPrototype annotation, String defaultName) {
 		if(annotation == null)
 			return defaultName;
-		if(StringUtils.isEmpty(annotation.value()))
+		String value = annotation.value();
+		if(EzyStrings.isNoContent(value))
 			return defaultName;
-		return annotation.value();
+		return value;
 	}
 	
 }

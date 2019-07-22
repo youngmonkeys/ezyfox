@@ -3,8 +3,7 @@ package com.tvd12.ezyfox.asm;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyTypes;
 
@@ -146,7 +145,7 @@ public class EzyInstruction {
 	
 	public EzyInstruction function(String method, String... args) {
 		return append(method)
-				.brackets(StringUtils.join(args, ", "));
+				.brackets(EzyStrings.join(args, ", "));
 	}
 	
 	public EzyInstruction invoke(String object, String method, String... args) {

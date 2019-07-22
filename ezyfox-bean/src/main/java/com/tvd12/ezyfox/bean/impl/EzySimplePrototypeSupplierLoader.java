@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
@@ -159,7 +157,7 @@ public abstract class EzySimplePrototypeSupplierLoader
 				.append("new ")
 				.clazz(clazz.getClazz())
 				.bracketopen()
-				.append(StringUtils.join(cparams, ", "))
+				.append(EzyStrings.join(cparams, ", "))
 				.bracketclose();
 		return instruction;
 	}

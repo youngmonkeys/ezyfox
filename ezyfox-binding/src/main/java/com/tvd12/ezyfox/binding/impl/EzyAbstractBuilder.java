@@ -3,9 +3,8 @@ package com.tvd12.ezyfox.binding.impl;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.tvd12.ezyfox.binding.annotation.EzyValue;
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyAnnotatedElement;
 import com.tvd12.ezyfox.reflect.EzyByFieldMethod;
 import com.tvd12.ezyfox.reflect.EzyClass;
@@ -65,7 +64,8 @@ public abstract class EzyAbstractBuilder<M extends EzyMethod> extends EzyLoggabl
 	protected String getAnnotatedElementKey(
 			EzyAnnotatedElement element, String elementName) {
 		EzyValue kv = element.getAnnotation(EzyValue.class);
-		return StringUtils.isEmpty(kv.value()) ? elementName : kv.value();
+		String value = kv.value();
+		return EzyStrings.isNoContent(value) ? elementName : value;
 	}
 	
 	@SuppressWarnings("rawtypes")

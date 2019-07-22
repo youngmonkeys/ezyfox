@@ -2,13 +2,12 @@ package com.tvd12.ezyfox.rabbitmq.endpoint;
 
 import java.util.concurrent.ThreadFactory;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.ExceptionHandler;
 import com.rabbitmq.client.impl.ForgivingExceptionHandler;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.concurrent.EzyThreadFactory;
+import com.tvd12.ezyfox.io.EzyStrings;
 
 public class EzyRabbitConnectionFactoryBuilder implements EzyBuilder<ConnectionFactory> {
 	protected int port = 5672;
@@ -62,7 +61,7 @@ public class EzyRabbitConnectionFactoryBuilder implements EzyBuilder<ConnectionF
 	@Override
 	public ConnectionFactory build() {
 		ConnectionFactory factory = new ConnectionFactory();
-		if(StringUtils.isEmpty(uri)) {
+		if(EzyStrings.isNoContent(uri)) {
 			factory.setHost(host);
 			factory.setPort(port);
 			factory.setUsername(username);

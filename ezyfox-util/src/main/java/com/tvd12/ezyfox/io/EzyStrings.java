@@ -2,7 +2,10 @@ package com.tvd12.ezyfox.io;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class EzyStrings {
 	
@@ -88,7 +91,49 @@ public final class EzyStrings {
 				builder.append(separator);
 		}
 		return builder.append(close).toString();
-		
+	}
+	
+	public static boolean isEmpty(CharSequence cs) {
+        boolean empty = (cs == null || cs.length() == 0);
+        return empty;
+    }
+	
+	public static boolean isNoContent(String cs) {
+        boolean noContent = (cs == null || cs.isEmpty() || cs.trim().isEmpty());
+        return noContent;
+    }
+	
+	public static String join(double[] array, String separator) {
+		return Arrays.stream(array)
+				.mapToObj(t -> String.valueOf(t))
+				.collect(Collectors.joining(separator));
+	}
+	
+	public static String join(int[] array, String separator) {
+		return Arrays.stream(array)
+				.mapToObj(t -> String.valueOf(t))
+				.collect(Collectors.joining(separator));
+	}
+	
+	public static String join(long[] array, String separator) {
+		return Arrays.stream(array)
+				.mapToObj(t -> String.valueOf(t))
+				.collect(Collectors.joining(separator));
+	}
+	
+	public static <T> String join(T[] array, String separator) {
+		return join(Arrays.stream(array), separator);
+	}
+	
+	public static <T> String join(Collection<T> collection, String separator) {
+		return join(collection.stream(), separator);
+	}
+	
+	public static <T> String join(Stream<T> stream, String separator) {
+		String answer = stream
+	            .map(t -> t.toString())
+	            .collect(Collectors.joining(separator));
+		return answer;
 	}
 	
 }

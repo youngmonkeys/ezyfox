@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang3.reflect.MethodUtils;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.reflections.ReflectionUtils;
 
@@ -45,16 +43,54 @@ public final class EzyMethods {
 		return new EzyMethodFinder(clazz, methodName, parameterTypes).find();
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Method getPublicMethod(
 			Class clazz, String methodName, Class... parameterTypes) {
-		return MethodUtils.getAccessibleMethod(clazz, methodName, parameterTypes);
+		if(clazz == null)
+			return null;
+		try {
+			Method method = clazz.getDeclaredMethod(methodName, parameterTypes);
+			if(Modifier.isPublic(method.getModifiers()))
+				return method;
+			return null;
+		}
+		catch(NoSuchMethodException e) {
+			Class[] interfaces = clazz.getInterfaces();
+			for(Class itf : interfaces) {
+				Method method = getPublicMethod(itf, methodName, parameterTypes);
+				if(method != null)
+					return method;
+			}
+			Class supperClass = clazz.getSuperclass();
+			Method method = getPublicMethod(supperClass, methodName, parameterTypes);
+			return method;
+		}
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public static List<Method> getAnnotatedMethods(
 			Class clazz, Class<? extends Annotation> annClass) {
-		return MethodUtils.getMethodsListWithAnnotation(clazz, annClass);
+		List<Method> answer = new ArrayList<>();
+		getAnnotatedMethods(clazz, annClass, answer);
+		return answer;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private static void getAnnotatedMethods(
+			Class clazz, 
+			Class<? extends Annotation> annClass,
+			List<Method> output) {
+		if(clazz == null || clazz.equals(Object.class))
+			return;
+		Method[] methods = clazz.getDeclaredMethods();
+		for(Method method : methods) {
+			if(method.isAnnotationPresent(annClass))
+				output.add(method);
+		}
+		getAnnotatedMethods(clazz.getSuperclass(), annClass, output);
+		Class[] interfaces = clazz.getInterfaces();
+		for(Class itf : interfaces)
+			getAnnotatedMethods(itf, annClass, output);
 	}
 	
 	@SuppressWarnings("rawtypes")

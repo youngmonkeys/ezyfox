@@ -2,12 +2,11 @@ package com.tvd12.ezyfox.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
-
 import com.tvd12.ezyfox.collect.Lists;
-import com.tvd12.ezyfox.reflect.EzyFieldFinder;
 
 public final class EzyFields {
 
@@ -34,7 +33,14 @@ public final class EzyFields {
 	
 	@SuppressWarnings("rawtypes")
 	public static List<Field> getFields(Class clazz) {
-		return Lists.newArrayList(FieldUtils.getAllFields(clazz));
+		List<Field> answer = new ArrayList<>();
+		Class currentClass = clazz;
+		while(currentClass != null && !currentClass.equals(Object.class)) {
+			Field[] fields = currentClass.getDeclaredFields();
+			Collections.addAll(answer, fields);
+			currentClass = currentClass.getSuperclass();
+		}
+		return answer;
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -45,7 +51,17 @@ public final class EzyFields {
 	@SuppressWarnings("rawtypes")
 	public static List<Field> getAnnotatedFields(
 			Class clazz, Class<? extends Annotation> annClass) {
-		return FieldUtils.getFieldsListWithAnnotation(clazz, annClass);
+		List<Field> answer = new ArrayList<>();
+		Class currentClass = clazz;
+		while(!currentClass.equals(Object.class)) {
+			Field[] fields = currentClass.getDeclaredFields();
+			for(Field field : fields) {
+				if(field.isAnnotationPresent(annClass))
+					answer.add(field);
+			}
+			currentClass = currentClass.getSuperclass();
+		}
+		return answer;
 	}
 	
 	@SuppressWarnings("rawtypes")

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.TimeoutException;
 
-import org.apache.commons.lang3.SerializationUtils;
-
 
 /**
  * The producer endpoint that writes to the queue.
@@ -18,6 +16,6 @@ public class Producer extends EndPoint{
 	}
 
 	public void sendMessage(Serializable object) throws IOException {
-	    channel.basicPublish("",endPointName, null, SerializationUtils.serialize(object));
+	    channel.basicPublish("",endPointName, null, new byte[0]);
 	}	
 }

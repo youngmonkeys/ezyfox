@@ -14,8 +14,6 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<hazelcast.version>3.12</hazelcast.version>
-		<ezy.common.version>1.0.0</ezy.common.version>
-		<ezy.database.version>1.0.0</ezy.database.version>
 	</properties>
 	
 	<dependencies>

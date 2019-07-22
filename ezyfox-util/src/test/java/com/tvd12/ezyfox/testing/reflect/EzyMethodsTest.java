@@ -1,8 +1,21 @@
 package com.tvd12.ezyfox.testing.reflect;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PACKAGE;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.ElementType.TYPE_PARAMETER;
+import static java.lang.annotation.ElementType.TYPE_USE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
@@ -72,6 +85,56 @@ public class EzyMethodsTest extends BaseTest {
 	@Test(expectedExceptions = IllegalArgumentException.class)
 	public void test6() throws Exception {
 		EzyMethods.isOverriddenMethod((Method)null, null);
+	}
+	
+	@Test
+	public void test7() {
+		assert EzyMethods.getPublicMethod(Class21.class, "setValue", String.class).getName().equals("setValue");
+		assert EzyMethods.getPublicMethod(Class21.class, "setValue1", String.class).getName().equals("setValue1");
+		assert EzyMethods.getPublicMethod(Class21.class, "setValue2", String.class).getName().equals("setValue2");
+		assert EzyMethods.getPublicMethod(Class21.class, "setValue3", String.class) == null;
+		assert EzyMethods.getPublicMethod(Class21.class, "setValue4", String.class) == null;
+		assert EzyMethods.getPublicMethod(Class21.class, "setValue no", String.class) == null;
+	}
+	
+	@Test
+	public void test8() {
+		assert EzyMethods.getAnnotatedMethods(Class21.class, Ann21.class).size() == 2;
+	}
+	
+	@Retention(RUNTIME)
+	@Target({ TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER,
+			TYPE_USE })
+	public static @interface Ann21 {
+	}
+	
+	public abstract static class Class21 extends Class21Base implements Interface21 {
+
+		@Override
+		public void setValue1(String value1) {
+		}
+		
+		protected void setValue5(String value5) {
+		}
+		
+	}
+	
+	public static class Class21Base {
+		public void setValue2(String value2) {
+		}
+		
+		@Ann21
+		protected void setValue3(String value3) {
+		}
+	}
+	
+	public static interface Interface21 extends Interface21Base {
+		void setValue1(String value1);
+	}
+	
+	public static interface Interface21Base {
+		@Ann21
+		void setValue(String value);
 	}
 	
 	public static class ClassA3 {

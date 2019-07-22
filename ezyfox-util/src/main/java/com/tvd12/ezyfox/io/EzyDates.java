@@ -1,13 +1,13 @@
 package com.tvd12.ezyfox.io;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.joda.time.DateTime;
 
 public final class EzyDates {
@@ -79,16 +79,22 @@ public final class EzyDates {
 	}
 	
 	public static String format(long millis, String pattern) {
-		return FastDateFormat.getInstance(pattern).format(millis);
+		return format(new Date(millis), pattern);
 	}
 	
 	public static String format(Date date, String pattern) {
-		return date == null ? null : FastDateFormat.getInstance(pattern).format(date);
+		if(date == null)
+			return null;
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+		String answer = formatter.format(date);
+		return answer;
 	}
 	
 	public static Date parse(String source, String pattern) {
 		try {
-			return FastDateFormat.getInstance(pattern).parse(source);
+			SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+			Date answer = formatter.parse(source);
+			return answer;
 		} catch (ParseException e) {
 			throw new IllegalArgumentException(e);
 		}

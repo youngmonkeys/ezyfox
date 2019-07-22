@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
-import org.apache.commons.lang3.SerializationUtils;
-
 import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.Envelope;
@@ -45,7 +43,7 @@ public class QueueConsumer extends EndPoint implements Runnable, Consumer{
 	@SuppressWarnings("rawtypes")
 	public void handleDelivery(String consumerTag, Envelope env,
 			BasicProperties props, byte[] body) throws IOException {
-		Map map = (HashMap)SerializationUtils.deserialize(body);
+		Map map = new HashMap<>();
 	    System.out.println("Message Number "+ map.get("message number") + " received.");
 		
 	}

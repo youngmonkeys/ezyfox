@@ -3,11 +3,9 @@ package com.tvd12.ezyfox.concurrent;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.util.EzyLoggable;
-import com.tvd12.ezyfox.concurrent.EzyThreadFactory;
 
 public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
 
@@ -70,7 +68,7 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
 	}
 	
 	protected String getFullPoolName() {
-		return StringUtils.isEmpty(prefix) ? poolName : prefix + "-" + poolName;
+		return EzyStrings.isNoContent(prefix) ? poolName : prefix + "-" + poolName;
 	}
 	
 	public static Builder builder() {

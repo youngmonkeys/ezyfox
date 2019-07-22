@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.tvd12.ezyfox.collect.Lists;
 
 /**
@@ -460,7 +458,10 @@ public final class EzyDataConverter {
      * @return wrapper Boolean array
      */
     public static Boolean[] toBoolWrapperArray(boolean[] value) {
-        return ArrayUtils.toObject(value);
+    		Boolean[] answer = new Boolean[value.length];
+    		for(int i = 0 ; i < value.length ; ++i)
+    			answer[i] = value[i];
+        return answer;
     }
     
     /**
@@ -470,7 +471,10 @@ public final class EzyDataConverter {
      * @return wrapper Boolean array
      */
     public static Byte[] toByteWrapperArray(byte[] value) {
-        return ArrayUtils.toObject(value);
+	    	Byte[] answer = new Byte[value.length];
+		for(int i = 0 ; i < value.length ; ++i)
+			answer[i] = value[i];
+	    return answer;
     }
     //===== end primitive array to wrapper array =====
     
@@ -482,7 +486,10 @@ public final class EzyDataConverter {
      */
     public static Character[] toCharWrapperArray(
             byte[] value) {
-        return ArrayUtils.toObject(byteArrayToCharArray(value));
+    		Character[] answer = new Character[value.length];
+		for(int i = 0 ; i < value.length ; ++i)
+			answer[i] = (char)value[i];
+		return answer;
     }
     
     /**
@@ -493,7 +500,10 @@ public final class EzyDataConverter {
      */
     public static byte[] toPrimitiveByteArray(
             Byte[] value) {
-        return ArrayUtils.toPrimitive(value);
+    		byte[] answer = new byte[value.length];
+		for(int i = 0 ; i < value.length ; ++i)
+			answer[i] = value[i];
+		return answer;
     }
     
     /**
@@ -504,7 +514,10 @@ public final class EzyDataConverter {
      */
     public static char[] toPrimitiveCharArray(
             Character[] value) {
-        return ArrayUtils.toPrimitive(value);
+    		char[] answer = new char[value.length];
+		for(int i = 0 ; i < value.length ; ++i)
+			answer[i] = value[i];
+		return answer;
     }
     
     /**

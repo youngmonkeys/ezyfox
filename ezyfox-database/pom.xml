@@ -8,7 +8,7 @@
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>ezyfox-database</artifactId>
-	<version>${ezyfox.database.version}</version> <!-- ${project.version} -->
+	<version>${ezy.database.version}</version> <!-- ${project.version} -->
 	<name>ezyfox-database</name>
 	<url>http://maven.apache.org</url>
 	

@@ -3,11 +3,10 @@ package com.tvd12.ezyfox.bean.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
+import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyMethod;
@@ -55,7 +54,7 @@ public class EzyByMethodPrototypeSupplierLoader
 				.append("configurator.")
 				.append(method.getName())
 				.bracketopen()
-				.append(StringUtils.join(cparams, ", "))
+				.append(EzyStrings.join(cparams, ", "))
 				.bracketclose();
 		return instruction;
 	}

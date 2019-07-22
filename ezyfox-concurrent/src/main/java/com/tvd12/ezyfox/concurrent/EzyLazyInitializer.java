@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.concurrent;
 
-import org.apache.commons.lang3.concurrent.ConcurrentException;
-import org.apache.commons.lang3.concurrent.LazyInitializer;
-
 import com.tvd12.ezyfox.function.EzyInitialize;
 
 public class EzyLazyInitializer<T> extends LazyInitializer<T> {
@@ -14,21 +11,8 @@ public class EzyLazyInitializer<T> extends LazyInitializer<T> {
 	}
 	
 	@Override
-	protected T initialize() throws ConcurrentException {
+	protected T initialize() {
 		return initializer.init();
-	}
-	
-	@Override
-	public T get() {
-		try {
-			return doGet();
-		} catch (ConcurrentException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-	
-	protected T doGet() throws ConcurrentException {
-		return super.get();
 	}
 	
 }
