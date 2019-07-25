@@ -6,7 +6,7 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyField;
 
-public class EzyCreateSameObjectScriptGenerator {
+public class EzySameObjectScriptCreator {
 
 	protected Class<?> originClass;
 	protected Class<?> targetClass;
@@ -14,31 +14,31 @@ public class EzyCreateSameObjectScriptGenerator {
 	protected String targetObjectName;
 	protected boolean includeAllFields;
 	
-	public EzyCreateSameObjectScriptGenerator originClass(Class<?> originClass) {
+	public EzySameObjectScriptCreator originClass(Class<?> originClass) {
 		this.originClass = originClass;
 		if(originObjectName == null)
 			originObjectName = EzyClasses.getVariableName(originClass);
 		return this;
 	}
 	
-	public EzyCreateSameObjectScriptGenerator targetClass(Class<?> targetClass) {
+	public EzySameObjectScriptCreator targetClass(Class<?> targetClass) {
 		this.targetClass = targetClass;
 		if(targetObjectName == null)
 			targetObjectName = EzyClasses.getVariableName(targetClass);
 		return this;
 	}
 	
-	public EzyCreateSameObjectScriptGenerator originObjectName(String originObjectName) {
+	public EzySameObjectScriptCreator originObjectName(String originObjectName) {
 		this.originObjectName = originObjectName;
 		return this;
 	}
 	
-	public EzyCreateSameObjectScriptGenerator targetObjectName(String targetObjectName) {
+	public EzySameObjectScriptCreator targetObjectName(String targetObjectName) {
 		this.targetObjectName = targetObjectName;
 		return this;
 	}
 	
-	public EzyCreateSameObjectScriptGenerator includeAllFields(boolean includeAllFields) {
+	public EzySameObjectScriptCreator includeAllFields(boolean includeAllFields) {
 		this.includeAllFields = includeAllFields;
 		return this;
 	}

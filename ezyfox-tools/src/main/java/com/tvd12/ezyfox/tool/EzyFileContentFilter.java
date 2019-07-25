@@ -14,7 +14,7 @@ import com.tvd12.ezyfox.tool.data.EzyFileLine;
 import com.tvd12.ezyfox.tool.io.EzyObjectOutputStream;
 import com.tvd12.reflections.util.Predicates;
 
-@SuppressWarnings({"rawtypes", "unchecked", "resource"})
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class EzyFileContentFilter {
 
 	protected final String rootDir;

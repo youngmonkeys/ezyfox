@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -315,6 +317,12 @@ public class EzyObjectInstanceRandom {
 				builder.append(DEFAULT_STRINGS[index]);
 			}
 			return builder.toString();
+		});
+		randoms.put(BigDecimal.class, () -> {
+			return new BigDecimal(10L);
+		});
+		randoms.put(BigInteger.class, () -> {
+			return new BigInteger("10");
 		});
 		randoms.put(Date.class, () -> {
 			Date now = new Date();
