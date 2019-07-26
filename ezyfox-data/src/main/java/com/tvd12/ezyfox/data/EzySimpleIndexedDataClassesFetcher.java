@@ -27,7 +27,8 @@ public class EzySimpleIndexedDataClassesFetcher
 	}
 	
 	public EzyIndexedDataClassesFetcher scan(Iterable<String> packageNames) {
-		packageNames.forEach(this::scan);
+		for(String packageName : packageNames)
+			this.scan(packageName);
 		return this;
 	}
 	
@@ -44,7 +45,8 @@ public class EzySimpleIndexedDataClassesFetcher
 	
 	@Override
 	public EzyIndexedDataClassesFetcher addIndexedDataClasses(Iterable<Class> classes) {
-		classes.forEach(this::addIndexedDataClass);
+		for(Class clazz : classes)
+			this.addIndexedDataClass(clazz);
 		return this;
 	}
 	

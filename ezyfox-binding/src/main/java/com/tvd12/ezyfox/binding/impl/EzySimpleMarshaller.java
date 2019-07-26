@@ -46,7 +46,8 @@ public class EzySimpleMarshaller
 	}
 	
 	public void addWriters(Iterable<EzyWriter> writers) {
-		writers.forEach(this::addWriter);
+		for(EzyWriter writer : writers)
+			this.addWriter(writer);
 	}
 	
 	public void addWriter(Class type, EzyWriter writer) {

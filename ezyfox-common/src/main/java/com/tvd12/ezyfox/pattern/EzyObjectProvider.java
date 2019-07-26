@@ -108,7 +108,7 @@ public abstract class EzyObjectProvider<T>
 	}
 	
 	protected void shutdownAll() {
-		processWithLogException(validationService::shutdown);
+		processWithLogException(() -> validationService.shutdown());
 	}
 	
 	@SuppressWarnings({"rawtypes", "unchecked"})

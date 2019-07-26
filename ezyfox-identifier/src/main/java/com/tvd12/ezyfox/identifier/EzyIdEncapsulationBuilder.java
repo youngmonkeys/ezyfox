@@ -26,7 +26,8 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
 	}
 
 	public B scan(Iterable<String> packageNames) {
-		packageNames.forEach(this::scan);
+		for(String packageName : packageNames)
+			this.scan(packageName);
 		return (B)this;
 	}
 
@@ -41,7 +42,8 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
 	}
 
 	public B addClasses(Iterable<Class> classes) {
-		classes.forEach(this::addClass);
+		for(Class clazz : classes)
+			this.addClass(clazz);
 		return (B)this;
 	}
 	

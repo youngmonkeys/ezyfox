@@ -54,34 +54,34 @@ public class MsgPackSimpleDeserializer
 	}
 	
 	protected void addParsers(Map<MsgPackType, EzyParser<ByteBuffer, Object>> parsers) {
-		parsers.put(MsgPackType.POSITIVE_FIXINT, this::parsePositiveFixInt); //0K
-		parsers.put(MsgPackType.NEGATIVE_FIXINT, this::parseNegativeFixInt); //OK
-		parsers.put(MsgPackType.UINT8, this::parseUInt8); //OK
-		parsers.put(MsgPackType.UINT16, this::parseUInt16); //OK
-		parsers.put(MsgPackType.UINT32, this::parseUInt32); //OK
-		parsers.put(MsgPackType.UINT64, this::parseUInt64); //OK
-		parsers.put(MsgPackType.INT8, this::parseInt8); //OK
-		parsers.put(MsgPackType.INT16, this::parseInt16); //OK
-		parsers.put(MsgPackType.INT32, this::parseInt32); //OK
-		parsers.put(MsgPackType.INT64, this::parseInt64); //OK
-		parsers.put(MsgPackType.FIXMAP, this::parseFixMap); //OK
-		parsers.put(MsgPackType.MAP16, this::parseMap16); //OK
-		parsers.put(MsgPackType.MAP32, this::parseMap32); //OK
-		parsers.put(MsgPackType.FIXARRAY, this::parseFixArray); //OK
-		parsers.put(MsgPackType.ARRAY16, this::parseArray16); //OK
-		parsers.put(MsgPackType.ARRAY32, this::parseArray32); //OK
-		parsers.put(MsgPackType.FIXSTR, this::parseFixStr);
-		parsers.put(MsgPackType.STR8, this::parseStr8);
-		parsers.put(MsgPackType.STR16, this::parseStr16);
-		parsers.put(MsgPackType.STR32, this::parseStr32);
-		parsers.put(MsgPackType.NIL, this::parseNil);
-		parsers.put(MsgPackType.FALSE, this::parseFalse);
-		parsers.put(MsgPackType.TRUE, this::parseTrue);
-		parsers.put(MsgPackType.BIN8, this::parseBin8);
-		parsers.put(MsgPackType.BIN16, this::parseBin16);
-		parsers.put(MsgPackType.BIN32, this::parseBin32);
-		parsers.put(MsgPackType.FLOAT32, this::parseFloat32);
-		parsers.put(MsgPackType.FLOAT64, this::parseFloat64);
+		parsers.put(MsgPackType.POSITIVE_FIXINT, buffer -> parsePositiveFixInt(buffer)); //0K
+		parsers.put(MsgPackType.NEGATIVE_FIXINT, buffer -> parseNegativeFixInt(buffer)); //OK
+		parsers.put(MsgPackType.UINT8, buffer -> parseUInt8(buffer)); //OK
+		parsers.put(MsgPackType.UINT16, buffer -> parseUInt16(buffer)); //OK
+		parsers.put(MsgPackType.UINT32, buffer -> parseUInt32(buffer)); //OK
+		parsers.put(MsgPackType.UINT64, buffer -> parseUInt64(buffer)); //OK
+		parsers.put(MsgPackType.INT8, buffer -> parseInt8(buffer)); //OK
+		parsers.put(MsgPackType.INT16, buffer -> parseInt16(buffer)); //OK
+		parsers.put(MsgPackType.INT32, buffer -> parseInt32(buffer)); //OK
+		parsers.put(MsgPackType.INT64, buffer -> parseInt64(buffer)); //OK
+		parsers.put(MsgPackType.FIXMAP, buffer -> parseFixMap(buffer)); //OK
+		parsers.put(MsgPackType.MAP16, buffer -> parseMap16(buffer)); //OK
+		parsers.put(MsgPackType.MAP32, buffer -> parseMap32(buffer)); //OK
+		parsers.put(MsgPackType.FIXARRAY, buffer -> parseFixArray(buffer)); //OK
+		parsers.put(MsgPackType.ARRAY16, buffer -> parseArray16(buffer)); //OK
+		parsers.put(MsgPackType.ARRAY32, buffer -> parseArray32(buffer)); //OK
+		parsers.put(MsgPackType.FIXSTR, buffer -> parseFixStr(buffer));
+		parsers.put(MsgPackType.STR8, buffer -> parseStr8(buffer));
+		parsers.put(MsgPackType.STR16, buffer -> parseStr16(buffer));
+		parsers.put(MsgPackType.STR32, buffer -> parseStr32(buffer));
+		parsers.put(MsgPackType.NIL, buffer -> parseNil(buffer));
+		parsers.put(MsgPackType.FALSE, buffer -> parseFalse(buffer));
+		parsers.put(MsgPackType.TRUE, buffer -> parseTrue(buffer));
+		parsers.put(MsgPackType.BIN8, buffer -> parseBin8(buffer));
+		parsers.put(MsgPackType.BIN16, buffer -> parseBin16(buffer));
+		parsers.put(MsgPackType.BIN32, buffer -> parseBin32(buffer));
+		parsers.put(MsgPackType.FLOAT32, buffer -> parseFloat32(buffer));
+		parsers.put(MsgPackType.FLOAT64, buffer -> parseFloat64(buffer));
 	}
 	
 	protected Object parseFloat32(ByteBuffer buffer) {

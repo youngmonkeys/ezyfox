@@ -201,7 +201,8 @@ public class EzySimpleBindingContext
 		 */
 		@Override
 		public EzyBindingContextBuilder addClasses(Iterable<Class> classes) {
-			classes.forEach(this::addClass);
+			for(Class clazz : classes)
+				this.addClass(clazz);
 			return this;
 		}
 
@@ -245,7 +246,8 @@ public class EzySimpleBindingContext
 		 */
 		@Override
 		public EzyBindingContextBuilder addTemplateClasses(Iterable<Class<?>> classes) {
-			classes.forEach(this::addTemplateClass);
+			for(Class<?> clazz : classes)
+				this.addTemplateClass(clazz);
 			return this;
 		}
 		
@@ -292,11 +294,13 @@ public class EzySimpleBindingContext
 		}
 		
 		private void parseObjectBindingClasses() {
-			objectBindingClasses.forEach(this::parseObjectBindingClass);
+			for(Class clazz : objectBindingClasses)
+				this.parseObjectBindingClass(clazz);
 		}
 		
 		private void parseArrayBindingClasses() {
-			arrayBindingClasses.forEach(this::parseArrayBindingClass);
+			for(Class clazz : arrayBindingClasses)
+				this.parseArrayBindingClass(clazz);
 		}
 		
 		private void parseObjectBindingClass(Class<?> clazz) {
@@ -322,8 +326,10 @@ public class EzySimpleBindingContext
 		}
 		
 		private void parseTemplateClasses() {
-			writerImplClasses.forEach(this::parseTemplateClass);
-			readerImplClasses.forEach(this::parseTemplateClass);
+			for(Class clazz : writerImplClasses)
+				this.parseTemplateClass(clazz);
+			for(Class clazz : readerImplClasses)
+				this.parseTemplateClass(clazz);
 		}
 		
 		@SuppressWarnings("unchecked")
@@ -332,7 +338,8 @@ public class EzySimpleBindingContext
 		}
 		
 		private void scanPackagesScanClasses() {
-			packagesScanClasses.forEach(this::scanPackagesScanClass);
+			for(Class clazz : packagesScanClasses)
+				this.scanPackagesScanClass(clazz);
 		}
 		
 		private void scanPackagesScanClass(Class<?> clazz) {

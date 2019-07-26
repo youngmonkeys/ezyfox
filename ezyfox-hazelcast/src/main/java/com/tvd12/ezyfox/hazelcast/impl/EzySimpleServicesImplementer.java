@@ -38,7 +38,8 @@ public class EzySimpleServicesImplementer
 	}
 	
 	public EzyServicesImplementer scan(Iterable<String> packageNames) {
-		packageNames.forEach(this::scan);
+		for(String packageName : packageNames)
+			this.scan(packageName);
 		return this;	
 	}
 	
@@ -74,7 +75,7 @@ public class EzySimpleServicesImplementer
 			return new HashSet<>();
 		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
 		Set<Class<?>> classes = reflection.getExtendsClasses(EzyHazelcastMapService.class);
-		return EzySets.filter(classes, this::isAutoImplServiceInterface);
+		return EzySets.filter(classes, clazz -> this.isAutoImplServiceInterface(clazz));
 	}
 	
 	private boolean isAutoImplServiceInterface(Class<?> clazz) {

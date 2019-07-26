@@ -35,7 +35,7 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
 	@SuppressWarnings("rawtypes")
 	public List<Class> asList(String filePath) {
 		Collection<String> classNames = getClassNames(filePath);
-		return EzyLists.newArrayList(classNames, this::getClass);
+		return EzyLists.newArrayList(classNames, cn -> this.getClass(cn));
 	}
 	
 	@SuppressWarnings("rawtypes")

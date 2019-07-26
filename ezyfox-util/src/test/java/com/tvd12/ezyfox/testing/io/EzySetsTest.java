@@ -33,7 +33,7 @@ public class EzySetsTest extends BaseTest {
 		assertEquals(set, Sets.newHashSet("1", "2", "3", "4", "5", "6"));
 		
 		Collection<String> coll1 = Lists.newArrayList("ab", "cde");
-		Set<Character> set1 = EzySets.newHashSetByAddAll(coll1, this::stringtoChars);
+		Set<Character> set1 = EzySets.newHashSetByAddAll(coll1, t -> this.stringtoChars(t));
 		assertEquals(set1, Sets.newHashSet('a', 'b', 'c', 'd', 'e'));
 		
 		Set<String> set2 = EzySets.filter(set, 

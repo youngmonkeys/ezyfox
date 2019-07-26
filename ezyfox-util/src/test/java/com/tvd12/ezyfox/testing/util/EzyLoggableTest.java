@@ -20,7 +20,7 @@ public class EzyLoggableTest extends EzyLoggable {
 		long time2 = Performance.create()
 				.test(() -> new B())
 				.getTime();
-		System.out.println("EzyLoggableTest::performanceTest: time1: " + time1 + ", time2: " + time2);
+		System.out.println("EzyLoggableTest:performanceTest: time1: " + time1 + ", time2: " + time2);
 	}
 	
 	public static class A extends EzyLoggable {

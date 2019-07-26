@@ -76,7 +76,7 @@ public class SerializeArrayTest extends BaseTest {
 			serializer.serialize(array);
 		})
 		.getTime();
-		System.out.println("SerializeArrayTest::test1 elapsed time = " + time);
+		System.out.println("SerializeArrayTest:test1 elapsed time = " + time);
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ public class SerializeArrayTest extends BaseTest {
 			serializer.write(array);
 		})
 		.getTime();
-		System.out.println("SerializeArrayTest::test2 elapsed time = " + time);
+		System.out.println("SerializeArrayTest:test2 elapsed time = " + time);
 	}
 	
 }

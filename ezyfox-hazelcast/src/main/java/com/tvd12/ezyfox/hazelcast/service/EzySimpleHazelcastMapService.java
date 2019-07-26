@@ -109,7 +109,8 @@ public abstract class EzySimpleHazelcastMapService<K,V>
 	
 	@Override
 	public void remove(Iterable<K> keys) {
-		keys.forEach(this::remove);
+		for(K key : keys)
+			this.remove(key);
 	}
 	
 	@Override

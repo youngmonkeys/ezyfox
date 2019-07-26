@@ -71,7 +71,8 @@ public class EzySimpleMapstoresFetcher
 		}
 		
 		public Builder scan(Iterable<String> packageNames) {
-			packageNames.forEach(this::scan);
+			for(String packageName : packageNames)
+				this.scan(packageName);
 			return this;	
 		}
 		

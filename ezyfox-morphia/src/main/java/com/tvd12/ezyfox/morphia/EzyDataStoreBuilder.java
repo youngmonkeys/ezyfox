@@ -70,7 +70,8 @@ public class EzyDataStoreBuilder
 	}
 	
 	public EzyDataStoreBuilder addEntityClasses(Iterable<Class> classes) {
-		classes.forEach(this::addEntityClass);
+		for(Class clazz : classes)
+			this.addEntityClass(clazz);
 		return this;
 	}
 	

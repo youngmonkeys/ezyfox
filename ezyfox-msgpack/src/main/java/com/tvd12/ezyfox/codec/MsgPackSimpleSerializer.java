@@ -57,50 +57,50 @@ public class MsgPackSimpleSerializer
 
 	@Override
 	protected void addParsers(Map<Class<?>, EzyParser<Object, byte[]>> parsers) {
-		parsers.put(Boolean.class, this::parseBoolean);
-		parsers.put(Byte.class, this::parseByte);
-		parsers.put(Character.class, this::parseChar);
-		parsers.put(Double.class, this::parseDouble);
-		parsers.put(Float.class, this::parseFloat);
-		parsers.put(Integer.class, this::parseInt);
-		parsers.put(Long.class, this::parseInt);
-		parsers.put(Short.class, this::parseShort);
-		parsers.put(String.class, this::parseString);
+		parsers.put(Boolean.class, value -> parseBoolean(value));
+		parsers.put(Byte.class, value -> parseByte(value));
+		parsers.put(Character.class, value -> parseChar(value));
+		parsers.put(Double.class, value -> parseDouble(value));
+		parsers.put(Float.class, value -> parseFloat(value));
+		parsers.put(Integer.class, value -> parseInt(value));
+		parsers.put(Long.class, value -> parseInt(value));
+		parsers.put(Short.class, value -> parseShort(value));
+		parsers.put(String.class, value -> parseString(value));
 		
-		parsers.put(boolean[].class, this::parsePrimitiveBooleans);
-		parsers.put(byte[].class, this::parseBin);
-		parsers.put(char[].class, this::parsePrimitiveChars);
-		parsers.put(double[].class, this::parsePrimitiveDoubles);
-		parsers.put(float[].class, this::parsePrimitiveFloats);
-		parsers.put(int[].class, this::parsePrimitiveInts);
-		parsers.put(long[].class, this::parsePrimitiveLongs);
-		parsers.put(short[].class, this::parsePrimitiveShorts);
-		parsers.put(String[].class, this::parseStrings);
+		parsers.put(boolean[].class, value -> parsePrimitiveBooleans(value));
+		parsers.put(byte[].class, value -> parseBin(value));
+		parsers.put(char[].class, value -> parsePrimitiveChars(value));
+		parsers.put(double[].class, value -> parsePrimitiveDoubles(value));
+		parsers.put(float[].class, value -> parsePrimitiveFloats(value));
+		parsers.put(int[].class, value -> parsePrimitiveInts(value));
+		parsers.put(long[].class, value -> parsePrimitiveLongs(value));
+		parsers.put(short[].class, value -> parsePrimitiveShorts(value));
+		parsers.put(String[].class, value -> parseStrings(value));
 		
-		parsers.put(Byte[].class, this::parseWrapperBytes);
-		parsers.put(Boolean[].class, this::parseWrapperBooleans);
-		parsers.put(Character[].class, this::parseWrapperChars);
-		parsers.put(Double[].class, this::parseWrapperDoubles);
-		parsers.put(Float[].class, this::parseWrapperFloats);
-		parsers.put(Integer[].class, this::parseWrapperInts);
-		parsers.put(Long[].class, this::parseWrapperLongs);
-		parsers.put(Short[].class, this::parseWrapperShorts);
+		parsers.put(Byte[].class, value -> parseWrapperBytes(value));
+		parsers.put(Boolean[].class, value -> parseWrapperBooleans(value));
+		parsers.put(Character[].class, value -> parseWrapperChars(value));
+		parsers.put(Double[].class, value -> parseWrapperDoubles(value));
+		parsers.put(Float[].class, value -> parseWrapperFloats(value));
+		parsers.put(Integer[].class, value -> parseWrapperInts(value));
+		parsers.put(Long[].class, value -> parseWrapperLongs(value));
+		parsers.put(Short[].class, value -> parseWrapperShorts(value));
 		
-		parsers.put(Map.class, this::parseMap);
-		parsers.put(AbstractMap.class, this::parseMap);
-		parsers.put(HashMap.class, this::parseMap);
-		parsers.put(EzyObject.class, this::parseObject);
-		parsers.put(EzyHashMap.class, this::parseObject);
-		parsers.put(EzyArray.class, this::parseArray);
-		parsers.put(EzyArrayList.class, this::parseArray);
-		parsers.put(Collection.class, this::parseCollection);
-		parsers.put(AbstractCollection.class, this::parseCollection);
-		parsers.put(Set.class, this::parseCollection);
-		parsers.put(AbstractSet.class, this::parseCollection);
-		parsers.put(List.class, this::parseCollection);
-		parsers.put(AbstractList.class, this::parseCollection);
-		parsers.put(HashSet.class, this::parseCollection);
-		parsers.put(ArrayList.class, this::parseCollection);
+		parsers.put(Map.class, value -> parseMap(value));
+		parsers.put(AbstractMap.class, value -> parseMap(value));
+		parsers.put(HashMap.class, value -> parseMap(value));
+		parsers.put(EzyObject.class, value -> parseObject(value));
+		parsers.put(EzyHashMap.class, value -> parseObject(value));
+		parsers.put(EzyArray.class, value -> parseArray(value));
+		parsers.put(EzyArrayList.class, value -> parseArray(value));
+		parsers.put(Collection.class, value -> parseCollection(value));
+		parsers.put(AbstractCollection.class, value -> parseCollection(value));
+		parsers.put(Set.class, value -> parseCollection(value));
+		parsers.put(AbstractSet.class, value -> parseCollection(value));
+		parsers.put(List.class, value -> parseCollection(value));
+		parsers.put(AbstractList.class, value -> parseCollection(value));
+		parsers.put(HashSet.class, value -> parseCollection(value));
+		parsers.put(ArrayList.class, value -> parseCollection(value));
 	}
 	
 	//

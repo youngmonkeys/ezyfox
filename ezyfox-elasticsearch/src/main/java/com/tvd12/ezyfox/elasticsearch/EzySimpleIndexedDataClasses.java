@@ -60,7 +60,8 @@ public class EzySimpleIndexedDataClasses implements EzyIndexedDataClasses {
 		
 		@Override
 		public Builder addIndexedDataClasses(Iterable<Class> classes) {
-			classes.forEach(this::addIndexedDataClass);
+			for(Class clazz : classes)
+				this.addIndexedDataClass(clazz);
 			return this;
 		}
 		

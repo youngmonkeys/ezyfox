@@ -30,7 +30,7 @@ public class EzyListsTest extends BaseTest {
 		assertEquals(set, Lists.newArrayList("1", "2", "3", "4", "5", "6"));
 		
 		Collection<String> coll1 = Lists.newArrayList("ab", "cde");
-		List<Character> set1 = EzyLists.newHashSetByAddAll(coll1, this::stringtoChars);
+		List<Character> set1 = EzyLists.newHashSetByAddAll(coll1, t -> this.stringtoChars(t));
 		assertEquals(set1, Lists.newArrayList('a', 'b', 'c', 'd', 'e'));
 		
 		List<String> set2 = EzyLists.filter(set, 

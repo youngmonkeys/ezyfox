@@ -37,7 +37,8 @@ public abstract class EzySimpleRepositoriesImplementer
 	}
 	
 	public EzyRepositoriesImplementer scan(Iterable<String> packageNames) {
-		packageNames.forEach(this::scan);
+		for(String packageName : packageNames)
+			this.scan(packageName);
 		return this;	
 	}
 	
@@ -63,7 +64,8 @@ public abstract class EzySimpleRepositoriesImplementer
 	
 	@Override
 	public EzyRepositoriesImplementer repositoryInterfaces(Iterable<Class<?>> itfs) {
-		itfs.forEach(this::repositoryInterface);
+		for(Class<?> itf : itfs)
+			this.repositoryInterface(itf);
 		return this;
 	}
 	
@@ -91,7 +93,7 @@ public abstract class EzySimpleRepositoriesImplementer
 			return new HashSet<>();
 		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
 		Set<Class<?>> classes = reflection.getExtendsClasses(EzyMongoRepository.class);
-		return EzySets.filter(classes, this::isAutoImplRepoInterface);
+		return EzySets.filter(classes, clazz -> this.isAutoImplRepoInterface(clazz));
 	}
 	
 	private boolean isAutoImplRepoInterface(Class<?> clazz) {

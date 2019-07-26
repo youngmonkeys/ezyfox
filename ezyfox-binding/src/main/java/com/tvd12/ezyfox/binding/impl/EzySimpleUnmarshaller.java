@@ -82,7 +82,8 @@ public class EzySimpleUnmarshaller
 	}
 	
 	public void addReaders(Iterable<EzyReader> readers) {
-		readers.forEach(this::addReader);
+		for(EzyReader reader : readers)
+			this.addReader(reader);
 	}
 	
 	public void addReader(Class type, EzyReader reader) {

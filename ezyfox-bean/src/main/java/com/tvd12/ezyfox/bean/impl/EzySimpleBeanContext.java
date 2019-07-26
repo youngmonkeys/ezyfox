@@ -264,7 +264,8 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addSingletonClasses(Iterable<Class> classes) {
-			classes.forEach(this::addSingletonClass);
+			for(Class clazz : classes)
+				this.addSingletonClass(clazz);
 			return this;
 		}
 		
@@ -290,7 +291,8 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addPrototypeClasses(Iterable<Class> classes) {
-			classes.forEach(this::addPrototypeClass);
+			for(Class clazz : classes)
+				this.addPrototypeClass(clazz);
 			return this;
 		}
 
@@ -406,7 +408,8 @@ public class EzySimpleBeanContext
 		}
 		
 		private void scanPackagesScanClasses() {
-			packagesScanClasses.forEach(this::scanPackagesScanClass);
+			for(Class clazz : packagesScanClasses)
+				this.scanPackagesScanClass(clazz);
 		}
 		
 		private void scanPackagesScanClass(Class<?> clazz) {
