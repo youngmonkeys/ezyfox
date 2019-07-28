@@ -16,6 +16,7 @@ public class EzyFieldsTest extends BaseTest {
 	
 	@Test
 	public void test() {
+		assert EzyFields.getFields(null).isEmpty();
 		assertEquals(EzyFields.getAnnotatedFields(ClassB.class, ExampleAnnotation.class).size(), 2);
 	}
 	
