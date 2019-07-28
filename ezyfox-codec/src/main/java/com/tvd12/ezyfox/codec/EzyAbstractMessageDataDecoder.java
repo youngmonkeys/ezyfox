@@ -2,9 +2,12 @@ package com.tvd12.ezyfox.codec;
 
 import java.nio.ByteBuffer;
 
+import com.tvd12.ezyfox.util.EzyDestroyable;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-public class EzyAbstractMessageDataDecoder<D> extends EzyLoggable {
+public class EzyAbstractMessageDataDecoder<D> 
+		extends EzyLoggable 
+		implements EzyDestroyable {
 
 	protected ByteBuffer buffer;
 	protected volatile boolean active;
@@ -16,6 +19,7 @@ public class EzyAbstractMessageDataDecoder<D> extends EzyLoggable {
 		this.decoder = decoder;
 	}
 	
+	@Override
 	public void destroy() {
 		this.active = false;
 	}

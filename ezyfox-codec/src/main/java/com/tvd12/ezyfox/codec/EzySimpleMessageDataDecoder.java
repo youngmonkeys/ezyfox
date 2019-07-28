@@ -32,11 +32,12 @@ public class EzySimpleMessageDataDecoder
 	}
 	
 	private void handleQueue(EzyCallback<EzyMessage> callback) throws Exception {
-		while(!queue.isEmpty() && active) {
+		while(queue.size() > 0 && active) {
 			do {
-				callback.call(queue.poll());
+				EzyMessage message = queue.poll();
+				callback.call(message);
 			}
-			while(!queue.isEmpty());
+			while(queue.size() > 0);
 			
 			if(buffer.hasRemaining()) {
 				decoder.decode(buffer, queue);

@@ -14,7 +14,7 @@ public class EzyCpuMonitor {
 		this.lastProcessCpuTime = osMxBean.getProcessCpuTime();
 	}
 
-	public synchronized double getProcessCpuLoad() {
+	public double getProcessCpuLoad() {
 		long systemTime = System.nanoTime();
 		long processCpuTime = osMxBean.getProcessCpuTime();
 		long offsetSystemTime = systemTime - lastSystemTime;
@@ -26,8 +26,9 @@ public class EzyCpuMonitor {
 		return cpuLoad / nrocessors;
 	}
 
-	public synchronized double getSystemCpuLoad() {
-		return this.osMxBean.getSystemCpuLoad();
+	public double getSystemCpuLoad() {
+		double cpuLoad = this.osMxBean.getSystemCpuLoad();
+		return cpuLoad;
 	}
 
 }
