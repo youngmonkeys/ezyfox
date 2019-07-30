@@ -29,8 +29,9 @@ public class EzySimpleCollectionConverter implements EzyCollectionConverter {
 	}
 	
 	protected <T> T convert(Object value, Class type) {
-		if(converters.containsKey(type))
-			return (T) converters.get(type).transform(value);
+		EzyToObject converter = converters.get(type);
+		if(converter != null)
+			return (T)converter.transform(value);
 		throw new IllegalArgumentException("has no converter with: " + type);
 	}
 	
@@ -39,7 +40,8 @@ public class EzySimpleCollectionConverter implements EzyCollectionConverter {
 			return toArray(((EzyArray)array).toList(), type.getComponentType());
 		if(array instanceof Collection)
 			return toArray((Collection)array, type.getComponentType());
-		return (T) outputTransformer.transform(array, type);
+		Object answer = outputTransformer.transform(array, type);
+		return (T)answer;
 	}
 	
 	private <T> T[] toArray(Iterable iterable, T[] array) {
