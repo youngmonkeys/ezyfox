@@ -11,14 +11,27 @@ public class EzyPathProxy {
 
 	@Getter
 	protected final Path path;
+	@Getter
+	protected final Path root;
 	
 	public EzyPathProxy(Path path) {
+		this(null, path);
+	}
+	
+	public EzyPathProxy(Path root, Path path) {
+		this.root = root;
 		this.path = path;
 	}
+	
 	
 	public File toFile() {
 		File file = path.toFile();
 		return file;
+	}
+	
+	public Path getRelativePath() {
+		Path answer = path.relativize(root);
+		return answer;
 	}
 	
 	public String getFileName() {
