@@ -26,4 +26,27 @@ public class EzyThreadListTest extends BaseTest {
 		tl.execute();
 	}
 	
+	@Test
+	public void interruptTest() {
+		try {
+			int maxCount = 5;
+			AtomicInteger count = new AtomicInteger();
+			EzyThreadList tl = new EzyThreadList(maxCount, () -> {
+				try {
+					while(count.get() < 10) {
+						info("count = " + count.incrementAndGet());
+						Thread.sleep(1);
+					}
+				}
+				catch (Exception e) {
+				}
+			}, "test-thread-list");
+			tl.execute();
+			tl.interrupt();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
