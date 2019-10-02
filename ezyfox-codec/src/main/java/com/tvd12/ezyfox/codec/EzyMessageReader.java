@@ -55,7 +55,7 @@ public abstract class EzyMessageReader<B> {
 			int rawSize = size + offset;
 			this.content = new byte[rawSize];
 			this.content[0] = headerByte;
-			System.arraycopy(sizeBytes, 0, sizeBytes.length, 1, sizeBytes.length);
+			System.arraycopy(sizeBytes, 0, content, 1, sizeBytes.length);
 			readMessageContent(buffer, content, offset, size);
 		}
 		else {
