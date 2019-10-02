@@ -30,6 +30,18 @@ public class EzyAbstractByTypeSerializerTest extends BaseTest {
 		serializer.serialize(new EzyAbstractByTypeSerializerTest());
 	}
 	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void test3() {
+		Serializer serializer = new Serializer();
+		serializer.serialize("abc", Object.class);
+	}
+	
+	@Test
+	public void test4() {
+		Serializer2 serializer = new Serializer2();
+		assert serializer.serialize("abc", Object.class) == null;
+	}
+	
 	public static class Serializer extends EzyAbstractByTypeSerializer {
 
 		@Override
@@ -84,6 +96,38 @@ public class EzyAbstractByTypeSerializerTest extends BaseTest {
 			});
 		}
 		
+	}
+	
+	public static class Serializer2 extends EzyAbstractByTypeSerializer {
+
+		@Override
+		protected <T> T parseNil(Class<T> outType) {
+			return null;
+		}
+		
+		@Override
+		protected <T> T parseWithNoParser(Object value, Class<T> outType) {
+			return null;
+		}
+		
+		@Override
+		protected <T> T parseWithNoParsers(Object value, Class<T> outType) {
+			return null;
+		}
+		
+		@SuppressWarnings("rawtypes")
+		@Override
+		protected void addParserss(Map<Class<?>, Map<Class<?>, EzyParser>> parserss) {
+			Map<Class<?>, EzyParser> map = new ConcurrentHashMap<>();
+			parserss.put(String.class, map);
+			map.put(byte[].class, new EzyParser<Object, Object>() {
+				@Override
+				public byte[] parse(Object input) {
+					return input.toString().getBytes();
+				}
+			});
+		}
+
 	}
 	
 }
