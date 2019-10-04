@@ -25,7 +25,6 @@ public class JacksonSimpleSerializer2Test extends BaseTest {
 	private EzyMessageDeserializer deserializer
 				= new JacksonSimpleDeserializer(objectMapper);
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void test() throws JsonProcessingException {
 		EzyArray origin = EzyEntityFactory.create(EzyArrayBuilder.class)
@@ -39,7 +38,7 @@ public class JacksonSimpleSerializer2Test extends BaseTest {
 		System.out.println(array);
 	}
 	
-	@SuppressWarnings({ "unchecked", "unused" })
+	@SuppressWarnings({ "unused" })
 	@Test
 	public void test2() {
 		EzyArray origin = EzyEntityFactory.create(EzyArrayBuilder.class)

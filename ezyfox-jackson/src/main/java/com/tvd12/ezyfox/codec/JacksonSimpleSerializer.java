@@ -58,7 +58,6 @@ public class JacksonSimpleSerializer
 	@Override
 	protected void addParserss(Map<Class<?>, Map<Class<?>, EzyParser>> parserss) {
 		Map<Class<?>, EzyParser> objectParsers = new ConcurrentHashMap<>();
-		parserss.put(EzyObject.class, objectParsers);
 		objectParsers.put(byte[].class, new EzyParser<EzyObject, byte[]>() {
 			@Override
 			public byte[] parse(EzyObject input) {
@@ -77,9 +76,9 @@ public class JacksonSimpleSerializer
 				return ByteBuffer.wrap(writeValueAsBytes(input));
 			}
 		});
+		parserss.put(EzyObject.class, objectParsers);
 		
 		Map<Class<?>, EzyParser> arrayParsers = new ConcurrentHashMap<>();
-		parserss.put(EzyArray.class, arrayParsers);
 		arrayParsers.put(byte[].class, new EzyParser<EzyArray, byte[]>() {
 			@Override
 			public byte[] parse(EzyArray input) {
@@ -98,6 +97,7 @@ public class JacksonSimpleSerializer
 				return ByteBuffer.wrap(writeValueAsBytes(input));
 			}
 		});
+		parserss.put(EzyArray.class, arrayParsers);
 	}
 	
 }
