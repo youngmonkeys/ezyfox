@@ -9,9 +9,11 @@ import com.tvd12.ezyfox.util.EzyToMap;
 @SuppressWarnings("rawtypes")
 public class EzySimpleJsonWriter implements EzyJsonWriter {
 
+	private static final String NO_INDENT = "";
+	
 	@Override
 	public String writeAsString(Object value) {
-		String answer = writeAsString(value, "");
+		String answer = writeAsString(value, NO_INDENT);
 		return answer;
 	}
 	
@@ -22,7 +24,9 @@ public class EzySimpleJsonWriter implements EzyJsonWriter {
 	}
 	
 	public void writeAsString(Object value, String indent, StringBuilder output) {
-		if(value instanceof EzyToMap)
+		if(value == null)
+			output.append(EzyStrings.NULL);
+		else if(value instanceof EzyToMap)
 			writeMapAsString(((EzyToMap)value).toMap(), indent, output);
 		else if(value instanceof Boolean)
 			output.append(value.toString());
