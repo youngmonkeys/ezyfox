@@ -50,7 +50,9 @@ public class EzySimplXmlMapper implements EzyXmlMapper {
 		
 		protected Unmarshaller newUnmarshaller() {
 			try {
-				return newJAXBContext().createUnmarshaller();
+				JAXBContext context = newJAXBContext();
+				Unmarshaller unmarshaller = context.createUnmarshaller();
+				return unmarshaller;
 			} catch (JAXBException e) {
 				throw new IllegalArgumentException(e);
 			}
@@ -61,6 +63,7 @@ public class EzySimplXmlMapper implements EzyXmlMapper {
 		}
 		
 		protected JAXBContext newJAXBContext() throws JAXBException {
+			System.out.println("\n\n" + contextPath + "\n\n");
 		    return JAXBContext.newInstance(contextPath, classLoader);
 		}
 	}

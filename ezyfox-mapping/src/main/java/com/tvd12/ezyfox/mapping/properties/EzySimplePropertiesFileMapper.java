@@ -6,15 +6,12 @@ import com.tvd12.properties.file.mapping.PropertiesMapper;
 import com.tvd12.properties.file.reader.BaseFileReader;
 import com.tvd12.properties.file.reader.FileReader;
 
-import lombok.Setter;
-
-@Setter
 public class EzySimplePropertiesFileMapper 
 		extends EzyLoggable 
 		implements EzyPropertiesFileMapper {
 
 	@SuppressWarnings("rawtypes")
-	protected Class context;
+	protected final Class context;
 	
 	protected EzySimplePropertiesFileMapper(Builder builder) {
 		this.context = builder.context;

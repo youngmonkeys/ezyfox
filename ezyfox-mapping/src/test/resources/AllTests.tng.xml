@@ -3,7 +3,9 @@
 <suite name="AllTests">
 	<test name="All">
 		<packages>
-			<package name="com.tvd12.ezyfox.testing"></package>
+			<package name="com.tvd12.ezyfox.mapping.test"></package>
+			<package name="com.tvd12.ezyfox.mapping.test.jaxb"></package>
+			<package name="com.tvd12.ezyfox.mapping.test.jackson"></package>
 		</packages>
 	</test>
 </suite>
