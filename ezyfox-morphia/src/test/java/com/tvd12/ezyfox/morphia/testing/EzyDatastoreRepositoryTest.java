@@ -5,8 +5,11 @@ import org.testng.annotations.Test;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.morphia.testing.data.Cat;
+import com.tvd12.ezyfox.morphia.testing.data.Monkey;
 import com.tvd12.ezyfox.morphia.testing.repo.CatRepo;
 import com.tvd12.ezyfox.morphia.testing.repo.DuckRepo;
+import com.tvd12.ezyfox.morphia.testing.repo.impl.MonkeyRepoImpl;
+import com.tvd12.test.reflect.MethodInvoker;
 
 public class EzyDatastoreRepositoryTest extends BaseMongoDBTest {
 
@@ -91,7 +94,16 @@ public class EzyDatastoreRepositoryTest extends BaseMongoDBTest {
 				operations -> operations.set("name", "duck5#updated"));
 		
 		duckRepo.updateManyByField("fixedValue", "fixedValue", op -> op.set("fixedValue", "newFixedValue"));
-		
+	}
+	
+	@Test
+	public void getEntityTypeTest() {
+		MonkeyRepoImpl repo = new MonkeyRepoImpl();
+		Class<?> entityType = (Class<?>) MethodInvoker.create()
+				.object(repo)
+				.method("getEntityType")
+				.invoke();
+		assert entityType == Monkey.class;
 	}
 	
 }

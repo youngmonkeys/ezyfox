@@ -16,9 +16,4 @@ public class MonkeyRepoImpl
 		datastore.save(Lists.newArrayList(monkey1, monkey2));
 	}
 	
-	@Override
-	protected Class<Monkey> getEntityType() {
-		return Monkey.class;
-	}
-	
 }

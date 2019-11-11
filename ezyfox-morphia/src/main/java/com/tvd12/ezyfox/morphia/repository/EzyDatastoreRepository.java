@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.morphia.repository;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
@@ -7,11 +8,13 @@ import com.mongodb.WriteResult;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.database.query.EzyFindAndModifyOptions;
 import com.tvd12.ezyfox.database.query.EzyUpdateOperations;
+import com.tvd12.ezyfox.exception.UnimplementedOperationException;
 import com.tvd12.ezyfox.function.EzyApply;
 import com.tvd12.ezyfox.mongodb.EzyMongoRepository;
 import com.tvd12.ezyfox.morphia.EzyDatastoreAware;
 import com.tvd12.ezyfox.morphia.query.impl.EzySimpleFindAndModifyOptions;
 import com.tvd12.ezyfox.morphia.query.impl.EzySimpleUpdateOperations;
+import com.tvd12.ezyfox.reflect.EzyGenerics;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 import dev.morphia.Datastore;
@@ -32,8 +35,6 @@ public abstract class EzyDatastoreRepository<I, E>
 	@EzyAutoBind
 	protected Datastore datastore;
 	
-	protected abstract Class<E> getEntityType();
-
 	@Override
 	public long count() {
 		Query<E> query = newQuery();
@@ -228,5 +229,17 @@ public abstract class EzyDatastoreRepository<I, E>
 	
 	protected Query<E> newQuery(String field, Object value) {
 		return newQuery().field(field).equal(value);
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected Class<E> getEntityType() {
+		try {
+			Type genericSuperclass = getClass().getGenericSuperclass();
+			Class[] genericArgs = EzyGenerics.getTwoGenericClassArguments(genericSuperclass);
+			return genericArgs[1];
+		}
+		catch (Exception e) {
+			throw new UnimplementedOperationException("class " + getClass().getName() + " hasn't implemented method 'getEntityType'", e);
+		}
 	}
 }

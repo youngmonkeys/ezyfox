@@ -12,7 +12,7 @@
 	<version>${ezy.morphia.version}</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
-		<morphia.version>1.5.2</morphia.version>
+		<morphia.version>1.5.8</morphia.version>
 	</properties>
 	<dependencies>
 		<dependency>
