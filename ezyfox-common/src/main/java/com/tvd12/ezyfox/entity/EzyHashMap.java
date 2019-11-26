@@ -214,12 +214,29 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 		}
 	}
 	
-	private Object transformInput(Object input) {
+	@Override
+	public boolean equals(Object other) {
+		if(other == null)
+			return false;
+		if(other == this)
+			return true;
+		if(!other.getClass().equals(this.getClass()))
+			return false;
+		EzyHashMap t = (EzyHashMap)other;
+		return t.map.equals(this.map);
+	}
+	
+	@Override
+	public int hashCode() {
+		return map.hashCode();
+	}
+	
+	protected Object transformInput(Object input) {
 		Object answer = inputTransformer.transform(input);
 		return answer;
 	}
 	
-	private Object transformOutput(Object output, Class type) {
+	protected Object transformOutput(Object output, Class type) {
 		Object answer = outputTransformer.transform(output, type);
 		return answer;
 	}

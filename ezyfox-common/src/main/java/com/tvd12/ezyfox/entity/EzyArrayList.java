@@ -89,6 +89,16 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 				outputTransformer,
 				collectionConverter);
 	}
+	
+	/**
+	 * add an item to the list
+	 * 
+	 * @param item the item
+	 */
+	@Override
+	public void add(Object item) {
+		list.add(transformInput(item));
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -228,14 +238,21 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 		}
 	}
 	
-	/**
-	 * add an item to the list
-	 * 
-	 * @param item the item
-	 */
 	@Override
-	public void add(Object item) {
-		list.add(transformInput(item));
+	public boolean equals(Object other) {
+		if(other == null)
+			return false;
+		if(other == this)
+			return true;
+		if(!other.getClass().equals(this.getClass()))
+			return false;
+		EzyArrayList t = (EzyArrayList)other;
+		return t.list.equals(this.list);
+	}
+	
+	@Override
+	public int hashCode() {
+		return list.hashCode();
 	}
 	
 	/**

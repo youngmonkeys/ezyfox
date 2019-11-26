@@ -9,6 +9,7 @@ import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyHashMap;
 import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 
 import static org.testng.Assert.*;
 
@@ -44,7 +45,7 @@ public class EzyObject1Test extends EzyEntityTest {
 		object.toMap();
 		object.toString();
 		EzyObject clone = object.duplicate();
-		assertNotEquals(object, clone);
+		assertEquals(object, clone);
 		assertTrue(clone.keySet().containsAll(Sets.newHashSet("1", "2", "3", "5", "6")));
 		object.clear();
 		assertEquals(object.getWithDefault("1", "b"), "b");
@@ -61,5 +62,25 @@ public class EzyObject1Test extends EzyEntityTest {
 			}
 		};
 		object.duplicate();
+	}
+	
+	@Test
+	public void equalsAndHashCodeTest() {
+		EzyObject a = EzyEntityFactory.newObjectBuilder()
+				.append("a", 1)
+				.append("b", 2)
+				.build();
+		assert !a.equals(null);
+		assert a.equals(a);
+		assert !a.equals(new Object());
+		EzyObject b = EzyEntityFactory.newObjectBuilder()
+				.append("a", 1)
+				.append("b", 2)
+				.build();
+		assert a.equals(b);
+		EzyObject c = EzyEntityFactory.newObjectBuilder()
+				.append("a", 1)
+				.build();
+		assert !a.equals(c);
 	}
 }

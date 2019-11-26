@@ -13,6 +13,7 @@ import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyDates;
 
 public class EzyArray1Test extends EzyEntityTest {
@@ -137,6 +138,24 @@ public class EzyArray1Test extends EzyEntityTest {
 			}
 		};
 		array.duplicate();
+	}
+	
+	@Test
+	public void equalsAndHashCodeTest() {
+		EzyArray a = EzyEntityFactory.newArrayBuilder()
+				.append(1, 2, 3)
+				.build();
+		assert !a.equals(null);
+		assert a.equals(a);
+		assert !a.equals(new Object());
+		EzyArray b = EzyEntityFactory.newArrayBuilder()
+				.append(1, 2, 3)
+				.build();
+		assert a.equals(b);
+		EzyArray c = EzyEntityFactory.newArrayBuilder()
+				.append(1, 2)
+				.build();
+		assert !a.equals(c);
 	}
 	
 	public static class ClassA implements Cloneable {
