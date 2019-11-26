@@ -63,7 +63,6 @@ public class EzySimplXmlMapper implements EzyXmlMapper {
 		}
 		
 		protected JAXBContext newJAXBContext() throws JAXBException {
-			System.out.println("\n\n" + contextPath + "\n\n");
 		    return JAXBContext.newInstance(contextPath, classLoader);
 		}
 	}
