@@ -11,6 +11,8 @@ public interface EzyMixedMap<V> {
 	
 	V computeIfAbsent(EzyMixedKey key, Supplier<V> valueSupplier);
 	
+	int size();
+	
 	interface EzyMixedKey {
 		
 		Map<Object, Object> getKeys();

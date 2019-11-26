@@ -35,6 +35,7 @@ public class EzyMixedHashMapTest {
 		ReentrantLock value2 = map.get(query);
 		assert value != null;
 		assert value == value2;
+		assert map.size() == 1;
 		ReentrantLock value3 = map.remove(query);
 		assert value == value3;
 		assert map.get(query) == null;

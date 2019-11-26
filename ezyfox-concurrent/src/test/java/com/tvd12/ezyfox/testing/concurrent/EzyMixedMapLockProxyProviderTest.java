@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.concurrent.EzyLockProxy;
 import com.tvd12.ezyfox.concurrent.EzyMixedMapLockProxyProvider;
 import com.tvd12.ezyfox.util.EzyMapBuilder;
@@ -21,11 +22,13 @@ public class EzyMixedMapLockProxyProviderTest {
 		EzyMixedMapLockProxyProvider provider = new EzyMixedMapLockProxyProvider();
 		Lock lock1 = provider.provideLock(new Key("a"));
 		assert provider.provideLock(new Key("a")) == lock1;
+		assert provider.getLock(new Key("a")) == lock1;
 		provider.removeLock(new Key("a"));
 		provider.removeLock(new Key("a"));
 		provider.removeLock(new Key("a"));
 		provider.provideLock(new Key("b"));
 		provider.provideLock(new Key("b"));
+		assert provider.size() == 1;
 		
 		try {
 			Field field = EzyMixedMapLockProxyProvider.class.getDeclaredField("locks");
@@ -46,6 +49,10 @@ public class EzyMixedMapLockProxyProviderTest {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		provider.removeLocks(Sets.newHashSet(new Key("b")));
+		provider.removeLocks(Sets.newHashSet(new Key("b")));
+		provider.removeLocks(Sets.newHashSet(new Key("b")));
+		assert provider.size() == 1;
 	}
 	
 	@AllArgsConstructor
