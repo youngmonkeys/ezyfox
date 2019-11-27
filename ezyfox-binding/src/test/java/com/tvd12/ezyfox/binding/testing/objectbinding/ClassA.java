@@ -10,9 +10,11 @@ import com.tvd12.ezyfox.collect.Lists;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
 @EzyObjectBinding(accessType = EzyAccessType.NONE)
 public class ClassA {
 	
@@ -39,6 +41,11 @@ public class ClassA {
 	@Getter(AccessLevel.NONE)
 	@EzyValue("9")
 	public List<?> i = Lists.newArrayList(1, 2, 3);
+	
+	@Getter
+	@Setter
+	@EzyValue("booleanValue")
+	private Boolean booleanValue = Boolean.TRUE;
 	
 	@EzyValue("6")
 	public void getF() {
