@@ -3,6 +3,8 @@ package com.tvd12.ezyfox.factory;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.entity.EzyEmptyArray;
+import com.tvd12.ezyfox.entity.EzyEmptyObject;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityCreator;
 import com.tvd12.ezyfox.factory.EzySimpleEntityCreator;
@@ -12,9 +14,9 @@ public final class EzyEntityFactory {
 	private static final EzyEntityCreator CREATOR 
 			= EzySimpleEntityCreator.getInstance();
 	public static final EzyArray EMPTY_ARRAY
-			= CREATOR.newArray();
+			= EzyEmptyArray.getInstance();
 	public static final EzyObject EMPTY_OBJECT
-			= CREATOR.newObject();
+			= EzyEmptyObject.getInstance();
 	
 	private EzyEntityFactory() {
 		// do nothing

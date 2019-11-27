@@ -71,6 +71,8 @@ public class JacksonSimpleSerializerTest extends BaseTest {
 		assert after.get("a", int.class) == 1;
 		assert after.get("b", byte.class) == 2;
 		assert after.get("c", short.class) == 3;
+		System.out.println(Arrays.toString(serializer.serialize(EzyEntityFactory.EMPTY_ARRAY)));
+		System.out.println(Arrays.toString(serializer.serialize(EzyEntityFactory.EMPTY_OBJECT)));
 	}
 	
 	@Test

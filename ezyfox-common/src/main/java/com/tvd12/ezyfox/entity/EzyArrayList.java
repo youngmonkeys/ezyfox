@@ -162,6 +162,15 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 	
 	/*
 	 * (non-Javadoc)
+	 * @see com.tvd12.ezyfox.entity.EzyArray#clear()
+	 */
+	@Override
+	public void clear() {
+		list.clear();
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyArray#forEach(java.util.function.Consumer)
 	 */
 	@Override

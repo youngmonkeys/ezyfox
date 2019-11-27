@@ -101,6 +101,9 @@ public class EzyArray1Test extends EzyEntityTest {
 		assertEquals(array.get(18, Date.class), EzyDates.parse("2017-05-30T00:00:00:000"));
 		
 		assertTrue(((Collection)array.get(9)).containsAll(Lists.newArrayList(true, false, true)));
+		assert array.size() > 0;
+		array.clear();
+		assert array.size() == 0;
 	}
 	
 	@Test

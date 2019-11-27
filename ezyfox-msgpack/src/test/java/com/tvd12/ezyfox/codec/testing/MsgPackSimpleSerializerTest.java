@@ -5,6 +5,7 @@ import static org.testng.Assert.assertEquals;
 import java.util.AbstractCollection;
 import java.util.AbstractList;
 import java.util.AbstractMap;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -79,6 +80,8 @@ public class MsgPackSimpleSerializerTest {
 		check(newEmptyList());
 		serializer.serialize(newEmptyObject());
 		serializer.serialize(newEmptyArray());
+		System.out.println(Arrays.toString(serializer.serialize(EzyEntityFactory.EMPTY_ARRAY)));
+		System.out.println(Arrays.toString(serializer.serialize(EzyEntityFactory.EMPTY_OBJECT)));
 	}
 	
 	private void check(Object input) throws Exception {

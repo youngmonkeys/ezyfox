@@ -76,6 +76,12 @@ public interface EzyArray extends EzyRoArray, Comparable<EzyArray> {
      */
     @Override
     EzyArray duplicate();
+    
+    /**
+	 * @see java.util.List#clear()
+	 * 
+	 */
+    default void clear() {}
 
     /**
      * @see java.lang.Comparable#compareTo(Object)
