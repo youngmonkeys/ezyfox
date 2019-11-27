@@ -10,7 +10,7 @@ public final class MsgPackConstant {
 	public static final long MAX_POSITIVE_FIXINT 	= EzyMath.bin2int(7);
 	public static final long MAX_UINT8 				= EzyMath.bin2int(8);
 	public static final long MAX_UINT16 				= EzyMath.bin2int(16);
-	public static final long MAX_UINT32 				= EzyMath.bin2int(32);
+	public static final long MAX_UINT32 				= EzyMath.bin2long(32);
 	
 	public static final long MIN_NEGATIVE_FIXINT 	= -EzyMath.bin2int(5);
 	public static final long MIN_INT8 				= -EzyMath.bin2int(7);

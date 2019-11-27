@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.codec;
 
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_BIN16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_BIN32_SIZE;
 import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_POSITIVE_FIXINT;
+import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT16;
+import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT32;
 import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT8;
 import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT16;
 import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT32;
@@ -31,11 +31,11 @@ public class MsgPackIntSerializer implements EzyCastToByte {
 	private byte[] parsePositive(long value) {
 		if(value <= MAX_POSITIVE_FIXINT)
 			return parsePositiveFix(value);
-		if(value < MAX_UINT8)
+		if(value <= MAX_UINT8)
 			return parseU8(value);
-		if(value < MAX_BIN16_SIZE)
+		if(value <= MAX_UINT16)
 			return parseU16(value);
-		if(value < MAX_BIN32_SIZE)
+		if(value <= MAX_UINT32)
 			return parseU32(value);
 		return parseU64(value);
 	}
