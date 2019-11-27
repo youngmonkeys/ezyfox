@@ -1,12 +1,14 @@
 package com.tvd12.ezyfox.testing.entity;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.function.BiFunction;
 
 import org.testng.annotations.Test;
 
-import com.tvd12.ezyfox.entity.EzyRoObject;
+import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.test.base.BaseTest;
 
 import lombok.Setter;
@@ -20,10 +22,12 @@ public class EzyObject6Test extends BaseTest {
 		x.setSize(100);
 		assert !x.isEmpty();
 		assert !x.isNotNullValue("");
+		assert x.compareTo(null) == 0;
 	}
 	
-	@SuppressWarnings("serial")
-	public static class XObject implements EzyRoObject {
+	@SuppressWarnings({"rawtypes"})
+	public static class XObject implements EzyObject {
+		private static final long serialVersionUID = 1361895415042596335L;
 		
 		@Setter
 		private int size;
@@ -63,7 +67,6 @@ public class EzyObject6Test extends BaseTest {
 			return null;
 		}
 		
-		@SuppressWarnings("rawtypes")
 		@Override
 		public Object getValue(Object key, Class type) {
 			return null;
@@ -79,10 +82,36 @@ public class EzyObject6Test extends BaseTest {
 			return null;
 		}
 
-		@SuppressWarnings("rawtypes")
 		@Override
 		public Map toMap() {
 			return null;
+		}
+
+		@Override
+		public <V> V put(Object key, Object value) {
+			return null;
+		}
+
+		@Override
+		public void putAll(Map m) {
+		}
+
+		@Override
+		public <V> V remove(Object key) {
+			return null;
+		}
+
+		@Override
+		public void removeAll(Collection keys) {
+		}
+
+		@Override
+		public <V> V compute(Object key, BiFunction func) {
+			return null;
+		}
+
+		@Override
+		public void clear() {
 		}
 		
 	}

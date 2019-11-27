@@ -239,6 +239,38 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 	}
 	
 	@Override
+	public int compareTo(EzyArray o) {
+		EzyArrayList other = (EzyArrayList)o;
+		int result = this.list.size() - other.list.size();
+		if(result != 0)
+			return result;
+		for(int i = 0 ; i < list.size() ; ++i) {
+			Object value = list.get(i);
+			Object otherValue = other.list.get(i);
+			if(value == null) {
+				if(otherValue != null)
+					return -1;
+			}
+			else {
+				if(otherValue == null)
+					return 1;
+				if(value instanceof Comparable && otherValue instanceof Comparable) {
+					result = ((Comparable)value).compareTo((Comparable)otherValue);
+					if(result != 0)
+						return result;
+				}
+				else {
+					if(!(value instanceof Comparable))
+						throw new IllegalArgumentException("value: " + value.getClass().getName() + "(" + value + ") is not comparable");
+					else
+						throw new IllegalArgumentException("value: " + otherValue.getClass().getName() + "(" + otherValue + ") is not comparable");
+				}
+			}
+		}
+		return 0;
+	}
+	
+	@Override
 	public boolean equals(Object other) {
 		if(other == null)
 			return false;

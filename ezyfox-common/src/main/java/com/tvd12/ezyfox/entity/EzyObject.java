@@ -14,7 +14,7 @@ import com.tvd12.ezyfox.entity.EzyRoObject;
  *
  */
 
-public interface EzyObject extends EzyRoObject {
+public interface EzyObject extends EzyRoObject, Comparable<EzyObject> {
 
 	/**
 	 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
@@ -72,5 +72,13 @@ public interface EzyObject extends EzyRoObject {
      */
     @Override
     EzyObject duplicate();
+    
+    /**
+     * @see java.lang.Comparable#compareTo(Object)
+     */
+    @Override
+    default int compareTo(EzyObject o) {
+    	return 0;
+    }
 
 }

@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyRoArray;
 
-public interface EzyArray extends EzyRoArray {
+public interface EzyArray extends EzyRoArray, Comparable<EzyArray> {
 	
 	/**
 	 * Add item to array
@@ -76,5 +76,13 @@ public interface EzyArray extends EzyRoArray {
      */
     @Override
     EzyArray duplicate();
+
+    /**
+     * @see java.lang.Comparable#compareTo(Object)
+     */
+    @Override
+    default int compareTo(EzyArray o) {
+    	return 0;
+    }
 	
 }

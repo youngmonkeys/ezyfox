@@ -215,6 +215,38 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 	}
 	
 	@Override
+	public int compareTo(EzyObject o) {
+		EzyHashMap other = (EzyHashMap)o;
+		int result = this.map.size() - other.map.size();
+		if(result != 0)
+			return result;
+		for(Object key : map.keySet()) {
+			Object value = map.get(key);
+			Object otherValue = other.map.get(key);
+			if(value == null) {
+				if(otherValue != null)
+					return -1;
+			}
+			else {
+				if(otherValue == null)
+					return 1;
+				if(value instanceof Comparable && otherValue instanceof Comparable) {
+					result = ((Comparable)value).compareTo((Comparable)otherValue);
+					if(result != 0)
+						return result;
+				}
+				else {
+					if(!(value instanceof Comparable))
+						throw new IllegalArgumentException("value: " + value.getClass().getName() + "(" + value + ") is not comparable");
+					else
+						throw new IllegalArgumentException("value: " + otherValue.getClass().getName() + "(" + otherValue + ") is not comparable");
+				}
+			}
+		}
+		return 0;
+	}
+	
+	@Override
 	public boolean equals(Object other) {
 		if(other == null)
 			return false;

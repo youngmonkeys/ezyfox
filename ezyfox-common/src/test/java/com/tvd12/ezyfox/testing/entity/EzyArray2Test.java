@@ -28,6 +28,7 @@ public class EzyArray2Test extends CommonBaseTest {
 		xArray.setSize(100);
 		assert !xArray.isEmpty();
 		assert !xArray.isNotNullValue(10);
+		assert xArray.compareTo(null) == 0;
 	}
 	
 	private static class XArray implements EzyArray {

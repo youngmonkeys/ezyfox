@@ -8,9 +8,9 @@ import java.util.Date;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
-import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
@@ -156,6 +156,53 @@ public class EzyArray1Test extends EzyEntityTest {
 				.append(1, 2)
 				.build();
 		assert !a.equals(c);
+	}
+	
+	@Test
+	public void compareToTest() {
+		EzyArray a = EzyEntityFactory.newArrayBuilder()
+				.append(1, 2, 3)
+				.build();
+		EzyArray b = EzyEntityFactory.newArrayBuilder()
+				.append(1, 2, 3)
+				.build();
+		EzyArray c = EzyEntityFactory.newArrayBuilder()
+				.append(1, 2)
+				.build();
+		EzyArray d = EzyEntityFactory.newArrayBuilder()
+				.append(1, 1, 1)
+				.build();
+		EzyArray e = EzyEntityFactory.newArrayBuilder()
+				.append(3, 2, 3)
+				.build();
+		EzyArray f = EzyEntityFactory.newArrayBuilder()
+				.append(null, 2, 3)
+				.build();
+		EzyArray g = EzyEntityFactory.newArrayBuilder()
+				.append(null, 2, 3)
+				.build();
+		EzyArray h = EzyEntityFactory.newArrayBuilder()
+				.append(new Object(), 2, 3)
+				.build();
+		assert a.compareTo(b) == 0;
+		assert a.compareTo(c) > 0;
+		assert a.compareTo(d) > 0;
+		assert a.compareTo(e) < 0;
+		assert a.compareTo(f) > 0;
+		assert f.compareTo(a) < 0;
+		assert f.compareTo(g) == 0;
+		try {
+			a.compareTo(h);
+		}
+		catch (Exception ex) {
+			assert ex instanceof IllegalArgumentException;
+		}
+		try {
+			h.compareTo(a);
+		}
+		catch (Exception ex) {
+			assert ex instanceof IllegalArgumentException;
+		}
 	}
 	
 	public static class ClassA implements Cloneable {

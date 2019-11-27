@@ -83,4 +83,72 @@ public class EzyObject1Test extends EzyEntityTest {
 				.build();
 		assert !a.equals(c);
 	}
+	
+	@Test
+	public void compareToTest() {
+		EzyObject a = EzyEntityFactory.newObjectBuilder()
+				.append("a", 1)
+				.append("b", 2)
+				.build();
+		EzyObject b = EzyEntityFactory.newObjectBuilder()
+				.append("a", 1)
+				.append("b", 2)
+				.build();
+		EzyObject c = EzyEntityFactory.newObjectBuilder()
+				.append("a", 1)
+				.build();
+		EzyObject d = EzyEntityFactory.newObjectBuilder()
+				.append("a", 1)
+				.append("b", 1)
+				.build();
+		EzyObject e = EzyEntityFactory.newObjectBuilder()
+				.append("a", 3)
+				.append("b", 1)
+				.build();
+		EzyObject f = EzyEntityFactory.newObjectBuilder()
+				.append("a", (Object)null)
+				.append("b", 1)
+				.build();
+		EzyObject g = EzyEntityFactory.newObjectBuilder()
+				.append("a", (Object)null)
+				.append("b", 1)
+				.build();
+		EzyObject h = EzyEntityFactory.newObjectBuilder()
+				.append("a", new Object())
+				.append("b", 1)
+				.build();
+		assert a.compareTo(b) == 0;
+		assert a.compareTo(c) > 0;
+		assert a.compareTo(d) > 0;
+		assert a.compareTo(e) < 0;
+		assert a.compareTo(f) > 0;
+		assert f.compareTo(a) < 0;
+		assert f.compareTo(g) == 0;
+		try {
+			a.compareTo(h);
+		}
+		catch (Exception ex) {
+			assert ex instanceof IllegalArgumentException;
+		}
+		try {
+			h.compareTo(a);
+		}
+		catch (Exception ex) {
+			assert ex instanceof IllegalArgumentException;
+		}
+		
+		EzyObject y = EzyEntityFactory.newObjectBuilder()
+				.append("a", EzyEntityFactory.newObjectBuilder()
+						.append("hello", "world"))
+				.append("b", EzyEntityFactory.newArrayBuilder()
+						.append(1, 2, 3))
+				.build();
+		EzyObject z = EzyEntityFactory.newObjectBuilder()
+				.append("a", EzyEntityFactory.newObjectBuilder()
+						.append("hello", "world"))
+				.append("b", EzyEntityFactory.newArrayBuilder()
+						.append(1, 2, 3))
+				.build();	
+		assert y.compareTo(z) == 0;
+	}
 }
