@@ -1,11 +1,11 @@
-package com.tvd12.ezyfox.identifier.testing.entity;
+package com.tvd12.ezyfox.identifier.testing.entity2;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Message3 {
+public class NotMessage {
 
 	private Long id;
 	private String name;

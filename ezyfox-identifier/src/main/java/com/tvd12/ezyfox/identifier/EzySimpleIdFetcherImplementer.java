@@ -44,7 +44,7 @@ public class EzySimpleIdFetcherImplementer
 			return doimplement();
 		}
 		catch(Exception e) {
-			throw new IllegalStateException(e);
+			throw new IllegalStateException("implement getter of " + clazz + " error", e);
 		}
 	}
 	

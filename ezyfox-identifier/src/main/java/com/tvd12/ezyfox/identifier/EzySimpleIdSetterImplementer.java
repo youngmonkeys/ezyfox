@@ -44,7 +44,7 @@ public class EzySimpleIdSetterImplementer
 			return doimplement();
 		}
 		catch(Exception e) {
-			throw new IllegalStateException(e);
+			throw new IllegalStateException("implement setter of " + clazz + " error", e);
 		}
 	}
 	

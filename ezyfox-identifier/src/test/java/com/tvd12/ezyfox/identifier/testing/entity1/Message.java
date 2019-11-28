@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.identifier.testing.entity;
+package com.tvd12.ezyfox.identifier.testing.entity1;
 
 import com.tvd12.ezyfox.util.EzyHasIdEntity;
 
