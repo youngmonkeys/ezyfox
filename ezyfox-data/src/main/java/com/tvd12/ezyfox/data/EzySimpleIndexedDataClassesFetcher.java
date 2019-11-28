@@ -1,78 +1,46 @@
 package com.tvd12.ezyfox.data;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.lang.annotation.Annotation;
 import java.util.Set;
 
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.data.annotation.EzyIndexedData;
-import com.tvd12.ezyfox.reflect.EzyReflection;
-import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
-import com.tvd12.ezyfox.util.EzyLoggable;
+import com.tvd12.ezyfox.data.annotation.IndexedData;
 
 @SuppressWarnings("rawtypes")
 public class EzySimpleIndexedDataClassesFetcher
-		extends EzyLoggable
+		extends EzyDataClassesFetcher<EzyIndexedDataClassesFetcher>
 		implements EzyIndexedDataClassesFetcher {
 
-	protected Set<Class> classes = new HashSet<>();
-	protected Set<String> packagesToScan = new HashSet<>();
-	
-	public EzyIndexedDataClassesFetcher scan(String packageName) {
-		packagesToScan.add(packageName);
-		return this;
-	}
-	
-	public EzyIndexedDataClassesFetcher scan(String... packageNames) {
-		return scan(Arrays.asList(packageNames));
-	}
-	
-	public EzyIndexedDataClassesFetcher scan(Iterable<String> packageNames) {
-		for(String packageName : packageNames)
-			this.scan(packageName);
-		return this;
-	}
-	
 	@Override
 	public EzyIndexedDataClassesFetcher addIndexedDataClass(Class clazz) {
-		this.classes.add(clazz);
-		return this;
+		return super.addDataClass(clazz);
 	}
 	
 	@Override
 	public EzyIndexedDataClassesFetcher addIndexedDataClasses(Class... classes) {
-		return addIndexedDataClasses(Arrays.asList(classes));
+		return super.addDataClasses(classes);
 	}
 	
 	@Override
 	public EzyIndexedDataClassesFetcher addIndexedDataClasses(Iterable<Class> classes) {
-		for(Class clazz : classes)
-			this.addIndexedDataClass(clazz);
-		return this;
+		return super.addDataClasses(classes);
 	}
 	
 	@Override
 	public EzyIndexedDataClassesFetcher addIndexedDataClasses(Object reflection) {
-		if(reflection instanceof EzyReflection) {
-			EzyReflection ref = (EzyReflection)reflection;
-			Set<Class<?>> annClasses = ref.getAnnotatedClasses(EzyIndexedData.class);
-			this.classes.addAll(annClasses);
-		}
-		return this;
+		return super.addDataClasses(reflection);
 	}
 	
 	@Override
 	public Set<Class> getIndexedDataClasses() {
-		Set<Class<?>> annotatedClasses = getAnnotatedClasses();
-		classes.addAll(annotatedClasses);
-		return classes;
+		return super.getDataClasses();
 	}
 	
-	private Set<Class<?>> getAnnotatedClasses() {
-		if(packagesToScan.isEmpty())
-			return new HashSet<>();
-		EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
-		Set<Class<?>> answer = reflection.getAnnotatedClasses(EzyIndexedData.class);
-		return answer;
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Set<Class<? extends Annotation>> getAnnotationClasses() {
+		return Sets.newHashSet(EzyIndexedData.class, IndexedData.class);
 	}
 	
 }

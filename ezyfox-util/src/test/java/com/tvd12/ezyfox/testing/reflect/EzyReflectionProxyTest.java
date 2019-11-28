@@ -10,6 +10,7 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyReflectionProxyTest {
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void test() {
 		new EzyReflectionProxy("com.tvd12.ezyfox.testing.reflect");
@@ -21,6 +22,7 @@ public class EzyReflectionProxyTest {
 		EzyReflection reflection = new EzyReflectionProxy("com.tvd12.ezyfox.testing.reflect");
 		reflection.getExtendsClasses(BaseTest.class);
 		reflection.getAnnotatedClasses(ExampleAnnotation.class);
+		assert reflection.getAnnotatedClasses(ExampleAnnotation.class).size() == reflection.getAnnotatedClasses(Sets.newHashSet(ExampleAnnotation.class)).size();
 	}
 	
 }
