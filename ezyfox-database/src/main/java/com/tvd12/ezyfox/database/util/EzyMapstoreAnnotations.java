@@ -7,8 +7,7 @@ import com.tvd12.ezyfox.io.EzyStrings;
 
 public final class EzyMapstoreAnnotations {
 
-	private EzyMapstoreAnnotations() {
-	}
+	private EzyMapstoreAnnotations() {}
 	
 	public static String getMapName(Object mapstore) {
 		return getMapName(mapstore.getClass());
