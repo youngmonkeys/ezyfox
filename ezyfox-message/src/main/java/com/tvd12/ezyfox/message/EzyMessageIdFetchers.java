@@ -4,8 +4,10 @@ import java.lang.annotation.Annotation;
 import java.util.Set;
 
 import com.tvd12.ezyfox.collect.Sets;
+import com.tvd12.ezyfox.identifier.EzyIdFetchers;
 import com.tvd12.ezyfox.identifier.EzySimpleIdFetchers;
 import com.tvd12.ezyfox.message.annotation.EzyMessage;
+import com.tvd12.ezyfox.message.annotation.Message;
 
 public class EzyMessageIdFetchers extends EzySimpleIdFetchers {
 
@@ -22,9 +24,13 @@ public class EzyMessageIdFetchers extends EzySimpleIdFetchers {
 		@SuppressWarnings("unchecked")
 		@Override
 		protected Set<Class<? extends Annotation>> getAnnotationClasses() {
-			return Sets.newHashSet(EzyMessage.class);
+			return Sets.newHashSet(EzyMessage.class, Message.class);
 		}
 	
+		@Override
+		protected EzyIdFetchers newProduct() {
+			return new EzyMessageIdFetchers(this);
+		}
 	}
 	
 }
