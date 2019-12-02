@@ -15,7 +15,7 @@ public class EzyGcMonitor {
 	public double getProcessGcActivity() {
 		int totalGC = 0;
         long totalGCTime = 0;
-		List<?> beans = ManagementFactory.getGarbageCollectorMXBeans();
+		List<?> beans = getGarbageCollectorMXBeans();
         for (Object bean : beans) {
             if (bean instanceof GarbageCollectorMXBean) {
                 GarbageCollectorMXBean gc = (GarbageCollectorMXBean) bean;
