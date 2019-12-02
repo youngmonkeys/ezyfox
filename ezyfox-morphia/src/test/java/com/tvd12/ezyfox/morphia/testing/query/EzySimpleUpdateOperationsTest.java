@@ -25,9 +25,6 @@ public class EzySimpleUpdateOperationsTest extends BaseMongoDBTest {
 		proxyOperations.enableValidation();
 		proxyOperations.inc("age");
 		proxyOperations.inc("age", 10);
-		assert !proxyOperations.isIsolated();
-		proxyOperations.isolated();
-		assert proxyOperations.isIsolated();
 		proxyOperations.max("age", 100);
 		proxyOperations.min("age", 0);
 		proxyOperations.push("valueSet", "d");

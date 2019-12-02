@@ -6,6 +6,7 @@ import java.util.Map;
 import com.mongodb.MongoClient;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.mongodb.bean.EzyRepositoriesImplementer;
 import com.tvd12.ezyfox.mongodb.loader.EzyInputStreamMongoClientLoader;
@@ -32,7 +33,10 @@ public class BaseMongoDBTest extends BaseTest {
 		EzyBeanContextBuilder builder = EzyBeanContext.builder()
 				.addSingleton("datastore", DATASTORE)
 				.scan("com.tvd12.ezyfox.morphia.testing.repo")
-				.scan("com.tvd12.ezyfox.morphia.testing.service");
+				.scan("com.tvd12.ezyfox.morphia.testing.service")
+				.scan("com.tvd12.ezyfox.morphia.testing.repo", "com.tvd12.ezyfox.morphia.testing.service")
+				.scan(Sets.newHashSet("com.tvd12.ezyfox.morphia.testing.service"));
+				
 		EzyRepositoriesImplementer implementer = EzyMorphiaRepositories.newRepositoriesImplementer()
 				.scan("com.tvd12.ezyfox.morphia.testing.repo", "com.tvd12.ezyfox.morphia.testing.repo1");
 		Map<Class<?>, Object> repos = implementer.implement(DATASTORE);
@@ -47,6 +51,8 @@ public class BaseMongoDBTest extends BaseTest {
 				.mongoClient(MONGO_CLIENT)
 				.databaseName("test")
 				.scan("com.tvd12.ezyfox.morphia.testing.data")
+				.scan("com.tvd12.ezyfox.morphia.testing.data", "com.tvd12.ezyfox.morphia.testing.data")
+				.scan(Sets.newHashSet("com.tvd12.ezyfox.morphia.testing.data"))
 				.addEntityClasses(Pig.class, Duck.class)
 				.build();
 	}

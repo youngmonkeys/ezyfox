@@ -24,9 +24,18 @@ public class EzySimpleUpdateOperations2Test extends BaseMongoDBTest {
 		proxyOperations.disableValidation();
 		proxyOperations.enableValidation();
 		proxyOperations.inc("age", 10);
-		assert !proxyOperations.isIsolated();
-		proxyOperations.isolated();
-		assert proxyOperations.isIsolated();
+		try {
+			proxyOperations.isolated();
+		}
+		catch (Exception e) {
+			assert e instanceof UnsupportedOperationException;
+		}
+		try {
+			proxyOperations.isIsolated();
+		}
+		catch (Exception e) {
+			assert e instanceof UnsupportedOperationException;
+		}
 		proxyOperations.push("valueSet", Lists.newArrayList("e", "f"));
 		proxyOperations.push("kitties", new Kitty(100L), options -> options.sort("age", 1));
 		proxyOperations.removeAll("valueList", Lists.newArrayList("a", "b", "c"));
