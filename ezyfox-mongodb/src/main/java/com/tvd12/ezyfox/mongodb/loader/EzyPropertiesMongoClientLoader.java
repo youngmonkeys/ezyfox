@@ -39,9 +39,6 @@ public class EzyPropertiesMongoClientLoader
         return this;
     }
     
-    /* (non-Javadoc)
-     * @see com.lagente.base.db.util.MongoClientLoader#load()
-     */
     @Override
     public MongoClient load() {
         this.preload();
