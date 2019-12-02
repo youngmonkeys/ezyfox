@@ -13,7 +13,7 @@ import com.tvd12.properties.file.reader.BaseFileReader;
 
 public class EzyFileMongoClientLoader extends EzyPropertiesMongoClientLoader {
 
-    private File file;
+    protected File file;
     
     public static MongoClient load(File file) {
     	return new EzyFileMongoClientLoader()

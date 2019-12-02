@@ -17,7 +17,7 @@ import com.tvd12.properties.file.reader.BaseFileReader;
  */
 public class EzyInputStreamMongoClientLoader extends EzyPropertiesMongoClientLoader {
     
-    private InputStream inputStream;
+	protected InputStream inputStream;
     
     public EzyInputStreamMongoClientLoader inputStream(InputStream inputStream) {
         this.inputStream = inputStream;

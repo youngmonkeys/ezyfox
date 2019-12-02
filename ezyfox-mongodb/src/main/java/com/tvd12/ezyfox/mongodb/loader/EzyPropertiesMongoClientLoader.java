@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.tvd12.ezyfox.util.EzyLoggable;
@@ -49,6 +50,10 @@ public class EzyPropertiesMongoClientLoader
     }
     
     protected MongoClient createMongoClient() {
+    	String uri = properties.getProperty(URI);
+    	if(uri != null)
+    		return new MongoClient(new MongoClientURI(uri));
+    	
         return new MongoClient(
                 new ServerAddress(getHost(), getPort()), 
                 createCredential(),
