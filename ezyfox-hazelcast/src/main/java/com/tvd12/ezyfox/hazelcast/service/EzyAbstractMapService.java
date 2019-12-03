@@ -126,7 +126,7 @@ public abstract class EzyAbstractMapService<K,V>
 		EzyMapReturnTransaction<K, V, V> transaction = newReturnTransaction();
 		transaction.begin();
 		try {
-			V value = transaction.apply(map -> map.getForUpdate(key));
+			V value = transaction.apply(m -> m.getForUpdate(key));
 			transaction.commit();
 			return value == null ? defValue : value;
 		}
@@ -140,10 +140,10 @@ public abstract class EzyAbstractMapService<K,V>
 		EzyMapReturnTransaction<K, V, Map<K, V>> transaction = newReturnTransaction();
 		transaction.begin();
 		try {
-			Map<K, V> answer = transaction.apply(map -> {
+			Map<K, V> answer = transaction.apply(m -> {
 				Map<K, V> result = new HashMap<>();
 				for(K key : keys)
-					result.put(key, map.getForUpdate(key));
+					result.put(key, m.getForUpdate(key));
 				return result;
 			});
 			transaction.commit();
@@ -157,12 +157,12 @@ public abstract class EzyAbstractMapService<K,V>
 	
 	protected final void transactionUpdate(
 			K key, EzyExceptionApply<V> applier) throws Exception {
-		transactionUpdate(key, applier, null);;
+		transactionUpdate(key, applier, null);
 	}
 	
 	protected final void transactionUpdate(
 			K key, EzyExceptionApply<V> applier, V defValue) throws Exception {
-		transactionUpdate(map -> transactionUpdate(map, key, applier, defValue));
+		transactionUpdate(m -> transactionUpdate(m, key, applier, defValue));
 	}
 	
 	protected final <R> R transactionUpdateAndGet(
@@ -183,34 +183,34 @@ public abstract class EzyAbstractMapService<K,V>
 	
 	protected final <R> R transactionUpdateAndGet(
 			K key, EzyExceptionFunction<V, R> applier) throws Exception {
-		return transactionUpdateAndGet(map -> transactionUpdateAndGet(map, key, applier, null));
+		return transactionUpdateAndGet(m -> transactionUpdateAndGet(m, key, applier, null));
 	}
 	
 	protected final <R> R transactionUpdateAndGet(
 			K key, EzyExceptionFunction<V, R> applier, V defValue) throws Exception {
-		return transactionUpdateAndGet(map -> transactionUpdateAndGet(map, key, applier, defValue));
+		return transactionUpdateAndGet(m -> transactionUpdateAndGet(m, key, applier, defValue));
 	}
 	
 	private void transactionUpdate(
-			TransactionalMap<K, V> map, K key, EzyExceptionApply<V> applier, V defValue) throws Exception {
-		V value = map.getForUpdate(key);
+			TransactionalMap<K, V> m, K key, EzyExceptionApply<V> applier, V defValue) throws Exception {
+		V value = m.getForUpdate(key);
 	    	if(value == null)
 	    		value = defValue;
 	    	if(value != null) {
 	    		applier.apply(value);
-	    		map.set(key, value);
+	    		m.set(key, value);
 	    	}
 	}
 	
 	private <R> R transactionUpdateAndGet(
-			TransactionalMap<K, V> map, K key, EzyExceptionFunction<V, R> applier, V defValue) throws Exception {
-		V value = map.getForUpdate(key);
+			TransactionalMap<K, V> m, K key, EzyExceptionFunction<V, R> applier, V defValue) throws Exception {
+		V value = m.getForUpdate(key);
 	    	if(value == null)
 	    		value = defValue;
 	    	R result = null;
 	    	if(value != null) {
 	    		result = applier.apply(value);
-	    		map.set(key, value);
+	    		m.set(key, value);
 	    	}
 	    	return result;
 	}

@@ -13,6 +13,7 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.hazelcast.core.TransactionalMap;
 import com.tvd12.ezyfox.function.EzyExceptionFunction;
+import com.tvd12.ezyfox.hazelcast.constant.EzyMapNames;
 import com.tvd12.ezyfox.hazelcast.factory.EzyMapTransactionFactory;
 import com.tvd12.ezyfox.hazelcast.service.EzyTransactionalMaxIdService;
 import com.tvd12.ezyfox.hazelcast.testing.HazelcastBaseTest;
@@ -78,9 +79,14 @@ public class EzyTransactionalMaxIdServiceTest extends HazelcastBaseTest {
 		
 	}
 	
-	@Test(expectedExceptions = {IllegalStateException.class})
-	public void test2() {
-		EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService();
+	@Test
+	public void test2() throws Exception {
+		EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService() {
+			@Override
+			protected String getMapName() {
+				return EzyMapNames.MAX_ID + "_failed_transaction";
+			}
+		};
 		service.setHazelcastInstance(HZ_INSTANCE);
 		service.setMapTransactionFactory(new EzyMapTransactionFactory() {
 			
@@ -112,7 +118,21 @@ public class EzyTransactionalMaxIdServiceTest extends HazelcastBaseTest {
 				return null;
 			}
 		});
-		service.incrementAndGet("d");
+		try {
+			service.incrementAndGet("d");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			assert e instanceof IllegalStateException;
+		}
+		try {
+			service.incrementAndGet("d", 100);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			assert e instanceof IllegalStateException;
+		}
+		Thread.sleep(1000);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })

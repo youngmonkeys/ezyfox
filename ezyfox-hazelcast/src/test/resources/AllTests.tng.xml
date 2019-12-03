@@ -31,4 +31,9 @@
 			<package name="com.tvd12.ezyfox.hazelcast.testing.entity"></package>
 		</packages>
 	</test>
+	<test name="Map">
+		<packages>
+			<package name="com.tvd12.ezyfox.hazelcast.testing.map"></package>
+		</packages>
+	</test>
 </suite>

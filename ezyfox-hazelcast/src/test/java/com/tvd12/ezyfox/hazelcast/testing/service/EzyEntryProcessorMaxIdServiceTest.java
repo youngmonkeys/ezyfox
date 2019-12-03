@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.tvd12.ezyfox.hazelcast.service.EzyEntryProcessorMaxIdService;
-import com.tvd12.ezyfox.hazelcast.service.EzyTransactionalMaxIdService;
 import com.tvd12.ezyfox.hazelcast.testing.HazelcastBaseTest;
 
 public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
@@ -47,7 +46,8 @@ public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
 	
 	@Test
 	public void test2() throws Exception {
-		final EzyEntryProcessorMaxIdService service = new EzyEntryProcessorMaxIdService(HZ_INSTANCE);
+		final EzyEntryProcessorMaxIdService service = new EzyEntryProcessorMaxIdService();
+		service.setHazelcastInstance(HZ_INSTANCE);
 		service.setMapTransactionFactory(MAP_TRANSACTION_FACTORY);
 		
 		List<Long> nums = new ArrayList<>();
@@ -79,7 +79,7 @@ public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
 		IMap map = mock(IMap.class);
 		HazelcastInstance hzInstance = mock(HazelcastInstance.class);
 		when(hzInstance.getMap(anyString())).thenReturn(map);
-		EzyTransactionalMaxIdService service = new EzyTransactionalMaxIdService(hzInstance);
+		EzyEntryProcessorMaxIdService service = new EzyEntryProcessorMaxIdService(hzInstance);
 		service.setMapTransactionFactory(MAP_TRANSACTION_FACTORY);
 		service.loadAll();
 	}

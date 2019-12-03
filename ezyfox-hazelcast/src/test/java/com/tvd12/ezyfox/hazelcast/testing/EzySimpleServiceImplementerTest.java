@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.hazelcast.annotation.EzyMapServiceAutoImpl;
 import com.tvd12.ezyfox.hazelcast.impl.EzySimpleServiceImplementer;
+import com.tvd12.ezyfox.hazelcast.impl.EzySimpleServicesImplementer;
 import com.tvd12.ezyfox.reflect.EzyClass;
 
 public class EzySimpleServiceImplementerTest extends HazelcastBaseTest {
@@ -20,6 +21,12 @@ public class EzySimpleServiceImplementerTest extends HazelcastBaseTest {
 		EzySimpleServiceImplementer implementer = 
 				new EzySimpleServiceImplementer(new EzyClass(InterfaceA.class));
 		implementer.implement(null);
+	}
+	
+	@Test
+	public void emptyPackageToScanCaseTest() {
+		EzySimpleServicesImplementer implementer = new EzySimpleServicesImplementer();
+		implementer.implement(HZ_INSTANCE);
 	}
 	
 	@EzyMapServiceAutoImpl("a")

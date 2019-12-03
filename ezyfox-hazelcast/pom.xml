@@ -13,7 +13,7 @@
 	<version>${ezy.hazelcast.version}</version> <!-- ${project.version} -->
 	<url>http://maven.apache.org</url>
 	<properties>
-		<hazelcast.version>3.12</hazelcast.version>
+		<hazelcast.version>3.12.4</hazelcast.version>
 	</properties>
 	
 	<dependencies>
