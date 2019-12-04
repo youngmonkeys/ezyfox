@@ -5,7 +5,7 @@ import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzyPostInit;
 import com.tvd12.ezyfox.hazelcast.service.EzyAbstractHazelcastService;
 
-public class EzyBeanAbstractHazelcastService extends EzyAbstractHazelcastService {
+public abstract class EzyBeanAbstractHazelcastService extends EzyAbstractHazelcastService {
 
 	@EzyAutoBind
 	@Override

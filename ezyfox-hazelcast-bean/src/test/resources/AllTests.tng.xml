@@ -3,7 +3,8 @@
 <suite name="AllTests">
 	<test name="All">
 		<packages>
-			<package name="com.tvd12.ezyfox.testing"></package>
+			<package name="com.tvd12.ezyfox.hazelcast.testing"></package>
+			<package name="com.tvd12.ezyfox.hazelcast.testing.mapstore"></package>
 		</packages>
 	</test>
 </suite>
