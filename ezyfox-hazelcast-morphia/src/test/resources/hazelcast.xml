@@ -10,7 +10,7 @@
 	</group>
 
 	<properties>
-		<property name="hazelcast.icmp.enabled">true</property>
+		<property name="hazelcast.icmp.enabled">false</property>
 		<property name="hazelcast.logging.type">slf4j</property>
 	</properties>
 
