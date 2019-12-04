@@ -65,10 +65,15 @@ public class EzyEntryProcessorMaxIdServiceTest extends HazelcastBaseTest {
 		Thread.sleep(3000L);
 		
 		System.out.println(nums);
-		for(int i = 0 ; i < nums.size() - 1 ; ++i) {
-			if(nums.get(i + 1) != nums.get(i) + 2) {
-				System.err.println("entryprocessor yyy: error in " + i);
+		try {
+			for(int i = 0 ; i < nums.size() - 1 ; ++i) {
+				if(nums.get(i + 1) != nums.get(i) + 2) {
+					System.err.println("entryprocessor yyy: error in " + i);
+				}
 			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 	}
