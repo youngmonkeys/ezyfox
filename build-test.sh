@@ -24,7 +24,6 @@ mvn clean install -f ezyfox-hazelcast
 mvn clean install -f ezyfox-hazelcast-bean
 mvn clean install -f ezyfox-hazelcast-mongodb
 mvn clean install -f ezyfox-hazelcast-morphia
-mvn clean install -f ezyfox-morphia
 mvn clean install -f ezyfox-monitor
 mvn clean install -f ezyfox-elasticsearch
 mvn clean install -f ezyfox-kafka

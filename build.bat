@@ -24,7 +24,6 @@ mvn clean install -Dmaven.test.skip=true -f ezyfox-hazelcast & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-hazelcast-bean & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-hazelcast-mongodb & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-hazelcast-morphia & ^
-mvn clean install -Dmaven.test.skip=true -f ezyfox-morphia & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-monitor & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-elasticsearch & ^
 mvn clean install -Dmaven.test.skip=true -f ezyfox-kafka & ^
