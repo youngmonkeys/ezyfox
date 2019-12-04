@@ -8,12 +8,12 @@ mvn clean install -f ezyfox-security
 mvn clean install -f ezyfox-common
 mvn clean install -f ezyfox-codec
 mvn clean install -f ezyfox-binding
-mvn clean install -f ezyfox-binding-codec
 mvn clean install -f ezyfox-bean
 mvn clean install -f ezyfox-json
 mvn clean install -f ezyfox-mapping
 mvn clean install -f ezyfox-jackson
 mvn clean install -f ezyfox-msgpack
+mvn clean install -f ezyfox-binding-codec
 mvn clean install -f ezyfox-identifier
 mvn clean install -f ezyfox-message
 mvn clean install -f ezyfox-data

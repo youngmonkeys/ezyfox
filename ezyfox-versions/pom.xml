@@ -8,6 +8,7 @@
 		<version>0.0.2</version>
 	</parent>
 	<artifactId>ezyfox-versions</artifactId>
+	<version>0.0.3</version>
 	<packaging>pom</packaging>
 
 	<name>ezyfox-versions</name>
@@ -15,36 +16,37 @@
 
 	<properties>
 		<!-- ezyfox versions -->
-		<ezy.util.version>1.0.0</ezy.util.version>
-		<ezy.tools.version>1.0.0</ezy.tools.version>
-		<ezy.io.version>1.0.0</ezy.io.version>
-		<ezy.concurrent.version>1.0.0</ezy.concurrent.version>
-		<ezy.security.version>1.0.0</ezy.security.version>
-		<ezy.monitor.version>1.0.0</ezy.monitor.version>
-		<ezy.common.version>1.0.0</ezy.common.version>
-		<ezy.bean.version>1.0.0</ezy.bean.version>
-		<ezy.binding.version>1.0.0</ezy.binding.version>
-		<ezy.codec.version>1.0.0</ezy.codec.version>
-		<ezy.binding.codec.version>1.0.0</ezy.binding.codec.version>
-		<ezy.json.version>1.0.0</ezy.json.version>
-		<ezy.jackson.version>1.0.0</ezy.jackson.version>
-		<ezy.mapping.version>1.0.0</ezy.mapping.version>
-		<ezy.msgpack.version>1.0.0</ezy.msgpack.version>
-		<ezy.data.version>1.0.0</ezy.data.version>
-		<ezy.message.version>1.0.0</ezy.message.version>
-		<ezy.identifier.version>1.0.0</ezy.identifier.version>
-		<ezy.database.version>1.0.0</ezy.database.version>
-		<ezy.rabbitmq.version>1.0.0</ezy.rabbitmq.version>
-		<ezy.kafka.version>1.0.0</ezy.kafka.version>
-		<ezy.morphia.version>1.0.0</ezy.morphia.version>
-		<ezy.mongodb.version>1.0.0</ezy.mongodb.version>
-		<ezy.hazelcast.version>1.0.0</ezy.hazelcast.version>
-		<ezy.hazelcast.bean.version>1.0.0</ezy.hazelcast.bean.version>
-		<ezy.hazelcast.mongodb.version>1.0.0</ezy.hazelcast.mongodb.version>
-		<ezy.hazelcast.morphia.version>1.0.0</ezy.hazelcast.morphia.version>
-		<ezy.elasticsearch.version>1.0.0</ezy.elasticsearch.version>
+		<ezy.util.version>1.1.0</ezy.util.version>
+		<ezy.tools.version>1.1.0</ezy.tools.version>
+		<ezy.tools.prev.version>0.0.1</ezy.tools.prev.version>
+		<ezy.io.version>1.1.0</ezy.io.version>
+		<ezy.concurrent.version>1.1.0</ezy.concurrent.version>
+		<ezy.security.version>1.1.0</ezy.security.version>
+		<ezy.monitor.version>1.1.0</ezy.monitor.version>
+		<ezy.common.version>1.1.0</ezy.common.version>
+		<ezy.bean.version>1.1.0</ezy.bean.version>
+		<ezy.binding.version>1.1.0</ezy.binding.version>
+		<ezy.codec.version>1.1.0</ezy.codec.version>
+		<ezy.binding.codec.version>1.1.0</ezy.binding.codec.version>
+		<ezy.json.version>1.1.0</ezy.json.version>
+		<ezy.jackson.version>1.1.0</ezy.jackson.version>
+		<ezy.mapping.version>1.1.0</ezy.mapping.version>
+		<ezy.msgpack.version>1.1.0</ezy.msgpack.version>
+		<ezy.data.version>1.1.0</ezy.data.version>
+		<ezy.message.version>1.1.0</ezy.message.version>
+		<ezy.identifier.version>1.1.0</ezy.identifier.version>
+		<ezy.database.version>1.1.0</ezy.database.version>
+		<ezy.rabbitmq.version>1.1.0</ezy.rabbitmq.version>
+		<ezy.kafka.version>1.1.0</ezy.kafka.version>
+		<ezy.morphia.version>1.1.0</ezy.morphia.version>
+		<ezy.mongodb.version>1.1.0</ezy.mongodb.version>
+		<ezy.hazelcast.version>1.1.0</ezy.hazelcast.version>
+		<ezy.hazelcast.bean.version>1.1.0</ezy.hazelcast.bean.version>
+		<ezy.hazelcast.mongodb.version>1.1.0</ezy.hazelcast.mongodb.version>
+		<ezy.hazelcast.morphia.version>1.1.0</ezy.hazelcast.morphia.version>
+		<ezy.elasticsearch.version>1.1.0</ezy.elasticsearch.version>
 		<!-- other versions -->
-		<jackson.version>2.9.9</jackson.version>
+		<jackson.version>2.10.0</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 </project>

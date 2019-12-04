@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-versions</artifactId>
-		<version>0.0.2</version>
+		<version>0.0.3</version>
 	</parent>
 	<artifactId>ezyfox-msgpack</artifactId>
 	<version>${ezy.msgpack.version}</version> <!-- ${project.version} -->
