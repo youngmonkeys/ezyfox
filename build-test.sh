@@ -18,13 +18,4 @@ mvn clean install -f ezyfox-identifier
 mvn clean install -f ezyfox-message
 mvn clean install -f ezyfox-data
 mvn clean install -f ezyfox-database
-mvn clean install -f ezyfox-mongodb
-mvn clean install -f ezyfox-morphia
-mvn clean install -f ezyfox-hazelcast
-mvn clean install -f ezyfox-hazelcast-bean
-mvn clean install -f ezyfox-hazelcast-mongodb
-mvn clean install -f ezyfox-hazelcast-morphia
 mvn clean install -f ezyfox-monitor
-mvn clean install -f ezyfox-elasticsearch
-mvn clean install -f ezyfox-kafka
-mvn clean install -f ezyfox-rabbitmq
