@@ -12,6 +12,7 @@ public class EzyFunction {
 	protected final EzyMethod method;
 	protected final EzyBody body;
 	protected String modifier = "public";
+	protected Class<?> exceptionClass = null;
 	
 	public EzyFunction(Method method) {
 		this(new EzyMethod(method));
@@ -27,18 +28,31 @@ public class EzyFunction {
 		return this;
 	}
 	
+	public EzyFunction throwsException() {
+		return throwsException(Exception.class);
+	}
+	
+	public EzyFunction throwsException(Class<?> exceptionClass) {
+		this.exceptionClass = exceptionClass;
+		return this;
+	}
+	
 	public EzyBody body() {
 		return body;
 	}
 	
 	@Override
 	public String toString() {
-		return new StringBuilder()
-				.append(method.getDeclaration(modifier))
-				.append(" {\n")
+		StringBuilder builder = new StringBuilder()
+				.append(method.getDeclaration(modifier));
+		if(exceptionClass != null) {
+			builder.append(" throws ")
+					.append(Exception.class.getTypeName());
+		}
+		builder.append(" {\n")
 				.append(body)
-				.append("}")
-				.toString();
+				.append("}");
+		return builder.toString();
 	}
 	
 	public static class EzyBody {
