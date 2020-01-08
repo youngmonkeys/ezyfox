@@ -4,10 +4,9 @@
 	<parent>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-versions</artifactId>
-		<version>0.0.3</version>
+		<version>1.1.1</version>
 	</parent>
 	<artifactId>ezyfox-monitor</artifactId>
-	<version>${ezy.monitor.version}</version> <!-- ${project.version} -->
 	<name>ezyfox-monitor</name>
 
 </project>

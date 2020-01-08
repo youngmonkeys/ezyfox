@@ -5,10 +5,9 @@
 	<parent>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-versions</artifactId>
-		<version>0.0.3</version>
+		<version>1.1.1</version>
 	</parent>
 	<artifactId>ezyfox-json</artifactId>
-	<version>${ezy.json.version}</version> <!-- ${project.version} -->
 	<name>ezyfox-json</name>
 	<url>http://maven.apache.org</url>
 
@@ -16,7 +15,7 @@
 		<dependency>
 			<groupId>com.tvd12</groupId>
 			<artifactId>ezyfox-common</artifactId>
-			<version>${ezy.common.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

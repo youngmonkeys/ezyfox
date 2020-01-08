@@ -6,11 +6,9 @@
 	<parent>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox-versions</artifactId>
-		<version>0.0.3</version>
+		<version>1.1.1</version>
 	</parent>
 	<artifactId>ezyfox-concurrent</artifactId>
-	<version>${ezy.concurrent.version}</version> <!-- ${project.version} -->
-	
 	<name>ezyfox-concurrent</name>
 	<url>http://maven.apache.org</url>
 	
@@ -18,7 +16,7 @@
 		<dependency>
 			<groupId>com.tvd12</groupId>
 			<artifactId>ezyfox-util</artifactId>
-			<version>${ezy.util.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 	
