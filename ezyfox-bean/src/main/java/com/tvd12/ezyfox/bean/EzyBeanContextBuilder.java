@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.bean;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 
@@ -16,8 +18,22 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	EzyBeanContextBuilder scan(Iterable<String> packageNames);
 	
 	EzyBeanContextBuilder scan(Collection<String> packageNames);
+	
+	EzyBeanContextBuilder addConfigurationClass(Class clazz);
+	
+	EzyBeanContextBuilder addConfigurationClasses(Class... classes);
+	
+	EzyBeanContextBuilder addConfigurationClasses(Iterable<Class> classes);
+	
+	EzyBeanContextBuilder addConfigurationBeforeClass(Class clazz);
+	
+	EzyBeanContextBuilder addConfigurationBeforeClasses(Class... classes);
+	
+	EzyBeanContextBuilder addConfigurationBeforeClasses(Iterable<Class> classes);
 
 	EzyBeanContextBuilder addSingleton(String name, Object singleton);
+	
+	EzyBeanContextBuilder addSingletons(Map<String, Object> singletons);
 
 	EzyBeanContextBuilder addSingletonClass(Class clazz);
 
@@ -33,11 +49,19 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	
 	EzyBeanContextBuilder addPrototypeSupplier(String objectName, EzyPrototypeSupplier supplier);
 	
+	EzyBeanContextBuilder addPrototypeSuppliers(Map<String, EzyPrototypeSupplier> suppliers);
+	
 	EzyBeanContextBuilder addAllClasses(Object reflection);
 	
 	EzyBeanContextBuilder errorHandler(EzyErrorHandler handler);
 	
 	EzyBeanContextBuilder addProperties(Map properties);
+	
+	EzyBeanContextBuilder addProperties(String file);
+	
+	EzyBeanContextBuilder addProperties(File file);
+	
+	EzyBeanContextBuilder addProperties(InputStream inputStream);
 	
 	EzyBeanContextBuilder addProperty(String key, Object value);
 	

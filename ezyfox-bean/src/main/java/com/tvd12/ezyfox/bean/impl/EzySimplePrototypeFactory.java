@@ -36,7 +36,16 @@ public class EzySimplePrototypeFactory
 	@Override
 	public EzyPrototypeSupplier getSupplier(String objectName, Class objectType) {
 		String realname = translateBeanName(objectName, objectType);
-		return supplierByKey.get(of(realname, objectType));
+		EzyPrototypeSupplier supplier = supplierByKey.get(of(realname, objectType));
+		if(supplier == null) {
+			for(EzyBeanKey key : supplierByKey.keySet()) {
+				if(objectType.isAssignableFrom(key.getType())) {
+					supplier = supplierByKey.get(key);
+					break;
+				}
+			}
+		}
+		return supplier;
 	}
 	
 	@Override

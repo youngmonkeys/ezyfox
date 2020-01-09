@@ -3,6 +3,8 @@ package com.tvd12.ezyfox.bean.impl;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -10,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
@@ -48,6 +51,7 @@ import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.util.EzyHashMapSet;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyMapSet;
+import com.tvd12.properties.file.reader.BaseFileReader;
 
 import lombok.Getter;
 
@@ -215,6 +219,9 @@ public class EzySimpleBeanContext
 			return scan(set);	
 		}
 		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#scan(java.util.Collection)
+		 */
 		@Override
 		public EzyBeanContextBuilder scan(Collection<String> packageNames) {
 			if(packageNames.size() > 0) {
@@ -222,6 +229,64 @@ public class EzySimpleBeanContext
 				addAllClasses(reflection);
 			}
 			return this;	
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationClass(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationClass(Class clazz) {
+			configurationClasses.add(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationClasses(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationClasses(Class... classes) {
+			for(Class clazz : classes)
+				addConfigurationClass(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationClasses(java.lang.Iterable)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationClasses(Iterable<Class> classes) {
+			for(Class clazz : classes)
+				addConfigurationClass(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationBeforeClass(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationBeforeClass(Class clazz) {
+			configurationBeforeClasses.add(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationBeforeClasses(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationBeforeClasses(Class... classes) {
+			for(Class clazz : configurationBeforeClasses)
+				addConfigurationBeforeClass(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationBeforeClasses(java.lang.Iterable)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationBeforeClasses(Iterable<Class> classes) {
+			for(Class clazz : configurationBeforeClasses)
+				addConfigurationBeforeClass(clazz);
+			return this;
 		}
 		
 		/* (non-Javadoc)
@@ -234,11 +299,31 @@ public class EzySimpleBeanContext
 		}
 		
 		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingletons(java.util.Map)
+		 */
+		@Override
+		public EzyBeanContextBuilder addSingletons(Map<String, Object> singletons) {
+			for(Entry<String, Object> e : singletons.entrySet())
+				singletonFactory.addSingleton(e.getKey(), e.getValue());
+			return this;
+		}
+		
+		/* (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addPrototypeSupplier(java.lang.String, com.tvd12.ezyfox.bean.EzyPrototypeSupplier)
 		 */
 		@Override
 		public EzyBeanContextBuilder addPrototypeSupplier(String objectName, EzyPrototypeSupplier supplier) {
 			prototypeFactory.addSupplier(objectName, supplier);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addPrototypeSuppliers(java.lang.Map)
+		 */
+		@Override
+		public EzyBeanContextBuilder addPrototypeSuppliers(Map<String, EzyPrototypeSupplier> suppliers) {
+			for(Entry<String, EzyPrototypeSupplier> e : suppliers.entrySet())
+				prototypeFactory.addSupplier(e.getKey(), e.getValue());
 			return this;
 		}
 		
@@ -329,6 +414,36 @@ public class EzySimpleBeanContext
 		
 		/*
 		 * (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.util.String)
+		 */
+		@Override
+		public EzyBeanContextBuilder addProperties(String file) {
+			Properties props = new BaseFileReader().read(file);
+			return addProperties(props);
+		}
+		
+		/*
+		 * (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.io.File)
+		 */
+		@Override
+		public EzyBeanContextBuilder addProperties(File file) {
+			Properties props = new BaseFileReader().read(file);
+			return addProperties(props);
+		}
+		
+		/*
+		 * (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.io.InputStream)
+		 */
+		@Override
+		public EzyBeanContextBuilder addProperties(InputStream inputStream) {
+			Properties props = new BaseFileReader().loadInputStream(inputStream);
+			return addProperties(props);
+		}
+		
+		/*
+		 * (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperty(java.lang.String, java.lang.Object)
 		 */
 		public EzyBeanContextBuilder addProperty(String key, Object value) {
@@ -336,6 +451,10 @@ public class EzySimpleBeanContext
 			return this;
 		}
 		
+		/*
+		 * (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#propertiesReader(com.tvd12.ezyfox.properties.EzyPropertiesReader)
+		 */
 		@Override
 		public EzyBeanContextBuilder propertiesReader(EzyPropertiesReader propertiesReader) {
 			this.propertiesReader = propertiesReader;

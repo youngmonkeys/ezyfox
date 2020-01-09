@@ -71,7 +71,16 @@ public class EzySimpleSingletonFactory
 	@Override
 	public Object getSingleton(String name, Class type) {
 		String realname = translateBeanName(name, type);
-		return objectsByKey.get(of(realname, type));
+		Object singleton = objectsByKey.get(of(realname, type));
+		if(singleton == null) {
+			for(EzyBeanKey key : objectsByKey.keySet()) {
+				if(type.isAssignableFrom(key.getType())) {
+					singleton = objectsByKey.get(key);
+					break;
+				}		
+			}
+		}
+		return singleton;
 	}
 	
 	@Override
