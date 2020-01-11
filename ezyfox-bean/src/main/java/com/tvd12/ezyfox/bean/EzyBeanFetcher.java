@@ -6,4 +6,6 @@ public interface EzyBeanFetcher {
 	
 	Object getBean(String name, Class<?> type);
 	
+	Object getAnnotatedBean(Class<?> annotationClass);
+	
 }

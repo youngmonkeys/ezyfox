@@ -28,6 +28,9 @@ public class EzyConfigurationClassSorter {
 	}
 	
 	private static int getPriority(EzyConfiguration annotation) {
-		return annotation.priority();
+		int priority = 0;
+		if(annotation != null)
+			priority = annotation.priority();
+		return priority;
 	}
 }

@@ -7,12 +7,13 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
@@ -81,12 +82,33 @@ public class EzySimpleBeanContext
 	
 	@Override
 	public Object getBean(Class<?> type) {
-		return getBean(EzyBeanNameParser.getBeanName(type), type);
+		Object object = getSingleton(type);
+		if(object != null) 
+			return object;
+		return getPrototype(type);
+	}
+	
+	@Override
+	public Object getAnnotatedBean(Class<?> annotationClass) {
+		Object object = getAnnotatedSingleton(annotationClass);
+		if(object != null) 
+			return object;
+		return getAnnotatedPrototype(annotationClass);
+	}
+	
+	@Override
+	public <T> T getSingleton(Class<T> type) {
+		return (T) singletonFactory.getSingleton(type);
 	}
 	
 	@Override
 	public <T> T getSingleton(String name, Class<T> type) {
 		return (T) singletonFactory.getSingleton(name, type);
+	}
+	
+	@Override
+	public <T> T getAnnotatedSingleton(Class annotationClass) {
+		return (T) singletonFactory.getAnnotatedSingleton(annotationClass);
 	}
 	
 	@Override
@@ -105,10 +127,26 @@ public class EzySimpleBeanContext
 	}
 	
 	@Override
+	public <T> T getPrototype(Class<T> type) {
+		EzyPrototypeSupplier supplier = prototypeFactory.getSupplier(type);
+		if(supplier == null)
+			throw new IllegalArgumentException("has no bean with type " + type.getName());
+		return (T) supplier.supply(this);
+	}
+	
+	@Override
 	public <T> T getPrototype(String name, Class<T> type) {
 		EzyPrototypeSupplier supplier = prototypeFactory.getSupplier(name, type);
 		if(supplier == null)
-			throw new IllegalArgumentException("has no bean with name = " + name + ", and type " + type);
+			throw new IllegalArgumentException("has no bean with name = " + name + ", and type " + type.getName());
+		return (T) supplier.supply(this);
+	}
+	
+	@Override
+	public <T> T getAnnotatedPrototype(Class annotationClass) {
+		EzyPrototypeSupplier supplier = prototypeFactory.getAnnotatedSupplier(annotationClass);
+		if(supplier == null)
+			throw new IllegalArgumentException("can't create a bean, has no class annotated with: " + annotationClass.getName());
 		return (T) supplier.supply(this);
 	}
 	
@@ -163,6 +201,8 @@ public class EzySimpleBeanContext
 		protected Set<Class> packagesScanClasses;
 		protected Set<Class> configurationClasses;
 		protected Set<Class> configurationBeforeClasses;
+		protected Map<Class, String> namedSingletonClasses;
+		protected Map<Class, String> namedPrototypeClasses;
 		protected EzyPropertiesReader propertiesReader;
 		protected EzySimpleSingletonFactory singletonFactory;
 		protected EzySimplePrototypeFactory prototypeFactory;
@@ -178,6 +218,8 @@ public class EzySimpleBeanContext
 			this.packagesScanClasses = new HashSet<>();
 			this.configurationClasses = new HashSet<>();
 			this.configurationBeforeClasses = new HashSet<>();
+			this.namedSingletonClasses = new HashMap<>();
+			this.namedPrototypeClasses = new HashMap<>();
 			this.errorHandler = new EzySimpleErrorHandler();
 			this.unloadedSingletons = new EzyHashMapSet<>();
 			this.beanNameTranslator = new EzySimpleBeanNameTranslator();
@@ -274,7 +316,7 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addConfigurationBeforeClasses(Class... classes) {
-			for(Class clazz : configurationBeforeClasses)
+			for(Class clazz : classes)
 				addConfigurationBeforeClass(clazz);
 			return this;
 		}
@@ -284,7 +326,7 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addConfigurationBeforeClasses(Iterable<Class> classes) {
-			for(Class clazz : configurationBeforeClasses)
+			for(Class clazz : classes)
 				addConfigurationBeforeClass(clazz);
 			return this;
 		}
@@ -355,6 +397,28 @@ public class EzySimpleBeanContext
 		}
 		
 		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingletonClass(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder addSingletonClass(String name, Class clazz) {
+			this.singletonClasses.add(clazz);
+			this.namedSingletonClasses.put(clazz, name);
+			return this;
+		}
+
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingletonClasses(java.util.Map)
+		 */
+		@Override
+		public EzyBeanContextBuilder addSingletonClasses(Map<String, Class> classes) {
+			for(Entry<String, Class> e : classes.entrySet()) {
+				this.singletonClasses.add(e.getValue());
+				this.namedSingletonClasses.put(e.getValue(), e.getKey());
+			}
+			return this;
+		}
+		
+		/* (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addPrototypeClass(java.lang.Class)
 		 */
 		@Override
@@ -378,6 +442,28 @@ public class EzySimpleBeanContext
 		public EzyBeanContextBuilder addPrototypeClasses(Iterable<Class> classes) {
 			for(Class clazz : classes)
 				this.addPrototypeClass(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addPrototypeClass(java.lang.String, java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder addPrototypeClass(String name, Class clazz) {
+			this.prototypeClasses.add(clazz);
+			this.namedPrototypeClasses.put(clazz, name);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addPrototypeClasses(java.util.Map)
+		 */
+		@Override
+		public EzyBeanContextBuilder addPrototypeClasses(Map<String, Class> classes) {
+			for(Entry<String, Class> e : classes.entrySet()) {
+				this.prototypeClasses.add(e.getValue());
+				this.namedPrototypeClasses.put(e.getValue(), e.getKey());
+			}
 			return this;
 		}
 
@@ -504,7 +590,7 @@ public class EzySimpleBeanContext
 		}
 		
 		private Object createAndLoadSingleton(EzyBeanContext context, Class type, boolean reload) {
-			String beanName = getSingletonName(type);
+			String beanName = getSingletonBeanName(type);
 			Object current = singletonFactory.getSingleton(beanName, type);
 			if(current != null && !reload) return current;
 			List<Class<?>> stackCallClasses = new ArrayList<>();
@@ -519,11 +605,25 @@ public class EzySimpleBeanContext
 			}
 		}
 		
+		private String getSingletonBeanName(Class type) {
+			String beanName = namedSingletonClasses.get(type);
+			if(beanName == null)
+				beanName = getSingletonName(type);
+			return beanName;
+		}
+		
 		private void createAndLoadPrototypeSupplier(Class type) {
-			String beanName = getPrototypeName(type);
+			String beanName = getPrototypeBeanName(type);
 			Object current = prototypeFactory.getSupplier(beanName, type);
 			if(current == null)
 				new EzyByConstructorPrototypeSupplierLoader(new EzyClass(type)).load(prototypeFactory);
+		}
+		
+		private String getPrototypeBeanName(Class type) {
+			String beanName = namedPrototypeClasses.get(type);
+			if(beanName == null)
+				beanName = getPrototypeName(type);
+			return beanName;
 		}
 		
 		private void scanPackagesScanClasses() {

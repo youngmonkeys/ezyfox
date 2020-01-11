@@ -10,11 +10,13 @@ public interface EzyPrototypeFactory {
 
 	EzyPrototypeSupplier getSupplier(String objectName, Class objectType);
 	
+	EzyPrototypeSupplier getAnnotatedSupplier(Class annotationClass);
+	
 	EzyPrototypeSupplier getSupplier(Map properties);
 	
 	List<EzyPrototypeSupplier> getSuppliers(Map properties);
 	
-	List<EzyPrototypeSupplier> getSuppliers(Class annoClass);
+	List<EzyPrototypeSupplier> getSuppliers(Class annotationClass);
 	
 	Map getProperties(EzyPrototypeSupplier supplier);
 	

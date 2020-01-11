@@ -7,13 +7,17 @@ import java.util.Set;
 @SuppressWarnings("rawtypes")
 public interface EzySingletonFactory {
 
+	Object getSingleton(Class type);
+	
 	Object getSingleton(String name, Class type);
+	
+	Object getAnnotatedSingleton(Class annotationClass);
 	
 	Object getSingleton(Map properties);
 	
 	List getSingletons(Map properties);
 	
-	List getSingletons(Class annoClass);
+	List getSingletons(Class annotationClass);
 	
 	Map getProperties(Object singleton);
 	

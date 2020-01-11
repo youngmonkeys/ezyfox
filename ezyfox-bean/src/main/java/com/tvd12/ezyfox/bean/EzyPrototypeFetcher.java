@@ -6,7 +6,11 @@ import java.util.Map;
 @SuppressWarnings("rawtypes")
 public interface EzyPrototypeFetcher {
 
+	<T> T getPrototype(Class<T> type);
+	
 	<T> T getPrototype(String name, Class<T> type);
+	
+	<T> T getAnnotatedPrototype(Class annotationClass);
 	
 	<T> T getPrototype(Map properties);
 	

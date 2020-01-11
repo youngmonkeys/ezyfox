@@ -6,6 +6,8 @@ import java.util.Map;
 @SuppressWarnings("rawtypes")
 public interface EzySingletonFetcher {
 
+	<T> T getSingleton(Class<T> type);
+	
 	<T> T getSingleton(String name, Class<T> type);
 	
 	<T> T getSingleton(Map properties);
@@ -13,5 +15,7 @@ public interface EzySingletonFetcher {
 	List getSingletons(Map properties);
 	
 	List getSingletons(Class annotationClass);
+	
+	<T> T getAnnotatedSingleton(Class annotationClass);
 	
 }

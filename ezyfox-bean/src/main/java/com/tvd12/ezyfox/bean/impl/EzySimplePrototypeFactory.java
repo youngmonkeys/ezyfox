@@ -49,6 +49,14 @@ public class EzySimplePrototypeFactory
 	}
 	
 	@Override
+	public EzyPrototypeSupplier getAnnotatedSupplier(Class annotationClass) {
+		List<EzyPrototypeSupplier> list = getSuppliers(annotationClass);
+		if(list.size() > 0)
+			return list.get(0);
+		return null;
+	}
+	
+	@Override
 	public EzyPrototypeSupplier getSupplier(Map properties) {
 		for(Entry<EzyPrototypeSupplier, Map> entry : suppliersByProperties.entrySet())
 			if(EzyMaps.containsAll(entry.getValue(), properties))
@@ -66,11 +74,11 @@ public class EzySimplePrototypeFactory
 	}
 	
 	@Override
-	public List<EzyPrototypeSupplier> getSuppliers(Class annoClass) {
+	public List<EzyPrototypeSupplier> getSuppliers(Class annotationClass) {
 		List<EzyPrototypeSupplier> list = new ArrayList<>();
 		for(EzyBeanKey key : supplierByKey.keySet()) {
 			Class type = key.getType();
-			if(type.isAnnotationPresent(annoClass))
+			if(type.isAnnotationPresent(annotationClass))
 				list.add(supplierByKey.get(key));
 		}
 		return list;

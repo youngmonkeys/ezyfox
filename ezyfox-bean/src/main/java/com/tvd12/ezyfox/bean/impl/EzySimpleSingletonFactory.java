@@ -46,8 +46,9 @@ public class EzySimpleSingletonFactory
 		Class<?> type = singleton.getClass();
 		EzyBeanKey key = of(name, type);
 		
-		if(objectsByKey.containsKey(key))
-			return objectsByKey.get(key);
+		Object existed = objectsByKey.get(key);
+		if(existed != null)
+			return existed;
 		
 		objectsByKey.put(key, singleton);
 		objectsByProperties.put(singleton, properties);
@@ -69,6 +70,12 @@ public class EzySimpleSingletonFactory
 	}
 	
 	@Override
+	public Object getSingleton(Class type) {
+		String name = getBeanName(type);
+		return getSingleton(name, type);
+	}
+	
+	@Override
 	public Object getSingleton(String name, Class type) {
 		String realname = translateBeanName(name, type);
 		Object singleton = objectsByKey.get(of(realname, type));
@@ -81,6 +88,14 @@ public class EzySimpleSingletonFactory
 			}
 		}
 		return singleton;
+	}
+	
+	@Override
+	public Object getAnnotatedSingleton(Class annotationClass) {
+		List list = getSingletons(annotationClass);
+		if(list.size() > 0)
+			return list.get(0);
+		return null;
 	}
 	
 	@Override
@@ -101,11 +116,11 @@ public class EzySimpleSingletonFactory
 	}
 	
 	@Override
-	public List getSingletons(Class annoClass) {
+	public List getSingletons(Class annotationClass) {
 		List list = new ArrayList<>();
 		for(EzyBeanKey key : objectsByKey.keySet()) {
 			Class type = key.getType();
-			if(type.isAnnotationPresent(annoClass))
+			if(type.isAnnotationPresent(annotationClass))
 				list.add(objectsByKey.get(key));
 		}
 		return list;
