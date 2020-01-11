@@ -17,6 +17,7 @@ import com.tvd12.ezyfox.bean.testing.combine.pack1.ClassA1;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.Singleton1;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
+import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 
 public class CombineTest {
@@ -59,7 +60,11 @@ public class CombineTest {
 				.addConfigurationBeforeClasses(V111ConfigurationBefore01.class, V111ConfigurationBefore01.class)
 				.addConfigurationBeforeClasses(Sets.newHashSet(V111ConfigurationBefore01.class, V111ConfigurationBefore01.class))
 				.addConfigurationClasses(V111Configuration01.class, V111Configuration01.class)
-				.addConfigurationClasses(Sets.newHashSet(V111Configuration01.class, V111Configuration01.class));
+				.addConfigurationClasses(Sets.newHashSet(V111Configuration01.class, V111Configuration01.class))
+				.addSingletonClass("v111Singleton03New", V111Singleton03.class)
+				.addSingletonClasses(EzyMaps.newHashMap("v111Singleton04New", V111Singleton04.class))
+				.addPrototypeClass("v111Prototype02New", V111Prototype02.class)
+				.addPrototypeClasses(EzyMaps.newHashMap("v111Prototype03New", V111Prototype03.class));
 		EzyBeanContext context = builder.build();
 		SingletonX1 x1 = (SingletonX1) context.getBean("singletonX1", SingletonX1.class);
 		SingletonX2 x2 = (SingletonX2) context.getBean("singletonX2", SingletonX2.class);
@@ -71,6 +76,10 @@ public class CombineTest {
 		assert x1.getSingletonX2() == x2;
 		assert x2.getSingletonX1() == x1;
 		assert x2.getSingletonX2() == x2;
+		assert context.getBean("v111Prototype02New", V111Prototype02.class) != null;
+		assert context.getBean("v111Prototype03New", V111Prototype03.class) != null;
+		assert context.getBean("v111Singleton03New", V111Singleton03.class) != null;
+		assert context.getBean("v111Singleton04New", V111Singleton04.class) != null;
 		assert context.getBean(V111Singleton01.class) != null;
 		assert context.getSingleton(V111ISingleton01.class) != null;
 		assert context.getSingleton(V111Singleton01Impl01.class) == null;
