@@ -11,8 +11,11 @@ public interface EzyBeanContext extends
 		EzyPropertyFetcher {
 	
 	Properties getProperties();
+	
 	EzySingletonFactory getSingletonFactory();
+	
 	EzyPrototypeFactory getPrototypeFactory();
+	
 	EzyBeanNameTranslator getBeanNameTranslator();
 	
 	static EzyBeanContextBuilder builder() {

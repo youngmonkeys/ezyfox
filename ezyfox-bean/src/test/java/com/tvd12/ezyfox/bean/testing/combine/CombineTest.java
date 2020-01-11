@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,7 +26,7 @@ public class CombineTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		EzyByConstructorPrototypeSupplierLoader.setDebug(true);
 		EzyBeanContextBuilder builder = EzyBeanContext.builder()
 				.scan(
@@ -64,11 +66,38 @@ public class CombineTest {
 				.addSingletonClass("v111Singleton03New", V111Singleton03.class)
 				.addSingletonClasses(EzyMaps.newHashMap("v111Singleton04New", V111Singleton04.class))
 				.addPrototypeClass("v111Prototype02New", V111Prototype02.class)
-				.addPrototypeClasses(EzyMaps.newHashMap("v111Prototype03New", V111Prototype03.class));
+				.addPrototypeClasses(EzyMaps.newHashMap("v111Prototype03New", V111Prototype03.class))
+				.addSingletons(EzyMaps.newHashMap("v111Singleton05", new V111Singleton05()))
+				.addPrototypeSuppliers(EzyMaps.newHashMap("v111Prototype04", new EzyPrototypeSupplier() {
+					@Override
+					public Object supply(EzyBeanContext context) {
+						return new V111Prototype04();
+					}
+					@Override
+					public Class<?> getObjectType() {
+						return V111Prototype04.class;
+					}
+				}))
+				.addProperties("v111_props3.properties")
+				.addProperties(new File("test-data/v111_props1.properties"))
+				.addProperties(new FileInputStream(new File("test-data/v111_props2.properties")))
+				.addPrototypeClass(V111Prototype05.class);
 		EzyBeanContext context = builder.build();
 		SingletonX1 x1 = (SingletonX1) context.getBean("singletonX1", SingletonX1.class);
 		SingletonX2 x2 = (SingletonX2) context.getBean("singletonX2", SingletonX2.class);
 		
+		assert context.getAnnotatedBean(V111Combine0Ann1.class) != null;
+		try {
+			context.getAnnotatedBean(V111Combine0Ann2.class);
+		}
+		catch (Exception e) {
+			assert e instanceof IllegalArgumentException;
+		}
+		assert context.getProperties().get("v111_a").equals("hello");
+		assert context.getProperties().get("v111_b").equals("world");
+		assert context.getProperties().get("v111_c").equals("helloworld");
+		assert context.getBean(V111Singleton05.class) != null;
+		assert context.getBean(V111Prototype04.class) != null;
 		assert V111ISingleton01.class.isAssignableFrom(V111ISingleton01.class);
 		assert !V111Singleton01Impl01.class.isAssignableFrom(V111ISingleton01.class);
 		
@@ -112,6 +141,7 @@ public class CombineTest {
 		
 		List<Object> singletons = singletonFactory.getSingletons(EzyCombine0Ann.class);
 		assert singletons.size() == 2;
+		assert context.getAnnotatedBean(EzyCombine0Ann.class) != null;
 		
 		List<EzyPrototypeSupplier> prototypeSuppliers = prototypeFactory.getSuppliers(EzyCombine0Ann.class);
 		assert prototypeSuppliers.size() == 2;
