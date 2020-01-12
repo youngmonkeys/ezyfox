@@ -30,8 +30,8 @@ public abstract class EzySimplePrototypeSupplierLoader
 	private static boolean debug;
 	private static final AtomicInteger COUNT = new AtomicInteger(0);
 	
-	public EzySimplePrototypeSupplierLoader(EzyClass clazz) {
-		super(clazz);
+	public EzySimplePrototypeSupplierLoader(String beanName, EzyClass clazz) {
+		super(beanName, clazz);
 	}
 	
 	@Override
@@ -46,10 +46,6 @@ public abstract class EzySimplePrototypeSupplierLoader
 	
 	private Class<?> getPrototypeClass() {
 		return clazz.getClazz();
-	}
-	
-	protected String getPrototypeName() {
-		return EzyBeanNameParser.getPrototypeName(getPrototypeClass());
 	}
 	
 	protected Map getAnnotationProperties() {
@@ -81,7 +77,7 @@ public abstract class EzySimplePrototypeSupplierLoader
 		Class answerClass = implClass.toClass();
 		implClass.detach();
 		EzyPrototypeSupplier supplier = (EzyPrototypeSupplier)answerClass.newInstance();
-		factory.addSupplier(getPrototypeName(), supplier, getAnnotationProperties());
+		factory.addSupplier(beanName, supplier, getAnnotationProperties());
 		logger.debug("add prototype supplier of {}", implClassName);
 		return supplier;
 	}

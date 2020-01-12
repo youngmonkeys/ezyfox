@@ -18,16 +18,11 @@ public class EzyByMethodPrototypeSupplierLoader
 	protected final EzyMethod method;
 	protected final Object configurator;
 	
-	public EzyByMethodPrototypeSupplierLoader(EzyMethod method, Object configurator) {
-		super(new EzyClass(method.getReturnType()));
+	public EzyByMethodPrototypeSupplierLoader(
+			String beanName, EzyMethod method, Object configurator) {
+		super(beanName, new EzyClass(method.getReturnType()));
 		this.method = method;
 		this.configurator = configurator;
-	}
-	
-	@Override
-	protected String getPrototypeName() {
-		return EzyBeanNameParser.getPrototypeName(
-				method.getAnnotation(EzyPrototype.class), method.getFieldName());
 	}
 	
 	@SuppressWarnings("rawtypes")

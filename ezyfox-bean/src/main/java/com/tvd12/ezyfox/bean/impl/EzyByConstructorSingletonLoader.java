@@ -14,12 +14,13 @@ public class EzyByConstructorSingletonLoader
 
 	protected final Constructor<?> constructor;
 	
-	protected EzyByConstructorSingletonLoader(EzyClass clazz) {
-		this(clazz, new ArrayList<>());
+	protected EzyByConstructorSingletonLoader(String beanName, EzyClass clazz) {
+		this(beanName, clazz, new ArrayList<>());
 	}
 	
-	protected EzyByConstructorSingletonLoader(EzyClass clazz, List<Class<?>> stackCallClasses) {
-		super(clazz, stackCallClasses);
+	protected EzyByConstructorSingletonLoader(
+			String beanName, EzyClass clazz, List<Class<?>> stackCallClasses) {
+		super(beanName, clazz, stackCallClasses);
 		this.constructor = getConstructor(clazz);
 	}
 	

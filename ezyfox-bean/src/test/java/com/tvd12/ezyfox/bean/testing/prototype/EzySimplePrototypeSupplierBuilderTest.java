@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
+import com.tvd12.ezyfox.bean.impl.EzyBeanNameParser;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.impl.EzySimplePrototypeFactory;
 import com.tvd12.ezyfox.reflect.EzyClass;
@@ -22,7 +23,7 @@ public class EzySimplePrototypeSupplierBuilderTest extends BaseTest {
 	public static class ExSimplePrototypeSupplierBuilder extends EzyByConstructorPrototypeSupplierLoader {
 
 		public ExSimplePrototypeSupplierBuilder(EzyClass clazz) {
-			super(clazz);
+			super(EzyBeanNameParser.getBeanName(clazz.getClazz()), clazz);
 		}
 		
 		@Override

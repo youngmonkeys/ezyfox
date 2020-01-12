@@ -17,16 +17,11 @@ public class EzyByFieldPrototypeSupplierLoader
 	protected final EzyField field;
 	protected final Object configurator;
 	
-	public EzyByFieldPrototypeSupplierLoader(EzyField field, Object configurator) {
-		super(new EzyClass(field.getType()));
+	public EzyByFieldPrototypeSupplierLoader(
+			String beanName, EzyField field, Object configurator) {
+		super(beanName, new EzyClass(field.getType()));
 		this.field = field;
 		this.configurator = configurator;
-	}
-	
-	@Override
-	protected String getPrototypeName() {
-		return EzyBeanNameParser.getPrototypeName(
-				field.getAnnotation(EzyPrototype.class), field.getName());
 	}
 	
 	@Override

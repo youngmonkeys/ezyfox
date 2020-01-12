@@ -10,8 +10,8 @@ public class EzyByConstructorPrototypeSupplierLoader
 
 	protected final Constructor<?> constructor;
 	
-	public EzyByConstructorPrototypeSupplierLoader(EzyClass clazz) {
-		super(clazz);
+	public EzyByConstructorPrototypeSupplierLoader(String beanName, EzyClass clazz) {
+		super(beanName, clazz);
 		this.constructor = getConstructor(clazz);
 	}
 	

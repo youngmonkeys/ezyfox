@@ -18,17 +18,21 @@ public class EzyByFieldSingletonLoader
 	protected final EzyField field;
 	
 	public EzyByFieldSingletonLoader(
+			String beanName,
 			EzyField field, 
 			Object configurator, 
 			Map<Class<?>, EzyMethod> methodsByType) {
-		this(field, configurator, methodsByType, new ArrayList<>());
+		this(beanName, field, configurator, methodsByType, new ArrayList<>());
 	}
 	
 	public EzyByFieldSingletonLoader(
+			String beanName,
 			EzyField field, 
 			Object configurator, 
 			Map<Class<?>, EzyMethod> methodsByType, List<Class<?>> stackCallClasses) {
-		super(new EzyClass(field.getType()), configurator, methodsByType, stackCallClasses);
+		super(beanName, 
+				new EzyClass(field.getType()), 
+				configurator, methodsByType, stackCallClasses);
 		this.field = field;
 	}
 	
@@ -36,12 +40,6 @@ public class EzyByFieldSingletonLoader
 	protected Map getAnnotationProperties() {
 		return EzyKeyValueParser.getSingletonProperties(
 				field.getAnnotation(EzySingleton.class));
-	}
-	
-	@Override
-	protected String getSingletonName() {
-		return EzyBeanNameParser.getSingletonName(
-				field.getAnnotation(EzySingleton.class), field.getName());
 	}
 	
 	@Override

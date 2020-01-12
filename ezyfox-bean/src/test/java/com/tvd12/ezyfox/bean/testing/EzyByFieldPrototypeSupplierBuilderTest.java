@@ -17,7 +17,7 @@ public class EzyByFieldPrototypeSupplierBuilderTest {
 		
 		EzyField field = new EzyField(EzyFields.getField(getClass(), "classA"));
 		EzyByFieldPrototypeSupplierLoader builder = new EzyByFieldPrototypeSupplierLoader(
-				field, this);
+				"classA", field, this);
 		builder.load(new EzySimplePrototypeFactory());
 	}
 	

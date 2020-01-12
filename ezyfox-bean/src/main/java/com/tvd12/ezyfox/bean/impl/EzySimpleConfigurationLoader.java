@@ -67,7 +67,8 @@ public class EzySimpleConfigurationLoader
 	}
 	
 	private Object newConfigurator() {
-		Object object = new EzyByConstructorSingletonLoader(clazz)
+		String beanName = getSingletonName(clazz.getClazz());
+		Object object = new EzyByConstructorSingletonLoader(beanName, clazz)
 				.load(context);
 		if(object instanceof EzyBeanContextAware)
 			((EzyBeanContextAware)object).setContext(context);
@@ -92,7 +93,7 @@ public class EzySimpleConfigurationLoader
 		String beanName = getSingletonName(field);
 		Object current = singletonFactory.getSingleton(beanName, field.getType());
 		if(current == null) {
-			EzySingletonLoader loader = new EzyByFieldSingletonLoader(field, configurator, singletonMethods);
+			EzySingletonLoader loader = new EzyByFieldSingletonLoader(beanName, field, configurator, singletonMethods);
 			loader.load(context);
 		}
 	}
@@ -112,7 +113,7 @@ public class EzySimpleConfigurationLoader
 		String beanName = getSingletonName(method);
 		Object current = singletonFactory.getSingleton(beanName, method.getReturnType());
 		if(current == null) {
-			EzySingletonLoader loader = new EzyByMethodSingletonLoader(method, configurator, singletonMethods);
+			EzySingletonLoader loader = new EzyByMethodSingletonLoader(beanName, method, configurator, singletonMethods);
 			loader.load(context);
 		}
 	}
@@ -126,7 +127,7 @@ public class EzySimpleConfigurationLoader
 		String beanName = getPrototypeName(field);
 		Object current = prototypeFactory.getSupplier(beanName, field.getType());
 		if(current == null) {
-			EzyPrototypeSupplierLoader loader = new EzyByFieldPrototypeSupplierLoader(field, configurator);
+			EzyPrototypeSupplierLoader loader = new EzyByFieldPrototypeSupplierLoader(beanName, field, configurator);
 			loader.load(prototypeFactory);
 		}
 	}
@@ -143,7 +144,7 @@ public class EzySimpleConfigurationLoader
 		String beanName = getPrototypeName(method);
 		Object current = prototypeFactory.getSupplier(beanName, method.getReturnType());
 		if(current == null) {
-			EzyPrototypeSupplierLoader loader = new EzyByMethodPrototypeSupplierLoader(method, configurator);
+			EzyPrototypeSupplierLoader loader = new EzyByMethodPrototypeSupplierLoader(beanName, method, configurator);
 			loader.load(prototypeFactory);
 		}
 	}

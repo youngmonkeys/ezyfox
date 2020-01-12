@@ -28,6 +28,7 @@ public class EzyByMethodSingletonLoaderTest extends BaseTest {
 		EzyMethod methodA = new EzyMethod(getClass().getDeclaredMethod("newA"));
 		EzyMethod methodB = new EzyMethod(getClass().getDeclaredMethod("newB"));
 		EzyByMethodSingletonLoader loader = new EzyByMethodSingletonLoader(
+				"a",
 				methodA, this, EzyMaps.newHashMap(B.class, methodB));
 		loader.load(context);
 		

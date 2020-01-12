@@ -595,7 +595,8 @@ public class EzySimpleBeanContext
 			if(current != null && !reload) return current;
 			List<Class<?>> stackCallClasses = new ArrayList<>();
 			try {
-				EzySingletonLoader loader = new EzyByConstructorSingletonLoader(new EzyClass(type), stackCallClasses);
+				EzySingletonLoader loader = 
+						new EzyByConstructorSingletonLoader(beanName, new EzyClass(type), stackCallClasses);
 				return loader.load(context);
 			}
 			catch(EzyNewSingletonException e) {
@@ -616,7 +617,7 @@ public class EzySimpleBeanContext
 			String beanName = getPrototypeBeanName(type);
 			Object current = prototypeFactory.getSupplier(beanName, type);
 			if(current == null)
-				new EzyByConstructorPrototypeSupplierLoader(new EzyClass(type)).load(prototypeFactory);
+				new EzyByConstructorPrototypeSupplierLoader(beanName, new EzyClass(type)).load(prototypeFactory);
 		}
 		
 		private String getPrototypeBeanName(Class type) {

@@ -22,7 +22,7 @@ public class EzyByFieldSingletonLoaderTest extends BaseTest {
 	
 	public static class ExEzyByFieldSingletonLoader extends EzyByFieldSingletonLoader {
 		public ExEzyByFieldSingletonLoader(EzyField field, Object configurator) {
-			super(field, configurator, new HashMap<>());
+			super("a", field, configurator, new HashMap<>());
 		}
 
 		@Override

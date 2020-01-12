@@ -21,7 +21,7 @@ public class GeneratedClassAFactory2 {
 		EzyByMethodPrototypeSupplierLoader.setDebug(true);
 		
 		EzyPrototypeSupplierLoader builder = 
-				new EzyByConstructorPrototypeSupplierLoader(new EzyClass(ClassA.class));
+				new EzyByConstructorPrototypeSupplierLoader("classA", new EzyClass(ClassA.class));
 		
 		EzyPrototypeSupplier supplier = builder.load(new EzySimplePrototypeFactory());
 		

@@ -24,15 +24,17 @@ public abstract class EzySimpleSingletonLoader
 	protected final Map<Class<?>, EzyMethod> methodsByType;
 	protected final List<Class<?>> stackCallClasses;
 	
-	protected EzySimpleSingletonLoader(EzyClass clazz, List<Class<?>> stackCallClasses) {
-		this(clazz, null, new HashMap<>(), stackCallClasses);
+	protected EzySimpleSingletonLoader(
+			String beanName, EzyClass clazz, List<Class<?>> stackCallClasses) {
+		this(beanName, clazz, null, new HashMap<>(), stackCallClasses);
 	}
 	
 	protected EzySimpleSingletonLoader(
+			String beanName,
 			EzyClass clazz, 
 			Object configurator, 
 			Map<Class<?>, EzyMethod> methodsByType, List<Class<?>> stackCallClasses) {
-		super(clazz);
+		super(beanName, clazz);
 		this.configurator = configurator;
 		this.methodsByType = methodsByType;
 		this.stackCallClasses = stackCallClasses;
@@ -60,11 +62,10 @@ public abstract class EzySimpleSingletonLoader
 		Class[] parameterTypes = getConstructorParameterTypes();
 		StringBuilder log = new StringBuilder().append(getSingletonClass());
 		detectCircularDependency(parameterTypes, log);
-		String name = getSingletonName();
-		Object singleton = getOrCreateSingleton(context, name, parameterTypes);
 		stackCallClasses.add(getSingletonClass());
+		Object singleton = getOrCreateSingleton(context, beanName, parameterTypes);
 		Map properties = getAnnotationProperties();
-		Object answer = factory.addSingleton(name, singleton, properties);
+		Object answer = factory.addSingleton(beanName, singleton, properties);
 		setPropertiesToFields(singleton, context);
 		setPropertiesToMethods(singleton, context);
 		setValueToBindingFields(answer, context);
@@ -83,10 +84,6 @@ public abstract class EzySimpleSingletonLoader
 			logger.debug("add singleton with name {} of {}, object = {}", name, singleton.getClass(), singleton);
 		}
 		return singleton;
-	}
-	
-	protected String getSingletonName() {
-		return EzyBeanNameParser.getSingletonName(getSingletonClass());
 	}
 	
 	protected Map getAnnotationProperties() {
@@ -173,7 +170,7 @@ public abstract class EzySimpleSingletonLoader
 		EzyMethod method = methodsByType.remove(paramType);
 		if(method != null) {
 			logger.debug("add singleton of {} with method {}", paramType, method);
-			EzySingletonLoader loader = new EzyByMethodSingletonLoader(method, configurator, methodsByType, stackCallClasses);
+			EzySingletonLoader loader = new EzyByMethodSingletonLoader(beanName, method, configurator, methodsByType, stackCallClasses);
 			return loader.load(context);
 		}
 		boolean cannotCreate = isAbstractClass(paramType);
@@ -185,7 +182,7 @@ public abstract class EzySimpleSingletonLoader
 		if(cannotCreate) {
 			throw new EzyNewSingletonException(getSingletonClass(), paramType, beanName);
 		}
-		EzySingletonLoader loader = new EzyByConstructorSingletonLoader(new EzyClass(paramType), stackCallClasses);
+		EzySingletonLoader loader = new EzyByConstructorSingletonLoader(beanName, new EzyClass(paramType), stackCallClasses);
 		return loader.load(context);
 	}
 	

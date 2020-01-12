@@ -25,14 +25,16 @@ import com.tvd12.ezyfox.util.EzyPropertyAnnotations;
 public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 
 	protected final EzyClass clazz;
+	protected final String beanName;
 	protected final AtomicInteger variableCount;
 	protected final List<EzyField> bindingFields;
 	protected final List<EzySetterMethod> bindingMethods;
 	protected final List<EzyField> propertyFields;
 	protected final List<EzySetterMethod> propertyMethods;
 	
-	public EzySimpleObjectBuilder(EzyClass clazz) {
+	public EzySimpleObjectBuilder(String beanName, EzyClass clazz) {
 		this.clazz = clazz;
+		this.beanName = beanName;
 		this.variableCount = new AtomicInteger(0);
 		this.bindingFields = getBindingFields(clazz);
 		this.bindingMethods = getBindingMethods(clazz);
