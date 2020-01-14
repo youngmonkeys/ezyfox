@@ -4,6 +4,6 @@ public interface EzyResultCallback<T> {
 
 	void onResponse(T response);
 	
-	void onException(Exception e);
+	default void onException(Exception e) {};
 	
 }

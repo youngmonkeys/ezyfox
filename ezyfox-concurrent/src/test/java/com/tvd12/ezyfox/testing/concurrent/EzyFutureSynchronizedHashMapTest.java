@@ -44,6 +44,13 @@ public class EzyFutureSynchronizedHashMapTest {
 		loop.stop();
  	}
 	
+	@Test
+	public void clearCaseTest() {
+		EzyFutureMap<String> tasks = new EzyFutureSynchronizedHashMap<>();
+		tasks.addFuture("a");
+		assert tasks.clear().size() == 1;
+	}
+	
 	public static class HandlingLoop {
 		
 		protected volatile boolean active;

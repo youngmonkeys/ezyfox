@@ -29,7 +29,8 @@ public class EzyCallableFutureTask extends EzyFutureTask {
 		}
 		else {
 			synchronized (this) {
-				this.result = result;
+				if(this.result == null)
+					this.result = result;
 				notify();
 			}
 		}
@@ -49,7 +50,8 @@ public class EzyCallableFutureTask extends EzyFutureTask {
 		}
 		else {
 			synchronized (this) {
-				this.exception = exception;
+				if(this.exception == null)
+					this.exception = exception;
 				notify();
 			}
 		}
