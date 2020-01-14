@@ -2,6 +2,8 @@ package com.tvd12.ezyfox.concurrent;
 
 import java.util.concurrent.TimeoutException;
 
+import com.tvd12.ezyfox.concurrent.exception.EzyFutureTaskCancelledException;
+
 public class EzyFutureTask implements EzyFuture {
 
 	protected boolean done;
@@ -15,7 +17,8 @@ public class EzyFutureTask implements EzyFuture {
 		if(result == null)
 			throw new NullPointerException("result is null");
 		synchronized (this) {
-			this.result = result;
+			if(this.result == null)
+				this.result = result;
 			notify();
 		}
 	}
@@ -25,9 +28,15 @@ public class EzyFutureTask implements EzyFuture {
 		if(exception == null)
 			throw new NullPointerException("exception is null");
 		synchronized (this) {
-			this.exception = exception;
+			if(this.exception == null)
+				this.exception = exception;
 			notify();
 		}
+	}
+	
+	@Override
+	public void cancel(String message) {
+		setException(new EzyFutureTaskCancelledException(message));
 	}
 	
 	@Override

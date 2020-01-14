@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.concurrent;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -54,6 +55,13 @@ public abstract class EzyFutureAbstractMap<K> implements EzyFutureMap<K> {
 	public int size() {
 		int size = map.size();
 		return size;
+	}
+	
+	@Override
+	public Map<K, EzyFuture> clear() {
+		Map<K, EzyFuture> answer = new HashMap<>(map);
+		map.clear();
+		return answer;
 	}
 	
 }

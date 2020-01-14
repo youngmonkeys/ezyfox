@@ -45,4 +45,10 @@ public class EzyFutureSynchronizedHashMap<K> extends EzyFutureAbstractMap<K> {
 		}
 	}
 	
+	@Override
+	public Map<K, EzyFuture> clear() {
+		synchronized (map) {
+			return super.clear();
+		}
+	}
 }

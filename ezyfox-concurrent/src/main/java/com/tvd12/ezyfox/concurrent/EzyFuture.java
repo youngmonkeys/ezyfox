@@ -6,6 +6,8 @@ public interface EzyFuture {
 	
 	void setException(Exception exception);
 	
+	void cancel(String message);
+	
 	boolean isDone();
 
 	<V> V get() throws Exception;

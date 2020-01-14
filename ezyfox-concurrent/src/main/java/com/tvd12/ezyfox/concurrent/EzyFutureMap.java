@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.concurrent;
 
+import java.util.Map;
+
 public interface EzyFutureMap<K> {
 
 	EzyFuture addFuture(K key);
@@ -13,5 +15,7 @@ public interface EzyFutureMap<K> {
 	EzyFuture removeFuture(K key);
 
 	int size();
+	
+	Map<K, EzyFuture> clear();
 	
 }
