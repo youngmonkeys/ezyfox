@@ -29,10 +29,10 @@ public final class EzyPredicates {
 		return predicate;
 	}
 	
-	public static Predicate or(Iterable<Predicate> predicates) {
+	public static Predicate or(Iterable predicates) {
 		return t -> {
-			for(Predicate predicate : predicates)
-				if(predicate.test(t))
+			for(Object predicate : predicates)
+				if(((Predicate)predicate).test(t))
 					return true;
 			return false;
 		};
