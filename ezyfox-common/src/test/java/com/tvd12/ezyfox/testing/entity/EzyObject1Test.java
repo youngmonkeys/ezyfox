@@ -1,7 +1,10 @@
 package com.tvd12.ezyfox.testing.entity;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.testng.annotations.Test;
 
@@ -49,6 +52,23 @@ public class EzyObject1Test extends EzyEntityTest {
 		assertTrue(clone.keySet().containsAll(Sets.newHashSet("1", "2", "3", "5", "6")));
 		object.clear();
 		assertEquals(object.getWithDefault("1", "b"), "b");
+		
+		UUID uuid1 = UUID.randomUUID();
+		UUID uuid2 = UUID.randomUUID();
+		object = newObjectBuilder()
+				.append("uuid1", uuid1)
+				.append("uuid2", uuid2.toString())
+				.append("bigInteger1", new BigInteger("1000"))
+				.append("bigInteger2", new BigInteger("1001").toString())
+				.append("bigDecimal1", new BigDecimal("2000.2"))
+				.append("bigDecimal2", new BigDecimal("2000.3").toString())
+				.build();
+		assert object.get("uuid1", UUID.class).equals(uuid1);
+		assert object.get("uuid2", UUID.class).equals(uuid2);
+		assert object.get("bigInteger1", BigInteger.class).equals(new BigInteger("1000"));
+		assert object.get("bigInteger2", BigInteger.class).equals(new BigInteger("1001"));
+		assert object.get("bigDecimal1", BigDecimal.class).equals(new BigDecimal("2000.2"));
+		assert object.get("bigDecimal2", BigDecimal.class).equals(new BigDecimal("2000.3"));
 	}
 	
 	@Test(expectedExceptions = IllegalStateException.class)

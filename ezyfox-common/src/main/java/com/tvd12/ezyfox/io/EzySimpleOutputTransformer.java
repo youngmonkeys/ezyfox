@@ -17,11 +17,14 @@ import static com.tvd12.ezyfox.io.EzyDataConverter.collectionToWrapperShortArray
 import static com.tvd12.ezyfox.io.EzyDataConverter.toByteWrapperArray;
 import static com.tvd12.ezyfox.io.EzyDataConverter.toCharWrapperArray;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.tvd12.ezyfox.entity.EzyArray;
@@ -396,6 +399,33 @@ public class EzySimpleOutputTransformer
 					logger.info("value: {} is invalid", value, e);
 				}
 				return null;
+			}
+		});
+		
+		answer.put(BigInteger.class, new EzyToObject<Object>() {
+			@Override
+			public Object transform(Object value) {
+				if(value instanceof BigInteger)
+					return value;
+				return new BigInteger((String)value);
+			}
+		});
+		
+		answer.put(BigDecimal.class, new EzyToObject<Object>() {
+			@Override
+			public Object transform(Object value) {
+				if(value instanceof BigDecimal)
+					return value;
+				return new BigDecimal((String)value);
+			}
+		});
+		
+		answer.put(UUID.class, new EzyToObject<Object>() {
+			@Override
+			public Object transform(Object value) {
+				if(value instanceof UUID)
+					return value;
+				return UUID.fromString((String)value);
 			}
 		});
 	}
