@@ -53,6 +53,11 @@ public class EzyObject6Test extends BaseTest {
 		}
 		
 		@Override
+		public boolean containsKeys(Collection keys) {
+			return false;
+		}
+		
+		@Override
 		public boolean isNotNullValue(Object key) {
 			return false;
 		}

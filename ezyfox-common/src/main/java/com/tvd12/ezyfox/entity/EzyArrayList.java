@@ -78,6 +78,26 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 	
 	/*
 	 * (non-Javadoc)
+	 * @see com.tvd12.ezyfox.entity.EzyRoArray#contains(java.lang.Object)
+	 */
+	@Override
+	public boolean contains(Object value) {
+		boolean answer = list.contains(value);
+		return answer;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.tvd12.ezyfox.entity.EzyRoArray#containsAll(java.util.Collection)
+	 */
+	@Override
+	public boolean containsAll(Collection values) {
+		boolean answer = list.containsAll(values);
+		return answer;
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyRoArray#sub(int, int)
 	 */
 	@Override
@@ -247,6 +267,10 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.tvd12.ezyfox.entity.EzyArray#compareTo(com.tvd12.ezyfox.entity.EzyArray)
+	 */
 	@Override
 	public int compareTo(EzyArray o) {
 		EzyArrayList other = (EzyArrayList)o;
@@ -279,6 +303,10 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 		return 0;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object other) {
 		if(other == null)
@@ -291,6 +319,10 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 		return t.list.equals(this.list);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return list.hashCode();

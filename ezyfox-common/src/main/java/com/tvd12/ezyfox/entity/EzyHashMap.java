@@ -131,6 +131,19 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 	
 	/*
 	 * (non-Javadoc)
+	 * @see com.tvd12.ezyfox.entity.EzyRoObject#containsKeys(java.util.Collection)
+	 */
+	@Override
+	public boolean containsKeys(Collection keys) {
+		for(Object key : keys) {
+			if(!map.containsKey(key))
+				return false;
+		}
+		return true;
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see com.tvd12.ezyfox.entity.EzyRoObject#isNotNullKey(java.lang.Object)
 	 */
 	@Override

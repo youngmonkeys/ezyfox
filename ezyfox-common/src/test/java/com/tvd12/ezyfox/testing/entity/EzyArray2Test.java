@@ -59,6 +59,17 @@ public class EzyArray2Test extends CommonBaseTest {
 		}
 
 		@Override
+		public boolean contains(Object value) {
+			return false;
+		}
+		
+		@SuppressWarnings("rawtypes")
+		@Override
+		public boolean containsAll(Collection values) {
+			return false;
+		}
+		
+		@Override
 		public EzyArray sub(int fromIndex, int toIndex) {
 			return null;
 		}

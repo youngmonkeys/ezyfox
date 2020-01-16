@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.testing.entity;
 
+import java.util.HashSet;
+
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.collect.Lists;
@@ -30,6 +32,8 @@ public class EzyEmptyArrayTest {
 		assert !array.iterator().hasNext();
 		try {array.clone();} catch (Exception e) {assert e instanceof CloneNotSupportedException;};
 		try {array.duplicate();} catch (Exception e) {assert e instanceof UnsupportedOperationException;};
+		assert !array.contains(new Object());
+		assert !array.containsAll(new HashSet<>());
 	}
 	
 }

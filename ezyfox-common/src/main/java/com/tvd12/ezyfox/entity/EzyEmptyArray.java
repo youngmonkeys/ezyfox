@@ -40,6 +40,16 @@ public final class EzyEmptyArray implements EzyArray {
 	public boolean isNotNullValue(int index) {
 		return false;
 	}
+	
+	@Override
+	public boolean contains(Object value) {
+		return false;
+	}
+	
+	@Override
+	public boolean containsAll(Collection values) {
+		return false;
+	}
 
 	@Override
 	public int size() {

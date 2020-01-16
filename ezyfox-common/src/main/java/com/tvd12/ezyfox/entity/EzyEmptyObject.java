@@ -31,6 +31,11 @@ public final class EzyEmptyObject implements EzyObject {
 	public boolean containsKey(Object key) {
 		return false;
 	}
+	
+	@Override
+	public boolean containsKeys(Collection keys) {
+		return false;
+	}
 
 	@Override
 	public boolean isNotNullValue(Object key) {

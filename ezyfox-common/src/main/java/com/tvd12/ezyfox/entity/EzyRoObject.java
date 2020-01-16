@@ -3,6 +3,7 @@
  */
 package com.tvd12.ezyfox.entity;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -40,6 +41,15 @@ public interface EzyRoObject extends EzyData {
      * @return true or false
      */
     boolean containsKey(Object key);
+    
+    /**
+     * check contains a collection of keys
+     * 
+     * @param keys the collection of keys
+     * @return contains all or not
+     */
+    @SuppressWarnings("rawtypes")
+	boolean containsKeys(Collection keys);
     
     /**
      * check contains key and not null value mapped to the key

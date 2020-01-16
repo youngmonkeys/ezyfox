@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.testing.entity;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -47,6 +48,9 @@ public class EzyArray1Test extends EzyEntityTest {
 			.append(EzyDates.parse("2017-05-30T00:00:00:000"));
 		
 		EzyArray array = builder.build();
+		
+		assert array.contains(true);
+		assert array.containsAll(Arrays.asList(true, (byte)1, 2D));
 		
 		assertEquals(array.get(0), Boolean.TRUE);
 		assertEquals(array.get(1), new Byte((byte)1));

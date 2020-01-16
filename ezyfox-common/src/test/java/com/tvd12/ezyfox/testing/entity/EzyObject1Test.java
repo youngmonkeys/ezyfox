@@ -69,6 +69,9 @@ public class EzyObject1Test extends EzyEntityTest {
 		assert object.get("bigInteger2", BigInteger.class).equals(new BigInteger("1001"));
 		assert object.get("bigDecimal1", BigDecimal.class).equals(new BigDecimal("2000.2"));
 		assert object.get("bigDecimal2", BigDecimal.class).equals(new BigDecimal("2000.3"));
+		
+		assert object.containsKeys(Sets.newHashSet("uuid1", "uuid2"));
+		assert !object.containsKeys(Sets.newHashSet("uuid1", "uuid2", "uuid3"));
 	}
 	
 	@Test(expectedExceptions = IllegalStateException.class)

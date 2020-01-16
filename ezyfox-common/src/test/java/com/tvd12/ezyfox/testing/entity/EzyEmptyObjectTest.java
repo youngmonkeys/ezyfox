@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.testing.entity;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.testng.annotations.Test;
 
@@ -27,6 +28,7 @@ public class EzyEmptyObjectTest {
 		assert object.remove("a") == null;
 		object.removeAll(Sets.newHashSet(1, 2, 3));
 		object.clear();
+		assert !object.containsKeys(new HashSet<>());
 		try {object.compute("a", (a, b) -> 1);} catch (Exception e) {assert e instanceof UnsupportedOperationException;};
 		try {object.clone();} catch (Exception e) {assert e instanceof CloneNotSupportedException;};
 		try {object.duplicate();} catch (Exception e) {assert e instanceof UnsupportedOperationException;};

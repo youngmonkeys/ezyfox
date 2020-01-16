@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.entity;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.tvd12.ezyfox.entity.EzyData;
@@ -43,6 +44,23 @@ public interface EzyRoArray extends EzyData {
 	 * @return true or false
 	 */
 	boolean isNotNullValue(int index);
+	
+	/**
+	 * Check if contains value or not
+	 * 
+	 * @param value the value
+	 * @return contains or not
+	 */
+	boolean contains(Object value);
+	
+	/**
+	 * Check if contains all a collection of values not
+	 * 
+	 * @param values the collection of values
+	 * @return contains all or not
+	 */
+	@SuppressWarnings("rawtypes")
+	boolean containsAll(Collection values);
 	
 	/**
 	 * Get new array
