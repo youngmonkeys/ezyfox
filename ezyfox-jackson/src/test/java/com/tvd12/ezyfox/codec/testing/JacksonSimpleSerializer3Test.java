@@ -1,10 +1,13 @@
 package com.tvd12.ezyfox.codec.testing;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.BiFunction;
 
 import org.testng.annotations.Test;
@@ -13,19 +16,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tvd12.ezyfox.codec.JacksonSimpleSerializer;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
+import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
 
 public class JacksonSimpleSerializer3Test {
 
 	@Test
 	public void test() {
-		ObjectMapper objectMapper = new ObjectMapper();
+		ObjectMapper objectMapper = JacksonObjectMapperBuilder.newInstance().build();
 		JacksonSimpleSerializer serializer = new JacksonSimpleSerializer(objectMapper);
 		EzyObject object = EzyEntityFactory.newObjectBuilder()
 				.append("hello", "world")
+				.append("a", new BigInteger("123"))
+				.append("b", new BigDecimal("45.6"))
+				.append("c", UUID.randomUUID())
 				.build();
-		System.out.println(serializer.serialize(object, String.class));
-		System.out.println(serializer.serialize(object, ByteBuffer.class));
-		System.out.println(serializer.serialize(object, Map.class));
+		System.out.println("string: " + serializer.serialize(object, String.class));
+		System.out.println("buffer: " + serializer.serialize(object, ByteBuffer.class));
+		System.out.println("map: " + serializer.serialize(object, Map.class));
 	}
 	
 	@Test(expectedExceptions = IllegalArgumentException.class)
@@ -51,6 +58,11 @@ public class JacksonSimpleSerializer3Test {
 		@Override
 		public boolean containsKey(Object key) {
 			throw new RuntimeException();
+		}
+		
+		@Override
+		public boolean containsKeys(Collection keys) {
+			return false;
 		}
 
 		@Override

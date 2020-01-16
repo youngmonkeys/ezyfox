@@ -118,6 +118,16 @@ public class MsgPackSimpleSerializerTest {
 		}
 
 		@Override
+		public boolean contains(Object value) {
+			return false;
+		}
+		
+		@Override
+		public boolean containsAll(Collection values) {
+			return false;
+		}
+		
+		@Override
 		public int size() {
 			return 0;
 		}
@@ -206,6 +216,10 @@ public class MsgPackSimpleSerializerTest {
 
 		@Override
 		public boolean isNotNullValue(Object key) {
+			return false;
+		}
+		
+		public boolean containsKeys(Collection keys) {
 			return false;
 		}
 

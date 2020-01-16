@@ -1,6 +1,9 @@
 package com.tvd12.ezyfox.codec.testing;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.util.UUID;
 
 import org.testng.annotations.Test;
 
@@ -31,6 +34,9 @@ public class JacksonSimpleSerializer2Test extends BaseTest {
 				.append("a", 1)
 				.append("b", 2)
 				.append("c", 3)
+				.append("d", new BigInteger("123"))
+				.append("e", new BigDecimal("45.6"))
+				.append("f", UUID.randomUUID())
 				.append(EzyEntityFactory.create(EzyArrayBuilder.class))
 				.build();
 		byte[] bytes = serializer.serialize(origin);

@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.codec;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.AbstractCollection;
 import java.util.AbstractList;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 
 import com.tvd12.ezyfox.codec.EzyAbstractToByteBufferSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
@@ -102,6 +105,10 @@ public class MsgPackToByteBufferSerializer
 		parsers.put(AbstractList.class, value -> parseCollection(value));
 		parsers.put(HashSet.class, value -> parseCollection(value));
 		parsers.put(ArrayList.class, value -> parseCollection(value));
+		
+		parsers.put(BigInteger.class, value -> parseValueToString(value));
+		parsers.put(BigDecimal.class, value -> parseValueToString(value));
+		parsers.put(UUID.class, value -> parseValueToString(value));
 	}
 	
 	//
@@ -398,6 +405,10 @@ public class MsgPackToByteBufferSerializer
 	
 	protected byte[] parseMapSize(int size) {
 		return mapSizeSerializer.serialize(size);
+	}
+	
+	protected ByteBuffer parseValueToString(Object value) {
+		return parseString(value.toString());
 	}
 	
 }

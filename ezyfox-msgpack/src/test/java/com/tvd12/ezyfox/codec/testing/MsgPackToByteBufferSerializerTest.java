@@ -2,6 +2,8 @@ package com.tvd12.ezyfox.codec.testing;
 
 import static org.testng.Assert.assertEquals;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.AbstractCollection;
 import java.util.AbstractList;
 import java.util.AbstractMap;
@@ -13,6 +15,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.BiFunction;
@@ -21,6 +24,7 @@ import java.util.function.Consumer;
 import org.msgpack.MessagePack;
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.codec.MsgPackToByteBufferSerializer;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
@@ -34,6 +38,7 @@ public class MsgPackToByteBufferSerializerTest {
 
 	private MessagePack messagePack = new MessagePack();
 	private MsgPackToByteBufferSerializer serializer = new MsgPackToByteBufferSerializer();
+	private MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
 	
 	@Test
 	public void test() throws Exception {
@@ -81,6 +86,21 @@ public class MsgPackToByteBufferSerializerTest {
 		serializer.serialize(newEmptyArray());
 	}
 	
+	@Test
+	public void test2() {
+		EzyObject obj = EzyEntityFactory.newObjectBuilder()
+				.append("a", new BigInteger("12"))
+				.append("b", new BigDecimal("3.45"))
+				.append("c", UUID.randomUUID())
+				.build();
+		assert obj.get("ff", UUID.class) == null;
+		byte[] bytes = serializer.serialize(obj);
+		obj = deserializer.deserialize(bytes);
+		assert obj.get("a", BigInteger.class).equals(new BigInteger("12"));
+		assert obj.get("b", BigDecimal.class).equals(new BigDecimal("3.45"));
+		System.out.println(obj.get("c", UUID.class));
+	}
+	
 	private void check(Object input) throws Exception {
 		byte[] actual = serializer.serialize(input);
 		byte[] expected = messagePack.write(input);
@@ -111,6 +131,16 @@ public class MsgPackToByteBufferSerializerTest {
 
 		@Override
 		public boolean isNotNullValue(int index) {
+			return false;
+		}
+		
+		@Override
+		public boolean contains(Object value) {
+			return false;
+		}
+		
+		@Override
+		public boolean containsAll(Collection values) {
 			return false;
 		}
 
@@ -200,6 +230,11 @@ public class MsgPackToByteBufferSerializerTest {
 		public boolean containsKey(Object key) {
 			return false;
 		}
+		
+		@Override
+		public boolean containsKeys(Collection keys) {
+			return false;
+		}
 
 		@Override
 		public boolean isNotNullValue(Object key) {
@@ -220,7 +255,7 @@ public class MsgPackToByteBufferSerializerTest {
 		public Object getValue(Object key, Class type) {
 			return null;
 		}
-
+		
 		@Override
 		public Set<Object> keySet() {
 			return new HashSet<>();

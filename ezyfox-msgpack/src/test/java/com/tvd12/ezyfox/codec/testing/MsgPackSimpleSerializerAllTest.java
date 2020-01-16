@@ -8,13 +8,17 @@ import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 
 import static org.testng.Assert.*;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class MsgPackSimpleSerializerAllTest extends CodecBaseTest {
 
@@ -65,6 +69,18 @@ public class MsgPackSimpleSerializerAllTest extends CodecBaseTest {
 		bytes = serializer.serialize(new String[] {"1", "2", "3"});
 		array = deserializer.deserialize(bytes);
 		assertEquals(array.toArray(String.class), new String[] {"1", "2", "3"});
+		
+		EzyObject obj = EzyEntityFactory.newObjectBuilder()
+				.append("a", new BigInteger("12"))
+				.append("b", new BigDecimal("3.45"))
+				.append("c", UUID.randomUUID())
+				.build();
+		assert obj.get("ff", UUID.class) == null;
+		bytes = serializer.serialize(obj);
+		obj = deserializer.deserialize(bytes);
+		assert obj.get("a", BigInteger.class).equals(new BigInteger("12"));
+		assert obj.get("b", BigDecimal.class).equals(new BigDecimal("3.45"));
+		System.out.println(obj.get("c", UUID.class));
 	}
 	
 	@Test
