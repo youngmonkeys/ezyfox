@@ -2,7 +2,9 @@ package com.tvd12.ezyfox.codec;
 
 import com.tvd12.ezyfox.codec.EzyMessageHeader;
 
-public class EzyMessageHeaderReader {
+public final class EzyMessageHeaderReader {
+    
+    private EzyMessageHeaderReader() {}
 	
 	public static boolean readBigSize(byte header) {
 		return (header & 1 << 0) != 0;
@@ -24,13 +26,22 @@ public class EzyMessageHeaderReader {
 		return (header & (1 << 4)) != 0;
 	}
 	
-	public EzyMessageHeader read(byte header) {
+	public static boolean readUdpHandshake(byte header) {
+        return (header & (1 << 5)) != 0;
+    }
+	
+	public static boolean readHashNext(byte header) {
+        return (header & (1 << 7)) != 0;
+    }
+	
+	public static EzyMessageHeader read(byte header) {
 		return new EzySimpleMessageHeader(
 				readBigSize(header),
 				readEncrypted(header),
 				readCompressed(header),
 				readText(header),
-				readRawBytes(header));
+				readRawBytes(header),
+				readUdpHandshake(header));
 	}
 	
 }

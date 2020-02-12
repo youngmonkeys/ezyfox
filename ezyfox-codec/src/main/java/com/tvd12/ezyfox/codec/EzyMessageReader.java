@@ -9,7 +9,6 @@ public abstract class EzyMessageReader<B> {
 	protected byte headerByte;
 	protected byte[] sizeBytes;
 	protected EzyMessageHeader header;
-	protected EzyMessageHeaderReader headerReader = newMessageHeaderReader();
 	
 	private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
 	
@@ -21,10 +20,6 @@ public abstract class EzyMessageReader<B> {
 	protected abstract byte readByte(B buffer);
 	protected abstract int readMessgeSize(B buffer);
 	protected abstract void readMessageContent(B buffer, byte[] content, int offset, int length);
-	
-	protected EzyMessageHeaderReader newMessageHeaderReader() {
-		return new EzyMessageHeaderReader();
-	}
 	
 	public boolean readHeader(B buffer) {
 		int remaining = remaining(buffer);
@@ -77,7 +72,7 @@ public abstract class EzyMessageReader<B> {
 	}
 	
 	private void readHeader(byte header) {
-		this.header = headerReader.read(header);
+		this.header = EzyMessageHeaderReader.read(header);
 	}
 	
 	protected int getSizeLength() {

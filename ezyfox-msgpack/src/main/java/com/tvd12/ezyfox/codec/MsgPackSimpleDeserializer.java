@@ -8,6 +8,7 @@ import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.function.EzyParser;
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyInts;
@@ -44,7 +45,8 @@ public class MsgPackSimpleDeserializer
 	}
 	
 	protected Object deserialize(ByteBuffer buffer, MsgPackType type) {
-		return parsers.get(type).parse(buffer);
+		EzyParser<ByteBuffer, Object> parser = parsers.get(type);
+		return parser.parse(buffer);
 	}
 	
 	protected Map<MsgPackType, EzyParser<ByteBuffer, Object>> defaultParsers() {
@@ -261,7 +263,10 @@ public class MsgPackSimpleDeserializer
 	}
 	
 	protected MsgPackType getDataType(int type) {
-		return typeParser.parse(type);
+		MsgPackType answer = typeParser.parse(type);
+		if(answer != null)
+			return answer;
+		throw new EzyCodecException("has no type with type = " + String.format("0x%x", type));
 	}
 	
 	protected void updateBufferPosition(ByteBuffer buffer) {

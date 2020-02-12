@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.codec;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.codec.EzyMessageSerializer;
+import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.function.EzyParser;
 import com.tvd12.ezyfox.io.EzyMaps; 
  
@@ -24,7 +24,7 @@ public abstract class EzyAbstractSerializer<T> implements EzyMessageSerializer {
 	} 
 	 
 	protected T parseWithNoParser(Object value) {
-		throw new IllegalArgumentException("has no parse for " + value.getClass());
+		throw new EzyCodecException("has no parse for " + value.getClass());
 	} 
 	 
 	protected abstract T parseNil(); 

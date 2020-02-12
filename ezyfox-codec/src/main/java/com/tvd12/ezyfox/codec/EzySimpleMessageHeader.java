@@ -10,17 +10,20 @@ public class EzySimpleMessageHeader implements EzyMessageHeader {
 	protected boolean compressed;
 	protected boolean text;
 	protected boolean rawBytes;
+	protected boolean udpHandshake;
 	
 	public EzySimpleMessageHeader(
 			boolean bigSize,
 			boolean encrypted, 
 			boolean compressed, 
-			boolean text, boolean rawBytes) {
+			boolean text, 
+			boolean rawBytes, boolean udpHandshake) {
 		this.bigSize = bigSize;
 		this.encrypted = encrypted;
 		this.compressed = compressed;
 		this.text = text;
 		this.rawBytes = rawBytes;
+		this.udpHandshake = udpHandshake;
 	}
 	
 	@Override
@@ -41,6 +44,8 @@ public class EzySimpleMessageHeader implements EzyMessageHeader {
 					.append(", ")
 				.append("rawBytes: ")
 					.append(rawBytes)
+				.append("udpHandshake: ")
+					.append(udpHandshake)
 				.append(">")
 				.toString();
 	}

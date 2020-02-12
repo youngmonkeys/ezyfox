@@ -6,9 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tvd12.ezyfox.codec.EzyAbstractByTypeSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.function.EzyParser;
 
 public class JacksonSimpleSerializer 
@@ -42,7 +42,7 @@ public class JacksonSimpleSerializer
 		try {
 			return objectMapper.writeValueAsBytes(obj);
 		} catch (JsonProcessingException e) {
-			throw new IllegalArgumentException("write value as bytes error", e);
+			throw new EzyCodecException("write value as bytes error", e);
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class JacksonSimpleSerializer
 		try {
 			return objectMapper.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
-			throw new IllegalArgumentException("write value as bytes error", e);
+			throw new EzyCodecException("write value as bytes error", e);
 		}
 	}
 	

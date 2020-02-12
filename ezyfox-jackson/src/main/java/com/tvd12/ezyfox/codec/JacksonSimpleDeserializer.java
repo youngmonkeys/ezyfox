@@ -10,6 +10,7 @@ import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.io.EzyByteBuffers;
 import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
@@ -45,7 +46,7 @@ public class JacksonSimpleDeserializer
 			return objectMapper.readTree(data);
 		} 
 		catch (Exception e) {
-			throw new IllegalArgumentException("read tree error", e);
+			throw new EzyCodecException("read tree error", e);
 		} 
 	}
 	
@@ -54,7 +55,7 @@ public class JacksonSimpleDeserializer
 			return objectMapper.readTree(text);
 		} 
 		catch (Exception e) {
-			throw new IllegalArgumentException("read tree error", e);
+			throw new EzyCodecException("read tree error", e);
 		} 
 	}
 	

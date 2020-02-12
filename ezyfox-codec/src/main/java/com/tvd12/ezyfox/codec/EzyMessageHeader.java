@@ -37,4 +37,11 @@ public interface EzyMessageHeader {
 	 */
 	boolean isRawBytes(); // bit 5
 	
+	/**
+	 * Check whether message is udp handshake message or not
+	 * 
+	 * @return true or false
+	 */
+	boolean isUdpHandshake(); // bit 6
+	
 }

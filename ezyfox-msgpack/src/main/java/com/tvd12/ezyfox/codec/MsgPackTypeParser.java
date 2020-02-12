@@ -77,8 +77,7 @@ public class MsgPackTypeParser {
 			return MsgPackType.MAP32;
 		if (0xe0 <= type && type <= 0xff)
 			return MsgPackType.NEGATIVE_FIXINT;
-		
-		throw new IllegalArgumentException("has no type with type = " + String.format("%x", type));
+		return null;
 	}
 	
 }
