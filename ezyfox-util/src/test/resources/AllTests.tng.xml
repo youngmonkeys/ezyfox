@@ -11,6 +11,11 @@
 			<package name="com.tvd12.ezyfox.testing.util"></package>
 		</packages>
 	</test>
+	<test name="Net">
+		<packages>
+			<package name="com.tvd12.ezyfox.testing.net"></package>
+		</packages>
+	</test>
 	<test name="Helper">
 		<packages>
 			<package name="com.tvd12.ezyfox.testing.helper"></package>

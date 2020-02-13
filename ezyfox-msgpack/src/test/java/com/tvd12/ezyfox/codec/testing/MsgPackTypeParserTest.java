@@ -9,9 +9,9 @@ public class MsgPackTypeParserTest {
 
 	private MsgPackTypeParser parser = new MsgPackTypeParser();
 	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
+	@Test
 	public void test0() {
-		parser.parse(-1);
+		assert parser.parse(-1) == null;
 	}
 	
 	@Test
@@ -36,9 +36,9 @@ public class MsgPackTypeParserTest {
 		assert parser.parse(0xc9) == MsgPackType.EXT32;
 	}
 	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
+	@Test
 	public void test3() {
-		parser.parse(256);
+		assert parser.parse(256) == null;
 	}
 	
 }

@@ -44,6 +44,7 @@ public class EzySimpleMessageHeader implements EzyMessageHeader {
 					.append(", ")
 				.append("rawBytes: ")
 					.append(rawBytes)
+					.append(", ")
 				.append("udpHandshake: ")
 					.append(udpHandshake)
 				.append(">")
