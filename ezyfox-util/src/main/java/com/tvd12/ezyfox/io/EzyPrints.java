@@ -7,6 +7,10 @@ public final class EzyPrints {
 			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
 	};
 	
+	private final static char[] HEX_ARRAY_LOWERCASE = new char[] {
+			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+	};
+	
 	private EzyPrints() {
 	}
 	
@@ -54,11 +58,19 @@ public final class EzyPrints {
 	}
 	
 	public static String printHex(byte[] bytes) {
+		return printHex(bytes, HEX_ARRAY);
+	}
+	
+	public static String printHexLowercase(byte[] bytes) {
+		return printHex(bytes, HEX_ARRAY_LOWERCASE);
+	}
+	
+	public static String printHex(byte[] bytes, char[] hexArray) {
 		char[] hexChars = new char[bytes.length * 2];
 		for (int i = 0; i < bytes.length; ++i) {
 			int v = bytes[i] & 0xFF;
-			hexChars[i * 2] = HEX_ARRAY[v >>> 4];
-			hexChars[i * 2 + 1] = HEX_ARRAY[v & 0x0F];
+			hexChars[i * 2] = hexArray[v >>> 4];
+			hexChars[i * 2 + 1] = hexArray[v & 0x0F];
 		}
 		String answer = new String(hexChars);
 		return answer;

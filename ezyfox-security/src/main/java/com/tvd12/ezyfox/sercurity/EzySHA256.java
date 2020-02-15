@@ -13,11 +13,22 @@ public final class EzySHA256 {
 	}
 
 	public static String cryptUtf(String originalString) {
+		byte[] encodedhash = cryptUtfToBytes(originalString);
+		String hex = EzyPrints.printHex(encodedhash);
+		return hex;
+	}
+	
+	public static String cryptUtfToLowercase(String originalString) {
+		byte[] encodedhash = cryptUtfToBytes(originalString);
+		String hex = EzyPrints.printHexLowercase(encodedhash);
+		return hex;
+	}
+	
+	public static byte[] cryptUtfToBytes(String originalString) {
 		MessageDigest digest = EzyMessageDigests.getAlgorithm(ALGORITHM);
 		byte[] bytes = originalString.getBytes(StandardCharsets.UTF_8);
 		byte[] encodedhash = digest.digest(bytes);
-		String hex = EzyPrints.printHex(encodedhash);
-		return hex;
+		return encodedhash;
 	}
 	
 
