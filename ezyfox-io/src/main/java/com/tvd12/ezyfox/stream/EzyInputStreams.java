@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,16 @@ public final class EzyInputStreams {
 			outStream.write(buffer, 0, nRead);
 		byte[] bytes = outStream.toByteArray();
 		return bytes;
+	}
+	
+	public static String toStringUtf8(InputStream stream) throws IOException {
+		return toString(stream, StandardCharsets.UTF_8);
+	}
+	
+	public static String toString(InputStream stream, Charset charset)
+			throws IOException {
+		byte[] bytes = toByteArray(stream);
+		return new String(bytes, charset);
 	}
 	
 	public static List<String> toLines(InputStream stream)

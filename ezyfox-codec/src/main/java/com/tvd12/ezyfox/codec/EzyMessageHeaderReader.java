@@ -30,7 +30,7 @@ public final class EzyMessageHeaderReader {
         return (header & (1 << 5)) != 0;
     }
 	
-	public static boolean readHashNext(byte header) {
+	public static boolean readHasNext(byte header) {
         return (header & (1 << 7)) != 0;
     }
 	
