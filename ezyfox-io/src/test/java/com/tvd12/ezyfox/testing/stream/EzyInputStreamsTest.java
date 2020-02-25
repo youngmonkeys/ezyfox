@@ -23,6 +23,9 @@ public class EzyInputStreamsTest extends BaseTest {
 	    InputStream targetStream = new ByteArrayInputStream(initialString.getBytes());
 		List<String> lines = EzyInputStreams.toLines(targetStream);
 		assert lines.size() == 2;
+		targetStream = new ByteArrayInputStream(initialString.getBytes());
+		String utf8 = EzyInputStreams.toStringUtf8(targetStream);
+		assert utf8.equals(initialString);
 	}
 	
 }
