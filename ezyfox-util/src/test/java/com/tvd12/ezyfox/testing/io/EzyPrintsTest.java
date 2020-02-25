@@ -33,6 +33,7 @@ public class EzyPrintsTest extends BaseTest {
 		System.out.println(EzyPrints.print2d(array2dStrings));
 		
 		System.out.println(EzyPrints.printHex(new byte[] {122, 22}));
+		System.out.println(EzyPrints.printHexLowercase(new byte[] {122, 22}));
 	}
 	
 	@Test(expectedExceptions = IllegalArgumentException.class)

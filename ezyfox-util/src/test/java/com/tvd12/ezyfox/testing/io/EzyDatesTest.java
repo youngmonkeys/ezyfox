@@ -40,7 +40,7 @@ public class EzyDatesTest extends BaseTest {
 		assertEquals(EzyDates.parseDateTime("2017-05-30T12:34:56", "yyyy-MM-dd'T'HH:mm:ss"), 
 				LocalDateTime.of(2017, 05, 30, 12, 34, 56, 0));
 		Date now = new Date();
-		EzyDates.format(now.getTime()).equals(now);
+		EzyDates.format(now.getTime()).equals(EzyDates.format(now));
 	}
 	
 	@Test

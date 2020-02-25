@@ -13,6 +13,12 @@ public final class EzyCollections {
 
 	private EzyCollections() {}
 	
+	/**
+	 * Check collection is null or empty
+	 * 
+	 * @param coll the collection to check
+	 * @return null, empty or not
+	 */
 	public static boolean isEmpty(Collection<?> coll) {
 		boolean empty = coll != null ? coll.isEmpty() : true;
 		return empty;

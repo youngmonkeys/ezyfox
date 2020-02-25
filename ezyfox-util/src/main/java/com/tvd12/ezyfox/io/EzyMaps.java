@@ -19,6 +19,13 @@ public final class EzyMaps {
 	private EzyMaps() {
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public static boolean isEmpty(Map map) {
+		if(map == null || map.isEmpty())
+			return true;
+		return false;
+	}
+	
 	// =============================================
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static <T> T getValue(Map map, Class<?> type) {
@@ -86,12 +93,12 @@ public final class EzyMaps {
     }
     
     public static <K,V> Map<K, V> newHashMap(K key, V value) {
-    		return newMap(key, value, new HashMap<>());
+		return newMap(key, value, new HashMap<>());
     }
     
     public static <K,V,M extends Map<K, V>> M newMap(K key, V value, M map) {
-    		map.put(key, value);
-    		return map;
+		map.put(key, value);
+		return map;
     }
 
     //=================================================================
@@ -111,11 +118,11 @@ public final class EzyMaps {
     }
     
     public static <K,V> V putIfAbsent(Map<K, V> map, K key, V value) {
-    		if(map == null)
-    			throw new NullPointerException("map is null");
-    		synchronized (map) {
-    			V v = map.computeIfAbsent(key, (k) -> value);
-    			return v;
+		if(map == null)
+			throw new NullPointerException("map is null");
+		synchronized (map) {
+			V v = map.computeIfAbsent(key, (k) -> value);
+			return v;
 		}
     }
     
@@ -126,22 +133,22 @@ public final class EzyMaps {
     
     @SuppressWarnings("unchecked")
 	public static <K,E> void addItemsToList(Map<K, List<E>> map, K key, E... items) {
-    		addItemsToList(map, key, Lists.newArrayList(items));
+		addItemsToList(map, key, Lists.newArrayList(items));
     }
     
     public static <K,E> void addItemsToSet(Map<K, Set<E>> map, K key, Collection<E> items) {
-    		synchronized (map) {
-    			Set<E> set = map.get(key);
-    			if(set == null) {
-    				set = new HashSet<>();
-    				map.put(key, set);
-    			}
-    			set.addAll(items);
+    	synchronized (map) {
+			Set<E> set = map.get(key);
+			if(set == null) {
+				set = new HashSet<>();
+				map.put(key, set);
+			}
+			set.addAll(items);
 		}
     }
     
     public static <K,E> void addItemsToList(Map<K, List<E>> map, K key, Collection<E> items) {
-	    	synchronized (map) {
+    	synchronized (map) {
 			List<E> set = map.get(key);
 			if(set == null) {
 				set = new ArrayList<>();
@@ -153,7 +160,7 @@ public final class EzyMaps {
     
     @SuppressWarnings("unchecked")
 	public static <K,E> void removeItems(Map<K, ? extends Collection<E>> map, K key, E... items) {
-    		if(map.containsKey(key)) {
+		if(map.containsKey(key)) {
 			Collection<E> collection = map.get(key);
 			for(E item : items)
 				collection.remove(item);
@@ -161,21 +168,21 @@ public final class EzyMaps {
     }
     
     public static <K,E> void removeItems(Map<K, ? extends Collection<E>> map, K key, Collection<E> items) {
-    		if(map.containsKey(key)) {
-    			Collection<E> collection = map.get(key);
-    			collection.removeAll(items);
-    		}
+		if(map.containsKey(key)) {
+			Collection<E> collection = map.get(key);
+			collection.removeAll(items);
+		}
     }
     
 	// =============================================
     @SuppressWarnings("rawtypes")
 	public static boolean containsAll(Map map1, Map map2) {
-    		for(Object key : map2.keySet()) {
-	    		if(!map1.containsKey(key))
-	    			return false;
-	    		if(!EzyObjects.equals(map2.get(key), map1.get(key)))
-	    			return false;
-    		}
-    		return true;
+		for(Object key : map2.keySet()) {
+    		if(!map1.containsKey(key))
+    			return false;
+    		if(!EzyObjects.equals(map2.get(key), map1.get(key)))
+    			return false;
+		}
+		return true;
     }
 }

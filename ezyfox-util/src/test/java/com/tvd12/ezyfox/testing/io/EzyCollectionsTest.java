@@ -4,6 +4,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 
 import org.testng.annotations.Test;
@@ -36,6 +38,9 @@ public class EzyCollectionsTest extends BaseTest {
 		assertEquals(EzyCollections.sumItemsToDouble(Lists.newArrayList(1, 2, 3), i -> i), 6.0D);
 		assertEquals(EzyCollections.sumItemsToInt(Lists.newArrayList(1, 2, 3), i -> i), 6);
 		assertEquals(EzyCollections.sumItemsToLong(Lists.newArrayList(1, 2, 3), i -> i), 6L);
+		assert EzyCollections.isEmpty(null);
+		assert EzyCollections.isEmpty(new ArrayList<>());
+		assert !EzyCollections.isEmpty(Arrays.asList(1, 2, 3));
 	}
 	
 	@Test

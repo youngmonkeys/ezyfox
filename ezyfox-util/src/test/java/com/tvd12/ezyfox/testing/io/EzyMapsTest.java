@@ -33,6 +33,9 @@ public class EzyMapsTest extends BaseTest {
 		assert EzyMaps.getValue(map, ClassA.class) == classA;
 		assert EzyMaps.getValue(map, ClassE.class) == classD;
 		assert EzyMaps.getValue(map, ClassJ.class) == classJ;
+		assert EzyMaps.isEmpty(null);
+		assert EzyMaps.isEmpty(new HashMap<>());
+		assert !EzyMaps.isEmpty(EzyMaps.newHashMap("a", "b"));
 	}
 	
 	@Test
