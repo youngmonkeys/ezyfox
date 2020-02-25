@@ -2,7 +2,9 @@ package com.tvd12.ezyfox.testing.entity;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
@@ -18,6 +20,18 @@ public class EzyArrayListTest extends BaseTest {
 		assert arr.isNotNullValue(1);
 		assert !arr.isNotNullValue(0);
 		assert !arr.isNotNullValue(100);
+		EzyArray newArray = EzyEntityFactory.newArray();
+		assert newArray.first(10) == 10;
+		assert newArray.first(int.class, 9) == 9;
+		newArray.add(3);
+		newArray.add(1);
+		newArray.add(2);
+		assert newArray.first(0) == 3;
+		assert newArray.first(int.class, 0) == 3;
+		newArray.sort((a, b) -> ((int)a) - ((int)b));
+		assert newArray.first(1) == 1;
+		assert newArray.get(1, int.class) == 2;
+		assert newArray.get(2, int.class) == 3;
 	}
 
 	public static class EzyEzyArrayList extends EzyArrayList {

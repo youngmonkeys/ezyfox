@@ -34,6 +34,7 @@ public class EzyEmptyArrayTest {
 		try {array.duplicate();} catch (Exception e) {assert e instanceof UnsupportedOperationException;};
 		assert !array.contains(new Object());
 		assert !array.containsAll(new HashSet<>());
+		array.sort(null);
 	}
 	
 }

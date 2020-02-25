@@ -31,7 +31,7 @@ public interface EzyRoObject extends EzyData {
      * @return true or false
      */
     default boolean isEmpty() {
-    		return size() == 0;
+    	return size() == 0;
     }
     
     /**
@@ -121,6 +121,17 @@ public interface EzyRoObject extends EzyData {
     EzyRoObject duplicate();
     
     /**
+     * Get first entry
+     * 
+     * @return the first entry
+     */
+    default Entry<Object, Object> firstEntry() {
+    	for(Entry<Object, Object> entry : entrySet())
+    		return entry;
+    	return null;
+    }
+    
+    /**
      * @see java.util.Map#get(java.lang.Object)
      * 
      * @param <V> type of value
@@ -129,7 +140,7 @@ public interface EzyRoObject extends EzyData {
      * @return the value mapped to key 
      */
     default <V> V getWithDefault(Object key, V def) {
-    		return containsKey(key) ? get(key) : def;
+    	return containsKey(key) ? get(key) : def;
     }
     
     /**
@@ -145,7 +156,7 @@ public interface EzyRoObject extends EzyData {
      * @return a value
      */
     default <V> V get(Object key, Class<V> type, V def) {
-    		return containsKey(key) ? get(key, type) : def;
+    	return containsKey(key) ? get(key, type) : def;
     }
     
     /**
@@ -158,6 +169,7 @@ public interface EzyRoObject extends EzyData {
      */
     @SuppressWarnings("rawtypes")
 	default Object getValue(Object key, Class type, Object def) {
-    		return containsKey(key) ? getValue(key, type) : def;
+    	return containsKey(key) ? getValue(key, type) : def;
     }
+    
 }

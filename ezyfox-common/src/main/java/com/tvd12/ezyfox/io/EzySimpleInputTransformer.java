@@ -62,7 +62,9 @@ public class EzySimpleInputTransformer
 	
 	@SuppressWarnings("rawtypes")
 	protected Object transformMap(Object value) {
-		return newObjectBuilder().append((Map)value).build();
+		EzyObject object = newObject();
+		object.putAll((Map)value);
+		return object;
 	}
 	
 	@SuppressWarnings("rawtypes")

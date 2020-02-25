@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
@@ -187,6 +188,15 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 	@Override
 	public void clear() {
 		list.clear();
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.tvd12.ezyfox.entity.EzyRoArray#sort(java.util.Comparator)
+	 */
+	@Override
+	public void sort(Comparator comparator) {
+		list.sort(comparator);
 	}
 	
 	/*

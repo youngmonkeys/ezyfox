@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.entity;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import com.tvd12.ezyfox.entity.EzyData;
@@ -112,6 +113,38 @@ public interface EzyRoArray extends EzyData {
 	EzyRoArray duplicate();
 	
 	/**
+	 * sort this array
+	 * 
+	 * @param comparator the comparator
+	 */
+	@SuppressWarnings("rawtypes")
+	default void sort(Comparator comparator) {
+	}
+	
+	/**
+	 * Get first value
+	 * 
+	 * @param <T> the value type
+	 * @param def the default value
+	 * @return the first value
+	 */
+	default <T> T first(T def) {
+		return getWithDefault(0, def);
+	}
+	
+	/**
+	 * Get first value
+	 * 
+	 * @param <T> the value type
+	 * @param type the value class
+	 * @param def the default value
+	 * @return the first value
+	 */
+	default <T> T first(Class<T> type, T def) {
+		return get(0, type, def);
+	}
+	
+	/**
 	 * Get value by index
 	 * 
 	 * @param <T> the value type
@@ -126,7 +159,7 @@ public interface EzyRoArray extends EzyData {
 	/**
 	 * Get and cast value by index
 	 * 
-	 * @param <T> the value
+	 * @param <T> the value type
 	 * @param index the index
 	 * @param type the value type
 	 * @param def the default value
@@ -148,4 +181,5 @@ public interface EzyRoArray extends EzyData {
 	default Object getValue(int index, Class type, Object def) {
 		return size() > index ? getValue(index, type) : def;
 	}
+	
 }

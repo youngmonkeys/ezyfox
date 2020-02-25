@@ -72,6 +72,10 @@ public class EzyObject1Test extends EzyEntityTest {
 		
 		assert object.containsKeys(Sets.newHashSet("uuid1", "uuid2"));
 		assert !object.containsKeys(Sets.newHashSet("uuid1", "uuid2", "uuid3"));
+		assert object.firstEntry() != null;
+		
+		EzyObject newObject = EzyEntityFactory.newObject();
+		assert newObject.firstEntry() == null;
 	}
 	
 	@Test(expectedExceptions = IllegalStateException.class)

@@ -14,6 +14,8 @@ import static org.testng.Assert.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EzySimpleInputTransformerTest extends EzyEntityTest {
 
@@ -85,6 +87,12 @@ public class EzySimpleInputTransformerTest extends EzyEntityTest {
 		assertEquals(transform(LocalDateTime.of(2017, 05, 30, 12, 34, 56, 78)), "2017-05-30T12:34:56:000");
 		
 		transformer.transform(newArrayBuilder());
+		
+		Map<String, String> newMap = new HashMap<>();
+		newMap.put("hello", "world");
+		EzyObject tobject = (EzyObject) transformer.transform(newMap);
+		assert tobject.size() == 1;
+		System.out.println("tobject: " + tobject);
 	}
 	
 	private Object transform(Object value) {

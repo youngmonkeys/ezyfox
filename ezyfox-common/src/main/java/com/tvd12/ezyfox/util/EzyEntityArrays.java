@@ -27,4 +27,10 @@ public final class EzyEntityArrays {
 		return array;
 	}
 	
+	public static boolean isEmpty(EzyArray array) {
+		if(array == null || array.isEmpty())
+			return true;
+		return false;
+	}
+	
 }
