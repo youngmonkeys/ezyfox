@@ -8,7 +8,7 @@ public interface EzyFutureMap<K> {
 	
 	EzyFuture addFuture(K key, EzyFuture future);
 	
-	EzyFuture putFuture(K key) throws IllegalArgumentException;
+	EzyFuture putFuture(K key);
 	
 	EzyFuture getFuture(K key);
 	

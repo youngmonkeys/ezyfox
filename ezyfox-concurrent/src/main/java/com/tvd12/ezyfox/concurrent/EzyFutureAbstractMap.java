@@ -28,7 +28,7 @@ public abstract class EzyFutureAbstractMap<K> implements EzyFutureMap<K> {
 	}
 	
 	@Override
-	public EzyFuture putFuture(K key) throws IllegalArgumentException {
+	public EzyFuture putFuture(K key) {
 		AtomicBoolean existed = new AtomicBoolean(true);
 		EzyFuture future = map.computeIfAbsent(key, k -> {
 			existed.set(false);
