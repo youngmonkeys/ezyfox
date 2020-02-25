@@ -71,7 +71,6 @@ public class Combine2Test {
 		ClassA12 a121 = (ClassA12) context.getBean("classA12", ClassA12.class);
 		ClassA12 a122 = (ClassA12) context.getBean("classA12", ClassA12.class);
 		assert a121 != a122;
-		
 	}
 	
 }

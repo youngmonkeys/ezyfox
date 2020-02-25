@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzyPostInit;
+import com.tvd12.ezyfox.bean.exception.EzyMissingSetterException;
 import com.tvd12.ezyfox.io.EzyLists;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyClasses;
@@ -40,6 +41,8 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 		this.bindingMethods = getBindingMethods(clazz);
 		this.propertyFields = getPropertyFields(clazz);
 		this.propertyMethods = getPropertyMethods(clazz);
+		this.checkMissingSetterMethods(EzyAutoBind.class);
+		this.checkMissingSetterMethods(EzyProperty.class);
 	}
 	
 	protected Constructor getConstructor(EzyClass clazz) {
@@ -154,7 +157,7 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 		return field.getName();
 	}
 	
-	private final String getBeanName(EzyMethod method) {
+	private String getBeanName(EzyMethod method) {
 		EzyAutoBind annotation = method.getAnnotation(EzyAutoBind.class);
 		if(annotation != null && annotation.value().length > 0) 
 			return annotation.value()[0];
@@ -165,6 +168,21 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 	
 	protected final String getPropertyName(EzyReflectElement element) {
 		return EzyPropertyAnnotations.getPropertyName(clazz, element);
+	}
+	
+	private void checkMissingSetterMethods(Class<? extends Annotation> annClass) {
+		List<EzyField> invalidFields = clazz.getFields(f -> {
+			if(!f.isAnnotated(annClass))
+				return false;
+			if(f.isPublic())
+				return false;
+			EzyMethod setter = clazz.getSetterMethod(f.getSetterMethod());
+			if(setter != null)
+				return false;
+			return true;
+		});
+		for(EzyField field : invalidFields)
+			logger.warn("field: {} maybe null", field.getName(), new EzyMissingSetterException(field));
 	}
 	
 }
