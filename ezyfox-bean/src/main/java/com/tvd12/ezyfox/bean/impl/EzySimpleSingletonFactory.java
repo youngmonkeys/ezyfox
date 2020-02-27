@@ -107,6 +107,11 @@ public class EzySimpleSingletonFactory
 	}
 	
 	@Override
+	public List getSingletons() {
+		return new ArrayList<>(objectsByKey.values());
+	}
+	
+	@Override
 	public List getSingletons(Map properties) {
 		List list = new ArrayList<>();
 		for(Entry<Object, Map> entry : objectsByProperties.entrySet())

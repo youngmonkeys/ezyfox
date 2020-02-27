@@ -117,6 +117,11 @@ public class EzySimpleBeanContext
 	}
 	
 	@Override
+	public List getSingletons() {
+		return singletonFactory.getSingletons();
+	}
+	
+	@Override
 	public List getSingletons(Map properties) {
 		return singletonFactory.getSingletons(properties);
 	}

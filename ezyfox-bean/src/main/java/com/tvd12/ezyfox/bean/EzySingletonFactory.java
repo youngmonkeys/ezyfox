@@ -15,6 +15,8 @@ public interface EzySingletonFactory {
 	
 	Object getSingleton(Map properties);
 	
+	List getSingletons();
+	
 	List getSingletons(Map properties);
 	
 	List getSingletons(Class annotationClass);

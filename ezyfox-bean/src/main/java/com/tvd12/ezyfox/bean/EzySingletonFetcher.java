@@ -12,6 +12,8 @@ public interface EzySingletonFetcher {
 	
 	<T> T getSingleton(Map properties);
 	
+	List getSingletons();
+	
 	List getSingletons(Map properties);
 	
 	List getSingletons(Class annotationClass);
