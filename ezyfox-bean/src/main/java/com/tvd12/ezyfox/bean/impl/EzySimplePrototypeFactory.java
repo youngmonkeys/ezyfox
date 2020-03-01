@@ -1,13 +1,18 @@
 package com.tvd12.ezyfox.bean.impl;
 
+import static com.tvd12.ezyfox.bean.impl.EzyBeanKey.of;
+import static com.tvd12.ezyfox.reflect.EzyClasses.flatSuperAndInterfaceClasses;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 
 import com.tvd12.ezyfox.annotation.EzyKeyValue;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
@@ -15,14 +20,13 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.io.EzyMaps;
 
-import static com.tvd12.ezyfox.bean.impl.EzyBeanKey.*;
-import static com.tvd12.ezyfox.reflect.EzyClasses.*;
-
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class EzySimplePrototypeFactory
 		extends EzySimpleBeanFactory
 		implements EzyPrototypeFactory {
 
+	protected final Set<EzyPrototypeSupplier> supplierSet
+			= new HashSet<>();
 	protected final Map<EzyBeanKey, EzyPrototypeSupplier> supplierByKey
 			= new ConcurrentHashMap<>();
 	protected final Map<EzyPrototypeSupplier, Map> suppliersByProperties
@@ -58,30 +62,50 @@ public class EzySimplePrototypeFactory
 	
 	@Override
 	public EzyPrototypeSupplier getSupplier(Map properties) {
-		for(Entry<EzyPrototypeSupplier, Map> entry : suppliersByProperties.entrySet())
+		for(Entry<EzyPrototypeSupplier, Map> entry : suppliersByProperties.entrySet()) {
 			if(EzyMaps.containsAll(entry.getValue(), properties))
 				return entry.getKey();
+		}
 		return null;
 	}
 	
 	@Override
+	public List<EzyPrototypeSupplier> getSuppliers() {
+		return new ArrayList<>(supplierSet);
+	}
+	
+	@Override
 	public List<EzyPrototypeSupplier> getSuppliers(Map properties) {
-		List<EzyPrototypeSupplier> list = new ArrayList<>();
-		for(Entry<EzyPrototypeSupplier, Map> entry : suppliersByProperties.entrySet())
+		Set<EzyPrototypeSupplier> set = new HashSet<>();
+		for(Entry<EzyPrototypeSupplier, Map> entry : suppliersByProperties.entrySet()) {
 			if(EzyMaps.containsAll(entry.getValue(), properties))
-				list.add(entry.getKey());
-		return list;
+				set.add(entry.getKey());
+		}
+		return new ArrayList<>(set);
 	}
 	
 	@Override
 	public List<EzyPrototypeSupplier> getSuppliers(Class annotationClass) {
+		return getSuppliers(s ->
+			s.getObjectType().isAnnotationPresent(annotationClass)
+		);
+	}
+	
+	@Override
+	public List<EzyPrototypeSupplier> getSuppliers(Predicate<EzyPrototypeSupplier> filter) {
 		List<EzyPrototypeSupplier> list = new ArrayList<>();
-		for(EzyBeanKey key : supplierByKey.keySet()) {
-			Class type = key.getType();
-			if(type.isAnnotationPresent(annotationClass))
-				list.add(supplierByKey.get(key));
+		for(EzyPrototypeSupplier supplier : supplierSet) {
+			if(filter.test(supplier))
+				list.add(supplier);
 		}
 		return list;
+	}
+	
+	@Override
+	public List<EzyPrototypeSupplier> getSuppliersOf(Class parentClass) {
+		return getSuppliers(s ->
+			parentClass.isAssignableFrom(s.getObjectType())
+		);
 	}
 	
 	@Override
@@ -110,6 +134,7 @@ public class EzySimplePrototypeFactory
 		if(supplierByKey.containsKey(key))
 			return;
 		
+		supplierSet.add(supplier);
 		supplierByKey.put(key, supplier);
 		suppliersByProperties.put(supplier, properties);
 		

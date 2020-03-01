@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.io.EzyMaps;
@@ -23,6 +24,8 @@ public class EzySimpleSingletonFactory
 
 	@Getter
 	protected final Set<Class> singletonClasses
+			= new HashSet<>();
+	protected final Set<Object> objectSet
 			= new HashSet<>();
 	protected final Map<EzyBeanKey, Object> objectsByKey
 			= new ConcurrentHashMap<>();
@@ -50,6 +53,7 @@ public class EzySimpleSingletonFactory
 		if(existed != null)
 			return existed;
 		
+		objectSet.add(singleton);
 		objectsByKey.put(key, singleton);
 		objectsByProperties.put(singleton, properties);
 		
@@ -100,35 +104,50 @@ public class EzySimpleSingletonFactory
 	
 	@Override
 	public Object getSingleton(Map properties) {
-		for(Entry<Object, Map> entry : objectsByProperties.entrySet())
+		for(Entry<Object, Map> entry : objectsByProperties.entrySet()) {
 			if(EzyMaps.containsAll(entry.getValue(), properties))
 				return entry.getKey();
+		}
 		return null;
 	}
 	
 	@Override
 	public List getSingletons() {
-		return new ArrayList<>(objectsByKey.values());
+		return new ArrayList<>(objectSet);
 	}
 	
 	@Override
 	public List getSingletons(Map properties) {
-		List list = new ArrayList<>();
-		for(Entry<Object, Map> entry : objectsByProperties.entrySet())
+		Set set = new HashSet<>();
+		for(Entry<Object, Map> entry : objectsByProperties.entrySet()) {
 			if(EzyMaps.containsAll(entry.getValue(), properties))
-				list.add(entry.getKey());
-		return list;
+				set.add(entry.getKey());
+		}
+		return new ArrayList<>(set);
 	}
 	
 	@Override
 	public List getSingletons(Class annotationClass) {
+		return getSingletons(o ->
+			o.getClass().isAnnotationPresent(annotationClass)
+		);
+	}
+	
+	@Override
+	public List getSingletons(Predicate filter) {
 		List list = new ArrayList<>();
-		for(EzyBeanKey key : objectsByKey.keySet()) {
-			Class type = key.getType();
-			if(type.isAnnotationPresent(annotationClass))
-				list.add(objectsByKey.get(key));
+		for(Object object : objectSet) {
+			if(filter.test(object))
+				list.add(object);
 		}
 		return list;
+	}
+	
+	@Override
+	public List getSingletonsOf(Class parentClass) {
+		return getSingletons(o ->
+			parentClass.isAssignableFrom(o.getClass())
+		);
 	}
 	
 	@Override

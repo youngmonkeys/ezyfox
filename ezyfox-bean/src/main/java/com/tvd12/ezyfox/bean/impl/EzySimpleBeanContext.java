@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Predicate;
 import java.util.Properties;
 import java.util.Set;
 
@@ -129,6 +130,16 @@ public class EzySimpleBeanContext
 	@Override
 	public List getSingletons(Class annotationClass) {
 		return singletonFactory.getSingletons(annotationClass);
+	}
+	
+	@Override
+	public List getSingletons(Predicate filter) {
+		return singletonFactory.getSingletons(filter);
+	}
+	
+	@Override
+	public List getSingletonsOf(Class parentClass) {
+		return singletonFactory.getSingletonsOf(parentClass);
 	}
 	
 	@Override

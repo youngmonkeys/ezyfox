@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.bean;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 @SuppressWarnings("rawtypes")
 public interface EzySingletonFetcher {
@@ -17,6 +18,10 @@ public interface EzySingletonFetcher {
 	List getSingletons(Map properties);
 	
 	List getSingletons(Class annotationClass);
+	
+	List getSingletons(Predicate filter);
+	
+	List getSingletonsOf(Class parentClass);
 	
 	<T> T getAnnotatedSingleton(Class annotationClass);
 	

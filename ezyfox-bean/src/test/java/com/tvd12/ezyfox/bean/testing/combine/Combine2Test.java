@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.bean.testing.combine;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.testng.annotations.Test;
 
@@ -17,6 +18,7 @@ import com.tvd12.ezyfox.properties.EzySimplePropertiesReader;
 
 public class Combine2Test {
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void test() throws Exception {
 		EzyByConstructorPrototypeSupplierLoader.setDebug(true);
@@ -71,6 +73,17 @@ public class Combine2Test {
 		ClassA12 a121 = (ClassA12) context.getBean("classA12", ClassA12.class);
 		ClassA12 a122 = (ClassA12) context.getBean("classA12", ClassA12.class);
 		assert a121 != a122;
+		assert context.getSingletons().size() > 0;
+		System.out.println("number of singletons: " + context.getSingletons().size());
+		List<Object> singletonsOf = context.getSingletonsOf(V112SingletonBase.class);
+		System.out.println("singletonsOf: " + singletonsOf);
+		assert singletonsOf.size() == 2;
+		List<Object> singletons = context.getSingletons(o -> V112SingletonBase.class.isAssignableFrom(o.getClass()));
+		assert singletons.size() == 2;
+		System.out.println("number of prototypes: " + prototypeFactory.getSuppliers().size());
+		List<EzyPrototypeSupplier> suppliers = prototypeFactory.getSuppliersOf(V112PrototypeBase.class);
+		System.out.println("suppliers: " + suppliers);
+		assert suppliers.size() == 2;
 	}
 	
 }
