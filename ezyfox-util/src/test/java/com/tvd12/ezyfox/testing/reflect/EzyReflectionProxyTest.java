@@ -23,6 +23,10 @@ public class EzyReflectionProxyTest {
 		reflection.getExtendsClasses(BaseTest.class);
 		reflection.getAnnotatedClasses(ExampleAnnotation.class);
 		assert reflection.getAnnotatedClasses(ExampleAnnotation.class).size() == reflection.getAnnotatedClasses(Sets.newHashSet(ExampleAnnotation.class)).size();
+		assert reflection.getAnnotatedClass(ExampleAnnotation.class) != null;
+		assert reflection.getExtendsClass(BaseTest.class) != null;
+		assert reflection.getAnnotatedClass(ExampleAnnotation2.class) == null;
+		assert reflection.getExtendsClass(EzyReflectionProxyTest.class) == null;
 	}
 	
 }
