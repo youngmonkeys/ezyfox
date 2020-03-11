@@ -20,6 +20,7 @@ import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyBeanNameTranslator;
 import com.tvd12.ezyfox.bean.EzyErrorHandler;
+import com.tvd12.ezyfox.bean.EzyPropertiesMap;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
@@ -219,6 +220,7 @@ public class EzySimpleBeanContext
 		protected Set<Class> configurationBeforeClasses;
 		protected Map<Class, String> namedSingletonClasses;
 		protected Map<Class, String> namedPrototypeClasses;
+		protected EzyPropertiesMap propertiesMap;
 		protected EzyPropertiesReader propertiesReader;
 		protected EzySimpleSingletonFactory singletonFactory;
 		protected EzySimplePrototypeFactory prototypeFactory;
@@ -552,6 +554,16 @@ public class EzySimpleBeanContext
 			this.properties.put(key, value);
 			return this;
 		}
+
+		/*
+		 * (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#propertiesMap(com.tvd12.ezyfox.bean.EzyPropertiesMap)
+		 */
+		@Override
+		public EzyBeanContextBuilder propertiesMap(EzyPropertiesMap propertiesMap) {
+			this.propertiesMap = propertiesMap;
+			return this;
+		}
 		
 		/*
 		 * (non-Javadoc)
@@ -574,6 +586,7 @@ public class EzySimpleBeanContext
 			context.singletonFactory = singletonFactory;
 			context.beanNameTranslator = beanNameTranslator;
 			context.propertiesReader = getPropertiesReader();
+			mapProperties();
 			addSingleton("beanContext", context);
 			addSingleton("singletonFactory", singletonFactory);
 			addSingleton("prototypeFactory", prototypeFactory);
@@ -589,6 +602,17 @@ public class EzySimpleBeanContext
 			loadConfigurationClasses(context);
 			tryLoadUncompletedSingletonsAgain(context, true);
 			return context;
+		}
+		
+		private void mapProperties() {
+			if(propertiesMap == null)
+				return;
+			Map<String, String> keyMap = propertiesMap.keyMap();
+			for(String originKey : keyMap.keySet()) {
+				String mapKey = keyMap.get(originKey);
+				Object value = properties.get(originKey);
+				properties.put(mapKey, value);
+			}
 		}
 		
 		private void addScannedSingletonsToFactory(EzyBeanContext context) {

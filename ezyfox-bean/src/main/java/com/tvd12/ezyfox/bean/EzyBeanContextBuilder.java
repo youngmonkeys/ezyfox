@@ -73,6 +73,8 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	
 	EzyBeanContextBuilder addProperty(String key, Object value);
 	
+	EzyBeanContextBuilder propertiesMap(EzyPropertiesMap propertiesMap);
+	
 	EzyBeanContextBuilder propertiesReader(EzyPropertiesReader propertiesReader);
-
+	
 }

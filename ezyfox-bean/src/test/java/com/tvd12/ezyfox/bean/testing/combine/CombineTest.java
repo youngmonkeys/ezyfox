@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.testng.annotations.Test;
 
@@ -81,7 +82,12 @@ public class CombineTest {
 				.addProperties("v111_props3.properties")
 				.addProperties(new File("test-data/v111_props1.properties"))
 				.addProperties(new FileInputStream(new File("test-data/v111_props2.properties")))
-				.addPrototypeClass(V111Prototype05.class);
+				.addPrototypeClass(V111Prototype05.class)
+				.propertiesMap(() -> {
+					Map<String, String> m = new HashMap<>();
+					m.put("v111_c", "hellococo");
+					return m;
+				});
 		EzyBeanContext context = builder.build();
 		SingletonX1 x1 = (SingletonX1) context.getBean("singletonX1", SingletonX1.class);
 		SingletonX2 x2 = (SingletonX2) context.getBean("singletonX2", SingletonX2.class);
@@ -96,6 +102,7 @@ public class CombineTest {
 		assert context.getProperties().get("v111_a").equals("hello");
 		assert context.getProperties().get("v111_b").equals("world");
 		assert context.getProperties().get("v111_c").equals("helloworld");
+		assert context.getProperties().get("hellococo").equals("helloworld");
 		assert context.getBean(V111Singleton05.class) != null;
 		assert context.getBean(V111Prototype04.class) != null;
 		assert V111ISingleton01.class.isAssignableFrom(V111ISingleton01.class);
