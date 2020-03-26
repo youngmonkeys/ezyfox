@@ -10,7 +10,9 @@ import com.tvd12.ezyfox.codec.EzyMessageSerializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.io.EzyMath;
+import com.tvd12.test.reflect.MethodInvoker;
 
 public class MsgPackMySimpleDeserializer2Test extends MsgPackCodecTest {
 
@@ -43,6 +45,16 @@ public class MsgPackMySimpleDeserializer2Test extends MsgPackCodecTest {
 		assert command == 26 : "deserialize error";
 		assert token.equals("abcdef") : "deserialize error";
 		assert token.equals("abcdef") : "deserialize error";
+		try {
+			MethodInvoker.create()
+				.method("getDataType")
+				.param(int.class, -1234)
+				.object(deserializer)
+				.invoke();
+		}
+		catch (Exception e) {
+			assert e.getCause().getCause() instanceof EzyCodecException;
+		}
 	}
 	
 }
