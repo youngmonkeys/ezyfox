@@ -1,5 +1,8 @@
 package com.tvd12.ezyfox.monitor.test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.monitor.EzyGcMonitor;
@@ -18,6 +21,14 @@ public class EzyGcMonitorTest extends BaseTest {
 		System.out.println(monitor.getProcessGcActivity());
 		Thread.sleep(1000);
 		System.out.println(monitor.getProcessGcActivity());
+		
+		monitor = new EzyGcMonitor() {
+			@Override
+			protected List<?> getGarbageCollectorMXBeans() {
+				return Arrays.asList(new Object());
+			}
+		};
+		assert monitor.getProcessGcActivity() == 0.0D;
 	}
 	
 }
