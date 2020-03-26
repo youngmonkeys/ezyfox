@@ -16,7 +16,7 @@ public final class EzyMessageReaders {
 		byte[] messageSizeBytes = EzyBytes.copy(bytes, 1, messageSizeLength);
 		int messageSize = EzyInts.bin2int(messageSizeBytes);
 		int allSize = 1 + messageSizeLength + messageSize;
-		if(bytes.length != allSize)
+		if(bytes.length < allSize)
 			return null;
 		int contentStart = 1 + messageSizeLength;
 		byte[] messageContent = EzyBytes.copy(bytes, contentStart, messageSize);
