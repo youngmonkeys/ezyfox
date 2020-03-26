@@ -9,8 +9,7 @@ public final class EzySHA256 {
 
 	private static final String ALGORITHM = "SHA-256";
 	
-	private EzySHA256() {
-	}
+	private EzySHA256() {}
 
 	public static String cryptUtf(String originalString) {
 		byte[] encodedhash = cryptUtfToBytes(originalString);
