@@ -22,8 +22,10 @@ import java.util.function.Supplier;
 
 import com.tvd12.ezyfox.function.EzyParamsFunction;
 import com.tvd12.ezyfox.function.EzyVoidParamsFunction;
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
+import com.tvd12.ezyfox.reflect.EzyFields;
 import com.tvd12.ezyfox.reflect.EzyGenerics;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
@@ -140,7 +142,7 @@ public class EzyObjectInstanceRandom {
 		return randomValue;
 	}
 	
-	protected Object randomMapValue(Type mapType) {
+	public Object randomMapValue(Type mapType) {
 		try {
 			Object map = randomMapValue0(mapType);
 			return map;
@@ -163,7 +165,7 @@ public class EzyObjectInstanceRandom {
 		return map;
 	}
 	
-	protected Object randomCollectionValue(Type collectionType) {
+	public Object randomCollectionValue(Type collectionType) {
 		try {
 			Object collection = randomCollectionValue0(collectionType);
 			return collection;
@@ -191,7 +193,7 @@ public class EzyObjectInstanceRandom {
 		return collection;
 	}
 	
-	protected Object randomArray(Class<?> itemType) {
+	public Object randomArray(Class<?> itemType) {
 		Random random = new Random();
 		int maxLength = 1 + random.nextInt(5);
 		Object array = Array.newInstance(itemType, maxLength);
@@ -202,7 +204,7 @@ public class EzyObjectInstanceRandom {
 		return array;
 	}
 	
-	protected Object randomEnumValue(Class<?> enumClass) {
+	public Object randomEnumValue(Class<?> enumClass) {
 		try {
 			Object value = randomEnumValue0(enumClass);
 			return value;
@@ -222,6 +224,144 @@ public class EzyObjectInstanceRandom {
 		int index = random.nextInt(values.length);
 		Object value = values[index];
 		return value;
+	}
+	
+	public String randomValueScript(Class<?> type) {
+		String script = "";
+		if(Map.class.isAssignableFrom(type))
+			script = "new HashMap<>()";
+		else if(List.class.isAssignableFrom(type))
+			script = "new ArrayList<>()";
+		else if(Set.class.isAssignableFrom(type))
+			script = "new HashSet<>()";
+		else if(Collection.class.isAssignableFrom(type))
+			script = "new ArrayList<>()";
+		else if(BigDecimal.class.isAssignableFrom(type))
+			script = "new BigDecimal(10)";
+		else if(BigInteger.class.isAssignableFrom(type))
+			script = "new BigInteger(10)";
+		else if(java.util.Date.class.isAssignableFrom(type))
+			script = "new Date()";
+		else if(java.sql.Date.class.isAssignableFrom(type))
+			script = "new java.sql.Date()";
+		else if(LocalDate.class.isAssignableFrom(type))
+			script = "LocalDate.now()";
+		else if(LocalDateTime.class.isAssignableFrom(type))
+			script = "LocalDateTime.now()";
+		else 
+			script = randomValue(type).toString();
+		if(byte.class.equals(type) || Byte.class.equals(type))
+			script = "(byte)" + script;
+		else if(char.class.equals(type) || Character.class.equals(type))
+			script = "'" + script + "'";
+		else if(double.class.equals(type) || Double.class.equals(type))
+			script = script + "D";
+		else if(float.class.equals(type) || Float.class.equals(type))
+			script = script + "F";
+		else if(long.class.equals(type) || Long.class.equals(type))
+			script = script + "L";
+		if(short.class.equals(type) || Short.class.equals(type))
+			script = "(short)" + script;
+		else if(String.class.equals(type))
+			script = EzyStrings.quote(script);
+		else if(type.isArray()) 
+			script = randomArrayScript(type.getComponentType());
+		else if(isCustomerClass(type))
+			script = "new" + type.getSimpleName() + "()";
+		
+		return script;
+	}
+	
+	public String randomArrayScript(Class<?> itemType) {
+		return new StringBuilder("new ")
+				.append(itemType.getSimpleName())
+				.append("[] {")
+				.append(randomValueScript(itemType))
+				.append("}")
+				.toString();
+	}
+	
+	public String randomObjectFuncScript(Class<?> clazz) {
+		return randomObjectFuncScript(clazz, true);
+	}
+	
+	public String randomObjectFuncScript(Class<?> clazz, boolean allFields) {
+		String bodyScript = randomObjectScript(clazz, null, allFields);
+		return new StringBuilder("protected ")
+				.append(clazz.getSimpleName()).append(" new")
+				.append(clazz.getSimpleName()).append("() {\n")
+				.append(EzyStringTool.tabAll(bodyScript, 1))
+				.append("\n}")
+				.toString();
+	}
+	
+	public String randomObjectScript(Class<?> clazz, Set<Class<?>> customClasses) {
+		return randomObjectScript(clazz, customClasses, true);
+	}
+	
+	public String randomObjectScript(
+			Class<?> clazz, Set<Class<?>> customClasses, boolean allFields) {
+		if(Throwable.class.isAssignableFrom(clazz))
+			return randomExceptionScript();
+		if(clazz.isInterface())
+			return randomInterfaceObjectScript(clazz);
+		if(Modifier.isAbstract(clazz.getModifiers()))
+			return randomAbstractObjectScript(clazz);
+		return randomClassObjectScript(clazz, customClasses, allFields);
+	}
+	
+	public String randomExceptionScript() {
+		return new StringBuilder()
+				.append("Exception e = new Exception(\"test\");")
+				.append("\nreturn e;")
+				.toString();
+	}
+	
+	public String randomInterfaceObjectScript(Class<?> intf) {
+		return new StringBuilder(intf.getSimpleName())
+				.append(" v = mock(")
+				.append(intf.getSimpleName()).append(".class);")
+				.append("\nreturn v;")
+				.toString();
+	}
+	
+	public String randomAbstractObjectScript(Class<?> clazz) {
+		return new StringBuilder(clazz.getSimpleName())
+				.append(" v = spy(")
+				.append(clazz.getSimpleName()).append(".class);")
+				.append("\nreturn v;")
+				.toString();
+	}
+	
+	public String randomClassObjectScript(
+			Class<?> clazz, Set<Class<?>> customClasses, boolean allFields) {
+		StringBuilder builder = new StringBuilder()
+				.append(clazz.getSimpleName())
+				.append(" v = new ")
+				.append(clazz.getSimpleName()).append("();\n");
+		List<Field> fields = allFields 
+				? EzyFields.getFields(clazz) : EzyFields.getDeclaredFields(clazz);
+		for(Field field : fields) {
+			if(Modifier.isStatic(field.getModifiers()))
+				continue;
+			EzyField f = new EzyField(field);
+			Class<?> fieldType = field.getType();
+			String randomValue = randomValueScript(fieldType);
+			builder.append("v.")
+				.append(f.getSetterMethod())
+				.append("(").append(randomValue).append(");");
+			if(isCustomerClass(fieldType)) {
+				if(customClasses != null)
+					customClasses.add(fieldType);
+				builder.append(" // customer class");
+			}
+			builder.append("\n");
+		}
+		return builder.append("return v;").toString();
+	}
+	
+	protected boolean isCustomerClass(Class<?> clazz) {
+		return EzyToolTypes.isCustomerClass(clazz);
 	}
 	
 	protected Map<Class<?>, Supplier<Object>> defaultValueRandoms() {
@@ -318,6 +458,11 @@ public class EzyObjectInstanceRandom {
 			}
 			return builder.toString();
 		});
+		randoms.put(Number.class, () -> {
+			Random random = new Random();
+			Object value = random.nextInt(125);
+			return value;
+		});
 		randoms.put(BigDecimal.class, () -> {
 			return new BigDecimal(10L);
 		});
@@ -331,6 +476,15 @@ public class EzyObjectInstanceRandom {
 			int nextDays = 1 + random.nextInt(5);
 			long nextMilis = nowMilis + nextDays * 24 * 60 * 60 * 1000;
 			Date nextTime = new Date(nextMilis);
+			return nextTime;
+		});
+		randoms.put(java.sql.Date.class, () -> {
+			Date now = new Date();
+			long nowMilis = now.getTime();
+			Random random = new Random();
+			int nextDays = 1 + random.nextInt(5);
+			long nextMilis = nowMilis + nextDays * 24 * 60 * 60 * 1000;
+			java.sql.Date nextTime = new java.sql.Date(nextMilis);
 			return nextTime;
 		});
 		randoms.put(LocalDate.class, () -> {

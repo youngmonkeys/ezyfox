@@ -50,6 +50,17 @@ public class EzyObjectInstanceRandomTest {
 		random.randomObjectList(ClassA.class, 1, true);
 	}
 	
+	@Test
+	public void test6() {
+		EzyObjectInstanceRandom random = new EzyObjectInstanceRandom();
+		System.out.println(random.randomObjectFuncScript(ClassA.class));
+	}
+	
+	public static void main(String[] args) {
+		EzyObjectInstanceRandomTest test = new EzyObjectInstanceRandomTest();
+		test.test6();
+	}
+	
 	@Getter
 	@Setter
 	@ToString
@@ -82,6 +93,14 @@ public class EzyObjectInstanceRandomTest {
 		private List<ClassB> listObject;
 		private Set<ClassB> setObject;
 		private Map<String, ClassB> mapObject;
+		private boolean[] x1;
+		private byte[] x2;
+		private char[] x3;
+		private double[] x4;
+		private float[] x5;
+		private int[] x6;
+		private long[] x7;
+		private short[] x8;
 	}
 	
 	@Getter

@@ -10,15 +10,11 @@
 	<version>1.0.0</version>
 	<name>ezyfox-tools</name>
 	
-	<properties>
-		<ezy.util.version>1.1.0</ezy.util.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-util</artifactId>
-			<version>${ezy.util.version}</version>
+			<artifactId>ezyfox-io</artifactId>
+			<version>${parent.version}</version>
 		</dependency>
 	</dependencies>
 </project>
