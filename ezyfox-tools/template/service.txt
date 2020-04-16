@@ -1,0 +1,9 @@
+package ${package-name};
+
+import ${base-package-name}.entity.${base-class-name}Entity;
+
+public interface ${class-name} {
+
+	void save(${base-class-name}Entity entity);
+
+}

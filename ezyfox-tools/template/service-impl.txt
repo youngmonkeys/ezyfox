@@ -1,0 +1,16 @@
+package ${package-name};
+
+import com.tvd12.ezyfox.util.EzyLoggable;
+import ${base-package-name}.entity.${base-class-name}Entity;
+import ${base-package-name}.repo.${base-class-name}Repo;
+import ${base-package-name}.service.${base-class-name}Service;
+
+public class ${class-name} extends EzyLoggable implements ${base-class-name}Service {
+
+	protected ${base-class-name}Repo ${lower-base-class-name}Repo;
+
+	public void save(${base-class-name}Entity entity) {
+		System.out.println("save entity: " + entity);
+	}
+
+}
