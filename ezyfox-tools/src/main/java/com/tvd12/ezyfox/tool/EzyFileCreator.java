@@ -21,6 +21,7 @@ public class EzyFileCreator {
 	protected String sourcePath;
 	protected String packageName;
 	protected String className;
+	protected boolean overrideExists;
 	protected Map<String, String> variableValues;
 	protected EzyFileWriter fileWriter;
 	protected EzyInputStreamLoader inputStreamLoader;
@@ -71,6 +72,12 @@ public class EzyFileCreator {
 		return this;
 	}
 	
+	public EzyFileCreator replace(Map<String, Object> values) {
+		for(String variable : values.keySet())
+			replace(variable, values.get(variable));
+		return this;
+	}
+	
 	public EzyFileCreator replace(String variable, Object value) {
 		String v = String.valueOf(value);
 		if(v.length() == 1)
@@ -79,6 +86,11 @@ public class EzyFileCreator {
 			v = v.substring(0, 1).toLowerCase() + v.substring(1);
 		this.variableValues.put(variable, String.valueOf(value));
 		this.variableValues.put("lower-" + variable, v);
+		return this;
+	}
+	
+	public EzyFileCreator overrideExists(boolean overrideExists) {
+		this.overrideExists = overrideExists;
 		return this;
 	}
 	
@@ -97,6 +109,8 @@ public class EzyFileCreator {
 			filePath = Paths.get(projectPath, sourcePath, packagePath, className + ".java").toString();
 		}
 		File file = new File(filePath);
+		if(file.exists() && !overrideExists)
+			return file.getAbsolutePath();
 		if(file.getParentFile() != null && !file.getParentFile().exists())
 			file.getParentFile().mkdirs();
 		fileWriter.write(file, content, "UTF-8");
