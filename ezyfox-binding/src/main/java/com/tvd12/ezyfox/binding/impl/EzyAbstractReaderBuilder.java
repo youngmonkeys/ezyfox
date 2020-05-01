@@ -9,6 +9,7 @@ import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyPostRead;
+import com.tvd12.ezyfox.binding.exception.EzyReadValueException;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
@@ -83,17 +84,17 @@ public abstract class EzyAbstractReaderBuilder
 					.append(new EzyInstruction("\t", "\n", false)
 							.append("try {"))
 					.append(new EzyInstruction("\t\t", "\n")
-							.append("return this." + getReadMethodName() + "$impl( " + paramNamesChain + ")"))
+							.append("return this." + getReadMethodName() + "$impl(" + paramNamesChain + ")"))
 					.append(new EzyInstruction("\t", "\n", false)
 							.append("} catch(")
 							.clazz(Exception.class)
 							.append(" e) {"))
 					.append(new EzyInstruction("\t\t", "\n\t}\n")
 							.append("throw new ")
-							.clazz(IllegalStateException.class)
+							.clazz(EzyReadValueException.class)
 							.bracketopen()
-							.string("can't read value ")
-							.append("+ arg1, e")
+							.clazz(clazz.getClazz(), true)
+							.append(", arg1, e")
 							.bracketclose())
 					.function()
 					.toString();

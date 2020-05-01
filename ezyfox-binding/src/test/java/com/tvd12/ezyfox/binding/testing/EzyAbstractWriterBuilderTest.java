@@ -28,6 +28,11 @@ public class EzyAbstractWriterBuilderTest extends BaseTest {
 		}
 		
 		@Override
+		protected Class<?> getOutType() {
+			return null;
+		}
+		
+		@Override
 		protected int getAccessType(EzyClass clazz) {
 			return EzyAccessType.ALL;
 		}

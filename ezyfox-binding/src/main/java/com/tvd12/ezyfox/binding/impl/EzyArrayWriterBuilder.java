@@ -7,7 +7,7 @@ import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyAccessType;
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
-import com.tvd12.ezyfox.builder.EzyArrayBuilder;
+import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
@@ -30,6 +30,11 @@ public class EzyArrayWriterBuilder
 	}
 	
 	@Override
+	protected Class<?> getOutType() {
+		return EzyArray.class;
+	}
+	
+	@Override
 	protected int getAccessType(EzyClass clazz) {
 		EzyArrayBinding ann = clazz.getAnnotation(EzyArrayBinding.class);
 		return ann == null ? EzyAccessType.ALL : ann.accessType();
@@ -46,17 +51,15 @@ public class EzyArrayWriterBuilder
 				.modifier("protected")
 				.body()
 					.append(new EzyInstruction("\t", "\n")
-							.variable(clazz.getClazz(), "object")
+							.variable(clazz.getClazz(), "value")
 							.equal()
-							.cast(clazz.getClazz(), "arg1")
-							)
+							.cast(clazz.getClazz(), "arg1"))
 					.append(new EzyInstruction("\t", "\n")
-							.variable(EzyArrayBuilder.class, "builder")
+							.variable(EzyArray.class, "array")
 							.equal()
 							.clazz(EzyEntityFactory.class)
 							.dot()
-							.append("newArrayBuilder()")
-							);
+							.append("newArray()"));
 		for(Object element : getElements()) {
 			EzyInstruction instruction = null;
 			if(element == null) {
@@ -74,7 +77,7 @@ public class EzyArrayWriterBuilder
 		}
 		methodBody.append(new EzyInstruction("\t", "\n")
 				.answer()
-				.append("builder.build()"));
+				.append("array"));
 			
 		EzyFunction method = methodBody.function();
 			
@@ -83,15 +86,15 @@ public class EzyArrayWriterBuilder
 	
 	protected EzyInstruction newInstructionByNull() {
 		return new EzyInstruction("\t", "\n")
-				.append("builder.append((java.lang.Object)null)");
+				.append("array.add((java.lang.Object)null)");
 	}
 	
 	protected EzyInstruction newInstruction(
 			EzyReflectElement element, String valueExpSuffix) {
 		EzyInstruction instruction = new EzyInstruction("\t", "\n")
-				.append("builder")
+				.append("array")
 				.dot()
-				.append("append")
+				.append("add")
 				.bracketopen()
 				.brackets(Object.class)
 				.append("arg0.marshal(");
@@ -104,7 +107,7 @@ public class EzyArrayWriterBuilder
 		}
 		Class type = getElementType(element);
 		String valueExpression = 
-				"object." + element.getName() + valueExpSuffix;
+				"value." + element.getName() + valueExpSuffix;
 		instruction
 				.valueOf(type, valueExpression)
 				.append(")")
