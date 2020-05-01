@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
+import com.tvd12.ezyfox.exception.EzyArrayGetException;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
@@ -60,8 +61,14 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 	 */
 	@Override
 	public Object getValue(int index, Class type) {
-		Object answer = transformOutput(list.get(index), type);
-		return answer;
+		Object value = list.get(index);
+		try {
+			Object answer = transformOutput(value, type);
+			return answer;
+		}
+		catch(Exception e) {
+			throw new EzyArrayGetException(index, value, type, e);
+		}
 	}
 	
 	/*

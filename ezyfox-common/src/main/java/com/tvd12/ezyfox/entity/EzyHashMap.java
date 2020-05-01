@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.BiFunction;
 
+import com.tvd12.ezyfox.exception.EzyObjectGetException;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 import com.tvd12.ezyfox.util.EzyObjectToMap;
@@ -66,8 +67,14 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 	 */
 	@Override
 	public Object getValue(Object key, Class type) {
-		Object answer = transformOutput(map.get(key), type);
-		return answer;
+		Object value = map.get(key);
+		try {
+			Object answer = transformOutput(value, type);
+			return answer;
+		}
+		catch(Exception e) {
+			throw new EzyObjectGetException(key, value, type, e);
+		}
 	}
 	
 	/*

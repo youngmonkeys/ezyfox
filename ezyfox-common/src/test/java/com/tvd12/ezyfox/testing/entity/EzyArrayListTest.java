@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
+import com.tvd12.ezyfox.exception.EzyArrayGetException;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
@@ -32,6 +33,19 @@ public class EzyArrayListTest extends BaseTest {
 		assert newArray.first(1) == 1;
 		assert newArray.get(1, int.class) == 2;
 		assert newArray.get(2, int.class) == 3;
+		
+		EzyArray myArray = EzyEntityFactory.newArray();
+		myArray.add("a");
+		try {
+			myArray.get(0, int.class);
+		}
+		catch (Exception e) {
+			assert e instanceof EzyArrayGetException;
+			EzyArrayGetException ex = (EzyArrayGetException)e;
+			assert ex.getOutType() == int.class;
+			assert ex.getIndex() == 0;
+			assert ex.getValue().equals("a");
+		}
 	}
 
 	public static class EzyEzyArrayList extends EzyArrayList {
