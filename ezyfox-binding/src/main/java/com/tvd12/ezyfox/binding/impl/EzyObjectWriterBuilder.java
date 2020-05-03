@@ -7,7 +7,7 @@ import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyAccessType;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
-import com.tvd12.ezyfox.builder.EzyObjectBuilder;
+import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
@@ -30,6 +30,11 @@ public class EzyObjectWriterBuilder
 	}
 	
 	@Override
+	protected Class<?> getOutType() {
+		return EzyObject.class;
+	}
+	
+	@Override
 	protected int getAccessType(EzyClass clazz) {
 		EzyObjectBinding ann = clazz.getAnnotation(EzyObjectBinding.class);
 		return ann == null ? EzyAccessType.ALL : ann.accessType();
@@ -46,23 +51,23 @@ public class EzyObjectWriterBuilder
 				.modifier("protected")
 				.body()
 					.append(new EzyInstruction("\t", "\n")
-							.variable(clazz.getClazz(), "object")
+							.variable(clazz.getClazz(), "value")
 							.equal()
 							.cast(clazz.getClazz(), "arg1")
 							)
 					.append(new EzyInstruction("\t", "\n")
-							.variable(EzyObjectBuilder.class, "builder")
+							.variable(EzyObject.class, "object")
 							.equal()
 							.clazz(EzyEntityFactory.class)
 							.dot()
-							.append("newObjectBuilder()")
+							.append("newObject()")
 							);
 		for(Object element : getElements()) {
 			methodBody.append(newInstructionByElement(element));
 		}
 		methodBody.append(new EzyInstruction("\t", "\n")
 				.answer()
-				.append("builder.build()"));
+				.append("object"));
 		
 		EzyFunction method = methodBody.function();
 		
@@ -86,9 +91,9 @@ public class EzyObjectWriterBuilder
 	protected EzyInstruction newInstruction(
 			EzyReflectElement element, String valueExpSuffix) {
 		EzyInstruction instruction = new EzyInstruction("\t", "\n")
-				.append("builder")
+				.append("object")
 				.dot()
-				.append("append")
+				.append("put")
 				.bracketopen()
 				.string(getKey(element))
 				.comma()
@@ -102,7 +107,7 @@ public class EzyObjectWriterBuilder
 		}
 		Class type = getElementType(element);
 		instruction
-				.valueOf(type, "object." + element.getName() + valueExpSuffix)
+				.valueOf(type, "value." + element.getName() + valueExpSuffix)
 				.append(")")
 				.bracketclose();
 		return instruction;

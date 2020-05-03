@@ -4,6 +4,7 @@ import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyWriter;
+import com.tvd12.ezyfox.binding.exception.EzyWriteValueException;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
@@ -67,15 +68,16 @@ public abstract class EzyAbstractWriterBuilder
 							.append(" e) {"))
 					.append(new EzyInstruction("\t\t", "\n\t}\n")
 							.append("throw new ")
-							.clazz(IllegalStateException.class)
+							.clazz(EzyWriteValueException.class)
 							.bracketopen()
-							.string("can't write object ")
-							.append("+ arg1, e")
+							.clazz(getOutType(), true)
+							.append(", arg1, e")
 							.bracketclose())
 					.function()
 					.toString();
 	}
 	
+	protected abstract Class<?> getOutType();
 	protected abstract String getImplClassName();
 	protected abstract String makeImplMethodContent(EzyMethod writeMethod);
 	
