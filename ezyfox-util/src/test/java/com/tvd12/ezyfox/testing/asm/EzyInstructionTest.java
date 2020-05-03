@@ -119,7 +119,12 @@ public class EzyInstructionTest extends BaseTest {
 		
 		instruction.append(instruction);
 		
-		
+		instruction = new EzyInstruction("", "", true);
+		instruction.valueOf(char.class, "'a'", true);
+		System.out.println(instruction);
+		instruction = new EzyInstruction("", "", true);
+		instruction.valueOf(Character.class, "answer", true);
+		System.out.println(instruction);
 	}
 	
 	public static class A {

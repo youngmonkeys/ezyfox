@@ -155,8 +155,15 @@ public class EzyInstruction {
 	}
 	
 	public EzyInstruction valueOf(Class type, String expression) {
-		if(PRIMITIVE_WRAPPER_TYPES.containsKey(type))
-			return clazz(PRIMITIVE_WRAPPER_TYPES.get(type)).append(".valueOf").brackets(expression);
+		return valueOf(type, expression, false);
+	}
+	
+	public EzyInstruction valueOf(Class type, String expression, boolean forceCast) {
+		Class wrapperType = PRIMITIVE_WRAPPER_TYPES.get(type);
+		if(wrapperType != null)
+			return clazz(wrapperType).append(".valueOf").brackets(expression);
+		if(forceCast)
+			return castNormal(type, expression);
 		return append(expression);
 	}
 	
