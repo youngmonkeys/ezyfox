@@ -43,6 +43,8 @@ public class EzyFileCreator {
 	
 	public EzyFileCreator templatePath(String path) {
 		InputStream inputStream = inputStreamLoader.load(path);
+		if(inputStream == null)
+			throw new IllegalArgumentException("not found template folder: " + path);
 		this.template = inputStreamReader.readString(inputStream, "UTF-8");
 		return this;
 	}

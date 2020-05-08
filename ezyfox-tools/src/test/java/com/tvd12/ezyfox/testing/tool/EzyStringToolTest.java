@@ -16,6 +16,12 @@ public class EzyStringToolTest {
 				"}";
 		System.out.println(EzyStringTool.tabAll(func, 2));
 		System.out.println(EzyStringTool.tabAll(func, 2, true));
+		System.out.println(EzyStringTool.toUnderscore("HelloWord"));
+		System.out.println(EzyStringTool.toUnderscore("fooBar"));
+		System.out.println(EzyStringTool.toUnderscore("nono"));
+		System.out.println(EzyStringTool.toUnderscore("A"));
+		System.out.println(EzyStringTool.toUnderscore("Id"));
+		System.out.println(EzyStringTool.lowerFistChar("Dzung"));
 	}
 	
 }

@@ -50,4 +50,20 @@ public final class EzyStringTool {
 		return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 	
+	public static String lowerFistChar(String str) {
+		if(EzyStrings.isNoContent(str))
+			throw new IllegalArgumentException("input string is null or empty");
+		if(str.length() == 1)
+			return str.toLowerCase();
+		return str.substring(0, 1).toLowerCase() + str.substring(1);
+	}
+	
+	public static String[] splitByUppercase(String str) {
+		return str.split("(?=\\p{Lu})");
+	}
+	
+	public static String toUnderscore(String str) {
+		return String.join("_", splitByUppercase(str)).toLowerCase();
+	}
+	
 }
