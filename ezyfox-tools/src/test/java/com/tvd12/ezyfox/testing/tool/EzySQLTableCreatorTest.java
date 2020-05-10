@@ -43,10 +43,10 @@ public class EzySQLTableCreatorTest {
 		System.out.println(creator9.createScript());
 		System.out.println("\n");
 		EzySQLTableCreator creator10 = new EzySQLTableCreator(CategoryEntity.class, EzyCaseType.CAMEL, true);
-		System.out.println(creator10.createScript());
+		System.out.println(creator10.createScriptToFolder("test-output"));
 		System.out.println("\n");
 		EzySQLTableCreator creator11 = new EzySQLTableCreator(NoIdEntity.class, EzyCaseType.CAMEL, true);
-		System.out.println(creator11.createScript());
+		System.out.println(creator11.createScriptToFile("test-output/NoIdEntity.sql"));
 	}
 	
 }

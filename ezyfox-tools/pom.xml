@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>ezyfox-tools</artifactId>
 	<name>ezyfox-tools</name>
-	<version>1.1.2a</version>
+	<version>1.1.2b</version>
 	
 	<properties>
 		<javax.persistence.version>2.2</javax.persistence.version>

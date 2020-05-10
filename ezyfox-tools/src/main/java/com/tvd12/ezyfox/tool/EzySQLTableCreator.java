@@ -1,6 +1,11 @@
 package com.tvd12.ezyfox.tool;
 
+import java.io.File;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +22,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.tvd12.ezyfox.file.EzySimpleFileWriter;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyAnnotatedElement;
 import com.tvd12.ezyfox.reflect.EzyClass;
@@ -92,6 +98,24 @@ public class EzySQLTableCreator {
 	protected boolean isValidField(EzyField field) {
 		int modifier = field.getField().getModifiers();
 		return !Modifier.isStatic(modifier) && !Modifier.isFinal(modifier);
+	}
+	
+	public String createScriptToFolder(String folderPath) {
+		File folder = new File(folderPath);
+		folder.mkdirs();
+		String fileName = "create-table-" 
+				+ standardizedName(entityName, EzyCaseType.DASH)
+				+ ".sql";
+		return createScriptToFile(Paths.get(folderPath, fileName).toString());
+	}
+	
+	public String createScriptToFile(String filePath) {
+		File file = new File(filePath);
+		EzyFileTool.createParentDir(file.toPath());
+		String script = createScript();
+		EzySimpleFileWriter.builder().build()
+			.write(new File(filePath), script, StandardCharsets.UTF_8);
+		return file.getAbsolutePath();
 	}
 	
 	public String createScript() {
@@ -235,6 +259,10 @@ public class EzySQLTableCreator {
 	}
 	
 	protected String standardizedName(String inputName) {
+		return standardizedName(inputName, caseType);
+	}
+	
+	protected String standardizedName(String inputName, EzyCaseType caseType) {
 		if(caseType == EzyCaseType.UPPERCASE)
 			return EzyStringTool.toUnderscore(inputName).toUpperCase();
 		if(caseType == EzyCaseType.LOWERCASE)
@@ -271,6 +299,8 @@ public class EzySQLTableCreator {
 		map.put(java.sql.Date.class, "DATETIME");
 		map.put(LocalDate.class, "DATE");
 		map.put(LocalDateTime.class, "DATETIME");
+		map.put(BigInteger.class, "NUMERIC");
+		map.put(BigDecimal.class, "DECIMAL(19,5)");
 		return Collections.unmodifiableMap(map);
 	}
 	
