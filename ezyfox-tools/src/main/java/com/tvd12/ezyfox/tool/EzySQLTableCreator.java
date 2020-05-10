@@ -263,17 +263,7 @@ public class EzySQLTableCreator {
 	}
 	
 	protected String standardizedName(String inputName, EzyCaseType caseType) {
-		if(caseType == EzyCaseType.UPPERCASE)
-			return EzyStringTool.toUnderscore(inputName).toUpperCase();
-		if(caseType == EzyCaseType.LOWERCASE)
-			return inputName.toLowerCase();
-		if(caseType == EzyCaseType.CAMEL)
-			return EzyStringTool.lowerFistChar(inputName);
-		if(caseType == EzyCaseType.DASH)
-			return EzyStringTool.toUnderscore(inputName).replace('_', '-');
-		if(caseType == EzyCaseType.UNDERSCORE)
-			return EzyStringTool.toUnderscore(inputName);
-		return inputName;
+		return EzyStringTool.standardized(inputName, caseType);
 	}
 	
 	private static Map<Class<?>, String> defaultTypeMap() {

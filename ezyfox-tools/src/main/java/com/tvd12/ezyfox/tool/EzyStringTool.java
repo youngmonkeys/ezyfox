@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.tool;
 
 import com.tvd12.ezyfox.io.EzyStrings;
+import com.tvd12.ezyfox.tool.data.EzyCaseType;
 
 public final class EzyStringTool {
 
@@ -64,6 +65,20 @@ public final class EzyStringTool {
 	
 	public static String toUnderscore(String str) {
 		return String.join("_", splitByUppercase(str)).toLowerCase();
+	}
+	
+	public static String standardized(String str, EzyCaseType caseType) {
+		if(caseType == EzyCaseType.UPPERCASE)
+			return EzyStringTool.toUnderscore(str).toUpperCase();
+		if(caseType == EzyCaseType.LOWERCASE)
+			return str.toLowerCase();
+		if(caseType == EzyCaseType.CAMEL)
+			return EzyStringTool.lowerFistChar(str);
+		if(caseType == EzyCaseType.DASH)
+			return EzyStringTool.toUnderscore(str).replace('_', '-');
+		if(caseType == EzyCaseType.UNDERSCORE)
+			return EzyStringTool.toUnderscore(str);
+		return str;
 	}
 	
 }
