@@ -37,17 +37,31 @@ public class EzySQLTableCreator {
 	protected final String entityName;
 	protected final EzyClass entityClass;
 	protected final boolean customizedId;
+	protected final boolean overrideExists;
 	protected final EzyCaseType caseType;
 	protected final List<EzyField> idFields;
 	protected final EzyAnnotatedElement idElement;
 	protected final Map<String, EzyAnnotatedElement> fieldElements;
 	protected final static Map<Class<?>, String> TYPE_MAP = defaultTypeMap();
+
+	public EzySQLTableCreator(
+			Class<?> entityType, EzyCaseType caseType) {
+		this(entityType, caseType, true, false);
+	}
 	
 	public EzySQLTableCreator(
 			Class<?> entityType, 
 			EzyCaseType caseType, boolean customizedId) {
+		this(entityType, caseType, customizedId, false);
+	}
+	
+	public EzySQLTableCreator(
+			Class<?> entityType, 
+			EzyCaseType caseType, 
+			boolean customizedId, boolean overrideExists) {
 		this.caseType = caseType;
 		this.customizedId = customizedId;
+		this.overrideExists = overrideExists;
 		this.entityClass = new EzyClass(entityType);
 		this.fieldElements = fetchFieldElements();
 		this.idElement = fetchAndRemoveIdElement();
@@ -111,6 +125,8 @@ public class EzySQLTableCreator {
 	
 	public String createScriptToFile(String filePath) {
 		File file = new File(filePath);
+		if(file.exists() && !overrideExists)
+			return file.getAbsolutePath();
 		EzyFileTool.createParentDir(file.toPath());
 		String script = createScript();
 		EzySimpleFileWriter.builder().build()

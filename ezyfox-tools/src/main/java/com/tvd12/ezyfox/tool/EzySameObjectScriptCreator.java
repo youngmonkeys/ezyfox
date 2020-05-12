@@ -43,6 +43,21 @@ public class EzySameObjectScriptCreator {
 		return this;
 	}
 	
+	public String generateFuncScript() {
+		return new StringBuilder()
+				.append("protected ")
+				.append(targetClass.getSimpleName())
+				.append(" new").append(targetClass.getSimpleName())
+				.append("(")
+					.append(originClass.getSimpleName())
+					.append(" ").append(originObjectName)
+				.append(") {\n")
+				.append(EzyStringTool.tabAll(generateScript(), 1))
+				.append("\n\treturn ").append(targetObjectName).append(";")
+				.append("\n}")
+				.toString();
+	}
+	
 	public String generateScript() {
 		EzyClass originClazz = new EzyClass(originClass);
 		List<EzyField> originFields = includeAllFields
