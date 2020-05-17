@@ -9,8 +9,7 @@ import com.tvd12.ezyfox.constant.EzyHasIntId;
 
 public final class EzyEnums {
 
-	private EzyEnums() {
-	}
+	private EzyEnums() {}
 	
 	public static <T extends EzyHasIntId> T valueOf(T[] values, int id) {
 		return valueOf(values, id, v -> v.getId());
@@ -28,14 +27,19 @@ public final class EzyEnums {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <E extends EzyConstant> Map<Integer, E> enumMapInt(
-			Class<E> enumClass) {
+	public static <I,E> Map<I, E> 
+			enumMap(Class<E> enumClass, Function<E, I> idFetcher) {
 		Object[] values = enumClass.getEnumConstants();
-		Map<Integer, E> answer = new HashMap<>();
+		Map<I, E> answer = new HashMap<>();
 		for(Object value : values) {
-			EzyConstant c = (EzyConstant)value;
-			answer.put(c.getId(), (E)value);
+			I id = idFetcher.apply((E)value);
+			answer.put(id, (E)value);
 		}
 		return answer;
+	}
+	
+	public static <E extends EzyConstant> Map<Integer, E> enumMapInt(
+			Class<E> enumClass) {
+		return enumMap(enumClass, e -> ((EzyConstant)e).getId());
 	}
 }
