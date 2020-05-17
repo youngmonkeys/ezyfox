@@ -6,9 +6,9 @@ import com.tvd12.ezyfox.concurrent.exception.EzyFutureTaskCancelledException;
 
 public class EzyFutureTask implements EzyFuture {
 
-	protected boolean done;
 	protected Object result;
 	protected Exception exception;
+	protected volatile boolean done;
 	
 	protected final static long NO_TIMEOUT = -1L;
 	
