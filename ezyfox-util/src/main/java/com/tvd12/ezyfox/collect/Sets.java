@@ -23,4 +23,10 @@ public final class Sets {
 		return set;
 	}
 	
+	public static <T> Set<T> toSet(Iterable<T> iterable) {
+		if(iterable instanceof Set)
+			return (Set<T>)iterable;
+		return newHashSet(iterable);
+	}
+	
 }
