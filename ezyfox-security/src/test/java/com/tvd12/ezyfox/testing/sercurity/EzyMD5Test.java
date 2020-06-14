@@ -26,6 +26,10 @@ public class EzyMD5Test extends BaseTest {
 		System.out.println("a: " + EzyMD5.cryptUtf("dungtv"));
 		System.out.println("a: " + EzyMD5.cryptUtf("", "dungtv"));
 		assertEquals(EzyMD5.cryptUtf("dungtv", ""), "D628426A481BC99850EFFC0B7F6997ED");
+		System.out.println(salt);
+		System.out.println("a: " + EzyMD5.cryptUtfToLowercase("dungtv"));
+		System.out.println("a: " + EzyMD5.cryptUtfToLowercase("", "dungtv"));
+		assertEquals(EzyMD5.cryptUtfToLowercase("dungtv", ""), "D628426A481BC99850EFFC0B7F6997ED".toLowerCase());
 	}
 
 	public static class B64 {
