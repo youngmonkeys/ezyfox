@@ -26,7 +26,7 @@ public class EzySimpleFileReaderTest extends BaseTest {
 		File file = new File(directory.getAbsolutePath() + File.separator + "EzySimpleFileWriterTest.txt");
 		writer.write(file, new byte[] {'a', 'b', 'c'});
 		reader.readBytes(file);
-		reader.readLines(file, "UTF-8");
+		new EzySimpleFileReader().readLines(file, "UTF-8");
 	}
 	
 	@Test(expectedExceptions = {IllegalArgumentException.class})

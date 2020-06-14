@@ -27,6 +27,7 @@ public class EzySimpleFileWriterTest extends BaseTest {
 	public void test() {
 		File file = new File(directory.getAbsolutePath() + File.separator + "EzySimpleFileWriterTest.txt");
 		writer.write(file, new byte[] {'a', 'b', 'c'});
+		new EzySimpleFileWriter().write(file, new byte[] {'a', 'b', 'c'}); 
 	}
 	
 	@Test(expectedExceptions = {IllegalArgumentException.class})

@@ -4,7 +4,11 @@ import java.io.InputStream;
 
 public class EzyAnywayInputStreamLoader extends EzyClassPathInputStreamLoader {
 
-	protected EzyInputStreamLoader firstLoader;
+	protected final EzyInputStreamLoader firstLoader;
+	
+	public EzyAnywayInputStreamLoader() {
+		this(builder());
+	}
 	
 	protected EzyAnywayInputStreamLoader(Builder builder) {
 		super(builder);

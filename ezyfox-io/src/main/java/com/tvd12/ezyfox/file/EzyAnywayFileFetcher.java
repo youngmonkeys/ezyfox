@@ -9,7 +9,11 @@ import com.tvd12.ezyfox.file.EzySimpleFileFetcher;
 
 public class EzyAnywayFileFetcher extends EzyClassPathFileFetcher {
 
-	protected EzyFileFetcher firstFetcher;
+	protected final EzyFileFetcher firstFetcher;
+	
+	public EzyAnywayFileFetcher() {
+		this(builder());
+	}
 	
 	protected EzyAnywayFileFetcher(Builder builder) {
 		super(builder);

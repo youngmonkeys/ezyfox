@@ -12,7 +12,11 @@ import com.tvd12.ezyfox.file.EzySimpleFileFetcher;
 
 public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
 
-	protected EzyFileFetcher fileFetcher;
+	protected final EzyFileFetcher fileFetcher;
+	
+	public EzySimpleInputStreamLoader() {
+		this(builder());
+	}
 	
 	protected EzySimpleInputStreamLoader(Builder builder) {
 		this.fileFetcher = builder.newFileFecher();

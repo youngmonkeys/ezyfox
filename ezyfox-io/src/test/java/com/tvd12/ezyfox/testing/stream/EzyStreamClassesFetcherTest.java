@@ -20,6 +20,10 @@ public class EzyStreamClassesFetcherTest extends BaseTest {
 		Class<EzyClassesFetcher> first = set.iterator().next();
 		assert first.getClassLoader() == EzyClassesFetcher.class.getClassLoader();
 		assert first == EzyClassesFetcher.class;
+		set = new EzyStreamClassesFetcher().asSet("classes.txt");
+		first = set.iterator().next();
+		assert first.getClassLoader() == EzyClassesFetcher.class.getClassLoader();
+		assert first == EzyClassesFetcher.class;
 	}
 	
 }

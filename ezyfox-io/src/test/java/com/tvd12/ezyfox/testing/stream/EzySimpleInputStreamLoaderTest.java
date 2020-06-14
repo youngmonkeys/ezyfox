@@ -9,6 +9,11 @@ import com.tvd12.ezyfox.stream.EzySimpleInputStreamLoader;
 import com.tvd12.test.base.BaseTest;
 
 public class EzySimpleInputStreamLoaderTest extends BaseTest {
+	
+	@Test
+	public void test() {
+		assert new EzySimpleInputStreamLoader().load("pom.xml") != null;
+	}
 
 	@Test(expectedExceptions = {EzyFileNotFoundException.class})
 	public void test1() {

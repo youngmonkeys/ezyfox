@@ -6,7 +6,11 @@ import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public class EzyClassPathInputStreamLoader implements EzyInputStreamLoader {
 
-	protected ClassLoader classLoader;
+	protected final ClassLoader classLoader;
+	
+	public EzyClassPathInputStreamLoader() {
+		this(builder());
+	}
 	
 	protected EzyClassPathInputStreamLoader(Builder builder) {
 		this.classLoader = builder.classLoader;
@@ -31,6 +35,7 @@ public class EzyClassPathInputStreamLoader implements EzyInputStreamLoader {
 	}
 	
 	public static class Builder implements EzyBuilder<EzyInputStreamLoader> {
+		
 		protected ClassLoader classLoader = getClass().getClassLoader();
 		
 		public Builder context(Class<?> context) {

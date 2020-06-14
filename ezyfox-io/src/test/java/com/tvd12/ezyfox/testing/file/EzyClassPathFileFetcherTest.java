@@ -18,6 +18,9 @@ public class EzyClassPathFileFetcherTest extends BaseTest {
 				.build()
 				.get("AllTests.tng.xml");
 		assert file != null;
+		file = new EzyClassPathFileFetcher()
+				.get("AllTests.tng.xml");
+		assert file != null;
 	}
 	
 	@Test

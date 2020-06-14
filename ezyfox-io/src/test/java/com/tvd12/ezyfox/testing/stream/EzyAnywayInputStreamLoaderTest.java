@@ -17,6 +17,10 @@ public class EzyAnywayInputStreamLoaderTest extends BaseTest {
 				.build()
 				.load("AllTests.tng.xml");
 		assert stream != null;
+		
+		stream = new EzyAnywayInputStreamLoader()
+				.load("AllTests.tng.xml");
+		assert stream != null;
 	}
 	
 	@Test

@@ -10,9 +10,12 @@ import java.nio.file.StandardCopyOption;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public class EzySimpleFileWriter implements EzyFileWriter {
-
-	protected EzySimpleFileWriter(Builder builder) {
+	
+	public EzySimpleFileWriter() {
+		this(builder());
 	}
+
+	protected EzySimpleFileWriter(Builder builder) {}
 	
 	@Override
 	public void write(File file, byte[] data) {

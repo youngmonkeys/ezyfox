@@ -15,8 +15,7 @@ public final class EzyInputStreams {
 	public static final int EOF = -1;
 	public static final int DEFAULT_BUFFER_SIZE = 1024;
 	
-	private EzyInputStreams() {
-	}
+	private EzyInputStreams() {}
 	
 	public static byte[] toByteArray(InputStream stream) 
 			throws IOException {
@@ -27,12 +26,17 @@ public final class EzyInputStreams {
 	public static byte[] toByteArray(InputStream stream, int bufferSize) 
 			throws IOException {
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		byte[] buffer = new byte[bufferSize];
-		int nRead;
-		while ((nRead = stream.read(buffer)) != EOF)
-			outStream.write(buffer, 0, nRead);
-		byte[] bytes = outStream.toByteArray();
-		return bytes;
+		try {
+			byte[] buffer = new byte[bufferSize];
+			int nRead;
+			while ((nRead = stream.read(buffer)) != EOF)
+				outStream.write(buffer, 0, nRead);
+			byte[] bytes = outStream.toByteArray();
+			return bytes;
+		}
+		finally {
+			outStream.close();
+		}
 	}
 	
 	public static String toStringUtf8(InputStream stream) throws IOException {
@@ -61,10 +65,15 @@ public final class EzyInputStreams {
 			throws IOException {
 		InputStreamReader streamReader = new InputStreamReader(stream, charset);
 		BufferedReader bufferedReader = new BufferedReader(streamReader);
-        List<String> lines = new ArrayList<>();
-        String line = null;
-        while ((line = bufferedReader.readLine()) != null) 
-        	lines.add(line);
-        return lines;
+		try {
+	        List<String> lines = new ArrayList<>();
+	        String line = null;
+	        while ((line = bufferedReader.readLine()) != null) 
+	        	lines.add(line);
+	        return lines;
+		}
+		finally {
+			bufferedReader.close();
+		}
 	}
 }

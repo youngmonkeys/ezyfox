@@ -13,6 +13,9 @@ public class EzyClassPathInputStreamLoaderTest extends BaseTest {
 			.context(getClass())
 			.build()
 			.load("fasfasdf.afdsf") == null;
+		
+		assert new EzyClassPathInputStreamLoader()
+			.load("fasfasdf.afdsf") == null;
 	}
 	
 }

@@ -9,7 +9,11 @@ import com.tvd12.ezyfox.file.EzySimpleFileFetcher;
 
 public class EzySimpleFileFetcher implements EzyFileFetcher {
 
-	protected boolean throwException;
+	protected final boolean throwException;
+	
+	public EzySimpleFileFetcher() {
+		this(builder());
+	}
 	
 	protected EzySimpleFileFetcher(Builder builder) {
 		this.throwException = builder.throwException;

@@ -9,8 +9,7 @@ import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public class EzySimpleInputStreamReader implements EzyInputStreamReader {
 
-	protected EzySimpleInputStreamReader(Builder builder) {
-	}
+	protected EzySimpleInputStreamReader(Builder builder) {}
 	
 	@Override
 	public byte[] readBytes(InputStream stream) {

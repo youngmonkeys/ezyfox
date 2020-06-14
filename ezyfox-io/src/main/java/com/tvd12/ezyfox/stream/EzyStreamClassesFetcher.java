@@ -13,7 +13,11 @@ import com.tvd12.ezyfox.reflect.EzyClasses;
 
 public class EzyStreamClassesFetcher implements EzyClassesFetcher {
 	
-	protected ClassLoader classLoader;
+	protected final ClassLoader classLoader;
+	
+	public EzyStreamClassesFetcher() {
+		this(builder());
+	}
 	
 	protected EzyStreamClassesFetcher(Builder builder) {
 		this.classLoader = builder.classLoader;
@@ -71,7 +75,7 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
 	
 	public static class Builder implements EzyBuilder<EzyClassesFetcher> {
 		
-		protected ClassLoader classLoader;
+		protected ClassLoader classLoader = getClass().getClassLoader();
 		
 		public Builder context(Class<?> context) {
 			return classLoader(context.getClassLoader());

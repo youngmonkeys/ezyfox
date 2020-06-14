@@ -10,8 +10,11 @@ import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public class EzySimpleFileReader implements EzyFileReader {
 	
-	protected EzySimpleFileReader(Builder builder) {
+	public EzySimpleFileReader() {
+		this(builder());
 	}
+	
+	protected EzySimpleFileReader(Builder builder) {}
 
 	@Override
 	public byte[] readBytes(File file) {

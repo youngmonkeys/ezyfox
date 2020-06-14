@@ -9,7 +9,11 @@ import com.tvd12.ezyfox.file.EzyFileFetcher;
 
 public class EzyClassPathFileFetcher implements EzyFileFetcher {
 
-	protected ClassLoader classLoader;
+	protected final ClassLoader classLoader;
+	
+	public EzyClassPathFileFetcher() {
+		this(builder());
+	}
 	
 	protected EzyClassPathFileFetcher(Builder builder) {
 		this.classLoader = builder.classLoader;
