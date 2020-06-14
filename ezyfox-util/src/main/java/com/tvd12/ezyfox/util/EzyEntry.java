@@ -3,10 +3,6 @@ package com.tvd12.ezyfox.util;
 import java.io.Serializable;
 import java.util.Map.Entry;
 
-import com.tvd12.ezyfox.util.EzyEntry;
-import com.tvd12.ezyfox.util.EzyEquals;
-import com.tvd12.ezyfox.util.EzyHashCodes;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,19 +31,21 @@ public class EzyEntry<K,V> implements Entry<K, V>, Serializable {
 		return old;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean equals(Object obj) {
-		return new EzyEquals<EzyEntry<?,?>>()
-				.function(e -> e.key)
-				.function(e -> e.value)
-				.isEquals(this, obj);
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
+		if(obj instanceof EzyEntry)
+			return key.equals(((EzyEntry)obj).key);
+		return false;
 	}
 	
 	@Override
 	public int hashCode() {
-		return new EzyHashCodes()
-				.append(key, value)
-				.toHashCode();
+		return key.hashCode();
 	}
 	
 }

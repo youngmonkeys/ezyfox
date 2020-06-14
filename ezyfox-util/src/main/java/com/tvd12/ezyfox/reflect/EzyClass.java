@@ -195,6 +195,14 @@ public class EzyClass implements EzyReflectElement {
 		return declaredMethods.stream().filter(predicate).collect(Collectors.toList());
 	}
 	
+	public Optional<EzyMethod> getAnnotationedMethod(Class<? extends Annotation> annClass) {
+		return getMethod(m -> m.isAnnotated(annClass));
+	}
+	
+	public List<EzyMethod> getAnnotationedMethods(Class<? extends Annotation> annClass) {
+		return getMethods(m -> m.isAnnotated(annClass));
+	}
+	
 	private List<EzyField> newFields(Class clazz) {
 		List<EzyField> answer = new ArrayList<>();
 		EzyFields.getFields(clazz).forEach(f -> answer.add(new EzyField(f)));
