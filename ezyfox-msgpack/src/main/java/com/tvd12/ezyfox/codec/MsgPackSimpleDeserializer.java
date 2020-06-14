@@ -4,21 +4,17 @@ import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.builder.EzyArrayBuilder;
-import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.exception.EzyCodecException;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.function.EzyParser;
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyInts;
 import com.tvd12.ezyfox.io.EzyLongs;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
-public class MsgPackSimpleDeserializer
-		extends EzyEntityBuilders
-		implements EzyMessageDeserializer {
+public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
 	protected final MsgPackTypeParser typeParser;
 	protected final MapSizeDeserializer mapSizeDeserializer;
@@ -151,10 +147,10 @@ public class MsgPackSimpleDeserializer
 	}
 	
 	protected EzyObject parseMap(ByteBuffer buffer, int size) {
-		EzyObjectBuilder builder = newObjectBuilder();
+		EzyObject object = EzyEntityFactory.newObject();
 		for(int i = 0 ; i < size ; ++i)
-			builder.append(deserialize(buffer), deserialize(buffer));
-		return builder.build();
+			object.put(deserialize(buffer), deserialize(buffer));
+		return object;
 	}
 	
 	protected String parseStr32(ByteBuffer buffer) {
@@ -256,10 +252,10 @@ public class MsgPackSimpleDeserializer
 	}
 	
 	protected EzyArray parseArray(ByteBuffer buffer, int size) {
-		EzyArrayBuilder builder = newArrayBuilder();
+		EzyArray array = EzyEntityFactory.newArray();
 		for(int i = 0 ; i < size ; ++i) 
-			builder.append(deserialize(buffer));
-		return builder.build();
+			array.add(deserialize(buffer));
+		return array;
 	}
 	
 	protected MsgPackType getDataType(int type) {

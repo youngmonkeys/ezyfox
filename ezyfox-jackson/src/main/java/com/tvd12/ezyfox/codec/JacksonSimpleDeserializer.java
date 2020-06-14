@@ -6,17 +6,13 @@ import java.util.Map.Entry;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tvd12.ezyfox.builder.EzyArrayBuilder;
-import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.exception.EzyCodecException;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyByteBuffers;
-import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
-public class JacksonSimpleDeserializer
-		extends EzyEntityBuilders
-		implements EzyMessageDeserializer {
+public class JacksonSimpleDeserializer implements EzyMessageDeserializer {
 	
 	protected final ObjectMapper objectMapper;
 	
@@ -86,21 +82,21 @@ public class JacksonSimpleDeserializer
 	}
 	
 	protected EzyArray parseArray(JsonNode node) {
-		EzyArrayBuilder arrayBuilder = newArrayBuilder();
+		EzyArray array = EzyEntityFactory.newArray();
 		Iterator<JsonNode> iterator = node.iterator();
 		while(iterator.hasNext())
-			arrayBuilder.append(parse(iterator.next()));
-		return arrayBuilder.build();
+			array.add(parse(iterator.next()));
+		return array;
 	}
 	
 	protected EzyObject parseObject(JsonNode node) {
-		EzyObjectBuilder objectBuilder = newObjectBuilder();
+		EzyObject object = EzyEntityFactory.newObject();
 		Iterator<Entry<String, JsonNode>> fields = node.fields();
 		while(fields.hasNext()) {
 			Entry<String, JsonNode> field = fields.next();
-			objectBuilder.append(field.getKey(), parse(field.getValue()));
+			object.put(field.getKey(), parse(field.getValue()));
 		}
-		return objectBuilder.build();
+		return object;
 	}
 	
 }
