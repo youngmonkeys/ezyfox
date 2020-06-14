@@ -54,15 +54,13 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
 		return (B)this;
 	}
 	
-	public B addClasses(Object reflection) {
-		if(reflection instanceof EzyReflection) {
-			EzyReflection ref = (EzyReflection)reflection;
-			Set<Class<?>> hasIdClasses = ref.getExtendsClasses(EzyHasIdEntity.class);
-			Set<Class<?>> annotatedClasses = new HashSet<>();
-			annotatedClasses.addAll(ref.getAnnotatedClasses(annotationClasses));
-			this.entityClasses.addAll(hasIdClasses);
-			this.entityClasses.addAll(annotatedClasses);
-		}
+	public B addClasses(EzyReflection reflection) {
+		EzyReflection ref = (EzyReflection)reflection;
+		Set<Class<?>> hasIdClasses = ref.getExtendsClasses(EzyHasIdEntity.class);
+		Set<Class<?>> annotatedClasses = new HashSet<>();
+		annotatedClasses.addAll(ref.getAnnotatedClasses(annotationClasses));
+		this.entityClasses.addAll(hasIdClasses);
+		this.entityClasses.addAll(annotatedClasses);
 		return (B)this;
 	}
 	

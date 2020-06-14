@@ -52,7 +52,6 @@ public class EzySimpleIdSettersTest extends BaseTest {
 						}
 					})
 					.build())
-			.addClasses(new Object())
 			.build();
 		Map<Class<?>, EzyIdSetter> idSetters = idSettersObject.getIdSetters();
 		EzyIdSetter idSetter = idSetters.get(Message2.class);

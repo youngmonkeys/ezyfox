@@ -52,7 +52,6 @@ public class EzySimpleIdFetchersTest extends BaseTest {
 						}
 					})
 					.build())
-			.addClasses(new Object())
 			.build();
 		Map<Class<?>, EzyIdFetcher> idFetchers = idFetchersObject.getIdFetchers();
 		EzyIdFetcher idFetcher = idFetchers.get(Message2.class);
