@@ -66,10 +66,12 @@ public class EzyClassTest extends BaseTest {
 		assert clazz.getModifiers() == clazz.getClazz().getModifiers();
 		
 		EzyClass clazzX = new EzyClass(AX.class);
-		assertTrue(clazzX.getAnnotationedMethods(ExampleAnnotation.class).size() == 2);
-		assertTrue(clazzX.getAnnotationedMethod(ExampleAnnotation.class).isPresent());
-		assertTrue(clazzX.getAnnotationedFields(ExampleAnnotation.class).size() == 2);
-		assertTrue(clazzX.getAnnotationedField(ExampleAnnotation.class).isPresent());
+		assertTrue(clazzX.getAnnotatedMethods(ExampleAnnotation.class).size() == 4);
+		assertTrue(clazzX.getAnnotatedMethod(ExampleAnnotation.class).isPresent());
+		assertTrue(clazzX.getAnnotatedSetterMethod(ExampleAnnotation.class).isPresent());
+		assertTrue(clazzX.getAnnotatedGetterMethod(ExampleAnnotation.class).isPresent());
+		assertTrue(clazzX.getAnnotatedFields(ExampleAnnotation.class).size() == 2);
+		assertTrue(clazzX.getAnnotatedField(ExampleAnnotation.class).isPresent());
 	}
 	
 	@Test
@@ -172,6 +174,14 @@ public class EzyClassTest extends BaseTest {
 		
 		@ExampleAnnotation
 		protected void methodB() {}
+		
+		@ExampleAnnotation
+		public String getValue() {
+			return "";
+		}
+		
+		@ExampleAnnotation
+		public void setValue(String value) {}
 	}
 	
 }

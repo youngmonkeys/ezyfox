@@ -120,9 +120,17 @@ public class EzyClass implements EzyReflectElement {
 				.filter(m -> m.isGetter() && predicate.test(m)).findFirst();
 	}
 	
+	public Optional<EzyMethod> getAnnotatedGetterMethod(Class<? extends Annotation> annClass) {
+		return getGetterMethod(m -> m.isAnnotated(annClass));
+	}
+	
 	public Optional<EzyMethod> getSetterMethod(Predicate<EzyMethod> predicate) {
 		return methods.stream()
 				.filter(m -> m.isSetter() && predicate.test(m)).findFirst();
+	}
+	
+	public Optional<EzyMethod> getAnnotatedSetterMethod(Class<? extends Annotation> annClass) {
+		return getSetterMethod(m -> m.isAnnotated(annClass));
 	}
 	
 	public List<EzyMethod> getPublicMethods(Predicate<EzyMethod> predicate) {
@@ -195,19 +203,19 @@ public class EzyClass implements EzyReflectElement {
 		return declaredMethods.stream().filter(predicate).collect(Collectors.toList());
 	}
 	
-	public Optional<EzyField> getAnnotationedField(Class<? extends Annotation> annClass) {
+	public Optional<EzyField> getAnnotatedField(Class<? extends Annotation> annClass) {
 		return getField(m -> m.isAnnotated(annClass));
 	}
 	
-	public List<EzyField> getAnnotationedFields(Class<? extends Annotation> annClass) {
+	public List<EzyField> getAnnotatedFields(Class<? extends Annotation> annClass) {
 		return getFields(m -> m.isAnnotated(annClass));
 	}
 	
-	public Optional<EzyMethod> getAnnotationedMethod(Class<? extends Annotation> annClass) {
+	public Optional<EzyMethod> getAnnotatedMethod(Class<? extends Annotation> annClass) {
 		return getMethod(m -> m.isAnnotated(annClass));
 	}
 	
-	public List<EzyMethod> getAnnotationedMethods(Class<? extends Annotation> annClass) {
+	public List<EzyMethod> getAnnotatedMethods(Class<? extends Annotation> annClass) {
 		return getMethods(m -> m.isAnnotated(annClass));
 	}
 	

@@ -85,7 +85,7 @@ public class EzyObjectProxyProviderTest {
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		@Override
 		protected void preBuildObjectProxy(EzyClass clazz, Builder builder) {
-			List<EzyMethod> methods = clazz.getAnnotationedMethods(EzyId.class);
+			List<EzyMethod> methods = clazz.getAnnotatedMethods(EzyId.class);
 			for(EzyMethod method : methods) {
 				if(method.isGetter()) {
 					Function getter = new EzyGetterBuilder()
