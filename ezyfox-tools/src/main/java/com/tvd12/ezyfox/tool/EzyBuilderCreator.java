@@ -78,6 +78,7 @@ public class EzyBuilderCreator {
 					.append("\t\treturn this;")
 				.append("\n\t}\n\n");
 		}
+		builderScript.append("\t@Override\n");
 		builderScript.append("\tpublic ").append(clazz.getSimpleName())
 			.append(" build() {\n");
 		if(buildBySetter) {
