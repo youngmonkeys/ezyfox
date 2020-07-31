@@ -3,7 +3,6 @@ package com.tvd12.ezyfox.sercurity;
 import java.security.MessageDigest;
 
 import com.tvd12.ezyfox.io.EzyPrints;
-import com.tvd12.ezyfox.io.EzyStrings;
 
 public final class EzyMD5 {
 	
@@ -13,29 +12,51 @@ public final class EzyMD5 {
 	private EzyMD5() {}
 	
 	public static String cryptUtf(String input) {
+		return cryptUtf(input.getBytes());
+	}
+	
+	public static String cryptUtf(byte[] input) {
 		String answer = cryptUtf(input, DEFAULT_SALT);
 		return answer;
 	}
 	
 	public static String cryptUtf(String input, String salt) {
+		return cryptUtf(input.getBytes(), salt);
+	}
+	
+	public static String cryptUtf(byte[] input, String salt) {
 		String hex = EzyPrints.printHex(cryptUtfToBytes(input, salt));
 		return hex;
 	}
 	
 	public static String cryptUtfToLowercase(String input) {
+		return cryptUtfToLowercase(input.getBytes());
+	}
+	
+	public static String cryptUtfToLowercase(byte[] input) {
 		String answer = cryptUtfToLowercase(input, DEFAULT_SALT);
 		return answer;
 	}
 	
 	public static String cryptUtfToLowercase(String input, String salt) {
+		return cryptUtfToLowercase(input.getBytes(), salt);
+	}
+	
+	public static String cryptUtfToLowercase(byte[] input, String salt) {
 		String hex = EzyPrints.printHexLowercase(cryptUtfToBytes(input, salt));
 		return hex;
 	}
 	
 	public static byte[] cryptUtfToBytes(String input, String salt) {
+		return cryptUtfToBytes(input.getBytes(), salt);
+	}
+	
+	public static byte[] cryptUtfToBytes(byte[] input, String salt) {
 		MessageDigest md = EzyMessageDigests.getAlgorithm(ALGORITHM);
-		String message = salt + input;
-		byte[] bytes = EzyStrings.getUtfBytes(message);
+		byte[] saltBytes = salt.getBytes();
+		byte[] bytes = new byte[input.length + saltBytes.length];
+		System.arraycopy(input, 0, bytes, 0, input.length);
+		System.arraycopy(saltBytes, 0, bytes, input.length, saltBytes.length);
 		md.update(bytes);
 		byte[] digest = md.digest();
 		return digest;

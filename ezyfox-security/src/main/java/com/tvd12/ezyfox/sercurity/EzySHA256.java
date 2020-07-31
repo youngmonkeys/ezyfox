@@ -12,23 +12,36 @@ public final class EzySHA256 {
 	private EzySHA256() {}
 
 	public static String cryptUtf(String originalString) {
-		byte[] encodedhash = cryptUtfToBytes(originalString);
+		byte[] bytes = originalString.getBytes(StandardCharsets.UTF_8);
+		return cryptUtf(bytes);
+	}
+	
+	public static String cryptUtf(byte[] bytes) {
+		byte[] encodedhash = cryptUtfToBytes(bytes);
 		String hex = EzyPrints.printHex(encodedhash);
 		return hex;
 	}
 	
 	public static String cryptUtfToLowercase(String originalString) {
-		byte[] encodedhash = cryptUtfToBytes(originalString);
+		byte[] bytes = originalString.getBytes(StandardCharsets.UTF_8);
+		return cryptUtfToLowercase(bytes);
+	}
+	
+	public static String cryptUtfToLowercase(byte[] bytes) {
+		byte[] encodedhash = cryptUtfToBytes(bytes);
 		String hex = EzyPrints.printHexLowercase(encodedhash);
 		return hex;
 	}
 	
 	public static byte[] cryptUtfToBytes(String originalString) {
-		MessageDigest digest = EzyMessageDigests.getAlgorithm(ALGORITHM);
 		byte[] bytes = originalString.getBytes(StandardCharsets.UTF_8);
+		return cryptUtfToBytes(bytes);
+	}
+	
+	public static byte[] cryptUtfToBytes(byte[] bytes) {
+		MessageDigest digest = EzyMessageDigests.getAlgorithm(ALGORITHM);
 		byte[] encodedhash = digest.digest(bytes);
 		return encodedhash;
 	}
-	
 
 }

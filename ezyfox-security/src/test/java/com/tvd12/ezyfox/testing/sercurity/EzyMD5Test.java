@@ -2,12 +2,12 @@ package com.tvd12.ezyfox.testing.sercurity;
 
 import static org.testng.Assert.assertEquals;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.sercurity.EzyMD5;
+import com.tvd12.ezyfox.sercurity.EzyMessageDigests;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyMD5Test extends BaseTest {
@@ -20,12 +20,13 @@ public class EzyMD5Test extends BaseTest {
 	}
 
 	@Test
-	public void test() throws UnsupportedEncodingException {
+	public void test() throws Exception {
 		String salt = "$1$" + B64.getRandomSalt(8);
 		System.out.println(salt);
 		System.out.println("a: " + EzyMD5.cryptUtf("dungtv"));
 		System.out.println("a: " + EzyMD5.cryptUtf("", "dungtv"));
 		assertEquals(EzyMD5.cryptUtf("dungtv", ""), "D628426A481BC99850EFFC0B7F6997ED");
+		assertEquals(EzyMD5.cryptUtfToBytes("dungtv", ""), EzyMessageDigests.getAlgorithm("MD5").digest("dungtv".getBytes()));
 		System.out.println(salt);
 		System.out.println("a: " + EzyMD5.cryptUtfToLowercase("dungtv"));
 		System.out.println("a: " + EzyMD5.cryptUtfToLowercase("", "dungtv"));
