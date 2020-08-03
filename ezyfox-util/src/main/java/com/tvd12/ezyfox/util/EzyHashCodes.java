@@ -11,7 +11,15 @@ public class EzyHashCodes {
 
 	protected int prime = 31;
 	protected int initial = 1;
-	protected final List<Object> values = new ArrayList<>();
+	protected final List<Object> values;
+	
+	public EzyHashCodes() {
+		this(1);
+	}
+	
+	public EzyHashCodes(int numberOfFields) {
+		this.values = new ArrayList<>(numberOfFields);
+	}
 	
 	public int toHashCode() {
 		int result = initial;
