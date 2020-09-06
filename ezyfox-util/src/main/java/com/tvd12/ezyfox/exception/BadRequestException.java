@@ -8,23 +8,23 @@ public class BadRequestException extends RuntimeException {
 	@Getter
 	protected final int code;
 
-    public BadRequestException() {
-    		this.code = 0;
-    }
+	public BadRequestException() {
+		this.code = 0;
+	}
 
-    public BadRequestException(Exception e) {
-    		super("BadRequestException", e);
-    		this.code = 0;
-    }
+	public BadRequestException(Exception e) {
+		super("BadRequestException", e);
+		this.code = 0;
+	}
 
-    public BadRequestException(int code, String message) {
-    		super(message);
-        this.code = code;
-    }
+	public BadRequestException(int code, String message) {
+		super(message);
+		this.code = code;
+	}
 
-    public BadRequestException(int code, String message, Exception e) {
-    		super(message, e);
-        this.code = code;
-    }
+	public BadRequestException(int code, String message, Exception e) {
+		super(message, e);
+		this.code = code;
+	}
 
 }
