@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.tvd12.ezyfox.file.EzyFileWriter;
 import com.tvd12.ezyfox.file.EzySimpleFileWriter;
@@ -97,15 +99,7 @@ public class EzyFileCreator {
 	}
 	
 	public String create() {
-		if(className != null)
-			replace("class-name", className);
-		if(packageName != null)
-			replace("package-name", packageName);
-		String content = template;
-		for(String variable : variableValues.keySet()) {
-			String value = variableValues.get(variable);
-			content = content.replace("${" + variable + "}", value);
-		}
+		String content = createContent();
 		if(filePath == null) {
 			String packagePath = packageName.replace('.', '/');
 			filePath = Paths.get(projectPath, sourcePath, packagePath, className + ".java").toString();
@@ -117,6 +111,63 @@ public class EzyFileCreator {
 			file.getParentFile().mkdirs();
 		fileWriter.write(file, content, "UTF-8");
 		return file.getAbsolutePath();
+	}
+	
+	public String createContent() {
+		if(className != null)
+			replace("class-name", className);
+		if(packageName != null)
+			replace("package-name", packageName);
+		String content = template;
+		Set<String> variables = new HashSet<>();
+		variables.addAll(variableValues.keySet());
+		variables.addAll(getVariablesInTemplate());
+		for(String variable : variables) {
+			String value = variableValues.get(variable);
+			if(variable.contains("#or#")) {
+				String[] vars = variable.split("#or#");
+				for(String vari : vars) {
+					String vali = variableValues.get(vari);
+					if(vali != null) {
+						value = vali;
+						break;
+					}
+				}
+			}
+			if(value != null)
+				content = content.replace("${" + variable + "}", value);
+		}
+		return content;
+	}
+	
+	private Set<String> getVariablesInTemplate() {
+		Set<String> variables = new HashSet<>();
+		char[] chars = template.toCharArray();
+		for(int i = 0 ; i < chars.length ; ++i) {
+			if(chars[i] != '$')
+				continue;
+			if((i + 1) >= chars.length)
+				break;
+			if(chars[i + 1] != '{')
+				continue;
+			++i;
+			int startVar = i + 1;
+			int varLength = 0;
+			while(true) {
+				if((++i) >= chars.length)
+					break;
+				if(chars[i] == '}')
+					break;
+				++ varLength;
+			}
+			if(varLength == 0)
+				continue;
+			char[] varChars = new char[varLength];
+			for(int k = 0 ; k < varChars.length ; ++k)
+				varChars[k] = chars[startVar + k];
+			variables.add(new String(varChars));
+		}
+		return variables;
 	}
 	
 }
