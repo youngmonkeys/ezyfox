@@ -14,6 +14,7 @@ public class EzyMethod2Test extends BaseTest {
 		EzyMethod m2 = new EzyMethod(ClassA.class.getDeclaredMethod("set"));
 		EzyMethod m3 = new EzyMethod(ClassA.class.getDeclaredMethod("hello"));
 		EzyMethod m4 = new EzyMethod(ClassA.class.getDeclaredMethod("getJava"));
+		assert m1.getParameters().length >= 0;
 		
 		assert m1.getFieldName().equals("get");
 		assert m2.getFieldName().equals("set");

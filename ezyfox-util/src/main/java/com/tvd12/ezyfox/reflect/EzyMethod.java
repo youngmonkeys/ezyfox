@@ -74,6 +74,10 @@ public class EzyMethod implements EzyReflectElement {
 		return method.getGenericReturnType();
 	}
 	
+	public Parameter[] getParameters() {
+		return method.getParameters();
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public Class[] getParameterTypes() {
 		return method.getParameterTypes();
