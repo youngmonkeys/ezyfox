@@ -20,7 +20,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.tvd12</groupId>
-			<artifactId>ezyfox-util</artifactId>
+			<artifactId>ezyfox-bean</artifactId>
+			<version>${ezyfox.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tvd12</groupId>
+			<artifactId>ezyfox-binding-codec</artifactId>
 			<version>${ezyfox.version}</version>
 		</dependency>
 	</dependencies>
