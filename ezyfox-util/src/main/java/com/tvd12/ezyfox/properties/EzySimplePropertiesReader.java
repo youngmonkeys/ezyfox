@@ -14,7 +14,7 @@ public class EzySimplePropertiesReader
 	protected final EzyValueConverter conveter;
 	
 	public EzySimplePropertiesReader() {
-		this(new EzySimpleValueConverter());
+		this(EzySimpleValueConverter.getSingleton());
 	}
 	
 	public EzySimplePropertiesReader(EzyValueConverter conveter) {

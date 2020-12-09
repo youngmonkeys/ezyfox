@@ -12,10 +12,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Predicate;
 import java.util.Properties;
 import java.util.Set;
+import java.util.function.Predicate;
 
+import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyBeanNameTranslator;
@@ -27,6 +28,8 @@ import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.bean.annotation.EzyConfiguration;
 import com.tvd12.ezyfox.bean.annotation.EzyConfigurationBefore;
 import com.tvd12.ezyfox.bean.annotation.EzyPackagesScan;
+import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBean;
+import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBeans;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.bean.exception.EzyNewSingletonException;
@@ -46,6 +49,7 @@ import com.tvd12.ezyfox.bean.supplier.EzySetSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyStackSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyTreeMapSupplier;
 import com.tvd12.ezyfox.collect.Sets;
+import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 import com.tvd12.ezyfox.properties.EzySimplePropertiesReader;
 import com.tvd12.ezyfox.reflect.EzyClass;
@@ -54,6 +58,9 @@ import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.util.EzyHashMapSet;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyMapSet;
+import com.tvd12.properties.file.annotation.PropertyAnnotation;
+import com.tvd12.properties.file.io.ValueConverter;
+import com.tvd12.properties.file.mapping.PropertiesMapper;
 import com.tvd12.properties.file.reader.BaseFileReader;
 
 import lombok.Getter;
@@ -218,8 +225,11 @@ public class EzySimpleBeanContext
 		protected Set<Class> packagesScanClasses;
 		protected Set<Class> configurationClasses;
 		protected Set<Class> configurationBeforeClasses;
+		protected Set<Class> propertiesBeanAnnotatedClasses;
+		protected Set<Class> propertiesBeansAnnotatedClasses;
 		protected Map<Class, String> namedSingletonClasses;
 		protected Map<Class, String> namedPrototypeClasses;
+		protected Map<String, Class<?>> propertiesBeanClasses;
 		protected EzyPropertiesMap propertiesMap;
 		protected EzyPropertiesReader propertiesReader;
 		protected EzySimpleSingletonFactory singletonFactory;
@@ -236,6 +246,9 @@ public class EzySimpleBeanContext
 			this.packagesScanClasses = new HashSet<>();
 			this.configurationClasses = new HashSet<>();
 			this.configurationBeforeClasses = new HashSet<>();
+			this.propertiesBeanAnnotatedClasses = new HashSet<>();
+			this.propertiesBeansAnnotatedClasses = new HashSet<>();
+			this.propertiesBeanClasses = new HashMap<>();
 			this.namedSingletonClasses = new HashMap<>();
 			this.namedPrototypeClasses = new HashMap<>();
 			this.errorHandler = new EzySimpleErrorHandler();
@@ -575,6 +588,16 @@ public class EzySimpleBeanContext
 			return this;
 		}
 		
+		/*
+		 * (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#propertiesBeanClass(java.lang.String, java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder propertiesBeanClass(String prefix, Class propertiesBeanClass) {
+			this.propertiesBeanClasses.put(prefix, propertiesBeanClass);
+			return this;
+		}
+		
 		/* (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#build()
 		 */
@@ -591,7 +614,10 @@ public class EzySimpleBeanContext
 			addSingleton("singletonFactory", singletonFactory);
 			addSingleton("prototypeFactory", prototypeFactory);
 			addSingleton("beanNameTranslator", beanNameTranslator);
+			readConfigurationClasses();
 			scanPackagesScanClasses();
+			loadPropertiesBeanClasses();
+			addPropertiesBeans();
 			singletonFactory.addSingletonClasses(singletonClasses);
 			prototypeClasses.removeAll(singletonClasses);
 			loadConfigurationBeforeClasses(context);
@@ -667,6 +693,23 @@ public class EzySimpleBeanContext
 			return beanName;
 		}
 		
+		private void readConfigurationClasses() {
+			Set<Class> classes = new HashSet<>();
+			classes.addAll(configurationBeforeClasses);
+			classes.addAll(configurationClasses);
+			for(Class<?> clazz : classes) {
+				EzyPackagesScan packagesScanAnn = clazz.getAnnotation(EzyPackagesScan.class);
+				if(packagesScanAnn != null)
+					packagesScanClasses.add(clazz);
+				EzyPropertiesBean propertiesBeanAnn = clazz.getAnnotation(EzyPropertiesBean.class);
+				if(propertiesBeanAnn != null)
+					propertiesBeanAnnotatedClasses.add(clazz);
+				EzyPropertiesBeans propertiesBeansAnn = clazz.getAnnotation(EzyPropertiesBeans.class);
+				if(propertiesBeansAnn != null)
+					propertiesBeansAnnotatedClasses.add(clazz);
+			}
+		}
+		
 		private void scanPackagesScanClasses() {
 			for(Class clazz : packagesScanClasses)
 				this.scanPackagesScanClass(clazz);
@@ -674,6 +717,30 @@ public class EzySimpleBeanContext
 		
 		private void scanPackagesScanClass(Class<?> clazz) {
 			scan(clazz.getAnnotation(EzyPackagesScan.class).value());
+		}
+		
+		private void loadPropertiesBeanClasses() {
+			for(Class<?> clazz : propertiesBeanAnnotatedClasses) {
+				EzyPropertiesBean ann = clazz.getAnnotation(EzyPropertiesBean.class);
+				propertiesBeanClasses.put(ann.prefix(), ann.value());
+			}
+			
+			for(Class<?> clazz : propertiesBeansAnnotatedClasses) {
+				EzyPropertiesBeans anns = clazz.getAnnotation(EzyPropertiesBeans.class);
+				for(EzyPropertiesBean ann : anns.value())
+					propertiesBeanClasses.put(ann.prefix(), ann.value());
+			}
+		}
+		
+		private void addPropertiesBeans() {
+			for(String prefix : propertiesBeanClasses.keySet()) {
+				Class<?> propertiesBeanClass = propertiesBeanClasses.get(prefix);
+				Object propertiesBean = newPropertiesMapper()
+						.propertyPrefix(prefix)
+						.clazz(propertiesBeanClass)
+						.map();
+				addSingleton(EzyBeanNameParser.getBeanName(propertiesBeanClass), propertiesBean);
+			}
 		}
 		
 		private void loadConfigurationBeforeClasses(EzyBeanContext context) {
@@ -757,6 +824,8 @@ public class EzySimpleBeanContext
 			packagesScanClasses.addAll(reflection.getAnnotatedClasses(EzyPackagesScan.class));
 			configurationClasses.addAll(reflection.getAnnotatedClasses(EzyConfiguration.class));
 			configurationBeforeClasses.addAll(reflection.getAnnotatedClasses(EzyConfigurationBefore.class));
+			propertiesBeanAnnotatedClasses.addAll(reflection.getAnnotatedClasses(EzyPropertiesBean.class));
+			propertiesBeansAnnotatedClasses.addAll(reflection.getAnnotatedClasses(EzyPropertiesBeans.class));
 		}
 		
 		private EzyPropertiesReader getPropertiesReader() {
@@ -778,6 +847,23 @@ public class EzySimpleBeanContext
 			prototypeFactory.addSupplier(EzySetSupplier.getInstance());
 			prototypeFactory.addSupplier(EzyStackSupplier.getInstance());
 			prototypeFactory.addSupplier(EzyTreeMapSupplier.getInstance());
+		}
+		
+		private PropertiesMapper newPropertiesMapper() {
+			return new PropertiesMapper()
+					.addPropertyAnnotation(new PropertyAnnotation(
+							EzyProperty.class, 
+							a -> ((EzyProperty)a).value(),
+							a -> ((EzyProperty)a).prefix()))
+					.data(properties)
+					.valueConverter(new ValueConverter() {
+						@Override
+						public <T> T convert(Object value, Class<T> outType) {
+							return EzySimpleValueConverter
+									.getSingleton()
+									.convert(value, outType);
+						}
+					});
 		}
 		
 	}

@@ -13,7 +13,7 @@ public class EzySimpleValueTransformerTest extends BaseTest {
 
 	@Test
 	public void test() {
-		EzyValueConverter transformer = new EzySimpleValueConverter();
+		EzyValueConverter transformer = EzySimpleValueConverter.getSingleton();
 		assert transformer.convert(null, null) == null;
 	}
 	

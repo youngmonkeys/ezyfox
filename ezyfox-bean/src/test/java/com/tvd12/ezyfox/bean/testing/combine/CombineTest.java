@@ -16,6 +16,7 @@ import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
+import com.tvd12.ezyfox.bean.testing.combine.pack0.PropertiesPack1;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.ClassA1;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.Singleton1;
 import com.tvd12.ezyfox.collect.Lists;
@@ -82,12 +83,15 @@ public class CombineTest {
 				.addProperties("v111_props3.properties")
 				.addProperties(new File("test-data/v111_props1.properties"))
 				.addProperties(new FileInputStream(new File("test-data/v111_props2.properties")))
+				.addProperty("hello", "world")
+				.addProperty("pack1.hello1", "world1")
 				.addPrototypeClass(V111Prototype05.class)
 				.propertiesMap(() -> {
 					Map<String, String> m = new HashMap<>();
 					m.put("v111_c", "hellococo");
 					return m;
-				});
+				})
+				.propertiesBeanClass("", PropertiesCombine.class);
 		EzyBeanContext context = builder.build();
 		SingletonX1 x1 = (SingletonX1) context.getBean("singletonX1", SingletonX1.class);
 		SingletonX2 x2 = (SingletonX2) context.getBean("singletonX2", SingletonX2.class);
@@ -152,6 +156,13 @@ public class CombineTest {
 		
 		List<EzyPrototypeSupplier> prototypeSuppliers = prototypeFactory.getSuppliers(EzyCombine0Ann.class);
 		assert prototypeSuppliers.size() == 2;
+		
+		PropertiesCombine propertiesCombine = context.getSingleton(PropertiesCombine.class);
+		assert propertiesCombine.getHello().equals("world");
+		assert propertiesCombine.getPack1().getHello1().equals("world1");
+		
+		PropertiesPack1 propertiesPack1 = context.getSingleton(PropertiesPack1.class);
+		assert propertiesPack1.getHello1().equals("world1");
 	}
 	
 }

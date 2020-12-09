@@ -1,20 +1,20 @@
-package com.tvd12.ezyfox.annotation;
+package com.tvd12.ezyfox.bean.annotation;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Documented
-@Target({ 
-	ElementType.FIELD, 
-	ElementType.METHOD 
-})
+/**
+ * 
+ * @author tavandung12
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EzyProperty {
-	
-	String value() default "";
+@Target({ ElementType.TYPE })
+public @interface EzyPropertiesBean {
+
+	Class<?> value();
 	
 	String prefix() default "";
 	

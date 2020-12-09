@@ -1,8 +1,13 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
+import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBean;
+import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBeans;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
+@EzyPropertiesBeans({
+	@EzyPropertiesBean(prefix = "", value = PropertiesCombine.class)
+})
 public class V111Configuration01 {
 
 	@EzySingleton

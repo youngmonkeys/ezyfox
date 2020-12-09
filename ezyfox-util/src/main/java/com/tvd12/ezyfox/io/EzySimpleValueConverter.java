@@ -88,12 +88,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import com.tvd12.ezyfox.function.EzyToObject;
-import com.tvd12.ezyfox.io.EzyDates;
-import com.tvd12.ezyfox.io.EzyValueConverter;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
@@ -101,11 +99,15 @@ import com.tvd12.ezyfox.util.EzyLoggable;
 public class EzySimpleValueConverter 
 		extends EzyLoggable
 		implements EzyValueConverter {
-
+	
 	protected final Map<Class, EzyToObject> transformers;
 	
 	public EzySimpleValueConverter() {
 		this.transformers = defaultTransformers();
+	}
+	
+	public static EzySimpleValueConverter getSingleton() {
+		return EzySingletonValueConverter.getInstance();
 	}
 	
 	@Override
@@ -121,12 +123,12 @@ public class EzySimpleValueConverter
 			newTransformerException(Class<?> type, Object value) {
 		return new IllegalArgumentException(
 				"can't transform: " + value + " to " + type.getSimpleName() + " value");
-}
+	}
 
 	//tank
 	private Map<Class, EzyToObject> 
 		defaultTransformers() {
-		Map<Class, EzyToObject> answer = new ConcurrentHashMap<>();
+		Map<Class, EzyToObject> answer = new HashMap<>();
 		addOtherTransformers(answer);
 		addWrapperTransformers(answer);
 		addPrimitiveTransformers(answer);
@@ -814,5 +816,15 @@ public class EzySimpleValueConverter
 				throw newTransformerException(String[][].class, value);
 			}
 		});
+	}
+	
+	private static final class EzySingletonValueConverter extends EzySimpleValueConverter {
+		private static final EzySingletonValueConverter INSTANCE = 
+				new EzySingletonValueConverter();
+		private EzySingletonValueConverter() {}
+		
+		public static EzySingletonValueConverter getInstance() {
+			return INSTANCE;
+		}
 	}
 }
