@@ -94,6 +94,10 @@ public class EzyField
 		return field.isAnnotationPresent(annClass);
 	}
 	
+	public void setAccessible(boolean flag) {
+		field.setAccessible(flag);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		return new EzyEquals<EzyField>()

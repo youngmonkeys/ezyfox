@@ -293,6 +293,11 @@ public abstract class EzySimplePrototypeSupplierLoader
 				.build();
 	}
 	
+	@Override
+	protected boolean addMissingSetterFields() {
+		return false;
+	}
+	
 	private void printMethodContent(String methodContent) {
 		if(debug) 
 			logger.debug("reader: method content \n{}", methodContent);

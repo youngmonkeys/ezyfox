@@ -41,8 +41,8 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 		this.bindingMethods = getBindingMethods(clazz);
 		this.propertyFields = getPropertyFields(clazz);
 		this.propertyMethods = getPropertyMethods(clazz);
-		this.checkMissingSetterMethods(EzyAutoBind.class);
-		this.checkMissingSetterMethods(EzyProperty.class);
+		this.checkMissingSetterMethodFields(bindingFields, EzyAutoBind.class);
+		this.checkMissingSetterMethodFields(propertyFields, EzyProperty.class);
 	}
 	
 	protected Constructor getConstructor(EzyClass clazz) {
@@ -126,8 +126,6 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 	}
 	
 	private boolean isValidMethod(EzyMethod method, Class<? extends Annotation> ann) {
-		if(!method.isPublic())
-			return false;
 		if(method.getParameterCount() != 1)
 			return false;
 		EzyField field = clazz.getField(method.getFieldName());
@@ -170,8 +168,9 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 		return EzyPropertyAnnotations.getPropertyName(clazz, element);
 	}
 	
-	private void checkMissingSetterMethods(Class<? extends Annotation> annClass) {
-		List<EzyField> invalidFields = clazz.getFields(f -> {
+	private void checkMissingSetterMethodFields(
+			List<EzyField> fields, Class<? extends Annotation> annClass) {
+		List<EzyField> missingSetterFields = clazz.getFields(f -> {
 			if(!f.isAnnotated(annClass))
 				return false;
 			if(f.isPublic())
@@ -181,8 +180,17 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 				return false;
 			return true;
 		});
-		for(EzyField field : invalidFields)
-			logger.warn("field: {} maybe null", field.getName(), new EzyMissingSetterException(field));
+		boolean addMissingSetterFields = addMissingSetterFields();
+		for(EzyField field : missingSetterFields) {
+			if(addMissingSetterFields)
+				fields.add(field);
+			else
+				logger.warn("field: {} maybe null", field.getName(), new EzyMissingSetterException(field));
+		}
+	}
+	
+	protected boolean addMissingSetterFields() {
+		return true;
 	}
 	
 }

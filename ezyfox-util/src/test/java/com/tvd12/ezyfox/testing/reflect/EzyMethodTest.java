@@ -18,6 +18,7 @@ public class EzyMethodTest extends BaseTest {
 				.methodName("getValue")
 				.parameterTypes(String.class, String.class)
 				.build();
+		method1.setAccessible(true);
 		method1.setDisplayName("getValue$impl");
 		assertEquals(method1.getDisplayName(), "getValue$impl");
 		assertEquals(method1.getReturnType(), String.class);

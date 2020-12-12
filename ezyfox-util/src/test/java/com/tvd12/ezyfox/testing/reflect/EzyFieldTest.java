@@ -25,6 +25,7 @@ public class EzyFieldTest extends BaseTest {
 				.clazz(ClassA.class)
 				.fieldName("a")
 				.build();
+		a.setAccessible(true);
 		assertNotNull(EzyFields.getField(ClassA.class, "a"));
 		assertFalse(a.isMapType());
 		assertFalse(a.isCollection());

@@ -101,8 +101,11 @@ public abstract class EzySimpleSingletonLoader
 	@SuppressWarnings("unchecked")
 	private void setValueToPropertyField(EzyField field, Object singleton, EzyPropertyFetcher fetcher) {
 		String propertyName = getPropertyName(field);
-		if(fetcher.containsProperty(propertyName))
+		if(fetcher.containsProperty(propertyName)) {
+			if(!field.isPublic())
+				field.setAccessible(true);
 			field.set(singleton, fetcher.getProperty(propertyName, field.getType()));
+		}
 	}
 	
 	private void setPropertiesToMethods(Object singleton, EzyPropertyFetcher fetcher) {
@@ -125,6 +128,8 @@ public abstract class EzySimpleSingletonLoader
 	private void setValueToBindingField(EzyField field, Object singleton, EzyBeanContext context) {
 		Object value = getOrCreateSingleton(
 				field.getType(), getBeanName(field), context);
+		if(!field.isPublic())
+			field.setAccessible(true);
 		field.set(singleton, value);
 		logger.debug("{} set field: {} with value: {}", clazz, field.getName(), value);
 	}
@@ -138,6 +143,8 @@ public abstract class EzySimpleSingletonLoader
 			EzySetterMethod method, Object singleton, EzyBeanContext context) {
 		Object value = getOrCreateSingleton(
 				method.getType(), getBeanName(method), context);
+		if(!method.isPublic())
+			method.setAccessible(true);
 		method.invoke(singleton, value);
 		logger.debug("{} invoke method: {} with value: {}", singleton, method.getName(), value);
 	}

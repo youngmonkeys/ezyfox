@@ -18,7 +18,9 @@ import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.testing.combine.pack0.PropertiesPack1;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.ClassA1;
+import com.tvd12.ezyfox.bean.testing.combine.pack1.ClassB1;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.Singleton1;
+import com.tvd12.ezyfox.bean.testing.combine.pack2.Singleton20;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzyMaps;
@@ -155,7 +157,7 @@ public class CombineTest {
 		assert context.getAnnotatedBean(EzyCombine0Ann.class) != null;
 		
 		List<EzyPrototypeSupplier> prototypeSuppliers = prototypeFactory.getSuppliers(EzyCombine0Ann.class);
-		assert prototypeSuppliers.size() == 2;
+		assert prototypeSuppliers.size() == 3;
 		
 		PropertiesCombine propertiesCombine = context.getSingleton(PropertiesCombine.class);
 		assert propertiesCombine.getHello().equals("world");
@@ -163,6 +165,15 @@ public class CombineTest {
 		
 		PropertiesPack1 propertiesPack1 = context.getSingleton(PropertiesPack1.class);
 		assert propertiesPack1.getHello1().equals("world1");
+		
+		Singleton20 singleton20 = context.getSingleton(Singleton20.class);
+		assert singleton20.getSgt10() != null;
+		assert singleton20.getList() != null;
+		assert singleton20.getHello() != null;
+		
+		ClassB1 classB1 = context.getPrototype(ClassB1.class);
+		assert classB1.getHello() == null;
+		assert classB1.getFoo() == null;
 	}
 	
 }

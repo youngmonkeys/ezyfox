@@ -144,6 +144,10 @@ public class EzyMethod implements EzyReflectElement {
 		return builder.toString();
 	}
 	
+	public void setAccessible(boolean flag) {
+		method.setAccessible(flag);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		return new EzyEquals<EzyMethod>()
