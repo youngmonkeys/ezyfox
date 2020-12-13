@@ -85,6 +85,24 @@ public class EzyClass implements EzyReflectElement {
 		    throw new IllegalArgumentException(e);
 		}
 	}
+	
+	public Constructor getNoArgsDeclaredConstructor() {
+		for(Constructor constructor : clazz.getDeclaredConstructors()) {
+			if(constructor.getParameterCount() == 0)
+				return constructor;
+		}
+		return null;
+	}
+	
+	public Constructor getMaxArgsDeclaredConstructor() {
+		Constructor[] constructors = clazz.getDeclaredConstructors();
+		Constructor max = constructors[0];
+		for(int i = 1 ; i < constructors.length ; ++i) {
+			if(constructors[i].getParameterCount() > max.getParameterCount())
+				max = constructors[i];
+		}
+		return max;
+	}
 
 	public List<EzyMethod> getPublicMethods() {
 		return getMethods(m -> m.isPublic());

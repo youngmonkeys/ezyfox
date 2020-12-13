@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.binding.impl;
 
+import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -53,27 +54,23 @@ public class EzyObjectReaderBuilder extends EzyAbstractReaderBuilder {
 							.variable(EzyObject.class, "value")
 							.equal()
 							.cast(EzyObject.class, "arg1")
-							)
-					.append(new EzyInstruction("\t", "\n")
-							.variable(clazz.getClazz(), "object")
-							.equal()
-							.append(newOutputObjectInstruction().toString(false))
-							);
+					);
+		appendOutputObjectConstructor(methodBody);
 			
-			for(Object element : getElements()) {
-				methodBody.append(checkNotNullInstruction((EzyReflectElement) element));
-				methodBody.append(newInstructionByElement(element));
-			}
-			
-			addPostReadMethods(methodBody, "object");
+		for(Object element : getElements()) {
+			methodBody.append(checkNotNullInstruction((EzyReflectElement) element));
+			methodBody.append(newInstructionByElement(element));
+		}
+		
+		addPostReadMethods(methodBody, "object");
 
-			methodBody.append(new EzyInstruction("\t", "\n")
-					.answer()
-					.append("object"));
-			
-			EzyFunction method = methodBody.function();
-			
-			return method.toString();
+		methodBody.append(new EzyInstruction("\t", "\n")
+				.answer()
+				.append("object"));
+		
+		EzyFunction method = methodBody.function();
+		
+		return method.toString();
 	}
 	
 	protected EzyInstruction newInstructionByElement(Object element) {
@@ -213,6 +210,26 @@ public class EzyObjectReaderBuilder extends EzyAbstractReaderBuilder {
 		}
 		instruction.bracketclose();
 		return instruction;
+	}
+	
+	@Override
+	protected void appendConstructorParamValue(
+			EzyInstruction instruction,
+			Parameter parameter, 
+			int parameterIndex,
+			EzyField field,
+	        String key) {
+		instruction
+				.append("value")
+				.dot()
+				.append("isNotNullValue")
+				.bracketopen()
+				.string(key)
+				.bracketclose()
+				.append(" ? ")
+				.append(newUnmarshalInstruction(field))
+				.append(" : ")
+				.defaultValue(parameter.getType());
 	}
 	
 	@Override

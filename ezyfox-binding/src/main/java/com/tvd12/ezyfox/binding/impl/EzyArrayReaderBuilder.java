@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.binding.impl;
 
+import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -52,57 +53,55 @@ public class EzyArrayReaderBuilder extends EzyAbstractReaderBuilder {
 							.variable(EzyArray.class, "value")
 							.equal()
 							.cast(EzyArray.class, "arg1")
-							)
-					.append(new EzyInstruction("\t", "\n")
-							.variable(clazz.getClazz(), "object")
-							.equal()
-							.append(newOutputObjectInstruction().toString(false))
-							);
-			List<Object> elements = getElements();
-			for(int index = 0 ; index < elements.size() ; index ++) {
-				Object element = elements.get(index);
-				EzyInstruction instruction = null;
-				if(element == null) {
-					continue;
-				}
-				methodBody.append(checkNotNullInstruction((EzyReflectElement)element, index));
-				if(element instanceof EzyField) {
-					EzyField field = (EzyField)element;
-					
-					instruction = new EzyInstruction("\t\t", "\n")
-							.append("object")
-							.dot()
-							.append(field.getName())
-							.equal();
-					EzyInstruction unmarshalInstruction = newUnmarshalInstruction(
-							field, index, "");
-					instruction.append(unmarshalInstruction.toString());
-				}
-				else {
-					EzySetterMethod method = (EzySetterMethod)element;
-					instruction = new EzyInstruction("\t\t", "\n")
-							.append("object")
-							.dot()
-							.append(method.getName())
-							.bracketopen();
-					EzyInstruction unmarshalInstruction = newUnmarshalInstruction(
-							method, index, "()");
-					instruction
-							.append(unmarshalInstruction.toString())
-							.bracketclose();
-				}
-				methodBody.append(instruction);
+					);
+		
+		appendOutputObjectConstructor(methodBody);
+		
+		List<Object> elements = getElements();
+		for(int index = 0 ; index < elements.size() ; index ++) {
+			Object element = elements.get(index);
+			EzyInstruction instruction = null;
+			if(element == null) {
+				continue;
 			}
-			
-			addPostReadMethods(methodBody, "object");
-			
-			methodBody.append(new EzyInstruction("\t", "\n")
-					.answer()
-					.append("object"));
-			
-			EzyFunction method = methodBody.function();
-			
-			return method.toString();
+			methodBody.append(checkNotNullInstruction((EzyReflectElement)element, index));
+			if(element instanceof EzyField) {
+				EzyField field = (EzyField)element;
+				
+				instruction = new EzyInstruction("\t\t", "\n")
+						.append("object")
+						.dot()
+						.append(field.getName())
+						.equal();
+				EzyInstruction unmarshalInstruction = newUnmarshalInstruction(
+						field, index, "");
+				instruction.append(unmarshalInstruction.toString());
+			}
+			else {
+				EzySetterMethod method = (EzySetterMethod)element;
+				instruction = new EzyInstruction("\t\t", "\n")
+						.append("object")
+						.dot()
+						.append(method.getName())
+						.bracketopen();
+				EzyInstruction unmarshalInstruction = newUnmarshalInstruction(
+						method, index, "()");
+				instruction
+						.append(unmarshalInstruction.toString())
+						.bracketclose();
+			}
+			methodBody.append(instruction);
+		}
+		
+		addPostReadMethods(methodBody, "object");
+		
+		methodBody.append(new EzyInstruction("\t", "\n")
+				.answer()
+				.append("object"));
+		
+		EzyFunction method = methodBody.function();
+		
+		return method.toString();
 	}
 	
 	protected EzyInstruction checkNotNullInstruction(EzyReflectElement element, int index) {
@@ -216,6 +215,26 @@ public class EzyArrayReaderBuilder extends EzyAbstractReaderBuilder {
 		}
 		instruction.bracketclose();
 		return instruction;
+	}
+	
+	@Override
+	protected void appendConstructorParamValue(
+			EzyInstruction instruction,
+			Parameter parameter, 
+			int parameterIndex,
+			EzyField field,
+	        String key) {
+		instruction
+				.append("value")
+				.dot()
+				.append("isNotNullValue")
+				.bracketopen()
+				.append(parameterIndex)
+				.bracketclose()
+				.append(" ? ")
+				.append(newUnmarshalInstruction(field, parameterIndex, ""))
+				.append(" : ")
+				.defaultValue(parameter.getType());
 	}
 	
 	@Override

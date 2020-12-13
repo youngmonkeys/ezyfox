@@ -167,6 +167,26 @@ public class EzyInstruction {
 		return append(expression);
 	}
 	
+	public EzyInstruction defaultValue(Class type) {
+		if(type == boolean.class)
+			return append("false");
+		if(type == byte.class)
+			return append("(byte)0");
+		if(type == char.class)
+			return append("(char)0");
+		if(type == double.class)
+			return append("0D");
+		if(type == float.class)
+			return append("0F");
+		if(type == int.class)
+			return append("0");
+		if(type == long.class)
+			return append("0L");
+		if(type == short.class)
+			return append("(short)0");
+		return append("null");
+	}
+	
 	private static Map<Class, String> fetchPrimitiveMethods() {
 		Map<Class, String> map = new HashMap<>();
 		map.put(Boolean.class, "booleanValue()");

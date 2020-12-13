@@ -1,5 +1,9 @@
 package com.tvd12.ezyfox.binding.impl;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -100,10 +104,71 @@ public abstract class EzyAbstractReaderBuilder
 					.toString();
 	}
 	
-	protected EzyInstruction newOutputObjectInstruction() {
-		return new EzyInstruction("", "", false)
+	protected void appendOutputObjectConstructor(EzyFunction.EzyBody methodBody) {
+		Constructor constructor = clazz.getNoArgsDeclaredConstructor();
+		List<String> paramNames = Collections.emptyList();
+		if(constructor == null)
+			paramNames = appendOutputObjectConstructorParams(methodBody);
+		EzyInstruction newOutputObjectInstruction = new EzyInstruction("", "", false)
 				.append("new ")
-				.constructor(clazz.getClazz());
+				.clazz(clazz.getClazz(), false)
+				.bracketopen()
+				.append(String.join(", ", paramNames))
+				.bracketclose();
+		appendOutputObjectInstruction(methodBody, newOutputObjectInstruction);
+	}
+	
+	protected List<String> appendOutputObjectConstructorParams(
+			EzyFunction.EzyBody methodBody) {
+		Constructor constructor = clazz.getMaxArgsDeclaredConstructor();
+		List<String> keyList = new ArrayList<>();
+		List<EzyField> declaredFields = clazz.getDeclaredFields();
+		for(EzyField field : declaredFields)
+			keyList.add(getKey(field));
+		List<String> paramNames = new ArrayList<>();
+		Parameter[] constructorParameters = constructor.getParameters();
+		for(int i = 0 ; i < constructor.getParameterCount() ; ++i) {
+			String paramName = "cparam" + i;
+			Parameter parameter = constructorParameters[i];
+			EzyInstruction cInstruction = new EzyInstruction("\t", "\n")
+					.variable(parameter.getType(), paramName)
+					.equal();
+			EzyInstruction cValueInstruction = new EzyInstruction("", "", false);
+			if(i >= keyList.size() || 
+					!parameter.getType().isAssignableFrom(declaredFields.get(i).getType())) {
+				cValueInstruction.defaultValue(parameter.getType());
+			}
+			else {
+				appendConstructorParamValue(
+						cValueInstruction, 
+						parameter, 
+						i,
+						declaredFields.get(i),
+						keyList.get(i));
+			}
+			cInstruction.append(cValueInstruction.toString(false));
+			methodBody.append(cInstruction);
+			paramNames.add(paramName);
+		}
+		return paramNames;
+	}
+	
+	protected void appendConstructorParamValue(
+			EzyInstruction instruction,
+			Parameter parameter,
+			int parameterIndex,
+			EzyField field,
+			String key) {}
+	
+	protected void appendOutputObjectInstruction(
+			EzyFunction.EzyBody methodBody,
+			EzyInstruction newOutputObjectInstruction) {
+		methodBody.append(new EzyInstruction("\t", "\n")
+					.variable(clazz.getClazz(), "object")
+					.equal()
+					.append(newOutputObjectInstruction.toString(false)
+				)
+		);
 	}
 	
 	protected abstract String getImplClassName();

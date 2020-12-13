@@ -127,6 +127,45 @@ public class EzyInstructionTest extends BaseTest {
 		System.out.println(instruction);
 	}
 	
+	@Test
+	public void defaultValueTest() {
+		EzyInstruction instruction = new EzyInstruction("", "", false)
+				.defaultValue(boolean.class);
+		assert instruction.toString().equals("false");
+		
+		instruction = new EzyInstruction("", "", false)
+				.defaultValue(byte.class);
+		assert instruction.toString().equals("(byte)0");
+		
+		instruction = new EzyInstruction("", "", false)
+				.defaultValue(char.class);
+		assert instruction.toString().equals("(char)0");
+		
+		instruction = new EzyInstruction("", "", false)
+				.defaultValue(double.class);
+		assert instruction.toString().equals("0D");
+		
+		instruction = new EzyInstruction("", "", false)
+				.defaultValue(float.class);
+		assert instruction.toString().equals("0F");
+		
+		instruction = new EzyInstruction("", "", false)
+				.defaultValue(int.class);
+		assert instruction.toString().equals("0");
+		
+		instruction = new EzyInstruction("", "", false)
+				.defaultValue(long.class);
+		assert instruction.toString().equals("0L");
+		
+		instruction = new EzyInstruction("", "", false)
+				.defaultValue(short.class);
+		assert instruction.toString().equals("(short)0");
+		
+		instruction = new EzyInstruction("", "", false)
+				.defaultValue(String.class);
+		assert instruction.toString().equals("null");
+	}
+	
 	public static class A {
 		
 	}

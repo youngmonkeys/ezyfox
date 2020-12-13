@@ -97,6 +97,30 @@ public class EzyClassTest extends BaseTest {
 		new EzyClass(ABC.class).getDeclaredConstructor();
 	}
 	
+	@Test
+	public void getNoArgsDeclaredConstructorTest() {
+		EzyClass clazz = new EzyClass(BX.class);
+		assert clazz.getNoArgsDeclaredConstructor().getParameterCount() == 0;
+	}
+	
+	@Test
+	public void getNoArgsDeclaredConstructorWithDefaultConstructorTest() {
+		EzyClass clazz = new EzyClass(CX.class);
+		assert clazz.getNoArgsDeclaredConstructor().getParameterCount() == 0;
+	}
+	
+	@Test
+	public void getNoArgsDeclaredConstructorNullTest() {
+		EzyClass clazz = new EzyClass(DX.class);
+		assert clazz.getNoArgsDeclaredConstructor() == null;
+	}
+	
+	@Test
+	public void getMaxArgsDeclaredConstructor() {
+		EzyClass clazz = new EzyClass(BX.class);
+		assert clazz.getMaxArgsDeclaredConstructor().getParameterCount() == 2;
+	}
+	
 	public static class ABC {
 		public ABC(String s) {
 		}
@@ -182,6 +206,24 @@ public class EzyClassTest extends BaseTest {
 		
 		@ExampleAnnotation
 		public void setValue(String value) {}
+	}
+	
+	public static class BX {
+		protected BX(String name) {
+			this(name, "value");
+		}
+		
+		private BX(String name, String value) {}
+		
+		public BX() {
+			this("name");
+		}
+	}
+	
+	public static class CX {}
+	
+	public static class DX {
+		public DX(String name) {}
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.binding.impl;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.tvd12.ezyfox.asm.EzyInstruction;
+import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.EzyUnwrapper;
 import com.tvd12.ezyfox.reflect.EzyClass;
@@ -32,9 +33,10 @@ public class EzyArrayUnwrapperBuilder extends EzyArrayReaderBuilder {
 	}
 	
 	@Override
-	protected EzyInstruction newOutputObjectInstruction() {
-		return new EzyInstruction("", "", false)
+	protected void appendOutputObjectConstructor(EzyBody methodBody) {
+		EzyInstruction newOutputObjectInstruction = new EzyInstruction("", "", false)
 				.cast(clazz.getClazz(), "arg2");
+		appendOutputObjectInstruction(methodBody, newOutputObjectInstruction);
 	}
 	
 	@Override
