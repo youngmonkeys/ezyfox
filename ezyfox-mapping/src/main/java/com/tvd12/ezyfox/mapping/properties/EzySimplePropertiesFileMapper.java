@@ -1,34 +1,41 @@
 package com.tvd12.ezyfox.mapping.properties;
 
+import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.util.EzyLoggable;
+import com.tvd12.properties.file.annotation.PropertyAnnotation;
+import com.tvd12.properties.file.io.ValueConverter;
 import com.tvd12.properties.file.mapping.PropertiesMapper;
-import com.tvd12.properties.file.reader.BaseFileReader;
-import com.tvd12.properties.file.reader.FileReader;
 
 public class EzySimplePropertiesFileMapper 
 		extends EzyLoggable 
 		implements EzyPropertiesFileMapper {
 
-	@SuppressWarnings("rawtypes")
-	protected final Class context;
+	protected final ClassLoader classLoader;
 	
 	protected EzySimplePropertiesFileMapper(Builder builder) {
-		this.context = builder.context;
+		this.classLoader = builder.classLoader;
 	}
 	
 	@Override
 	public <T> T read(String filePath, Class<T> valueType) {
 		return new PropertiesMapper()
-				.context(context)
-				.clazz(valueType)
+				.classLoader(classLoader)
+				.addPropertyAnnotation(new PropertyAnnotation(
+						EzyProperty.class, 
+						a -> ((EzyProperty)a).value(),
+						a -> ((EzyProperty)a).prefix()))
+				.valueConverter(new ValueConverter() {
+					@Override
+					public <R> R convert(Object value, Class<R> outType) {
+						return EzySimpleValueConverter
+								.getSingleton()
+								.convert(value, outType);
+					}
+				})
 				.file(filePath)
-				.reader(newFileReader())
-				.map();
-	}
-	
-	protected FileReader newFileReader() {
-		return new BaseFileReader();
+				.map(valueType);
 	}
 	
 	public static Builder builder() {
@@ -37,12 +44,15 @@ public class EzySimplePropertiesFileMapper
 	
 	public static class Builder implements EzyBuilder<EzyPropertiesFileMapper> {
 		
-		@SuppressWarnings("rawtypes")
-		protected Class context = getClass();
+		protected ClassLoader classLoader;
 		
 		@SuppressWarnings("rawtypes")
 		public Builder context(Class context) {
-			this.context = context;
+			return classLoader(context.getClassLoader());
+		}
+		
+		public Builder classLoader(ClassLoader classLoader) {
+			this.classLoader = classLoader;
 			return this;
 		}
 		

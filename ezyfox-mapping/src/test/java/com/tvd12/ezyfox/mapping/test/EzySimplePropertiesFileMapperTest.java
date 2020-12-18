@@ -2,9 +2,9 @@ package com.tvd12.ezyfox.mapping.test;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.mapping.properties.EzyPropertiesFileMapper;
 import com.tvd12.ezyfox.mapping.properties.EzySimplePropertiesFileMapper;
-import com.tvd12.properties.file.annotation.PropertyWrapper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,9 +21,16 @@ public class EzySimplePropertiesFileMapperTest {
 	
 	@Getter
 	@Setter
-	@PropertyWrapper
 	public static class Person {
-		protected String name;
+		@EzyProperty("nick_name")
+		protected String nickName;
+		@EzyProperty(prefix = "name")
+		protected Name name;
+	}
+	
+	public static class Name {
+		protected String first;
+		protected String last;
 	}
 	
 }
