@@ -57,10 +57,12 @@ public class CombineTest {
 				.addSingletonClasses(new Class[] {
 						SingletonX1.class, 
 						SingletonX2.class,
-						Singleton12.class
+						Singleton12.class,
+						SingletonX4.class,
 				})
 				.addPrototypeClasses(new Class[] {
-						ClassA12.class
+						ClassA12.class,
+						PrototypeX1.class
 				})
 				.addSingleton("singleton2", new SingletonX3())
 				.addConfigurationBeforeClasses(V111ConfigurationBefore01.class, V111ConfigurationBefore01.class)
@@ -174,6 +176,13 @@ public class CombineTest {
 		ClassB1 classB1 = context.getPrototype(ClassB1.class);
 		assert classB1.getHello() == null;
 		assert classB1.getFoo() == null;
+		
+		SingletonX1 singletonX1 = context.getSingleton(SingletonX1.class);
+		SingletonX4 singletonX4 = context.getSingleton(SingletonX4.class);
+		assert singletonX4.getSingletonX1() == singletonX1;
+		
+		PrototypeX1 prototypeX1 = context.getPrototype(PrototypeX1.class);
+		assert prototypeX1.getSingletonX1() == singletonX1;
 	}
 	
 }

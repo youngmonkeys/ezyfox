@@ -50,7 +50,10 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 		for(Constructor con : constructors)
 			if(con.isAnnotationPresent(EzyAutoBind.class))
 				return con;
-		return clazz.getDeclaredConstructor();
+		Constructor con = clazz.getNoArgsDeclaredConstructor();
+		if(con == null)
+			con = clazz.getMaxArgsDeclaredConstructor();
+		return con;
 	}
 	
 	protected abstract Class<?>[] getConstructorParameterTypes();
