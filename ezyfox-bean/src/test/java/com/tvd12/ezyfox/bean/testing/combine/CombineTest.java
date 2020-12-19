@@ -15,6 +15,7 @@ import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
+import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.testing.combine.pack0.PropertiesPack1;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.ClassA1;
@@ -183,6 +184,31 @@ public class CombineTest {
 		
 		PrototypeX1 prototypeX1 = context.getPrototype(PrototypeX1.class);
 		assert prototypeX1.getSingletonX1() == singletonX1;
+	}
+	
+	@Test
+	public void bindingToFinalFieldTest() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.addSingletonClass(InternalSingleton1.class)
+				.addSingletonClass(InternalSingleton2.class)
+				.build();
+		
+		// when
+		InternalSingleton2 internalSingleton2 = beanContext.getSingleton(InternalSingleton2.class);
+		
+		// then
+		InternalSingleton1 internalSingleton1 = beanContext.getSingleton(InternalSingleton1.class);
+		assert internalSingleton1.internalSingleton2 != internalSingleton2;
+	}
+	
+	public static class InternalSingleton1 {
+		@EzyAutoBind
+		public final InternalSingleton2 internalSingleton2 = new InternalSingleton2(); 
+	}
+	
+	public static class InternalSingleton2 {
+		
 	}
 	
 }

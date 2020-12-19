@@ -126,6 +126,8 @@ public abstract class EzySimpleSingletonLoader
 	}
 	
 	private void setValueToBindingField(EzyField field, Object singleton, EzyBeanContext context) {
+		if(!field.isWritable())
+			return;
 		Object value = getOrCreateSingleton(
 				field.getType(), getBeanName(field), context);
 		if(!field.isPublic())
