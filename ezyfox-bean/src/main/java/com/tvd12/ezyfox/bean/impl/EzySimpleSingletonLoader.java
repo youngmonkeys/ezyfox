@@ -100,6 +100,8 @@ public abstract class EzySimpleSingletonLoader
 	
 	@SuppressWarnings("unchecked")
 	private void setValueToPropertyField(EzyField field, Object singleton, EzyPropertyFetcher fetcher) {
+		if(!field.isWritable())
+			return;
 		String propertyName = getPropertyName(field);
 		if(fetcher.containsProperty(propertyName)) {
 			if(!field.isPublic())

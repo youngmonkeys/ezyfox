@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
@@ -190,6 +191,7 @@ public class CombineTest {
 	public void bindingToFinalFieldTest() {
 		// given
 		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.addProperty("property1", "value2")
 				.addSingletonClass(InternalSingleton1.class)
 				.addSingletonClass(InternalSingleton2.class)
 				.build();
@@ -200,9 +202,12 @@ public class CombineTest {
 		// then
 		InternalSingleton1 internalSingleton1 = beanContext.getSingleton(InternalSingleton1.class);
 		assert internalSingleton1.internalSingleton2 != internalSingleton2;
+		assert internalSingleton1.property1.equals("value1");
 	}
 	
 	public static class InternalSingleton1 {
+		@EzyProperty
+		public final String property1 = "value1";
 		@EzyAutoBind
 		public final InternalSingleton2 internalSingleton2 = new InternalSingleton2(); 
 	}
