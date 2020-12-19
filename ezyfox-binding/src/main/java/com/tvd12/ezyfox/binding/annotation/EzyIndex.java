@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 public @interface EzyIndex {
 
 	/**
-	 * the key mapped to value
+	 * the key mapped to value, start from 0
 	 * 
 	 * @return the key mapped to value
 	 */

@@ -5,8 +5,14 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.binding.EzyBindingContext;
+import com.tvd12.ezyfox.binding.EzyUnmarshaller;
+import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
+import com.tvd12.ezyfox.binding.annotation.EzyValue;
 import com.tvd12.ezyfox.binding.impl.EzyObjectReaderBuilder;
+import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.util.EzyEntityObjects;
 import com.tvd12.test.base.BaseTest;
 
 import lombok.AllArgsConstructor;
@@ -33,6 +39,24 @@ public class EzyObjectReaderBuilderTest extends BaseTest {
 		EzyObjectReaderBuilder.setDebug(true);
 		EzyObjectReaderBuilder builder = new EzyObjectReaderBuilder(new EzyClass(ClassC.class));
 		builder.build();
+	}
+	
+	@Test
+	public void readToFinalFieldCase() {
+		// given
+		EzyObjectReaderBuilder.setDebug(true);
+		EzyBindingContext bindingContext = EzyBindingContext.builder()
+				.addClass(ClassD.class)
+				.build();
+
+		// when
+		EzyUnmarshaller unmarshaller = bindingContext.newUnmarshaller();
+		EzyObject value = EzyEntityObjects.newObject("name", "Foo");
+		ClassD classD = unmarshaller.unmarshal(value, ClassD.class);
+		
+		// then
+		assert classD.name.equals("name");
+		
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -61,6 +85,13 @@ public class EzyObjectReaderBuilderTest extends BaseTest {
 				long longValue,
 				short shortValue,
 				String stringValue) {}
+	}
+	
+	@Getter
+	@EzyObjectBinding
+	public static class ClassD {
+		@EzyValue("name")
+		public final String name = "name"; 
 	}
 	
 }

@@ -64,10 +64,13 @@ public class EzyArrayReaderBuilder extends EzyAbstractReaderBuilder {
 			if(element == null) {
 				continue;
 			}
+			if(element instanceof EzyField) {
+				if(!((EzyField)element).isWritable())
+					continue;
+			}
 			methodBody.append(checkNotNullInstruction((EzyReflectElement)element, index));
 			if(element instanceof EzyField) {
 				EzyField field = (EzyField)element;
-				
 				instruction = new EzyInstruction("\t\t", "\n")
 						.append("object")
 						.dot()

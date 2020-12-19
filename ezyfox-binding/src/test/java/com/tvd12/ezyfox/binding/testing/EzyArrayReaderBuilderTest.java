@@ -5,11 +5,17 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.binding.EzyBindingContext;
+import com.tvd12.ezyfox.binding.EzyUnmarshaller;
+import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
+import com.tvd12.ezyfox.binding.annotation.EzyIndex;
 import com.tvd12.ezyfox.binding.annotation.EzyReader;
 import com.tvd12.ezyfox.binding.impl.EzyArrayReaderBuilder;
 import com.tvd12.ezyfox.binding.testing.scan2.Scan2Object;
 import com.tvd12.ezyfox.binding.testing.scan2.Scan2ObjectReader;
+import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.util.EzyEntityArrays;
 import com.tvd12.test.base.BaseTest;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +42,24 @@ public class EzyArrayReaderBuilderTest extends BaseTest {
 		EzyArrayReaderBuilder.setDebug(true);
 		EzyArrayReaderBuilder builder = new EzyArrayReaderBuilder(new EzyClass(ClassC.class));
 		builder.build();
+	}
+	
+	@Test
+	public void readToFinalFieldCase() {
+		// given
+		EzyArrayReaderBuilder.setDebug(true);
+		EzyBindingContext bindingContext = EzyBindingContext.builder()
+				.addClass(ClassE.class)
+				.build();
+
+		// when
+		EzyUnmarshaller unmarshaller = bindingContext.newUnmarshaller();
+		EzyArray array = EzyEntityArrays.newArray("hello", "world");
+		ClassE classE = unmarshaller.unmarshal(array, ClassE.class);
+		
+		// then
+		assert classE.name.equals("name");
+		
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -74,6 +98,13 @@ public class EzyArrayReaderBuilderTest extends BaseTest {
 				long longValue,
 				short shortValue,
 				String stringValue) {}
+	}
+	
+	@Getter
+	@EzyArrayBinding
+	public static class ClassE {
+		@EzyIndex(0)
+		public final String name = "name"; 
 	}
 	
 }

@@ -58,6 +58,10 @@ public class EzyObjectReaderBuilder extends EzyAbstractReaderBuilder {
 		appendOutputObjectConstructor(methodBody);
 			
 		for(Object element : getElements()) {
+			if(element instanceof EzyField) {
+				if(!((EzyField)element).isWritable())
+					continue;
+			}
 			methodBody.append(checkNotNullInstruction((EzyReflectElement) element));
 			methodBody.append(newInstructionByElement(element));
 		}

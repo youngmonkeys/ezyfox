@@ -228,9 +228,11 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 	
 	private int getIndex(EzyClass clazz, Object element) {
 		EzyIndex index = ((EzyAnnotatedElement)element).getAnnotation(EzyIndex.class);
-		if(index != null) return index.value();
-		EzyByFieldMethod method = (EzyByFieldMethod)element;
-		return getIndex(clazz, clazz.getField(method.getFieldName()));
+		if(index != null) 
+			return index.value();
+		return clazz
+				.getField(((EzyByFieldMethod)element).getFieldName())
+				.getAnnotation(EzyIndex.class).value();
 	}
 	
 }
