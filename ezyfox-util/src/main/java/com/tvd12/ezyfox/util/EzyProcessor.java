@@ -15,8 +15,7 @@ public final class EzyProcessor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EzyProcessor.class);
 	
-	private EzyProcessor() {
-	}
+	private EzyProcessor() {}
 	
 	public static void processWithException(EzyExceptionVoid applier) {
 		processWithException(applier, e -> new IllegalStateException(e));
@@ -37,11 +36,18 @@ public final class EzyProcessor {
 	}
 	
 	public static void processWithLogException(EzyExceptionVoid applier) {
+		processWithLogException(applier, false);
+	}
+	
+	public static void processWithLogException(EzyExceptionVoid applier, boolean warn) {
 		try {
 			applier.apply();
 		}
 		catch(Exception e) {
-			warn("can't process " + applier, e);
+			if(warn)
+				warn("can't process " + applier, e);
+			else
+				debug("can't process " + applier, e);
 		}
 	}
 	
@@ -86,6 +92,10 @@ public final class EzyProcessor {
 	
 	private static boolean tryLock(Lock lock, long time) throws InterruptedException {
 		return lock.tryLock(time, TimeUnit.MILLISECONDS);
+	}
+	
+	private static void debug(String message, Throwable throwable) {
+		LOGGER.debug(message, throwable);
 	}
 	
 	private static void warn(String message, Throwable throwable) {

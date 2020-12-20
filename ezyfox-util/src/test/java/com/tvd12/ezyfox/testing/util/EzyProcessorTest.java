@@ -151,6 +151,11 @@ public class EzyProcessorTest extends BaseTest {
 		EzyProcessor.processWithSync(() -> {throw new IllegalStateException();}, this);
 	}
 	
+	@Test
+	public void processWithLogWarn() {
+		EzyProcessor.processWithLogException(() -> {throw new Exception();}, true);
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyProcessor.class;
