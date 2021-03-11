@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.binding.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -78,8 +80,9 @@ public class EzySimpleMarshaller
 	public <T> T marshal(Class<? extends EzyWriter> writerClass, Object object) {
 		if(object == null)
 			return null;
-		if(writersByType.containsKey(writerClass))
-			return (T) writersByType.get(writerClass).write(this, object);
+		EzyWriter writer = writersByType.get(writerClass);
+		if(writer != null)
+			return (T)writer.write(this, object);
 		throw new IllegalArgumentException("can't marshal object " + 
 			object + ", " + writerClass.getName() + " is not writer class");
 	}
@@ -111,6 +114,8 @@ public class EzySimpleMarshaller
 		map.put(HashSet.class, EzyIterableWriter.getInstance());
 		map.put(Collection.class, EzyIterableWriter.getInstance());
 		map.put(Iterable.class, EzyIterableWriter.getInstance());
+		map.put(BigDecimal.class, EzyDefaultWriter.getInstance());
+		map.put(BigInteger.class, EzyDefaultWriter.getInstance());
 		return map;
 	}
 	

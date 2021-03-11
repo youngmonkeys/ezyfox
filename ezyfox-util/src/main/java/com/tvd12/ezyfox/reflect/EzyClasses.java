@@ -85,7 +85,7 @@ public final class EzyClasses {
 			return clazz.newInstance();
 		}
 		catch(Exception e) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(e);
 		}
 	}
 	

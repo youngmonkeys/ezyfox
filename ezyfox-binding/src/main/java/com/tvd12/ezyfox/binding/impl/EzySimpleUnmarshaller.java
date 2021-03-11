@@ -137,7 +137,7 @@ public class EzySimpleUnmarshaller
 			return (T) readArray(value, outType.getComponentType());
 		if(outType.isEnum())
 			return (T) Enum.valueOf((Class<Enum>)outType, value.toString());
-		throw new IllegalArgumentException("has no reader for " + outType);
+		return (T)value;
 	}
 	
 	@Override
@@ -170,8 +170,9 @@ public class EzySimpleUnmarshaller
 	public <T> T unmarshal(Class<? extends EzyReader> readerClass, Object value) {
 		if(value == null)
 			return null;
-		if(readersByType.containsKey(readerClass))
-			return (T) readersByType.get(readerClass).read(this, value);
+		EzyReader reader = readersByType.get(readerClass);
+		if(reader != null)
+			return (T)reader.read(this, value);
 		throw new IllegalArgumentException("can't unmarshal value " + 
 			value + ", " + readerClass.getName() + " is not reader class");
 	}
