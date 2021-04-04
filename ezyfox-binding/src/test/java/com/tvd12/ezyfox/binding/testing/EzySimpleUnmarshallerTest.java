@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.impl.EzySimpleUnmarshaller;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.test.base.BaseTest;
 
 public class EzySimpleUnmarshallerTest extends BaseTest {
@@ -33,10 +33,18 @@ public class EzySimpleUnmarshallerTest extends BaseTest {
 		
 	}
 	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
+	@Test
 	public void test2() {
 		EzyUnmarshaller unmarshaller = new EzySimpleUnmarshaller();
-		unmarshaller.unmarshal(new Object(), Object.class);
+		Point data = new Point();
+		assert unmarshaller.unmarshal(data, Object.class) == data;
+	}
+	
+	@Test
+	public void test21() {
+		EzyUnmarshaller unmarshaller = new EzySimpleUnmarshaller();
+		Object data = new Object();
+		assert unmarshaller.unmarshal(data, Object.class) == data;
 	}
 	
 	@Test(expectedExceptions = {IllegalArgumentException.class})
