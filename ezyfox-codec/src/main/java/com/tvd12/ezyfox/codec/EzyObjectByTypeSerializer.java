@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import com.tvd12.ezyfox.codec.EzyObjectSerializer;
-
 public interface EzyObjectByTypeSerializer extends EzyObjectSerializer {
 
 	<T> T serialize(Object value, Class<T> outType);

@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.util;
 
-import com.tvd12.ezyfox.util.EzyArrayIterator;
-import com.tvd12.ezyfox.util.EzyBytesIterator;
-
 public class EzyBytesIterator extends EzyArrayIterator<Byte> {
 
 	private byte[] array;
@@ -23,8 +20,6 @@ public class EzyBytesIterator extends EzyArrayIterator<Byte> {
 	@Override
 	protected Byte getItem(int index) {
 		return array[index];
-	}
-
-	
+	}	
 	
 }

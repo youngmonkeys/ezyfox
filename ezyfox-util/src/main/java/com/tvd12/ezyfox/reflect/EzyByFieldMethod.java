@@ -4,10 +4,6 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Map;
 
-import com.tvd12.ezyfox.reflect.EzyGenericElement;
-import com.tvd12.ezyfox.reflect.EzyKnownTypeElement;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-
 public abstract class EzyByFieldMethod 
 		extends EzyMethod 
 		implements EzyGenericElement, EzyKnownTypeElement {

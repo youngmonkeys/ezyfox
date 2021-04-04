@@ -2,9 +2,6 @@ package com.tvd12.ezyfox.constant;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.tvd12.ezyfox.constant.EzyAttribute;
-import com.tvd12.ezyfox.constant.EzyConstant;
-
 import lombok.Getter;
 
 @Getter

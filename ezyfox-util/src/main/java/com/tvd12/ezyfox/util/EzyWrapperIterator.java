@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.util;
 
-import com.tvd12.ezyfox.util.EzyArrayIterator;
-import com.tvd12.ezyfox.util.EzyWrapperIterator;
-
 public class EzyWrapperIterator<E> extends EzyArrayIterator<E> {
 
 	private final E[] array;

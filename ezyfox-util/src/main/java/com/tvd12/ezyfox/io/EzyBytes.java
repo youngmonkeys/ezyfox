@@ -2,8 +2,6 @@ package com.tvd12.ezyfox.io;
 
 import java.nio.ByteBuffer;
 
-import com.tvd12.ezyfox.io.EzyByteBuffers;
-
 public final class EzyBytes {
 
 	private EzyBytes() {

@@ -2,8 +2,6 @@ package com.tvd12.ezyfox.reflect;
 
 import java.util.Set;
 
-import com.tvd12.ezyfox.reflect.EzyClasses;
-
 public final class EzyInterfaces {
 
 	private EzyInterfaces() {

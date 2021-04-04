@@ -7,8 +7,6 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import com.tvd12.ezyfox.file.EzyFileWriter;
-import com.tvd12.ezyfox.sercurity.EzyFileKeysGenerator;
-import com.tvd12.ezyfox.sercurity.EzyKeysGenerator;
 
 public class EzyFileKeysGenerator extends EzyKeysGenerator {
 

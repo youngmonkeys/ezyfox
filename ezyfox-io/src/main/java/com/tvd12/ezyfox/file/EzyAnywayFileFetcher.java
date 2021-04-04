@@ -2,11 +2,6 @@ package com.tvd12.ezyfox.file;
 
 import java.io.File;
 
-import com.tvd12.ezyfox.file.EzyAnywayFileFetcher;
-import com.tvd12.ezyfox.file.EzyClassPathFileFetcher;
-import com.tvd12.ezyfox.file.EzyFileFetcher;
-import com.tvd12.ezyfox.file.EzySimpleFileFetcher;
-
 public class EzyAnywayFileFetcher extends EzyClassPathFileFetcher {
 
 	protected final EzyFileFetcher firstFetcher;

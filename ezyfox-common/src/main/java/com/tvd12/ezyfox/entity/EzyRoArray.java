@@ -4,9 +4,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
-import com.tvd12.ezyfox.entity.EzyData;
-import com.tvd12.ezyfox.entity.EzyRoArray;
-
 public interface EzyRoArray extends EzyData {
 
 	/**

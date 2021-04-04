@@ -4,8 +4,6 @@ import java.io.File;
 import java.net.URL;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.file.EzyClassPathFileFetcher;
-import com.tvd12.ezyfox.file.EzyFileFetcher;
 
 public class EzyClassPathFileFetcher implements EzyFileFetcher {
 

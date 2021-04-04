@@ -1,8 +1,6 @@
 package com.tvd12.ezyfox.builder;
 
 import com.tvd12.ezyfox.entity.EzyArray;
-import com.tvd12.ezyfox.builder.EzyArrayBuilder;
-import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public interface EzyArrayBuilder extends EzyBuilder<EzyArray> {
 	

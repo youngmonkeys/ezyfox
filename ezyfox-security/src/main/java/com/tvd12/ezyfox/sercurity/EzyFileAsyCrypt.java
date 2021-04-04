@@ -4,8 +4,6 @@ import java.io.File;
 
 import com.tvd12.ezyfox.file.EzyFileReader;
 import com.tvd12.ezyfox.file.EzyFileWriter;
-import com.tvd12.ezyfox.sercurity.EzyAsyCrypt;
-import com.tvd12.ezyfox.sercurity.EzyFileAsyCrypt;
 
 public class EzyFileAsyCrypt extends EzyAsyCrypt {
 	

@@ -2,8 +2,6 @@ package com.tvd12.ezyfox.builder;
 
 import java.util.Map;
 
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyObject;
 
 public interface EzyObjectBuilder extends EzyBuilder<EzyObject> {

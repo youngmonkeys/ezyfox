@@ -6,8 +6,6 @@ import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyEmptyArray;
 import com.tvd12.ezyfox.entity.EzyEmptyObject;
 import com.tvd12.ezyfox.entity.EzyObject;
-import com.tvd12.ezyfox.factory.EzyEntityCreator;
-import com.tvd12.ezyfox.factory.EzySimpleEntityCreator;
 
 public final class EzyEntityFactory {
 

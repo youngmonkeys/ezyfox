@@ -3,9 +3,6 @@ package com.tvd12.ezyfox.reflect;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
-import com.tvd12.ezyfox.reflect.EzyByFieldMethod;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-
 public class EzyGetterMethod extends EzyByFieldMethod {
 
 	public EzyGetterMethod(Method method) {

@@ -3,9 +3,6 @@ package com.tvd12.ezyfox.util;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.tvd12.ezyfox.util.EzyHashMapCollection;
-import com.tvd12.ezyfox.util.EzyMapSet;
-
 public class EzyHashMapSet<K,E>
 		extends EzyHashMapCollection<K, E, Set<E>>
 		implements EzyMapSet<K, E> {

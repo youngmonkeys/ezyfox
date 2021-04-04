@@ -2,9 +2,6 @@ package com.tvd12.ezyfox.io;
 
 import java.nio.ByteBuffer;
 
-import com.tvd12.ezyfox.io.EzyBytes;
-import com.tvd12.ezyfox.io.EzyMath;
-
 public final class EzyInts {
 
 	private EzyInts() {

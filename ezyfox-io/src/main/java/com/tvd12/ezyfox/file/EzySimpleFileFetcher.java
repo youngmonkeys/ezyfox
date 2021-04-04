@@ -4,8 +4,6 @@ import java.io.File;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.exception.EzyFileNotFoundException;
-import com.tvd12.ezyfox.file.EzyFileFetcher;
-import com.tvd12.ezyfox.file.EzySimpleFileFetcher;
 
 public class EzySimpleFileFetcher implements EzyFileFetcher {
 

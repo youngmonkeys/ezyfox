@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.util;
 
-import com.tvd12.ezyfox.util.EzyArrayIterator;
-import com.tvd12.ezyfox.util.EzyLongsIterator;
-
 public class EzyLongsIterator extends EzyArrayIterator<Long> {
 
 	private long[] array;
@@ -25,6 +22,4 @@ public class EzyLongsIterator extends EzyArrayIterator<Long> {
 		return array[index];
 	}
 
-	
-	
 }

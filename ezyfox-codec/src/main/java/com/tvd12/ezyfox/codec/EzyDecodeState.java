@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import com.tvd12.ezyfox.codec.EzyIDecodeState;
-
 import lombok.Getter;
 
 public enum EzyDecodeState implements EzyIDecodeState {

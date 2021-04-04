@@ -11,8 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.crypto.Cipher;
 
 import com.tvd12.ezyfox.function.EzyBytesFunction;
-import com.tvd12.ezyfox.sercurity.EzyAsyCrypt;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
 
 public class EzyAsyCrypt {
 

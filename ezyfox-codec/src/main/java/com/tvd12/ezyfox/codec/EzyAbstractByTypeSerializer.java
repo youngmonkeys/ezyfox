@@ -3,7 +3,6 @@ package com.tvd12.ezyfox.codec;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.codec.EzyMessageByTypeSerializer;
 import com.tvd12.ezyfox.function.EzyParser;
 import com.tvd12.ezyfox.io.EzyMaps;
 

@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.util;
 
-import com.tvd12.ezyfox.util.EzyArrayIterator;
-import com.tvd12.ezyfox.util.EzyBoolsIterator;
-
 public class EzyBoolsIterator extends EzyArrayIterator<Boolean> {
 
 	private boolean[] array;

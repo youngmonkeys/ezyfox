@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.util;
 
-import com.tvd12.ezyfox.util.EzyArrayIterator;
-import com.tvd12.ezyfox.util.EzyShortsIterator;
-
 public class EzyShortsIterator extends EzyArrayIterator<Short> {
 
 	private short[] array;
@@ -24,7 +21,5 @@ public class EzyShortsIterator extends EzyArrayIterator<Short> {
 	protected Short getItem(int index) {
 		return array[index];
 	}
-
-	
 	
 }

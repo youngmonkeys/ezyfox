@@ -6,7 +6,6 @@ import java.lang.reflect.WildcardType;
 import java.util.Set;
 
 import com.tvd12.ezyfox.function.EzyValidator;
-import com.tvd12.ezyfox.reflect.EzyTypes;
 
 public class EzyGenericSetterValidator implements EzyValidator<Type> {
 

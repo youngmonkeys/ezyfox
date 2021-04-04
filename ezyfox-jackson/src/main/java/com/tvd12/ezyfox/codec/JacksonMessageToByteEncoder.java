@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import com.tvd12.ezyfox.codec.EzyMessageByTypeSerializer;
-import com.tvd12.ezyfox.codec.EzyObjectToStringEncoder;
-
 public class JacksonMessageToByteEncoder implements EzyObjectToStringEncoder {
 
 	protected final EzyMessageByTypeSerializer serializer;

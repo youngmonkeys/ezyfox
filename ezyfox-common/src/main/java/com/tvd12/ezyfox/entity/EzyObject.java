@@ -4,9 +4,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import com.tvd12.ezyfox.entity.EzyObject;
-import com.tvd12.ezyfox.entity.EzyRoObject;
-
 /**
  * Support to transport data between objects
  * 

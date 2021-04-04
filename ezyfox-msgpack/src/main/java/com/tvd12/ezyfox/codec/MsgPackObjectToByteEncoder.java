@@ -1,10 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import com.tvd12.ezyfox.codec.EzyMessage;
-import com.tvd12.ezyfox.codec.EzyMessageToBytes;
-import com.tvd12.ezyfox.codec.EzyObjectToByteEncoder;
-import com.tvd12.ezyfox.codec.EzyObjectToMessage;
-
 public class MsgPackObjectToByteEncoder implements EzyObjectToByteEncoder {
 
 	protected final EzyMessageToBytes messageToBytes;

@@ -3,10 +3,6 @@ package com.tvd12.ezyfox.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tvd12.ezyfox.util.EzyDataHandler;
-import com.tvd12.ezyfox.util.EzyDataHandlers;
-import com.tvd12.ezyfox.util.EzyLoggable;
-
 @SuppressWarnings("rawtypes")
 public class EzyListDataHandlers
 		extends EzyLoggable

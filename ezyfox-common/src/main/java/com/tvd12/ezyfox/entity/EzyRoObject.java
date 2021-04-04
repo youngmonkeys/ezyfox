@@ -6,10 +6,6 @@ package com.tvd12.ezyfox.entity;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import com.tvd12.ezyfox.entity.EzyData;
-import com.tvd12.ezyfox.entity.EzyRoObject;
-
 import java.util.Set;
 
 /**

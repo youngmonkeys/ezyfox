@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.util;
 
-import com.tvd12.ezyfox.util.EzyArrayIterator;
-import com.tvd12.ezyfox.util.EzyFloatsIterator;
-
 public class EzyFloatsIterator extends EzyArrayIterator<Float> {
 
 	private float[] array;
@@ -24,7 +21,5 @@ public class EzyFloatsIterator extends EzyArrayIterator<Float> {
 	protected Float getItem(int index) {
 		return array[index];
 	}
-
-	
 	
 }

@@ -5,8 +5,6 @@ package com.tvd12.ezyfox.util;
 
 import java.util.Map;
 
-import com.tvd12.ezyfox.util.EzyRoProperties;
-
 /**
  * Each model in application should have properties, and we think key/value is good idea
  * 

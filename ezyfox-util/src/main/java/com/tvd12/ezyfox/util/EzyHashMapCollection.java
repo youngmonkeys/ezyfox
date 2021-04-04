@@ -3,8 +3,6 @@ package com.tvd12.ezyfox.util;
 import java.util.Collection;
 import java.util.HashMap;
 
-import com.tvd12.ezyfox.util.EzyMapCollection;
-
 public abstract class EzyHashMapCollection<K,E,V extends Collection<E>> 
 		extends HashMap<K, V>
 		implements EzyMapCollection<K, E, V> {

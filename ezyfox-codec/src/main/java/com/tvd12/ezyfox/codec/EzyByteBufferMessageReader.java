@@ -2,7 +2,6 @@ package com.tvd12.ezyfox.codec;
 
 import java.nio.ByteBuffer;
 
-import com.tvd12.ezyfox.codec.EzyMessageReader;
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyInts;
 

@@ -5,9 +5,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 
-import com.tvd12.ezyfox.concurrent.EzyErrorScheduledExecutorService;
-import com.tvd12.ezyfox.concurrent.EzyThreadFactory;
-
 public final class EzyExecutors {
 
 	private EzyExecutors() {
