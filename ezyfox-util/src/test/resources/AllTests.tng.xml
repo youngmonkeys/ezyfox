@@ -46,6 +46,11 @@
 			<package name="com.tvd12.ezyfox.testing.io"></package>
 		</packages>
 	</test>
+	<test name="Naming">
+		<packages>
+			<package name="com.tvd12.ezyfox.testing.naming"></package>
+		</packages>
+	</test>
 	<test name="Properties">
 		<packages>
 			<package name="com.tvd12.ezyfox.testing.properties"></package>

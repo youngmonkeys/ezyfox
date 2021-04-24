@@ -1,5 +1,9 @@
 package com.tvd12.ezyfox.io;
 
+import static com.tvd12.ezyfox.naming.EzyNamingCase.DASH;
+import static com.tvd12.ezyfox.naming.EzyNamingCase.DOT;
+import static com.tvd12.ezyfox.naming.EzyNamingCase.UNDERSCORE;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -134,6 +138,43 @@ public final class EzyStrings {
 	            .map(t -> t.toString())
 	            .collect(Collectors.joining(separator));
 		return answer;
+	}
+	
+	public static String toUpperCase(String original) {
+		return original.toUpperCase();
+	}
+	
+	public static String toLowerCase(String original) {
+		return original.toLowerCase();
+	}
+	
+	public static String toCamelCase(String original) {
+		if(original.length() < 2)
+			return original.toLowerCase();
+		return original.substring(0, 1).toLowerCase() + original.substring(1);
+	}
+	
+	public static String toDotCase(String original) {
+		StringBuilder builder = new StringBuilder();
+		for(int i = 0 ; i < original.length() ; ++i) {
+			char ch = original.charAt(i);
+			if(Character.isUpperCase(ch) && i > 0)
+				builder.append(DOT.getSign());
+			builder.append(Character.toLowerCase(ch));
+		}
+		return builder
+				.toString()
+				.replace(DASH.getSign(), DOT.getSign())
+				.replace(UNDERSCORE.getSign(), DOT.getSign())
+				.replace(DOT.getSign() + DOT.getSign(), DOT.getSign());
+	}
+	
+	public static String toDashCase(String original) {
+		return toDotCase(original).replace(DOT.getSign(), DASH.getSign());
+	}
+	
+	public static String toUnderscoreCase(String original) {
+		return toDotCase(original).replace(DOT.getSign(), UNDERSCORE.getSign());
 	}
 	
 }
