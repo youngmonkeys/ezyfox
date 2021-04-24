@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>com.tvd12</groupId>
 			<artifactId>ezyfox-tools</artifactId>
-			<version>${ezy.tools.prev.version}</version>
+			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

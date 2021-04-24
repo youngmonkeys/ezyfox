@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.tvd12</groupId>
 		<artifactId>ezyfox</artifactId>
-		<version>0.0.3</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>ezyfox-versions</artifactId>
 	<version>1.1.5</version>
@@ -15,8 +15,7 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<ezy.tools.prev.version>1.1.4</ezy.tools.prev.version>
-		<jackson.version>2.12.1</jackson.version>
+		<jackson.version>2.12.3</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	

@@ -5,18 +5,18 @@
 
 	<groupId>com.tvd12</groupId>
 	<artifactId>ezyfox</artifactId>
-	<version>0.0.3</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>ezyfox</name>
-	<url>http://www.tvd12.com/java/projects/ezyfox</url>
+	<url>https://youngmonkeys.org/project/ezyfox-library/</url>
 	<description>
 		Common maven project configuration 
 	</description>
 
 	<organization>
 		<name>Young Monkeys</name>
-		<url>http://www.tvd12.com</url>
+		<url>https://youngmonkeys.org/</url>
 	</organization>
 
 	<licenses>
@@ -64,7 +64,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<lombok.version>1.18.16</lombok.version>
-		<test.util.version>1.0.6</test.util.version>
+		<test.util.version>1.1.0</test.util.version>
 		<directory.lib>lib</directory.lib>
 		<deploy.path>${env.EZYFOX_SERVER_HOME}</deploy.path>
 	</properties>
