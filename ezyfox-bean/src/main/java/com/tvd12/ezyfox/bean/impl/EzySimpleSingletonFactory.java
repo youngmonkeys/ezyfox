@@ -74,6 +74,12 @@ public class EzySimpleSingletonFactory
 	}
 	
 	@Override
+	public void addSingletons(Map<String, Object> singletons) {
+		for(String name : singletons.keySet())
+			addSingleton(name, singletons.get(name));
+	}
+	
+	@Override
 	public Object getSingleton(Class type) {
 		String name = getBeanName(type);
 		return getSingleton(name, type);

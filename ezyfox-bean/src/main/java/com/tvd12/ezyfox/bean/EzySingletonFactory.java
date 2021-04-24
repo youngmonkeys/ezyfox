@@ -34,6 +34,8 @@ public interface EzySingletonFactory {
 	
 	Object addSingleton(String name, Object singleton, Map properties);
 	
+	void addSingletons(Map<String, Object> singletons);
+	
 	Set<Class> getSingletonClasses();
 	
 }
