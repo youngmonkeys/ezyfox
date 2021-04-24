@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyInts;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyIntsTest extends BaseTest {
@@ -26,6 +27,42 @@ public class EzyIntsTest extends BaseTest {
 		ByteBuffer buffer2 = ByteBuffer.allocate(4).putInt(1000);
 		buffer2.flip();
 		assertEquals(EzyInts.bin2uint(buffer2), 1000);
+	}
+	
+	@Test
+	public void bytesToIntTestWith3Bytes() {
+		// given
+		ByteBuffer buffer = ByteBuffer.wrap(new byte[] {0, 0, 100});
+		
+		// when
+		int actual = EzyInts.bin2int(buffer, 3);
+		
+		// then
+		Asserts.assertEquals(100, actual);
+	}
+	
+	@Test
+	public void bytesToLongTestWith4Bytes() {
+		// given
+		ByteBuffer buffer = ByteBuffer.wrap(new byte[] {0, 100});
+		
+		// when
+		int actual = EzyInts.bin2int(buffer, 2);
+		
+		// then
+		Asserts.assertEquals(100, actual);
+	}
+	
+	@Test
+	public void bytesToIntTestWithByte() {
+		// given
+		ByteBuffer buffer = ByteBuffer.wrap(new byte[] {100});
+		
+		// when
+		int actual = EzyInts.bin2int(buffer, 1);
+		
+		// then
+		Asserts.assertEquals(100, actual);
 	}
 	
 	@Override

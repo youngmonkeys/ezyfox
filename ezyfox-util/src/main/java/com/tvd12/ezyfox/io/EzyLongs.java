@@ -28,6 +28,14 @@ public final class EzyLongs {
 	}
 	
 	public static long bin2long(ByteBuffer buffer, int size) {
+		if(size == 8)
+			return buffer.getLong();
+		if(size == 4)
+			return buffer.getInt();
+		if(size == 2)
+			return buffer.getShort();
+		if(size == 1)
+			return buffer.get();
 		return bin2long(EzyBytes.copy(buffer, size));
 	}
 	
