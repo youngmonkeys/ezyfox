@@ -17,6 +17,13 @@ public final class EzyProcessor {
 	
 	private EzyProcessor() {}
 	
+	public static void processSilently(EzyExceptionVoid applier) {
+		try {
+			applier.apply();
+		}
+		catch(Exception e) {}
+	}
+	
 	public static void processWithException(EzyExceptionVoid applier) {
 		processWithException(applier, e -> new IllegalStateException(e));
 	}

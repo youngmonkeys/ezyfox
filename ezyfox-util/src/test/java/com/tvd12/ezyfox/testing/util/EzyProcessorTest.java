@@ -156,6 +156,12 @@ public class EzyProcessorTest extends BaseTest {
 		EzyProcessor.processWithLogException(() -> {throw new Exception();}, true);
 	}
 	
+	@Test
+	public void processSilentlyTest() {
+		EzyProcessor.processSilently(() -> {});
+		EzyProcessor.processSilently(() -> { throw new Exception("just test"); });
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyProcessor.class;
