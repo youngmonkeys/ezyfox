@@ -10,6 +10,9 @@ public interface EzyBeanContext extends
 		EzyPrototypeFetcher,
 		EzyPropertyFetcher {
 	
+	String ACTIVE_PROFILES_KEY = "active_profiles";
+	String EZYFOX_ACTIVE_PROFILES_KEY = "ezyfox.active_profiles";
+	
 	Properties getProperties();
 	
 	EzySingletonFactory getSingletonFactory();

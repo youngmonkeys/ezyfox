@@ -50,6 +50,7 @@ import com.tvd12.ezyfox.bean.supplier.EzyStackSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyTreeMapSupplier;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
+import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 import com.tvd12.ezyfox.properties.EzySimplePropertiesReader;
 import com.tvd12.ezyfox.reflect.EzyClass;
@@ -62,6 +63,8 @@ import com.tvd12.properties.file.annotation.PropertyAnnotation;
 import com.tvd12.properties.file.io.ValueConverter;
 import com.tvd12.properties.file.mapping.PropertiesMapper;
 import com.tvd12.properties.file.reader.BaseFileReader;
+import com.tvd12.properties.file.reader.FileReader;
+import com.tvd12.properties.file.reader.MultiFileReader;
 
 import lombok.Getter;
 
@@ -229,7 +232,7 @@ public class EzySimpleBeanContext
 		protected Set<Class> propertiesBeansAnnotatedClasses;
 		protected Map<Class, String> namedSingletonClasses;
 		protected Map<Class, String> namedPrototypeClasses;
-		protected Map<String, Class<?>> propertiesBeanClasses;
+		protected Map<String, Set<Class<?>>> propertiesBeanClasses;
 		protected EzyPropertiesMap propertiesMap;
 		protected EzyPropertiesReader propertiesReader;
 		protected EzySimpleSingletonFactory singletonFactory;
@@ -240,7 +243,7 @@ public class EzySimpleBeanContext
 		protected EzyMapSet<EzyBeanKey, Class<?>> unloadedSingletons;
 		
 		public Builder() {
-			this.properties = new Properties();
+			this.properties = new Properties(System.getProperties());
 			this.singletonClasses = new HashSet<>();
 			this.prototypeClasses = new HashSet<>();
 			this.packagesScanClasses = new HashSet<>();
@@ -535,7 +538,13 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addProperties(String file) {
-			Properties props = new BaseFileReader().read(file);
+			Properties props = new MultiFileReader().read(file);
+			return addProperties(props);
+		}
+		
+		@Override
+		public EzyBeanContextBuilder addProperties(String file, String activeProfiles) {
+			Properties props = new MultiFileReader(activeProfiles).read(file);
 			return addProperties(props);
 		}
 		
@@ -545,7 +554,13 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addProperties(File file) {
-			Properties props = new BaseFileReader().read(file);
+			Properties props = new MultiFileReader().read(file);
+			return addProperties(props);
+		}
+		
+		@Override
+		public EzyBeanContextBuilder addProperties(File file, String activeProfiles) {
+			Properties props = new MultiFileReader(activeProfiles).read(file);
 			return addProperties(props);
 		}
 		
@@ -594,7 +609,9 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder propertiesBeanClass(String prefix, Class propertiesBeanClass) {
-			this.propertiesBeanClasses.put(prefix, propertiesBeanClass);
+			this.propertiesBeanClasses
+				.computeIfAbsent(prefix, k -> new HashSet<>())
+				.add(propertiesBeanClass);
 			return this;
 		}
 		
@@ -604,6 +621,7 @@ public class EzySimpleBeanContext
 		@Override
 		public EzySimpleBeanContext build() {
 			EzySimpleBeanContext context = new EzySimpleBeanContext();
+			readDefaultPropertiesFiles();
 			context.properties = properties;
 			context.prototypeFactory = prototypeFactory;
 			context.singletonFactory = singletonFactory;
@@ -628,6 +646,18 @@ public class EzySimpleBeanContext
 			loadConfigurationClasses(context);
 			tryLoadUncompletedSingletonsAgain(context, true);
 			return context;
+		}
+		
+		private void readDefaultPropertiesFiles() {
+			String activeProfiles = properties.getProperty(ACTIVE_PROFILES_KEY);
+			if(EzyStrings.isNoContent(activeProfiles))
+				activeProfiles = properties.getProperty(EZYFOX_ACTIVE_PROFILES_KEY);
+			Properties props = new Properties();
+			FileReader fileReader = new MultiFileReader(activeProfiles);
+			props.putAll(fileReader.read("application.properties"));
+			props.putAll(fileReader.read("application.yaml"));
+			for(Object key : props.keySet())
+				properties.putIfAbsent(key, props.get(key));
 		}
 		
 		private void mapProperties() {
@@ -722,24 +752,29 @@ public class EzySimpleBeanContext
 		private void loadPropertiesBeanClasses() {
 			for(Class<?> clazz : propertiesBeanAnnotatedClasses) {
 				EzyPropertiesBean ann = clazz.getAnnotation(EzyPropertiesBean.class);
-				propertiesBeanClasses.put(ann.prefix(), ann.value());
+				Class<?> beanClass = ann.value();
+				if(beanClass == Object.class)
+					beanClass = clazz;
+				propertiesBeanClass(ann.prefix(), beanClass);
 			}
 			
 			for(Class<?> clazz : propertiesBeansAnnotatedClasses) {
 				EzyPropertiesBeans anns = clazz.getAnnotation(EzyPropertiesBeans.class);
 				for(EzyPropertiesBean ann : anns.value())
-					propertiesBeanClasses.put(ann.prefix(), ann.value());
+					propertiesBeanClass(ann.prefix(), ann.value());
 			}
 		}
 		
 		private void addPropertiesBeans() {
 			for(String prefix : propertiesBeanClasses.keySet()) {
-				Class<?> propertiesBeanClass = propertiesBeanClasses.get(prefix);
-				Object propertiesBean = newPropertiesMapper()
-						.propertyPrefix(prefix)
-						.clazz(propertiesBeanClass)
-						.map();
-				addSingleton(EzyBeanNameParser.getBeanName(propertiesBeanClass), propertiesBean);
+				Set<Class<?>> propertiesBeanClassSet = propertiesBeanClasses.get(prefix);
+				for(Class<?> propertiesBeanClass : propertiesBeanClassSet) {
+					Object propertiesBean = newPropertiesMapper()
+							.propertyPrefix(prefix)
+							.clazz(propertiesBeanClass)
+							.map();
+					addSingleton(EzyBeanNameParser.getBeanName(propertiesBeanClass), propertiesBean);
+				}
 			}
 		}
 		

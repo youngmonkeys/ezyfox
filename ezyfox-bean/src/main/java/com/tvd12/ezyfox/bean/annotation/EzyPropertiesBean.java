@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE })
 public @interface EzyPropertiesBean {
 
-	Class<?> value();
+	Class<?> value() default Object.class;
 	
 	String prefix() default "";
 	

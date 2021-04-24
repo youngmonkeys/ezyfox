@@ -18,6 +18,8 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
+import com.tvd12.ezyfox.bean.testing.combine.pack0.ApplicationProperties0;
+import com.tvd12.ezyfox.bean.testing.combine.pack0.PropertiesPack0;
 import com.tvd12.ezyfox.bean.testing.combine.pack0.PropertiesPack1;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.ClassA1;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.ClassB1;
@@ -86,6 +88,7 @@ public class CombineTest {
 						return V111Prototype04.class;
 					}
 				}))
+				.addProperty(EzyBeanContext.ACTIVE_PROFILES_KEY, "alpha")
 				.addProperties("v111_props3.properties")
 				.addProperties(new File("test-data/v111_props1.properties"))
 				.addProperties(new FileInputStream(new File("test-data/v111_props2.properties")))
@@ -167,8 +170,15 @@ public class CombineTest {
 		assert propertiesCombine.getHello().equals("world");
 		assert propertiesCombine.getPack1().getHello1().equals("world1");
 		
+		PropertiesPack0 propertiesPack0 = context.getSingleton(PropertiesPack0.class);
+		assert propertiesPack0.getHello1().equals("world1");
 		PropertiesPack1 propertiesPack1 = context.getSingleton(PropertiesPack1.class);
 		assert propertiesPack1.getHello1().equals("world1");
+		ApplicationProperties0 applicationProperties0 = context.getSingleton(ApplicationProperties0.class);
+		assert applicationProperties0.getHello().equals("world");
+		assert applicationProperties0.getServer().equals("1.1.1.1");
+		assert applicationProperties0.getFoo().equals("bar");
+		assert applicationProperties0.getPort() == 3006;
 		
 		Singleton20 singleton20 = context.getSingleton(Singleton20.class);
 		assert singleton20.getSgt10() != null;
