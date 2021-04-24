@@ -2,14 +2,17 @@ package com.tvd12.ezyfox.testing.io;
 
 import static org.testng.Assert.assertEquals;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.io.EzyDates;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyDatesTest extends BaseTest {
@@ -74,6 +77,72 @@ public class EzyDatesTest extends BaseTest {
 	public void test5() {
 		int value = EzyDates.formatAsInteger(new Date());
 		System.out.println(value);
+	}
+	
+	@Test
+	public void localDateToInstantTest() {
+		// given
+		LocalDate now = LocalDate.now();
+		
+		// when
+		Instant actual = EzyDates.toInstant(now);
+		
+		// then
+		Instant expected = now
+				.atStartOfDay()
+				.atZone(ZoneId.systemDefault())
+				.toInstant();
+		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void localDateTimeToInstantTest() {
+		// given
+		LocalDateTime now = LocalDateTime.now();
+		
+		// when
+		Instant actual = EzyDates.toInstant(now);
+		
+		// then
+		Instant expected = now
+				.atZone(ZoneId.systemDefault())
+				.toInstant();
+		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void localDateToDateTest() {
+		// given
+		LocalDate now = LocalDate.now();
+		
+		// when
+		Date actual = EzyDates.toDate(now);
+		
+		// then
+		Date expected = Date.from(
+				now
+				.atStartOfDay()
+				.atZone(ZoneId.systemDefault())
+				.toInstant()
+		);
+		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void localDateTimeToDateTest() {
+		// given
+		LocalDateTime now = LocalDateTime.now();
+		
+		// when
+		Date actual = EzyDates.toDate(now);
+		
+		// then
+		Date expected = Date.from(
+				now
+				.atZone(ZoneId.systemDefault())
+				.toInstant()
+		);
+		Asserts.assertEquals(expected, actual);
 	}
 	
 	@Override

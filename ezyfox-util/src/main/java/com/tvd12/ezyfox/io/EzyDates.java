@@ -62,6 +62,38 @@ public final class EzyDates {
 	public static DateTimeFormatter getDateTimeFormatter(String pattern) {
 		return DateTimeFormatter.ofPattern(pattern);
 	}
+	
+	public static Instant toInstant(LocalDate localDate) {
+		return toInstant(localDate, ZoneId.systemDefault());
+	}
+	
+	public static Instant toInstant(LocalDate localDate, ZoneId zoneId) {
+		return localDate.atStartOfDay().atZone(zoneId).toInstant();
+	}
+	
+	public static Instant toInstant(LocalDateTime localDateTime) {
+		return toInstant(localDateTime, ZoneId.systemDefault());
+	}
+	
+	public static Instant toInstant(LocalDateTime localDateTime, ZoneId zoneId) {
+	    return localDateTime.atZone(zoneId).toInstant();
+	}
+	
+	public static Date toDate(LocalDate localDate) {
+		return toDate(localDate, ZoneId.systemDefault());
+	}
+	
+	public static Date toDate(LocalDate localDate, ZoneId zoneId) {
+		return Date.from(toInstant(localDate, zoneId));
+	}
+	
+	public static Date toDate(LocalDateTime localDateTime) {
+		return toDate(localDateTime, ZoneId.systemDefault());
+	}
+	
+	public static Date toDate(LocalDateTime localDateTime, ZoneId zoneId) {
+		return Date.from(toInstant(localDateTime, zoneId));
+	}
 	//=================================
 	
 	
