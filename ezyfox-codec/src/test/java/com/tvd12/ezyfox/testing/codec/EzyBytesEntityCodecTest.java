@@ -6,6 +6,8 @@ import com.tvd12.ezyfox.codec.EzyBytesEntityCodec;
 import com.tvd12.ezyfox.codec.EzyEntityCodec;
 import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
 import com.tvd12.ezyfox.codec.EzyMessageSerializer;
+import com.tvd12.test.assertion.Asserts;
+
 import static org.mockito.Mockito.*;
 
 import org.mockito.invocation.InvocationOnMock;
@@ -31,6 +33,25 @@ public class EzyBytesEntityCodecTest {
 		String hello = "hello";
 		assert new String(codec.serialize(hello)).equals(hello);
 		assert codec.deserialize("abc".getBytes(), String.class).equals("abc");
+		
+		Asserts.assertNull(codec.deserialize(null, Object.class));
+	}
+	
+	@Test
+	public void serializeNull() {
+		// given
+		EzyMessageSerializer messageSerializer = mock(EzyMessageSerializer.class);
+		when(messageSerializer.serialize(null)).thenReturn(new byte[0]);
+		
+		EzyEntityCodec codec = ExEzyBytesEntityCodec.builder()
+				.messageSerializer(messageSerializer)
+				.build();
+		
+		// when
+		byte[] actual = codec.serialize(null);
+		
+		// then
+		Asserts.assertEquals(new byte[0], actual);
 	}
 	
 	public static class ExEzyBytesEntityCodec extends EzyBytesEntityCodec {

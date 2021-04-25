@@ -23,6 +23,8 @@ public abstract class EzyBytesEntityCodec implements EzyEntityCodec {
 
 	@Override
 	public <T> T deserialize(byte[] data, Class<T> entityType) {
+		if(data == null)
+			return null;
 		Object value = messageDeserializer.deserialize(data);
 		T entity = unmarshalValue(value, entityType);
 		return entity;
