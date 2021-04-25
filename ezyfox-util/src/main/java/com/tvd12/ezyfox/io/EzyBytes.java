@@ -92,4 +92,25 @@ public final class EzyBytes {
 		return bytes;
 	}
 	
+	public static byte[] numberToBytes(long number) {
+		if(number >= 0) {
+			if(number <= Byte.MAX_VALUE)
+				return new byte[] { (byte)number };
+			if(number <= Short.MAX_VALUE)
+				return getBytes((short)number);
+			if(number <= Integer.MAX_VALUE)
+				return getBytes((int)number);
+			return getBytes(number);
+		}
+		else {
+			if(number < Integer.MIN_VALUE)
+				return getBytes(number);
+			if(number < Short.MIN_VALUE)
+				return getBytes((int)number);
+			if(number < Byte.MIN_VALUE)
+				return getBytes((short)number);
+			return new byte[] { (byte)number };
+		}
+	}
+	
 }

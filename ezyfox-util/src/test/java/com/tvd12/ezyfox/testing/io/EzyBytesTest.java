@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.io.EzyBytes;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
 
@@ -57,6 +58,42 @@ public class EzyBytesTest extends BaseTest {
 				})
 				.getTime();
 		System.out.println("mergePerformaceTest.time1 = " + time1);
+	}
+	
+	@Test
+	public void positiveNumberToBytesTest() {
+		Asserts.assertEquals(new byte[] {100}, EzyBytes.numberToBytes(100));
+		Asserts.assertEquals(new byte[] {Byte.MAX_VALUE}, EzyBytes.numberToBytes(Byte.MAX_VALUE));
+		Asserts.assertThat(ByteBuffer.allocate(2).putShort((short)12345).array())
+			.isEqualsTo(EzyBytes.numberToBytes(12345));
+		Asserts.assertThat(ByteBuffer.allocate(2).putShort(Short.MAX_VALUE).array())
+			.isEqualsTo(EzyBytes.numberToBytes(Short.MAX_VALUE));
+		Asserts.assertThat(ByteBuffer.allocate(4).putInt(12345678).array())
+			.isEqualsTo(EzyBytes.numberToBytes(12345678));
+		Asserts.assertThat(ByteBuffer.allocate(4).putInt(Integer.MAX_VALUE).array())
+			.isEqualsTo(EzyBytes.numberToBytes(Integer.MAX_VALUE));
+		Asserts.assertThat(ByteBuffer.allocate(8).putLong((long)Integer.MAX_VALUE + 1L).array())
+			.isEqualsTo(EzyBytes.numberToBytes((long)Integer.MAX_VALUE + 1L));
+		Asserts.assertThat(ByteBuffer.allocate(8).putLong(Long.MAX_VALUE).array())
+			.isEqualsTo(EzyBytes.numberToBytes(Long.MAX_VALUE));
+	}
+	
+	@Test
+	public void negativeNumberToBytesTest() {
+		Asserts.assertEquals(new byte[] {-100}, EzyBytes.numberToBytes(-100));
+		Asserts.assertEquals(new byte[] {Byte.MIN_VALUE}, EzyBytes.numberToBytes(Byte.MIN_VALUE));
+		Asserts.assertThat(ByteBuffer.allocate(2).putShort((short)(-12345)).array())
+			.isEqualsTo(EzyBytes.numberToBytes(-12345));
+		Asserts.assertThat(ByteBuffer.allocate(2).putShort(Short.MIN_VALUE).array())
+			.isEqualsTo(EzyBytes.numberToBytes(Short.MIN_VALUE));
+		Asserts.assertThat(ByteBuffer.allocate(4).putInt(-12345678).array())
+			.isEqualsTo(EzyBytes.numberToBytes(-12345678));
+		Asserts.assertThat(ByteBuffer.allocate(4).putInt(Integer.MIN_VALUE).array())
+			.isEqualsTo(EzyBytes.numberToBytes(Integer.MIN_VALUE));
+		Asserts.assertThat(ByteBuffer.allocate(8).putLong((long)Integer.MIN_VALUE - 1L).array())
+			.isEqualsTo(EzyBytes.numberToBytes((long)Integer.MIN_VALUE - 1L));
+		Asserts.assertThat(ByteBuffer.allocate(8).putLong(Long.MIN_VALUE).array())
+			.isEqualsTo(EzyBytes.numberToBytes(Long.MIN_VALUE));
 	}
 	
 	@Override
