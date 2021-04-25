@@ -3,7 +3,12 @@ package com.tvd12.ezyfox.codec.testing;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -29,6 +34,11 @@ public class JacksonSimpleSerializer3Test {
 				.append("a", new BigInteger("123"))
 				.append("b", new BigDecimal("45.6"))
 				.append("c", UUID.randomUUID())
+				.append("d", new Date())
+				.append("e", LocalDate.now())
+				.append("f", LocalTime.now())
+				.append("g", LocalDateTime.now())
+				.append("h", Instant.now())
 				.build();
 		System.out.println("string: " + serializer.serialize(object, String.class));
 		System.out.println("buffer: " + serializer.serialize(object, ByteBuffer.class));
