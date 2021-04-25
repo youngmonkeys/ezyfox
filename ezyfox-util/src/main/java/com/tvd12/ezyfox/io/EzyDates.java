@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -12,7 +13,10 @@ import java.util.Date;
 
 public final class EzyDates {
 
-	private static final DateTimeFormatter DATE_TIME_FORMATTER
+	public static final String DATE_PATTERN = "yyyy-MM-dd";
+	public static final String TIME_PATTERN = "HH:mm:ss:SSS";
+	public static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss:SSS";
+	public static final DateTimeFormatter DATE_TIME_FORMATTER
 			= getDateTimeFormatter(getPattern());
 	
 	private EzyDates() {
@@ -32,7 +36,7 @@ public final class EzyDates {
 	}
 	
 	public static LocalDate parseDate(String source) {
-		return parseDate(source, getDateTimeFormatter());
+		return parseDate(source, DATE_PATTERN);
 	}
 	
 	public static LocalDate parseDate(String source, String pattern) {
@@ -41,6 +45,18 @@ public final class EzyDates {
 	
 	public static LocalDate parseDate(String source, DateTimeFormatter formatter) {
 		return LocalDate.parse(source, formatter);
+	}
+	
+	public static LocalTime parseTime(String source) {
+		return parseTime(source, TIME_PATTERN);
+	}
+	
+	public static LocalTime parseTime(String source, String pattern) {
+		return parseTime(source, getDateTimeFormatter(pattern));
+	}
+	
+	public static LocalTime parseTime(String source, DateTimeFormatter formatter) {
+		return LocalTime.parse(source, formatter);
 	}
 	
 	public static LocalDateTime parseDateTime(String source) {
@@ -133,7 +149,7 @@ public final class EzyDates {
 	}
 	
 	public static String getPattern() {
-		return "yyyy-MM-dd'T'HH:mm:ss:SSS";
+		return DATE_TIME_PATTERN;
 	}
 	
 	// =========================================

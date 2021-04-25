@@ -5,6 +5,7 @@ import static org.testng.Assert.assertEquals;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class EzyDatesTest extends BaseTest {
 				"yyyy-MM-dd'T'HH:mm:ss"), 
 				"2017-05-30T12:34:56");
 		assertEquals(EzyDates.format((TemporalAccessor)null), null);
-		assertEquals(EzyDates.parseDate("2017-05-30T12:34:56:000"), 
+		assertEquals(EzyDates.parseDate("2017-05-30"), 
 				LocalDate.of(2017, 05, 30));
 		assertEquals(EzyDates.parseDate("2017-05-30", "yyyy-MM-dd"), 
 				LocalDate.of(2017, 05, 30));
@@ -44,6 +45,12 @@ public class EzyDatesTest extends BaseTest {
 				LocalDateTime.of(2017, 05, 30, 12, 34, 56, 0));
 		Date now = new Date();
 		EzyDates.format(now.getTime()).equals(EzyDates.format(now));
+		
+		assertEquals(EzyDates.parseDate("2017-05-30"), 
+				LocalDate.of(2017, 05, 30));
+		
+		assertEquals(EzyDates.parseTime("01:01:01:001"), 
+				LocalTime.of(1, 1, 1, 1000000));
 	}
 	
 	@Test
