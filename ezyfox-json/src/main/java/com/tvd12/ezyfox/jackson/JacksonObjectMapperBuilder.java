@@ -1,5 +1,11 @@
 package com.tvd12.ezyfox.jackson;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
+
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -33,6 +39,11 @@ public class JacksonObjectMapperBuilder implements EzyBuilder<ObjectMapper> {
 		module.addSerializer(EzyRoObject.class, objectSerializer);
 		module.addSerializer(EzyObject.class, objectSerializer);
 		module.addSerializer(EzyHashMap.class, objectSerializer);
+		module.addSerializer(Date.class, new JacksonDateSerializer());
+		module.addSerializer(Instant.class, new JacksonInstantSerializer());
+		module.addSerializer(LocalDate.class, new JacksonLocalDateSerializer());
+		module.addSerializer(LocalTime.class, new JacksonLocalTimeSerializer());
+		module.addSerializer(LocalDateTime.class, new JacksonLocalDateTimeSerializer());
 		return module;
 	}
 	
