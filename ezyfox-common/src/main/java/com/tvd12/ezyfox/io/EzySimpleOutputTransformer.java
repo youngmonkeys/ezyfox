@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -359,7 +360,7 @@ public class EzySimpleOutputTransformer
 				try {
 					return EzyDates.parse(value);
 				} catch (Exception e) {
-					logger.info("value: {} is invalid", value, e);
+					logger.info("Date value: {} is invalid", value, e);
 				}
 				return null;
 			}
@@ -369,9 +370,21 @@ public class EzySimpleOutputTransformer
 			@Override
 			public Object transform(String value) {
 				try {
-					return EzyDates.parseDate(value, "yyyy-MM-dd");
+					return EzyDates.parseDate(value);
 				} catch (Exception e) {
-					logger.info("value: {} is invalid", value, e);
+					logger.info("LocalDate value: {} is invalid", value, e);
+				}
+				return null;
+			}
+		});
+		
+		answer.put(LocalTime.class, new EzyToObject<String>() {
+			@Override
+			public Object transform(String value) {
+				try {
+					return EzyDates.parseTime(value);
+				} catch (Exception e) {
+					logger.info("LocalTime value: {} is invalid", value, e);
 				}
 				return null;
 			}
@@ -383,7 +396,7 @@ public class EzySimpleOutputTransformer
 				try {
 					return EzyDates.parseDateTime(value);
 				} catch (Exception e) {
-					logger.info("value : {} is invalid", value, e);
+					logger.info("LocalDateTime value : {} is invalid", value, e);
 				}
 				return null;
 			}
@@ -396,7 +409,7 @@ public class EzySimpleOutputTransformer
 				try {
 					return EzyClasses.getClass(value);
 				} catch (Exception e) {
-					logger.info("value: {} is invalid", value, e);
+					logger.info("Class value: {} is invalid", value, e);
 				}
 				return null;
 			}

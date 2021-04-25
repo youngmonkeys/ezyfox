@@ -7,6 +7,7 @@ import static com.tvd12.ezyfox.io.EzyDataConverter.toPrimitiveByteArray;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -397,7 +398,14 @@ public class EzySimpleInputTransformer
 		answer.put(LocalDate.class, new EzyToObject<LocalDate>() {
 			@Override
 			public Object transform(LocalDate value) {
-				return EzyDates.format(value, "yyyy-MM-dd");
+				return EzyDates.format(value, EzyDates.DATE_PATTERN);
+			}
+		});
+		
+		answer.put(LocalTime.class, new EzyToObject<LocalTime>() {
+			@Override
+			public Object transform(LocalTime value) {
+				return EzyDates.format(value, EzyDates.TIME_PATTERN);
 			}
 		});
 		

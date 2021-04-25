@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.testing.entity;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -13,6 +14,8 @@ import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.entity.EzyHashMap;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
+import com.tvd12.test.assertion.Asserts;
+import com.tvd12.test.util.RandomUtil;
 
 import static org.testng.Assert.*;
 
@@ -76,6 +79,10 @@ public class EzyObject1Test extends EzyEntityTest {
 		
 		EzyObject newObject = EzyEntityFactory.newObject();
 		assert newObject.firstEntry() == null;
+		
+		LocalTime localTime = RandomUtil.randomLocalTime();
+		newObject.put("localTime", localTime);
+		Asserts.assertEquals(localTime, newObject.get("localTime", LocalTime.class));
 	}
 	
 	@Test(expectedExceptions = IllegalStateException.class)
@@ -177,5 +184,12 @@ public class EzyObject1Test extends EzyEntityTest {
 						.append(1, 2, 3))
 				.build();	
 		assert y.compareTo(z) == 0;
+	}
+	
+	@Test
+	public void putGetLocalTimeError() {
+		EzyObject newObject = EzyEntityFactory.newObject();
+		newObject.put("localTime", "123456");
+		Asserts.assertNull(newObject.get("localTime", LocalTime.class));
 	}
 }
