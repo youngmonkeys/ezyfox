@@ -133,10 +133,14 @@ public class EzySimpleSingletonFactory
 	}
 	
 	@Override
-	public List getSingletons(Class annotationClass) {
-		return getSingletons(o ->
-			o.getClass().isAnnotationPresent(annotationClass)
-		);
+	public List getSingletons(Class... annotationClasses) {
+		return getSingletons(o -> {
+			for(Class annotationClass : annotationClasses) {
+				if(o.getClass().isAnnotationPresent(annotationClass))
+					return true;
+			}
+			return false;
+		});
 	}
 	
 	@Override

@@ -19,7 +19,7 @@ public interface EzyPrototypeFactory {
 	
 	List<EzyPrototypeSupplier> getSuppliers(Map properties);
 	
-	List<EzyPrototypeSupplier> getSuppliers(Class annotationClass);
+	List<EzyPrototypeSupplier> getSuppliers(Class... annotationClasses);
 	
 	List<EzyPrototypeSupplier> getSuppliers(Predicate<EzyPrototypeSupplier> filter);
 	

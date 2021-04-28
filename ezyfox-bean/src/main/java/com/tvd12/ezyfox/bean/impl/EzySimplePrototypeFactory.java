@@ -85,10 +85,14 @@ public class EzySimplePrototypeFactory
 	}
 	
 	@Override
-	public List<EzyPrototypeSupplier> getSuppliers(Class annotationClass) {
-		return getSuppliers(s ->
-			s.getObjectType().isAnnotationPresent(annotationClass)
-		);
+	public List<EzyPrototypeSupplier> getSuppliers(Class... annotationClasses) {
+		return getSuppliers(s -> {
+			for(Class annotationClass : annotationClasses) {
+				if(s.getObjectType().isAnnotationPresent(annotationClass))
+					return true;
+			}
+			return false;
+		});
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ public interface EzySingletonFactory {
 	
 	List getSingletons(Map properties);
 	
-	List getSingletons(Class annotationClass);
+	List getSingletons(Class... annotationClass);
 
 	List getSingletons(Predicate filter);
 	
