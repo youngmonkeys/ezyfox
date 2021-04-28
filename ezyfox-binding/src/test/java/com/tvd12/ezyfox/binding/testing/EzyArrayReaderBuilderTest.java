@@ -50,6 +50,7 @@ public class EzyArrayReaderBuilderTest extends BaseTest {
 		EzyArrayReaderBuilder.setDebug(true);
 		EzyBindingContext bindingContext = EzyBindingContext.builder()
 				.addClass(ClassE.class)
+				.addClass(AbstractClassA.class)
 				.build();
 
 		// when
@@ -61,6 +62,8 @@ public class EzyArrayReaderBuilderTest extends BaseTest {
 		assert classE.name.equals("name");
 		
 	}
+	
+	public static abstract class AbstractClassA {}
 
 	@SuppressWarnings("rawtypes")
 	public static class ClassA {

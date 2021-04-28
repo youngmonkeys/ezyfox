@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.binding.impl;
 
+import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -163,6 +164,8 @@ public class EzySimpleBindingContext
 		@Override
 		@SuppressWarnings("unchecked")
 		public EzyBindingContextBuilder addClass(Class clazz) {
+			if(Modifier.isAbstract(clazz.getModifiers()))
+				return this;
 			if(clazz.isAnnotationPresent(EzyArrayBinding.class))
 				arrayBindingClasses.add(clazz);
 			else
