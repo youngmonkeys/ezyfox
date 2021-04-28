@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzyStrings;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 import lombok.AllArgsConstructor;
@@ -83,6 +84,76 @@ public class EzyStringsTest extends BaseTest {
 		System.out.println(EzyStrings.join(c1, ","));
 		Collection<?> c2 = Lists.newArrayList("a", "b");
 		System.out.println(EzyStrings.join(c2, ","));
+	}
+	
+	@Test
+	public void replaceOkTest() {
+		// given
+		String queryString = "select e from E e where id = ?0 and name = ?1";
+		Object params[] = new Object[] {1, "'monkey'"};
+		
+		// when
+		String actual = EzyStrings.replace(queryString, params);
+		
+		// then
+		String expected = "select e from E e where id = 1 and name = 'monkey'";
+		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void replaceOkEndWithQuestionChar() {
+		// given
+		String queryString = "select e from E e where id = ?0 and name = ?";
+		Object params[] = new Object[] {1, "'monkey'"};
+		
+		// when
+		String actual = EzyStrings.replace(queryString, params);
+		
+		// then
+		String expected = "select e from E e where id = 1 and name = ?";
+		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void replaceOkDoubleQuestionChar() {
+		// given
+		String queryString = "select e from E e where id = ??0 and name = ??";
+		Object params[] = new Object[] {1, "'monkey'"};
+		
+		// when
+		String actual = EzyStrings.replace(queryString, params);
+		
+		// then
+		String expected = "select e from E e where id = ?1 and name = ??";
+		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void replaceOkWithDuplicateParams() {
+		// given
+		String queryString = "select e from E e where id = ?0 or id = ?0 and name = ?1";
+		Object params[] = new Object[] {1, "'monkey'"};
+		
+		// when
+		String actual = EzyStrings.replace(queryString, params);
+		
+		// then
+		String expected = "select e from E e where id = 1 or id = 1 and name = 'monkey'";
+		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void replaceFailedWithMissingParam() {
+		// given
+		String queryString = "select e from E e where id = ?0 or id = ?0 and name = ?2";
+		Object params[] = new Object[] {1, "'monkey'"};
+		
+		// when
+		// then
+		Asserts.assertThat(() ->
+			EzyStrings.replace(queryString, params)
+		)
+		.testException(it -> it.getClass().equals(IllegalArgumentException.class));
 	}
 	
 	@Override

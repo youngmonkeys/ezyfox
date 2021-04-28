@@ -177,4 +177,43 @@ public final class EzyStrings {
 		return toDotCase(original).replace(DOT.getSign(), UNDERSCORE.getSign());
 	}
 	
+	public static String replace(String query, Object[] parameters) {
+        final int paramCount = parameters.length;
+        final int length = query.length();
+        final StringBuilder builder = new StringBuilder();
+        for(int i = 0 ; i < length ; ) {
+            char ch = query.charAt(i ++);
+            if(i < length && ch == '?') {
+                int numberCharCount = 0;
+                final int startParamIndex = i;
+                ch = query.charAt(i);
+                while(ch >= '0' && ch <= '9') {
+                	++ numberCharCount;
+                    if (++ i >= length) {
+                        break;
+                    }
+                    ch = query.charAt(i);
+                }
+                if(numberCharCount > 0) {
+                    final char[] numberChars = new char[numberCharCount];
+                    final int endParamIndex = startParamIndex + numberCharCount;
+                    query.getChars(startParamIndex, endParamIndex, numberChars, 0);
+                    final int paramIndex = Integer.parseInt(new String(numberChars));
+                    if (paramIndex >= paramCount) {
+                        throw new IllegalArgumentException("invalid query: " + query + ", not enough parameter values, required: " + paramIndex);
+                    }
+                    builder.append(parameters[paramIndex]);
+                    continue;
+                }
+                else {
+                    builder.append('?');
+                }
+            }
+            else {
+                builder.append(ch);
+            }
+        }
+        return builder.toString();
+    }
+	
 }
