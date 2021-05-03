@@ -245,14 +245,14 @@ public class MsgPackSimpleDerSerTest {
 	@Test
 	public void serializeNegateByte() {
 		// given
-		byte number = (byte)RandomUtil.randomInt(Byte.MIN_VALUE, 0);
+		byte number = (byte)RandomUtil.randomInt(Byte.MIN_VALUE, (int)MsgPackConstant.MIN_NEGATIVE_FIXINT);
 		
 		// when
 		byte[] bytes = ser.serialize(number);
 		int actual = der.deserialize(bytes);
 		
 		//then
-		assert bytes.length == 2;
+		Asserts.assertEquals(2, bytes.length);
 		assert actual == number;
 		ByteBuffer buffer = ByteBuffer.allocate(2);
 		buffer.put((byte)0xd0);
