@@ -5,6 +5,7 @@
 		<packages>
 			<package name="com.tvd12.ezyfox.message.testing"></package>
 			<package name="com.tvd12.ezyfox.message.testing.handler"></package>
+			<package name="com.tvd12.ezyfox.message.testing.util"></package>
 		</packages>
 	</test>
 </suite>
