@@ -4,6 +4,7 @@
 	<test name="All">
 		<packages>
 			<package name="com.tvd12.ezyfox.data.testing"></package>
+			<package name="com.tvd12.ezyfox.data.testing.util"></package>
 		</packages>
 	</test>
 </suite>
