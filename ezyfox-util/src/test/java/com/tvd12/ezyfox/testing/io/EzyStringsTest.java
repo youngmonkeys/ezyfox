@@ -101,6 +101,20 @@ public class EzyStringsTest extends BaseTest {
 	}
 	
 	@Test
+	public void replaceOkWithConverterTest() {
+		// given
+		String queryString = "select e from E e where id = ?0 and name = ?1";
+		Object params[] = new Object[] {1, "'monkey'"};
+		
+		// when
+		String actual = EzyStrings.replace(queryString, params, it -> it);
+		
+		// then
+		String expected = "select e from E e where id = 1 and name = 'monkey'";
+		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
 	public void replaceOkEndWithQuestionChar() {
 		// given
 		String queryString = "select e from E e where id = ?0 and name = ?";

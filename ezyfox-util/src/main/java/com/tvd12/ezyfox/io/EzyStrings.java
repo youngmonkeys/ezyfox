@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -178,6 +179,14 @@ public final class EzyStrings {
 	}
 	
 	public static String replace(String query, Object[] parameters) {
+		return replace(query, parameters, null);
+	}
+	
+	public static String replace(
+			String query, 
+			Object[] parameters, 
+			Function<Object, Object> parameterConveter
+	) {
         final int paramCount = parameters.length;
         final int length = query.length();
         final StringBuilder builder = new StringBuilder();
@@ -202,7 +211,7 @@ public final class EzyStrings {
                     if (paramIndex >= paramCount) {
                         throw new IllegalArgumentException("invalid query: " + query + ", not enough parameter values, required: " + paramIndex);
                     }
-                    builder.append(parameters[paramIndex]);
+                    builder.append(getParameterValue(parameters[paramIndex], parameterConveter));
                     continue;
                 }
                 else {
@@ -216,4 +225,10 @@ public final class EzyStrings {
         return builder.toString();
     }
 	
+	private static Object getParameterValue(Object parameter, Function<Object, Object> parameterConveter) {
+		Object value = parameter;
+		if(parameterConveter != null)
+			value = parameterConveter.apply(parameter);
+		return value;
+	}
 }
