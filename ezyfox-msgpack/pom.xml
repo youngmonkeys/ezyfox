@@ -25,6 +25,12 @@
 		    <artifactId>msgpack</artifactId>
 		    <version>${msgpack.version}</version>
 		    <scope>test</scope>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>org.javassist</groupId>
+		    		<artifactId>javassist</artifactId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
 	</dependencies>
 </project>
