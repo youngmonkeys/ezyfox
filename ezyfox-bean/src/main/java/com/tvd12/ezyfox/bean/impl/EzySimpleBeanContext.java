@@ -222,6 +222,7 @@ public class EzySimpleBeanContext
 	}
 
 	public static class Builder extends EzyLoggable implements EzyBeanContextBuilder {
+		@Getter
 		protected Properties properties;
 		protected Set<Class> singletonClasses;
 		protected Set<Class> prototypeClasses;
@@ -538,8 +539,7 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addProperties(String file) {
-			Properties props = new MultiFileReader().read(file);
-			return addProperties(props);
+			return addProperties(file, getActiveProfiles());
 		}
 		
 		@Override
@@ -554,8 +554,7 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addProperties(File file) {
-			Properties props = new MultiFileReader().read(file);
-			return addProperties(props);
+			return addProperties(file, getActiveProfiles());
 		}
 		
 		@Override
@@ -649,15 +648,20 @@ public class EzySimpleBeanContext
 		}
 		
 		private void readDefaultPropertiesFiles() {
-			String activeProfiles = properties.getProperty(ACTIVE_PROFILES_KEY);
-			if(EzyStrings.isNoContent(activeProfiles))
-				activeProfiles = properties.getProperty(EZYFOX_ACTIVE_PROFILES_KEY);
+			String activeProfiles = getActiveProfiles();
 			Properties props = new Properties();
 			FileReader fileReader = new MultiFileReader(activeProfiles);
 			props.putAll(fileReader.read("application.properties"));
 			props.putAll(fileReader.read("application.yaml"));
 			for(Object key : props.keySet())
 				properties.putIfAbsent(key, props.get(key));
+		}
+		
+		private String getActiveProfiles() {
+			String activeProfiles = properties.getProperty(ACTIVE_PROFILES_KEY);
+			if(EzyStrings.isNoContent(activeProfiles))
+				activeProfiles = properties.getProperty(EZYFOX_ACTIVE_PROFILES_KEY);
+			return activeProfiles;
 		}
 		
 		private void mapProperties() {

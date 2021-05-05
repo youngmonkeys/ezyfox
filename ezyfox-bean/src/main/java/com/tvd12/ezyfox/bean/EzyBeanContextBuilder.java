@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Properties;
 
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 
 @SuppressWarnings("rawtypes")
 public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
+	
+	Properties getProperties();
 
 	EzyBeanContextBuilder scan(String packageName);
 

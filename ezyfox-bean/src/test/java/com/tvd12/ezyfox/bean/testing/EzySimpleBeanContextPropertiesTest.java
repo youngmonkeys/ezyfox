@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
+import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.test.assertion.Asserts;
 
 public class EzySimpleBeanContextPropertiesTest {
@@ -14,10 +15,11 @@ public class EzySimpleBeanContextPropertiesTest {
 	public void classpathPropertiesFile() {
 		System.setProperty(EzyBeanContext.EZYFOX_ACTIVE_PROFILES_KEY, "");
 		System.setProperty(EzyBeanContext.ACTIVE_PROFILES_KEY, "alpha");
-		EzyBeanContext beanContext = EzyBeanContext.builder()
+		EzyBeanContextBuilder beanContextBuilder = EzyBeanContext.builder()
 				.addProperties("config/config.properties", "alpha")
-				.addProperties("config/config.yaml", "alpha")
-				.build();
+				.addProperties("config/config.yaml", "alpha");
+		Asserts.assertTrue(beanContextBuilder.getProperties().size() > 0);
+		EzyBeanContext beanContext = beanContextBuilder.build();
 		Properties properties = beanContext.getProperties();
 		Asserts.assertEquals("ezyfox", properties.getProperty("username"));
 		Asserts.assertEquals("Going", properties.getProperty("nick"));

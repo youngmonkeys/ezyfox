@@ -1,8 +1,8 @@
 mvn clean install -Dmaven.test.skip=true
 mvn clean install -Dmaven.test.skip=true -f ezyfox-versions
 mvn clean install -Dmaven.test.skip=true -f ezyfox-util
-mvn clean install -Dmaven.test.skip=true -f ezyfox-tools
 mvn clean install -Dmaven.test.skip=true -f ezyfox-io
+mvn clean install -Dmaven.test.skip=true -f ezyfox-tools
 mvn clean install -Dmaven.test.skip=true -f ezyfox-concurrent
 mvn clean install -Dmaven.test.skip=true -f ezyfox-security
 mvn clean install -Dmaven.test.skip=true -f ezyfox-common
