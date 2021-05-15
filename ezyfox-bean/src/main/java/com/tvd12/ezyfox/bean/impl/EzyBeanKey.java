@@ -34,7 +34,8 @@ public class EzyBeanKey implements Serializable {
 	@Override
 	public int hashCode() {
 		return new EzyHashCodes()
-				.append(name, type)
+				.append(name)
+				.append(type)
 				.toHashCode();
 	}
 	

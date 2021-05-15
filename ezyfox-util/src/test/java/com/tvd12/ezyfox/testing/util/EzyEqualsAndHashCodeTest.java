@@ -143,9 +143,8 @@ public class EzyEqualsAndHashCodeTest extends BaseTest {
 		@Override
 		public int hashCode() {
 			return new EzyHashCodes()
-					.initial(17)
-					.prime(37)
-					.append(id, name)
+					.append(id)
+					.append(name)
 					.append(value)
 					.append(object)
 					.toHashCode();

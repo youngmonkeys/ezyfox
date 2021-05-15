@@ -1,55 +1,27 @@
 package com.tvd12.ezyfox.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import com.tvd12.ezyfox.collect.Sets;
-import com.tvd12.ezyfox.util.EzyHashCodes;
-
 public class EzyHashCodes {
 
-	protected int prime = 31;
-	protected int initial = 1;
-	protected final List<Object> values;
+	protected int hashCode;
+	protected final int initial;
+	protected final int prime;
 	
 	public EzyHashCodes() {
-		this(1);
+		this(1, 31);
 	}
 	
-	public EzyHashCodes(int numberOfFields) {
-		this.values = new ArrayList<>(numberOfFields);
+	public EzyHashCodes(int initial, int prime) {
+		this.initial = initial;
+		this.prime = prime;
+		this.hashCode = initial;
 	}
 	
 	public int toHashCode() {
-		int result = initial;
-		for(Object value : values)
-			result = result * prime + (value == null ? 43 : value.hashCode());
-		return result;
-	}
-	
-	public EzyHashCodes prime(int prime) {
-		this.prime = prime;
-		return this;
-	}
-	
-	public EzyHashCodes initial(int initial) {
-		this.initial = initial;
-		return this;
+		return hashCode;
 	}
 	
 	public EzyHashCodes append(Object value) {
-		this.values.add(value);
-		return this;
-	}
-	
-	public EzyHashCodes append(Object... values) {
-		return append(Sets.newHashSet(values));
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public EzyHashCodes append(Collection values) {
-		this.values.addAll(values);
+		this.hashCode = hashCode * prime + (value == null ? 43 : value.hashCode());
 		return this;
 	}
 	
