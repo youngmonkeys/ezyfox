@@ -13,6 +13,8 @@ import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	
 	Properties getProperties();
+	
+	EzyBeanContextBuilder disableAutoConfiguration();
 
 	EzyBeanContextBuilder scan(String packageName);
 
