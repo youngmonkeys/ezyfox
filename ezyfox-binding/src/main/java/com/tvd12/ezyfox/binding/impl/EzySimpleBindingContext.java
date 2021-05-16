@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.tvd12.ezyfox.annotation.EzyPackagesToScan;
 import com.tvd12.ezyfox.binding.EzyBindingContext;
 import com.tvd12.ezyfox.binding.EzyBindingContextBuilder;
 import com.tvd12.ezyfox.binding.EzyMarshaller;
@@ -16,9 +17,9 @@ import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.EzyUnwrapper;
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
+import com.tvd12.ezyfox.binding.annotation.EzyBindingPackagesToScan;
 import com.tvd12.ezyfox.binding.annotation.EzyConfiguration;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
-import com.tvd12.ezyfox.binding.annotation.EzyPackagesScan;
 import com.tvd12.ezyfox.binding.annotation.EzyReaderImpl;
 import com.tvd12.ezyfox.binding.annotation.EzyTemplateImpl;
 import com.tvd12.ezyfox.binding.annotation.EzyWriterImpl;
@@ -346,7 +347,14 @@ public class EzySimpleBindingContext
 		}
 		
 		private void scanPackagesScanClass(Class<?> clazz) {
-			scan(clazz.getAnnotation(EzyPackagesScan.class).value());
+			EzyPackagesToScan packagesToScanAnno = 
+					clazz.getAnnotation(EzyPackagesToScan.class);
+			if(packagesToScanAnno != null)
+				scan(packagesToScanAnno.value());
+			EzyBindingPackagesToScan bindingPackagesToScanAnno = 
+					clazz.getAnnotation(EzyBindingPackagesToScan.class);
+			if(bindingPackagesToScanAnno != null)
+				scan(bindingPackagesToScanAnno.value());
 		}
 		
 		private void loadConfigurationClasses(EzyBindingContext context) {
@@ -414,7 +422,9 @@ public class EzySimpleBindingContext
 			addTemplateClasses(
 					reflection.getAnnotatedClasses(EzyTemplateImpl.class));
 			packagesScanClasses.addAll(
-					reflection.getAnnotatedClasses(EzyPackagesScan.class));
+					reflection.getAnnotatedClasses(EzyPackagesToScan.class));
+			packagesScanClasses.addAll(
+					reflection.getAnnotatedClasses(EzyBindingPackagesToScan.class));
 			configurationClasses.addAll(
 					reflection.getAnnotatedClasses(EzyConfiguration.class));
 		}
