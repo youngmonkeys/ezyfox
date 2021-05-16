@@ -1,7 +1,6 @@
 package com.tvd12.ezyfox.reflect;
 
 import java.lang.annotation.Annotation;
-import java.util.HashSet;
 import java.util.Set;
 
 import com.tvd12.reflections.Reflections;
@@ -41,15 +40,6 @@ public class EzyReflectionProxy implements EzyReflection {
 		return classes;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public Set<Class<?>> getAnnotatedClasses(Set<?> annotationClasses) {
-		Set<Class<?>> answer = new HashSet<>();
-		for(Object annotationClass : annotationClasses)
-			answer.addAll(getAnnotatedClasses((Class) annotationClass));
-		return answer;
-	}
-
 	@Override
 	public Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annClass) {
 		Set<Class<?>> classes = reflections.getTypesAnnotatedWith(annClass);
