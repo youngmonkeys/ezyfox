@@ -14,28 +14,26 @@ import com.tvd12.ezyfox.function.EzyBytesFunction;
 
 public class EzyAsyCrypt {
 
-	protected Cipher cipher;
-	protected byte[] publicKey;
-	protected byte[] privateKey;
-	protected KeyFactory keyFactory;
+	protected final Cipher cipher;
+	protected final byte[] publicKey;
+	protected final byte[] privateKey;
+	protected final KeyFactory keyFactory;
+	
+	public static final String DEFAULT_ALGORITHM = "RSA";
 	
 	@SuppressWarnings("rawtypes")
 	protected static final Map<Class, EzyBytesFunction> BYTES_CONVERTERS = defaultBytesConverters();
 	
 	protected EzyAsyCrypt(Builder<?> builder) {
 		try {
-			init(builder);
+			this.cipher = builder.newCipher();
+			this.publicKey = builder.getPublicKey();
+			this.privateKey = builder.getPrivateKey();
+			this.keyFactory = builder.newKeyFactory();
 		}
 		catch(Exception e) {
 			throw new IllegalStateException("init asymmetric encryption error", e);
 		}
-	}
-	
-	protected void init(Builder<?> builder) throws Exception {
-		this.cipher = builder.newCipher();
-		this.publicKey = builder.getPublicKey();
-		this.privateKey = builder.getPrivateKey();
-		this.keyFactory = builder.newKeyFactory();
 	}
 	
 	public byte[] encrypt(byte[] data) throws Exception {
@@ -119,9 +117,9 @@ public class EzyAsyCrypt {
 	@SuppressWarnings("unchecked")
 	public static class Builder<B extends Builder<B>> {
 		
-		protected String algorithm;
 		protected byte[] publicKey;
 		protected byte[] privateKey;
+		protected String algorithm = DEFAULT_ALGORITHM;
 		
 		public B algorithm(String algorithm) {
 			this.algorithm = algorithm;
