@@ -685,6 +685,7 @@ public class EzySimpleBeanContext
 			FileReader fileReader = new MultiFileReader(activeProfiles);
 			props.putAll(fileReader.read("application.properties"));
 			props.putAll(fileReader.read("application.yaml"));
+			props.putAll(fileReader.read("application.yml"));
 			for(Object key : props.keySet())
 				properties.putIfAbsent(key, props.get(key));
 		}
