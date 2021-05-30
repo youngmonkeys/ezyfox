@@ -11,4 +11,8 @@ public interface EzyByteToObjectDecoder extends EzyResettable {
 	
 	void decode(ByteBuffer bytes, Queue<EzyMessage> queue) throws Exception;
 	
+	default Object decode(EzyMessage message, byte[] encryptionKey) throws Exception {
+		throw new UnsupportedOperationException("unsupported");
+	}
+	
 }

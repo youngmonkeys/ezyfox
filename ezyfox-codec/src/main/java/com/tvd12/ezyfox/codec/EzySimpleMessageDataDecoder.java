@@ -18,8 +18,8 @@ public class EzySimpleMessageDataDecoder
 	}
 	
 	@Override
-	public Object decode(EzyMessage message) throws Exception {
-		return decoder.decode(message);
+	public Object decode(EzyMessage message, byte[] decryptionKey) throws Exception {
+		return decoder.decode(message, decryptionKey);
 	}
 	
 	@Override

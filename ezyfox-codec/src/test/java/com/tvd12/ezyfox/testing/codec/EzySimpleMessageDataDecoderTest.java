@@ -52,7 +52,7 @@ public class EzySimpleMessageDataDecoderTest {
 			public void call(EzyMessage data) {
 				called.set(true);
 				try {
-					decoder.decode(data);
+					decoder.decode(data, null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
