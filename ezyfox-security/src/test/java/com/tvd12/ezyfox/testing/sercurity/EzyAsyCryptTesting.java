@@ -56,6 +56,10 @@ public class EzyAsyCryptTesting extends BaseTest {
 				.build();
 		KeyPair keyPair = keysGenerator.generate();
 		
+		System.out.println("public 2048: " + EzyBase64.encode2utf(keyPair.getPublic().getEncoded()));
+		System.out.println("private 2048: " + EzyBase64.encode2utf(keyPair.getPrivate().getEncoded()));
+		
+		
 		EzyAsyCrypt asyCrypt = EzyAsyCrypt.builder()
 				.algorithm("RSA")
 				.publicKey(keyPair.getPublic().getEncoded())
