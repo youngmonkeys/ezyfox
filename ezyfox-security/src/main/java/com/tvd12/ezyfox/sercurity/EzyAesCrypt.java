@@ -55,7 +55,7 @@ public class EzyAesCrypt {
 
         int encryptedSize = message.length - iv.length;
         byte[] encryptedBytes = new byte[encryptedSize];
-        System.arraycopy(message, initVectorSize, encryptedBytes, 0, encryptedSize);;
+        System.arraycopy(message, initVectorSize, encryptedBytes, 0, encryptedSize);
 
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, keySpecAlgorithm);
 

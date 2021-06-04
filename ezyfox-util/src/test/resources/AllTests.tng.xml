@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="AllTests" time-out="15000" verbose="1">
+<suite name="AllTests">
 	<test name="All">
 		<packages>
 			<package name="com.tvd12.ezyfox.testing"></package>
