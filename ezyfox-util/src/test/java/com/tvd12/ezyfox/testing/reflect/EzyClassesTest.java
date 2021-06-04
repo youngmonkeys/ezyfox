@@ -5,6 +5,7 @@ import java.lang.reflect.Constructor;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.reflect.EzyClasses;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyClassesTest extends BaseTest {
@@ -54,12 +55,28 @@ public class EzyClassesTest extends BaseTest {
 		EzyClasses.getConstructor(ClassB.class);
 	}
 	
+	@Test
+	public void newInstanceTest() {
+		Asserts.assertNotNull(EzyClasses.newInstance(
+				ClassA.class.getName(), 
+				new Class<?>[] {boolean.class},
+				new Object[] {true}));
+		
+		Asserts.assertNotNull(EzyClasses.newInstance(
+				ClassA.class.getName(), 
+				new Class<?>[] {String.class},
+				new Object[] {true}));
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyClasses.class;
 	}
 	
 	public static class ClassA {
+		public ClassA() {}
+		
+		public ClassA(boolean encrypted) {}
 	}
 	
 	public static class ClassB {

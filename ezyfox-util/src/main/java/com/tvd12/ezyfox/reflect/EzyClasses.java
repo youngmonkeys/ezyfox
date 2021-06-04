@@ -55,7 +55,12 @@ public final class EzyClasses {
 					.newInstance(constructorParameterValues);
 		}
 		catch (Exception e) {
-			throw new IllegalArgumentException(e);
+			try {
+				return (T)getClass(className).newInstance();
+			}
+			catch (Exception ex) {
+				throw new IllegalArgumentException(e);
+			}
 		}
 	}
 	
