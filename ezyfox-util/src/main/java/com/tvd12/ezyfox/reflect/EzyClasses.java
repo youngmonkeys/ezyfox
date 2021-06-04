@@ -40,10 +40,19 @@ public final class EzyClasses {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(String className) {
+		return newInstance(className, new Class<?>[0], new Object[0]);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T newInstance(
+			String className, 
+			Class<?>[] constructorParameterTypes,
+			Object[] constructorParameterValues) {
 		try {
-			return (T) getClass(className).newInstance();
+			return (T) getClass(className)
+					.getDeclaredConstructor(constructorParameterTypes)
+					.newInstance(constructorParameterValues);
 		}
 		catch (Exception e) {
 			throw new IllegalArgumentException(e);
