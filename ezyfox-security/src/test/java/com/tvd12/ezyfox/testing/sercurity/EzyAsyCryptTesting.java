@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.testing.sercurity;
 
 import java.io.File;
 import java.security.KeyPair;
+import java.util.Arrays;
 
 import org.testng.annotations.Test;
 
@@ -32,6 +33,7 @@ public class EzyAsyCryptTesting extends BaseTest {
 				.publicKey(keyPair.getPublic().getEncoded())
 				.build();
 		
+		System.out.println("public: " + new String(keyPair.getPublic().getEncoded()));
 		System.out.println("public: " + EzyBase64.encode2utf(keyPair.getPublic().getEncoded()));
 		System.out.println("private: " + EzyBase64.encode2utf(keyPair.getPrivate().getEncoded()));
 		
@@ -87,6 +89,35 @@ public class EzyAsyCryptTesting extends BaseTest {
 		Asserts.assertEquals(data, ddata);
 		
 		System.out.println("decryptedText = " + new String(decryptedText));
+	}
+	
+	@Test
+	public void encryptTest() throws Exception {
+		String publicKeyBase64 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1Gokfgb1T5/1/NC4VP7E"
+				+ "t9XP1Ye4ScAMi8wWWEZPExG4qdJYebDmYVtIaa4Ydh9LgXzAfkkzcXxmXm/O/An7"
+				+ "szxXTirw/DfL+JEaymkaMZyB+fSVHhG+/pCG3qBd7/L8Z8k8KM/5VpJqR76W4sbd"
+				+ "nHop0/FLtnPmgQQzcZ4nfi6tKab/tKn8mLEf3WTxkmi/aa+u5kkaTHhVPq8QILUU"
+				+ "XhLEY1EnqXD9bRmxCbXmpOkk6WVAcpECBVQdBP41xmj5iOKWLf0Y5fE7fEkWPs4w"
+				+ "yCZ8Muia0kbOyxOu+uPSC73W8ZPWf8tOmcrPPXp3bMV1l/dN5wNn4g3ReiZirXNW"
+				+ "WwIDAQAB";
+		
+		System.out.println("key length: " + EzyBase64.decode(publicKeyBase64).length);
+		
+		EzyAsyCrypt asyCrypt = EzyAsyCrypt.builder()
+				.algorithm("RSA")
+				.publicKey(EzyBase64.decode(publicKeyBase64))
+				.build();
+		
+		
+		byte[] text = "abcd1234".getBytes();//EzyAesCrypt.randomKey();
+		long start = System.currentTimeMillis();
+		byte[] encryptedText = asyCrypt.encrypt(text);
+		long elapsedTime = System.currentTimeMillis() - start;
+		System.out.println("elapsed time: " + elapsedTime);
+		System.out.println("normal text: " + EzyBase64.encode2utf(text));
+		System.out.println(Arrays.toString(encryptedText));
+		System.out.println("encrypted base64 text: " + EzyBase64.encode2utf(encryptedText));
+		System.out.println("normal length: " + encryptedText.length + ", encryption length = " + EzyBase64.encode2utf(encryptedText).length());
 	}
 	
 }
