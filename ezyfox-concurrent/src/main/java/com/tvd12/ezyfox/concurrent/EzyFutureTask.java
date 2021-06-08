@@ -1,6 +1,10 @@
 package com.tvd12.ezyfox.concurrent;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.tvd12.ezyfox.concurrent.exception.EzyFutureTaskCancelledException;
 
@@ -76,6 +80,59 @@ public class EzyFutureTask implements EzyFuture {
 	
 	protected boolean hasNoData() {
 		return result == null && exception == null;
+	}
+	
+	@Override
+	public <V> Future<V> toFuture() {
+		return new Future<V>() {
+			
+			private final AtomicBoolean cancelled = new AtomicBoolean(false);
+
+			@Override
+			public boolean cancel(boolean mayInterruptIfRunning) {
+				if(isDone())
+					return false;
+				EzyFutureTask.this.cancel("cancel the future: " + EzyFutureTask.this);
+				cancelled.set(true);
+				return true;
+			}
+
+			@Override
+			public boolean isCancelled() {
+				return cancelled.get();
+			}
+
+			@Override
+			public boolean isDone() {
+				return EzyFutureTask.this.isDone();
+			}
+
+			@Override
+			public V get() throws InterruptedException, ExecutionException {
+				try {
+					return EzyFutureTask.this.get();
+				} catch (InterruptedException | ExecutionException e) {
+					throw e;
+				}
+				catch (Exception e) {
+					throw new ExecutionException(e);
+				}
+			}
+
+			@Override
+			public V get(long timeout, TimeUnit unit)
+					throws InterruptedException, ExecutionException, TimeoutException {
+				try {
+					return EzyFutureTask.this.get(TimeUnit.MILLISECONDS.convert(timeout, unit));
+				} catch (InterruptedException | ExecutionException | TimeoutException e) {
+					throw e;
+				}
+				catch (Exception e) {
+					throw new ExecutionException(e);
+				}
+			}
+			
+		};
 	}
 	
 }
