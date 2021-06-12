@@ -14,8 +14,7 @@ public class EzyAesCryptTest {
         byte[] clean = "Quisque eget odio ac lectus vestibulum faucibus eget.".getBytes();
         
         // when
-        EzyAesCrypt sut = EzyAesCrypt.builder()
-        		.build();
+        EzyAesCrypt sut = EzyAesCrypt.getDefault();
         byte[] encrypted = sut.encrypt(clean, key);
         byte[] decrypted = sut.decrypt(encrypted, key);
         

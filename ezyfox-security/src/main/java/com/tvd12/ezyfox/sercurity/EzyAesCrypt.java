@@ -15,11 +15,16 @@ public class EzyAesCrypt {
 	private final String transformation;
 	
 	public static final int DEFAULT_KEY_SIZE = 32;
+	private static final EzyAesCrypt DEFAULT = EzyAesCrypt.builder().build();
 	
 	public EzyAesCrypt(Builder builder) {
 		this.initVectorSize = builder.initVectorSize;
 		this.keySpecAlgorithm = builder.keySpecAlgorithm;
 		this.transformation = builder.transformation;
+	}
+	
+	public static EzyAesCrypt getDefault() {
+		return DEFAULT;
 	}
 	
 	public static byte[] randomKey() {

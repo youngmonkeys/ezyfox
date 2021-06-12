@@ -4,7 +4,7 @@ import com.tvd12.ezyfox.sercurity.EzyAesCrypt;
 
 public class MsgPackAesObjectToByteEncoder extends MsgPackObjectToByteEncoder {
 
-	private final EzyAesCrypt cryptor = EzyAesCrypt.builder().build();
+	private final EzyAesCrypt cryptor = EzyAesCrypt.getDefault();
 	
 	public MsgPackAesObjectToByteEncoder(
 			EzyMessageToBytes messageToBytes, 
