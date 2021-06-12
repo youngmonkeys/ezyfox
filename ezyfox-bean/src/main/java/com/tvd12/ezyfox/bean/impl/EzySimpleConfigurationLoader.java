@@ -15,6 +15,7 @@ import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextAware;
 import com.tvd12.ezyfox.bean.EzyBeanNameTranslator;
 import com.tvd12.ezyfox.bean.EzyBeanNameTranslatorAware;
+import com.tvd12.ezyfox.bean.EzyPackagesToScanAware;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactoryAware;
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
@@ -74,6 +75,8 @@ public class EzySimpleConfigurationLoader
 			((EzyBeanContextAware)object).setContext(context);
 		if(object instanceof EzyPropertiesAware)
 			((EzyPropertiesAware)object).setProperties(properties);
+		if(object instanceof EzyPackagesToScanAware)
+			((EzyPackagesToScanAware)object).setPackagesToScan(context.getPackagesToScan());
 		if(object instanceof EzySingletonFactoryAware)
 			((EzySingletonFactoryAware)object).setSingletonFactory(singletonFactory);
 		if(object instanceof EzyPrototypeFactoryAware)

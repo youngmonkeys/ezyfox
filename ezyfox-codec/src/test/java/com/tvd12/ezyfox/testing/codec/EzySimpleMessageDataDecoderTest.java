@@ -13,6 +13,10 @@ import com.tvd12.ezyfox.codec.EzyDefaultDecodeHandlers;
 import com.tvd12.ezyfox.codec.EzyMessage;
 import com.tvd12.ezyfox.codec.EzySimpleMessageDataDecoder;
 import com.tvd12.ezyfox.io.EzyBytes;
+import com.tvd12.test.assertion.Asserts;
+import com.tvd12.test.util.RandomUtil;
+
+import static org.mockito.Mockito.*;
 
 public class EzySimpleMessageDataDecoderTest {
 
@@ -52,7 +56,7 @@ public class EzySimpleMessageDataDecoderTest {
 			public void call(EzyMessage data) {
 				called.set(true);
 				try {
-					decoder.decode(data);
+					decoder.decode(data, null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -110,6 +114,26 @@ public class EzySimpleMessageDataDecoderTest {
 			}
 		});
 		assert !called.get();
+	}
+	
+	@Test
+	public void decodeWithKeyTest() throws Exception {
+		// given
+		EzyMessage message = mock(EzyMessage.class);
+		byte[] decryptionKey = RandomUtil.randomShortByteArray();
+		Object result = new Object();
+		
+		EzyByteToObjectDecoder decoder = mock(EzyByteToObjectDecoder.class);
+		when(decoder.decode(message, decryptionKey)).thenReturn(result);
+		
+		EzySimpleMessageDataDecoder sut = new EzySimpleMessageDataDecoder(decoder);
+		
+		// when
+		Object actual = sut.decode(message, decryptionKey);
+		
+		// then
+		Asserts.assertEquals(result, actual);
+		verify(decoder, times(1)).decode(message, decryptionKey);
 	}
 	
 	public static class ExByteToObjectDecoder implements EzyByteToObjectDecoder {

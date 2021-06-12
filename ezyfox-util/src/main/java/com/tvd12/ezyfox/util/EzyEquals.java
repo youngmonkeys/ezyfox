@@ -1,14 +1,10 @@
 package com.tvd12.ezyfox.util;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Function;
-
-import com.tvd12.ezyfox.util.EzyEquals;
 
 public class EzyEquals<T> {
 
-	protected final List<Function<T, Object>> functions = new ArrayList<>();
+	private Function<T, Object>[] functions;
 	
 	@SuppressWarnings("unchecked")
 	public boolean isEquals(T thiz, Object other) {
@@ -34,8 +30,19 @@ public class EzyEquals<T> {
 		return true;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public EzyEquals<T> function(Function<T, Object> function) {
-		this.functions.add(function);
+		int i = 0;
+		if(functions == null) {
+			functions = new Function[i + 1];
+		}
+		else {
+			Function<T, Object>[] old = functions;
+			functions = new Function[functions.length + 1];
+			for(; i < old.length ; ++i)
+				functions[i] = old[i];
+		}
+		functions[i] = function;
 		return this;
 	}
 	

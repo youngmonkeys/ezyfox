@@ -7,7 +7,7 @@ import com.tvd12.ezyfox.io.EzyPrints;
 
 public final class EzySHA256 {
 
-	private static final String ALGORITHM = "SHA-256";
+	public static final String ALGORITHM = "SHA-256";
 	
 	private EzySHA256() {}
 

@@ -4,6 +4,7 @@
 	<test name="All">
 		<packages>
 			<package name="com.tvd12.ezyfox.bean.testing"></package>
+			<package name="com.tvd12.ezyfox.bean.v117.testing"></package>
 		</packages>
 	</test>
 	<test name="Annotation">

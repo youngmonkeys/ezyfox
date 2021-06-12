@@ -3,13 +3,14 @@ package com.tvd12.ezyfox.sercurity;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-
-import com.tvd12.ezyfox.sercurity.EzyKeysGenerator;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class EzyKeysGenerator {
 
 	protected int keysize;
 	protected String algorithm;
+	
+	public static final String DEFAULT_ALGORITHM = "RSA";
 	
 	protected EzyKeysGenerator(Builder<?> builder) {
 		this.keysize = builder.keysize;
@@ -34,6 +35,12 @@ public class EzyKeysGenerator {
 		}
 	}
 	
+	public static byte[] randomKey(int keySize) {
+		byte[] key = new byte[keySize];
+		ThreadLocalRandom.current().nextBytes(key);
+		return key;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public static Builder builder() {
 		return new Builder<>();
@@ -41,8 +48,8 @@ public class EzyKeysGenerator {
 
 	@SuppressWarnings("unchecked")
 	public static class Builder<B extends Builder<B>> {
-		protected int keysize = 512;
-		protected String algorithm = "RSA";
+		protected int keysize = 2048;
+		protected String algorithm = DEFAULT_ALGORITHM;
 		
 		public B keysize(int keysize) {
 			this.keysize = keysize;
