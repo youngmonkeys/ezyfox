@@ -4,7 +4,7 @@
 
 # Documentation
 
-[https://tvd12.com/](https://tvd12.com/)
+[https://youngmonkeys.org/project/ezyfox](https://youngmonkeys.org/project/ezyfox-library/)
 
 # License
 
