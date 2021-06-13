@@ -20,6 +20,7 @@ public class EzyAsyCrypt {
 	protected final KeyFactory keyFactory;
 	
 	public static final String DEFAULT_ALGORITHM = "RSA";
+	public static final String TRANSFORMATION = "RSA/ECB/PKCS1Padding";
 	
 	@SuppressWarnings("rawtypes")
 	protected static final Map<Class, EzyBytesFunction> BYTES_CONVERTERS = defaultBytesConverters();
@@ -120,9 +121,15 @@ public class EzyAsyCrypt {
 		protected byte[] publicKey;
 		protected byte[] privateKey;
 		protected String algorithm = DEFAULT_ALGORITHM;
+		protected String transformation = TRANSFORMATION;
 		
 		public B algorithm(String algorithm) {
 			this.algorithm = algorithm;
+			return (B)this;
+		}
+		
+		public B transformation(String transformation) {
+			this.transformation = transformation;
 			return (B)this;
 		}
 		
@@ -149,7 +156,7 @@ public class EzyAsyCrypt {
 		}
 		
 		protected Cipher newCipher() throws Exception {
-			return Cipher.getInstance(algorithm);
+			return Cipher.getInstance(transformation);
 		}
 		
 		protected KeyFactory newKeyFactory() throws Exception {
