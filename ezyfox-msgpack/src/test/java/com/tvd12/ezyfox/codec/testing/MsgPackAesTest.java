@@ -85,7 +85,7 @@ public class MsgPackAesTest {
 	}
 	
 	@Test
-	public void decrypteMessageContentNoKeyTest() throws Exception {
+	public void decryptMessageContentNoKeyTest() throws Exception {
 		// given
 		EzyMessageDeserializer deserializer = mock(EzyMessageDeserializer.class);
 		MsgPackAesByteToObjectDecoder sut = new MsgPackAesByteToObjectDecoder(deserializer, 100);
@@ -105,7 +105,7 @@ public class MsgPackAesTest {
 	}
 	
 	@Test
-	public void noDecrypteMessageContentNoKeyTest() throws Exception {
+	public void noDecryptMessageContentNoKeyTest() throws Exception {
 		// given
 		EzyMessageDeserializer deserializer = mock(EzyMessageDeserializer.class);
 		MsgPackAesByteToObjectDecoder sut = new MsgPackAesByteToObjectDecoder(deserializer, 100);

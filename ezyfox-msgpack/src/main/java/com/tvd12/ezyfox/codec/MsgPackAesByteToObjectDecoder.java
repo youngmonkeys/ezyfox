@@ -12,7 +12,7 @@ public class MsgPackAesByteToObjectDecoder extends MsgPackByteToObjectDecoder {
 	}
 
 	@Override
-	protected byte[] decrypteMessageContent(
+	protected byte[] decryptMessageContent(
 			byte[] content, byte[] decryptionKey) throws Exception {
 		if(decryptionKey == null)
 			return content;

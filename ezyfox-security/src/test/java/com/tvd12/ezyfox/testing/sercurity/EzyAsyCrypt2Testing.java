@@ -20,7 +20,7 @@ public class EzyAsyCrypt2Testing extends BaseTest {
 	public void test() throws Exception {
 		EzyFileKeysGenerator keysGenerator = EzyFileKeysGenerator.builder()
 				.algorithm("RSA")
-				.keysize(512)
+				.keysize(2048)
 				.publicKeyFile(new File("output/publickey.txt"))
 				.privateKeyFile(new File("output/privatekey.txt"))
 				.fileWriter(EzySimpleFileWriter.builder().build())
