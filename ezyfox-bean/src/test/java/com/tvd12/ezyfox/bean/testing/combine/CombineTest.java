@@ -181,6 +181,8 @@ public class CombineTest {
 		assert applicationProperties0.getPort() == 3006;
 		
 		Singleton20 singleton20 = context.getSingleton(Singleton20.class);
+		singleton20 = context.getBeanCast(Singleton20.class);
+		singleton20 = context.getSingletonFactory().getSingletonCast(Singleton20.class);
 		assert singleton20.getSgt10() != null;
 		assert singleton20.getList() != null;
 		assert singleton20.getHello() != null;

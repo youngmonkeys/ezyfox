@@ -8,4 +8,9 @@ public interface EzyBeanFetcher {
 	
 	Object getAnnotatedBean(Class<?> annotationClass);
 	
+	@SuppressWarnings("unchecked")
+	default <T> T getBeanCast(Class<T> type) {
+		return (T)getBean(type);
+	}
+	
 }
