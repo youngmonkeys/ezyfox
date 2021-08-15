@@ -49,17 +49,7 @@ public class EzyMixedMapLockProxyProvider implements EzyMapLockProvider {
 	
 	@Override
 	public void removeLocks(Set<?> keys) {
-		synchronized (locks) {
-			for(Object key : keys) {
-				EzyMixedKey mkey = (EzyMixedKey)key;
-				EzyLockProxy lock = locks.get(mkey);
-				if(lock != null) {
-					lock.release();
-					if(lock.isReleasable())
-						locks.remove(mkey);
-				}
-			}
-		}
+		keys.forEach(this::removeLock);
 	}
 	
 	@Override

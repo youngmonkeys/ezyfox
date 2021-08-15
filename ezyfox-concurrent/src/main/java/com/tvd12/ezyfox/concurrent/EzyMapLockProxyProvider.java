@@ -49,16 +49,7 @@ public abstract class EzyMapLockProxyProvider implements EzyMapLockProvider {
 	
 	@Override
 	public void removeLocks(Set<?> keys) {
-		synchronized (locks) {
-			for(Object key : keys) {
-				EzyLockProxy lock = locks.get(key);
-				if(lock != null) {
-					lock.release();
-					if(lock.isReleasable())
-						locks.remove(key);
-				}
-			}
-		}
+		keys.forEach(this::removeLock);
 	}
 	
 	@Override
