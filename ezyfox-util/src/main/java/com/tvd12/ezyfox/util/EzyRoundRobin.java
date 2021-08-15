@@ -26,12 +26,7 @@ public class EzyRoundRobin<T> {
 	}
 	
 	public T get() {
-		T last = null;
-		synchronized (queue) {
-			last = queue.poll();
-			queue.offer(last);
-		}
-		return last;
+		return queue.peek();
 	}
 
 	public void forEach(Consumer<T> consumer) {

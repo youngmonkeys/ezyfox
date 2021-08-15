@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.util;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 public class EzyEquals<T> {
@@ -32,17 +33,13 @@ public class EzyEquals<T> {
 	
 	@SuppressWarnings("unchecked")
 	public EzyEquals<T> function(Function<T, Object> function) {
-		int i = 0;
 		if(functions == null) {
-			functions = new Function[i + 1];
+			functions = new Function[1];
 		}
 		else {
-			Function<T, Object>[] old = functions;
-			functions = new Function[functions.length + 1];
-			for(; i < old.length ; ++i)
-				functions[i] = old[i];
+			Arrays.copyOf(functions, functions.length + 1);
 		}
-		functions[i] = function;
+		functions[functions.length - 1] = function;
 		return this;
 	}
 	
