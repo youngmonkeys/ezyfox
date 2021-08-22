@@ -6,6 +6,7 @@ import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -798,13 +799,28 @@ public class EzySimpleBeanContext
 		}
 		
 		private void scanPackagesScanClass(Class<?> clazz) {
+			Set<String> packets = new HashSet<>();
 			EzyPackagesToScan packagesScanAnn = clazz.getAnnotation(EzyPackagesToScan.class);
-			if(packagesScanAnn != null)
-				scan(packagesScanAnn.value());
+			if(packagesScanAnn != null) {
+				String[] value = packagesScanAnn.value();
+				if(value.length == 0) {
+					packets.add(clazz.getPackage().getName());
+				}
+				else {
+					packets.addAll(Arrays.asList(value));
+				}
+			}
 			EzyBeanPackagesToScan beanPackagesScanAnn = clazz.getAnnotation(EzyBeanPackagesToScan.class);
-			if(beanPackagesScanAnn != null)
-				scan(beanPackagesScanAnn.value());
-			
+			if(beanPackagesScanAnn != null) {
+				String[] value = beanPackagesScanAnn.value();
+				if(value.length == 0) {
+					packets.add(clazz.getPackage().getName());
+				}
+				else {
+					packets.addAll(Arrays.asList(value));
+				}
+			}
+			scan(packets);
 		}
 		
 		private void loadPropertiesSources() {

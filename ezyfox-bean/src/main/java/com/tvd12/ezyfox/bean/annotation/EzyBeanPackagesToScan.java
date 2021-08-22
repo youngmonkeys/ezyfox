@@ -21,5 +21,5 @@ public @interface EzyBeanPackagesToScan {
      * 
      * @return array of package names
      */
-	public String[] value();
+	public String[] value() default {};
 }
