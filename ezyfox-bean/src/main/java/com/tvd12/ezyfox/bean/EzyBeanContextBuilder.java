@@ -35,6 +35,12 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	EzyBeanContextBuilder addConfigurationBeforeClasses(Class... classes);
 	
 	EzyBeanContextBuilder addConfigurationBeforeClasses(Iterable<Class> classes);
+	
+	EzyBeanContextBuilder addConfigurationAfterClass(Class clazz);
+	
+	EzyBeanContextBuilder addConfigurationAfterClasses(Class... classes);
+	
+	EzyBeanContextBuilder addConfigurationAfterClasses(Iterable<Class> classes);
 
 	EzyBeanContextBuilder addSingleton(String name, Object singleton);
 	
