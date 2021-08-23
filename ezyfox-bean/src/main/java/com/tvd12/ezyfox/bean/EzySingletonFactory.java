@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
+
 @SuppressWarnings("rawtypes")
 public interface EzySingletonFactory {
 
@@ -26,6 +28,8 @@ public interface EzySingletonFactory {
 	
 	List getSingletonsOf(Class parentClass);
 	
+	Map<EzyBeanKey, Object> getSingletonMapByKey();
+	
 	Map getProperties(Object singleton);
 	
 	Object addSingleton(Object singleton);
@@ -35,6 +39,8 @@ public interface EzySingletonFactory {
 	Object addSingleton(String name, Object singleton, Map properties);
 	
 	void addSingletons(Map<String, Object> singletons);
+	
+	void addSingletonsByBeanKey(Map<EzyBeanKey, Object> singletons);
 	
 	Set<Class> getSingletonClasses();
 	

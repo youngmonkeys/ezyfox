@@ -4,6 +4,7 @@ import static com.tvd12.ezyfox.bean.impl.EzyBeanKey.of;
 import static com.tvd12.ezyfox.reflect.EzyClasses.flatSuperAndInterfaceClasses;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,11 @@ public class EzySimpleSingletonFactory
 	@Getter
 	protected final Set<Class> singletonClasses
 			= new HashSet<>();
-	protected final Set<Object> objectSet
+	protected final Set<Object> singletonSet
 			= new HashSet<>();
-	protected final Map<EzyBeanKey, Object> objectsByKey
+	protected final Map<EzyBeanKey, Object> singletonByKey
 			= new ConcurrentHashMap<>();
-	protected final Map<Object, Map> objectsByProperties
+	protected final Map<Object, Map> propertiesBySingleton
 			= new ConcurrentHashMap<>();
 	
 	@Override
@@ -49,13 +50,13 @@ public class EzySimpleSingletonFactory
 		Class<?> type = singleton.getClass();
 		EzyBeanKey key = of(name, type);
 		
-		Object existed = objectsByKey.get(key);
+		Object existed = singletonByKey.get(key);
 		if(existed != null)
 			return existed;
 		
-		objectSet.add(singleton);
-		objectsByKey.put(key, singleton);
-		objectsByProperties.put(singleton, properties);
+		singletonSet.add(singleton);
+		singletonByKey.put(key, singleton);
+		propertiesBySingleton.put(singleton, properties);
 		
 		String defname = getDefaultBeanName(type);
 		mapBeanName(defname, type, name);
@@ -68,15 +69,28 @@ public class EzySimpleSingletonFactory
 	
 	private void checkAndAddSingleton(String name, Class<?> type, Object singleton) {
 		EzyBeanKey key = of(name, type);
-		if(objectsByKey.containsKey(key))
+		if(singletonByKey.containsKey(key))
 			return;
-		objectsByKey.put(key, singleton);
+		singletonByKey.put(key, singleton);
 	}
 	
 	@Override
 	public void addSingletons(Map<String, Object> singletons) {
 		for(String name : singletons.keySet())
 			addSingleton(name, singletons.get(name));
+	}
+	
+	@Override
+	public void addSingletonsByBeanKey(Map<EzyBeanKey, Object> singletons) {
+		for(EzyBeanKey key : singletons.keySet()) {
+			Object singleton = singletons.get(key);
+			Class<?> type = singleton.getClass();
+			Map properties = getProperties(type);
+			singletonClasses.add(type);
+			singletonSet.add(singleton);
+			singletonByKey.put(key, singleton);
+			propertiesBySingleton.put(singleton, properties);
+		}
 	}
 	
 	@Override
@@ -88,11 +102,11 @@ public class EzySimpleSingletonFactory
 	@Override
 	public Object getSingleton(String name, Class type) {
 		String realname = translateBeanName(name, type);
-		Object singleton = objectsByKey.get(of(realname, type));
+		Object singleton = singletonByKey.get(of(realname, type));
 		if(singleton == null) {
-			for(EzyBeanKey key : objectsByKey.keySet()) {
+			for(EzyBeanKey key : singletonByKey.keySet()) {
 				if(type.isAssignableFrom(key.getType())) {
-					singleton = objectsByKey.get(key);
+					singleton = singletonByKey.get(key);
 					break;
 				}		
 			}
@@ -110,7 +124,7 @@ public class EzySimpleSingletonFactory
 	
 	@Override
 	public Object getSingleton(Map properties) {
-		for(Entry<Object, Map> entry : objectsByProperties.entrySet()) {
+		for(Entry<Object, Map> entry : propertiesBySingleton.entrySet()) {
 			if(EzyMaps.containsAll(entry.getValue(), properties))
 				return entry.getKey();
 		}
@@ -119,13 +133,13 @@ public class EzySimpleSingletonFactory
 	
 	@Override
 	public List getSingletons() {
-		return new ArrayList<>(objectSet);
+		return new ArrayList<>(singletonSet);
 	}
 	
 	@Override
 	public List getSingletons(Map properties) {
 		Set set = new HashSet<>();
-		for(Entry<Object, Map> entry : objectsByProperties.entrySet()) {
+		for(Entry<Object, Map> entry : propertiesBySingleton.entrySet()) {
 			if(EzyMaps.containsAll(entry.getValue(), properties))
 				set.add(entry.getKey());
 		}
@@ -146,7 +160,7 @@ public class EzySimpleSingletonFactory
 	@Override
 	public List getSingletons(Predicate filter) {
 		List list = new ArrayList<>();
-		for(Object object : objectSet) {
+		for(Object object : singletonSet) {
 			if(filter.test(object))
 				list.add(object);
 		}
@@ -161,8 +175,13 @@ public class EzySimpleSingletonFactory
 	}
 	
 	@Override
+	public Map<EzyBeanKey, Object> getSingletonMapByKey() {
+		return new HashMap<>(singletonByKey);
+	}
+	
+	@Override
 	public Map getProperties(Object singleton) {
-		return objectsByProperties.get(singleton);
+		return propertiesBySingleton.get(singleton);
 	}
 	
 	public void addSingletonClasses(Set<Class> classes) {

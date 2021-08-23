@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 
+import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 
@@ -41,10 +42,14 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	EzyBeanContextBuilder addConfigurationAfterClasses(Class... classes);
 	
 	EzyBeanContextBuilder addConfigurationAfterClasses(Iterable<Class> classes);
+	
+	EzyBeanContextBuilder addSingleton(Object singleton);
 
 	EzyBeanContextBuilder addSingleton(String name, Object singleton);
 	
 	EzyBeanContextBuilder addSingletons(Map<String, Object> singletons);
+	
+	EzyBeanContextBuilder addSingletonsByKey(Map<EzyBeanKey, Object> singletons);
 
 	EzyBeanContextBuilder addSingletonClass(Class clazz);
 

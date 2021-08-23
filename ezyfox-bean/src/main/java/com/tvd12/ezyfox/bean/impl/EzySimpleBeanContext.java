@@ -163,6 +163,11 @@ public class EzySimpleBeanContext
 	}
 	
 	@Override
+	public Map<EzyBeanKey, Object> getSingletonMapByKey() {
+		return singletonFactory.getSingletonMapByKey();
+	}
+	
+	@Override
 	public <T> T getPrototype(Class<T> type) {
 		EzyPrototypeSupplier supplier = prototypeFactory.getSupplier(type);
 		if(supplier == null)
@@ -428,6 +433,15 @@ public class EzySimpleBeanContext
 		}
 		
 		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingleton(java.lang.Object)
+		 */
+		@Override
+		public EzyBeanContextBuilder addSingleton(Object singleton) {
+			singletonFactory.addSingleton(singleton);
+			return this;
+		}
+		
+		/* (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingleton(java.lang.String, java.lang.Object)
 		 */
 		@Override
@@ -443,6 +457,16 @@ public class EzySimpleBeanContext
 		public EzyBeanContextBuilder addSingletons(Map<String, Object> singletons) {
 			for(Entry<String, Object> e : singletons.entrySet())
 				singletonFactory.addSingleton(e.getKey(), e.getValue());
+			return this;
+		}
+
+
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingletonsByKey(java.util.Map)
+		 */
+		@Override
+		public EzyBeanContextBuilder addSingletonsByKey(Map<EzyBeanKey, Object> singletons) {
+			singletonFactory.addSingletonsByBeanKey(singletons);
 			return this;
 		}
 		

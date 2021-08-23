@@ -1,18 +1,22 @@
 package com.tvd12.ezyfox.bean.v120.testing;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
+import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.LastSingleton11;
+import com.tvd12.ezyfox.bean.v120.testing.packet01.Singleton11;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter21;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter22;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter23;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton21;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton22;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton23;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.Singleton21;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
@@ -60,5 +64,46 @@ public class EzySimpleBeanContextTest {
 		Asserts.assertNotNull(lastSingleton21);
 		Asserts.assertNotNull(lastSingleton22);
 		Asserts.assertNotNull(lastSingleton23);
+	}
+	
+	@Test
+	public void addSingletonTest() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.scan("com.tvd12.ezyfox.bean.v120.testing")
+				.build();
+		EzyBeanContext sut = EzyBeanContext.builder()
+				.addSingleton(beanContext.getBean(Singleton11.class))
+				.addSingleton(beanContext.getBean(Singleton21.class))
+				.build();
+		
+		// when
+		Map<EzyBeanKey, Object> singletonMapByKey = sut.getSingletonMapByKey();
+		
+		// then
+		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton11", Singleton11.class)));
+		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton11", Object.class)));
+		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton21", Singleton21.class)));
+		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton21", Object.class)));
+	}
+	
+	@Test
+	public void addSingletonsByKeyTest() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.scan("com.tvd12.ezyfox.bean.v120.testing")
+				.build();
+		EzyBeanContext sut = EzyBeanContext.builder()
+				.addSingletonsByKey(beanContext.getSingletonMapByKey())
+				.build();
+		
+		// when
+		Map<EzyBeanKey, Object> singletonMapByKey = sut.getSingletonMapByKey();
+		
+		// then
+		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton11", Singleton11.class)));
+		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton11", Object.class)));
+		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton21", Singleton21.class)));
+		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton21", Object.class)));
 	}
 }
