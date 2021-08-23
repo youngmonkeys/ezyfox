@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.bean.v120.testing;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import org.testng.annotations.Test;
@@ -105,5 +106,24 @@ public class EzySimpleBeanContextTest {
 		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton11", Object.class)));
 		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton21", Singleton21.class)));
 		Asserts.assertNotNull(singletonMapByKey.get(EzyBeanKey.of("singleton21", Object.class)));
+	}
+	
+	@Test
+	public void setPropertiesVariables() {
+		// given
+		System.setProperty(EzyBeanContext.ACTIVE_PROFILES_KEY, "alpha");
+		System.setProperty("v120.hello", "World");
+		EzyBeanContext sut = EzyBeanContext.builder()
+				.addProperty("hi", "${v120.hello}")
+				.addProperties("v120_application.properties")
+				.build();
+		
+		// when
+		Properties properties = sut.getProperties();
+		
+		// then
+		Asserts.assertEquals("World", properties.get("v120.hello"));
+		Asserts.assertEquals("World", properties.get("hi"));
+		Asserts.assertEquals("alpha", properties.get("url"));
 	}
 }

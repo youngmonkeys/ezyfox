@@ -105,4 +105,12 @@ public class EzySimpleBindingTest {
 		Asserts.assertEquals(properties.get("version"), "v1.1.7");
 		Asserts.assertEquals(properties.get("env"), "Alpha");
 	}
+	
+	public static void main(String[] args) {
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.scan("com.tvd12.ezyfox.bean.v117.testing")
+				.build();
+		Properties properties = beanContext.getProperties();
+		System.out.println(properties);
+	}
 }

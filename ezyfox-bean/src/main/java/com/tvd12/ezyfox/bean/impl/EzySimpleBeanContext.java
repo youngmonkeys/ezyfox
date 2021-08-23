@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.bean.impl;
 
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
+import static com.tvd12.properties.file.util.PropertiesUtil.setVariableValues;
 
 import java.io.File;
 import java.io.InputStream;
@@ -266,7 +267,8 @@ public class EzySimpleBeanContext
 		
 		public Builder() {
 			this.enableAutoConfiguration = true;
-			this.properties = new Properties(System.getProperties());
+			this.properties = new Properties();
+			this.properties.putAll(System.getProperties());
 			this.packagesToScan = new HashSet<>();
 			this.importClasses = new HashSet<>();
 			this.singletonClasses = new HashSet<>();
@@ -706,6 +708,7 @@ public class EzySimpleBeanContext
 		public EzySimpleBeanContext build() {
 			EzySimpleBeanContext context = new EzySimpleBeanContext();
 			readDefaultPropertiesFiles();
+			setVariableValues(properties);
 			context.properties = properties;
 			context.packagesToScan = packagesToScan;
 			context.prototypeFactory = prototypeFactory;
