@@ -25,6 +25,12 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	
 	EzyBeanContextBuilder scan(Collection<String> packageNames);
 	
+	EzyBeanContextBuilder excludePackage(String packageName);
+
+	EzyBeanContextBuilder excludePackages(String... packageNames);
+
+	EzyBeanContextBuilder excludePackages(Iterable<String> packageNames);
+	
 	EzyBeanContextBuilder addConfigurationClass(Class clazz);
 	
 	EzyBeanContextBuilder addConfigurationClasses(Class... classes);
@@ -76,6 +82,12 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	EzyBeanContextBuilder addPrototypeSuppliers(Map<String, EzyPrototypeSupplier> suppliers);
 	
 	EzyBeanContextBuilder addAllClasses(Object reflection);
+	
+	EzyBeanContextBuilder excludeConfigurationClass(Class clazz);
+	
+	EzyBeanContextBuilder excludeConfigurationClasses(Class... classes);
+	
+	EzyBeanContextBuilder excludeConfigurationClasses(Iterable<Class> classes);
 	
 	EzyBeanContextBuilder errorHandler(EzyErrorHandler handler);
 	

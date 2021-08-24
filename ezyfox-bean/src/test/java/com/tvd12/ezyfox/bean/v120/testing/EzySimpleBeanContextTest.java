@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
+import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigAfter11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.LastSingleton11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.Singleton11;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter21;
@@ -125,5 +126,71 @@ public class EzySimpleBeanContextTest {
 		Asserts.assertEquals("World", properties.get("v120.hello"));
 		Asserts.assertEquals("World", properties.get("hi"));
 		Asserts.assertEquals("alpha", properties.get("url"));
+	}
+	
+	@Test
+	public void excludePackagesTest() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.scan("com.tvd12.ezyfox.bean.v120.testing.packet01")
+				.scan("com.tvd12.ezyfox.bean.v120.testing.packet02")
+				.excludePackages("com.tvd12.ezyfox.bean.v120.testing.packet01")
+				.excludePackages(Arrays.asList("com.tvd12.ezyfox.bean.v120.testing.packet02"))
+				.build();
+		
+		// when
+		Set<String> packagesToScan = beanContext.getPackagesToScan();
+		
+		// then
+		Asserts.assertTrue(packagesToScan.isEmpty());
+	}
+	
+	@Test
+	public void excludePackages2Test() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.addAllClasses(
+					new EzyReflectionProxy(
+						Arrays.asList(
+							"com.tvd12.ezyfox.bean.v120.testing.packet01",
+							"com.tvd12.ezyfox.bean.v120.testing.packet02"
+						)
+					)
+				)
+				.excludePackages("com.tvd12.ezyfox.bean.v120.testing.packet01")
+				.excludePackages(Arrays.asList("com.tvd12.ezyfox.bean.v120.testing.packet02"))
+				.build();
+		
+		// when
+		Set<String> packagesToScan = beanContext.getPackagesToScan();
+		
+		// then
+		Asserts.assertTrue(packagesToScan.isEmpty());
+	}
+	
+	@Test
+	public void excludeConfigurationClassesTest() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.scan("com.tvd12.ezyfox.bean.v120.testing")
+				.addConfigurationAfterClass(ConfigAfter21.class)
+				.addConfigurationAfterClasses(ConfigAfter22.class, ConfigAfter22.class)
+				.addConfigurationAfterClasses(Arrays.asList(ConfigAfter23.class))
+				.excludeConfigurationClass(ConfigAfter11.class)
+				.excludeConfigurationClasses(ConfigAfter21.class, ConfigAfter22.class)
+				.excludeConfigurationClasses(Arrays.asList(ConfigAfter22.class, ConfigAfter23.class))
+				.build();
+		
+		// when
+		LastSingleton11 lastSingleton11 = beanContext.getSingleton(LastSingleton11.class);
+		LastSingleton21 lastSingleton21 = beanContext.getSingleton(LastSingleton21.class);
+		LastSingleton22 lastSingleton22 = beanContext.getSingleton(LastSingleton22.class);
+		LastSingleton23 lastSingleton23 = beanContext.getSingleton(LastSingleton23.class);
+		
+		// then
+		Asserts.assertNull(lastSingleton11);
+		Asserts.assertNull(lastSingleton21);
+		Asserts.assertNull(lastSingleton22);
+		Asserts.assertNull(lastSingleton23);
 	}
 }
