@@ -15,7 +15,7 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<jackson.version>2.12.3</jackson.version>
+		<jackson.version>2.12.4</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
