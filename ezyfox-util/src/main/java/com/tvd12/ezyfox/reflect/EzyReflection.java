@@ -3,6 +3,9 @@ package com.tvd12.ezyfox.reflect;
 import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
+
+import com.tvd12.ezyfox.io.EzySets;
 
 public interface EzyReflection {
 	
@@ -30,5 +33,17 @@ public interface EzyReflection {
 		for(Object annotationClass : annotationClasses)
 			answer.addAll(getAnnotatedClasses((Class) annotationClass));
 		return answer;
+	}
+	
+	default Set<Class<?>> getAnnotatedClasses(
+			Class<? extends Annotation> annotationClass,
+			Predicate<Class<?>> filter) {
+		return EzySets.filter(getAnnotatedClasses(annotationClass), filter);
+	}
+	
+	default Set<Class<?>> getAnnotatedExtendsClasses(
+			Class<? extends Annotation> annotationClass,
+			Class<?> parentClass) {
+		return getAnnotatedClasses(annotationClass, it -> parentClass.isAssignableFrom(it));
 	}
 }

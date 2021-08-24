@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.testing.reflect;
 
+import java.util.Set;
+
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.collect.Lists;
@@ -30,4 +32,22 @@ public class EzyReflectionProxyTest {
 		assert reflection.getExtendsClass(EzyReflectionProxyTest.class) == null;
 	}
 	
+	@Test
+	public void getAnnotatedExtendsClassesTest() {
+		// given
+		EzyReflection reflection = new EzyReflectionProxy("com.tvd12.ezyfox.testing.reflect");
+		
+		// when
+		Set<Class<?>> annotatedExtendsClasses = reflection.getAnnotatedExtendsClasses(ExampleAnnotation.class, I.class);
+		
+		// then
+		Asserts.assertEquals(annotatedExtendsClasses.size(), 1);
+	}
+	
+	public static interface I {
+	}
+	
+	@ExampleAnnotation
+	public static class A implements I {
+	}
 }

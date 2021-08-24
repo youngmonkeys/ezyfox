@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigAfter11;
+import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigurationBefore11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.LastSingleton11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.Singleton11;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter21;
@@ -192,5 +193,34 @@ public class EzySimpleBeanContextTest {
 		Asserts.assertNull(lastSingleton21);
 		Asserts.assertNull(lastSingleton22);
 		Asserts.assertNull(lastSingleton23);
+	}
+	
+	@Test
+	public void addConfigurationBeforeClassTest() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.addConfigurationClass(ConfigurationBefore11.class)
+				.build();
+		
+		// when
+		ConfigurationBefore11 configurationBefore11 = beanContext.getSingleton(ConfigurationBefore11.class);
+		
+		// then
+		Asserts.assertNotNull(configurationBefore11);
+	}
+	
+	@Test
+	public void addConfigurationAfterClassesTest() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.addSingletonClass(Singleton11.class)
+				.addConfigurationClass(ConfigAfter11.class)
+				.build();
+		
+		// when
+		LastSingleton11 lastSingleton11 = beanContext.getSingleton(LastSingleton11.class);
+		
+		// then
+		Asserts.assertNotNull(lastSingleton11);
 	}
 }

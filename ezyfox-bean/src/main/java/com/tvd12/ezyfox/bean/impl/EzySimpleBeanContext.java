@@ -375,7 +375,15 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder addConfigurationClass(Class clazz) {
-			configurationClasses.add(clazz);
+			if(clazz.isAnnotationPresent(EzyConfigurationBefore.class)) {
+				configurationBeforeClasses.add(clazz);
+			}
+			else if(clazz.isAnnotationPresent(EzyConfigurationAfter.class)) {
+				configurationAfterClasses.add(clazz);
+			}
+			else {
+				configurationClasses.add(clazz);
+			}
 			return this;
 		}
 		
