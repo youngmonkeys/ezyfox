@@ -28,6 +28,7 @@ import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
+import com.tvd12.ezyfox.io.EzyPrints;
 import com.tvd12.ezyfox.util.EzyMapBuilder;
 
 @SuppressWarnings("rawtypes")
@@ -35,6 +36,11 @@ public class MsgPackSimpleSerializerTest {
 
 	private MessagePack messagePack = new MessagePack();
 	private MsgPackSimpleSerializer serializer = new MsgPackSimpleSerializer();
+	
+	public static void main(String[] args) {
+		MsgPackSimpleSerializer serializer = new MsgPackSimpleSerializer();
+		System.out.println((EzyPrints.printBytesToInts(serializer.serialize(-1))));
+	}
 	
 	@Test
 	public void test() throws Exception {

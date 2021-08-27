@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzyPrints;
 import com.tvd12.ezyfox.io.EzyPrints.Array2DPrinter;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyPrintsTest extends BaseTest {
@@ -64,6 +65,18 @@ public class EzyPrintsTest extends BaseTest {
 		strss[3] = new String[] {"1", "2"};
 		printer.print(strss);
 		System.out.println(builder);
+	}
+	
+	@Test
+	public void printBytesToIntsTest() {
+		// given
+		byte[] bytes = new byte[] {-1, -2, 3};
+		
+		// when
+		String actual = EzyPrints.printBytesToInts(bytes);
+		
+		// then
+		Asserts.assertEquals("[255, 254, 3]", actual);
 	}
 	
 	@Override
