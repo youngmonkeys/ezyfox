@@ -113,4 +113,15 @@ public final class EzyBytes {
 		}
 	}
 	
+	public static int[] toIntArray(byte[] bytes) {
+		int[] answer = new int[bytes.length];
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		for(int i = 0 ; i < bytes.length ; ++i) {
+			buffer.clear();
+			buffer.put(new byte[] {0, 0, 0, bytes[i]});
+			buffer.flip();
+			answer[i] = buffer.getInt();
+		}
+		return answer;
+	}
 }

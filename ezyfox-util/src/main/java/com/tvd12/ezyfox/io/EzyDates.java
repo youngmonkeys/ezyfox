@@ -15,12 +15,24 @@ public final class EzyDates {
 
 	public static final String DATE_PATTERN = "yyyy-MM-dd";
 	public static final String TIME_PATTERN = "HH:mm:ss:SSS";
+	public static final String TIME_PATTERN_STANDARD = "HH:mm:ss.SSS";
 	public static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss:SSS";
+	public static final String DATE_TIME_PATTERN_STANDARD = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+	public static final String DATE_TIME_PATTERN_YYYYMMDD_HHMMSS = "yyyy-MM-dd'T'HH:mm:ss";
 	public static final DateTimeFormatter DATE_TIME_FORMATTER
 			= getDateTimeFormatter(getPattern());
+	public static final DateTimeFormatter DATE_TIME_FORMATTER_STANDARD
+			= getDateTimeFormatter(getPatternStandard());
+	public static final DateTimeFormatter DATE_TIME_FORMATTER_YYYYMMDD_HHMMSS
+			= getDateTimeFormatter(DATE_TIME_PATTERN_YYYYMMDD_HHMMSS);
 	
-	private EzyDates() {
-	}
+	private static final String[] DATE_TIME_PATTERNS = new String[] {
+			DATE_TIME_PATTERN,
+			DATE_TIME_PATTERN_STANDARD,
+			DATE_TIME_PATTERN_YYYYMMDD_HHMMSS
+	};
+	
+	private EzyDates() {}
 	
 	// ============= java 8 ============
 	public static String format(TemporalAccessor temporal) {
@@ -48,7 +60,12 @@ public final class EzyDates {
 	}
 	
 	public static LocalTime parseTime(String source) {
-		return parseTime(source, TIME_PATTERN);
+		try {
+			return parseTime(source, TIME_PATTERN);
+		}
+		catch (Exception e) {
+			return parseTime(source, TIME_PATTERN_STANDARD);
+		}
 	}
 	
 	public static LocalTime parseTime(String source, String pattern) {
@@ -60,7 +77,25 @@ public final class EzyDates {
 	}
 	
 	public static LocalDateTime parseDateTime(String source) {
-		return parseDateTime(source, getDateTimeFormatter());
+		try {
+			return parseDateTime(source, getDateTimeFormatter());			
+		}
+		catch (Exception e) {
+			try {
+				return parseDateTime(source, getDateTimeFormatterStandard());
+			}
+			catch (Exception e2) {
+				try {
+					return parseDateTime(source, DATE_TIME_FORMATTER_YYYYMMDD_HHMMSS);
+				}
+				catch (Exception e3) {
+					throw new IllegalArgumentException(
+						"invalid date value: " + source + 
+						", format must be of one " + EzyStrings.join(DATE_TIME_PATTERNS, ", ")
+					);
+				}
+			}
+		}
 	}
 	
 	public static LocalDateTime parseDateTime(String source, String pattern) {
@@ -73,6 +108,10 @@ public final class EzyDates {
 	
 	public static DateTimeFormatter getDateTimeFormatter() {
 		return DATE_TIME_FORMATTER;
+	}
+	
+	public static DateTimeFormatter getDateTimeFormatterStandard() {
+		return DATE_TIME_FORMATTER_STANDARD;
 	}
 	
 	public static DateTimeFormatter getDateTimeFormatter(String pattern) {
@@ -123,7 +162,25 @@ public final class EzyDates {
 	}
 	
 	public static Date parse(String source) {
-		return parse(source, getPattern());
+		try {
+			return parse(source, getPattern());			
+		}
+		catch (Exception e) {
+			try {
+				return parse(source, getPatternStandard());
+			}
+			catch (Exception e2) {
+				try {
+					return parse(source, DATE_TIME_PATTERN_YYYYMMDD_HHMMSS);
+				}
+				catch (Exception e3) {
+					throw new IllegalArgumentException(
+						"invalid date value: " + source + 
+						", format must be one of " + EzyStrings.join(DATE_TIME_PATTERNS, ", ")
+					);
+				}
+			}
+		}
 	}
 	
 	public static String format(long millis, String pattern) {
@@ -150,6 +207,10 @@ public final class EzyDates {
 	
 	public static String getPattern() {
 		return DATE_TIME_PATTERN;
+	}
+	
+	public static String getPatternStandard() {
+		return DATE_TIME_PATTERN_STANDARD;
 	}
 	
 	// =========================================

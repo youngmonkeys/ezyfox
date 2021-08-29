@@ -90,6 +90,10 @@ public final class EzyPrints {
 		return builder.toString();
 	}
 	
+	public static String printBytesToInts(byte[] bytes) {
+		return Arrays.toString(EzyBytes.toIntArray(bytes));
+	}
+	
 	public static final class Array2DPrinter {
 
 		private static final char BORDER_KNOT = '+';

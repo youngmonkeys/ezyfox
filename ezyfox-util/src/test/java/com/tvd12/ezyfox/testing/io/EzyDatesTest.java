@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.testing.io;
 
 import static org.testng.Assert.assertEquals;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -150,6 +151,101 @@ public class EzyDatesTest extends BaseTest {
 				.toInstant()
 		);
 		Asserts.assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void parTimeStandard() {
+		// given
+		String time = "10:08:22.999";
+		
+		// when
+		LocalTime actual = EzyDates.parseTime(time);
+		
+		// then
+		LocalTime expectation = LocalTime.of(10, 8, 22, 999000000);
+		Asserts.assertEquals(expectation, actual);
+	}
+	
+	@Test
+	public void parDateTimeStandard() {
+		// given
+		String time = "2021-08-22T10:08:22.999";
+		
+		// when
+		LocalDateTime actual = EzyDates.parseDateTime(time);
+		
+		// then
+		LocalDateTime expectation = LocalDateTime.of(2021, 8, 22, 10, 8, 22, 999000000);
+		Asserts.assertEquals(expectation, actual);
+	}
+	
+	@Test
+	public void parDateTimeYYYMMDDHHMMSS() {
+		// given
+		String time = "2021-08-22T10:08:22";
+		
+		// when
+		LocalDateTime actual = EzyDates.parseDateTime(time);
+		
+		// then
+		LocalDateTime expectation = LocalDateTime.of(2021, 8, 22, 10, 8, 22);
+		Asserts.assertEquals(expectation, actual);
+	}
+	
+	@Test
+	public void parDateTimeFailed() {
+		// given
+		String time = "2021-08-22.10:08:22";
+		
+		// when
+		Throwable exception = Asserts.assertThrows(() -> 
+			EzyDates.parseDateTime(time)
+		);
+		
+		// then
+		Asserts.assertEquals(IllegalArgumentException.class, exception.getClass());
+	}
+	
+	@Test
+	public void parDateUtilStandard() throws Exception {
+		// given
+		String time = "2021-08-22T10:08:22.999";
+		
+		// when
+		Date actual = EzyDates.parse(time);
+		
+		// then
+		Date expectation = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+				.parse(time);
+		Asserts.assertEquals(expectation, actual);
+	}
+	
+	@Test
+	public void parDateUtilYYYMMDDHHMMSS() throws Exception {
+		// given
+		String time = "2021-08-22T10:08:22";
+		
+		// when
+		Date actual = EzyDates.parse(time);
+		
+		// then
+		Date expectation = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+				.parse(time);
+		Asserts.assertEquals(expectation, actual);
+	}
+	
+	@Test
+	public void parDateUtilFailed() {
+		// given
+		String time = "2021-08-22.10:08:22";
+		
+		// when
+		Throwable exception = Asserts.assertThrows(() -> 
+			EzyDates.parse(time)
+		);
+		
+		// then
+		Asserts.assertEquals(IllegalArgumentException.class, exception.getClass());
 	}
 	
 	@Override

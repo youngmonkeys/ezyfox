@@ -2,10 +2,12 @@ package com.tvd12.ezyfox.bean.impl;
 
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
+import static com.tvd12.properties.file.util.PropertiesUtil.setVariableValues;
 
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,6 +31,7 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.bean.annotation.EzyBeanPackagesToScan;
 import com.tvd12.ezyfox.bean.annotation.EzyConfiguration;
+import com.tvd12.ezyfox.bean.annotation.EzyConfigurationAfter;
 import com.tvd12.ezyfox.bean.annotation.EzyConfigurationBefore;
 import com.tvd12.ezyfox.bean.annotation.EzyDisableAutoConfiguration;
 import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBean;
@@ -161,6 +164,11 @@ public class EzySimpleBeanContext
 	}
 	
 	@Override
+	public Map<EzyBeanKey, Object> getSingletonMapByKey() {
+		return singletonFactory.getSingletonMapByKey();
+	}
+	
+	@Override
 	public <T> T getPrototype(Class<T> type) {
 		EzyPrototypeSupplier supplier = prototypeFactory.getSupplier(type);
 		if(supplier == null)
@@ -232,6 +240,8 @@ public class EzySimpleBeanContext
 		@Getter
 		protected Properties properties;
 		protected Set<String> packagesToScan;
+		protected Set<String> packagesToExclude;
+		protected Set<Class> excludeConfigurationClasses;
 		protected Set<Class> importClasses;
 		protected Set<Class> singletonClasses;
 		protected Set<Class> prototypeClasses;
@@ -239,6 +249,7 @@ public class EzySimpleBeanContext
 		protected Set<Class> propertiesSourceClasses;
 		protected Set<Class> configurationClasses;
 		protected Set<Class> configurationBeforeClasses;
+		protected Set<Class> configurationAfterClasses;
 		protected Set<Class> propertiesBeanAnnotatedClasses;
 		protected Set<Class> propertiesBeansAnnotatedClasses;
 		protected Map<Class, String> namedSingletonClasses;
@@ -258,8 +269,10 @@ public class EzySimpleBeanContext
 		
 		public Builder() {
 			this.enableAutoConfiguration = true;
-			this.properties = new Properties(System.getProperties());
+			this.properties = new Properties();
+			this.properties.putAll(System.getProperties());
 			this.packagesToScan = new HashSet<>();
+			this.packagesToExclude = new HashSet<>();
 			this.importClasses = new HashSet<>();
 			this.singletonClasses = new HashSet<>();
 			this.prototypeClasses = new HashSet<>();
@@ -267,11 +280,13 @@ public class EzySimpleBeanContext
 			this.propertiesSourceClasses = new HashSet<>();
 			this.configurationClasses = new HashSet<>();
 			this.configurationBeforeClasses = new HashSet<>();
+			this.configurationAfterClasses = new HashSet<>();
 			this.propertiesBeanAnnotatedClasses = new HashSet<>();
 			this.propertiesBeansAnnotatedClasses = new HashSet<>();
 			this.propertiesBeanClasses = new HashMap<>();
 			this.namedSingletonClasses = new HashMap<>();
 			this.namedPrototypeClasses = new HashMap<>();
+			this.excludeConfigurationClasses = new HashSet<>();
 			this.errorHandler = new EzySimpleErrorHandler();
 			this.unloadedSingletons = new EzyHashMapSet<>();
 			this.beanNameTranslator = new EzySimpleBeanNameTranslator();
@@ -299,8 +314,6 @@ public class EzySimpleBeanContext
 		@Override
 		public EzyBeanContextBuilder scan(String packageName) {
 			packagesToScan.add(packageName);
-			EzyReflection reflection = EzyPackages.scanPackage(packageName);
-			addAllClasses(reflection);
 			return this;
 		}
 		
@@ -317,10 +330,7 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder scan(Iterable<String> packageNames) {
-			Collection<String> set = new HashSet<>();
-			for(String packet : packageNames)
-				set.add(packet);
-			return scan(set);	
+			return scan(Sets.newHashSet(packageNames));	
 		}
 		
 		/* (non-Javadoc)
@@ -329,19 +339,51 @@ public class EzySimpleBeanContext
 		@Override
 		public EzyBeanContextBuilder scan(Collection<String> packageNames) {
 			packagesToScan.addAll(packageNames);
-			if(packageNames.size() > 0) {
-				EzyReflection reflection = EzyPackages.scanPackages(packageNames);
-				addAllClasses(reflection);
-			}
 			return this;	
 		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#excludePackage(java.lang.String)
+		 */
+		@Override
+		public EzyBeanContextBuilder excludePackage(String packageName) {
+			packagesToExclude.add(packageName);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#excludePackages(java.lang.String)
+		 */
+		@Override
+		public EzyBeanContextBuilder excludePackages(String... packageNames) {
+			return excludePackages(Sets.newHashSet(packageNames));
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#excludePackages(java.lang.Iterable)
+		 */
+		@Override
+		public EzyBeanContextBuilder excludePackages(Iterable<String> packageNames) {
+			for(String packageName : packageNames)
+				excludePackage(packageName);
+			return this;
+		}
+		
 		
 		/* (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationClass(java.lang.Class)
 		 */
 		@Override
 		public EzyBeanContextBuilder addConfigurationClass(Class clazz) {
-			configurationClasses.add(clazz);
+			if(clazz.isAnnotationPresent(EzyConfigurationBefore.class)) {
+				configurationBeforeClasses.add(clazz);
+			}
+			else if(clazz.isAnnotationPresent(EzyConfigurationAfter.class)) {
+				configurationAfterClasses.add(clazz);
+			}
+			else {
+				configurationClasses.add(clazz);
+			}
 			return this;
 		}
 		
@@ -395,6 +437,44 @@ public class EzySimpleBeanContext
 		}
 		
 		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationAfterClass(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationAfterClass(Class clazz) {
+			configurationAfterClasses.add(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationAfterClasses(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationAfterClasses(Class... classes) {
+			for(Class clazz : classes)
+				addConfigurationAfterClass(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addConfigurationAfterClasses(java.lang.Iterable)
+		 */
+		@Override
+		public EzyBeanContextBuilder addConfigurationAfterClasses(Iterable<Class> classes) {
+			for(Class clazz : classes)
+				addConfigurationAfterClass(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingleton(java.lang.Object)
+		 */
+		@Override
+		public EzyBeanContextBuilder addSingleton(Object singleton) {
+			singletonFactory.addSingleton(singleton);
+			return this;
+		}
+		
+		/* (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingleton(java.lang.String, java.lang.Object)
 		 */
 		@Override
@@ -410,6 +490,16 @@ public class EzySimpleBeanContext
 		public EzyBeanContextBuilder addSingletons(Map<String, Object> singletons) {
 			for(Entry<String, Object> e : singletons.entrySet())
 				singletonFactory.addSingleton(e.getKey(), e.getValue());
+			return this;
+		}
+
+
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#addSingletonsByKey(java.util.Map)
+		 */
+		@Override
+		public EzyBeanContextBuilder addSingletonsByKey(Map<EzyBeanKey, Object> singletons) {
+			singletonFactory.addSingletonsByBeanKey(singletons);
 			return this;
 		}
 		
@@ -541,6 +631,35 @@ public class EzySimpleBeanContext
 			return this;
 		}
 		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#excludeConfigurationClass(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder excludeConfigurationClass(Class clazz) {
+			excludeConfigurationClasses.add(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#excludeConfigurationClasses(java.lang.Class)
+		 */
+		@Override
+		public EzyBeanContextBuilder excludeConfigurationClasses(Class... classes) {
+			for(Class clazz : classes)
+				excludeConfigurationClass(clazz);
+			return this;
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#excludeConfigurationClasses(java.lang.Iterable)
+		 */
+		@Override
+		public EzyBeanContextBuilder excludeConfigurationClasses(Iterable<Class> classes) {
+			for(Class clazz : classes)
+				excludeConfigurationClass(clazz);
+			return this;
+		}
+		
 		/*
 		 * (non-Javadoc)
 		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#errorHandler(com.tvd12.ezyfox.bean.EzyErrorHandler)
@@ -649,12 +768,16 @@ public class EzySimpleBeanContext
 		public EzySimpleBeanContext build() {
 			EzySimpleBeanContext context = new EzySimpleBeanContext();
 			readDefaultPropertiesFiles();
+			setVariableValues(properties);
+			packagesToScan.removeAll(packagesToExclude);
+			removeExcludeConfigurationClasses();
 			context.properties = properties;
 			context.packagesToScan = packagesToScan;
 			context.prototypeFactory = prototypeFactory;
 			context.singletonFactory = singletonFactory;
 			context.beanNameTranslator = beanNameTranslator;
 			context.propertiesReader = getPropertiesReader();
+			doScanPackages();
 			scanAutoConfigurationPackage();
 			readImportClasses();
 			addSingleton("beanContext", context);
@@ -663,6 +786,8 @@ public class EzySimpleBeanContext
 			addSingleton("beanNameTranslator", beanNameTranslator);
 			readConfigurationClasses();
 			scanPackagesScanClasses();
+			packagesToScan.removeAll(packagesToExclude);
+			removeExcludeConfigurationClasses();
 			loadPropertiesBeanClasses();
 			loadPropertiesSources();
 			mapProperties();
@@ -676,18 +801,20 @@ public class EzySimpleBeanContext
 			tryLoadUncompletedSingletonsAgain(context, false);
 			loadConfigurationClasses(context);
 			tryLoadUncompletedSingletonsAgain(context, true);
+			loadConfigurationAfterClasses(context);
 			return context;
 		}
 		
 		private void readDefaultPropertiesFiles() {
 			String activeProfiles = getActiveProfiles();
+			logger.info("active profiles: {}", activeProfiles);
 			Properties props = new Properties();
 			FileReader fileReader = new MultiFileReader(activeProfiles);
 			props.putAll(fileReader.read("application.properties"));
 			props.putAll(fileReader.read("application.yaml"));
 			props.putAll(fileReader.read("application.yml"));
 			for(Object key : props.keySet())
-				properties.putIfAbsent(key, props.get(key));
+				properties.put(key, props.get(key));
 		}
 		
 		private String getActiveProfiles() {
@@ -697,10 +824,26 @@ public class EzySimpleBeanContext
 			return activeProfiles;
 		}
 		
+		private void removeExcludeConfigurationClasses() {
+			configurationClasses.removeAll(excludeConfigurationClasses);
+			configurationBeforeClasses.removeAll(excludeConfigurationClasses);
+			configurationAfterClasses.removeAll(excludeConfigurationClasses);
+		}
+		
+		private void doScanPackages() {
+			doScanPackages(packagesToScan);
+		}
+		
+		private void doScanPackages(Set<String> packages) {
+			if(packages.size() > 0) {
+				EzyReflection reflection = EzyPackages.scanPackages(packages);
+				addAllClasses(reflection);
+			}
+		}
+		
 		private void scanAutoConfigurationPackage() {
 			if(enableAutoConfiguration) {
-				scan(AUTO_CONFIGURATION_PACKAGE);
-				packagesToScan.remove(AUTO_CONFIGURATION_PACKAGE);
+				addAllClasses(EzyPackages.scanPackage(AUTO_CONFIGURATION_PACKAGE));
 			}
 		}
 		
@@ -774,6 +917,7 @@ public class EzySimpleBeanContext
 		private void readConfigurationClasses() {
 			Set<Class> classes = new HashSet<>();
 			classes.addAll(configurationBeforeClasses);
+			classes.addAll(configurationAfterClasses);
 			classes.addAll(configurationClasses);
 			for(Class<?> clazz : classes) {
 				EzyPackagesToScan packagesScanAnn = clazz.getAnnotation(EzyPackagesToScan.class);
@@ -797,13 +941,29 @@ public class EzySimpleBeanContext
 		}
 		
 		private void scanPackagesScanClass(Class<?> clazz) {
+			Set<String> packets = new HashSet<>();
 			EzyPackagesToScan packagesScanAnn = clazz.getAnnotation(EzyPackagesToScan.class);
-			if(packagesScanAnn != null)
-				scan(packagesScanAnn.value());
+			if(packagesScanAnn != null) {
+				String[] value = packagesScanAnn.value();
+				if(value.length == 0) {
+					packets.add(clazz.getPackage().getName());
+				}
+				else {
+					packets.addAll(Arrays.asList(value));
+				}
+			}
 			EzyBeanPackagesToScan beanPackagesScanAnn = clazz.getAnnotation(EzyBeanPackagesToScan.class);
-			if(beanPackagesScanAnn != null)
-				scan(beanPackagesScanAnn.value());
-			
+			if(beanPackagesScanAnn != null) {
+				String[] value = beanPackagesScanAnn.value();
+				if(value.length == 0) {
+					packets.add(clazz.getPackage().getName());
+				}
+				else {
+					packets.addAll(Arrays.asList(value));
+				}
+			}
+			packagesToScan.addAll(packets);
+			doScanPackages(packets);
 		}
 		
 		private void loadPropertiesSources() {
@@ -851,6 +1011,12 @@ public class EzySimpleBeanContext
 		
 		private void loadConfigurationClasses(EzyBeanContext context) {
 			List<Class> classes = EzyConfigurationClassSorter.sort(configurationClasses);
+			for(Class clazz : classes)
+				loadConfigurationClass(clazz, context);
+		}
+		
+		private void loadConfigurationAfterClasses(EzyBeanContext context) {
+			List<Class> classes = EzyConfigurationAfterClassSorter.sort(configurationAfterClasses);
 			for(Class clazz : classes)
 				loadConfigurationClass(clazz, context);
 		}
@@ -927,6 +1093,7 @@ public class EzySimpleBeanContext
 			propertiesSourceClasses.addAll(reflection.getAnnotatedClasses(EzyPropertiesSources.class));
 			configurationClasses.addAll(reflection.getAnnotatedClasses(EzyConfiguration.class));
 			configurationBeforeClasses.addAll(reflection.getAnnotatedClasses(EzyConfigurationBefore.class));
+			configurationAfterClasses.addAll(reflection.getAnnotatedClasses(EzyConfigurationAfter.class));
 			propertiesBeanAnnotatedClasses.addAll(reflection.getAnnotatedClasses(EzyPropertiesBean.class));
 			propertiesBeansAnnotatedClasses.addAll(reflection.getAnnotatedClasses(EzyPropertiesBeans.class));
 			enableAutoConfiguration = enableAutoConfiguration && reflection.getAnnotatedClass(EzyDisableAutoConfiguration.class) == null;

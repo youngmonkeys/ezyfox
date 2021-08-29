@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 
+import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 
@@ -24,6 +25,12 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	
 	EzyBeanContextBuilder scan(Collection<String> packageNames);
 	
+	EzyBeanContextBuilder excludePackage(String packageName);
+
+	EzyBeanContextBuilder excludePackages(String... packageNames);
+
+	EzyBeanContextBuilder excludePackages(Iterable<String> packageNames);
+	
 	EzyBeanContextBuilder addConfigurationClass(Class clazz);
 	
 	EzyBeanContextBuilder addConfigurationClasses(Class... classes);
@@ -35,10 +42,20 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	EzyBeanContextBuilder addConfigurationBeforeClasses(Class... classes);
 	
 	EzyBeanContextBuilder addConfigurationBeforeClasses(Iterable<Class> classes);
+	
+	EzyBeanContextBuilder addConfigurationAfterClass(Class clazz);
+	
+	EzyBeanContextBuilder addConfigurationAfterClasses(Class... classes);
+	
+	EzyBeanContextBuilder addConfigurationAfterClasses(Iterable<Class> classes);
+	
+	EzyBeanContextBuilder addSingleton(Object singleton);
 
 	EzyBeanContextBuilder addSingleton(String name, Object singleton);
 	
 	EzyBeanContextBuilder addSingletons(Map<String, Object> singletons);
+	
+	EzyBeanContextBuilder addSingletonsByKey(Map<EzyBeanKey, Object> singletons);
 
 	EzyBeanContextBuilder addSingletonClass(Class clazz);
 
@@ -65,6 +82,12 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	EzyBeanContextBuilder addPrototypeSuppliers(Map<String, EzyPrototypeSupplier> suppliers);
 	
 	EzyBeanContextBuilder addAllClasses(Object reflection);
+	
+	EzyBeanContextBuilder excludeConfigurationClass(Class clazz);
+	
+	EzyBeanContextBuilder excludeConfigurationClasses(Class... classes);
+	
+	EzyBeanContextBuilder excludeConfigurationClasses(Iterable<Class> classes);
 	
 	EzyBeanContextBuilder errorHandler(EzyErrorHandler handler);
 	

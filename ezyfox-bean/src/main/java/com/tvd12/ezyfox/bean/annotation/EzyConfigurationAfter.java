@@ -6,20 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicates that a class configure which packages bean context need to load
  * 
  * @author tavandung12
  *
  */
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })
-public @interface EzyBeanPackagesToScan {
-    
-    /**
-     * packages to load
-     * 
-     * @return array of package names
-     */
-	public String[] value() default {};
+public @interface EzyConfigurationAfter {
+	
+	int priority() default 0;
+	
 }

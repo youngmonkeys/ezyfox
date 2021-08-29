@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
+
 @SuppressWarnings("rawtypes")
 public interface EzySingletonFetcher {
 
@@ -24,5 +26,7 @@ public interface EzySingletonFetcher {
 	List getSingletonsOf(Class parentClass);
 	
 	<T> T getAnnotatedSingleton(Class annotationClass);
+	
+	Map<EzyBeanKey, Object> getSingletonMapByKey();
 	
 }
