@@ -21,6 +21,7 @@ import java.util.function.Predicate;
 import com.tvd12.ezyfox.annotation.EzyImport;
 import com.tvd12.ezyfox.annotation.EzyPackagesToScan;
 import com.tvd12.ezyfox.annotation.EzyProperty;
+import com.tvd12.ezyfox.bean.EzyBeanAutoConfig;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyBeanNameTranslator;
@@ -34,6 +35,7 @@ import com.tvd12.ezyfox.bean.annotation.EzyConfiguration;
 import com.tvd12.ezyfox.bean.annotation.EzyConfigurationAfter;
 import com.tvd12.ezyfox.bean.annotation.EzyConfigurationBefore;
 import com.tvd12.ezyfox.bean.annotation.EzyDisableAutoConfiguration;
+import com.tvd12.ezyfox.bean.annotation.EzyExclusiveClassesConfiguration;
 import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBean;
 import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBeans;
 import com.tvd12.ezyfox.bean.annotation.EzyPropertiesSources;
@@ -1022,7 +1024,17 @@ public class EzySimpleBeanContext
 		}
 		
 		private void loadConfigurationClass(Class<?> clazz, EzyBeanContext context) {
-			new EzySimpleConfigurationLoader().context(context).clazz(clazz).load();
+			try {
+				new EzySimpleConfigurationLoader().context(context).clazz(clazz).load();
+			}
+			catch (Throwable e) {
+				if(EzyBeanAutoConfig.class.isAssignableFrom(clazz)) {
+					EzyBeanAutoConfig.LOGGER.debug("{} auto config failed due to: {} ({})", clazz.getName(), e.getClass().getName(), e.getMessage());
+				}
+				else {
+					throw e;
+				}
+			}
 		}
 		
 		private void tryLoadUncompletedSingletonsAgain(EzyBeanContext context, boolean finish) {
@@ -1096,7 +1108,18 @@ public class EzySimpleBeanContext
 			configurationAfterClasses.addAll(reflection.getAnnotatedClasses(EzyConfigurationAfter.class));
 			propertiesBeanAnnotatedClasses.addAll(reflection.getAnnotatedClasses(EzyPropertiesBean.class));
 			propertiesBeansAnnotatedClasses.addAll(reflection.getAnnotatedClasses(EzyPropertiesBeans.class));
+			excludeConfigurationClasses.addAll(getExcludeConfigurationClasses(reflection));
 			enableAutoConfiguration = enableAutoConfiguration && reflection.getAnnotatedClass(EzyDisableAutoConfiguration.class) == null;
+		}
+		
+		private Set<Class<?>> getExcludeConfigurationClasses(EzyReflection reflection) {
+			Set<Class<?>> answer = new HashSet<>();
+			Set<Class<?>> classes = reflection.getAnnotatedClasses(EzyExclusiveClassesConfiguration.class);
+			for(Class<?> clazz : classes) {
+				EzyExclusiveClassesConfiguration ann = clazz.getAnnotation(EzyExclusiveClassesConfiguration.class);
+				answer.addAll(Arrays.asList(ann.value()));
+			}
+			return answer;
 		}
 		
 		private EzyPropertiesReader getPropertiesReader() {
