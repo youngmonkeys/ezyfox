@@ -8,6 +8,7 @@ import java.util.Set;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
+import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigAfter11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigurationBefore11;
@@ -20,6 +21,10 @@ import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton21;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton22;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton23;
 import com.tvd12.ezyfox.bean.v120.testing.packet02.Singleton21;
+import com.tvd12.ezyfox.bean.v120.testing.packet03.Config33;
+import com.tvd12.ezyfox.bean.v120.testing.packet03.ConfigFailed31;
+import com.tvd12.ezyfox.bean.v120.testing.packet03.Singleton31;
+import com.tvd12.ezyfox.bean.v120.testing.packet03.Singleton32;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
@@ -222,5 +227,48 @@ public class EzySimpleBeanContextTest {
 		
 		// then
 		Asserts.assertNotNull(lastSingleton11);
+	}
+	
+	@Test
+	public void exclusiveClassConfigTest() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.scan("com.tvd12.ezyfox.bean.v120.testing.packet03")
+				.build();
+		
+		// when
+		Singleton31 singleton31 = beanContext.getSingleton(Singleton31.class);
+		Singleton32 singleton32 = beanContext.getSingleton(Singleton32.class);
+		
+		// then
+		Asserts.assertNotNull(singleton31);
+		Asserts.assertNull(singleton32);
+	}
+	
+	@Test
+	public void autoConfigurationFailed() {
+		// given
+		EzyBeanContext beanContext = EzyBeanContext.builder()
+				.addConfigurationBeforeClass(Config33.class)
+				.build();
+		
+		// when
+		Config33 config33 = beanContext.getSingleton(Config33.class);
+		
+		// then
+		Asserts.assertNotNull(config33);
+	}
+	
+	@Test
+	public void configurationFailed() {
+		// given
+		EzyBeanContextBuilder builder = EzyBeanContext.builder()
+				.addConfigurationBeforeClass(ConfigFailed31.class);
+		
+		// when
+		Throwable e = Asserts.assertThrows(() -> builder.build());
+		
+		// then
+		Asserts.assertEquals(RuntimeException.class, e.getClass());
 	}
 }
