@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import com.tvd12.ezyfox.function.EzyVoid;
 import com.tvd12.ezyfox.pattern.EzyObjectFactory;
 import com.tvd12.ezyfox.pattern.EzyObjectPool;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyObjectPool1Test extends BaseTest {
@@ -41,6 +42,7 @@ public class EzyObjectPool1Test extends BaseTest {
 		pool.destroy();
 		
 		pool.getRemainObjects();
+		Asserts.assertTrue(pool.getCanBeStaleObjects().isEmpty());
 	}
 	
 	@Test

@@ -59,28 +59,32 @@ public abstract class EzyObjectProvider<T>
 	}
 	
 	protected void startValidationService() {
-		validationService.scheduleWithFixedDelay(newValidationTask(), 
+		List<T> buffer = new ArrayList<>();
+		validationService.scheduleWithFixedDelay(newValidationTask(buffer), 
 				validationDelay, validationInterval, TimeUnit.MILLISECONDS);
 	}
 	
-	protected Runnable newValidationTask() {
+	protected Runnable newValidationTask(List<T> buffer) {
 		return new Runnable() {
 			
 			@Override
 			public void run() {
 				try {
-					removeStaleObjects();
+					buffer.addAll(providedObjects);
+					removeStaleObjects(buffer);
 				}
 				catch(Exception e) {
 					logger.error("object provider validation error", e);
+				}
+				finally {
+					buffer.clear();
 				}
 			}
 			
 		};
 	}
 	
-	protected void removeStaleObjects() {
-	}
+	protected void removeStaleObjects(List<T> buffer) {}
 	
 	protected final T provideObject() {
 		return provideObject0();
@@ -140,10 +144,6 @@ public abstract class EzyObjectProvider<T>
 			return (B)this;
 		}
 		
-		protected int getValidationThreadPoolSize() {
-			return 1;
-		}
-		
 		protected abstract String getValidationThreadPoolName();
 		
 		
@@ -160,7 +160,7 @@ public abstract class EzyObjectProvider<T>
 		}
 		
 		protected ScheduledExecutorService newValidationService() {
-			ScheduledExecutorService service = EzyExecutors.newScheduledThreadPool(getValidationThreadPoolSize(), newValidationThreadFactory());
+			ScheduledExecutorService service = EzyExecutors.newSingleThreadScheduledExecutor(newValidationThreadFactory());
 			Runtime.getRuntime().addShutdownHook(new Thread(() -> service.shutdown()));
 			return service;
 		}
