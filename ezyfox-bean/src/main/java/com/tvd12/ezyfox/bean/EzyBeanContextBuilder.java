@@ -97,9 +97,17 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	
 	EzyBeanContextBuilder addProperties(String file, String activeProfiles);
 	
+	EzyBeanContextBuilder addProperties(Iterable<String> files);
+    
+    EzyBeanContextBuilder addProperties(Iterable<String> files, String activeProfiles);
+	
 	EzyBeanContextBuilder addProperties(File file);
 	
 	EzyBeanContextBuilder addProperties(File file, String activeProfiles);
+	
+	EzyBeanContextBuilder addProperties(Collection<File> files);
+    
+    EzyBeanContextBuilder addProperties(Collection<File> files, String activeProfiles);
 	
 	EzyBeanContextBuilder addProperties(InputStream inputStream);
 	

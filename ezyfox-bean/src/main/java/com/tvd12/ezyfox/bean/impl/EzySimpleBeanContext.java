@@ -684,17 +684,43 @@ public class EzySimpleBeanContext
 		
 		/*
 		 * (non-Javadoc)
-		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.util.String)
+		 * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.lang.String)
 		 */
 		@Override
 		public EzyBeanContextBuilder addProperties(String file) {
 			return addProperties(file, getActiveProfiles());
 		}
 		
+		/*
+         * (non-Javadoc)
+         * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.lang.String, java.lang.String)
+         */
 		@Override
 		public EzyBeanContextBuilder addProperties(String file, String activeProfiles) {
 			Properties props = new MultiFileReader(activeProfiles).read(file);
 			return addProperties(props);
+		}
+		
+		/*
+         * (non-Javadoc)
+         * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.lang.Iterable)
+         */
+		@Override
+		public EzyBeanContextBuilder addProperties(Iterable<String> files) {
+		    for(String file : files)
+                addProperties(file);
+            return this;
+		}
+
+		/*
+         * (non-Javadoc)
+         * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.lang.Iterable, java.lang.String)
+         */
+		@Override
+		public EzyBeanContextBuilder addProperties(Iterable<String> files, String activeProfiles) {
+		    for(String file : files)
+		        addProperties(file, activeProfiles);
+		    return this;
 		}
 		
 		/*
@@ -706,10 +732,36 @@ public class EzySimpleBeanContext
 			return addProperties(file, getActiveProfiles());
 		}
 		
+		/*
+         * (non-Javadoc)
+         * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.io.File, java.lang.String)
+         */
 		@Override
 		public EzyBeanContextBuilder addProperties(File file, String activeProfiles) {
 			Properties props = new MultiFileReader(activeProfiles).read(file);
 			return addProperties(props);
+		}
+		
+		/*
+         * (non-Javadoc)
+         * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.util.Collection)
+         */
+		@Override
+		public EzyBeanContextBuilder addProperties(Collection<File> files) {
+		    for(File file : files)
+		        addProperties(file);
+		    return this;
+		}
+		
+		/*
+         * (non-Javadoc)
+         * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#addProperties(java.util.Collection, java.lang.String)
+         */
+		@Override
+		public EzyBeanContextBuilder addProperties(Collection<File> files, String activeProfiles) {
+		    for(File file : files)
+                addProperties(file, activeProfiles);
+            return this;
 		}
 		
 		/*
