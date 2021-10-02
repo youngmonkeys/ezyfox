@@ -25,6 +25,8 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 	
 	EzyBeanContextBuilder scan(Collection<String> packageNames);
 	
+	EzyBeanContextBuilder activeProfiles(String activeProfiles);
+	
 	EzyBeanContextBuilder excludePackage(String packageName);
 
 	EzyBeanContextBuilder excludePackages(String... packageNames);

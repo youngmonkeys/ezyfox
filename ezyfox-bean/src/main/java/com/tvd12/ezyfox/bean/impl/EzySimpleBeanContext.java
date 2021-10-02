@@ -243,6 +243,7 @@ public class EzySimpleBeanContext
 		protected Properties properties;
 		protected Set<String> packagesToScan;
 		protected Set<String> packagesToExclude;
+		protected Set<String> activeProfileSet;
 		protected Set<Class> excludeConfigurationClasses;
 		protected Set<Class> importClasses;
 		protected Set<Class> singletonClasses;
@@ -275,6 +276,7 @@ public class EzySimpleBeanContext
 			this.properties.putAll(System.getProperties());
 			this.packagesToScan = new HashSet<>();
 			this.packagesToExclude = new HashSet<>();
+			this.activeProfileSet = new HashSet<>();
 			this.importClasses = new HashSet<>();
 			this.singletonClasses = new HashSet<>();
 			this.prototypeClasses = new HashSet<>();
@@ -315,7 +317,8 @@ public class EzySimpleBeanContext
 		 */
 		@Override
 		public EzyBeanContextBuilder scan(String packageName) {
-			packagesToScan.add(packageName);
+		    if(packageName != null)
+		        packagesToScan.add(packageName);
 			return this;
 		}
 		
@@ -342,6 +345,20 @@ public class EzySimpleBeanContext
 		public EzyBeanContextBuilder scan(Collection<String> packageNames) {
 			packagesToScan.addAll(packageNames);
 			return this;	
+		}
+		
+		/* (non-Javadoc)
+         * @see com.tvd12.ezyfox.bean.impl.EzyBeanContextBuilder#activeProfiles(java.lang.String)
+         */
+		@Override
+		public EzyBeanContextBuilder activeProfiles(String activeProfiles) {
+		    if(activeProfiles != null) {
+		        String[] strs = activeProfiles.split(",");
+		        for(String str : strs) {
+		            this.activeProfileSet.add(str.trim());
+		        }
+		    }
+		    return this;
 		}
 		
 		/* (non-Javadoc)
@@ -875,7 +892,18 @@ public class EzySimpleBeanContext
 			String activeProfiles = properties.getProperty(ACTIVE_PROFILES_KEY);
 			if(EzyStrings.isNoContent(activeProfiles))
 				activeProfiles = properties.getProperty(EZYFOX_ACTIVE_PROFILES_KEY);
-			return activeProfiles;
+			if(activeProfiles == null) {
+			    if(activeProfileSet.size() > 0) {
+			        return String.join(",", activeProfileSet);
+			    }
+			    return null;
+			}
+			else {
+			    if(activeProfileSet.size() > 0) {
+                    return activeProfiles + "," + String.join(",", activeProfileSet);
+                }
+                return activeProfiles;
+			}
 		}
 		
 		private void removeExcludeConfigurationClasses() {
