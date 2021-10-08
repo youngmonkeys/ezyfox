@@ -19,6 +19,7 @@ import static com.tvd12.ezyfox.io.EzyDataConverter.toCharWrapperArray;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -354,11 +355,11 @@ public class EzySimpleOutputTransformer
 	
 	@SuppressWarnings("rawtypes")
 	protected void addOtherTransformers(Map<Class, EzyToObject> answer) {
-		answer.put(Date.class, new EzyToObject<String>() {
+		answer.put(Date.class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(String value) {
+			public Object transform(Object value) {
 				try {
-					return EzyDates.parse(value);
+				    return EzyDates.parseToDateOrNull(value);
 				} catch (Exception e) {
 					logger.info("Date value: {} is invalid", value, e);
 				}
@@ -366,11 +367,23 @@ public class EzySimpleOutputTransformer
 			}
 		});
 		
-		answer.put(LocalDate.class, new EzyToObject<String>() {
+		answer.put(Instant.class, new EzyToObject<Object>() {
+            @Override
+            public Object transform(Object value) {
+                try {
+                    return EzyDates.parseToInstantOrNull(value);
+                } catch (Exception e) {
+                    logger.info("Date value: {} is invalid", value, e);
+                }
+                return null;
+            }
+        });
+		
+		answer.put(LocalDate.class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(String value) {
+			public Object transform(Object value) {
 				try {
-					return EzyDates.parseDate(value);
+					return EzyDates.parseToLocalDateOrNull(value);
 				} catch (Exception e) {
 					logger.info("LocalDate value: {} is invalid", value, e);
 				}
@@ -378,11 +391,11 @@ public class EzySimpleOutputTransformer
 			}
 		});
 		
-		answer.put(LocalTime.class, new EzyToObject<String>() {
+		answer.put(LocalTime.class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(String value) {
+			public Object transform(Object value) {
 				try {
-					return EzyDates.parseTime(value);
+					return EzyDates.parseToLocalTimeOrNull(value);
 				} catch (Exception e) {
 					logger.info("LocalTime value: {} is invalid", value, e);
 				}
@@ -390,11 +403,11 @@ public class EzySimpleOutputTransformer
 			}
 		});
 		
-		answer.put(LocalDateTime.class, new EzyToObject<String>() {
+		answer.put(LocalDateTime.class, new EzyToObject<Object>() {
 			@Override
-			public Object transform(String value) {
+			public Object transform(Object value) {
 				try {
-					return EzyDates.parseDateTime(value);
+					return EzyDates.parseToLocalDateTimeOrNull(value);
 				} catch (Exception e) {
 					logger.info("LocalDateTime value : {} is invalid", value, e);
 				}
