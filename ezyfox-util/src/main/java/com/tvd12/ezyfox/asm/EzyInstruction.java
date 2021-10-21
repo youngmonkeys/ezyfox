@@ -149,7 +149,7 @@ public class EzyInstruction {
 	}
 	
 	public EzyInstruction invoke(String object, String method, String... args) {
-		return append(method)
+		return append(object)
 				.dot()
 				.function(method, args);
 	}
