@@ -170,6 +170,16 @@ public class EzyStringsTest extends BaseTest {
 		.testException(it -> it.getClass().equals(IllegalArgumentException.class));
 	}
 	
+	@Test
+	public void underscoreToCamelCaseTest() {
+	    Asserts.assertNull(EzyStrings.underscoreToCamelCase(null));
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase(""), "");
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("A"), "a");
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("abc"), "abc");
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("aa_bb_cc"), "aaBbCc");
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("aa__bb___cc"), "aaBbCc");
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyStrings.class;

@@ -155,6 +155,34 @@ public final class EzyStrings {
 		return original.substring(0, 1).toLowerCase() + original.substring(1);
 	}
 	
+	public static String underscoreToCamelCase(String original) {
+	    if (original == null) {
+	        return null;
+	    }
+	    String trim = original.trim();
+	    if (trim.length() == 0) {
+	        return trim;
+	    }
+	    if (trim.length() == 1) {
+	        return trim.toLowerCase();
+	    }
+	    StringBuilder builder = new StringBuilder().append(
+            Character.toLowerCase(trim.charAt(0))
+        );
+	    boolean needUpper = false;
+	    
+	    for (int i = 1 ; i < trim.length() ; ++i) {
+	        char ch = original.charAt(i);
+	        if (ch == '_') {
+	            needUpper = true;
+	        } else {
+	            builder.append(needUpper ? Character.toUpperCase(ch) : ch);
+	            needUpper = false;
+	        }
+	    }
+        return builder.toString();
+    }
+	
 	public static String toDotCase(String original) {
 		StringBuilder builder = new StringBuilder();
 		for(int i = 0 ; i < original.length() ; ++i) {
