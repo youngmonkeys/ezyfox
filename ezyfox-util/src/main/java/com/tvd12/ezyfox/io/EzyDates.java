@@ -233,10 +233,22 @@ public final class EzyDates {
 	}
 	
 	public static LocalDateTime millisToDateTime(long millis) {
-		Instant instant = Instant.ofEpochMilli(millis);
-		LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-		return dateTime;
+		return millisToDateTime(millis, ZoneId.systemDefault());
 	}
+	
+	public static LocalDateTime millisToDateTime(long millis, ZoneId zoneId) {
+        Instant instant = Instant.ofEpochMilli(millis);
+        return instantToDateTime(instant, zoneId);
+    }
+	
+	public static LocalDateTime instantToDateTime(Instant instant) {
+	    return instantToDateTime(instant, ZoneId.systemDefault());
+	}
+	
+	public static LocalDateTime instantToDateTime(Instant instant, ZoneId zoneId) {
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, zoneId);
+        return dateTime;
+    }
 	
 	// =============================================
 	public static Date parseToDateOrNull(Object value) {

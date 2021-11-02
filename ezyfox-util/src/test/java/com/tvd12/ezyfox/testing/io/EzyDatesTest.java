@@ -52,6 +52,9 @@ public class EzyDatesTest extends BaseTest {
 		
 		assertEquals(EzyDates.parseTime("01:01:01:001"), 
 				LocalTime.of(1, 1, 1, 1000000));
+		
+		assertEquals(EzyDates.instantToDateTime(now.toInstant()), 
+		        EzyDates.millisToDateTime(now.getTime()));
 	}
 	
 	@Test
