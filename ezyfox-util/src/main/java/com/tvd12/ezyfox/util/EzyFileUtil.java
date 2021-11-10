@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -70,6 +71,17 @@ public final class EzyFileUtil {
         String answer = fileName.substring(index + 1);
         return answer;
     }
+	
+	public static boolean createFileIfNotExists(File file) throws IOException {
+	    if (!file.exists()) {
+            File parentFile = file.getParentFile();
+            if (parentFile != null && !parentFile.exists()) {
+                parentFile.mkdirs();
+            }
+            return file.createNewFile();
+        }
+	    return false;
+	}
 	
 	private static class ExtensionsFilter implements Predicate<File> {
 		private final Set<String> extensions;
