@@ -8,10 +8,27 @@ public class Next {
 	protected final long skip;
 	protected final long limit;
 	
+	public Next(long limit) {
+	    this(0, limit);
+	}
+	
 	public Next(long skip, long limit) {
 		this.skip = skip;
 		this.limit = limit;
 	}
+	
+	
+	public static Next limit(long limit) {
+	    return new Next(limit);
+	}
+	
+	public static Next fromLimit(long limit) {
+        return new Next(limit);
+    }
+	
+	public static Next skipLimit(long skip, long limit) {
+        return new Next(skip, limit);
+    }
 	
 	public static Next fromSkipLimit(long skip, long limit) {
 		return new Next(skip, limit);

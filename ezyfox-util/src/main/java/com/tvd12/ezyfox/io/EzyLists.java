@@ -182,4 +182,66 @@ public final class EzyLists {
 			
 	}
     
+    /**
+     * 
+     * Take n items from the list start from 0
+     * 
+     * @param <T> the item type
+     * @param list the list
+     * @param limit the number of items
+     * @return if the list size greater than limit then return a sublist or else return the list
+     */
+    public static <T> List<T> take(List<T> list, int limit) {
+        return (list.size() > limit) ? list.subList(0, limit) : list;
+    }
+    
+    /**
+     * 
+     * Get the first value of the list
+     * 
+     * @param <T> the item type
+     * @param list the list
+     * @return the first value or null
+     */
+    public static <T> T first(List<T> list) {
+        return list.isEmpty() ? null : list.get(0);
+    }
+    
+    /**
+     * 
+     * Get the first value of the list
+     * 
+     * @param <T> the item type
+     * @param list the list
+     * @param defaultValue the default value
+     * @return the first value or the default value
+     */
+    public static <T> T first(List<T> list, T defaultValue) {
+        return list.isEmpty() ? defaultValue : list.get(0);
+    }
+    
+    /**
+     * 
+     * Get the last value of the list
+     * 
+     * @param <T> the item type
+     * @param list the list
+     * @return the last value or null
+     */
+    public static <T> T last(List<T> list) {
+        return list.isEmpty() ? null : list.get(list.size() - 1);
+    }
+    
+    /**
+     * 
+     * Get the last value of the list
+     * 
+     * @param <T> the item type
+     * @param list the list
+     * @param defaultValue the default value
+     * @return the last value or the default value
+     */
+    public static <T> T last(List<T> list, T defaultValue) {
+        return list.isEmpty() ? defaultValue : list.get(list.size() - 1);
+    }
 }

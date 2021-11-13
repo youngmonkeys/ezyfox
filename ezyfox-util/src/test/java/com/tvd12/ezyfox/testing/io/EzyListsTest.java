@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.testing.io;
 import static org.testng.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.testng.annotations.Test;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzyLists;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyListsTest extends BaseTest {
@@ -64,6 +66,19 @@ public class EzyListsTest extends BaseTest {
 		assert list8.size() == 5;
 		EzyLists.resize(list8, 5, "def");
 		assert list8.size() == 5;
+		
+		Asserts.assertEquals(EzyLists.take(Arrays.asList(1, 2, 3), 2), Arrays.asList(1, 2), false);
+		Asserts.assertEquals(EzyLists.take(Arrays.asList(1, 2, 3), 5), Arrays.asList(1, 2, 3));
+		
+		Asserts.assertEquals(EzyLists.first(Arrays.asList(1, 2)), 1);
+		Asserts.assertEquals(EzyLists.first(Arrays.asList()), null);
+		Asserts.assertEquals(EzyLists.first(Arrays.asList(1, 2), 3), 1);
+		Asserts.assertEquals(EzyLists.first(Arrays.asList(), 1), 1);
+		
+		Asserts.assertEquals(EzyLists.last(Arrays.asList(1, 2)), 2);
+        Asserts.assertEquals(EzyLists.last(Arrays.asList()), null);
+        Asserts.assertEquals(EzyLists.last(Arrays.asList(1, 2), 3), 2);
+        Asserts.assertEquals(EzyLists.last(Arrays.asList(), 2), 2);
 	}
 	
 	private Collection<Character> stringtoChars(String str) {
