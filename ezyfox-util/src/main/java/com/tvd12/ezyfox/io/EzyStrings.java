@@ -16,9 +16,9 @@ public final class EzyStrings {
 	
 	public static final String NULL = "null";
 	public static final String UTF_8 = "UTF-8";
+	public static final String EMPTY_STRING = "";
 
-	private EzyStrings() {
-	}
+	private EzyStrings() {}
 	
 	public static String newUtf(byte[] bytes) {
 		return newString(bytes, UTF_8);
