@@ -206,6 +206,42 @@ public final class EzyStrings {
 		return toDotCase(original).replace(DOT.getSign(), UNDERSCORE.getSign());
 	}
 	
+	public static String toDisplayName(String orignal) {
+	    if (orignal == null) {
+	        return EMPTY_STRING;
+	    }
+	    int length = orignal.length();
+	    StringBuilder builder = new StringBuilder();
+	    for(int i = 0 ; i < length ; ++i) {
+	        char ch = orignal.charAt(i);
+	        if (isWordSeparator(ch)) {
+	            while((++i) < length) {
+	                ch = orignal.charAt(i);
+	                if (!isWordSeparator(ch)) {
+	                    if (builder.length() > 0) {
+	                        builder.append(' ');
+	                    }
+	                    builder.append(Character.toUpperCase(ch));
+	                    break;
+	                }
+	            }
+	        } else {
+	            builder.append(i == 0 ? Character.toUpperCase(ch) : ch);
+	        }
+	    }
+	    return builder.toString();
+	}
+	
+	public static boolean isWordSeparator(char ch) {
+	    return ch == '-' 
+	            || ch == '.' 
+	            || ch == '_' 
+	            || ch == ';' 
+	            || ch == ',' 
+	            || ch == ' ' 
+	            || ch == '\t';
+	}
+	
 	public static String replace(String query, Object[] parameters) {
 		return replace(query, parameters, null);
 	}

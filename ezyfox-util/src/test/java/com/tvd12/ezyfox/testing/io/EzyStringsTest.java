@@ -180,6 +180,28 @@ public class EzyStringsTest extends BaseTest {
 	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("aa__bb___cc"), "aaBbCc");
 	}
 	
+	@Test
+	public void toDisplayNameTest() {
+	    // given
+	    String string = "--hello..world_i;fine,how--are-you fine\tor  not?";
+	    
+	    // when
+	    // then
+	    Asserts.assertTrue(EzyStrings.toDisplayName(null).isEmpty());
+	    Asserts.assertEquals(EzyStrings.toDisplayName(string), "Hello World I Fine How Are You Fine Or Not?");
+	}
+	
+	@Test
+    public void toDisplayNameBoundingTest() {
+        // given
+        String string = "hello..world_i;fine,how--are-you fine\tor  not?--";
+        
+        // when
+        // then
+        Asserts.assertTrue(EzyStrings.toDisplayName(null).isEmpty());
+        Asserts.assertEquals(EzyStrings.toDisplayName(string), "Hello World I Fine How Are You Fine Or Not?");
+    }
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyStrings.class;
