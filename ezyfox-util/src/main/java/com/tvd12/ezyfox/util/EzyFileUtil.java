@@ -83,6 +83,15 @@ public final class EzyFileUtil {
 	    return false;
 	}
 	
+	public static String getFileName(String filePath) {
+        int index = filePath.lastIndexOf('/');
+        if(index < 0)
+            return filePath;
+        if(index >= filePath.length() - 1)
+            return filePath;
+        return filePath.substring(index + 1, filePath.length());
+    }
+	
 	private static class ExtensionsFilter implements Predicate<File> {
 		private final Set<String> extensions;
 		
