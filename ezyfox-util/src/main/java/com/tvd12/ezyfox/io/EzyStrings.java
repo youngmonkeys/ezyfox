@@ -98,15 +98,23 @@ public final class EzyStrings {
 		return builder.append(close).toString();
 	}
 	
-	public static boolean isEmpty(CharSequence cs) {
-        boolean empty = (cs == null || cs.length() == 0);
+	public static boolean isEmpty(CharSequence value) {
+        boolean empty = (value == null || value.length() == 0);
         return empty;
     }
 	
-	public static boolean isNoContent(String cs) {
-        boolean noContent = (cs == null || cs.isEmpty() || cs.trim().isEmpty());
+	public static boolean isNotEmpty(CharSequence value) {
+	    return !isEmpty(value);
+	}
+	
+	public static boolean isNoContent(String value) {
+        boolean noContent = (value == null || value.isEmpty() || value.trim().isEmpty());
         return noContent;
     }
+	
+	public static boolean isNotBlank(String value) {
+	    return !isNoContent(value);
+	}
 	
 	public static boolean isEqualsIgnoreCase(String a, String b) {
 	    if (a == null && b == null) {

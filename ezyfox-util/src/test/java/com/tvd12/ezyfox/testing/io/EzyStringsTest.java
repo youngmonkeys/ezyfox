@@ -74,6 +74,10 @@ public class EzyStringsTest extends BaseTest {
 		assert EzyStrings.isNoContent("\t");
 		assert EzyStrings.isNoContent("\n");
 		assert !EzyStrings.isNoContent("a");
+		assert EzyStrings.isNotEmpty("a");
+		assert !EzyStrings.isNotEmpty("");
+		assert EzyStrings.isNotBlank("a");
+		assert !EzyStrings.isNotBlank("\t");
 		
 		System.out.println(EzyStrings.join(new double[] {1.1, 2.2, 3.3}, ","));
 		System.out.println(EzyStrings.join(new int[] {1, 2, 3}, ". "));
