@@ -74,6 +74,8 @@ public class EzyStringsTest extends BaseTest {
 		assert EzyStrings.isNoContent("\t");
 		assert EzyStrings.isNoContent("\n");
 		assert !EzyStrings.isNoContent("a");
+		assert !EzyStrings.isBlank("a");
+		assert EzyStrings.isBlank("\t");
 		assert EzyStrings.isNotEmpty("a");
 		assert !EzyStrings.isNotEmpty("");
 		assert EzyStrings.isNotBlank("a");

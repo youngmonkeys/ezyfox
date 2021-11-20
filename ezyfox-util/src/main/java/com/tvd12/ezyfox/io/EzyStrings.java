@@ -107,6 +107,10 @@ public final class EzyStrings {
 	    return !isEmpty(value);
 	}
 	
+	public static boolean isBlank(String value) {
+	    return isNoContent(value);
+	}
+	
 	public static boolean isNoContent(String value) {
         boolean noContent = (value == null || value.isEmpty() || value.trim().isEmpty());
         return noContent;
