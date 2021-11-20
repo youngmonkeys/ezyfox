@@ -202,6 +202,19 @@ public class EzyStringsTest extends BaseTest {
         Asserts.assertEquals(EzyStrings.toDisplayName(string), "Hello World I Fine How Are You Fine Or Not?");
     }
 	
+	@Test
+	public void isEqualsIgnoreCaseTest() {
+	    Asserts.assertTrue(EzyStrings.isEqualsIgnoreCase(null, null));
+	    Asserts.assertTrue(EzyStrings.isEqualsIgnoreCase(EzyStrings.EMPTY_STRING, EzyStrings.EMPTY_STRING));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("a", null));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase(null, "b"));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("ab", "b"));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("ab", "ba"));
+	    Asserts.assertTrue(EzyStrings.isEqualsIgnoreCase("a.b", "a-b"));
+	    Asserts.assertTrue(EzyStrings.isEqualsIgnoreCase("a_b", "a-b"));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("a_b", "acb"));
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyStrings.class;

@@ -108,6 +108,32 @@ public final class EzyStrings {
         return noContent;
     }
 	
+	public static boolean isEqualsIgnoreCase(String a, String b) {
+	    if (a == null && b == null) {
+	        return true;
+	    }
+	    if (a == b) {
+	        return true;
+	    }
+	    if (a == null || b == null) {
+	        return false;
+	    }
+	    if (a.length() != b.length()) {
+	        return false;
+	    }
+	    int length = a.length();
+	    for (int i = 0 ; i < length ; ++i) {
+	        char achar = a.charAt(i);
+	        char bchar = b.charAt(i);
+	        if ((achar == bchar) 
+	                || (isWordSeparator(achar) && isWordSeparator(bchar))) {
+	            continue;
+	        }
+	        return false;
+	    }
+	    return true;
+	}
+	
 	public static String join(double[] array, String separator) {
 		return Arrays.stream(array)
 				.mapToObj(t -> String.valueOf(t))
