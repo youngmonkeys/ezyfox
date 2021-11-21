@@ -334,7 +334,6 @@
 						<configuration>
 							<serverId>oss.sonatype.org</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<description>${project.version}</description>
 						</configuration>
 						<executions>
 							<execution>
@@ -445,7 +444,6 @@
 							<serverId>ossrh</serverId>
 					        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
 					        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-							<description>${project.version}</description>
 						</configuration>
 						<executions>
 							<execution>
