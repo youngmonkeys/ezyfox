@@ -861,6 +861,7 @@ public class EzySimpleBeanContext
 			removeExcludeConfigurationClasses();
 			loadPropertiesBeanClasses();
 			loadPropertiesSources();
+			setVariableValues(properties);
 			mapProperties();
 			addPropertiesBeans();
 			singletonFactory.addSingletonClasses(singletonClasses);
