@@ -17,6 +17,7 @@ public final class EzyStrings {
 	public static final String NULL = "null";
 	public static final String UTF_8 = "UTF-8";
 	public static final String EMPTY_STRING = "";
+	public static final String SPACE = " ";
 
 	private EzyStrings() {}
 	
@@ -231,6 +232,7 @@ public final class EzyStrings {
 		}
 		return builder
 				.toString()
+				.replace(SPACE, EMPTY_STRING)
 				.replace(DASH.getSign(), DOT.getSign())
 				.replace(UNDERSCORE.getSign(), DOT.getSign())
 				.replace(DOT.getSign() + DOT.getSign(), DOT.getSign());

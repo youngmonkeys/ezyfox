@@ -221,6 +221,18 @@ public class EzyStringsTest extends BaseTest {
 	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("a_b", "acb"));
 	}
 	
+	@Test
+	public void displayNameToDashCase() {
+	    // given
+	    String displayName = "Hello World";
+	    
+	    // when
+	    String actual = EzyStrings.toDashCase(displayName);
+	    
+	    // then
+	    Asserts.assertEquals(actual, "hello-world");
+	}
+	
 	@Override
 	public Class<?> getTestClass() {
 		return EzyStrings.class;
