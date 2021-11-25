@@ -30,13 +30,14 @@ public class EzyByMethodSingletonLoaderTest extends BaseTest {
 		EzyByMethodSingletonLoader loader = new EzyByMethodSingletonLoader(
 				"a",
 				methodA, this, EzyMaps.newHashMap(B.class, methodB));
-		loader.load(context);
 		
 		Method getConstructorParameterTypes = EzyByMethodSingletonLoader.class
 				.getDeclaredMethod("getConstructorParameterTypes", Class.class);
 		getConstructorParameterTypes.setAccessible(true);
 		getConstructorParameterTypes.invoke(loader, B.class);
 		getConstructorParameterTypes.invoke(loader, Object.class);
+		
+		loader.load(context);
 	}
 	
 	public static class A {
