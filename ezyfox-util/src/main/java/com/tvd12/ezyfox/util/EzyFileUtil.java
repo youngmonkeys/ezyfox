@@ -2,6 +2,8 @@ package com.tvd12.ezyfox.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -90,6 +92,23 @@ public final class EzyFileUtil {
         if(index >= filePath.length() - 1)
             return filePath;
         return filePath.substring(index + 1, filePath.length());
+    }
+	
+	public static String getFileNameWithoutExtension(String filePath) {
+	    String fileName = getFileName(filePath);
+	    int index = fileName.lastIndexOf('.');
+	    if (index == 0) {
+	        return EMPTY_STRING;
+	    }
+	    if (index > 0) {
+	        return fileName.substring(0, index);
+	    }
+	    return fileName;
+    }
+	
+	public static void copyFile(File from, File to) throws IOException {
+	    EzyFileUtil.createFileIfNotExists(to);
+        Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 	
 	private static class ExtensionsFilter implements Predicate<File> {

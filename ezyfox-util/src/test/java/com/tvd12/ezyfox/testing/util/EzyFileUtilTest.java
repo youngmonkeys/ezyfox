@@ -87,4 +87,18 @@ public class EzyFileUtilTest extends BaseTest {
         // then
         Asserts.assertEquals(filePath, actual);
     }
+    
+    @Test
+    public void getFileNameWithoutExtensionTest() {
+        // given
+        String filePath1 = "/hello/world.txt";
+        String filePath2 = "/hello/.txt";
+        String filePath3 = "/hello/world";
+        
+        // when
+        // then
+        Asserts.assertEquals(EzyFileUtil.getFileNameWithoutExtension(filePath1), "world");
+        Asserts.assertEquals(EzyFileUtil.getFileNameWithoutExtension(filePath2), "");
+        Asserts.assertEquals(EzyFileUtil.getFileNameWithoutExtension(filePath3), "world");
+    }
 }
