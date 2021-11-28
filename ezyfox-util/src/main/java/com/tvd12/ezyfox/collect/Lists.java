@@ -23,6 +23,12 @@ public final class Lists {
 		return list;
 	}
 	
+	public static <T> List<T> tryNewArrayList(Iterable<T> iterable) {
+	    if(iterable instanceof List)
+            return (List<T>)iterable;
+        return newArrayList(iterable);
+    }
+	
 	public static <T> List<T> toList(Iterable<T> iterable) {
 		if(iterable instanceof List)
 			return (List<T>)iterable;
