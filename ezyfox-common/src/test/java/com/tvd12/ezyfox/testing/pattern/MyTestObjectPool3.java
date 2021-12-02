@@ -22,11 +22,6 @@ public class MyTestObjectPool3 extends EzyObjectPool<MyTestObject> {
 		return object.getId() % 2 == 0;
 	}
 	
-	@Override
-	protected void removeStaleObjects() {
-		throw new RuntimeException();
-	}
-	
 	public static Builder builder() {
 		return new Builder();
 	}

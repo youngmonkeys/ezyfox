@@ -92,21 +92,26 @@ public abstract class EzyObjectPool<T>
 	}
 	
 	protected void startValidationService() {
-		validationService.scheduleWithFixedDelay(newValidationTask(), 
+		List<T> buffer = new ArrayList<>();
+		validationService.scheduleWithFixedDelay(newValidationTask(buffer), 
 				validationDelay, validationInterval, TimeUnit.MILLISECONDS);
 	}
 	
-	protected Runnable newValidationTask() {
+	protected Runnable newValidationTask(List<T> buffer) {
 		return new Runnable() {
 			
 			@Override
 			public void run() {
 				try {
 					removeExcessiveObjects();
-					removeStaleObjects();
+					buffer.addAll(borrowedObjects);
+					removeStaleObjects(buffer);
 				}
 				catch(Exception e) {
 					logger.error("object poll validation error", e);
+				}
+				finally {
+					buffer.clear();
 				}
 			}
 			
@@ -128,11 +133,6 @@ public abstract class EzyObjectPool<T>
 				logger.info("object objectQueue: remove {} excessive objects, remain {}", size, objectQueue.size());
 			}
 		};
-	}
-	
-	protected void removeStaleObjects() {
-		List<T> objects = getCanBeStaleObjects();
-		removeStaleObjects(objects);
 	}
 	
 	protected void removeStaleObjects(List<T> objects) {
@@ -262,10 +262,6 @@ public abstract class EzyObjectPool<T>
 			return (B)this;
 		}
 		
-		protected int getValidationThreadPoolSize() {
-			return 1;
-		}
-		
 		protected abstract String getValidationThreadPoolName();
 		
 		protected EzyObjectFactory<T> getObjectFactory() {
@@ -281,7 +277,7 @@ public abstract class EzyObjectPool<T>
 		}
 		
 		protected ScheduledExecutorService newValidationService() {
-			ScheduledExecutorService service = EzyExecutors.newScheduledThreadPool(getValidationThreadPoolSize(), newValidationThreadFactory());
+			ScheduledExecutorService service = EzyExecutors.newSingleThreadScheduledExecutor(newValidationThreadFactory());
 			Runtime.getRuntime().addShutdownHook(new Thread(() -> service.shutdown()));
 			return service;
 		}

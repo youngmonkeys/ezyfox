@@ -10,6 +10,8 @@ import java.util.Collection;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.util.EzyDirectories;
+import com.tvd12.ezyfox.util.EzyFileUtil;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyDirectoriesTest extends BaseTest {
@@ -85,4 +87,32 @@ public class EzyDirectoriesTest extends BaseTest {
 				.getFiles(new String[] {"txt"}, false);
 		System.out.println(files1);
 	}
+	
+	@Test
+	public void deleteFolderTest() throws IOException {
+	    // given
+	    EzyFileUtil.createFileIfNotExists(new File("deleteFolderTest/hello/world.txt"));
+	    EzyFileUtil.createFileIfNotExists(new File("deleteFolderTest/foo/bar.txt"));
+	    
+	    // when
+	    // then
+	    EzyDirectories.deleteFolder(new File("deleteFolderTest"));
+	}
+	
+	@Test
+    public void copyFolderTest() throws IOException {
+        // given
+        EzyFileUtil.createFileIfNotExists(new File("copyFolderTest/hello/world.txt"));
+        EzyFileUtil.createFileIfNotExists(new File("copyFolderTest/foo/bar.txt"));
+        new File("copyFolderTest/no-files/").mkdir();
+        
+        // when
+        EzyDirectories.copyFolder(new File("not found"), new File("not found/copy"));
+        EzyDirectories.copyFolder(new File("copyFolderTest"), new File("copyFolderTest/copy"));
+        
+        // then
+        Asserts.assertTrue(new File("copyFolderTest/copy/hello/world.txt").exists());
+        Asserts.assertTrue(new File("copyFolderTest/copy/foo/bar.txt").exists());
+        EzyDirectories.deleteFolder(new File("copyFolderTest"));
+    }
 }

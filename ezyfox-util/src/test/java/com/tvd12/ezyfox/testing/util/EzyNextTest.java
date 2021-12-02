@@ -34,6 +34,30 @@ public class EzyNextTest {
 		next = EzyNext.fromPageSize(1, 10);
 		assert next.getSkip() == 10;
 		assert next.getLimit() == 10;
+		
+		next = EzyNext.skipLimit(1, 10);
+        assert next.getSkip() == 1;
+        assert next.getLimit() == 10;
+        
+        next = EzyNext.fromLimit(10);
+        assert next.getSkip() == 0;
+        assert next.getLimit() == 10;
+        
+        next = EzyNext.limit(10);
+        assert next.getSkip() == 0;
+        assert next.getLimit() == 10;
+        
+        next = Next.skipLimit(1, 10);
+        assert next.getSkip() == 1;
+        assert next.getLimit() == 10;
+        
+        next = Next.fromLimit(10);
+        assert next.getSkip() == 0;
+        assert next.getLimit() == 10;
+        
+        next = Next.limit(10);
+        assert next.getSkip() == 0;
+        assert next.getLimit() == 10;
 	}
 	
 }

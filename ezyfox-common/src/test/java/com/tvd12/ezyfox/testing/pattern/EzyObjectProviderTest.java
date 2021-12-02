@@ -84,7 +84,7 @@ public class EzyObjectProviderTest {
 		}
 		
 		@Override
-		protected void removeStaleObjects() {
+		protected void removeStaleObjects(List<String> buffer) {
 			if(!removeStaleObjectsPassed) {
 				removeStaleObjectsPassed = true;
 				throw new IllegalStateException();

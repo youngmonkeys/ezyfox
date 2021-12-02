@@ -16,9 +16,10 @@ public final class EzyStrings {
 	
 	public static final String NULL = "null";
 	public static final String UTF_8 = "UTF-8";
+	public static final String EMPTY_STRING = "";
+	public static final String SPACE = " ";
 
-	private EzyStrings() {
-	}
+	private EzyStrings() {}
 	
 	public static String newUtf(byte[] bytes) {
 		return newString(bytes, UTF_8);
@@ -98,15 +99,53 @@ public final class EzyStrings {
 		return builder.append(close).toString();
 	}
 	
-	public static boolean isEmpty(CharSequence cs) {
-        boolean empty = (cs == null || cs.length() == 0);
+	public static boolean isEmpty(CharSequence value) {
+        boolean empty = (value == null || value.length() == 0);
         return empty;
     }
 	
-	public static boolean isNoContent(String cs) {
-        boolean noContent = (cs == null || cs.isEmpty() || cs.trim().isEmpty());
+	public static boolean isNotEmpty(CharSequence value) {
+	    return !isEmpty(value);
+	}
+	
+	public static boolean isBlank(String value) {
+	    return isNoContent(value);
+	}
+	
+	public static boolean isNoContent(String value) {
+        boolean noContent = (value == null || value.isEmpty() || value.trim().isEmpty());
         return noContent;
     }
+	
+	public static boolean isNotBlank(String value) {
+	    return !isNoContent(value);
+	}
+	
+	public static boolean isEqualsIgnoreCase(String a, String b) {
+	    if (a == null && b == null) {
+	        return true;
+	    }
+	    if (a == b) {
+	        return true;
+	    }
+	    if (a == null || b == null) {
+	        return false;
+	    }
+	    if (a.length() != b.length()) {
+	        return false;
+	    }
+	    int length = a.length();
+	    for (int i = 0 ; i < length ; ++i) {
+	        char achar = a.charAt(i);
+	        char bchar = b.charAt(i);
+	        if ((achar == bchar) 
+	                || (isWordSeparator(achar) && isWordSeparator(bchar))) {
+	            continue;
+	        }
+	        return false;
+	    }
+	    return true;
+	}
 	
 	public static String join(double[] array, String separator) {
 		return Arrays.stream(array)
@@ -155,6 +194,34 @@ public final class EzyStrings {
 		return original.substring(0, 1).toLowerCase() + original.substring(1);
 	}
 	
+	public static String underscoreToCamelCase(String original) {
+	    if (original == null) {
+	        return null;
+	    }
+	    String trim = original.trim();
+	    if (trim.length() == 0) {
+	        return trim;
+	    }
+	    if (trim.length() == 1) {
+	        return trim.toLowerCase();
+	    }
+	    StringBuilder builder = new StringBuilder().append(
+            Character.toLowerCase(trim.charAt(0))
+        );
+	    boolean needUpper = false;
+	    
+	    for (int i = 1 ; i < trim.length() ; ++i) {
+	        char ch = original.charAt(i);
+	        if (ch == '_') {
+	            needUpper = true;
+	        } else {
+	            builder.append(needUpper ? Character.toUpperCase(ch) : ch);
+	            needUpper = false;
+	        }
+	    }
+        return builder.toString();
+    }
+	
 	public static String toDotCase(String original) {
 		StringBuilder builder = new StringBuilder();
 		for(int i = 0 ; i < original.length() ; ++i) {
@@ -165,6 +232,7 @@ public final class EzyStrings {
 		}
 		return builder
 				.toString()
+				.replace(SPACE, EMPTY_STRING)
 				.replace(DASH.getSign(), DOT.getSign())
 				.replace(UNDERSCORE.getSign(), DOT.getSign())
 				.replace(DOT.getSign() + DOT.getSign(), DOT.getSign());
@@ -176,6 +244,42 @@ public final class EzyStrings {
 	
 	public static String toUnderscoreCase(String original) {
 		return toDotCase(original).replace(DOT.getSign(), UNDERSCORE.getSign());
+	}
+	
+	public static String toDisplayName(String orignal) {
+	    if (orignal == null) {
+	        return EMPTY_STRING;
+	    }
+	    int length = orignal.length();
+	    StringBuilder builder = new StringBuilder();
+	    for(int i = 0 ; i < length ; ++i) {
+	        char ch = orignal.charAt(i);
+	        if (isWordSeparator(ch)) {
+	            while((++i) < length) {
+	                ch = orignal.charAt(i);
+	                if (!isWordSeparator(ch)) {
+	                    if (builder.length() > 0) {
+	                        builder.append(' ');
+	                    }
+	                    builder.append(Character.toUpperCase(ch));
+	                    break;
+	                }
+	            }
+	        } else {
+	            builder.append(i == 0 ? Character.toUpperCase(ch) : ch);
+	        }
+	    }
+	    return builder.toString();
+	}
+	
+	public static boolean isWordSeparator(char ch) {
+	    return ch == '-' 
+	            || ch == '.' 
+	            || ch == '_' 
+	            || ch == ';' 
+	            || ch == ',' 
+	            || ch == ' ' 
+	            || ch == '\t';
 	}
 	
 	public static String replace(String query, Object[] parameters) {

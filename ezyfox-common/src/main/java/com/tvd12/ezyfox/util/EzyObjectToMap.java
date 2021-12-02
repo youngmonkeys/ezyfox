@@ -6,7 +6,7 @@ import java.util.Map;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 
-public class EzyObjectToMap {
+public final class EzyObjectToMap {
 
 	private static final EzyObjectToMap INSTANCE = new EzyObjectToMap();
 	

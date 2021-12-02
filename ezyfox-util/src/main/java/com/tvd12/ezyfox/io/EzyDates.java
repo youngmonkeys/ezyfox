@@ -233,9 +233,138 @@ public final class EzyDates {
 	}
 	
 	public static LocalDateTime millisToDateTime(long millis) {
-		Instant instant = Instant.ofEpochMilli(millis);
-		LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-		return dateTime;
+		return millisToDateTime(millis, ZoneId.systemDefault());
 	}
 	
+	public static LocalDateTime millisToDateTime(long millis, ZoneId zoneId) {
+        Instant instant = Instant.ofEpochMilli(millis);
+        return instantToDateTime(instant, zoneId);
+    }
+	
+	public static LocalDateTime instantToDateTime(Instant instant) {
+	    return instantToDateTime(instant, ZoneId.systemDefault());
+	}
+	
+	public static LocalDateTime instantToDateTime(Instant instant, ZoneId zoneId) {
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, zoneId);
+        return dateTime;
+    }
+	
+	// =============================================
+	public static Date parseToDateOrNull(Object value) {
+	    if (value instanceof Date) {
+            return (Date)value;
+        }
+        if (value instanceof String) {
+            return parse((String)value);
+        }
+        if (value instanceof Number) {
+            return new Date(((Number)value).longValue());
+        }
+        if (value instanceof Instant) {
+            return Date.from(((Instant)value));
+        }
+        if (value instanceof LocalDate) {
+            return toDate((LocalDate)value);
+        }
+        if (value instanceof LocalDateTime) {
+            return toDate((LocalDateTime)value);
+        }
+        return null;
+	}
+	
+	public static Instant parseToInstantOrNull(Object value) {
+        if (value instanceof Date) {
+            return ((Date)value).toInstant();
+        }
+        if (value instanceof String) {
+            return parse((String)value).toInstant();
+        }
+        if (value instanceof Number) {
+            return Instant.ofEpochMilli(((Number)value).longValue());
+        }
+        if (value instanceof Instant) {
+            return (Instant)value;
+        }
+        if (value instanceof LocalDate) {
+            return toInstant((LocalDate)value);
+        }
+        if (value instanceof LocalDateTime) {
+            return toInstant((LocalDateTime)value);
+        }
+        return null;
+    }
+	
+	public static LocalDate parseToLocalDateOrNull(Object value) {
+        if (value instanceof Date) {
+            return dateToDateTime((Date)value).toLocalDate();
+        }
+        if (value instanceof String) {
+            return parseDate((String)value);
+        }
+        if (value instanceof Number) {
+            return millisToDateTime(((Number)value).longValue()).toLocalDate();
+        }
+        if (value instanceof Instant) {
+            return ((Instant)value).atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+        if (value instanceof LocalDate) {
+            return (LocalDate)value;
+        }
+        if (value instanceof LocalDateTime) {
+            return ((LocalDateTime)value).toLocalDate();
+        }
+        return null;
+    }
+	
+	public static LocalTime parseToLocalTimeOrNull(Object value) {
+        if (value instanceof Date) {
+            return dateToDateTime((Date)value).toLocalTime();
+        }
+        if (value instanceof String) {
+            return parseTime((String)value);
+        }
+        if (value instanceof Number) {
+            return millisToDateTime(((Number)value).longValue()).toLocalTime();
+        }
+        if (value instanceof Instant) {
+            return ((Instant)value).atZone(ZoneId.systemDefault()).toLocalTime();
+        }
+        if (value instanceof LocalDate) {
+            return LocalTime.of(0, 0);
+        }
+        if (value instanceof LocalDateTime) {
+            return ((LocalDateTime)value).toLocalTime();
+        }
+        return null;
+    }
+	
+	public static LocalDateTime parseToLocalDateTimeOrNull(Object value) {
+        if (value instanceof Date) {
+            return dateToDateTime((Date)value);
+        }
+        if (value instanceof String) {
+            return parseDateTime((String)value);
+        }
+        if (value instanceof Number) {
+            return millisToDateTime(((Number)value).longValue());
+        }
+        if (value instanceof Instant) {
+            return ((Instant)value).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+        if (value instanceof LocalDate) {
+            LocalDate localDate = ((LocalDate)value);
+            return LocalDateTime.of(
+                localDate.getYear(), 
+                localDate.getMonth(),
+                localDate.getDayOfMonth(),
+                0,
+                0
+            );
+        }
+        if (value instanceof LocalDateTime) {
+            return (LocalDateTime)value;
+        }
+        return null;
+    }
 }

@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.testing.io;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -25,8 +26,13 @@ public class EzySimpleOutputTransformerTest extends EzyEntityTest {
 	
 	@Test
 	public void test() {
+	    // given
 		ClassA classA = new ClassA();
 		EzyArray array = newArray();
+		long now = System.currentTimeMillis();
+		
+		// when
+		// then
 		assertNull(transfomer.transform(null, String.class));
 		assertEquals(transfomer.transform(classA, ClassA.class), classA);
 		assertEquals(transfomer.transform(String.class.getName(), Class.class), String.class);
@@ -42,6 +48,8 @@ public class EzySimpleOutputTransformerTest extends EzyEntityTest {
 				LocalDate.of(2017, 05, 30));
 		assertEquals(transfomer.transform("2017-05-30T12:34:56:000", LocalDateTime.class), 
 				LocalDateTime.of(2017, 05, 30, 12, 34, 56, 0));
+		assertEquals(transfomer.transform(now, Instant.class), Instant.ofEpochMilli(now));
+		assertNull(transfomer.transform("invalid", Instant.class));
 	}
 	
 	private EzyArray newArray() {

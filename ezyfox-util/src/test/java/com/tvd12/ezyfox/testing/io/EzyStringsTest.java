@@ -74,6 +74,12 @@ public class EzyStringsTest extends BaseTest {
 		assert EzyStrings.isNoContent("\t");
 		assert EzyStrings.isNoContent("\n");
 		assert !EzyStrings.isNoContent("a");
+		assert !EzyStrings.isBlank("a");
+		assert EzyStrings.isBlank("\t");
+		assert EzyStrings.isNotEmpty("a");
+		assert !EzyStrings.isNotEmpty("");
+		assert EzyStrings.isNotBlank("a");
+		assert !EzyStrings.isNotBlank("\t");
 		
 		System.out.println(EzyStrings.join(new double[] {1.1, 2.2, 3.3}, ","));
 		System.out.println(EzyStrings.join(new int[] {1, 2, 3}, ". "));
@@ -168,6 +174,63 @@ public class EzyStringsTest extends BaseTest {
 			EzyStrings.replace(queryString, params)
 		)
 		.testException(it -> it.getClass().equals(IllegalArgumentException.class));
+	}
+	
+	@Test
+	public void underscoreToCamelCaseTest() {
+	    Asserts.assertNull(EzyStrings.underscoreToCamelCase(null));
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase(""), "");
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("A"), "a");
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("abc"), "abc");
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("aa_bb_cc"), "aaBbCc");
+	    Asserts.assertEquals(EzyStrings.underscoreToCamelCase("aa__bb___cc"), "aaBbCc");
+	}
+	
+	@Test
+	public void toDisplayNameTest() {
+	    // given
+	    String string = "--hello..world_i;fine,how--are-you fine\tor  not?";
+	    
+	    // when
+	    // then
+	    Asserts.assertTrue(EzyStrings.toDisplayName(null).isEmpty());
+	    Asserts.assertEquals(EzyStrings.toDisplayName(string), "Hello World I Fine How Are You Fine Or Not?");
+	}
+	
+	@Test
+    public void toDisplayNameBoundingTest() {
+        // given
+        String string = "hello..world_i;fine,how--are-you fine\tor  not?--";
+        
+        // when
+        // then
+        Asserts.assertTrue(EzyStrings.toDisplayName(null).isEmpty());
+        Asserts.assertEquals(EzyStrings.toDisplayName(string), "Hello World I Fine How Are You Fine Or Not?");
+    }
+	
+	@Test
+	public void isEqualsIgnoreCaseTest() {
+	    Asserts.assertTrue(EzyStrings.isEqualsIgnoreCase(null, null));
+	    Asserts.assertTrue(EzyStrings.isEqualsIgnoreCase(EzyStrings.EMPTY_STRING, EzyStrings.EMPTY_STRING));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("a", null));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase(null, "b"));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("ab", "b"));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("ab", "ba"));
+	    Asserts.assertTrue(EzyStrings.isEqualsIgnoreCase("a.b", "a-b"));
+	    Asserts.assertTrue(EzyStrings.isEqualsIgnoreCase("a_b", "a-b"));
+	    Asserts.assertFalse(EzyStrings.isEqualsIgnoreCase("a_b", "acb"));
+	}
+	
+	@Test
+	public void displayNameToDashCase() {
+	    // given
+	    String displayName = "Hello World";
+	    
+	    // when
+	    String actual = EzyStrings.toDashCase(displayName);
+	    
+	    // then
+	    Asserts.assertEquals(actual, "hello-world");
 	}
 	
 	@Override

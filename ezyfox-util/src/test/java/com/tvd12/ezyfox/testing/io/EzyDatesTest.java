@@ -52,6 +52,9 @@ public class EzyDatesTest extends BaseTest {
 		
 		assertEquals(EzyDates.parseTime("01:01:01:001"), 
 				LocalTime.of(1, 1, 1, 1000000));
+		
+		assertEquals(EzyDates.instantToDateTime(now.toInstant()), 
+		        EzyDates.millisToDateTime(now.getTime()));
 	}
 	
 	@Test
@@ -247,6 +250,181 @@ public class EzyDatesTest extends BaseTest {
 		// then
 		Asserts.assertEquals(IllegalArgumentException.class, exception.getClass());
 	}
+	
+	@Test
+	public void parseToDateOrNullTest() throws Exception {
+	    // given
+	    String dateString = "2019-07-22T09:15:00.001";
+	    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+	    
+	    // when
+	    // then
+	    Asserts.assertEquals(
+            dateTimeFormat.parse(dateString),
+            EzyDates.parseToDateOrNull(dateTimeFormat.parse(dateString))
+        );
+	    Asserts.assertEquals(
+            dateTimeFormat.parse(dateString),
+            EzyDates.parseToDateOrNull(dateString)
+        );
+	    Asserts.assertEquals(
+            dateTimeFormat.parse(dateString),
+            EzyDates.parseToDateOrNull(dateTimeFormat.parse(dateString).getTime())
+        );
+	    Asserts.assertEquals(
+            dateTimeFormat.parse(dateString),
+            EzyDates.parseToDateOrNull(dateTimeFormat.parse(dateString).toInstant())
+        );
+	    Asserts.assertEquals(
+            "2019-07-22T00:00:00.000",
+            dateTimeFormat.format(EzyDates.parseToDateOrNull(LocalDate.of(2019, 7, 22)))
+        );
+	    Asserts.assertEquals(
+            "2019-07-22T09:15:00.000",
+            dateTimeFormat.format(EzyDates.parseToDateOrNull(LocalDateTime.of(2019, 7, 22, 9, 15)))
+        );
+	    Asserts.assertNull(EzyDates.parseToDateOrNull(new Object()));
+	}
+	
+	@Test
+    public void parseToInstantOrNullTest() throws Exception {
+        // given
+        String dateString = "2019-07-22T09:15:00.001";
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        
+        // when
+        // then
+        Asserts.assertEquals(
+            dateTimeFormat.parse(dateString).toInstant(),
+            EzyDates.parseToInstantOrNull(dateTimeFormat.parse(dateString))
+        );
+        Asserts.assertEquals(
+            dateTimeFormat.parse(dateString).toInstant(),
+            EzyDates.parseToInstantOrNull(dateString)
+        );
+        Asserts.assertEquals(
+            dateTimeFormat.parse(dateString).toInstant(),
+            EzyDates.parseToInstantOrNull(dateTimeFormat.parse(dateString).getTime())
+        );
+        Asserts.assertEquals(
+            dateTimeFormat.parse(dateString).toInstant(),
+            EzyDates.parseToInstantOrNull(dateTimeFormat.parse(dateString).toInstant())
+        );
+        Asserts.assertEquals(
+            "2019-07-22T00:00:00.000",
+            dateTimeFormat.format(Date.from(EzyDates.parseToInstantOrNull(LocalDate.of(2019, 7, 22))))
+        );
+        Asserts.assertEquals(
+            "2019-07-22T09:15:00.000",
+            dateTimeFormat.format(Date.from(EzyDates.parseToInstantOrNull(LocalDateTime.of(2019, 7, 22, 9, 15))))
+        );
+        Asserts.assertNull(EzyDates.parseToInstantOrNull(new Object()));
+    }
+	
+	@Test
+    public void parseToLocalDateOrNullTest() throws Exception {
+        // given
+        String dateString = "2019-07-22T09:15:00.001";
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        
+        // when
+        // then
+        Asserts.assertEquals(
+            LocalDate.of(2019, 07, 22),
+            EzyDates.parseToLocalDateOrNull(dateTimeFormat.parse(dateString))
+        );
+        Asserts.assertEquals(
+            LocalDate.of(2019, 07, 22),
+            EzyDates.parseToLocalDateOrNull("2019-07-22")
+        );
+        Asserts.assertEquals(
+            LocalDate.of(2019, 07, 22),
+            EzyDates.parseToLocalDateOrNull(dateTimeFormat.parse(dateString).getTime())
+        );
+        Asserts.assertEquals(
+            LocalDate.of(2019, 07, 22),
+            EzyDates.parseToLocalDateOrNull(dateTimeFormat.parse(dateString).toInstant())
+        );
+        Asserts.assertEquals(
+            LocalDate.of(2019, 07, 22),
+            EzyDates.parseToLocalDateOrNull(LocalDate.of(2019, 7, 22))
+        );
+        Asserts.assertEquals(
+            LocalDate.of(2019, 07, 22),
+            EzyDates.parseToLocalDateOrNull(LocalDateTime.of(2019, 7, 22, 9, 15))
+        );
+        Asserts.assertNull(EzyDates.parseToLocalDateOrNull(new Object()));
+    }
+	
+	@Test
+    public void parseToLocalTimeOrNullTest() throws Exception {
+        // given
+        String dateString = "2019-07-22T09:15:00.001";
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        
+        // when
+        // then
+        Asserts.assertEquals(
+            LocalTime.of(9, 15, 0, 1000000),
+            EzyDates.parseToLocalTimeOrNull(dateTimeFormat.parse(dateString))
+        );
+        Asserts.assertEquals(
+            LocalTime.of(9, 15, 0, 1000000),
+            EzyDates.parseToLocalTimeOrNull("09:15:00.001")
+        );
+        Asserts.assertEquals(
+            LocalTime.of(9, 15, 0, 1000000),
+            EzyDates.parseToLocalTimeOrNull(dateTimeFormat.parse(dateString).getTime())
+        );
+        Asserts.assertEquals(
+            LocalTime.of(9, 15, 0, 1000000),
+            EzyDates.parseToLocalTimeOrNull(dateTimeFormat.parse(dateString).toInstant())
+        );
+        Asserts.assertEquals(
+                LocalTime.of(0, 0, 0, 0),
+            EzyDates.parseToLocalTimeOrNull(LocalDate.of(2019, 7, 22))
+        );
+        Asserts.assertEquals(
+            LocalTime.of(9, 15, 0, 1000000),
+            EzyDates.parseToLocalTimeOrNull(LocalDateTime.of(2019, 7, 22, 9, 15, 0, 1000000))
+        );
+        Asserts.assertNull(EzyDates.parseToLocalTimeOrNull(new Object()));
+    }
+	
+	@Test
+    public void parseToLocalDateTimeOrNullTest() throws Exception {
+        // given
+        String dateString = "2019-07-22T09:15:00.001";
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        
+        // when
+        // then
+        Asserts.assertEquals(
+            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            EzyDates.parseToLocalDateTimeOrNull(dateTimeFormat.parse(dateString))
+        );
+        Asserts.assertEquals(
+            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            EzyDates.parseToLocalDateTimeOrNull(dateString)
+        );
+        Asserts.assertEquals(
+            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            EzyDates.parseToLocalDateTimeOrNull(dateTimeFormat.parse(dateString).getTime())
+        );
+        Asserts.assertEquals(
+            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            EzyDates.parseToLocalDateTimeOrNull(dateTimeFormat.parse(dateString).toInstant())
+        );
+        Asserts.assertEquals(
+            LocalDateTime.of(2019, 07, 22, 0, 0, 0, 0),
+            EzyDates.parseToLocalDateTimeOrNull(LocalDate.of(2019, 7, 22))
+        );
+        Asserts.assertEquals(
+            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            EzyDates.parseToLocalDateTimeOrNull(LocalDateTime.of(2019, 7, 22, 9, 15, 0, 1000000))
+        );
+        Asserts.assertNull(EzyDates.parseToLocalDateTimeOrNull(new Object()));
+    }
 	
 	@Override
 	public Class<?> getTestClass() {

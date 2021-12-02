@@ -20,6 +20,11 @@ public class MyTestObjectPool extends EzyObjectPool<MyTestObject> {
 	}
 	
 	@Override
+	public List<MyTestObject> getCanBeStaleObjects() {
+		return super.getCanBeStaleObjects();
+	}
+	
+	@Override
 	public List<MyTestObject> getRemainObjects() {
 		return super.getRemainObjects();
 	}

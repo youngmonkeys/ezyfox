@@ -17,6 +17,7 @@ public class EzySameObjectScriptCreatorTest {
 				.originObjectName("imA")
 				.targetObjectName("imB");
 		System.out.println(creator.generateFuncScript());
+		System.out.println(creator.generateBuildFuncScript());
 	}
 	
 	@Getter

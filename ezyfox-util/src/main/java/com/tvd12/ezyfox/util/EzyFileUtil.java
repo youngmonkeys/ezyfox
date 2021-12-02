@@ -1,6 +1,9 @@
 package com.tvd12.ezyfox.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -69,6 +72,43 @@ public final class EzyFileUtil {
             return EMPTY_STRING;
         String answer = fileName.substring(index + 1);
         return answer;
+    }
+	
+	public static boolean createFileIfNotExists(File file) throws IOException {
+	    if (!file.exists()) {
+            File parentFile = file.getParentFile();
+            if (parentFile != null && !parentFile.exists()) {
+                parentFile.mkdirs();
+            }
+            return file.createNewFile();
+        }
+	    return false;
+	}
+	
+	public static String getFileName(String filePath) {
+        int index = filePath.lastIndexOf('/');
+        if(index < 0)
+            return filePath;
+        if(index >= filePath.length() - 1)
+            return filePath;
+        return filePath.substring(index + 1, filePath.length());
+    }
+	
+	public static String getFileNameWithoutExtension(String filePath) {
+	    String fileName = getFileName(filePath);
+	    int index = fileName.lastIndexOf('.');
+	    if (index == 0) {
+	        return EMPTY_STRING;
+	    }
+	    if (index > 0) {
+	        return fileName.substring(0, index);
+	    }
+	    return fileName;
+    }
+	
+	public static void copyFile(File from, File to) throws IOException {
+	    EzyFileUtil.createFileIfNotExists(to);
+        Files.copy(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 	
 	private static class ExtensionsFilter implements Predicate<File> {

@@ -88,4 +88,41 @@ public class EzySameObjectScriptCreator {
 		return builder.toString();
 	}
 	
+	public String generateBuildFuncScript() {
+        return new StringBuilder()
+                .append("public ")
+                .append(targetClass.getSimpleName())
+                .append(" build")
+                .append("(")
+                    .append(originClass.getSimpleName())
+                    .append(" ").append(originObjectName)
+                .append(") {\n")
+                .append(EzyStringTool.tabAll(generateBuildScript(), 1))
+                .append("\n}")
+                .toString();
+    }
+	
+	public String generateBuildScript() {
+        EzyClass originClazz = new EzyClass(originClass);
+        List<EzyField> originFields = includeAllFields
+                ? originClazz.getFields()
+                : originClazz.getDeclaredFields();
+        StringBuilder builder = new StringBuilder();
+        builder.append("return")
+            .append(" ")
+            .append(targetClass.getSimpleName())
+            .append(".builder()\n");
+        for(EzyField field : originFields) {
+            builder
+                .append("\t.")
+                .append(field.getName())
+                .append("(")
+                    .append(originObjectName)
+                    .append(".")
+                    .append(field.getGetterMethod()).append("()")
+                .append(")\n");
+        }
+        return builder.append("\t.build();").toString();
+    }
+	
 }
