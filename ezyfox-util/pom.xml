@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
@@ -14,7 +16,7 @@
 	<properties>
 		<reflections.version>1.0.1</reflections.version>
 		<properties.file.version>1.1.5</properties.file.version>
-		<slf4j.version>1.7.32</slf4j.version>
+		<logback.version>1.2.10</logback.version>
 	</properties>
 
 	<dependencies>
@@ -23,17 +25,16 @@
 			<artifactId>properties-file</artifactId>
 			<version>${properties.file.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.tvd12</groupId>
 			<artifactId>reflections</artifactId>
 			<version>${reflections.version}</version>
 		</dependency>
-
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
 		</dependency>
 	</dependencies>
 </project>
