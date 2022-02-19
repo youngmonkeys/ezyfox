@@ -1,12 +1,19 @@
 package com.tvd12.ezyfox.testing.io;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.testng.Assert.assertEquals;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.collect.Lists;
@@ -232,6 +239,34 @@ public class EzyStringsTest extends BaseTest {
 	    // then
 	    Asserts.assertEquals(actual, "hello-world");
 	}
+	
+	@Test
+	public void traceStackToStringTest() {
+	    // given
+	    Exception e = new Exception("test");
+	    
+	    // when
+	    String actual = EzyStrings.traceStackToString(e);
+	    
+	    // then
+	    Asserts.assertNotNull(actual);
+	}
+	
+	@Test
+    public void traceStackToStringExceptionTest() {
+        // given
+        Throwable e = Mockito.mock(Throwable.class);
+        doThrow(IOException.class)
+            .when(e)
+            .printStackTrace(any(PrintWriter.class));
+        
+        // when
+        String actual = EzyStrings.traceStackToString(e);
+        
+        // then
+        Asserts.assertNotNull(actual);
+        verify(e, times(1)).printStackTrace(any(PrintWriter.class));
+    }
 	
 	@Override
 	public Class<?> getTestClass() {

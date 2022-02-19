@@ -4,6 +4,9 @@ import static com.tvd12.ezyfox.naming.EzyNamingCase.DASH;
 import static com.tvd12.ezyfox.naming.EzyNamingCase.DOT;
 import static com.tvd12.ezyfox.naming.EzyNamingCase.UNDERSCORE;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -335,4 +338,15 @@ public final class EzyStrings {
 			value = parameterConveter.apply(parameter);
 		return value;
 	}
+	
+	public static String traceStackToString(Throwable throwable) {
+        try (StringWriter sw = new StringWriter()) {
+            try (PrintWriter pw = new PrintWriter(sw)) {
+                throwable.printStackTrace(pw);
+                return sw.toString();
+            }
+        } catch (IOException ex) {
+            return throwable.getClass().getName() + '(' + throwable.getMessage() + ')';
+        }
+    }
 }
