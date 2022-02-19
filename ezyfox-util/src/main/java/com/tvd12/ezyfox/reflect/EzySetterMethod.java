@@ -26,12 +26,6 @@ public class EzySetterMethod extends EzyByFieldMethod {
 	
 	@Override
 	public String getFieldName() {
-		String name = method.getName();
-		if(name.length() <= 3)
-			return name;
-		if(name.startsWith("set"))
-			return super.getFieldName();
-		return name;
+		return EzyMethods.getFieldNameOfSetter(method);
 	}
-	
 }

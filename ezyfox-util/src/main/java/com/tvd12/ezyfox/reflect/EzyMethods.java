@@ -12,8 +12,27 @@ import com.tvd12.reflections.ReflectionUtils;
 
 public final class EzyMethods {
 
-	private EzyMethods() {
-	}
+	private EzyMethods() {}
+	
+	public static String getFieldNameOfGetter(Method method) {
+        String name = method.getName();
+        if(name.length() <= 3)
+            return name;
+        if(name.startsWith("get"))
+            return getFieldName(method, 3);
+        if(name.startsWith("is"))
+            return getFieldName(method, 2);
+        return name;
+    }
+	
+    public static String getFieldNameOfSetter(Method method) {
+        String name = method.getName();
+        if(name.length() <= 3)
+            return name;
+        if(name.startsWith("set"))
+            return getFieldName(method, 3);
+        return name;
+    }
 	
 	public static String getFieldName(Method method, int prefixLength) {
 		String name = method.getName();

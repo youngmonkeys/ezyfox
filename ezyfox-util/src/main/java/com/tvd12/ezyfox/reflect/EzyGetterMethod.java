@@ -26,14 +26,6 @@ public class EzyGetterMethod extends EzyByFieldMethod {
 	
 	@Override
 	public String getFieldName() {
-		String name = method.getName();
-		if(name.length() <= 3)
-			return name;
-		if(name.startsWith("get"))
-			return super.getFieldName();
-		if(name.startsWith("is"))
-			return EzyMethods.getFieldName(method, 2);
-		return name;
+		return EzyMethods.getFieldNameOfGetter(method);
 	}
-	
 }
