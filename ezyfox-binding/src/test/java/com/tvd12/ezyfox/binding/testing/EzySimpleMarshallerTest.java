@@ -2,13 +2,19 @@ package com.tvd12.ezyfox.binding.testing;
 
 import org.testng.annotations.Test;
 
+import com.tvd12.ezyfox.binding.EzyBindingContext;
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.impl.EzyObjectWriterBuilder;
 import com.tvd12.ezyfox.binding.impl.EzySimpleMarshaller;
 import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
+
+import lombok.Getter;
 
 public class EzySimpleMarshallerTest extends BaseTest {
 
@@ -32,9 +38,33 @@ public class EzySimpleMarshallerTest extends BaseTest {
 		EzySimpleMarshaller marshaller = new EzySimpleMarshaller();
 		marshaller.marshal(ExWriter.class, new Object());
 	}
+	
+	@Test
+	public void marshallerBooleanTest() {
+	    // given
+	    EzyBindingContext bindingContext = EzyBindingContext.builder()
+	        .addObjectBindingClass(ClassB.class)
+	        .build();
+	    
+	    EzyMarshaller sut = bindingContext.newMarshaller();
+	    
+	    ClassB classB = new ClassB();
+	    
+	    // when
+	    EzyObject actual = sut.marshal(classB);
+	    
+	    // then
+	    EzyObject expectation = EzyEntityFactory.newObjectBuilder()
+	        .append("correct", false)
+	        .build();
+	    Asserts.assertEquals(actual, expectation);
+	}
 		
-	public static class ClassA {
-		
+	public static class ClassA {}
+	
+	@Getter
+	public static class ClassB {
+	    private boolean correct;
 	}
 	
 	@SuppressWarnings("rawtypes")

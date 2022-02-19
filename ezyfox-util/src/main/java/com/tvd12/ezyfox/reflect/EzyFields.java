@@ -14,8 +14,7 @@ import com.tvd12.ezyfox.collect.Lists;
 
 public final class EzyFields {
 
-	private EzyFields() {
-	}
+	private EzyFields() {}
 	
 	public static Object get(Field field, Object obj) {
 		try {
