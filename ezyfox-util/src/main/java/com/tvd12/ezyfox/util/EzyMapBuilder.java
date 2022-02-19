@@ -9,8 +9,7 @@ import com.tvd12.ezyfox.util.EzyMapBuilder;
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class EzyMapBuilder implements EzyBuilder<Map> {
 
-	protected Map map;
-	protected Map container = new HashMap<>();
+	protected Map map = new HashMap<>();
 	
 	public static EzyMapBuilder mapBuilder() {
 		return new EzyMapBuilder();
@@ -22,19 +21,21 @@ public class EzyMapBuilder implements EzyBuilder<Map> {
 	}
 	
 	public EzyMapBuilder putAll(Map map) {
-		this.container.putAll(map);
+		this.map.putAll(map);
 		return this;
 	}
 	
 	public EzyMapBuilder put(Object key, Object value) {
-		this.container.put(key, value);
+		this.map.put(key, value);
 		return this;
 	}
 	
 	@Override
 	public Map build() {
-		if(map == null) return container;
-		map.putAll(container);
 		return map;
+	}
+	
+	public <K, V> Map<K, V> toMap() {
+	    return (Map<K, V>)map;
 	}
 }
