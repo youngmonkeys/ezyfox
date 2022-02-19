@@ -1,5 +1,9 @@
 package com.tvd12.ezyfox.reflect;
 
+import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_GET;
+import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_IS;
+import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_SET;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -69,4 +73,21 @@ public final class EzyFields {
 		return Lists.newArrayList(clazz.getDeclaredFields());
 	}
 	
+	public static String getGetterMethod(Field field) {
+        Class<?> type = field.getType();
+        String prefix = METHOD_PREFIX_GET;
+        if(type.equals(boolean.class))
+            prefix = METHOD_PREFIX_IS;
+        return prefix + getMethodSuffix(field);
+    }
+    
+    public static String getSetterMethod(Field field) {
+        return METHOD_PREFIX_SET + getMethodSuffix(field);
+    }
+    
+    private static String getMethodSuffix(Field field) {
+        String name = field.getName();
+        String first = name.substring(0, 1).toUpperCase();
+        return name.length() == 1 ? first : first + name.substring(1);
+    }
 }

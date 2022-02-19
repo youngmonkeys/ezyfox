@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.reflect;
 
-import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_GET;
-import static com.tvd12.ezyfox.reflect.EzyReflections.*;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -62,21 +59,11 @@ public class EzyField
 	}
 	
 	public String getGetterMethod() {
-		Class<?> type = field.getType();
-		String prefix = METHOD_PREFIX_GET;
-		if(type.equals(boolean.class))
-			prefix = METHOD_PREFIX_IS;
-		return prefix + getMethodSuffix();
+		return EzyFields.getGetterMethod(field);
 	}
 	
 	public String getSetterMethod() {
-		return METHOD_PREFIX_SET + getMethodSuffix();
-	}
-	
-	protected String getMethodSuffix() {
-		String name = getName();
-		String first = name.substring(0, 1).toUpperCase();
-		return name.length() == 1 ? first : first + name.substring(1);
+		return EzyFields.getSetterMethod(field);
 	}
 	
 	@Override
