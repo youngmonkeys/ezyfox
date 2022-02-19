@@ -5,12 +5,19 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.testng.annotations.Test;
 
 import com.tvd12.ezyfox.annotation.EzyAutoImpl;
 import com.tvd12.ezyfox.annotation.EzyId;
+import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 import lombok.Getter;
@@ -121,6 +128,27 @@ public class EzyClassTest extends BaseTest {
 		assert clazz.getMaxArgsDeclaredConstructor().getParameterCount() == 2;
 	}
 	
+	@Test
+	public void getDistinctMethodsTest() {
+	    // given
+	    EzyClass clazz = new EzyClass(InterfaceB.class);
+	    
+	    // when
+	    List<String> actual = clazz.getDistinctMethods(it -> true)
+	        .stream()
+	        .map(it -> it.getName())
+	        .collect(Collectors.toList());
+	    
+	    // then
+	    System.out.println(actual);
+	    Asserts.assertEquals(actual.size(), 3);
+	    Set<String> expectation = Sets.newHashSet(
+	        "getName", "getValue", "getSomething"
+        );
+	    Asserts.assertEquals(new HashSet<>(actual), expectation);
+	    
+	}
+	
 	public static class ABC {
 		public ABC(String s) {
 		}
@@ -226,4 +254,17 @@ public class EzyClassTest extends BaseTest {
 		public DX(String name) {}
 	}
 	
+	public static interface InterfaceB extends InterfaceA {
+        @Override
+        String getValue();
+        
+        String getSomething();
+    }
+    
+    public static interface InterfaceA {
+        
+        String getName();
+        
+        String getValue();
+    }
 }

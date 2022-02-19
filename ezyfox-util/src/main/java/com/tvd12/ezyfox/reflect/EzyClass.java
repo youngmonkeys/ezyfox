@@ -129,13 +129,17 @@ public class EzyClass implements EzyReflectElement {
 	}
 	
 	public Optional<EzyMethod> getPublicMethod(Predicate<EzyMethod> predicate) {
-		return methods.stream()
-				.filter(m -> m.isPublic() && predicate.test(m)).findFirst();
+		return methods
+		    .stream()
+		    .filter(m -> m.isPublic() && predicate.test(m))
+		    .findFirst();
 	}
 	
 	public Optional<EzyMethod> getGetterMethod(Predicate<EzyMethod> predicate) {
-		return methods.stream()
-				.filter(m -> m.isGetter() && predicate.test(m)).findFirst();
+		return methods
+		    .stream()
+		    .filter(m -> m.isGetter() && predicate.test(m))
+		    .findFirst();
 	}
 	
 	public Optional<EzyMethod> getAnnotatedGetterMethod(Class<? extends Annotation> annClass) {
@@ -143,8 +147,10 @@ public class EzyClass implements EzyReflectElement {
 	}
 	
 	public Optional<EzyMethod> getSetterMethod(Predicate<EzyMethod> predicate) {
-		return methods.stream()
-				.filter(m -> m.isSetter() && predicate.test(m)).findFirst();
+		return methods
+		    .stream()
+		    .filter(m -> m.isSetter() && predicate.test(m))
+		    .findFirst();
 	}
 	
 	public Optional<EzyMethod> getAnnotatedSetterMethod(Class<? extends Annotation> annClass) {
@@ -156,18 +162,31 @@ public class EzyClass implements EzyReflectElement {
 	}
 	
 	public List<EzySetterMethod> getSetterMethods(Predicate<EzySetterMethod> predicate) {
-		return getSetterMethods().stream()
-				.filter(predicate).collect(Collectors.toList());
+		return getSetterMethods()
+		    .stream()
+		    .filter(predicate)
+		    .collect(Collectors.toList());
 	}
 	
 	public List<EzyGetterMethod> getGetterMethods(Predicate<EzyGetterMethod> predicate) {
-		return getGetterMethods().stream()
-				.filter(predicate).collect(Collectors.toList());
+		return getGetterMethods()
+		    .stream()
+		    .filter(predicate)
+		    .collect(Collectors.toList());
 	}
 	
 	public List<EzyMethod> getMethods(Predicate<EzyMethod> predicate) {
-		return methods.stream().filter(predicate).collect(Collectors.toList());
+		return methods
+		    .stream()
+		    .filter(predicate)
+		    .distinct()
+		    .collect(Collectors.toList());
 	}
+	
+	public List<EzyMethod> getDistinctMethods(Predicate<EzyMethod> predicate) {
+        List<EzyMethod> allMethods = getMethods(predicate);
+        return EzyMethods.filterOverriddenMethods(allMethods);
+    }
 	
 	public List<EzyField> getWritableFields() {
 		return getFields(f -> f.isWritable());
@@ -186,7 +205,11 @@ public class EzyClass implements EzyReflectElement {
 	}
 	
 	public List<EzyField> getFields(Predicate<EzyField> predicate) {
-		return fields.stream().filter(predicate).collect(Collectors.toList());
+		return fields
+		    .stream()
+		    .filter(predicate)
+		    .distinct()
+		    .collect(Collectors.toList());
 	}
 	
 	public Optional<EzyMethod> getMethod(Predicate<EzyMethod> predicate) {
@@ -195,10 +218,12 @@ public class EzyClass implements EzyReflectElement {
 	
 	public <T extends EzyMethod> List<T> getMethods(
 			Predicate<EzyMethod> predicate, Function<EzyMethod, T> creator) {
-		return methods.stream()
-				.filter(predicate)
-				.flatMap(m -> Stream.of(creator.apply(m)))
-				.collect(Collectors.toList());
+		return methods
+		    .stream()
+			.filter(predicate)
+			.flatMap(m -> Stream.of(creator.apply(m)))
+			.distinct()
+			.collect(Collectors.toList());
 	}
 	
 	public List<EzySetterMethod> getDeclaredSetterMethods() {
@@ -211,14 +236,20 @@ public class EzyClass implements EzyReflectElement {
 	
 	public <T extends EzyMethod> List<T> getDeclaredMethods(
 			Predicate<EzyMethod> predicate, Function<EzyMethod, T> creator) {
-		return declaredMethods.stream()
-				.filter(predicate)
-				.flatMap(m -> Stream.of(creator.apply(m)))
-				.collect(Collectors.toList());
+		return declaredMethods
+		    .stream()
+			.filter(predicate)
+			.flatMap(m -> Stream.of(creator.apply(m)))
+			.distinct()
+			.collect(Collectors.toList());
 	}
 	
 	public List<EzyMethod> getDeclaredMethods(Predicate<EzyMethod> predicate) {
-		return declaredMethods.stream().filter(predicate).collect(Collectors.toList());
+		return declaredMethods
+		    .stream()
+		    .filter(predicate)
+		    .distinct()
+		    .collect(Collectors.toList());
 	}
 	
 	public Optional<EzyField> getAnnotatedField(Class<? extends Annotation> annClass) {
