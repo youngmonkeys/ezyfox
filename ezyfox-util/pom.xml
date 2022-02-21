@@ -15,7 +15,7 @@
 
 	<properties>
 		<reflections.version>1.0.1</reflections.version>
-		<properties.file.version>1.1.5</properties.file.version>
+		<properties.file.version>1.1.6</properties.file.version>
 		<logback.version>1.2.10</logback.version>
 	</properties>
 
