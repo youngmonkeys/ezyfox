@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.testing.stream;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,14 +14,9 @@ import com.tvd12.test.assertion.Asserts;
 
 public class EzyFileListInputstreamTest {
     
-    @Test
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void emptyFilesTest() throws IOException {
-        // given
-        EzyFileListInputstream sut = new EzyFileListInputstream(Collections.emptyList());
-        
-        // when
-        // then
-        Asserts.assertEquals(sut.read(), -1);
+        InputStream sut = new EzyFileListInputstream(Collections.emptyList());
         sut.close();
     }
     
@@ -28,7 +24,7 @@ public class EzyFileListInputstreamTest {
     public void listFilesTest() throws IOException {
         // given
         List<File> files = Arrays.asList(new File("pom.xml"), new File("pom.xml"));
-        EzyFileListInputstream sut = new EzyFileListInputstream(files);
+        InputStream sut = new EzyFileListInputstream(files);
         
         // when
         while(true) {
@@ -38,8 +34,7 @@ public class EzyFileListInputstreamTest {
         }
         
         // then
-        Throwable e = Asserts.assertThrows(sut::read);
-        Asserts.assertEquals(e.getClass(), IOException.class);
+        Asserts.assertEquals(sut.read(), -1);
         sut.close();
     }
     
@@ -47,7 +42,7 @@ public class EzyFileListInputstreamTest {
     public void colseWhenReadTest() throws IOException {
         // given
         List<File> files = Arrays.asList(new File("pom.xml"), new File("pom.xml"));
-        EzyFileListInputstream sut = new EzyFileListInputstream(files);
+        InputStream sut = new EzyFileListInputstream(files);
         
         // when
         sut.read();

@@ -12,20 +12,24 @@ public class EzyFileListInputstream extends InputStream {
     private int currentFileIndex;
     private InputStream currentStream;
     private volatile boolean closed;
+    private volatile boolean done;
     
     public EzyFileListInputstream(List<File> files) {
+        if (files.isEmpty()) {
+            throw new IllegalArgumentException("file list is empty");
+        }
         this.files = files;
     }
     
     @Override
     public int read() throws IOException {
-        if (files.isEmpty()) {
-            return -1;
-        }
         while (true) {
             synchronized(this) {
                 if (closed) {
                     throw new IOException("stream closed");
+                }
+                if (done) {
+                    return -1;
                 }
                 if (currentStream == null) {
                     currentStream = new FileInputStream(files.get(currentFileIndex));
@@ -38,7 +42,7 @@ public class EzyFileListInputstream extends InputStream {
                 currentStream = null;
                 
                 if ((++ currentFileIndex) >= files.size()) {
-                    closed = true;
+                    done = true;
                     return -1;
                 }
             }
