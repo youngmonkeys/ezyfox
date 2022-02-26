@@ -63,6 +63,14 @@ public final class EzyMaps {
 	public static <K,V> Set<V> getValueSet(Map<K, V> map) {
 		return new HashSet<>(map.values());
 	}
+	
+	public static <K, V> List<V> flattenValues(Map<K, List<V>> map) {
+	    return map
+	        .values()
+            .stream()
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList());
+	}
 	// =============================================
 
 	// =============================================

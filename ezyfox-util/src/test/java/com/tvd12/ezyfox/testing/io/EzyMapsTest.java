@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.testing.io;
 import static org.testng.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,6 +18,7 @@ import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.util.EzyMapBuilder;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyMapsTest extends BaseTest {
@@ -215,6 +217,23 @@ public class EzyMapsTest extends BaseTest {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void flattenValuesTest() {
+	    // given
+	    Map<String, List<String>> map = EzyMapBuilder.mapBuilder()
+	        .put("a", Arrays.asList("a", "b"))
+	        .put("b", Arrays.asList("c", "d"))
+	        .put("c", Arrays.asList("e", "f"))
+	        .toMap();
+	    
+	    // when
+	    List<String> actual = EzyMaps.flattenValues(map);
+	    
+	    // then
+	    List<String> expectation = Arrays.asList("a", "b", "c", "d", "e", "f");
+	    Asserts.assertEquals(actual, expectation, false);
 	}
 	
 	@Override
