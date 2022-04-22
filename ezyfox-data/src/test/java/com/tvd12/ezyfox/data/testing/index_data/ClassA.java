@@ -13,7 +13,7 @@ import lombok.Setter;
 @EzyIndexedData
 public class ClassA {
 
-	@EzyId
-	private int id;
-	
+    @EzyId
+    private int id;
+
 }

@@ -10,34 +10,34 @@ import lombok.Setter;
 @EzyConfiguration
 public class Pack1Configuration implements EzyBeanNameTranslatorAware {
 
-	@Setter
-	private EzyBeanNameTranslator beanNameTranslator;
-	
-	@EzySingleton
-	public B b = new BImpl();
-	
-	@EzySingleton
-	public C c = new CImpl();
-	
-	@EzySingleton
-	public D d = new DImpl();
-	
-	@EzySingleton
-	public ClassA newClassA(ClassB classB) {
-		return new ClassA();
-	}
-	
-	@EzySingleton
-	public ClassB newClassB() {
-		return new ClassB();
-	}
-	
-	
-	public static class ClassA {
-		
-	}
-	
-	public static class ClassB {
-		
-	}
+    @Setter
+    private EzyBeanNameTranslator beanNameTranslator;
+
+    @EzySingleton
+    public B b = new BImpl();
+
+    @EzySingleton
+    public C c = new CImpl();
+
+    @EzySingleton
+    public D d = new DImpl();
+
+    @EzySingleton
+    public ClassA newClassA(ClassB classB) {
+        return new ClassA();
+    }
+
+    @EzySingleton
+    public ClassB newClassB() {
+        return new ClassB();
+    }
+
+
+    public static class ClassA {
+
+    }
+
+    public static class ClassB {
+
+    }
 }

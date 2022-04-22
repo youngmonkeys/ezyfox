@@ -20,5 +20,5 @@ public @interface EzyPropertiesSources {
      * 
      * @return array of properties source files
      */
-	public String[] value();
+    public String[] value();
 }

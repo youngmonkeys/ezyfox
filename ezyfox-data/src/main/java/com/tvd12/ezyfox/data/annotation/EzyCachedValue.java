@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EzyCachedValue {
 
-	String mapName() default "";
-	
-	String value() default "";
-	
-	Class<?> keyType() default Object.class;
-	
+    String mapName() default "";
+
+    String value() default "";
+
+    Class<?> keyType() default Object.class;
+
 }

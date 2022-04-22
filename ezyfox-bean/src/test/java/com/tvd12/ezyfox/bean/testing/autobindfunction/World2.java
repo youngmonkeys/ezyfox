@@ -11,18 +11,18 @@ import lombok.Setter;
 @EzySingleton("world")
 public class World2 extends World1 {
 
-	@EzyAutoBind
-	private Greet greet;
-	
-	@EzyAutoBind
-	@Override
-	public void setHello(Hello hello) {
-		super.setHello(hello);
-		System.out.println("set hello 2 = " + hello);
-	}
-	
-	@Override
-	protected String getName() {
-		return "world";
-	}
+    @EzyAutoBind
+    private Greet greet;
+
+    @EzyAutoBind
+    @Override
+    public void setHello(Hello hello) {
+        super.setHello(hello);
+        System.out.println("set hello 2 = " + hello);
+    }
+
+    @Override
+    protected String getName() {
+        return "world";
+    }
 }

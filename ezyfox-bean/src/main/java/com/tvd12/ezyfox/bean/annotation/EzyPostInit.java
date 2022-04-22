@@ -9,10 +9,10 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ 
-	ElementType.METHOD
+    ElementType.METHOD
 })
 public @interface EzyPostInit {
-	
-	String[] value() default "";
-	
+
+    String[] value() default "";
+
 }

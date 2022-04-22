@@ -6,9 +6,9 @@ import com.tvd12.ezyfox.exception.EzyProxyException;
 
 public class EzyProxyExceptionTest {
 
-	@Test
-	public void test() {
-		new EzyProxyException(new Exception());
-	}
-	
+    @Test
+    public void test() {
+        new EzyProxyException(new Exception());
+    }
+
 }

@@ -8,8 +8,8 @@ import lombok.Setter;
 @EzyArrayBinding
 public class ClassC implements InterfaceC {
 
-	@Setter
-	@Getter
-	private String name;
-	
+    @Setter
+    @Getter
+    private String name;
+
 }

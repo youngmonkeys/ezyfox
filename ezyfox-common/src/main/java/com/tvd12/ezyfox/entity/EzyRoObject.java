@@ -27,7 +27,7 @@ public interface EzyRoObject extends EzyData {
      * @return true or false
      */
     default boolean isEmpty() {
-    	return size() == 0;
+        return size() == 0;
     }
     
     /**
@@ -45,7 +45,7 @@ public interface EzyRoObject extends EzyData {
      * @return contains all or not
      */
     @SuppressWarnings("rawtypes")
-	boolean containsKeys(Collection keys);
+    boolean containsKeys(Collection keys);
     
     /**
      * check contains key and not null value mapped to the key
@@ -85,7 +85,7 @@ public interface EzyRoObject extends EzyData {
      * @return object value
      */
     @SuppressWarnings("rawtypes")
-	Object getValue(Object key, Class type);
+    Object getValue(Object key, Class type);
     
     /**
      * @see java.util.Map#keySet()
@@ -107,7 +107,7 @@ public interface EzyRoObject extends EzyData {
      * @return a map
      */
     @SuppressWarnings("rawtypes")
-	Map toMap();
+    Map toMap();
     
     /**
      * (non-Javadoc)
@@ -122,9 +122,9 @@ public interface EzyRoObject extends EzyData {
      * @return the first entry
      */
     default Entry<Object, Object> firstEntry() {
-    	for(Entry<Object, Object> entry : entrySet())
-    		return entry;
-    	return null;
+        for(Entry<Object, Object> entry : entrySet())
+            return entry;
+        return null;
     }
     
     /**
@@ -136,7 +136,7 @@ public interface EzyRoObject extends EzyData {
      * @return the value mapped to key 
      */
     default <V> V getWithDefault(Object key, V def) {
-    	return containsKey(key) ? get(key) : def;
+        return containsKey(key) ? get(key) : def;
     }
     
     /**
@@ -152,7 +152,7 @@ public interface EzyRoObject extends EzyData {
      * @return a value
      */
     default <V> V get(Object key, Class<V> type, V def) {
-    	return containsKey(key) ? get(key, type) : def;
+        return containsKey(key) ? get(key, type) : def;
     }
     
     /**
@@ -164,8 +164,8 @@ public interface EzyRoObject extends EzyData {
      * @return object value
      */
     @SuppressWarnings("rawtypes")
-	default Object getValue(Object key, Class type, Object def) {
-    	return containsKey(key) ? getValue(key, type) : def;
+    default Object getValue(Object key, Class type, Object def) {
+        return containsKey(key) ? getValue(key, type) : def;
     }
     
 }

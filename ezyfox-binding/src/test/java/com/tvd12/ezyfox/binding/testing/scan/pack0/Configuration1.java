@@ -16,18 +16,18 @@ import lombok.Setter;
 @EzyBindingPackagesToScan({"com.tvd12.ezyfox.binding.testing.scan.pack1"})
 public class Configuration1 implements EzyBindingContextAware, EzyBindingConfig {
 
-	@Setter
-	private EzyBindingContext context;
-	
-	@Override
-	public void config() {
-		context.bindTemplate(ClassD.class, new EzyUnwrapper<EzyObject, ClassD>() {
-			@Override
-			public void unwrap(EzyUnmarshaller unmarshaller, EzyObject input, ClassD output) {
-			}
-		});
-	}
-	
-	
-	
+    @Setter
+    private EzyBindingContext context;
+
+    @Override
+    public void config() {
+        context.bindTemplate(ClassD.class, new EzyUnwrapper<EzyObject, ClassD>() {
+            @Override
+            public void unwrap(EzyUnmarshaller unmarshaller, EzyObject input, ClassD output) {
+            }
+        });
+    }
+
+
+
 }

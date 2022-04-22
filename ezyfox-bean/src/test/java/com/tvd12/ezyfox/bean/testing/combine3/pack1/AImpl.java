@@ -6,8 +6,8 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 @EzySingleton
 public class AImpl implements A {
 
-	@EzyAutoBind
-	public AImpl(B b, C c, D d, E e, F f) {
-	}
-	
+    @EzyAutoBind
+    public AImpl(B b, C c, D d, E e, F f) {
+    }
+
 }

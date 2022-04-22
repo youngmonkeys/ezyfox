@@ -9,15 +9,15 @@ import com.tvd12.ezyfox.entity.EzyArray;
 
 public class EzyArrayWriterBuilderExample3 {
 
-	@Test
-	public void test() throws Exception {
-		EzyArrayWriterBuilder.setDebug(true);
-		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-				.scan("com.tvd12.ezyfox.binding.testing.arraybinding")
-				.build();
-		EzyMarshaller marshaller = context.newMarshaller();
-		EzyArrayWriterBuilder.setDebug(true);
-		EzyArray array = marshaller.marshal( new ClassB1());
-		System.out.println(array);
-	}
+    @Test
+    public void test() throws Exception {
+        EzyArrayWriterBuilder.setDebug(true);
+        EzySimpleBindingContext context = EzySimpleBindingContext.builder()
+                .scan("com.tvd12.ezyfox.binding.testing.arraybinding")
+                .build();
+        EzyMarshaller marshaller = context.newMarshaller();
+        EzyArrayWriterBuilder.setDebug(true);
+        EzyArray array = marshaller.marshal( new ClassB1());
+        System.out.println(array);
+    }
 }

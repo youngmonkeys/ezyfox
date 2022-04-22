@@ -11,11 +11,11 @@ import lombok.ToString;
 @ToString
 public class Scan1ClassA1 {
 
-	protected String hung = "dep trai";
-	
-	@EzyValue("hll")
-	public String getHello() {
-		return "world";
-	}
-	
+    protected String hung = "dep trai";
+
+    @EzyValue("hll")
+    public String getHello() {
+        return "world";
+    }
+
 }

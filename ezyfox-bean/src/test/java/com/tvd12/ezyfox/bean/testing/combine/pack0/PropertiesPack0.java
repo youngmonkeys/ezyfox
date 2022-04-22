@@ -10,6 +10,6 @@ import lombok.Setter;
 @EzyPropertiesBean(prefix = "pack1")
 public class PropertiesPack0 {
 
-	private String hello1;
-	
+    private String hello1;
+
 }

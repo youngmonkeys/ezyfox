@@ -7,34 +7,34 @@ import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
 @SuppressWarnings("rawtypes")
 public interface EzyBindingContextBuilder {
 
-	EzyBindingContextBuilder scan(String packageName);
+    EzyBindingContextBuilder scan(String packageName);
 
-	EzyBindingContextBuilder scan(String... packageNames);
+    EzyBindingContextBuilder scan(String... packageNames);
 
-	EzyBindingContextBuilder scan(Iterable<String> packageNames);
-	
-	EzyBindingContextBuilder scan(Collection<String> packageNames);
+    EzyBindingContextBuilder scan(Iterable<String> packageNames);
 
-	EzyBindingContextBuilder addClass(Class clazz);
+    EzyBindingContextBuilder scan(Collection<String> packageNames);
 
-	EzyBindingContextBuilder addObjectBindingClass(Class clazz);
+    EzyBindingContextBuilder addClass(Class clazz);
 
-	EzyBindingContextBuilder addArrayBindingClass(Class clazz);
+    EzyBindingContextBuilder addObjectBindingClass(Class clazz);
 
-	EzyBindingContextBuilder addClasses(Class... classes);
+    EzyBindingContextBuilder addArrayBindingClass(Class clazz);
 
-	EzyBindingContextBuilder addClasses(Iterable<Class> classes);
-	
-	EzyBindingContextBuilder addAllClasses(Object reflection);
+    EzyBindingContextBuilder addClasses(Class... classes);
 
-	EzyBindingContextBuilder addTemplate(Object template);
+    EzyBindingContextBuilder addClasses(Iterable<Class> classes);
 
-	EzyBindingContextBuilder addTemplateClass(Class clazz);
+    EzyBindingContextBuilder addAllClasses(Object reflection);
 
-	EzyBindingContextBuilder addTemplateClasses(Iterable<Class<?>> classes);
+    EzyBindingContextBuilder addTemplate(Object template);
 
-	EzyBindingContextBuilder addTemplate(Class type, Object template);
+    EzyBindingContextBuilder addTemplateClass(Class clazz);
 
-	EzySimpleBindingContext build();
+    EzyBindingContextBuilder addTemplateClasses(Iterable<Class<?>> classes);
+
+    EzyBindingContextBuilder addTemplate(Class type, Object template);
+
+    EzySimpleBindingContext build();
 
 }

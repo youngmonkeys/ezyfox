@@ -6,14 +6,14 @@ import com.tvd12.ezyfox.util.EzyRef;
 
 public class EzyRefTest {
 
-	@Test
-	public void test() {
-		EzyRef<String> ref = new EzyRef<>("1");
-		assert ref.get().equals("1");
-		ref.retain();
-		assert !ref.isReleasable();
-		ref.release();
-		assert ref.isReleasable();
-	}
-	
+    @Test
+    public void test() {
+        EzyRef<String> ref = new EzyRef<>("1");
+        assert ref.get().equals("1");
+        ref.retain();
+        assert !ref.isReleasable();
+        ref.release();
+        assert ref.isReleasable();
+    }
+
 }

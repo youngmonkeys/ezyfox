@@ -10,43 +10,43 @@ import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
 @SuppressWarnings("rawtypes")
 public interface EzySingletonFactory {
 
-	Object getSingleton(Class type);
-	
-	Object getSingleton(String name, Class type);
-	
-	Object getAnnotatedSingleton(Class annotationClass);
-	
-	Object getSingleton(Map properties);
-	
-	List getSingletons();
-	
-	List getSingletons(Map properties);
-	
-	List getSingletons(Class... annotationClass);
+    Object getSingleton(Class type);
 
-	List getSingletons(Predicate filter);
-	
-	List getSingletonsOf(Class parentClass);
-	
-	Map<EzyBeanKey, Object> getSingletonMapByKey();
-	
-	Map getProperties(Object singleton);
-	
-	Object addSingleton(Object singleton);
-	
-	Object addSingleton(String name, Object singleton);
-	
-	Object addSingleton(String name, Object singleton, Map properties);
-	
-	void addSingletons(Map<String, Object> singletons);
-	
-	void addSingletonsByBeanKey(Map<EzyBeanKey, Object> singletons);
-	
-	Set<Class> getSingletonClasses();
-	
-	@SuppressWarnings("unchecked")
-	default <T> T getSingletonCast(Class<T> type) {
-		return (T)getSingleton(type);
-	}
-	
+    Object getSingleton(String name, Class type);
+
+    Object getAnnotatedSingleton(Class annotationClass);
+
+    Object getSingleton(Map properties);
+
+    List getSingletons();
+
+    List getSingletons(Map properties);
+
+    List getSingletons(Class... annotationClass);
+
+    List getSingletons(Predicate filter);
+
+    List getSingletonsOf(Class parentClass);
+
+    Map<EzyBeanKey, Object> getSingletonMapByKey();
+
+    Map getProperties(Object singleton);
+
+    Object addSingleton(Object singleton);
+
+    Object addSingleton(String name, Object singleton);
+
+    Object addSingleton(String name, Object singleton, Map properties);
+
+    void addSingletons(Map<String, Object> singletons);
+
+    void addSingletonsByBeanKey(Map<EzyBeanKey, Object> singletons);
+
+    Set<Class> getSingletonClasses();
+
+    @SuppressWarnings("unchecked")
+    default <T> T getSingletonCast(Class<T> type) {
+        return (T)getSingleton(type);
+    }
+
 }

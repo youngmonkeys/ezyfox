@@ -10,34 +10,34 @@ import com.tvd12.ezyfox.codec.EzyIDecodeState;
 
 public class EzyDecodeHandlersTest {
 
-	@Test
-	public void test() {
-		EzyDecodeHandlers handlers = ExEzyDecodeHandlers.builder()
-				.build();
-		handlers.reset();
-	}
-	
-	public static class ExEzyDecodeHandlers extends EzyDecodeHandlers {
-		
-		public ExEzyDecodeHandlers(Builder builder) {
-			super(builder);
-		}
-		
-		public static Builder builder() {
-			return new Builder();
-		}
-		
-		public static class Builder extends EzyDecodeHandlers.Builder {
-			@Override
-			protected void addHandlers(Map<EzyIDecodeState, EzyDecodeHandler> answer) {
-			}
-			
-			@Override
-			public EzyDecodeHandlers build() {
-				return new ExEzyDecodeHandlers(this);
-			}
-		}
-		
-	}
-	
+    @Test
+    public void test() {
+        EzyDecodeHandlers handlers = ExEzyDecodeHandlers.builder()
+                .build();
+        handlers.reset();
+    }
+
+    public static class ExEzyDecodeHandlers extends EzyDecodeHandlers {
+
+        public ExEzyDecodeHandlers(Builder builder) {
+            super(builder);
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public static class Builder extends EzyDecodeHandlers.Builder {
+            @Override
+            protected void addHandlers(Map<EzyIDecodeState, EzyDecodeHandler> answer) {
+            }
+
+            @Override
+            public EzyDecodeHandlers build() {
+                return new ExEzyDecodeHandlers(this);
+            }
+        }
+
+    }
+
 }

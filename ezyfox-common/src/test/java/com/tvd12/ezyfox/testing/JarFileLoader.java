@@ -15,7 +15,7 @@ public class JarFileLoader extends URLClassLoader
         addURL (new URL (urlPath));
     }
     @SuppressWarnings("resource")
-	public static void main (String args [])
+    public static void main (String args [])
     {
         try
         {

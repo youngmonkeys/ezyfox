@@ -9,16 +9,16 @@ import com.tvd12.ezyfox.entity.EzyObject;
 
 public class MsgPackCodecTest extends CodecBaseTest {
 
-	protected MessagePack msgPack;
-	
-	public MsgPackCodecTest() {
-		this.msgPack = new MessagePack();
-		this.msgPack.register(EzyObject.class, new MsgPackObjectTemplate());
-		this.msgPack.register(EzyArray.class, new MsgPackArrayTemplate());
-	}
-	
-	protected Logger getLogger() {
-		return LoggerFactory.getLogger(getClass());
-	}
-	
+    protected MessagePack msgPack;
+
+    public MsgPackCodecTest() {
+        this.msgPack = new MessagePack();
+        this.msgPack.register(EzyObject.class, new MsgPackObjectTemplate());
+        this.msgPack.register(EzyArray.class, new MsgPackArrayTemplate());
+    }
+
+    protected Logger getLogger() {
+        return LoggerFactory.getLogger(getClass());
+    }
+
 }

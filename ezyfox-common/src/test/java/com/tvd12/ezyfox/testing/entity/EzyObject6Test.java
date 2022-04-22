@@ -15,110 +15,110 @@ import lombok.Setter;
 
 public class EzyObject6Test extends BaseTest {
 
-	@Test
-	public void test() {
-		XObject x = new XObject();
-		assert x.isEmpty();
-		x.setSize(100);
-		assert !x.isEmpty();
-		assert !x.isNotNullValue("");
-		assert x.compareTo(null) == 0;
-	}
-	
-	@SuppressWarnings({"rawtypes"})
-	public static class XObject implements EzyObject {
-		private static final long serialVersionUID = 1361895415042596335L;
-		
-		@Setter
-		private int size;
-		
-		@Override
-		public Object clone() throws CloneNotSupportedException {
-			return super.clone();
-		}
+    @Test
+    public void test() {
+        XObject x = new XObject();
+        assert x.isEmpty();
+        x.setSize(100);
+        assert !x.isEmpty();
+        assert !x.isNotNullValue("");
+        assert x.compareTo(null) == 0;
+    }
 
-		@Override
-		public XObject duplicate() {
-			return null;
-		}
+    @SuppressWarnings({"rawtypes"})
+    public static class XObject implements EzyObject {
+        private static final long serialVersionUID = 1361895415042596335L;
 
-		@Override
-		public int size() {
-			return size;
-		}
+        @Setter
+        private int size;
 
-		@Override
-		public boolean containsKey(Object key) {
-			return false;
-		}
-		
-		@Override
-		public boolean containsKeys(Collection keys) {
-			return false;
-		}
-		
-		@Override
-		public boolean isNotNullValue(Object key) {
-			return false;
-		}
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
 
-		@Override
-		public <V> V get(Object key) {
-			return null;
-		}
+        @Override
+        public XObject duplicate() {
+            return null;
+        }
 
-		@Override
-		public <V> V get(Object key, Class<V> clazz) {
-			return null;
-		}
-		
-		@Override
-		public Object getValue(Object key, Class type) {
-			return null;
-		}
+        @Override
+        public int size() {
+            return size;
+        }
 
-		@Override
-		public Set<Object> keySet() {
-			return null;
-		}
+        @Override
+        public boolean containsKey(Object key) {
+            return false;
+        }
 
-		@Override
-		public Set<Entry<Object, Object>> entrySet() {
-			return null;
-		}
+        @Override
+        public boolean containsKeys(Collection keys) {
+            return false;
+        }
 
-		@Override
-		public Map toMap() {
-			return null;
-		}
+        @Override
+        public boolean isNotNullValue(Object key) {
+            return false;
+        }
 
-		@Override
-		public <V> V put(Object key, Object value) {
-			return null;
-		}
+        @Override
+        public <V> V get(Object key) {
+            return null;
+        }
 
-		@Override
-		public void putAll(Map m) {
-		}
+        @Override
+        public <V> V get(Object key, Class<V> clazz) {
+            return null;
+        }
 
-		@Override
-		public <V> V remove(Object key) {
-			return null;
-		}
+        @Override
+        public Object getValue(Object key, Class type) {
+            return null;
+        }
 
-		@Override
-		public void removeAll(Collection keys) {
-		}
+        @Override
+        public Set<Object> keySet() {
+            return null;
+        }
 
-		@Override
-		public <V> V compute(Object key, BiFunction func) {
-			return null;
-		}
+        @Override
+        public Set<Entry<Object, Object>> entrySet() {
+            return null;
+        }
 
-		@Override
-		public void clear() {
-		}
-		
-	}
-	
+        @Override
+        public Map toMap() {
+            return null;
+        }
+
+        @Override
+        public <V> V put(Object key, Object value) {
+            return null;
+        }
+
+        @Override
+        public void putAll(Map m) {
+        }
+
+        @Override
+        public <V> V remove(Object key) {
+            return null;
+        }
+
+        @Override
+        public void removeAll(Collection keys) {
+        }
+
+        @Override
+        public <V> V compute(Object key, BiFunction func) {
+            return null;
+        }
+
+        @Override
+        public void clear() {
+        }
+
+    }
+
 }

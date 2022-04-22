@@ -16,29 +16,29 @@ import lombok.ToString;
 
 public class EzyBindingEntityCodecTest {
 
-	@Test
-	public void test() {
-		EzyBindingContext bindingContext = EzyBindingContext.builder()
-				.addClass(A.class)
-				.build();
-		EzyEntityCodec codec = EzyBindingEntityCodec.builder()
-				.marshaller(bindingContext.newMarshaller())
-				.unmarshaller(bindingContext.newUnmarshaller())
-				.messageSerializer(new MsgPackSimpleSerializer())
-				.messageDeserializer(new MsgPackSimpleDeserializer())
-				.build();
-		byte[] bytes = codec.serialize(new A("hello"));
-		A a = codec.deserialize(bytes, A.class);
-		assert a.getValue().equals("hello");
-	}
-	
-	@Getter
-	@Setter
-	@ToString
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class A {
-		protected String value;
-	}
-	
+    @Test
+    public void test() {
+        EzyBindingContext bindingContext = EzyBindingContext.builder()
+                .addClass(A.class)
+                .build();
+        EzyEntityCodec codec = EzyBindingEntityCodec.builder()
+                .marshaller(bindingContext.newMarshaller())
+                .unmarshaller(bindingContext.newUnmarshaller())
+                .messageSerializer(new MsgPackSimpleSerializer())
+                .messageDeserializer(new MsgPackSimpleDeserializer())
+                .build();
+        byte[] bytes = codec.serialize(new A("hello"));
+        A a = codec.deserialize(bytes, A.class);
+        assert a.getValue().equals("hello");
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class A {
+        protected String value;
+    }
+
 }

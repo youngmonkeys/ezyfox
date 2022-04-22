@@ -6,6 +6,6 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 @EzySingleton
 public class DImpl implements D {
 
-	@EzyAutoBind
-	public C c;
+    @EzyAutoBind
+    public C c;
 }

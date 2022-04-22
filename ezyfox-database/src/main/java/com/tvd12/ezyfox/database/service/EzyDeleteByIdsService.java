@@ -4,6 +4,6 @@ import java.util.Collection;
 
 public interface EzyDeleteByIdsService<I> {
 
-	int deleteByIds(Collection<I> ids);
-	
+    int deleteByIds(Collection<I> ids);
+
 }

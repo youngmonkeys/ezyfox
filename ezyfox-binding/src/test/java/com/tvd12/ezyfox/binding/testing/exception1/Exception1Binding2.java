@@ -8,15 +8,15 @@ import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
 public class Exception1Binding2 extends EzyEntityBuilders {
 
-	public static void main(String[] args) throws Exception {
-		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-				.addClass(Exception1ClassB.class)
-				.build();
-		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		unmarshaller.unmarshal(
-				EzyEntityFactory.create(EzyObjectBuilder.class)
-				.append("value", "abc")
-				.build(), 
-				Exception1ClassB.class);
-	}
+    public static void main(String[] args) throws Exception {
+        EzySimpleBindingContext context = EzySimpleBindingContext.builder()
+                .addClass(Exception1ClassB.class)
+                .build();
+        EzyUnmarshaller unmarshaller = context.newUnmarshaller();
+        unmarshaller.unmarshal(
+                EzyEntityFactory.create(EzyObjectBuilder.class)
+                .append("value", "abc")
+                .build(), 
+                Exception1ClassB.class);
+    }
 }

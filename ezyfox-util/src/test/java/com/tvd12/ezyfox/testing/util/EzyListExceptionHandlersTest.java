@@ -9,15 +9,15 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyListExceptionHandlersTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyExceptionHandlers handlers = new EzyListExceptionHandlers();
-		handlers.addExceptionHandler(new EzyExceptionHandler() {
-			@Override
-			public void handleException(Thread thread, Throwable throwable) {
-			}
-		});
-		handlers.handleException(Thread.currentThread(), new Exception());
-	}
-	
+    @Test
+    public void test() {
+        EzyExceptionHandlers handlers = new EzyListExceptionHandlers();
+        handlers.addExceptionHandler(new EzyExceptionHandler() {
+            @Override
+            public void handleException(Thread thread, Throwable throwable) {
+            }
+        });
+        handlers.handleException(Thread.currentThread(), new Exception());
+    }
+
 }

@@ -6,7 +6,7 @@ import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 @EzyPrototype
 public class V112Prototype2 {
 
-	@EzyAutoBind
-	protected V112Prototype1 v112Prototype1;
-	
+    @EzyAutoBind
+    protected V112Prototype1 v112Prototype1;
+
 }

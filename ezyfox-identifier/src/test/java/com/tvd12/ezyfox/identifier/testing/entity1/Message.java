@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class Message implements EzyHasIdEntity<Long> {
 
-	private Long id;
-	private String name;
-	
+    private Long id;
+    private String name;
+
 }

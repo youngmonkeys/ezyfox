@@ -14,23 +14,23 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzySimplePrototypeSupplierBuilderTest extends BaseTest {
 
-	@Test(expectedExceptions = {IllegalStateException.class})
-	public void test() {
-		new ExSimplePrototypeSupplierBuilder(
-				new EzyClass(ClassA.class)).load(new EzySimplePrototypeFactory());
-	}
-	
-	public static class ExSimplePrototypeSupplierBuilder extends EzyByConstructorPrototypeSupplierLoader {
+    @Test(expectedExceptions = {IllegalStateException.class})
+    public void test() {
+        new ExSimplePrototypeSupplierBuilder(
+                new EzyClass(ClassA.class)).load(new EzySimplePrototypeFactory());
+    }
 
-		public ExSimplePrototypeSupplierBuilder(EzyClass clazz) {
-			super(EzyBeanNameParser.getBeanName(clazz.getClazz()), clazz);
-		}
-		
-		@Override
-		protected EzyInstruction newConstructInstruction(EzyBody body, List<String> cparams) {
-			throw new RuntimeException();
-		}
-		
-	}
-	
+    public static class ExSimplePrototypeSupplierBuilder extends EzyByConstructorPrototypeSupplierLoader {
+
+        public ExSimplePrototypeSupplierBuilder(EzyClass clazz) {
+            super(EzyBeanNameParser.getBeanName(clazz.getClazz()), clazz);
+        }
+
+        @Override
+        protected EzyInstruction newConstructInstruction(EzyBody body, List<String> cparams) {
+            throw new RuntimeException();
+        }
+
+    }
+
 }

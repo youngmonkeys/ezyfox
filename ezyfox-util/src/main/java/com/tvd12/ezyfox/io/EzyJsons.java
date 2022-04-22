@@ -7,9 +7,9 @@ import java.util.function.Function;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public final class EzyJsons {
 
-	public static final Function TO_STRING_FUNC = t -> t.toString();
-	public static final Function QUOTE_FUNC = t -> EzyStrings.quote(t);
-	
+    public static final Function TO_STRING_FUNC = t -> t.toString();
+    public static final Function QUOTE_FUNC = t -> EzyStrings.quote(t);
+
     private EzyJsons() {
     }
 
@@ -18,7 +18,7 @@ public final class EzyJsons {
     }
 
     public static <T> String parse(
-    			Collection<T> items, Function<T, String> func) {
+                Collection<T> items, Function<T, String> func) {
         StringBuilder builder = new StringBuilder()
             .append("[");
         int size = items.size();
@@ -31,23 +31,23 @@ public final class EzyJsons {
         return builder.append("]").toString();
     }
 
-	public static String parse(Map dict) {
+    public static String parse(Map dict) {
         return parse(dict, TO_STRING_FUNC);
     }
 
     public static <K, V> String parse(
-    			Map<K, V> dict, Function<V, String> valueFunction) {
+                Map<K, V> dict, Function<V, String> valueFunction) {
         return parse(dict, QUOTE_FUNC, valueFunction);
     }
 
     public static <K, V> String parse(Map<K, V> dict,
-    			Function<K, String> keyFunction,
-    			Function<V, String> valueFunction) {
-    		StringBuilder builder = new StringBuilder("{");
-    		int size = dict.size();
+                Function<K, String> keyFunction,
+                Function<V, String> valueFunction) {
+            StringBuilder builder = new StringBuilder("{");
+            int size = dict.size();
         int index = 0;
         for (K key : dict.keySet()) {
-        		V value = dict.get(key);
+                V value = dict.get(key);
             builder.append(keyFunction.apply(key))
                    .append(":")
                    .append(valueFunction.apply(value));

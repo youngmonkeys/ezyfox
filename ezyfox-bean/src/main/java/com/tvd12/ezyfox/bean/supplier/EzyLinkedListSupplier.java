@@ -7,23 +7,23 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
 public final class EzyLinkedListSupplier implements EzyPrototypeSupplier {
 
-	private static final EzyLinkedListSupplier INSTANCE = new EzyLinkedListSupplier();
+    private static final EzyLinkedListSupplier INSTANCE = new EzyLinkedListSupplier();
 
-	private EzyLinkedListSupplier() {
-	}
+    private EzyLinkedListSupplier() {
+    }
 
-	public static EzyLinkedListSupplier getInstance() {
-		return INSTANCE;
-	}
+    public static EzyLinkedListSupplier getInstance() {
+        return INSTANCE;
+    }
 
-	@Override
-	public Object supply(EzyBeanContext context) {
-		return new LinkedList<>();
-	}
+    @Override
+    public Object supply(EzyBeanContext context) {
+        return new LinkedList<>();
+    }
 
-	@Override
-	public Class<?> getObjectType() {
-		return LinkedList.class;
-	}
+    @Override
+    public Class<?> getObjectType() {
+        return LinkedList.class;
+    }
 
 }

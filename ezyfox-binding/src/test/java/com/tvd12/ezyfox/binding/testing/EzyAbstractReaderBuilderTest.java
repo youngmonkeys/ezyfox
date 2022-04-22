@@ -18,87 +18,87 @@ import com.tvd12.ezyfox.reflect.EzySetterMethod;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyAbstractReaderBuilderTest extends BaseTest {
-	
-	@Test(expectedExceptions = {IllegalStateException.class})
-	public void test1() {
-		new Builder1(new EzyClass(getClass())).build();
-	}
-	
-	@Test
-	public void appendConstructorParamValueTest() {
-		Builder1 builder1 = new Builder1(new EzyClass(ClassA.class));
-		builder1.appendConstructorParamValue(null, null, 1, null, null);
-	}
 
-	public static class Builder1 extends EzyAbstractReaderBuilder {
-		public Builder1(EzyClass clazz) {
-			super(clazz);
-		}
-		
-		@Override
-		protected int getAccessType(EzyClass clazz) {
-			return EzyAccessType.ALL;
-		}
-		
-		@Override
-		public void appendConstructorParamValue(
-				EzyInstruction instruction, 
-				Parameter parameter, 
-				int parameterIndex,
-		        EzyField field, 
-		        String key) {
-			super.appendConstructorParamValue(instruction, parameter, parameterIndex, field, key);
-		}
-		
-		@Override
-		protected EzyElementsFetcher newElementsFetcher() {
-			return new EzyObjectElementsFetcher() {
+    @Test(expectedExceptions = {IllegalStateException.class})
+    public void test1() {
+        new Builder1(new EzyClass(getClass())).build();
+    }
 
-				@Override
-				protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
-					return clazz.getSetterMethods();
-				}
+    @Test
+    public void appendConstructorParamValueTest() {
+        Builder1 builder1 = new Builder1(new EzyClass(ClassA.class));
+        builder1.appendConstructorParamValue(null, null, 1, null, null);
+    }
 
-				@Override
-				protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
-					return clazz.getDeclaredSetterMethods();
-				}
-				
-				@Override
-				protected boolean isValidAnnotatedMethod(EzyMethod method) {
-					return method.getParameterCount() == 1;
-				}
-				
-				@Override
-				protected EzyMethod newByFieldMethod(EzyMethod method) {
-					return new EzySetterMethod(method);
-				}
-			};
-		}
-		
-		@SuppressWarnings("rawtypes")
-		@Override
-		protected EzyReader make() throws Exception {
-			throw new Exception();
-		}
+    public static class Builder1 extends EzyAbstractReaderBuilder {
+        public Builder1(EzyClass clazz) {
+            super(clazz);
+        }
 
-		@Override
-		protected String getImplClassName() {
-			return "";
-		}
+        @Override
+        protected int getAccessType(EzyClass clazz) {
+            return EzyAccessType.ALL;
+        }
 
-		@Override
-		protected String makeImplMethodContent(EzyMethod readMethod) {
-			return "";
-		}
+        @Override
+        public void appendConstructorParamValue(
+                EzyInstruction instruction,
+                Parameter parameter,
+                int parameterIndex,
+                EzyField field,
+                String key) {
+            super.appendConstructorParamValue(instruction, parameter, parameterIndex, field, key);
+        }
 
-		@Override
-		protected boolean isDebug() {
-			return false;
-		}
-		
-	}
-	
-	public static class ClassA {}
-	
+        @Override
+        protected EzyElementsFetcher newElementsFetcher() {
+            return new EzyObjectElementsFetcher() {
+
+                @Override
+                protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
+                    return clazz.getSetterMethods();
+                }
+
+                @Override
+                protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
+                    return clazz.getDeclaredSetterMethods();
+                }
+
+                @Override
+                protected boolean isValidAnnotatedMethod(EzyMethod method) {
+                    return method.getParameterCount() == 1;
+                }
+
+                @Override
+                protected EzyMethod newByFieldMethod(EzyMethod method) {
+                    return new EzySetterMethod(method);
+                }
+            };
+        }
+
+        @SuppressWarnings("rawtypes")
+        @Override
+        protected EzyReader make() throws Exception {
+            throw new Exception();
+        }
+
+        @Override
+        protected String getImplClassName() {
+            return "";
+        }
+
+        @Override
+        protected String makeImplMethodContent(EzyMethod readMethod) {
+            return "";
+        }
+
+        @Override
+        protected boolean isDebug() {
+            return false;
+        }
+
+    }
+
+    public static class ClassA {}
+
 }

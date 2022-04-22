@@ -6,16 +6,16 @@ import org.testng.annotations.Test;
 
 public class EzyThrowErrorHandlerTest {
 
-	@Test
-	public void test() {
-		EzyThrowErrorHandler handler = new EzyThrowErrorHandler();
-		try {
-			handler.handle(new IllegalArgumentException("hello"));
-		}
-		catch (Exception e) {
-			assert e instanceof IllegalStateException;
-		}
-		
-	}
-	
+    @Test
+    public void test() {
+        EzyThrowErrorHandler handler = new EzyThrowErrorHandler();
+        try {
+            handler.handle(new IllegalArgumentException("hello"));
+        }
+        catch (Exception e) {
+            assert e instanceof IllegalStateException;
+        }
+
+    }
+
 }

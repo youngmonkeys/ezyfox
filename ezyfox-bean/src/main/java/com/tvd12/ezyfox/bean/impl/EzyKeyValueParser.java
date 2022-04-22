@@ -10,25 +10,25 @@ import com.tvd12.ezyfox.util.EzyKeyValueAnnotations;
 @SuppressWarnings({ "rawtypes" })
 public final class EzyKeyValueParser {
 
-	private EzyKeyValueParser() {
-	}
-	
-	public static Map getSingletonProperties(Class<?> clazz) {
-		return getSingletonProperties(clazz.getAnnotation(EzySingleton.class));
-	}
-	
-	public static Map getSingletonProperties(EzySingleton annotation) {
-		EzyKeyValue[] keyValues = annotation != null ? annotation.properties() : new EzyKeyValue[0];
-		return EzyKeyValueAnnotations.getProperties(keyValues);
-	}
-	
-	public static Map getPrototypeProperties(Class<?> clazz) {
-		return getPrototypeProperties(clazz.getAnnotation(EzyPrototype.class));
-	}
-	
-	public static Map getPrototypeProperties(EzyPrototype annotation) {
-		EzyKeyValue[] keyValues = annotation != null ? annotation.properties() : new EzyKeyValue[0];
-		return EzyKeyValueAnnotations.getProperties(keyValues);
-	}
-	
+    private EzyKeyValueParser() {
+    }
+
+    public static Map getSingletonProperties(Class<?> clazz) {
+        return getSingletonProperties(clazz.getAnnotation(EzySingleton.class));
+    }
+
+    public static Map getSingletonProperties(EzySingleton annotation) {
+        EzyKeyValue[] keyValues = annotation != null ? annotation.properties() : new EzyKeyValue[0];
+        return EzyKeyValueAnnotations.getProperties(keyValues);
+    }
+
+    public static Map getPrototypeProperties(Class<?> clazz) {
+        return getPrototypeProperties(clazz.getAnnotation(EzyPrototype.class));
+    }
+
+    public static Map getPrototypeProperties(EzyPrototype annotation) {
+        EzyKeyValue[] keyValues = annotation != null ? annotation.properties() : new EzyKeyValue[0];
+        return EzyKeyValueAnnotations.getProperties(keyValues);
+    }
+
 }

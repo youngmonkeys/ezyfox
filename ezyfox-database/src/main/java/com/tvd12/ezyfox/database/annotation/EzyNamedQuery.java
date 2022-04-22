@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EzyNamedQuery {
 
-	String name() default "";
-	String value() default "";
-	String type() default "";
-	boolean nativeQuery() default false;
+    String name() default "";
+    String value() default "";
+    String type() default "";
+    boolean nativeQuery() default false;
 }

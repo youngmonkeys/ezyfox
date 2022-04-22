@@ -21,9 +21,9 @@ import com.tvd12.ezyfox.annotation.EzyKeyValue;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER,
-		TYPE_USE })
+        TYPE_USE })
 public @interface IncludeAnnotation {
-	
-	EzyKeyValue[] properties() default {};
-	
+
+    EzyKeyValue[] properties() default {};
+
 }

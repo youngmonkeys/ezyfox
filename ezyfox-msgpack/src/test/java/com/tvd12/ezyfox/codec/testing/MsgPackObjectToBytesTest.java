@@ -11,18 +11,18 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 public class MsgPackObjectToBytesTest extends BaseTest {
-	
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void test() {
-		EzyMessageSerializer serializer = mock(EzyMessageSerializer.class);
-		when(serializer.serialize(any())).thenAnswer(new Answer<Object>() {
-			@Override
-			public Object answer(InvocationOnMock invocation) throws Throwable {
-				throw new Exception();
-			}
-		});
-		MsgPackObjectToBytes instance = new MsgPackObjectToBytes(serializer);
-		instance.convert(new Object());
-	}
-	
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void test() {
+        EzyMessageSerializer serializer = mock(EzyMessageSerializer.class);
+        when(serializer.serialize(any())).thenAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                throw new Exception();
+            }
+        });
+        MsgPackObjectToBytes instance = new MsgPackObjectToBytes(serializer);
+        instance.convert(new Object());
+    }
+
 }

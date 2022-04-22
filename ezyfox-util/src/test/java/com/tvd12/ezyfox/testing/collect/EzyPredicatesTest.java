@@ -7,14 +7,14 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyPredicatesTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyPredicates.alwayTrue().test(null);
-	}
-	
-	@Override
-	public Class<?> getTestClass() {
-		return EzyPredicates.class;
-	}
-	
+    @Test
+    public void test() {
+        EzyPredicates.alwayTrue().test(null);
+    }
+
+    @Override
+    public Class<?> getTestClass() {
+        return EzyPredicates.class;
+    }
+
 }

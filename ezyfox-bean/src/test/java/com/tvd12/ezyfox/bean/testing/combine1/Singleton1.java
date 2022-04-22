@@ -9,10 +9,10 @@ import lombok.Setter;
 @Getter
 public class Singleton1 {
 
-	@EzyAutoBind
-	private Singleton0 singleton0;
-	
-	@EzyAutoBind
-	private Singleton2 singleton2;
-	
+    @EzyAutoBind
+    private Singleton0 singleton0;
+
+    @EzyAutoBind
+    private Singleton2 singleton2;
+
 }

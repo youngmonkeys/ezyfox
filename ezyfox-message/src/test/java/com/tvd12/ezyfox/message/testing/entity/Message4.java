@@ -12,8 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Message4 {
 
-	@EzyId
-	private Long id;
-	private String name;
-	
+    @EzyId
+    private Long id;
+    private String name;
+
 }

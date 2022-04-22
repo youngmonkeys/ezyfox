@@ -4,18 +4,18 @@ import java.util.concurrent.Future;
 
 public interface EzyFuture {
 
-	void setResult(Object result);
-	
-	void setException(Exception exception);
-	
-	void cancel(String message);
-	
-	boolean isDone();
+    void setResult(Object result);
 
-	<V> V get() throws Exception;
+    void setException(Exception exception);
 
-	<V> V get(long timeout) throws Exception;
-	
-	<V> Future<V> toFuture();
+    void cancel(String message);
+
+    boolean isDone();
+
+    <V> V get() throws Exception;
+
+    <V> V get(long timeout) throws Exception;
+
+    <V> Future<V> toFuture();
 
 }

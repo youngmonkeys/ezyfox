@@ -11,15 +11,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class EzyArrayIteratorTest {
 
-	@Test
-	public void test() {
-		Object array = newArray();
-		EzyArrayIterator<?> it = newIterator();
-		AtomicInteger i = new AtomicInteger(0);
-		while(it.hasNext())
-			assertEquals(it.next(), Array.get(array, i.getAndIncrement()));
-	}
+    @Test
+    public void test() {
+        Object array = newArray();
+        EzyArrayIterator<?> it = newIterator();
+        AtomicInteger i = new AtomicInteger(0);
+        while(it.hasNext())
+            assertEquals(it.next(), Array.get(array, i.getAndIncrement()));
+    }
 
-	protected abstract Object newArray();
-	protected abstract EzyArrayIterator<?> newIterator();
+    protected abstract Object newArray();
+    protected abstract EzyArrayIterator<?> newIterator();
 }

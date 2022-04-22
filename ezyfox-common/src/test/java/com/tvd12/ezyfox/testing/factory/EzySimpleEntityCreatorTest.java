@@ -9,13 +9,13 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzySimpleEntityCreatorTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzySimpleEntityCreator instance = EzySimpleEntityCreator.getInstance();
-		instance.newArray();
-		instance.newObject();
-		instance.create(EzyObject.class);
-		instance.create(EzyArray.class);
-	}
-	
+    @Test
+    public void test() {
+        EzySimpleEntityCreator instance = EzySimpleEntityCreator.getInstance();
+        instance.newArray();
+        instance.newObject();
+        instance.create(EzyObject.class);
+        instance.create(EzyArray.class);
+    }
+
 }

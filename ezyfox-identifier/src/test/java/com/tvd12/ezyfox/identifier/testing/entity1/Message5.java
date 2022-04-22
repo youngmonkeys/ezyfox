@@ -11,8 +11,8 @@ import lombok.Setter;
 @HasIdTest
 public class Message5 {
 
-	@EzyId
-	private long id;
-	private String name;
-	
+    @EzyId
+    private long id;
+    private String name;
+
 }

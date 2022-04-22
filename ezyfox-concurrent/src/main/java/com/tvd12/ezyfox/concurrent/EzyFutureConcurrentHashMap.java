@@ -5,9 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class EzyFutureConcurrentHashMap<K> extends EzyFutureAbstractMap<K> {
 
-	@Override
-	protected Map<K, EzyFuture> newFutureMap() {
-		return new ConcurrentHashMap<>();
-	}
-	
+    @Override
+    protected Map<K, EzyFuture> newFutureMap() {
+        return new ConcurrentHashMap<>();
+    }
+
 }

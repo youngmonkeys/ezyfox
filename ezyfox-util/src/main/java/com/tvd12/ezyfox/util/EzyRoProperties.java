@@ -3,15 +3,15 @@ package com.tvd12.ezyfox.util;
 import java.util.Properties;
 
 public interface EzyRoProperties {
-	
-	/**
+    
+    /**
      * Get all properties
      * 
      * @return all properties
      */
     Properties getProperties();
 
-	/**
+    /**
      * get the value to which the specified key is mapped
      * 
      * @param <T> type of value
@@ -46,7 +46,7 @@ public interface EzyRoProperties {
      * @return a value
      */
     default <T> T getProperty(Class<T> key) {
-    		return getProperty((Object)key);
+            return getProperty((Object)key);
     }
-	
+    
 }

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EzyCachedKey {
-	
-	boolean composite() default false;
-	
+
+    boolean composite() default false;
+
 }

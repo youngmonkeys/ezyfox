@@ -12,15 +12,15 @@ import lombok.Setter;
 @EzyPrototype("a1")
 public class ClassA1 {
 
-	@EzyProperty("hello")
-	private String hello;
-	
-	@EzyProperty
-	public String foo;
-	
-	@EzyPostInit
-	public void post() {
-		System.out.println("\n\nI have hello = " + hello + ", and foo = " + foo + "\n\n");
-	}
-	
+    @EzyProperty("hello")
+    private String hello;
+
+    @EzyProperty
+    public String foo;
+
+    @EzyPostInit
+    public void post() {
+        System.out.println("\n\nI have hello = " + hello + ", and foo = " + foo + "\n\n");
+    }
+
 }

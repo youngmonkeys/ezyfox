@@ -8,20 +8,20 @@ import com.tvd12.test.assertion.Asserts;
 
 public class EzyMessageAnnotationsTest {
 
-	@Test
-	public void test() {
-		Asserts.assertEquals(EzyMessageAnnotations.getChannelName(A.class), "aha");
-		Asserts.assertEquals(EzyMessageAnnotations.getChannelName(B.class), "bhb");
-		Asserts.assertEquals(EzyMessageAnnotations.getChannelName(C.class), "C");
-	}
-	
-	@EzyMessage("aha")
-	public static class A {}
+    @Test
+    public void test() {
+        Asserts.assertEquals(EzyMessageAnnotations.getChannelName(A.class), "aha");
+        Asserts.assertEquals(EzyMessageAnnotations.getChannelName(B.class), "bhb");
+        Asserts.assertEquals(EzyMessageAnnotations.getChannelName(C.class), "C");
+    }
 
-	@EzyMessage(channel = "bhb")
-	public static class B {}
-	
-	@EzyMessage
-	public static class C {}
-	
+    @EzyMessage("aha")
+    public static class A {}
+
+    @EzyMessage(channel = "bhb")
+    public static class B {}
+
+    @EzyMessage
+    public static class C {}
+
 }

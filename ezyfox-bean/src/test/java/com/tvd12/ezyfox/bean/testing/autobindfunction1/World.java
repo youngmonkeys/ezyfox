@@ -7,13 +7,13 @@ import lombok.Getter;
 @Getter
 public abstract class World implements HelloAware {
 
-	private Hello hello;
-	
-	@Override
-	public void setHello(Hello hello) {
-		this.hello = hello;
-	}
-	
-	protected abstract String getName();
-	
+    private Hello hello;
+
+    @Override
+    public void setHello(Hello hello) {
+        this.hello = hello;
+    }
+
+    protected abstract String getName();
+
 }

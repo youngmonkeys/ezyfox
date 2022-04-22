@@ -14,24 +14,24 @@ import com.tvd12.test.performance.Performance;
 
 public class DeserializeArrayTest extends BaseTest {
 
-	@Test
-	public void test1() {
-		EzyEntityFactory.create(EzyArrayBuilder.class);
-		EzyArrayBuilder builder = EzyEntityFactory.create(EzyArrayBuilder.class);
-		builder.append((Object)null);
-		builder.append("");
-		builder.append(1);
-		EzyArray array = builder.build();
-		EzyMessageSerializer serializer = new MsgPackSimpleSerializer();
-		EzyMessageDeserializer deserializer = new MsgPackSimpleDeserializer();
-		byte[] bytes = serializer.serialize(array);
-		long time = Performance.create()
-		.loop(1000000)
-		.test(()-> {
-			deserializer.deserialize(bytes);
-		})
-		.getTime();
-		System.out.println("DeserializeArrayTest:test1 elapsed time = " + time);
-	}
-	
+    @Test
+    public void test1() {
+        EzyEntityFactory.create(EzyArrayBuilder.class);
+        EzyArrayBuilder builder = EzyEntityFactory.create(EzyArrayBuilder.class);
+        builder.append((Object)null);
+        builder.append("");
+        builder.append(1);
+        EzyArray array = builder.build();
+        EzyMessageSerializer serializer = new MsgPackSimpleSerializer();
+        EzyMessageDeserializer deserializer = new MsgPackSimpleDeserializer();
+        byte[] bytes = serializer.serialize(array);
+        long time = Performance.create()
+        .loop(1000000)
+        .test(()-> {
+            deserializer.deserialize(bytes);
+        })
+        .getTime();
+        System.out.println("DeserializeArrayTest:test1 elapsed time = " + time);
+    }
+
 }

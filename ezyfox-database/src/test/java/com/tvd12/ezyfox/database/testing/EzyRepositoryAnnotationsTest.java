@@ -8,16 +8,16 @@ import com.tvd12.ezyfox.database.util.EzyRepositoryAnnotations;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyRepositoryAnnotationsTest extends BaseTest {
-	
-	@Test
-	public void test() {
-		assert EzyRepositoryAnnotations.getRepoName(new PersonRepo()).equals("personRepo");
-		assert EzyRepositoryAnnotations.getRepoName(new UserRepo()).equals("user");
-	}
-	
-	@Override
-	public Class<?> getTestClass() {
-		return EzyRepositoryAnnotations.class;
-	}
-	
+    
+    @Test
+    public void test() {
+        assert EzyRepositoryAnnotations.getRepoName(new PersonRepo()).equals("personRepo");
+        assert EzyRepositoryAnnotations.getRepoName(new UserRepo()).equals("user");
+    }
+    
+    @Override
+    public Class<?> getTestClass() {
+        return EzyRepositoryAnnotations.class;
+    }
+    
 }

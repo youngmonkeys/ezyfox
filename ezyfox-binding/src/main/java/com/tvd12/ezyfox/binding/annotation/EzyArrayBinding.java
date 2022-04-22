@@ -14,35 +14,35 @@ import com.tvd12.ezyfox.binding.EzyAccessType;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })
 public @interface EzyArrayBinding {
-	
-	/**
-	 * @return make reader implementation nor not
-	 */
-	boolean read() default true;
-	
-	/**
-	 * @return make writer implementation nor not
-	 */
-	boolean write() default true;
-	
-	/**
-	 * @return binding all sub types
-	 */
-	boolean subTypes() default false;
-	
-	/**
-	 * @return array of properties names
-	 */
-	String[] indexes() default {};
 
-	/**
-	 * @return the access type
-	 */
-	int accessType() default EzyAccessType.ALL;
-	
-	/**
-	 * @return sub type classes to include
-	 */
-	Class<?>[] subTypeClasses() default {};
-	
+    /**
+     * @return make reader implementation nor not
+     */
+    boolean read() default true;
+
+    /**
+     * @return make writer implementation nor not
+     */
+    boolean write() default true;
+
+    /**
+     * @return binding all sub types
+     */
+    boolean subTypes() default false;
+
+    /**
+     * @return array of properties names
+     */
+    String[] indexes() default {};
+
+    /**
+     * @return the access type
+     */
+    int accessType() default EzyAccessType.ALL;
+
+    /**
+     * @return sub type classes to include
+     */
+    Class<?>[] subTypeClasses() default {};
+
 }

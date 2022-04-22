@@ -11,31 +11,31 @@ import lombok.ToString;
 
 public class EzySimpleJsonMapperTest {
 
-	@Test
-	public void test() {
-		EzySimpleJsonMapper mapper = EzySimpleJsonMapper.builder()
-				.build();
-		System.out.println(mapper.writeAsString(new A("hello")));
-		System.out.println(mapper.writeAsString(new B("world")));
-	}
-	
-	@Getter
-	@Setter
-	@ToString
-	@AllArgsConstructor
-	public static class A  {
-		private String name;
-	}
-	
-	@Setter
-	@ToString
-	@AllArgsConstructor
-	public static class B {
-		protected String name;
-		
-		public String getName() {
-			throw new RuntimeException();
-		}
-	}
-	
+    @Test
+    public void test() {
+        EzySimpleJsonMapper mapper = EzySimpleJsonMapper.builder()
+                .build();
+        System.out.println(mapper.writeAsString(new A("hello")));
+        System.out.println(mapper.writeAsString(new B("world")));
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    public static class A  {
+        private String name;
+    }
+
+    @Setter
+    @ToString
+    @AllArgsConstructor
+    public static class B {
+        protected String name;
+
+        public String getName() {
+            throw new RuntimeException();
+        }
+    }
+
 }

@@ -13,16 +13,16 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyHashMapSetTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyMapSet<String, String> map = new EzyHashMapSet<>();
-		map.addItems("1", "a", "b", "c");
-		assertEquals(map.get("1"), Sets.newHashSet("a", "b", "c"));
-		map.removeItems("1", "b", "c");
-		assertEquals(map.get("1"),Sets.newHashSet("a"));
-		map.removeItems("zzz");
-		map.addItems("abc", new HashSet<>());
-		map.addItems("abc", new HashSet<>());
-	}
-	
+    @Test
+    public void test() {
+        EzyMapSet<String, String> map = new EzyHashMapSet<>();
+        map.addItems("1", "a", "b", "c");
+        assertEquals(map.get("1"), Sets.newHashSet("a", "b", "c"));
+        map.removeItems("1", "b", "c");
+        assertEquals(map.get("1"),Sets.newHashSet("a"));
+        map.removeItems("zzz");
+        map.addItems("abc", new HashSet<>());
+        map.addItems("abc", new HashSet<>());
+    }
+
 }

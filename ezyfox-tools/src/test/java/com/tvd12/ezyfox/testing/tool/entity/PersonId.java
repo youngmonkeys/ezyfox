@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class PersonId {
 
-	protected String company;
-	protected String email;
-	
+    protected String company;
+    protected String email;
+
 }

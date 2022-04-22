@@ -8,23 +8,23 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
 public final class EzyQueueSupplier implements EzyPrototypeSupplier {
 
-	private static final EzyQueueSupplier INSTANCE = new EzyQueueSupplier();
+    private static final EzyQueueSupplier INSTANCE = new EzyQueueSupplier();
 
-	private EzyQueueSupplier() {
-	}
+    private EzyQueueSupplier() {
+    }
 
-	public static EzyQueueSupplier getInstance() {
-		return INSTANCE;
-	}
+    public static EzyQueueSupplier getInstance() {
+        return INSTANCE;
+    }
 
-	@Override
-	public Object supply(EzyBeanContext context) {
-		return new LinkedList<>();
-	}
+    @Override
+    public Object supply(EzyBeanContext context) {
+        return new LinkedList<>();
+    }
 
-	@Override
-	public Class<?> getObjectType() {
-		return Queue.class;
-	}
+    @Override
+    public Class<?> getObjectType() {
+        return Queue.class;
+    }
 
 }

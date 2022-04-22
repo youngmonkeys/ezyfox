@@ -5,14 +5,14 @@ import com.tvd12.ezyfox.util.EzyShortsIterator;
 
 public class EzyBytesIteratorTest extends EzyArrayIteratorTest {
 
-	@Override
-	protected Object newArray() {
-		return new short[] {1, 2, 3};
-	}
+    @Override
+    protected Object newArray() {
+        return new short[] {1, 2, 3};
+    }
 
-	@Override
-	protected EzyArrayIterator<?> newIterator() {
-		return EzyShortsIterator.wrap(new short[] {1, 2, 3});
-	}
+    @Override
+    protected EzyArrayIterator<?> newIterator() {
+        return EzyShortsIterator.wrap(new short[] {1, 2, 3});
+    }
 
 }

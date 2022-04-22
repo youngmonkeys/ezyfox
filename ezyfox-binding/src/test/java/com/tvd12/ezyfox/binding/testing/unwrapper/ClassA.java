@@ -12,6 +12,6 @@ import lombok.ToString;
 @EzyArrayBinding
 public class ClassA {
 
-	private String a;
-	
+    private String a;
+
 }

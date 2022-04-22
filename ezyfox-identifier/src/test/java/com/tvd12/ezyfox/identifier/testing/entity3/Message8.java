@@ -12,18 +12,18 @@ import lombok.Setter;
 @HasIdTest
 public class Message8 {
 
-	@EzyId
-	@Getter(AccessLevel.NONE)
-	@Setter(AccessLevel.NONE)
-	private Long id;
-	private String name;
-	
-	protected void setId(Long id) {
-		this.id = id;
-	}
-	
-	protected Long getId() {
-		return id;
-	}
-	
+    @EzyId
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private Long id;
+    private String name;
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
+
+    protected Long getId() {
+        return id;
+    }
+
 }

@@ -8,14 +8,14 @@ import java.lang.annotation.Target;
 
 @Documented
 @Target({ 
-	ElementType.FIELD, 
-	ElementType.METHOD 
+    ElementType.FIELD,
+    ElementType.METHOD
 })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EzyProperty {
-	
-	String value() default "";
-	
-	String prefix() default "";
-	
+
+    String value() default "";
+
+    String prefix() default "";
+
 }

@@ -9,12 +9,12 @@ import com.tvd12.ezyfox.codec.JacksonMessageToByteEncoder;
 
 public class JacksonMessageToByteEncoderTest {
 
-	@Test
-	public void test() throws Exception {
-		JacksonCodecCreator creator = new JacksonCodecCreator();
-		JacksonMessageToByteEncoder encoder = (JacksonMessageToByteEncoder) creator.newEncoder();
-		System.out.println(encoder.encode(new HashMap<>()));
-		System.out.println(encoder.encode(new HashMap<>(), byte[].class));
-	}
-	
+    @Test
+    public void test() throws Exception {
+        JacksonCodecCreator creator = new JacksonCodecCreator();
+        JacksonMessageToByteEncoder encoder = (JacksonMessageToByteEncoder) creator.newEncoder();
+        System.out.println(encoder.encode(new HashMap<>()));
+        System.out.println(encoder.encode(new HashMap<>(), byte[].class));
+    }
+
 }

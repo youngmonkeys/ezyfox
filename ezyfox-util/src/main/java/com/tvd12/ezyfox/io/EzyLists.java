@@ -21,7 +21,7 @@ import com.tvd12.ezyfox.collect.Lists;
  */
 public final class EzyLists {
 
-	// prevent new instance
+    // prevent new instance
     private EzyLists() {}
     
     /**
@@ -49,7 +49,7 @@ public final class EzyLists {
      */
     public static <I, O> List<O> newHashSetByAddAll(
             Collection<I> coll, Function<I, Collection<O>> trans) {
-    	List<O> set = new ArrayList<>();
+        List<O> set = new ArrayList<>();
         for(I input : coll)
             set.addAll(trans.apply(input));
         return set;
@@ -65,8 +65,8 @@ public final class EzyLists {
      * @return a new list
      */
     public static <T> List<T> filter(Collection<T> coll, Predicate<T> predicate) {
-    		List<T> answer = coll.stream().filter(predicate).collect(Collectors.toList());
-    		return answer;
+            List<T> answer = coll.stream().filter(predicate).collect(Collectors.toList());
+            return answer;
     }
     
     /**
@@ -166,21 +166,21 @@ public final class EzyLists {
      * @param defValue value whose content is copied to the added elements in case that n is greater than the current container size
      */
     public static <T> void resize(List<T> list, int n, T defValue) {
-		int size = list.size();
-		if(size == n)
-			return;
-		if(size > n) {
-			int offset = size - n;
-			while((offset --) > 0)
-				list.remove(list.size() - 1);
-		}
-		else {
-			int offset = n - size;
-			while((offset --) > 0)
-				list.add(defValue);
-		}
-			
-	}
+        int size = list.size();
+        if(size == n)
+            return;
+        if(size > n) {
+            int offset = size - n;
+            while((offset --) > 0)
+                list.remove(list.size() - 1);
+        }
+        else {
+            int offset = n - size;
+            while((offset --) > 0)
+                list.add(defValue);
+        }
+
+    }
     
     /**
      * 

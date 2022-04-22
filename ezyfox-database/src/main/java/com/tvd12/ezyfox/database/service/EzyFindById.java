@@ -4,10 +4,10 @@ import java.util.Optional;
 
 public interface EzyFindById<I,E> {
 
-	E findById(I id);
-	
-	default Optional<E> findByIdOptional(I id) {
-	    return Optional.ofNullable(findById(id));
-	}
-	
+    E findById(I id);
+
+    default Optional<E> findByIdOptional(I id) {
+        return Optional.ofNullable(findById(id));
+    }
+
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 @EzyArrayBinding
 public class Tiny {
 
-	protected String name;
-	protected String value;
-	
+    protected String name;
+    protected String value;
+
 }

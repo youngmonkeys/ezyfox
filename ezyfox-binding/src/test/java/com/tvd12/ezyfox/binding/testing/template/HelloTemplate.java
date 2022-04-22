@@ -8,14 +8,14 @@ import com.tvd12.ezyfox.binding.annotation.EzyTemplateImpl;
 @EzyTemplateImpl
 public class HelloTemplate implements EzyTemplate<String, Hello> {
 
-	@Override
-	public Hello read(EzyUnmarshaller unmarshaller, String value) {
-		return new Hello(value);
-	}
+    @Override
+    public Hello read(EzyUnmarshaller unmarshaller, String value) {
+        return new Hello(value);
+    }
 
-	@Override
-	public String write(EzyMarshaller marshaller, Hello object) {
-		return object.getWho();
-	}
+    @Override
+    public String write(EzyMarshaller marshaller, Hello object) {
+        return object.getWho();
+    }
 
 }

@@ -11,15 +11,15 @@ import lombok.Setter;
 @EzyObjectBinding(accessType = EzyAccessType.DECLARED_METHODS)
 public class ClassE extends ClassA {
 
-	private String a1 = "1";
-	private String b1 = "2";
-	private String c1 = "3";
-	
-	public void setD1(String d1) {
-	}
-	
-	public String getD1() {
-		return "d1";
-	}
-	
+    private String a1 = "1";
+    private String b1 = "2";
+    private String c1 = "3";
+
+    public void setD1(String d1) {
+    }
+
+    public String getD1() {
+        return "d1";
+    }
+
 }

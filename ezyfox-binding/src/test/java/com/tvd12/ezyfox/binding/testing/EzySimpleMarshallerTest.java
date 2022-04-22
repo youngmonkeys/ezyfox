@@ -18,62 +18,62 @@ import lombok.Getter;
 
 public class EzySimpleMarshallerTest extends BaseTest {
 
-	@Test
-	public void test1() {
-		EzySimpleMarshaller marshaller = new EzySimpleMarshaller();
-		marshaller.addWriter(ClassA.class, new EzyObjectWriterBuilder(new EzyClass(ClassA.class)).build());
-		ClassA[] arrayInput = new ClassA[] {new ClassA(), new ClassA(), new ClassA()};
-		EzyArray arrayOutput = marshaller.marshal(arrayInput);
-		assert arrayOutput.size() == 3;
-	}
-	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
-	public void test2() {
-		EzySimpleMarshaller marshaller = new EzySimpleMarshaller();
-		marshaller.marshal(new Object());
-	}
-	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
-	public void test3() {
-		EzySimpleMarshaller marshaller = new EzySimpleMarshaller();
-		marshaller.marshal(ExWriter.class, new Object());
-	}
-	
-	@Test
-	public void marshallerBooleanTest() {
-	    // given
-	    EzyBindingContext bindingContext = EzyBindingContext.builder()
-	        .addObjectBindingClass(ClassB.class)
-	        .build();
-	    
-	    EzyMarshaller sut = bindingContext.newMarshaller();
-	    
-	    ClassB classB = new ClassB();
-	    
-	    // when
-	    EzyObject actual = sut.marshal(classB);
-	    
-	    // then
-	    EzyObject expectation = EzyEntityFactory.newObjectBuilder()
-	        .append("correct", false)
-	        .build();
-	    Asserts.assertEquals(actual, expectation);
-	}
-		
-	public static class ClassA {}
-	
-	@Getter
-	public static class ClassB {
-	    private boolean correct;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public static class ExWriter implements EzyWriter {
+    @Test
+    public void test1() {
+        EzySimpleMarshaller marshaller = new EzySimpleMarshaller();
+        marshaller.addWriter(ClassA.class, new EzyObjectWriterBuilder(new EzyClass(ClassA.class)).build());
+        ClassA[] arrayInput = new ClassA[] {new ClassA(), new ClassA(), new ClassA()};
+        EzyArray arrayOutput = marshaller.marshal(arrayInput);
+        assert arrayOutput.size() == 3;
+    }
 
-		@Override
-		public Object write(EzyMarshaller marshaller, Object object) {
-			return null;
-		}
-		
-	}
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void test2() {
+        EzySimpleMarshaller marshaller = new EzySimpleMarshaller();
+        marshaller.marshal(new Object());
+    }
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void test3() {
+        EzySimpleMarshaller marshaller = new EzySimpleMarshaller();
+        marshaller.marshal(ExWriter.class, new Object());
+    }
+
+    @Test
+    public void marshallerBooleanTest() {
+        // given
+        EzyBindingContext bindingContext = EzyBindingContext.builder()
+            .addObjectBindingClass(ClassB.class)
+            .build();
+
+        EzyMarshaller sut = bindingContext.newMarshaller();
+
+        ClassB classB = new ClassB();
+
+        // when
+        EzyObject actual = sut.marshal(classB);
+
+        // then
+        EzyObject expectation = EzyEntityFactory.newObjectBuilder()
+            .append("correct", false)
+            .build();
+        Asserts.assertEquals(actual, expectation);
+    }
+
+    public static class ClassA {}
+
+    @Getter
+    public static class ClassB {
+        private boolean correct;
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static class ExWriter implements EzyWriter {
+
+        @Override
+        public Object write(EzyMarshaller marshaller, Object object) {
+            return null;
+        }
+
+    }
 }

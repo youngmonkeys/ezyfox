@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EzyCollection {
 
-	String name() default "";
-	String value() default "";
-	
+    String name() default "";
+    String value() default "";
+
 }

@@ -8,15 +8,15 @@ import com.sun.management.GcInfo;
 
 @SuppressWarnings({"restriction"})
 public class LastGCInfo3 {
-	
-	private static long lastGCTime = System.nanoTime();
-	
+
+    private static long lastGCTime = System.nanoTime();
+
     public static void main(String[] argv) throws Exception {
         while(true) {
-        		byte[] bytes = new byte[1000000];
-        		new String(bytes);
-        		test();
-        		Thread.sleep(1000);
+                byte[] bytes = new byte[1000000];
+                new String(bytes);
+                test();
+                Thread.sleep(1000);
         }
     }
     
@@ -36,8 +36,8 @@ public class LastGCInfo3 {
             }
         }
         if(totalGCTime <= 0) {
-        		System.out.println("gc is not active");
-        		return;
+                System.out.println("gc is not active");
+                return;
         }
         long currentTime = System.nanoTime();
         long offsetTime = currentTime - lastGCTime;

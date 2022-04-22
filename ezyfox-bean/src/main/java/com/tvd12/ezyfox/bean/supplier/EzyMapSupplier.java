@@ -8,23 +8,23 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
 public final class EzyMapSupplier implements EzyPrototypeSupplier {
 
-	private static final EzyMapSupplier INSTANCE = new EzyMapSupplier();
+    private static final EzyMapSupplier INSTANCE = new EzyMapSupplier();
 
-	private EzyMapSupplier() {
-	}
+    private EzyMapSupplier() {
+    }
 
-	public static EzyMapSupplier getInstance() {
-		return INSTANCE;
-	}
+    public static EzyMapSupplier getInstance() {
+        return INSTANCE;
+    }
 
-	@Override
-	public Object supply(EzyBeanContext context) {
-		return new HashMap<>();
-	}
+    @Override
+    public Object supply(EzyBeanContext context) {
+        return new HashMap<>();
+    }
 
-	@Override
-	public Class<?> getObjectType() {
-		return Map.class;
-	}
+    @Override
+    public Class<?> getObjectType() {
+        return Map.class;
+    }
 
 }

@@ -9,20 +9,20 @@ import com.tvd12.ezyfox.reflect.EzyFields;
 
 public class EzyByFieldPrototypeSupplierBuilderTest {
 
-	public ClassA classA;
-	
-	@Test
-	public void test() throws Exception {
-		EzyByFieldPrototypeSupplierLoader.setDebug(true);
-		
-		EzyField field = new EzyField(EzyFields.getField(getClass(), "classA"));
-		EzyByFieldPrototypeSupplierLoader builder = new EzyByFieldPrototypeSupplierLoader(
-				"classA", field, this);
-		builder.load(new EzySimplePrototypeFactory());
-	}
-	
-	public static class ClassA {
-		
-	}
-	
+    public ClassA classA;
+
+    @Test
+    public void test() throws Exception {
+        EzyByFieldPrototypeSupplierLoader.setDebug(true);
+
+        EzyField field = new EzyField(EzyFields.getField(getClass(), "classA"));
+        EzyByFieldPrototypeSupplierLoader builder = new EzyByFieldPrototypeSupplierLoader(
+                "classA", field, this);
+        builder.load(new EzySimplePrototypeFactory());
+    }
+
+    public static class ClassA {
+
+    }
+
 }

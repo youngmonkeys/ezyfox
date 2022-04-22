@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.database.query;
 
 public interface EzyPushOptions {
 
-	/**
+    /**
      * Sets the position for the update
      * @param position the position in the array for the update
      * @return this

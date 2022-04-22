@@ -5,11 +5,11 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 public class ConfigAfter22 {
 
-	@EzyAutoBind
-	private Singleton21 singleton21;
-	
-	@EzySingleton
-	public LastSingleton22 lastSingleton22() {
-		return new LastSingleton22(singleton21);
-	}
+    @EzyAutoBind
+    private Singleton21 singleton21;
+
+    @EzySingleton
+    public LastSingleton22 lastSingleton22() {
+        return new LastSingleton22(singleton21);
+    }
 }

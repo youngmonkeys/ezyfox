@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EzyQuery {
 
-	String name() default "";
-	String value() default "";
-	String type() default "";
-	boolean nativeQuery() default false;
-	Class<?> resultType() default Object.class;
-	
+    String name() default "";
+    String value() default "";
+    String type() default "";
+    boolean nativeQuery() default false;
+    Class<?> resultType() default Object.class;
+
 }

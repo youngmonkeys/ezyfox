@@ -4,8 +4,8 @@ import com.tvd12.ezyfox.bean.EzyBeanConfig;
 
 public class ConfigFailed31 implements EzyBeanConfig {
 
-	@Override
-	public void config() {
-		throw new RuntimeException("just test");
-	}
+    @Override
+    public void config() {
+        throw new RuntimeException("just test");
+    }
 }

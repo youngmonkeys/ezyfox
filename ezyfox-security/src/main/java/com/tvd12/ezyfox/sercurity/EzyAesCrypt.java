@@ -9,33 +9,33 @@ import javax.crypto.spec.SecretKeySpec;
 import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public class EzyAesCrypt {
-	
-	private final int initVectorSize;
-	private final String keySpecAlgorithm;
-	private final String transformation;
-	
-	public static final int DEFAULT_KEY_SIZE = 32;
-	private static final EzyAesCrypt DEFAULT = EzyAesCrypt.builder().build();
-	
-	public EzyAesCrypt(Builder builder) {
-		this.initVectorSize = builder.initVectorSize;
-		this.keySpecAlgorithm = builder.keySpecAlgorithm;
-		this.transformation = builder.transformation;
-	}
-	
-	public static EzyAesCrypt getDefault() {
-		return DEFAULT;
-	}
-	
-	public static byte[] randomKey() {
-		return randomKey(DEFAULT_KEY_SIZE);
-	}
-	
-	public static byte[] randomKey(int size) {
-		return EzyKeysGenerator.randomKey(size);
-	}
 
-	public byte[] encrypt(byte[] message, byte[] key) throws Exception {
+    private final int initVectorSize;
+    private final String keySpecAlgorithm;
+    private final String transformation;
+
+    public static final int DEFAULT_KEY_SIZE = 32;
+    private static final EzyAesCrypt DEFAULT = EzyAesCrypt.builder().build();
+
+    public EzyAesCrypt(Builder builder) {
+        this.initVectorSize = builder.initVectorSize;
+        this.keySpecAlgorithm = builder.keySpecAlgorithm;
+        this.transformation = builder.transformation;
+    }
+
+    public static EzyAesCrypt getDefault() {
+        return DEFAULT;
+    }
+
+    public static byte[] randomKey() {
+        return randomKey(DEFAULT_KEY_SIZE);
+    }
+
+    public static byte[] randomKey(int size) {
+        return EzyKeysGenerator.randomKey(size);
+    }
+
+    public byte[] encrypt(byte[] message, byte[] key) throws Exception {
         byte[] iv = new byte[initVectorSize];
         ThreadLocalRandom.current().nextBytes(iv);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
@@ -70,34 +70,34 @@ public class EzyAesCrypt {
     }
     
     public static Builder builder() {
-    	return new Builder();
+        return new Builder();
     }
     
     public static class Builder implements EzyBuilder<EzyAesCrypt> {
-    	private int initVectorSize = 16;
-    	private String keySpecAlgorithm = "AES";
-    	private String transformation = "AES/CBC/PKCS5Padding";
-    	
-    	public Builder initVectorSize(int initVectorSize) {
-    		this.initVectorSize = initVectorSize;
-    		return this;
-    	}
-    	
-    	public Builder keySpecAlgorithm(String keySpecAlgorithm) {
-    		this.keySpecAlgorithm = keySpecAlgorithm;
-    		return this;
-    	}
-    	
-    	public Builder transformation(String transformation) {
-    		this.transformation = transformation;
-    		return this;
-    	}
-    	
-    	@Override
-    	public EzyAesCrypt build() {
-    		return new EzyAesCrypt(this);
-    	}
-    	
+        private int initVectorSize = 16;
+        private String keySpecAlgorithm = "AES";
+        private String transformation = "AES/CBC/PKCS5Padding";
+
+        public Builder initVectorSize(int initVectorSize) {
+            this.initVectorSize = initVectorSize;
+            return this;
+        }
+
+        public Builder keySpecAlgorithm(String keySpecAlgorithm) {
+            this.keySpecAlgorithm = keySpecAlgorithm;
+            return this;
+        }
+
+        public Builder transformation(String transformation) {
+            this.transformation = transformation;
+            return this;
+        }
+
+        @Override
+        public EzyAesCrypt build() {
+            return new EzyAesCrypt(this);
+        }
+
     }
-	
+
 }

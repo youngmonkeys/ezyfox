@@ -8,14 +8,14 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzySimpleFileFetcherTest extends BaseTest {
 
-	@Test
-	public void test() {
-		assert new EzySimpleFileFetcher().get("pom.xml") != null;
-	}
-	
-	@Test(expectedExceptions = {EzyFileNotFoundException.class})
-	public void test1() {
-		EzySimpleFileFetcher.builder().build().get("fsadfsaf.csdf");
-	}
-	
+    @Test
+    public void test() {
+        assert new EzySimpleFileFetcher().get("pom.xml") != null;
+    }
+
+    @Test(expectedExceptions = {EzyFileNotFoundException.class})
+    public void test1() {
+        EzySimpleFileFetcher.builder().build().get("fsadfsaf.csdf");
+    }
+
 }

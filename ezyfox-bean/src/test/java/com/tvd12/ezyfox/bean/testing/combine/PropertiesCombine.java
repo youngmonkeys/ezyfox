@@ -8,10 +8,10 @@ import lombok.Getter;
 @Getter
 public class PropertiesCombine {
 
-	@EzyProperty("hello")
-	private String hello;
-	
-	@EzyProperty(prefix = "pack1")
-	private PropertiesPack1 pack1;
-	
+    @EzyProperty("hello")
+    private String hello;
+
+    @EzyProperty(prefix = "pack1")
+    private PropertiesPack1 pack1;
+
 }

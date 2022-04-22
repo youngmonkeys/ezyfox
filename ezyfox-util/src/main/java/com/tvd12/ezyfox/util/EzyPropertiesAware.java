@@ -4,6 +4,6 @@ import java.util.Properties;
 
 public interface EzyPropertiesAware {
 
-	void setProperties(Properties properties);
-	
+    void setProperties(Properties properties);
+
 }

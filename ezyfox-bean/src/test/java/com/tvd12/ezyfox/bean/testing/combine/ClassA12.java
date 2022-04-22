@@ -10,14 +10,14 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ClassA12 {
-	
-	@EzyAutoBind
-	private Singleton12 singleton12;
-	
-	@EzyAutoBind("a1")
-	private ClassA1 classA1;
 
-	@EzyAutoBind("a2")
-	private ClassA2 classA2;
-	
+    @EzyAutoBind
+    private Singleton12 singleton12;
+
+    @EzyAutoBind("a1")
+    private ClassA1 classA1;
+
+    @EzyAutoBind("a2")
+    private ClassA2 classA2;
+
 }

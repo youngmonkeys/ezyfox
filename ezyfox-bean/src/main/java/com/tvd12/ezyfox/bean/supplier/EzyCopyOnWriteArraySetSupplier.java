@@ -7,23 +7,23 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 
 public final class EzyCopyOnWriteArraySetSupplier implements EzyPrototypeSupplier {
 
-	private static final EzyCopyOnWriteArraySetSupplier INSTANCE = new EzyCopyOnWriteArraySetSupplier();
+    private static final EzyCopyOnWriteArraySetSupplier INSTANCE = new EzyCopyOnWriteArraySetSupplier();
 
-	private EzyCopyOnWriteArraySetSupplier() {
-	}
+    private EzyCopyOnWriteArraySetSupplier() {
+    }
 
-	public static EzyCopyOnWriteArraySetSupplier getInstance() {
-		return INSTANCE;
-	}
+    public static EzyCopyOnWriteArraySetSupplier getInstance() {
+        return INSTANCE;
+    }
 
-	@Override
-	public Object supply(EzyBeanContext context) {
-		return new CopyOnWriteArraySet<>();
-	}
+    @Override
+    public Object supply(EzyBeanContext context) {
+        return new CopyOnWriteArraySet<>();
+    }
 
-	@Override
-	public Class<?> getObjectType() {
-		return CopyOnWriteArraySet.class;
-	}
+    @Override
+    public Class<?> getObjectType() {
+        return CopyOnWriteArraySet.class;
+    }
 
 }

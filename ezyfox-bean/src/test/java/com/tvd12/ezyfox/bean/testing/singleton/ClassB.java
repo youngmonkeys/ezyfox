@@ -8,6 +8,6 @@ import lombok.Getter;
 @EzySingleton("b")
 public class ClassB {
 
-	private String value2 = "2";
-	
+    private String value2 = "2";
+
 }

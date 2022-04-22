@@ -5,16 +5,16 @@ import lombok.Getter;
 @Getter
 public class EzyMonitor {
 
-	protected final EzyGcMonitor gcMonitor;
-	protected final EzyCpuMonitor cpuMonitor;
-	protected final EzyMemoryMonitor memoryMonitor;
-	protected final EzyThreadsMonitor threadsMonitor;
+    protected final EzyGcMonitor gcMonitor;
+    protected final EzyCpuMonitor cpuMonitor;
+    protected final EzyMemoryMonitor memoryMonitor;
+    protected final EzyThreadsMonitor threadsMonitor;
 
-	public EzyMonitor() {
-		this.gcMonitor = new EzyGcMonitor();
-		this.cpuMonitor = new EzyCpuMonitor();
-		this.memoryMonitor = new EzyMemoryMonitor();
-		this.threadsMonitor = new EzyThreadsMonitor();
-	}
-	
+    public EzyMonitor() {
+        this.gcMonitor = new EzyGcMonitor();
+        this.cpuMonitor = new EzyCpuMonitor();
+        this.memoryMonitor = new EzyMemoryMonitor();
+        this.threadsMonitor = new EzyThreadsMonitor();
+    }
+
 }

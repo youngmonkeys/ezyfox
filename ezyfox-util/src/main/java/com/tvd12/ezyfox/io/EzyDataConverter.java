@@ -78,11 +78,11 @@ public final class EzyDataConverter {
      */
     public static Byte[] collectionToWrapperByteArray(
             Collection<? extends Number> value) {
-    		Byte[] array = new Byte[value.size()];
-    		int index = 0;
-    		for(Number number : value)
-    			array[index ++] = number.byteValue();
-    		return array;
+            Byte[] array = new Byte[value.size()];
+            int index = 0;
+            for(Number number : value)
+                array[index ++] = number.byteValue();
+            return array;
     }
     
     /**
@@ -104,11 +104,11 @@ public final class EzyDataConverter {
      */
     public static Double[] collectionToWrapperDoubleArray(
             Collection<? extends Number> value) {
-    		Double[] array = new Double[value.size()];
-		int index = 0;
-		for(Number number : value)
-			array[index ++] = number.doubleValue();
-		return array;
+            Double[] array = new Double[value.size()];
+        int index = 0;
+        for(Number number : value)
+            array[index ++] = number.doubleValue();
+        return array;
     }
     
     /**
@@ -119,11 +119,11 @@ public final class EzyDataConverter {
      */
     public static Float[] collectionToWrapperFloatArray(
             Collection<? extends Number> value) {
-    		Float[] array = new Float[value.size()];
-		int index = 0;
-		for(Number number : value)
-			array[index ++] = number.floatValue();
-		return array;
+            Float[] array = new Float[value.size()];
+        int index = 0;
+        for(Number number : value)
+            array[index ++] = number.floatValue();
+        return array;
     }
     
     /**
@@ -134,11 +134,11 @@ public final class EzyDataConverter {
      */
     public static Integer[] collectionToWrapperIntArray(
             Collection<? extends Number> value) {
-    		Integer[] array = new Integer[value.size()];
-		int index = 0;
-		for(Number number : value)
-			array[index ++] = number.intValue();
-		return array;
+            Integer[] array = new Integer[value.size()];
+        int index = 0;
+        for(Number number : value)
+            array[index ++] = number.intValue();
+        return array;
     }
     
     /**
@@ -149,11 +149,11 @@ public final class EzyDataConverter {
      */
     public static Long[] collectionToWrapperLongArray(
             Collection<? extends Number> value) {
-    		Long[] array = new Long[value.size()];
-		int index = 0;
-		for(Number number : value)
-			array[index ++] = number.longValue();
-		return array;
+            Long[] array = new Long[value.size()];
+        int index = 0;
+        for(Number number : value)
+            array[index ++] = number.longValue();
+        return array;
     }
     
     /**
@@ -164,11 +164,11 @@ public final class EzyDataConverter {
      */
     public static Short[] collectionToWrapperShortArray(
             Collection<? extends Number> value) {
-    		Short[] array = new Short[value.size()];
-		int index = 0;
-		for(Number number : value)
-			array[index ++] = number.shortValue();
-		return array;
+            Short[] array = new Short[value.size()];
+        int index = 0;
+        for(Number number : value)
+            array[index ++] = number.shortValue();
+        return array;
     }
     // ===== end collection to wrapper array ====
     
@@ -181,11 +181,11 @@ public final class EzyDataConverter {
      */
     public static boolean[] collectionToPrimitiveBoolArray(
             Collection<Boolean> value) {
-	    	int count = 0;
-	    	boolean[] answer = new boolean[value.size()];
-	    	for(Boolean item : value)
-	    		answer[count ++] = item;
-	    	return answer;
+            int count = 0;
+            boolean[] answer = new boolean[value.size()];
+            for(Boolean item : value)
+                answer[count ++] = item;
+            return answer;
     }
     
     /**
@@ -196,11 +196,11 @@ public final class EzyDataConverter {
      */
     public static byte[] collectionToPrimitiveByteArray(
             Collection<? extends Number> value) {
-	    	int count = 0;
-	    	byte[] answer = new byte[value.size()];
-	    	for(Number item : value)
-	    		answer[count ++] = item.byteValue();
-	    	return answer;
+            int count = 0;
+            byte[] answer = new byte[value.size()];
+            for(Number item : value)
+                answer[count ++] = item.byteValue();
+            return answer;
     }
     
     /**
@@ -211,11 +211,11 @@ public final class EzyDataConverter {
      */
     public static char[] collectionToPrimitiveCharArray(
             Collection<Character> value) {
-	    	int count = 0;
-	    	char[] answer = new char[value.size()];
-	    	for(Character item : value)
-	    		answer[count ++] = item;
-	    	return answer;
+            int count = 0;
+            char[] answer = new char[value.size()];
+            for(Character item : value)
+                answer[count ++] = item;
+            return answer;
     }
     
     /**
@@ -226,11 +226,11 @@ public final class EzyDataConverter {
      */
     public static byte[] charCollectionToPrimitiveByteArray(
             Collection<Character> value) {
-	    	int count = 0;
-	    	byte[] answer = new byte[value.size()];
-	    	for(Character item : value)
-	    		answer[count ++] = (byte) item.charValue();
-	    	return answer;
+            int count = 0;
+            byte[] answer = new byte[value.size()];
+            for(Character item : value)
+                answer[count ++] = (byte) item.charValue();
+            return answer;
     }
     
     /**
@@ -241,11 +241,11 @@ public final class EzyDataConverter {
      */
     public static double[] collectionToPrimitiveDoubleArray(
             Collection<? extends Number> value) {
-	    	int count = 0;
-	    	double[] answer = new double[value.size()];
-	    	for(Number item : value)
-	    		answer[count ++] = item.doubleValue();
-	    	return answer;
+            int count = 0;
+            double[] answer = new double[value.size()];
+            for(Number item : value)
+                answer[count ++] = item.doubleValue();
+            return answer;
     }
     
     /**
@@ -256,11 +256,11 @@ public final class EzyDataConverter {
      */
     public static float[] collectionToPrimitiveFloatArray(
             Collection<? extends Number> value) {
-	    	int count = 0;
-	    	float[] answer = new float[value.size()];
-	    	for(Number item : value)
-	    		answer[count ++] = item.floatValue();
-	    	return answer;
+            int count = 0;
+            float[] answer = new float[value.size()];
+            for(Number item : value)
+                answer[count ++] = item.floatValue();
+            return answer;
     }
     
     /**
@@ -271,11 +271,11 @@ public final class EzyDataConverter {
      */
     public static int[] collectionToPrimitiveIntArray(
             Collection<? extends Number> value) {
-	    	int count = 0;
-	    	int[] answer = new int[value.size()];
-	    	for(Number item : value)
-	    		answer[count ++] = item.intValue();
-	    	return answer;
+            int count = 0;
+            int[] answer = new int[value.size()];
+            for(Number item : value)
+                answer[count ++] = item.intValue();
+            return answer;
     }
     
     /**
@@ -286,11 +286,11 @@ public final class EzyDataConverter {
      */
     public static long[] collectionToPrimitiveLongArray(
             Collection<? extends Number> value) {
-	    	int count = 0;
-	    	long[] answer = new long[value.size()];
-	    	for(Number item : value)
-	    		answer[count ++] = item.longValue();
-	    	return answer;
+            int count = 0;
+            long[] answer = new long[value.size()];
+            for(Number item : value)
+                answer[count ++] = item.longValue();
+            return answer;
     }
     
     /**
@@ -301,11 +301,11 @@ public final class EzyDataConverter {
      */
     public static short[] collectionToPrimitiveShortArray(
             Collection<? extends Number> value) {
-	    	int count = 0;
-	    	short[] answer = new short[value.size()];
-	    	for(Number item : value)
-	    		answer[count ++] = item.shortValue();
-	    	return answer;
+            int count = 0;
+            short[] answer = new short[value.size()];
+            for(Number item : value)
+                answer[count ++] = item.shortValue();
+            return answer;
     }
     
     /**
@@ -327,11 +327,11 @@ public final class EzyDataConverter {
      * @return a list object
      */
     @SuppressWarnings("unchecked")
-	public static <T> List<T> arrayToList(Object value) {
+    public static <T> List<T> arrayToList(Object value) {
         List<T> answer = new ArrayList<>();
         int length = Array.getLength(value);
         for(int i = 0 ; i < length ; ++i)
-        		answer.add((T) Array.get(value, i));
+                answer.add((T) Array.get(value, i));
         return answer;
     }
     
@@ -342,99 +342,99 @@ public final class EzyDataConverter {
      * @param value the array to convert
      * @return a list object
      */
-	public static <T> List<T> arrayToList(T[] value) {
-		return Lists.newArrayList(value);
+    public static <T> List<T> arrayToList(T[] value) {
+        return Lists.newArrayList(value);
     }
-	
-	/**
+
+    /**
      * Convert boolean array to List
      * 
      * @param value the array to convert
      * @return a list object
      */
-	public static List<Boolean> arrayToList(boolean[] value) {
-		List<Boolean> answer = new ArrayList<>();
-		for(boolean v : value)
-			answer.add(v);
-		return answer;
+    public static List<Boolean> arrayToList(boolean[] value) {
+        List<Boolean> answer = new ArrayList<>();
+        for(boolean v : value)
+            answer.add(v);
+        return answer;
     }
-	
-	/**
+
+    /**
      * Convert char array to List
      * 
      * @param value the array to convert
      * @return a list object
      */
-	public static List<Character> arrayToList(char[] value) {
-		List<Character> answer = new ArrayList<>();
-		for(char v : value)
-			answer.add(v);
-		return answer;
+    public static List<Character> arrayToList(char[] value) {
+        List<Character> answer = new ArrayList<>();
+        for(char v : value)
+            answer.add(v);
+        return answer;
     }
-	
-	/**
+
+    /**
      * Convert double array to List
      * 
      * @param value the array to convert
      * @return a list object
      */
-	public static List<Double> arrayToList(double[] value) {
-		List<Double> answer = new ArrayList<>();
-		for(double v : value)
-			answer.add(v);
-		return answer;
+    public static List<Double> arrayToList(double[] value) {
+        List<Double> answer = new ArrayList<>();
+        for(double v : value)
+            answer.add(v);
+        return answer;
     }
-	
-	/**
+
+    /**
      * Convert float array to List
      * 
      * @param value the array to convert
      * @return a list object
      */
-	public static List<Float> arrayToList(float[] value) {
-		List<Float> answer = new ArrayList<>();
-		for(float v : value)
-			answer.add(v);
-		return answer;
+    public static List<Float> arrayToList(float[] value) {
+        List<Float> answer = new ArrayList<>();
+        for(float v : value)
+            answer.add(v);
+        return answer;
     }
-	
-	/**
+
+    /**
      * Convert int array to List
      * 
      * @param value the array to convert
      * @return a list object
      */
-	public static List<Integer> arrayToList(int[] value) {
-		List<Integer> answer = new ArrayList<>();
-		for(int v : value)
-			answer.add(v);
-		return answer;
+    public static List<Integer> arrayToList(int[] value) {
+        List<Integer> answer = new ArrayList<>();
+        for(int v : value)
+            answer.add(v);
+        return answer;
     }
-	
-	/**
+
+    /**
      * Convert long array to List
      * 
      * @param value the array to convert
      * @return a list object
      */
-	public static List<Long> arrayToList(long[] value) {
-		List<Long> answer = new ArrayList<>();
-		for(long v : value)
-			answer.add(v);
-		return answer;
+    public static List<Long> arrayToList(long[] value) {
+        List<Long> answer = new ArrayList<>();
+        for(long v : value)
+            answer.add(v);
+        return answer;
     }
-	
-	/**
+
+    /**
      * Convert short array to List
      * 
      * @param value the array to convert
      * @return a list object
      */
-	public static List<Short> arrayToList(short[] value) {
-		List<Short> answer = new ArrayList<>();
-		for(short v : value)
-			answer.add(v);
-		return answer;
+    public static List<Short> arrayToList(short[] value) {
+        List<Short> answer = new ArrayList<>();
+        for(short v : value)
+            answer.add(v);
+        return answer;
     }
     
     /**
@@ -446,7 +446,7 @@ public final class EzyDataConverter {
     public static List<Character> byteArrayToCharList(byte[] value) {
         List<Character> answer = new ArrayList<>();
         for(byte b : value)
-        	answer.add((char)b);
+            answer.add((char)b);
         return answer;
     }
     
@@ -458,9 +458,9 @@ public final class EzyDataConverter {
      * @return wrapper Boolean array
      */
     public static Boolean[] toBoolWrapperArray(boolean[] value) {
-    		Boolean[] answer = new Boolean[value.length];
-    		for(int i = 0 ; i < value.length ; ++i)
-    			answer[i] = value[i];
+            Boolean[] answer = new Boolean[value.length];
+            for(int i = 0 ; i < value.length ; ++i)
+                answer[i] = value[i];
         return answer;
     }
     
@@ -471,10 +471,10 @@ public final class EzyDataConverter {
      * @return wrapper Boolean array
      */
     public static Byte[] toByteWrapperArray(byte[] value) {
-	    	Byte[] answer = new Byte[value.length];
-		for(int i = 0 ; i < value.length ; ++i)
-			answer[i] = value[i];
-	    return answer;
+            Byte[] answer = new Byte[value.length];
+        for(int i = 0 ; i < value.length ; ++i)
+            answer[i] = value[i];
+        return answer;
     }
     //===== end primitive array to wrapper array =====
     
@@ -486,10 +486,10 @@ public final class EzyDataConverter {
      */
     public static Character[] toCharWrapperArray(
             byte[] value) {
-    		Character[] answer = new Character[value.length];
-		for(int i = 0 ; i < value.length ; ++i)
-			answer[i] = (char)value[i];
-		return answer;
+            Character[] answer = new Character[value.length];
+        for(int i = 0 ; i < value.length ; ++i)
+            answer[i] = (char)value[i];
+        return answer;
     }
     
     /**
@@ -500,10 +500,10 @@ public final class EzyDataConverter {
      */
     public static byte[] toPrimitiveByteArray(
             Byte[] value) {
-    		byte[] answer = new byte[value.length];
-		for(int i = 0 ; i < value.length ; ++i)
-			answer[i] = value[i];
-		return answer;
+            byte[] answer = new byte[value.length];
+        for(int i = 0 ; i < value.length ; ++i)
+            answer[i] = value[i];
+        return answer;
     }
     
     /**
@@ -514,10 +514,10 @@ public final class EzyDataConverter {
      */
     public static char[] toPrimitiveCharArray(
             Character[] value) {
-    		char[] answer = new char[value.length];
-		for(int i = 0 ; i < value.length ; ++i)
-			answer[i] = value[i];
-		return answer;
+            char[] answer = new char[value.length];
+        for(int i = 0 ; i < value.length ; ++i)
+            answer[i] = value[i];
+        return answer;
     }
     
     /**

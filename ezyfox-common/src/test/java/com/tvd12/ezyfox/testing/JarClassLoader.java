@@ -9,19 +9,19 @@ import java.util.jar.JarFile;
 public class JarClassLoader extends ClassLoader {
     private String jarFile = "jar/test.jar"; //Path to the jar file
     @SuppressWarnings("rawtypes")
-	private Hashtable classes = new Hashtable(); //used to cache already defined classes
+    private Hashtable classes = new Hashtable(); //used to cache already defined classes
 
     public JarClassLoader() {
         super(JarClassLoader.class.getClassLoader()); //calls the parent class loader's constructor
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-	public Class loadClass(String className) throws ClassNotFoundException {
+    public Class loadClass(String className) throws ClassNotFoundException {
         return findClass(className);
     }
 
     @SuppressWarnings({ "unchecked", "resource", "rawtypes" })
-	public Class findClass(String className) {
+    public Class findClass(String className) {
         byte classByte[];
         Class result = null;
 

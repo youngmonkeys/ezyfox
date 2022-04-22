@@ -12,18 +12,18 @@ import lombok.Setter;
 @EzySingleton("s22")
 public class Singleton22 {
 
-	@Setter
-	@EzyAutoBind
-	private ArrayList<String> list;
-	
-	@EzyAutoBind({"singleton21", "abc"})
-	public Singleton22(ISingleton21 singleton21) {
-		
-	}
-	
-//	@EzyAutoBind({"singleton21", "abc"})
-	public Singleton22(ISingleton21 singleton21, ISingleton10 singleton10, ISingleton22 singleton22) {
-		
-	}
-	
+    @Setter
+    @EzyAutoBind
+    private ArrayList<String> list;
+
+    @EzyAutoBind({"singleton21", "abc"})
+    public Singleton22(ISingleton21 singleton21) {
+
+    }
+
+//    @EzyAutoBind({"singleton21", "abc"})
+    public Singleton22(ISingleton21 singleton21, ISingleton10 singleton10, ISingleton22 singleton22) {
+
+    }
+
 }

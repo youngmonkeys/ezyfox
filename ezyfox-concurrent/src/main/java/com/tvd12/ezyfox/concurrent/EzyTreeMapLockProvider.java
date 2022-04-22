@@ -6,9 +6,9 @@ import java.util.concurrent.locks.Lock;
 
 public class EzyTreeMapLockProvider extends EzyAbstractMapLockProvider {
 
-	@Override
-	protected Map<Object, Lock> newLockMap() {
-		return new TreeMap<>();
-	}
-	
+    @Override
+    protected Map<Object, Lock> newLockMap() {
+        return new TreeMap<>();
+    }
+
 }

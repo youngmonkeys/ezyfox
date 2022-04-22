@@ -6,9 +6,9 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 @EzySingleton
 public class ClassB {
 
-	@EzyAutoBind
-	public ClassB(ClassA classA) {
-		
-	}
-	
+    @EzyAutoBind
+    public ClassB(ClassA classA) {
+
+    }
+
 }

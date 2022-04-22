@@ -10,29 +10,29 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyEntityBuildersTest extends BaseTest {
 
-	@Test
-	public void test() {
-		XEntityBuilders bd = new XEntityBuilders();
-		bd.newObjectBuilder();
-		bd.newArray();
-		bd.newObject();
-	}
-	
-	public static class XEntityBuilders extends EzyEntityBuilders {
-		@Override
-		public EzyArray newArray() {
-			return super.newArray();
-		}
-		
-		@Override
-		public EzyObject newObject() {
-			return super.newObject();
-		}
-		
-		@Override
-		protected EzyObjectBuilder newObjectBuilder() {
-			return super.newObjectBuilder();
-		}
-	}
-	
+    @Test
+    public void test() {
+        XEntityBuilders bd = new XEntityBuilders();
+        bd.newObjectBuilder();
+        bd.newArray();
+        bd.newObject();
+    }
+
+    public static class XEntityBuilders extends EzyEntityBuilders {
+        @Override
+        public EzyArray newArray() {
+            return super.newArray();
+        }
+
+        @Override
+        public EzyObject newObject() {
+            return super.newObject();
+        }
+
+        @Override
+        protected EzyObjectBuilder newObjectBuilder() {
+            return super.newObjectBuilder();
+        }
+    }
+
 }

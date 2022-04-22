@@ -16,15 +16,15 @@ import com.sun.management.GcInfo;
 public class LastGCInfo2 {
     public static void main(String[] argv) throws Exception {
         while(true) {
-        		byte[] bytes = new byte[1000000];
-        		new String(bytes);
-        		test();
-        		Thread.sleep(1000);
+                byte[] bytes = new byte[1000000];
+                new String(bytes);
+                test();
+                Thread.sleep(1000);
         }
     }
     
     private static void test() throws Exception {
-    		boolean hasGcInfo = false;
+            boolean hasGcInfo = false;
         List mgrs = ManagementFactory.getGarbageCollectorMXBeans();
         for (ListIterator iter = mgrs.listIterator(); iter.hasNext(); ) {
             Object mgr = iter.next();
@@ -36,7 +36,7 @@ public class LastGCInfo2 {
                     hasGcInfo = true;
                 }
                 else {
-                		System.out.println("gc: " + gc.getName() + " has no last info");
+                        System.out.println("gc: " + gc.getName() + " has no last info");
                 }
             }
         }

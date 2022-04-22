@@ -13,30 +13,30 @@ import com.tvd12.ezyfox.message.annotation.Message;
 
 public class EzyIndexedDataIdFetchers extends EzySimpleIdFetchers {
 
-	public EzyIndexedDataIdFetchers(Builder builder) {
-		super(builder);
-	}
-	
-	public static Builder builder() {
-		return new Builder();
-	}
+    public EzyIndexedDataIdFetchers(Builder builder) {
+        super(builder);
+    }
 
-	public static class Builder extends EzySimpleIdFetchers.Builder {
-	
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Set<Class<? extends Annotation>> getAnnotationClasses() {
-			return Sets.newHashSet(
-					Message.class, IndexedData.class,
-					EzyMessage.class, EzyIndexedData.class
-			);
-		}
-		
-		@Override
-		protected EzyIdFetchers newProduct() {
-			return new EzyIndexedDataIdFetchers(this);
-		}
-	
-	}
-	
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder extends EzySimpleIdFetchers.Builder {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected Set<Class<? extends Annotation>> getAnnotationClasses() {
+            return Sets.newHashSet(
+                    Message.class, IndexedData.class,
+                    EzyMessage.class, EzyIndexedData.class
+            );
+        }
+
+        @Override
+        protected EzyIdFetchers newProduct() {
+            return new EzyIndexedDataIdFetchers(this);
+        }
+
+    }
+
 }

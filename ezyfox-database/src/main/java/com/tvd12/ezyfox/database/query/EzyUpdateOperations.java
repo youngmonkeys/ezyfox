@@ -13,7 +13,7 @@ import com.tvd12.ezyfox.function.EzyApply;
  */
 public interface EzyUpdateOperations<T> {
 
-	/**
+    /**
      * adds the value to an array field if it doesn't already exist in the array
      *
      * @param field the field to update

@@ -5,9 +5,9 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyConfigurationClassSorterTest extends BaseTest {
 
-	@Override
-	public Class<?> getTestClass() {
-		return EzyConfigurationClassSorter.class;
-	}
-	
+    @Override
+    public Class<?> getTestClass() {
+        return EzyConfigurationClassSorter.class;
+    }
+
 }

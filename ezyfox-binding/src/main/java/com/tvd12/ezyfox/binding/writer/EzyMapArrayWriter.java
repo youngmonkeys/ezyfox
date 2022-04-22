@@ -11,32 +11,32 @@ import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
 @SuppressWarnings("rawtypes")
 public final class EzyMapArrayWriter
-		extends EzyEntityBuilders
-		implements EzyWriter<Map, EzyArray> {
-	
-	private static final EzyMapArrayWriter INSTANCE = new EzyMapArrayWriter();
-	
-	private EzyMapArrayWriter() {}
-	
-	public static EzyMapArrayWriter getInstance() {
-		return INSTANCE;
-	}
+        extends EzyEntityBuilders
+        implements EzyWriter<Map, EzyArray> {
 
-	@Override
-	public EzyArray write(EzyMarshaller marshaller, Map map) {
-		EzyArrayBuilder arrayBuilder = newArrayBuilder();
-		for(Object key : map.keySet()) {
-			EzyObjectBuilder objectBuilder = newObjectBuilder();
-			Object tkey = marshaller.marshal(key);
-			Object tvalue = marshaller.marshal(map.get(key));
-			objectBuilder.append("k", tkey);
-			objectBuilder.append("v", tvalue);
-			arrayBuilder.append(objectBuilder);
-		}
-		return arrayBuilder.build();
-	}
-	
-	@Override
-	public Class<?> getObjectType() { return null; }
+    private static final EzyMapArrayWriter INSTANCE = new EzyMapArrayWriter();
+
+    private EzyMapArrayWriter() {}
+
+    public static EzyMapArrayWriter getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    public EzyArray write(EzyMarshaller marshaller, Map map) {
+        EzyArrayBuilder arrayBuilder = newArrayBuilder();
+        for(Object key : map.keySet()) {
+            EzyObjectBuilder objectBuilder = newObjectBuilder();
+            Object tkey = marshaller.marshal(key);
+            Object tvalue = marshaller.marshal(map.get(key));
+            objectBuilder.append("k", tkey);
+            objectBuilder.append("v", tvalue);
+            arrayBuilder.append(objectBuilder);
+        }
+        return arrayBuilder.build();
+    }
+
+    @Override
+    public Class<?> getObjectType() { return null; }
 
 }

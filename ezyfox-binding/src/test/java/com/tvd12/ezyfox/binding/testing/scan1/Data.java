@@ -10,8 +10,8 @@ import lombok.ToString;
 @EzyArrayBinding
 public class Data {
 
-	public String data1 = "data1";
-	public String data2 = "data2";
-	public String data3 = "data2";
-	
+    public String data1 = "data1";
+    public String data2 = "data2";
+    public String data3 = "data2";
+
 }

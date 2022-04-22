@@ -4,6 +4,6 @@ import com.tvd12.ezyfox.testing.tool.entity.UserEntity;
 
 public interface UserService {
 
-	void save(UserEntity entity);
+    void save(UserEntity entity);
 
 }

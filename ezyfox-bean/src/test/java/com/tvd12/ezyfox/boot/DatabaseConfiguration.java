@@ -12,20 +12,20 @@ import lombok.Setter;
 
 @EzyConfigurationBefore
 public class DatabaseConfiguration implements 
-		EzySingletonFactoryAware, 
-		EzyPackagesToScanAware,
-		EzyBeanConfig {
+        EzySingletonFactoryAware,
+        EzyPackagesToScanAware,
+        EzyBeanConfig {
 
-	@Setter
-	private Set<String> packagesToScan;
-	
-	@Setter
-	private EzySingletonFactory singletonFactory;
-	
-	
-	@Override
-	public void config() {
-		singletonFactory.addSingleton(new DatabaseContext(packagesToScan));
-	}
-	
+    @Setter
+    private Set<String> packagesToScan;
+
+    @Setter
+    private EzySingletonFactory singletonFactory;
+
+
+    @Override
+    public void config() {
+        singletonFactory.addSingleton(new DatabaseContext(packagesToScan));
+    }
+
 }

@@ -11,21 +11,21 @@ import lombok.Getter;
 @EzySingleton("s20")
 public class Singleton20 {
 
-	@Getter
-	@EzyProperty("hello")
-	private String hello;
-	
-	@Getter
-	@EzyAutoBind
-	private ArrayList<String> list;
-	
-	@Getter
-	@EzyAutoBind
-	private ISingleton10 sgt10;
-	
-	@EzyAutoBind
-	protected void setStg21(ISingleton21 stg21) {
-		System.out.println("set stg21: " + stg21);
-	}
-	
+    @Getter
+    @EzyProperty("hello")
+    private String hello;
+
+    @Getter
+    @EzyAutoBind
+    private ArrayList<String> list;
+
+    @Getter
+    @EzyAutoBind
+    private ISingleton10 sgt10;
+
+    @EzyAutoBind
+    protected void setStg21(ISingleton21 stg21) {
+        System.out.println("set stg21: " + stg21);
+    }
+
 }

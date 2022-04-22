@@ -8,20 +8,20 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.tvd12.ezyfox.entity.EzyRoObject;
 
 public class JacksonObjectSerializer extends StdSerializer<EzyRoObject> {
-	private static final long serialVersionUID = 1033303749441882688L;
-	
-	public JacksonObjectSerializer() {
-		super(EzyRoObject.class);
-	}
+    private static final long serialVersionUID = 1033303749441882688L;
 
-	@Override
-	public void serialize(EzyRoObject object, JsonGenerator gen, SerializerProvider provider) throws IOException {
-		gen.writeStartObject();
-		for(Object key : object.keySet()) {
-			Object value = object.get(key);
-			gen.writeObjectField(key.toString(), value);
-		}
-		gen.writeEndObject();
-	}
-	
+    public JacksonObjectSerializer() {
+        super(EzyRoObject.class);
+    }
+
+    @Override
+    public void serialize(EzyRoObject object, JsonGenerator gen, SerializerProvider provider) throws IOException {
+        gen.writeStartObject();
+        for(Object key : object.keySet()) {
+            Object value = object.get(key);
+            gen.writeObjectField(key.toString(), value);
+        }
+        gen.writeEndObject();
+    }
+
 }

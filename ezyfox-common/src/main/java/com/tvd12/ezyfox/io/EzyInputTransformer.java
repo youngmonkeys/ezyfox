@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public interface EzyInputTransformer extends Serializable {
 
-	Object transform(Object value);
-	
+    Object transform(Object value);
+
 }

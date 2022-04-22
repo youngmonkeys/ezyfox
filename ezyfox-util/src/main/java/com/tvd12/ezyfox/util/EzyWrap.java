@@ -7,22 +7,22 @@ import lombok.Setter;
 @Setter
 public class EzyWrap<T> {
 
-	protected T value;
-	
-	public EzyWrap() {
-		this(null);
-	}
-	
-	public EzyWrap(T value) {
-		this.value = value;
-	}
-	
-	public boolean hasValue() {
-		return value != null;
-	}
-	
-	public boolean hasNoValue() {
-		return value == null;
-	}
-	
+    protected T value;
+
+    public EzyWrap() {
+        this(null);
+    }
+
+    public EzyWrap(T value) {
+        this.value = value;
+    }
+
+    public boolean hasValue() {
+        return value != null;
+    }
+
+    public boolean hasNoValue() {
+        return value == null;
+    }
+
 }

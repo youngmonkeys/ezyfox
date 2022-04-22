@@ -5,7 +5,7 @@ import lombok.Setter;
 @Setter
 public class ForUnitestToolClassA {
 
-	protected int intValue;
-	protected String stringValue;
-	
+    protected int intValue;
+    protected String stringValue;
+
 }

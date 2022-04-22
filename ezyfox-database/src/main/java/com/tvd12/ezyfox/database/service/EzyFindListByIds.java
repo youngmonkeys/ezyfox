@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface EzyFindListByIds<I,E> {
 
-	List<E> findListByIds(Collection<I> ids);
-	
+    List<E> findListByIds(Collection<I> ids);
+
 }

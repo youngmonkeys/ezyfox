@@ -8,7 +8,7 @@ import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
 @EzyObjectBinding
 public class Exception2ClassB {
 
-	@SuppressWarnings("rawtypes")
-	public Map map = new HashMap<>();
-	
+    @SuppressWarnings("rawtypes")
+    public Map map = new HashMap<>();
+
 }

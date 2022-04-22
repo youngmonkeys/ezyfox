@@ -13,23 +13,23 @@ import java.util.function.BiFunction;
 
 public interface EzyObject extends EzyRoObject, Comparable<EzyObject> {
 
-	/**
-	 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
-	 * 
-	 * @param <V> the value type
-	 * @param key the key
-	 * @param value the value
-	 * @return the old value
-	 */
-	<V> V put(Object key, Object value);
-	
+    /**
+     * @see java.util.Map#put(java.lang.Object, java.lang.Object)
+     *
+     * @param <V> the value type
+     * @param key the key
+     * @param value the value
+     * @return the old value
+     */
+    <V> V put(Object key, Object value);
+
     /**
      * @see java.util.Map#putAll(java.util.Map)
      * 
      * @param m the map value
      */
     @SuppressWarnings("rawtypes")
-	void putAll(Map m);
+    void putAll(Map m);
     
     /**
      * @see java.util.Map#remove(java.lang.Object)
@@ -46,7 +46,7 @@ public interface EzyObject extends EzyRoObject, Comparable<EzyObject> {
      * @param keys the key set to remove
      */
     @SuppressWarnings("rawtypes")
-	void removeAll(Collection keys);
+    void removeAll(Collection keys);
     
     /**
      * @see java.util.Map#compute(java.lang.Object, java.util.function.BiFunction)
@@ -57,7 +57,7 @@ public interface EzyObject extends EzyRoObject, Comparable<EzyObject> {
      * @return the value
      */
     @SuppressWarnings("rawtypes")
-	<V> V compute(Object key, BiFunction func);
+    <V> V compute(Object key, BiFunction func);
     
     /**
      * @see java.util.Map#clear()
@@ -75,7 +75,7 @@ public interface EzyObject extends EzyRoObject, Comparable<EzyObject> {
      */
     @Override
     default int compareTo(EzyObject o) {
-    	return 0;
+        return 0;
     }
 
 }

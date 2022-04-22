@@ -8,10 +8,10 @@ import com.tvd12.ezyfox.entity.EzyObject;
 @EzyReaderImpl
 public class Scan2ObjectReader extends EzyAbstractReader<EzyObject, Scan2Object> {
 
-	@Override
-	public Scan2Object read(EzyUnmarshaller unmarshaller, EzyObject value) {
-		Scan2Object object = new Scan2Object(); 
-		return object;
-	}
-	
+    @Override
+    public Scan2Object read(EzyUnmarshaller unmarshaller, EzyObject value) {
+        Scan2Object object = new Scan2Object();
+        return object;
+    }
+
 }

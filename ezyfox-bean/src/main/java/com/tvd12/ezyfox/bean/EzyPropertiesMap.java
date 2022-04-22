@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface EzyPropertiesMap {
 
-	Map<String, String> keyMap();
-	
+    Map<String, String> keyMap();
+    
 }

@@ -16,7 +16,7 @@ public abstract class EzyEntity implements EzyProperties {
 
     // map of key/value properties of model
     protected final Map<Object, Object> properties 
-    		= new ConcurrentHashMap<>();
+            = new ConcurrentHashMap<>();
     
     /*
      * (non-Javadoc)
@@ -29,7 +29,7 @@ public abstract class EzyEntity implements EzyProperties {
     
     @Override
     public void setProperties(Map<? extends Object, ? extends Object> map) {
-    	properties.putAll(map);
+        properties.putAll(map);
     }
     
     /*
@@ -47,7 +47,7 @@ public abstract class EzyEntity implements EzyProperties {
      * @see com.tvd12.ezyfox.entities.EzyFoxProperties#getProperty(java.lang.Object, java.lang.Class)
      */
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public <T> T getProperty(Object key, Class<T> clazz) {
         return (T)properties.get(key);
     }
@@ -70,7 +70,7 @@ public abstract class EzyEntity implements EzyProperties {
      */
     @Override
     public boolean containsKey(Object key) {
-    	return properties.containsKey(key);
+        return properties.containsKey(key);
     }
     
     @Override

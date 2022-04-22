@@ -16,75 +16,75 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyAbstractWriterBuilderTest extends BaseTest {
 
-	@Test(expectedExceptions = {IllegalStateException.class})
-	public void test() {
-		new Builder1(new EzyClass(getClass())).build();
-	}
-	
-	public static class Builder1 extends EzyAbstractWriterBuilder {
+    @Test(expectedExceptions = {IllegalStateException.class})
+    public void test() {
+        new Builder1(new EzyClass(getClass())).build();
+    }
 
-		public Builder1(EzyClass clazz) {
-			super(clazz);
-		}
-		
-		@Override
-		protected Class<?> getOutType() {
-			return null;
-		}
-		
-		@Override
-		protected int getAccessType(EzyClass clazz) {
-			return EzyAccessType.ALL;
-		}
-		
-		@Override
-		protected EzyElementsFetcher newElementsFetcher() {
-			return new EzyObjectElementsFetcher() {
+    public static class Builder1 extends EzyAbstractWriterBuilder {
 
-				@Override
-				protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
-					return clazz.getGetterMethods();
-				}
+        public Builder1(EzyClass clazz) {
+            super(clazz);
+        }
 
-				@Override
-				protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
-					return clazz.getDeclaredGetterMethods();
-				}
-				
-				@Override
-				protected boolean isValidAnnotatedMethod(EzyMethod method) {
-					return method.getReturnType() != void.class;
-				}
-				
-				@Override
-				protected EzyMethod newByFieldMethod(EzyMethod method) {
-					return new EzyGetterMethod(method);
-				}
-				
-			};
-		}
-		
-		@SuppressWarnings("rawtypes")
-		@Override
-		protected EzyWriter make() throws Exception {
-			throw new Exception();
-		}
+        @Override
+        protected Class<?> getOutType() {
+            return null;
+        }
 
-		@Override
-		protected String getImplClassName() {
-			return "";
-		}
+        @Override
+        protected int getAccessType(EzyClass clazz) {
+            return EzyAccessType.ALL;
+        }
 
-		@Override
-		protected String makeImplMethodContent(EzyMethod writeMethod) {
-			return "";
-		}
+        @Override
+        protected EzyElementsFetcher newElementsFetcher() {
+            return new EzyObjectElementsFetcher() {
 
-		@Override
-		protected boolean isDebug() {
-			return false;
-		}
-		
-	}
-	
+                @Override
+                protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
+                    return clazz.getGetterMethods();
+                }
+
+                @Override
+                protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
+                    return clazz.getDeclaredGetterMethods();
+                }
+
+                @Override
+                protected boolean isValidAnnotatedMethod(EzyMethod method) {
+                    return method.getReturnType() != void.class;
+                }
+
+                @Override
+                protected EzyMethod newByFieldMethod(EzyMethod method) {
+                    return new EzyGetterMethod(method);
+                }
+
+            };
+        }
+
+        @SuppressWarnings("rawtypes")
+        @Override
+        protected EzyWriter make() throws Exception {
+            throw new Exception();
+        }
+
+        @Override
+        protected String getImplClassName() {
+            return "";
+        }
+
+        @Override
+        protected String makeImplMethodContent(EzyMethod writeMethod) {
+            return "";
+        }
+
+        @Override
+        protected boolean isDebug() {
+            return false;
+        }
+
+    }
+
 }

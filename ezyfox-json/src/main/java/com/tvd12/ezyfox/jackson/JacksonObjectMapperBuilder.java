@@ -19,32 +19,32 @@ import com.tvd12.ezyfox.entity.EzyRoObject;
 
 public class JacksonObjectMapperBuilder implements EzyBuilder<ObjectMapper> {
 
-	public static JacksonObjectMapperBuilder newInstance() {
-		return new JacksonObjectMapperBuilder();
-	}
-	
-	@Override
-	public ObjectMapper build() {
-		return new ObjectMapper()
-				.registerModule(newModule());
-	}
-	
-	protected Module newModule() {
-		JacksonArraySerializer arraySerializer = new JacksonArraySerializer();
-		JacksonObjectSerializer objectSerializer = new JacksonObjectSerializer();
-		SimpleModule module = new SimpleModule();
-		module.addSerializer(EzyRoArray.class, arraySerializer);
-		module.addSerializer(EzyArray.class, arraySerializer);
-		module.addSerializer(EzyArrayList.class, arraySerializer);
-		module.addSerializer(EzyRoObject.class, objectSerializer);
-		module.addSerializer(EzyObject.class, objectSerializer);
-		module.addSerializer(EzyHashMap.class, objectSerializer);
-		module.addSerializer(Date.class, new JacksonDateSerializer());
-		module.addSerializer(Instant.class, new JacksonInstantSerializer());
-		module.addSerializer(LocalDate.class, new JacksonLocalDateSerializer());
-		module.addSerializer(LocalTime.class, new JacksonLocalTimeSerializer());
-		module.addSerializer(LocalDateTime.class, new JacksonLocalDateTimeSerializer());
-		return module;
-	}
-	
+    public static JacksonObjectMapperBuilder newInstance() {
+        return new JacksonObjectMapperBuilder();
+    }
+
+    @Override
+    public ObjectMapper build() {
+        return new ObjectMapper()
+                .registerModule(newModule());
+    }
+
+    protected Module newModule() {
+        JacksonArraySerializer arraySerializer = new JacksonArraySerializer();
+        JacksonObjectSerializer objectSerializer = new JacksonObjectSerializer();
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(EzyRoArray.class, arraySerializer);
+        module.addSerializer(EzyArray.class, arraySerializer);
+        module.addSerializer(EzyArrayList.class, arraySerializer);
+        module.addSerializer(EzyRoObject.class, objectSerializer);
+        module.addSerializer(EzyObject.class, objectSerializer);
+        module.addSerializer(EzyHashMap.class, objectSerializer);
+        module.addSerializer(Date.class, new JacksonDateSerializer());
+        module.addSerializer(Instant.class, new JacksonInstantSerializer());
+        module.addSerializer(LocalDate.class, new JacksonLocalDateSerializer());
+        module.addSerializer(LocalTime.class, new JacksonLocalTimeSerializer());
+        module.addSerializer(LocalDateTime.class, new JacksonLocalDateTimeSerializer());
+        return module;
+    }
+
 }

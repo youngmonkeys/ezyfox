@@ -11,32 +11,32 @@ import lombok.Data;
 
 public class EzyGenerics2Test {
 
-	@Test
-	public void test() throws Exception {
-		Field field = ClassC.class.getDeclaredField("map1");
-		System.out.println(Map.class.isAssignableFrom(field.getType()));
-	}
-	
-	@Data
+    @Test
+    public void test() throws Exception {
+        Field field = ClassC.class.getDeclaredField("map1");
+        System.out.println(Map.class.isAssignableFrom(field.getType()));
+    }
+    
+    @Data
     public static class ClassA {
         private String name;
         private List<String> abc = new ArrayList<>();
     }
-	
+    
     @Data
     public static class ClassB {
-    	private String name;
-    	
-    	private int a;
-    	private int b;
-    	private int c;
-    	private int d;
-    	private int e;
-    	private int f;
-    	private int g;
-    	private int h;
-    	private int i;
-    	private int j;
+        private String name;
+        
+        private int a;
+        private int b;
+        private int c;
+        private int d;
+        private int e;
+        private int f;
+        private int g;
+        private int h;
+        private int i;
+        private int j;
     }
     
     @Data
@@ -50,9 +50,9 @@ public class EzyGenerics2Test {
         
         public Map<String, String> map1;
         public List<List<String>> list1;
-		public Map map2;
-		public Map<String, ?> map3;
-		public Map<?, ?> map4;
+        public Map map2;
+        public Map<String, ?> map3;
+        public Map<?, ?> map4;
         public List list2;
     }
     
@@ -61,5 +61,5 @@ public class EzyGenerics2Test {
             
         }
     }
-	
+    
 }

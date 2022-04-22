@@ -10,11 +10,11 @@ import lombok.Setter;
 @Setter
 @EzySingleton("greet")
 public class GreetImpl implements Greet {
-	
-	@EzyAutoBind
-	private Foo foo;
-	
-	@EzyAutoBind
-	private X x;
-	
+
+    @EzyAutoBind
+    private Foo foo;
+
+    @EzyAutoBind
+    private X x;
+
 }

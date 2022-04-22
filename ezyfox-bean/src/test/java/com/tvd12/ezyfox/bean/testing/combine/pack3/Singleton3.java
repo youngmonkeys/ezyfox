@@ -12,8 +12,8 @@ import lombok.Setter;
 @EzySingleton("s3")
 public class Singleton3 {
 
-	@Setter
-	@EzyAutoBind
-	private ArrayList<String> list;
-	
+    @Setter
+    @EzyAutoBind
+    private ArrayList<String> list;
+
 }

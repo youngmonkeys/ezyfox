@@ -15,26 +15,26 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 
 public class EzyObjectBinding2Test {
 
-	@SuppressWarnings("unchecked")
-	@Test
-	public void test() {
-		EzyObjectWriterBuilder.setDebug(true);
-		EzyObjectReaderBuilder.setDebug(true);
-		
-		EzyMarshaller marshaller = new EzySimpleMarshaller();
-		EzyUnmarshaller unmarshaller = new EzySimpleUnmarshaller();
-		
-		EzyObjectWriterBuilder writerBuilder 
-				= new EzyObjectWriterBuilder(new EzyClass(ClassB.class));
-		EzyWriter<ClassB, EzyObject> writer = writerBuilder.build();
-		EzyObject object = writer.write(marshaller, new ClassB());
-		System.out.println(object);
-		
-		EzyObjectReaderBuilder readerBuilder 
-				= new EzyObjectReaderBuilder(new EzyClass(ClassB.class));
-		EzyReader<EzyObject, ClassB> reader = readerBuilder.build();
-		ClassB ClassB = reader.read(unmarshaller, object);
-		System.out.println(ClassB);
-	}
-	
+    @SuppressWarnings("unchecked")
+    @Test
+    public void test() {
+        EzyObjectWriterBuilder.setDebug(true);
+        EzyObjectReaderBuilder.setDebug(true);
+
+        EzyMarshaller marshaller = new EzySimpleMarshaller();
+        EzyUnmarshaller unmarshaller = new EzySimpleUnmarshaller();
+
+        EzyObjectWriterBuilder writerBuilder
+                = new EzyObjectWriterBuilder(new EzyClass(ClassB.class));
+        EzyWriter<ClassB, EzyObject> writer = writerBuilder.build();
+        EzyObject object = writer.write(marshaller, new ClassB());
+        System.out.println(object);
+
+        EzyObjectReaderBuilder readerBuilder
+                = new EzyObjectReaderBuilder(new EzyClass(ClassB.class));
+        EzyReader<EzyObject, ClassB> reader = readerBuilder.build();
+        ClassB ClassB = reader.read(unmarshaller, object);
+        System.out.println(ClassB);
+    }
+
 }

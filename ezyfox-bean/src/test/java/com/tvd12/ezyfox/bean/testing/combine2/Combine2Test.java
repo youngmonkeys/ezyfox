@@ -9,17 +9,17 @@ import com.tvd12.ezyfox.bean.impl.EzySimpleErrorHandler;
 
 public class Combine2Test {
 
-	@Test
-	public void test() throws Exception {
-		EzyByConstructorPrototypeSupplierLoader.setDebug(true);
-		EzyBeanContextBuilder builder = EzyBeanContext.builder()
-				.scan(
-						"com.tvd12.ezyfox.bean.testing.combine2"
-				)
-				.errorHandler(new EzySimpleErrorHandler());
-		EzyBeanContext context = builder.build();
-		context.getPrototypeFactory();
-		
-	}
-	
+    @Test
+    public void test() throws Exception {
+        EzyByConstructorPrototypeSupplierLoader.setDebug(true);
+        EzyBeanContextBuilder builder = EzyBeanContext.builder()
+                .scan(
+                        "com.tvd12.ezyfox.bean.testing.combine2"
+                )
+                .errorHandler(new EzySimpleErrorHandler());
+        EzyBeanContext context = builder.build();
+        context.getPrototypeFactory();
+
+    }
+
 }

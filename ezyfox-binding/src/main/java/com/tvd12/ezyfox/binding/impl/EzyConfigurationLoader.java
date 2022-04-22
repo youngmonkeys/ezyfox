@@ -4,6 +4,6 @@ import com.tvd12.ezyfox.binding.EzyBindingContext;
 
 public interface EzyConfigurationLoader {
 
-	void load(EzyBindingContext context);
-	
+    void load(EzyBindingContext context);
+
 }

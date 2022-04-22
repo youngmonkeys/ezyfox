@@ -8,8 +8,8 @@ import lombok.Setter;
 @EzyArrayBinding(subTypes = true, subTypeClasses = {InterfaceB.class})
 public class ClassB implements InterfaceB {
 
-	@Setter
-	@Getter
-	private String name;
-	
+    @Setter
+    @Getter
+    private String name;
+
 }

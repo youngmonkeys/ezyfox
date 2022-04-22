@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public interface EzyFindAndModifyOptions {
 
-	/**
+    /**
      * Returns the remove
      *
      * @return the remove

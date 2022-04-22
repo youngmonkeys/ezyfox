@@ -12,15 +12,15 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ChatData implements Serializable {
-	private static final long serialVersionUID = -1053536008550958384L;
+    private static final long serialVersionUID = -1053536008550958384L;
 
-	@EzyValue("2")
-	private Date creationDate = new Date();
-	@EzyValue("3")
-	private Date lastReadDate = new Date();
-	@EzyValue("4")
-	private Date lastModifiedDate = new Date();
-	@EzyValue("5")
-	private int day = EzyDates.formatAsInteger(new Date());
-	
+    @EzyValue("2")
+    private Date creationDate = new Date();
+    @EzyValue("3")
+    private Date lastReadDate = new Date();
+    @EzyValue("4")
+    private Date lastModifiedDate = new Date();
+    @EzyValue("5")
+    private int day = EzyDates.formatAsInteger(new Date());
+
 }

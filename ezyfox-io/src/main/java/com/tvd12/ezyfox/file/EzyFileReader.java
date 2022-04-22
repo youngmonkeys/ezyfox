@@ -5,8 +5,8 @@ import java.util.Collection;
 
 public interface EzyFileReader {
 
-	byte[] readBytes(File file);
-	
-	Collection<String> readLines(File file, String charset);
-	
+    byte[] readBytes(File file);
+
+    Collection<String> readLines(File file, String charset);
+
 }

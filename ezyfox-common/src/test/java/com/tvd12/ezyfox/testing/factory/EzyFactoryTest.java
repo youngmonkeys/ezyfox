@@ -5,9 +5,9 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyFactoryTest extends BaseTest {
 
-	@Override
-	public Class<?> getTestClass() {
-		return EzyEntityFactory.class;
-	}
-	
+    @Override
+    public Class<?> getTestClass() {
+        return EzyEntityFactory.class;
+    }
+
 }

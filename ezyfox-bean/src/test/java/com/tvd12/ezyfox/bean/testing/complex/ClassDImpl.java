@@ -4,8 +4,8 @@ import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 
 public class ClassDImpl implements ClassD {
 
-	@EzyAutoBind
-	public ClassDImpl(ClassE classE) {
-	}
-	
+    @EzyAutoBind
+    public ClassDImpl(ClassE classE) {
+    }
+
 }

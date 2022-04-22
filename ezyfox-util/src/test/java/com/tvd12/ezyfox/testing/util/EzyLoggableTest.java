@@ -7,28 +7,28 @@ import com.tvd12.test.performance.Performance;
 
 public class EzyLoggableTest extends EzyLoggable {
 
-	@Test
-	public void test() {
-		logger.debug("abc");
-	}
-	
-	@Test
-	public void performanceTest() {
-		long time1 = Performance.create()
-				.test(() -> new A())
-				.getTime();
-		long time2 = Performance.create()
-				.test(() -> new B())
-				.getTime();
-		System.out.println("EzyLoggableTest:performanceTest: time1: " + time1 + ", time2: " + time2);
-	}
-	
-	public static class A extends EzyLoggable {
-		
-	}
-	
-	public static class B {
-		
-	}
-	
+    @Test
+    public void test() {
+        logger.debug("abc");
+    }
+
+    @Test
+    public void performanceTest() {
+        long time1 = Performance.create()
+                .test(() -> new A())
+                .getTime();
+        long time2 = Performance.create()
+                .test(() -> new B())
+                .getTime();
+        System.out.println("EzyLoggableTest:performanceTest: time1: " + time1 + ", time2: " + time2);
+    }
+
+    public static class A extends EzyLoggable {
+
+    }
+
+    public static class B {
+
+    }
+
 }

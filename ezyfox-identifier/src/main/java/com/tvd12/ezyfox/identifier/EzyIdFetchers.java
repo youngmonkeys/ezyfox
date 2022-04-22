@@ -4,8 +4,8 @@ import java.util.Map;
 
 public interface EzyIdFetchers {
 
-	EzyIdFetcher getIdFetcher(Class<?> clazz);
-	
-	Map<Class<?>, EzyIdFetcher> getIdFetchers();
-	
+    EzyIdFetcher getIdFetcher(Class<?> clazz);
+
+    Map<Class<?>, EzyIdFetcher> getIdFetchers();
+
 }

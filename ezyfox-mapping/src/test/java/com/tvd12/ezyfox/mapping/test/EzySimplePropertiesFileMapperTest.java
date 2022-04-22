@@ -11,26 +11,26 @@ import lombok.Setter;
 
 public class EzySimplePropertiesFileMapperTest {
 
-	@Test
-	public void test() {
-		EzyPropertiesFileMapper mapper = EzySimplePropertiesFileMapper.builder()
-				.context(getClass())
-				.build();
-		System.out.println(mapper.read("test-data/person.properties", Person.class));
-	}
-	
-	@Getter
-	@Setter
-	public static class Person {
-		@EzyProperty("nick_name")
-		protected String nickName;
-		@EzyProperty(prefix = "name")
-		protected Name name;
-	}
-	
-	public static class Name {
-		protected String first;
-		protected String last;
-	}
-	
+    @Test
+    public void test() {
+        EzyPropertiesFileMapper mapper = EzySimplePropertiesFileMapper.builder()
+                .context(getClass())
+                .build();
+        System.out.println(mapper.read("test-data/person.properties", Person.class));
+    }
+
+    @Getter
+    @Setter
+    public static class Person {
+        @EzyProperty("nick_name")
+        protected String nickName;
+        @EzyProperty(prefix = "name")
+        protected Name name;
+    }
+
+    public static class Name {
+        protected String first;
+        protected String last;
+    }
+
 }

@@ -6,11 +6,11 @@ import com.tvd12.ezyfox.concurrent.EzyConcurrentHashMapLockProvider;
 
 public class EzyConcurrentHashMapLockProviderTest {
 
-	@Test
-	public void test() {
-		EzyConcurrentHashMapLockProvider provider = new EzyConcurrentHashMapLockProvider();
-		provider.provideLock("a");
-		provider.removeLock("a");
-	}
-	
+    @Test
+    public void test() {
+        EzyConcurrentHashMapLockProvider provider = new EzyConcurrentHashMapLockProvider();
+        provider.provideLock("a");
+        provider.removeLock("a");
+    }
+
 }

@@ -5,45 +5,45 @@ import com.tvd12.ezyfox.pattern.EzyObjectPool;
 
 public class MyTestObjectPool5 extends EzyObjectPool<MyTestObject> {
 
-	protected MyTestObjectPool5(Builder builder) {
-		super(builder);
-		this.initializeObjects();
-	}
-	
-	public MyTestObject borrowOne() {
-		return borrowObject();
-	}
-	
-	public void returnOne(MyTestObject object) {
-		returnObject(object);
-	}
-	
-	public static Builder builder() {
-		return new Builder();
-	}
+    protected MyTestObjectPool5(Builder builder) {
+        super(builder);
+        this.initializeObjects();
+    }
 
-	public static class Builder extends EzyObjectPool.Builder<MyTestObject, Builder> {
+    public MyTestObject borrowOne() {
+        return borrowObject();
+    }
 
-		@Override
-		public MyTestObjectPool5 build() {
-			return new MyTestObjectPool5(this);
-		}
+    public void returnOne(MyTestObject object) {
+        returnObject(object);
+    }
 
-		@Override
-		protected String getValidationThreadPoolName() {
-			return "test-object";
-		}
+    public static Builder builder() {
+        return new Builder();
+    }
 
-		@Override
-		protected EzyObjectFactory<MyTestObject> newObjectFactory() {
-			return new EzyObjectFactory<MyTestObject>() {
-				@Override
-				public MyTestObject newProduct() {
-					return new MyTestObject();
-				}
-			};
-		}
-		
-	}
-	
+    public static class Builder extends EzyObjectPool.Builder<MyTestObject, Builder> {
+
+        @Override
+        public MyTestObjectPool5 build() {
+            return new MyTestObjectPool5(this);
+        }
+
+        @Override
+        protected String getValidationThreadPoolName() {
+            return "test-object";
+        }
+
+        @Override
+        protected EzyObjectFactory<MyTestObject> newObjectFactory() {
+            return new EzyObjectFactory<MyTestObject>() {
+                @Override
+                public MyTestObject newProduct() {
+                    return new MyTestObject();
+                }
+            };
+        }
+
+    }
+
 }

@@ -13,12 +13,12 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface EzyReader {
 
-	/**
-	 * the key mapped to value
-	 * 
-	 * @return the key mapped to value
-	 */
-	@SuppressWarnings("rawtypes")
-	public Class<? extends com.tvd12.ezyfox.binding.EzyReader> value();
+    /**
+     * the key mapped to value
+     *
+     * @return the key mapped to value
+     */
+    @SuppressWarnings("rawtypes")
+    public Class<? extends com.tvd12.ezyfox.binding.EzyReader> value();
 
 }

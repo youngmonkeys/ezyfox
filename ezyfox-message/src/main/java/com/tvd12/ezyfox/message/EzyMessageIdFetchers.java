@@ -11,26 +11,26 @@ import com.tvd12.ezyfox.message.annotation.Message;
 
 public class EzyMessageIdFetchers extends EzySimpleIdFetchers {
 
-	public EzyMessageIdFetchers(Builder builder) {
-		super(builder);
-	}
-	
-	public static Builder builder() {
-		return new Builder();
-	}
+    public EzyMessageIdFetchers(Builder builder) {
+        super(builder);
+    }
 
-	public static class Builder extends EzySimpleIdFetchers.Builder {
-	
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Set<Class<? extends Annotation>> getAnnotationClasses() {
-			return Sets.newHashSet(EzyMessage.class, Message.class);
-		}
-	
-		@Override
-		protected EzyIdFetchers newProduct() {
-			return new EzyMessageIdFetchers(this);
-		}
-	}
-	
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder extends EzySimpleIdFetchers.Builder {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected Set<Class<? extends Annotation>> getAnnotationClasses() {
+            return Sets.newHashSet(EzyMessage.class, Message.class);
+        }
+
+        @Override
+        protected EzyIdFetchers newProduct() {
+            return new EzyMessageIdFetchers(this);
+        }
+    }
+
 }

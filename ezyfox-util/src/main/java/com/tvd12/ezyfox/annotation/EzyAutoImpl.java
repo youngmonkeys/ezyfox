@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE })
 public @interface EzyAutoImpl {
 
-	String value() default "";
-	
-	EzyKeyValue[] properties() default {};
-	
+    String value() default "";
+
+    EzyKeyValue[] properties() default {};
+
 }

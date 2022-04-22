@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface EzyFetchAllMapService<K,V> {
 
-	Map<K,V> getAllMap();
-	
+    Map<K,V> getAllMap();
+
 }

@@ -12,19 +12,19 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyUnwrapperTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyBindingContext context = EzyBindingContext.builder()
-				.scan("com.tvd12.ezyfox.binding.testing.unwrapper")
-				.build();
-		EzyObjectUnwrapperBuilder.setDebug(true);
-		EzyArray array = EzyEntityFactory.create(EzyArrayBuilder.class)
-				.append("hehe")
-				.build();
-		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		ClassA classA = new ClassA();
-		unmarshaller.unwrap(array, classA);
-		System.out.println(classA);
-	}
-	
+    @Test
+    public void test() {
+        EzyBindingContext context = EzyBindingContext.builder()
+                .scan("com.tvd12.ezyfox.binding.testing.unwrapper")
+                .build();
+        EzyObjectUnwrapperBuilder.setDebug(true);
+        EzyArray array = EzyEntityFactory.create(EzyArrayBuilder.class)
+                .append("hehe")
+                .build();
+        EzyUnmarshaller unmarshaller = context.newUnmarshaller();
+        ClassA classA = new ClassA();
+        unmarshaller.unwrap(array, classA);
+        System.out.println(classA);
+    }
+
 }

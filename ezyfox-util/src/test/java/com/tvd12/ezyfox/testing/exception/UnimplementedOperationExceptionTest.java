@@ -6,9 +6,9 @@ import com.tvd12.ezyfox.exception.UnimplementedOperationException;
 
 public class UnimplementedOperationExceptionTest {
 
-	@Test
-	public void test() {
-		new UnimplementedOperationException("", new Exception());
-	}
-	
+    @Test
+    public void test() {
+        new UnimplementedOperationException("", new Exception());
+    }
+
 }

@@ -23,91 +23,91 @@ import lombok.Getter;
 
 public class EzyArrayReaderBuilderTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyArrayReaderBuilder builder 
-			= new EzyArrayReaderBuilder(new EzyClass(ClassA.class));
-		builder.build();
-	}
-	
-	@Test
-	public void testConstructorCase() {
-		EzyArrayReaderBuilder.setDebug(true);
-		EzyArrayReaderBuilder builder = new EzyArrayReaderBuilder(new EzyClass(ClassB.class));
-		builder.build();
-	}
-	
-	@Test
-	public void testConstructorNoFieldsCase() {
-		EzyArrayReaderBuilder.setDebug(true);
-		EzyArrayReaderBuilder builder = new EzyArrayReaderBuilder(new EzyClass(ClassC.class));
-		builder.build();
-	}
-	
-	@Test
-	public void readToFinalFieldCase() {
-		// given
-		EzyArrayReaderBuilder.setDebug(true);
-		EzyBindingContext bindingContext = EzyBindingContext.builder()
-				.addClass(ClassE.class)
-				.addClass(AbstractClassA.class)
-				.build();
+    @Test
+    public void test() {
+        EzyArrayReaderBuilder builder
+            = new EzyArrayReaderBuilder(new EzyClass(ClassA.class));
+        builder.build();
+    }
 
-		// when
-		EzyUnmarshaller unmarshaller = bindingContext.newUnmarshaller();
-		EzyArray array = EzyEntityArrays.newArray("hello", "world");
-		ClassE classE = unmarshaller.unmarshal(array, ClassE.class);
-		
-		// then
-		assert classE.name.equals("name");
-		
-	}
-	
-	public static abstract class AbstractClassA {}
+    @Test
+    public void testConstructorCase() {
+        EzyArrayReaderBuilder.setDebug(true);
+        EzyArrayReaderBuilder builder = new EzyArrayReaderBuilder(new EzyClass(ClassB.class));
+        builder.build();
+    }
 
-	@SuppressWarnings("rawtypes")
-	public static class ClassA {
-		public Map map = new HashMap<>();
-		@EzyReader(Scan2ObjectReader.class)
-		public Scan2Object object = new Scan2Object();
-		public ClassB classB;
-		
-		public void setValue(String value) {
-			
-		}
-	}
-	
-	@SuppressWarnings({ "rawtypes", "serial" })
-	public static class ClassB extends HashMap {
-		
-	}
-	
-	@Getter
-	@AllArgsConstructor
-	public static class ClassC {
-		private String name;
-		private String value;
-	}
-	
-	@Getter
-	public static class ClassD {
-		public ClassD(
-				boolean booleanValue,
-				byte byteValue,
-				char charValue,
-				double doubleValue,
-				float floatValue,
-				int intValue,
-				long longValue,
-				short shortValue,
-				String stringValue) {}
-	}
-	
-	@Getter
-	@EzyArrayBinding
-	public static class ClassE {
-		@EzyIndex(0)
-		public final String name = "name"; 
-	}
-	
+    @Test
+    public void testConstructorNoFieldsCase() {
+        EzyArrayReaderBuilder.setDebug(true);
+        EzyArrayReaderBuilder builder = new EzyArrayReaderBuilder(new EzyClass(ClassC.class));
+        builder.build();
+    }
+
+    @Test
+    public void readToFinalFieldCase() {
+        // given
+        EzyArrayReaderBuilder.setDebug(true);
+        EzyBindingContext bindingContext = EzyBindingContext.builder()
+                .addClass(ClassE.class)
+                .addClass(AbstractClassA.class)
+                .build();
+
+        // when
+        EzyUnmarshaller unmarshaller = bindingContext.newUnmarshaller();
+        EzyArray array = EzyEntityArrays.newArray("hello", "world");
+        ClassE classE = unmarshaller.unmarshal(array, ClassE.class);
+
+        // then
+        assert classE.name.equals("name");
+
+    }
+
+    public static abstract class AbstractClassA {}
+
+    @SuppressWarnings("rawtypes")
+    public static class ClassA {
+        public Map map = new HashMap<>();
+        @EzyReader(Scan2ObjectReader.class)
+        public Scan2Object object = new Scan2Object();
+        public ClassB classB;
+
+        public void setValue(String value) {
+
+        }
+    }
+
+    @SuppressWarnings({ "rawtypes", "serial" })
+    public static class ClassB extends HashMap {
+
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class ClassC {
+        private String name;
+        private String value;
+    }
+
+    @Getter
+    public static class ClassD {
+        public ClassD(
+                boolean booleanValue,
+                byte byteValue,
+                char charValue,
+                double doubleValue,
+                float floatValue,
+                int intValue,
+                long longValue,
+                short shortValue,
+                String stringValue) {}
+    }
+
+    @Getter
+    @EzyArrayBinding
+    public static class ClassE {
+        @EzyIndex(0)
+        public final String name = "name";
+    }
+
 }

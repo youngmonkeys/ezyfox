@@ -7,12 +7,12 @@ import com.tvd12.test.base.BaseTest;
 
 public class CodecBaseTest extends BaseTest {
 
-	public EzyArrayBuilder newArrayBuilder() {
-		return EzyEntityFactory.create(EzyArrayBuilder.class);
-	}
-	
-	public EzyObjectBuilder newObjectBuilder() {
-		return EzyEntityFactory.create(EzyObjectBuilder.class);
-	}
-	
+    public EzyArrayBuilder newArrayBuilder() {
+        return EzyEntityFactory.create(EzyArrayBuilder.class);
+    }
+
+    public EzyObjectBuilder newObjectBuilder() {
+        return EzyEntityFactory.create(EzyObjectBuilder.class);
+    }
+
 }

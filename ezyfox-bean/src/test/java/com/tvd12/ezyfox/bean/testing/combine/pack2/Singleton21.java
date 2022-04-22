@@ -12,12 +12,12 @@ import lombok.Setter;
 @EzySingleton
 public class Singleton21 implements ISingleton21 {
 
-	@Setter
-	@EzyAutoBind
-	private ArrayList<String> list;
-	
-	@Setter
-	@EzyAutoBind
-	private ISingleton10 sgt10;
-	
+    @Setter
+    @EzyAutoBind
+    private ArrayList<String> list;
+
+    @Setter
+    @EzyAutoBind
+    private ISingleton10 sgt10;
+
 }

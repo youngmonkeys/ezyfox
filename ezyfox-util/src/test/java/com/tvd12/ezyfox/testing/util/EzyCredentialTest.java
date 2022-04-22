@@ -7,13 +7,13 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyCredentialTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyCredential credential = new EzyCredential();
-		credential.setUsername("dungtv");
-		credential.setPassword("123456");
-		assert credential.getUsername().equals("dungtv");
-		assert credential.getPassword().equals("123456");
-	}
-	
+    @Test
+    public void test() {
+        EzyCredential credential = new EzyCredential();
+        credential.setUsername("dungtv");
+        credential.setPassword("123456");
+        assert credential.getUsername().equals("dungtv");
+        assert credential.getPassword().equals("123456");
+    }
+
 }

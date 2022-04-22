@@ -8,24 +8,24 @@ import com.tvd12.ezyfox.io.EzyDates;
 
 public final class EzyDateReader implements EzyReader<Object, Date> {
 
-	private static final EzyDateReader INSTANCE = new EzyDateReader();
-	
-	private EzyDateReader() {
-	}
-	
-	public static EzyDateReader getInstance() {
-		return INSTANCE;
-	}
-	
-	@Override
-	public Date read(EzyUnmarshaller unmarshaller, Object value) {
-		if(value instanceof Date)
-			return (Date)value;
-		if(value instanceof Number)
-			return new Date(((Number)value).longValue());
-		if(value instanceof String)
-			return EzyDates.parse((String)value);
-		throw new IllegalArgumentException("can't convert: " + value + " to date");
-	}
-	
+    private static final EzyDateReader INSTANCE = new EzyDateReader();
+
+    private EzyDateReader() {
+    }
+
+    public static EzyDateReader getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    public Date read(EzyUnmarshaller unmarshaller, Object value) {
+        if(value instanceof Date)
+            return (Date)value;
+        if(value instanceof Number)
+            return new Date(((Number)value).longValue());
+        if(value instanceof String)
+            return EzyDates.parse((String)value);
+        throw new IllegalArgumentException("can't convert: " + value + " to date");
+    }
+
 }

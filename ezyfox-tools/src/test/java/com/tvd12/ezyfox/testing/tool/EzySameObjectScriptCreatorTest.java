@@ -9,33 +9,33 @@ import lombok.Setter;
 
 public class EzySameObjectScriptCreatorTest {
 
-	@Test
-	public void test() {
-		EzySameObjectScriptCreator creator = new EzySameObjectScriptCreator()
-				.originClass(A.class)
-				.targetClass(B.class)
-				.originObjectName("imA")
-				.targetObjectName("imB");
-		System.out.println(creator.generateFuncScript());
-		System.out.println(creator.generateBuildFuncScript());
-	}
-	
-	@Getter
-	@Setter
-	private static class A  {
-		
-		private String name;
-		private String value;
-		
-	}
-	
-	@Getter
-	@Setter
-	private static class B  {
-		
-		private String name;
-		private String value;
-		
-	}
-	
+    @Test
+    public void test() {
+        EzySameObjectScriptCreator creator = new EzySameObjectScriptCreator()
+                .originClass(A.class)
+                .targetClass(B.class)
+                .originObjectName("imA")
+                .targetObjectName("imB");
+        System.out.println(creator.generateFuncScript());
+        System.out.println(creator.generateBuildFuncScript());
+    }
+
+    @Getter
+    @Setter
+    private static class A  {
+
+        private String name;
+        private String value;
+
+    }
+
+    @Getter
+    @Setter
+    private static class B  {
+
+        private String name;
+        private String value;
+
+    }
+
 }

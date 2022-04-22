@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface EzyPutMapService<K,V> {
 
-	void put(Map<K, V> map);
-	
+    void put(Map<K, V> map);
+
 }

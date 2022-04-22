@@ -8,7 +8,7 @@ import com.tvd12.ezyfox.message.annotation.Message;
 @IndexedData
 public class ClassF {
 
-	@EzyId
-	public int id;
-	
+    @EzyId
+    public int id;
+
 }

@@ -7,10 +7,10 @@ import com.tvd12.ezyfox.testing.tool.service.UserService;
 
 public class UserServiceImpl extends EzyLoggable implements UserService {
 
-	protected UserRepo userRepo;
+    protected UserRepo userRepo;
 
-	public void save(UserEntity entity) {
-		System.out.println("save entity: " + entity);
-	}
+    public void save(UserEntity entity) {
+        System.out.println("save entity: " + entity);
+    }
 
 }

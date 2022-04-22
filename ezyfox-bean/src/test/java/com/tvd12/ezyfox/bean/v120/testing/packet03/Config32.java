@@ -10,11 +10,11 @@ import lombok.Setter;
 @EzyConfigurationBefore
 public class Config32 implements EzySingletonFactoryAware, EzyBeanAutoConfig {
 
-	@Setter
-	private EzySingletonFactory singletonFactory;
-	
-	@Override
-	public void autoConfig() {
-		singletonFactory.addSingleton(new Singleton32());
-	}
+    @Setter
+    private EzySingletonFactory singletonFactory;
+
+    @Override
+    public void autoConfig() {
+        singletonFactory.addSingleton(new Singleton32());
+    }
 }

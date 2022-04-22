@@ -7,10 +7,10 @@ import ${base-package-name}.service.${base-class-name}Service;
 
 public class ${class-name} extends EzyLoggable implements ${base-class-name}Service {
 
-	protected ${base-class-name}Repo ${lower-base-class-name}Repo;
+    protected ${base-class-name}Repo ${lower-base-class-name}Repo;
 
-	public void save(${base-class-name}Entity entity) {
-		System.out.println("save entity: " + entity);
-	}
+    public void save(${base-class-name}Entity entity) {
+        System.out.println("save entity: " + entity);
+    }
 
 }

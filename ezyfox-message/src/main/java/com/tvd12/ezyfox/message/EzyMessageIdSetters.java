@@ -10,27 +10,27 @@ import com.tvd12.ezyfox.message.annotation.Message;
 
 public class EzyMessageIdSetters extends EzySimpleIdSetters {
 
-	public EzyMessageIdSetters(Builder builder) {
-		super(builder);
-	}
-	
-	public static Builder builder() {
-		return new Builder();
-	}
+    public EzyMessageIdSetters(Builder builder) {
+        super(builder);
+    }
 
-	public static class Builder extends EzySimpleIdSetters.Builder {
-	
-		@SuppressWarnings("unchecked")
-		@Override
-		protected Set<Class<? extends Annotation>> getAnnotationClasses() {
-			return Sets.newHashSet(EzyMessage.class, Message.class);
-		}
-	
-		@Override
-		protected EzySimpleIdSetters newProduct() {
-			return new EzyMessageIdSetters(this);
-		}
-		
-	}
-	
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder extends EzySimpleIdSetters.Builder {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected Set<Class<? extends Annotation>> getAnnotationClasses() {
+            return Sets.newHashSet(EzyMessage.class, Message.class);
+        }
+
+        @Override
+        protected EzySimpleIdSetters newProduct() {
+            return new EzyMessageIdSetters(this);
+        }
+
+    }
+
 }

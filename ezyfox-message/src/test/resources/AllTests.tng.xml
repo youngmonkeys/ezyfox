@@ -1,11 +1,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="AllTests">
-	<test name="All">
-		<packages>
-			<package name="com.tvd12.ezyfox.message.testing"></package>
-			<package name="com.tvd12.ezyfox.message.testing.handler"></package>
-			<package name="com.tvd12.ezyfox.message.testing.util"></package>
-		</packages>
-	</test>
+    <test name="All">
+        <packages>
+            <package name="com.tvd12.ezyfox.message.testing"></package>
+            <package name="com.tvd12.ezyfox.message.testing.handler"></package>
+            <package name="com.tvd12.ezyfox.message.testing.util"></package>
+        </packages>
+    </test>
 </suite>

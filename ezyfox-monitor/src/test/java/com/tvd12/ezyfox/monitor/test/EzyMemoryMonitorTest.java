@@ -7,12 +7,12 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyMemoryMonitorTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyMemoryMonitor monitor = new EzyMemoryMonitor();
-		System.out.println(monitor.getFreeMemory());
-		System.out.println(monitor.getMaxMemory());
-		System.out.println(monitor.getTotalMemory());
-	}
-	
+    @Test
+    public void test() {
+        EzyMemoryMonitor monitor = new EzyMemoryMonitor();
+        System.out.println(monitor.getFreeMemory());
+        System.out.println(monitor.getMaxMemory());
+        System.out.println(monitor.getTotalMemory());
+    }
+
 }

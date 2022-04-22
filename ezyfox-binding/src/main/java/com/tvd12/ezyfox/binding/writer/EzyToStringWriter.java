@@ -5,20 +5,20 @@ import com.tvd12.ezyfox.binding.EzyWriter;
 
 public final class EzyToStringWriter implements EzyWriter<Object, Object> {
 
-	private static final EzyToStringWriter INSTANCE = new EzyToStringWriter();
-	
-	private EzyToStringWriter() {
-	}
-	
-	public static EzyToStringWriter getInstance() {
-		return INSTANCE;
-	}
+    private static final EzyToStringWriter INSTANCE = new EzyToStringWriter();
 
-	@Override
-	public Object write(EzyMarshaller marshaller, Object object) {
-		return object.toString();
-	}
-	
-	
-	
+    private EzyToStringWriter() {
+    }
+
+    public static EzyToStringWriter getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    public Object write(EzyMarshaller marshaller, Object object) {
+        return object.toString();
+    }
+
+
+
 }

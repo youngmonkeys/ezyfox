@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })
 public @interface EzyConfigurationBefore {
-	
-	int priority() default 0;
-	
+    
+    int priority() default 0;
+    
 }

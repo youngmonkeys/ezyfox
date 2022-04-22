@@ -11,17 +11,17 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzySimpleValueTransformerTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyValueConverter transformer = EzySimpleValueConverter.getSingleton();
-		assert transformer.convert(null, null) == null;
-	}
-	
-	@SuppressWarnings({ "unused", "unchecked" })
-	@Test
-	public void test1() {
-		EzyValueConverter transformer = new EzySimpleValueConverter();
-		List<Integer> v = transformer.convert(Lists.newArrayList(1, 2, 3), List.class);
-	}
-	
+    @Test
+    public void test() {
+        EzyValueConverter transformer = EzySimpleValueConverter.getSingleton();
+        assert transformer.convert(null, null) == null;
+    }
+
+    @SuppressWarnings({ "unused", "unchecked" })
+    @Test
+    public void test1() {
+        EzyValueConverter transformer = new EzySimpleValueConverter();
+        List<Integer> v = transformer.convert(Lists.newArrayList(1, 2, 3), List.class);
+    }
+
 }

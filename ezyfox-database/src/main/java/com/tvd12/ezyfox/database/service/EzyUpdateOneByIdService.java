@@ -5,12 +5,12 @@ import com.tvd12.ezyfox.function.EzyApply;
 
 public interface EzyUpdateOneByIdService<I,E> {
 
-	void updateOneById(I id, E entity);
-	
-	void updateOneById(I id, E entity, boolean upsert);
-	
-	void updateOneById(I id, EzyApply<EzyUpdateOperations<E>> operations);
-	
-	void updateOneById(I id, EzyApply<EzyUpdateOperations<E>> operations, boolean upsert);
-	
+    void updateOneById(I id, E entity);
+
+    void updateOneById(I id, E entity, boolean upsert);
+
+    void updateOneById(I id, EzyApply<EzyUpdateOperations<E>> operations);
+
+    void updateOneById(I id, EzyApply<EzyUpdateOperations<E>> operations, boolean upsert);
+
 }

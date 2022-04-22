@@ -9,17 +9,17 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.tvd12.ezyfox.io.EzyDates;
 
 public class JacksonLocalDateTimeSerializer extends StdSerializer<LocalDateTime> {
-	private static final long serialVersionUID = 47227884568344818L;
-	
-	public JacksonLocalDateTimeSerializer() {
-		super(LocalDateTime.class);
-	}
+    private static final long serialVersionUID = 47227884568344818L;
 
-	@Override
-	public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider provider) throws IOException {
-		gen.writeString(EzyDates.format(value));
-	}
-	
-	
+    public JacksonLocalDateTimeSerializer() {
+        super(LocalDateTime.class);
+    }
+
+    @Override
+    public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+        gen.writeString(EzyDates.format(value));
+    }
+
+
 
 }

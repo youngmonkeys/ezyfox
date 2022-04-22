@@ -9,11 +9,11 @@ package com.tvd12.ezyfox.util;
  */
 public final class EzyTimes {
 
-	public static final long MILIS_OF_SECOND	= 1000;
-	public static final long MILIS_OF_MINUTE	= 60 * MILIS_OF_SECOND;
-	public static final long MILIS_OF_HOUR		= 60 * MILIS_OF_MINUTE;
-	public static final long MILIS_OF_DAY		= 24 * MILIS_OF_HOUR;
-	
+    public static final long MILIS_OF_SECOND    = 1000;
+    public static final long MILIS_OF_MINUTE    = 60 * MILIS_OF_SECOND;
+    public static final long MILIS_OF_HOUR        = 60 * MILIS_OF_MINUTE;
+    public static final long MILIS_OF_DAY        = 24 * MILIS_OF_HOUR;
+
     private EzyTimes() {
     }
     

@@ -17,69 +17,69 @@ import lombok.ToString;
 
 public class EzySimpleBindingContextObjectTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyObjectWriterBuilder.setDebug(true);
-		EzyObjectReaderBuilder.setDebug(true);
-		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-				.addClasses(A1.class, A2.class, A3.class)
-				.build();
-		EzyMarshaller marshaller = context.newMarshaller();
-		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		EzyObject object = marshaller.marshal(new A1());
-		A1 a = unmarshaller.unmarshal(object, A1.class);
-		System.out.println(a);
-	}
-	
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void test1() {
-		EzyObjectWriterBuilder.setDebug(true);
-		EzyObjectReaderBuilder.setDebug(true);
-		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-				.addClasses(A1.class, A2.class, A3.class)
-				.build();
-		EzyMarshaller marshaller = context.newMarshaller();
-		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		EzyObject object = marshaller.marshal(new A2());
-		A2 a = unmarshaller.unmarshal(object, A2.class);
-		System.out.println(a);
-	}
-	
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void test2() {
-		EzyObjectWriterBuilder.setDebug(true);
-		EzyObjectReaderBuilder.setDebug(true);
-		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-				.addClasses(A1.class, A2.class, A3.class)
-				.build();
-		EzyMarshaller marshaller = context.newMarshaller();
-		marshaller.marshal(new A3());
-	}
-	
-	@Getter
-	@Setter
-	@ToString
-	public static class A1 {
-		private String name  = "n";
-		private String value = "v";
-	}
-	
-	@Getter
-	@Setter
-	@ToString
-	@EzyObjectBinding(read = false)
-	public static class A2 {
-		private String name  = "n";
-		private String value = "v";
-	}
-	
-	@Getter
-	@Setter
-	@ToString
-	@EzyObjectBinding(write = false)
-	public static class A3 {
-		private String name  = "n";
-		private String value = "v";
-	}
-	
+    @Test
+    public void test() {
+        EzyObjectWriterBuilder.setDebug(true);
+        EzyObjectReaderBuilder.setDebug(true);
+        EzySimpleBindingContext context = EzySimpleBindingContext.builder()
+                .addClasses(A1.class, A2.class, A3.class)
+                .build();
+        EzyMarshaller marshaller = context.newMarshaller();
+        EzyUnmarshaller unmarshaller = context.newUnmarshaller();
+        EzyObject object = marshaller.marshal(new A1());
+        A1 a = unmarshaller.unmarshal(object, A1.class);
+        System.out.println(a);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void test1() {
+        EzyObjectWriterBuilder.setDebug(true);
+        EzyObjectReaderBuilder.setDebug(true);
+        EzySimpleBindingContext context = EzySimpleBindingContext.builder()
+                .addClasses(A1.class, A2.class, A3.class)
+                .build();
+        EzyMarshaller marshaller = context.newMarshaller();
+        EzyUnmarshaller unmarshaller = context.newUnmarshaller();
+        EzyObject object = marshaller.marshal(new A2());
+        A2 a = unmarshaller.unmarshal(object, A2.class);
+        System.out.println(a);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void test2() {
+        EzyObjectWriterBuilder.setDebug(true);
+        EzyObjectReaderBuilder.setDebug(true);
+        EzySimpleBindingContext context = EzySimpleBindingContext.builder()
+                .addClasses(A1.class, A2.class, A3.class)
+                .build();
+        EzyMarshaller marshaller = context.newMarshaller();
+        marshaller.marshal(new A3());
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class A1 {
+        private String name  = "n";
+        private String value = "v";
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @EzyObjectBinding(read = false)
+    public static class A2 {
+        private String name  = "n";
+        private String value = "v";
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @EzyObjectBinding(write = false)
+    public static class A3 {
+        private String name  = "n";
+        private String value = "v";
+    }
+
 }

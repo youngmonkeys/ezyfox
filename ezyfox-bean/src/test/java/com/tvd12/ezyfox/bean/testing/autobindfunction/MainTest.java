@@ -13,24 +13,24 @@ import com.tvd12.ezyfox.bean.testing.autobindfunction3.YImpl;
 
 public class MainTest {
 
-	@Test
-	public void test() {
-		Hello hello = new HelloImpl();
-		EzyBeanContext ctx = EzyBeanContext.builder()
-				.addSingleton("hello1", hello)
-				.addSingleton("hello", hello)
-				.scan("com.tvd12.ezyfox.bean.testing.autobindfunction")
-				.scan("com.tvd12.ezyfox.bean.testing.autobindfunction2")
-				.build();
-		World world = (World)ctx.getBean(World.class);
-		assert world.getHello() != null;
-		GreetImpl greet = (GreetImpl)ctx.getBean(GreetImpl.class);
-		assert greet != null;
-		assert greet.getFoo() != null;
-		assert ((FooImpl)greet.getFoo()).getBar() != null;
-		assert greet.getX() != null;
-		assert ((XImpl)greet.getX()).getY() != null;
-		assert ((YImpl)((XImpl)greet.getX()).getY()).getZ() != null;
-	}
-	
+    @Test
+    public void test() {
+        Hello hello = new HelloImpl();
+        EzyBeanContext ctx = EzyBeanContext.builder()
+                .addSingleton("hello1", hello)
+                .addSingleton("hello", hello)
+                .scan("com.tvd12.ezyfox.bean.testing.autobindfunction")
+                .scan("com.tvd12.ezyfox.bean.testing.autobindfunction2")
+                .build();
+        World world = (World)ctx.getBean(World.class);
+        assert world.getHello() != null;
+        GreetImpl greet = (GreetImpl)ctx.getBean(GreetImpl.class);
+        assert greet != null;
+        assert greet.getFoo() != null;
+        assert ((FooImpl)greet.getFoo()).getBar() != null;
+        assert greet.getX() != null;
+        assert ((XImpl)greet.getX()).getY() != null;
+        assert ((YImpl)((XImpl)greet.getX()).getY()).getZ() != null;
+    }
+
 }

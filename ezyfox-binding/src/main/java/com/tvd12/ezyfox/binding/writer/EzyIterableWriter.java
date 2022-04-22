@@ -9,24 +9,24 @@ import com.tvd12.ezyfox.factory.EzyEntityFactory;
 @SuppressWarnings("rawtypes")
 public final class EzyIterableWriter implements EzyWriter<Iterable, EzyArray> {
 
-	private static final EzyIterableWriter INSTANCE = new EzyIterableWriter();
-	
-	private EzyIterableWriter() {
-	}
-	
-	public static EzyIterableWriter getInstance() {
-		return INSTANCE;
-	}
+    private static final EzyIterableWriter INSTANCE = new EzyIterableWriter();
 
-	@Override
-	public EzyArray write(EzyMarshaller marshaller, Iterable iterable) {
-		EzyArrayBuilder builder = EzyEntityFactory.newArrayBuilder();
-		for(Object value : iterable) {
-			Object mvalue = marshaller.marshal(value);
-			builder.append(mvalue);
-		}
-		return builder.build();
-	}
-	
-	
+    private EzyIterableWriter() {
+    }
+
+    public static EzyIterableWriter getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    public EzyArray write(EzyMarshaller marshaller, Iterable iterable) {
+        EzyArrayBuilder builder = EzyEntityFactory.newArrayBuilder();
+        for(Object value : iterable) {
+            Object mvalue = marshaller.marshal(value);
+            builder.append(mvalue);
+        }
+        return builder.build();
+    }
+
+
 }

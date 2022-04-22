@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class NotMessage {
 
-	private Long id;
-	private String name;
-	
+    private Long id;
+    private String name;
+
 }

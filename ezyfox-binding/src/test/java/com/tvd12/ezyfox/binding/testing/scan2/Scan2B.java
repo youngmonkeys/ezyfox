@@ -10,6 +10,6 @@ import lombok.Setter;
 @EzyArrayBinding
 public class Scan2B {
 
-	private String a = "1";
-	
+    private String a = "1";
+
 }

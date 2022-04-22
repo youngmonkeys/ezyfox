@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public interface EzyCsvWriter {
 
-	void append(Object... values);
-	
-	void flush() throws IOException;
-	
+    void append(Object... values);
+
+    void flush() throws IOException;
+
 }

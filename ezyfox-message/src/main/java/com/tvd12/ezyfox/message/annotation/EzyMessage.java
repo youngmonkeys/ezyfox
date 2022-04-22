@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE })
 public @interface EzyMessage {
-	
-	String channel() default "";
-	
-	String value() default "";
+
+    String channel() default "";
+
+    String value() default "";
 }

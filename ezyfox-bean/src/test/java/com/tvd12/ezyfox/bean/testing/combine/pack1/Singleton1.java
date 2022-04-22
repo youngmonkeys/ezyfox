@@ -18,20 +18,20 @@ import lombok.Setter;
 @EzySingleton("s1")
 public class Singleton1 {
 
-	@Setter
-	@EzyAutoBind
-	private HashMap<String, String> map;
-	
-	@Setter
-	@EzyProperty("array")
-	private Integer[] array;
-	
-	@EzyProperty("ints")
-	public List<Integer> ints;
-	
-	@EzyPostInit
-	public void post() {
-		System.out.println("\n\nsingleton1: I have array: " + EzyPrints.print(array) + ", and ints: " + EzyPrints.print(ints) + "\n\n");
-	}
-	
+    @Setter
+    @EzyAutoBind
+    private HashMap<String, String> map;
+    
+    @Setter
+    @EzyProperty("array")
+    private Integer[] array;
+    
+    @EzyProperty("ints")
+    public List<Integer> ints;
+    
+    @EzyPostInit
+    public void post() {
+        System.out.println("\n\nsingleton1: I have array: " + EzyPrints.print(array) + ", and ints: " + EzyPrints.print(ints) + "\n\n");
+    }
+    
 }

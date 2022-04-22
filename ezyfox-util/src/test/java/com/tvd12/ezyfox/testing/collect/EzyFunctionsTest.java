@@ -7,13 +7,13 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyFunctionsTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyFunctions.newReentrantLockFunc().apply(new Object());
-	}
-	
-	@Override
-	public Class<?> getTestClass() {
-		return EzyFunctions.class;
-	}
+    @Test
+    public void test() {
+        EzyFunctions.newReentrantLockFunc().apply(new Object());
+    }
+
+    @Override
+    public Class<?> getTestClass() {
+        return EzyFunctions.class;
+    }
 }

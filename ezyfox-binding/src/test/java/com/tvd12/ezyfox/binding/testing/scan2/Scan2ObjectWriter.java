@@ -9,10 +9,10 @@ import com.tvd12.ezyfox.entity.EzyObject;
 @EzyWriterImpl
 public class Scan2ObjectWriter extends EzyAbstractWriter<Scan2Object, EzyObject> {
 
-	@Override
-	public EzyObject write(EzyMarshaller marshaller, Scan2Object object) {
-		EzyObjectBuilder builder = newObjectBuilder();
-		return builder.build();
-	}
-	
+    @Override
+    public EzyObject write(EzyMarshaller marshaller, Scan2Object object) {
+        EzyObjectBuilder builder = newObjectBuilder();
+        return builder.build();
+    }
+
 }

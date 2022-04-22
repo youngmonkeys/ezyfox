@@ -9,31 +9,31 @@ import com.tvd12.ezyfox.entity.EzyObject;
 
 public class EzyReaderTest {
 
-	@Test
-	public void test() {
-		assert new ClassAReader().getObjectType() == ClassA.class;
-		assert new ClassATemplate().getObjectType() == ClassA.class;
-	}
-	
-	public static class ClassA {
-	}
-	
-	public static class ClassAReader implements EzyReader<EzyObject, ClassA> {
+    @Test
+    public void test() {
+        assert new ClassAReader().getObjectType() == ClassA.class;
+        assert new ClassATemplate().getObjectType() == ClassA.class;
+    }
 
-		@Override
-		public ClassA read(EzyUnmarshaller unmarshaller, EzyObject value) {
-			return null;
-		}
-	}
-	
-	@EzyTemplateImpl
-	public static class ClassATemplate implements EzyReader<EzyObject, ClassA> {
+    public static class ClassA {
+    }
 
-		@Override
-		public ClassA read(EzyUnmarshaller unmarshaller, EzyObject value) {
-			return null;
-		}
+    public static class ClassAReader implements EzyReader<EzyObject, ClassA> {
 
-	}
-	
+        @Override
+        public ClassA read(EzyUnmarshaller unmarshaller, EzyObject value) {
+            return null;
+        }
+    }
+
+    @EzyTemplateImpl
+    public static class ClassATemplate implements EzyReader<EzyObject, ClassA> {
+
+        @Override
+        public ClassA read(EzyUnmarshaller unmarshaller, EzyObject value) {
+            return null;
+        }
+
+    }
+
 }

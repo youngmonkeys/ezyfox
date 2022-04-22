@@ -6,11 +6,11 @@ import com.tvd12.ezyfox.bean.EzyBeanContext;
 
 public class MainTest {
 
-	@Test
-	public void test() {
-		EzyBeanContext.builder()
-			.scan("com.tvd12.ezyfox.bean.testing.issue59")
-			.build();
-	}
-	
+    @Test
+    public void test() {
+        EzyBeanContext.builder()
+            .scan("com.tvd12.ezyfox.bean.testing.issue59")
+            .build();
+    }
+
 }

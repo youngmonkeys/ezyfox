@@ -8,12 +8,12 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyDecodeStateTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyIDecodeState state = EzyDecodeState.PREPARE_MESSAGE;
-		assert state.getId() == 0;
-		EzyDecodeState.values();
-		EzyDecodeState.valueOf("PREPARE_MESSAGE");
-	}
-	
+    @Test
+    public void test() {
+        EzyIDecodeState state = EzyDecodeState.PREPARE_MESSAGE;
+        assert state.getId() == 0;
+        EzyDecodeState.values();
+        EzyDecodeState.valueOf("PREPARE_MESSAGE");
+    }
+
 }

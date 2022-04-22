@@ -9,13 +9,13 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyGenericSetterValidatorTest extends BaseTest {
 
-	@Test
-	public void test() {
-		new EzyGenericSetterValidator().validate(new MyType());
-	}
-	
-	public static class MyType implements Type {
-		
-	}
-	
+    @Test
+    public void test() {
+        new EzyGenericSetterValidator().validate(new MyType());
+    }
+
+    public static class MyType implements Type {
+
+    }
+
 }

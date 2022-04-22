@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 
 public class EzyLoggable {
 
-	protected transient final Logger logger 
-			= LoggerFactory.getLogger(getClass());
-	
-	protected Logger getLogger() {
-		return logger;
-	}
-	
+    protected transient final Logger logger
+            = LoggerFactory.getLogger(getClass());
+
+    protected Logger getLogger() {
+        return logger;
+    }
+
 }

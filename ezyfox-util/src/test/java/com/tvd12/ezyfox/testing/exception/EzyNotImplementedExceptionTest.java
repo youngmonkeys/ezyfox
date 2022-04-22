@@ -6,11 +6,11 @@ import com.tvd12.ezyfox.exception.EzyNotImplementedException;
 
 public class EzyNotImplementedExceptionTest {
 
-	@Test
-	public void test() {
-		new EzyNotImplementedException();
-		new EzyNotImplementedException("");
-		new EzyNotImplementedException("", new Exception());
-	}
-	
+    @Test
+    public void test() {
+        new EzyNotImplementedException();
+        new EzyNotImplementedException("");
+        new EzyNotImplementedException("", new Exception());
+    }
+
 }

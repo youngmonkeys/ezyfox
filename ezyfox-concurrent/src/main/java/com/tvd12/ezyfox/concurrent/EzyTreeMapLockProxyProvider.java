@@ -5,9 +5,9 @@ import java.util.TreeMap;
 
 public class EzyTreeMapLockProxyProvider extends EzyMapLockProxyProvider {
 
-	@Override
-	protected Map<Object, EzyLockProxy> newLockMap() {
-		return new TreeMap<>();
-	}
-	
+    @Override
+    protected Map<Object, EzyLockProxy> newLockMap() {
+        return new TreeMap<>();
+    }
+
 }

@@ -10,9 +10,9 @@ import lombok.Setter;
 @EzyPropertiesBean
 public class ApplicationProperties0 {
 
-	private String hello;
-	private String server;
-	private String foo;
-	private int port;
-	
+    private String hello;
+    private String server;
+    private String foo;
+    private int port;
+
 }

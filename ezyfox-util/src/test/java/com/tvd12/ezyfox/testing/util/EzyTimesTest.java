@@ -8,18 +8,18 @@ import static org.testng.Assert.*;
 
 public class EzyTimesTest extends BaseTest {
 
-	@Test
-	public void test() {
-		assertEquals(EzyTimes.getRemainTime(0, 0), 0);
-		assertTrue(EzyTimes.getRemainTime(100, System.currentTimeMillis()) <= 100);
-		
-		assertEquals(EzyTimes.getPositiveRemainTime(0, 0), 0);
-		assertTrue(EzyTimes.getPositiveRemainTime(100, System.currentTimeMillis()) <= 100);
-	}
-	
-	@Override
-	public Class<?> getTestClass() {
-		return EzyTimes.class;
-	}
-	
+    @Test
+    public void test() {
+        assertEquals(EzyTimes.getRemainTime(0, 0), 0);
+        assertTrue(EzyTimes.getRemainTime(100, System.currentTimeMillis()) <= 100);
+
+        assertEquals(EzyTimes.getPositiveRemainTime(0, 0), 0);
+        assertTrue(EzyTimes.getPositiveRemainTime(100, System.currentTimeMillis()) <= 100);
+    }
+
+    @Override
+    public Class<?> getTestClass() {
+        return EzyTimes.class;
+    }
+
 }

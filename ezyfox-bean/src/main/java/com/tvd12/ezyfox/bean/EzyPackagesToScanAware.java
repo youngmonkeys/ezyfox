@@ -4,6 +4,6 @@ import java.util.Set;
 
 public interface EzyPackagesToScanAware {
 
-	void setPackagesToScan(Set<String> packagesToScan);
-	
+    void setPackagesToScan(Set<String> packagesToScan);
+
 }

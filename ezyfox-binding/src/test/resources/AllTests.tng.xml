@@ -1,27 +1,27 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="AllTests">
-	<test name="All">
-		<packages>
-			<package name="com.tvd12.ezyfox.binding.testing"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.arraybinding"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.chat"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.data"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.exception1"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.exception2"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.ext.data"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.full"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.objectbinding"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.scan"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.scan.pack0"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.scan.pack1"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.scan1"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.scan2"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.scan3"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.template"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.testing1"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.testing2"></package>
-			<package name="com.tvd12.ezyfox.binding.testing.unwrapper"></package>
-		</packages>
-	</test>
+    <test name="All">
+        <packages>
+            <package name="com.tvd12.ezyfox.binding.testing"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.arraybinding"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.chat"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.data"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.exception1"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.exception2"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.ext.data"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.full"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.objectbinding"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.scan"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.scan.pack0"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.scan.pack1"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.scan1"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.scan2"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.scan3"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.template"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.testing1"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.testing2"></package>
+            <package name="com.tvd12.ezyfox.binding.testing.unwrapper"></package>
+        </packages>
+    </test>
 </suite>

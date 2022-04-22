@@ -16,8 +16,8 @@ import com.tvd12.ezyfox.annotation.EzyKeyValue;
 @Target({ ElementType.TYPE, ElementType.FIELD, ElementType.METHOD })
 public @interface V111Combine0Ann1 {
 
-	String value() default "";
-	
-	EzyKeyValue[] properties() default {};
-	
+    String value() default "";
+
+    EzyKeyValue[] properties() default {};
+
 }

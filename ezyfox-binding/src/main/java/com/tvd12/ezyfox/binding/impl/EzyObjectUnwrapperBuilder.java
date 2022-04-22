@@ -11,36 +11,36 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 @SuppressWarnings("rawtypes")
 public class EzyObjectUnwrapperBuilder extends EzyObjectReaderBuilder {
 
-	protected static AtomicInteger COUNT = new AtomicInteger(0);
+    protected static AtomicInteger COUNT = new AtomicInteger(0);
 
-	public EzyObjectUnwrapperBuilder(EzyClass clazz) {
-		super(clazz);
-	}
-	
-	@Override
-	protected String getReadMethodName() {
-		return "unwrap";
-	}
-	
-	@Override
-	protected Class<?> getReaderInterface() {
-		return EzyUnwrapper.class;
-	}
-	
-	@Override
-	protected Class[] getReaderMethodParameterTypes() {
-		return new Class[] {EzyUnmarshaller.class, Object.class, Object.class};
-	}
-	
-	@Override
-	protected void appendOutputObjectConstructor(EzyBody methodBody) {
-		EzyInstruction newOutputObjectInstruction = new EzyInstruction("", "", false)
-				.cast(clazz.getClazz(), "arg2");
-		appendOutputObjectInstruction(methodBody, newOutputObjectInstruction);
-	}
-	
-	@Override
-	protected String getImplClassName() {
-		return clazz.getName() + "$EzyObjectUnwrapper$EzyAutoImpl$" + COUNT.incrementAndGet();
-	}
+    public EzyObjectUnwrapperBuilder(EzyClass clazz) {
+        super(clazz);
+    }
+
+    @Override
+    protected String getReadMethodName() {
+        return "unwrap";
+    }
+
+    @Override
+    protected Class<?> getReaderInterface() {
+        return EzyUnwrapper.class;
+    }
+
+    @Override
+    protected Class[] getReaderMethodParameterTypes() {
+        return new Class[] {EzyUnmarshaller.class, Object.class, Object.class};
+    }
+
+    @Override
+    protected void appendOutputObjectConstructor(EzyBody methodBody) {
+        EzyInstruction newOutputObjectInstruction = new EzyInstruction("", "", false)
+                .cast(clazz.getClazz(), "arg2");
+        appendOutputObjectInstruction(methodBody, newOutputObjectInstruction);
+    }
+
+    @Override
+    protected String getImplClassName() {
+        return clazz.getName() + "$EzyObjectUnwrapper$EzyAutoImpl$" + COUNT.incrementAndGet();
+    }
 }

@@ -10,6 +10,6 @@ import lombok.Setter;
 @EzyObjectBinding
 public class Scan3A {
 
-	private String a = "1";
-	
+    private String a = "1";
+
 }

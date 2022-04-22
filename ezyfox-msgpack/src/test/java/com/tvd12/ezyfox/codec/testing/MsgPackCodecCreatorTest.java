@@ -6,11 +6,11 @@ import com.tvd12.ezyfox.codec.MsgPackCodecCreator;
 
 public class MsgPackCodecCreatorTest {
 
-	@Test
-	public void test() {
-		MsgPackCodecCreator codecCreator = new MsgPackCodecCreator();
-		codecCreator.newDecoder(100);
-		codecCreator.newEncoder();
-	}
-	
+    @Test
+    public void test() {
+        MsgPackCodecCreator codecCreator = new MsgPackCodecCreator();
+        codecCreator.newDecoder(100);
+        codecCreator.newEncoder();
+    }
+
 }

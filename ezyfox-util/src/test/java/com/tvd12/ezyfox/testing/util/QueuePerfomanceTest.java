@@ -9,19 +9,19 @@ import com.tvd12.test.performance.Performance;
 
 public class QueuePerfomanceTest {
 
-	@Test
-	public void test() {
-		Queue<String> players = new EzyLinkedListSet<>();
-		for(int i = 0 ; i < 10000 ; ++i) {
-			String player = new String("player#" + i);
-			players.add(player);
-		}
-		long time1 = new Performance()
-				.test(() -> {
-					players.contains(new String("ply"));
-				})
-				.getTime();
-		System.out.println(time1);
-	}
-	
+    @Test
+    public void test() {
+        Queue<String> players = new EzyLinkedListSet<>();
+        for(int i = 0 ; i < 10000 ; ++i) {
+            String player = new String("player#" + i);
+            players.add(player);
+        }
+        long time1 = new Performance()
+                .test(() -> {
+                    players.contains(new String("ply"));
+                })
+                .getTime();
+        System.out.println(time1);
+    }
+
 }

@@ -9,13 +9,13 @@ import com.tvd12.ezyfox.data.testing.index_data.*;
 
 public class EzyIndexedDataIdFetchersTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyIdFetchers fetchers = EzyIndexedDataIdFetchers.builder()
-				.scan("com.tvd12.ezyfox.data.testing.index_data")
-				.build();
-		assert fetchers.getIdFetchers().size() == 3;
-		assert fetchers.getIdFetcher(ClassA.class) != null;
-	}
-	
+    @Test
+    public void test() {
+        EzyIdFetchers fetchers = EzyIndexedDataIdFetchers.builder()
+                .scan("com.tvd12.ezyfox.data.testing.index_data")
+                .build();
+        assert fetchers.getIdFetchers().size() == 3;
+        assert fetchers.getIdFetcher(ClassA.class) != null;
+    }
+    
 }

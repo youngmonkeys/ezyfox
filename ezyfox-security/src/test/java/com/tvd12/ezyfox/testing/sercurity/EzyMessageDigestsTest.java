@@ -7,14 +7,14 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyMessageDigestsTest extends BaseTest {
 
-	@Override
-	public Class<?> getTestClass() {
-		return EzyMessageDigests.class;
-	}
-	
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void test() {
-		EzyMessageDigests.getAlgorithm("i don't know");
-	}
-	
+    @Override
+    public Class<?> getTestClass() {
+        return EzyMessageDigests.class;
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void test() {
+        EzyMessageDigests.getAlgorithm("i don't know");
+    }
+
 }

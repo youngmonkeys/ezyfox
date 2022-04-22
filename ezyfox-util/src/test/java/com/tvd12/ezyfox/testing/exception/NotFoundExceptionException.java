@@ -6,12 +6,12 @@ import com.tvd12.ezyfox.exception.NotFoundException;
 
 public class NotFoundExceptionException {
 
-	@Test
-	public void test() {
-		new NotFoundException();
-		new NotFoundException("");
-		new NotFoundException(new Exception());
-		new NotFoundException("", new Exception());
-	}
-	
+    @Test
+    public void test() {
+        new NotFoundException();
+        new NotFoundException("");
+        new NotFoundException(new Exception());
+        new NotFoundException("", new Exception());
+    }
+
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @EzySingleton("y")
 public class YImpl implements Y {
 
-	@EzyAutoBind
-	private Z z;
-	
+    @EzyAutoBind
+    private Z z;
+
 }

@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class PropertiesPack1 {
 
-	private String hello1;
-	
+    private String hello1;
+
 }

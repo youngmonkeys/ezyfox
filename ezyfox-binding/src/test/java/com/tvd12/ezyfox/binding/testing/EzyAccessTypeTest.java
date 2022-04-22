@@ -5,9 +5,9 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyAccessTypeTest extends BaseTest {
 
-	@Override
-	public Class<?> getTestClass() {
-		return EzyAccessType.class;
-	}
-	
+    @Override
+    public Class<?> getTestClass() {
+        return EzyAccessType.class;
+    }
+
 }

@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class EzyFutureHashMap<K> extends EzyFutureAbstractMap<K> {
 
-	@Override
-	protected Map<K, EzyFuture> newFutureMap() {
-		return new HashMap<>();
-	}
-	
+    @Override
+    protected Map<K, EzyFuture> newFutureMap() {
+        return new HashMap<>();
+    }
+
 }

@@ -7,16 +7,16 @@ import com.tvd12.ezyfox.io.EzyStrings;
 
 public final class EzyRepositoryAnnotations {
 
-	private EzyRepositoryAnnotations() {}
-	
-	public static String getRepoName(Object repo) {
-		return getRepoName(repo.getClass());
-	}
-	
-	public static String getRepoName(Class<?> clazz) {
-		EzyRepository anno = clazz.getAnnotation(EzyRepository.class);
-		String name = anno.value();
-		return EzyStrings.isNoContent(name) ? getVariableName(clazz) : name;
-	}
-	
+    private EzyRepositoryAnnotations() {}
+
+    public static String getRepoName(Object repo) {
+        return getRepoName(repo.getClass());
+    }
+
+    public static String getRepoName(Class<?> clazz) {
+        EzyRepository anno = clazz.getAnnotation(EzyRepository.class);
+        String name = anno.value();
+        return EzyStrings.isNoContent(name) ? getVariableName(clazz) : name;
+    }
+
 }

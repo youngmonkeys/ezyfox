@@ -6,9 +6,9 @@ import java.util.concurrent.locks.Lock;
 
 public class EzyConcurrentHashMapLockProvider extends EzyAbstractMapLockProvider {
 
-	@Override
-	protected Map<Object, Lock> newLockMap() {
-		return new ConcurrentHashMap<>();
-	}
-	
+    @Override
+    protected Map<Object, Lock> newLockMap() {
+        return new ConcurrentHashMap<>();
+    }
+
 }

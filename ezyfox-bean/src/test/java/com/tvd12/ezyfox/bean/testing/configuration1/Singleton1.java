@@ -10,12 +10,12 @@ import lombok.Setter;
 @Getter
 public class Singleton1 {
 
-	@EzyAutoBind
-	private Singleton0 singleton0;
-	
-	@EzyPostInit
-	public void hi() {
-		System.out.println("\nHi! I come from Singleton1, do you know me?\n");
-	}
-	
+    @EzyAutoBind
+    private Singleton0 singleton0;
+
+    @EzyPostInit
+    public void hi() {
+        System.out.println("\nHi! I come from Singleton1, do you know me?\n");
+    }
+
 }

@@ -6,22 +6,22 @@ import com.tvd12.ezyfox.util.EzyDestroyable;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzyAbstractMessageDataDecoder<D> 
-		extends EzyLoggable 
-		implements EzyDestroyable {
+        extends EzyLoggable
+        implements EzyDestroyable {
 
-	protected ByteBuffer buffer;
-	protected volatile boolean active;
+    protected ByteBuffer buffer;
+    protected volatile boolean active;
 
-	protected final D decoder;
-	
-	public EzyAbstractMessageDataDecoder(D decoder) {
-		this.active = true;
-		this.decoder = decoder;
-	}
-	
-	@Override
-	public void destroy() {
-		this.active = false;
-	}
-	
+    protected final D decoder;
+
+    public EzyAbstractMessageDataDecoder(D decoder) {
+        this.active = true;
+        this.decoder = decoder;
+    }
+
+    @Override
+    public void destroy() {
+        this.active = false;
+    }
+
 }

@@ -7,21 +7,21 @@ import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 
 public class EzyEntityBuilders extends EzyLoggable {
-	
-	protected EzyArray newArray() {
-		return EzyEntityFactory.newArray();
-	}
 
-	protected EzyObject newObject() {
-		return EzyEntityFactory.newObject();
-	}
-	
-	protected EzyArrayBuilder newArrayBuilder() {
-		return EzyEntityFactory.newArrayBuilder();
-	}
+    protected EzyArray newArray() {
+        return EzyEntityFactory.newArray();
+    }
 
-	protected EzyObjectBuilder newObjectBuilder() {
-		return EzyEntityFactory.newObjectBuilder();
-	}
-	
+    protected EzyObject newObject() {
+        return EzyEntityFactory.newObject();
+    }
+
+    protected EzyArrayBuilder newArrayBuilder() {
+        return EzyEntityFactory.newArrayBuilder();
+    }
+
+    protected EzyObjectBuilder newObjectBuilder() {
+        return EzyEntityFactory.newObjectBuilder();
+    }
+
 }

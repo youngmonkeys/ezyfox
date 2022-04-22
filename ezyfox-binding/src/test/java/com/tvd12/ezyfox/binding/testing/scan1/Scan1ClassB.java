@@ -12,8 +12,8 @@ import lombok.ToString;
 @EzyObjectBinding
 public class Scan1ClassB {
 
-	public String one = "a";
-	public String two = "b";
-	public String three = "c";
-	
+    public String one = "a";
+    public String two = "b";
+    public String three = "c";
+
 }

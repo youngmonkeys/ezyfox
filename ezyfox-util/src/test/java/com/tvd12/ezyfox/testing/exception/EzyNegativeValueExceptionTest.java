@@ -7,9 +7,9 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyNegativeValueExceptionTest extends BaseTest {
 
-	@Test
-	public void test() {
-		new EzyNegativeValueException(-10);
-	}
-	
+    @Test
+    public void test() {
+        new EzyNegativeValueException(-10);
+    }
+
 }

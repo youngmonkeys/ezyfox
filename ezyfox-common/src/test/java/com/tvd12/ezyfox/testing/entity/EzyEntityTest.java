@@ -7,12 +7,12 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyEntityTest extends BaseTest {
 
-	protected EzyArrayBuilder newArrayBuilder() {
-		return EzyEntityFactory.create(EzyArrayBuilder.class);
-	}
-	
-	protected EzyObjectBuilder newObjectBuilder() {
-		return EzyEntityFactory.create(EzyObjectBuilder.class);
-	}
-	
+    protected EzyArrayBuilder newArrayBuilder() {
+        return EzyEntityFactory.create(EzyArrayBuilder.class);
+    }
+
+    protected EzyObjectBuilder newObjectBuilder() {
+        return EzyEntityFactory.create(EzyObjectBuilder.class);
+    }
+
 }

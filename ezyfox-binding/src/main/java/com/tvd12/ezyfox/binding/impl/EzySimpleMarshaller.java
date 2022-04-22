@@ -29,103 +29,103 @@ import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class EzySimpleMarshaller
-		extends EzyEntityBuilders
-		implements EzyMarshaller {
+        extends EzyEntityBuilders
+        implements EzyMarshaller {
 
-	protected final Map<Class, EzyWriter> writersByType;
-	protected final Map<Class, EzyWriter> writersByObjectType;
-	
-	public EzySimpleMarshaller() {
-		this.writersByObjectType = defaultWriters();
-		this.writersByType = defaultWritersByType();
-	}
-	
-	public void addWriter(EzyWriter writer) {
-		writersByType.put(writer.getClass(), writer);
-		Class<?> objectType = writer.getObjectType();
-		if(objectType != null)
-			writersByObjectType.put(objectType, writer);
-	}
-	
-	public void addWriters(Iterable<EzyWriter> writers) {
-		for(EzyWriter writer : writers)
-			this.addWriter(writer);
-	}
-	
-	public void addWriter(Class type, EzyWriter writer) {
-		writersByObjectType.put(type, writer);
-		writersByType.put(writer.getClass(), writer);
-	}
-	
-	public void addWriters(Map<Class, EzyWriter> writers) {
-		writers.keySet().forEach(key -> addWriter(key, writers.get(key)));
-	}
-	
-	@Override
-	public <T> T marshal(Object object) {
-		if(object == null)
-			return null;
-		Class objectType = object.getClass();
-		EzyWriter writer = EzyMaps.getValue(writersByObjectType, objectType);
-		if(writer != null)
-			return (T) writer.write(this, object);
-		if(objectType.isEnum())
-			return (T) object.toString();
-		if(objectType.isArray())
-			return (T) writeArray((Object[])object);
-		throw new IllegalArgumentException("has no writer for " + object.getClass());
-	}
-	
-	@Override
-	public <T> T marshal(Class<? extends EzyWriter> writerClass, Object object) {
-		if(object == null)
-			return null;
-		EzyWriter writer = writersByType.get(writerClass);
-		if(writer != null)
-			return (T)writer.write(this, object);
-		throw new IllegalArgumentException("can't marshal object " + 
-			object + ", " + writerClass.getName() + " is not writer class");
-	}
-	
-	private Map<Class, EzyWriter> defaultWritersByType() {
-		Map<Class, EzyWriter> map = new ConcurrentHashMap<>();
-		writersByObjectType.values().forEach(w -> map.put(w.getClass(), w));
-		return map;
-	}
-	
-	private Map<Class, EzyWriter> defaultWriters() {
-		Map<Class, EzyWriter> map = new ConcurrentHashMap<>();
-		Set<Class> normalTypes = EzyTypes.ALL_TYPES;
-		for(Class normalType : normalTypes)
-			map.put(normalType, EzyDefaultWriter.getInstance());
-		map.put(Date.class, EzyDefaultWriter.getInstance());
-		map.put(Class.class, EzyDefaultWriter.getInstance());
-		map.put(LocalDate.class, EzyDefaultWriter.getInstance());
-		map.put(LocalDateTime.class, EzyDefaultWriter.getInstance());
-		map.put(EzyArray.class, EzyDefaultWriter.getInstance());
-		map.put(EzyObject.class, EzyDefaultWriter.getInstance());
-		map.put(Map.class, EzyMapWriter.getInstance());
-		map.put(HashMap.class, EzyMapWriter.getInstance());
-		map.put(TreeMap.class, EzyMapWriter.getInstance());
-		map.put(ConcurrentHashMap.class, EzyMapWriter.getInstance());
-		map.put(List.class, EzyIterableWriter.getInstance());
-		map.put(Set.class, EzyIterableWriter.getInstance());
-		map.put(ArrayList.class, EzyIterableWriter.getInstance());
-		map.put(HashSet.class, EzyIterableWriter.getInstance());
-		map.put(Collection.class, EzyIterableWriter.getInstance());
-		map.put(Iterable.class, EzyIterableWriter.getInstance());
-		map.put(BigDecimal.class, EzyDefaultWriter.getInstance());
-		map.put(BigInteger.class, EzyDefaultWriter.getInstance());
-		return map;
-	}
-	
-	private EzyArray writeArray(Object[] array) {
-		EzyArrayBuilder builder = newArrayBuilder();
-		for(Object item : array) {
-			Object value = marshal(item);
-			builder.append(value);
-		}
-		return builder.build();
-	}
+    protected final Map<Class, EzyWriter> writersByType;
+    protected final Map<Class, EzyWriter> writersByObjectType;
+
+    public EzySimpleMarshaller() {
+        this.writersByObjectType = defaultWriters();
+        this.writersByType = defaultWritersByType();
+    }
+
+    public void addWriter(EzyWriter writer) {
+        writersByType.put(writer.getClass(), writer);
+        Class<?> objectType = writer.getObjectType();
+        if(objectType != null)
+            writersByObjectType.put(objectType, writer);
+    }
+
+    public void addWriters(Iterable<EzyWriter> writers) {
+        for(EzyWriter writer : writers)
+            this.addWriter(writer);
+    }
+
+    public void addWriter(Class type, EzyWriter writer) {
+        writersByObjectType.put(type, writer);
+        writersByType.put(writer.getClass(), writer);
+    }
+
+    public void addWriters(Map<Class, EzyWriter> writers) {
+        writers.keySet().forEach(key -> addWriter(key, writers.get(key)));
+    }
+
+    @Override
+    public <T> T marshal(Object object) {
+        if(object == null)
+            return null;
+        Class objectType = object.getClass();
+        EzyWriter writer = EzyMaps.getValue(writersByObjectType, objectType);
+        if(writer != null)
+            return (T) writer.write(this, object);
+        if(objectType.isEnum())
+            return (T) object.toString();
+        if(objectType.isArray())
+            return (T) writeArray((Object[])object);
+        throw new IllegalArgumentException("has no writer for " + object.getClass());
+    }
+
+    @Override
+    public <T> T marshal(Class<? extends EzyWriter> writerClass, Object object) {
+        if(object == null)
+            return null;
+        EzyWriter writer = writersByType.get(writerClass);
+        if(writer != null)
+            return (T)writer.write(this, object);
+        throw new IllegalArgumentException("can't marshal object " +
+            object + ", " + writerClass.getName() + " is not writer class");
+    }
+
+    private Map<Class, EzyWriter> defaultWritersByType() {
+        Map<Class, EzyWriter> map = new ConcurrentHashMap<>();
+        writersByObjectType.values().forEach(w -> map.put(w.getClass(), w));
+        return map;
+    }
+
+    private Map<Class, EzyWriter> defaultWriters() {
+        Map<Class, EzyWriter> map = new ConcurrentHashMap<>();
+        Set<Class> normalTypes = EzyTypes.ALL_TYPES;
+        for(Class normalType : normalTypes)
+            map.put(normalType, EzyDefaultWriter.getInstance());
+        map.put(Date.class, EzyDefaultWriter.getInstance());
+        map.put(Class.class, EzyDefaultWriter.getInstance());
+        map.put(LocalDate.class, EzyDefaultWriter.getInstance());
+        map.put(LocalDateTime.class, EzyDefaultWriter.getInstance());
+        map.put(EzyArray.class, EzyDefaultWriter.getInstance());
+        map.put(EzyObject.class, EzyDefaultWriter.getInstance());
+        map.put(Map.class, EzyMapWriter.getInstance());
+        map.put(HashMap.class, EzyMapWriter.getInstance());
+        map.put(TreeMap.class, EzyMapWriter.getInstance());
+        map.put(ConcurrentHashMap.class, EzyMapWriter.getInstance());
+        map.put(List.class, EzyIterableWriter.getInstance());
+        map.put(Set.class, EzyIterableWriter.getInstance());
+        map.put(ArrayList.class, EzyIterableWriter.getInstance());
+        map.put(HashSet.class, EzyIterableWriter.getInstance());
+        map.put(Collection.class, EzyIterableWriter.getInstance());
+        map.put(Iterable.class, EzyIterableWriter.getInstance());
+        map.put(BigDecimal.class, EzyDefaultWriter.getInstance());
+        map.put(BigInteger.class, EzyDefaultWriter.getInstance());
+        return map;
+    }
+
+    private EzyArray writeArray(Object[] array) {
+        EzyArrayBuilder builder = newArrayBuilder();
+        for(Object item : array) {
+            Object value = marshal(item);
+            builder.append(value);
+        }
+        return builder.build();
+    }
 
 }

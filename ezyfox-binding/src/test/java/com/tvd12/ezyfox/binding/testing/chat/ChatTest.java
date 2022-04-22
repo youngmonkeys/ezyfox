@@ -7,14 +7,14 @@ import com.tvd12.ezyfox.binding.EzyMarshaller;
 
 public class ChatTest {
 
-	@Test
-	public void test() {
-		EzyBindingContext context = EzyBindingContext.builder()
-				.scan("com.tvd12.ezyfox.binding.testing.chat")
-				.build();
-		EzyMarshaller marshaller = context.newMarshaller();
-		Object object = marshaller.marshal(new ChatMessage());
-		System.out.println(object);
-	}
-	
+    @Test
+    public void test() {
+        EzyBindingContext context = EzyBindingContext.builder()
+                .scan("com.tvd12.ezyfox.binding.testing.chat")
+                .build();
+        EzyMarshaller marshaller = context.newMarshaller();
+        Object object = marshaller.marshal(new ChatMessage());
+        System.out.println(object);
+    }
+
 }

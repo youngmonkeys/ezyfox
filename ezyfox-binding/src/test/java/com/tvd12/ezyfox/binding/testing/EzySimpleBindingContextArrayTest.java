@@ -17,75 +17,75 @@ import lombok.ToString;
 
 public class EzySimpleBindingContextArrayTest extends BaseTest {
 
-	@Test
-	public void test() {
-		EzyArrayWriterBuilder.setDebug(true);
-		EzyArrayReaderBuilder.setDebug(true);
-		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-				.addArrayBindingClass(A1.class)
-				.addArrayBindingClass(A2.class)
-				.addArrayBindingClass(A3.class)
-				.build();
-		EzyMarshaller marshaller = context.newMarshaller();
-		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		EzyArray array = marshaller.marshal(new A1());
-		A1 a = unmarshaller.unmarshal(array, A1.class);
-		System.out.println(a);
-	}
-	
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void test1() {
-		EzyArrayWriterBuilder.setDebug(true);
-		EzyArrayReaderBuilder.setDebug(true);
-		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-				.addArrayBindingClass(A1.class)
-				.addArrayBindingClass(A2.class)
-				.addArrayBindingClass(A3.class)
-				.build();
-		EzyMarshaller marshaller = context.newMarshaller();
-		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		EzyArray array = marshaller.marshal(new A2());
-		A2 a = unmarshaller.unmarshal(array, A2.class);
-		System.out.println(a);
-	}
-	
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void test2() {
-		EzyArrayWriterBuilder.setDebug(true);
-		EzyArrayReaderBuilder.setDebug(true);
-		EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-				.addArrayBindingClass(A1.class)
-				.addArrayBindingClass(A2.class)
-				.addArrayBindingClass(A3.class)
-				.build();
-		EzyMarshaller marshaller = context.newMarshaller();
-		marshaller.marshal(new A3());
-	}
-	
-	@Getter
-	@Setter
-	@ToString
-	public static class A1 {
-		private String name  = "n";
-		private String value = "v";
-	}
-	
-	@Getter
-	@Setter
-	@ToString
-	@EzyArrayBinding(read = false)
-	public static class A2 {
-		private String name  = "n";
-		private String value = "v";
-	}
-	
-	@Getter
-	@Setter
-	@ToString
-	@EzyArrayBinding(write = false)
-	public static class A3 {
-		private String name  = "n";
-		private String value = "v";
-	}
-	
+    @Test
+    public void test() {
+        EzyArrayWriterBuilder.setDebug(true);
+        EzyArrayReaderBuilder.setDebug(true);
+        EzySimpleBindingContext context = EzySimpleBindingContext.builder()
+                .addArrayBindingClass(A1.class)
+                .addArrayBindingClass(A2.class)
+                .addArrayBindingClass(A3.class)
+                .build();
+        EzyMarshaller marshaller = context.newMarshaller();
+        EzyUnmarshaller unmarshaller = context.newUnmarshaller();
+        EzyArray array = marshaller.marshal(new A1());
+        A1 a = unmarshaller.unmarshal(array, A1.class);
+        System.out.println(a);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void test1() {
+        EzyArrayWriterBuilder.setDebug(true);
+        EzyArrayReaderBuilder.setDebug(true);
+        EzySimpleBindingContext context = EzySimpleBindingContext.builder()
+                .addArrayBindingClass(A1.class)
+                .addArrayBindingClass(A2.class)
+                .addArrayBindingClass(A3.class)
+                .build();
+        EzyMarshaller marshaller = context.newMarshaller();
+        EzyUnmarshaller unmarshaller = context.newUnmarshaller();
+        EzyArray array = marshaller.marshal(new A2());
+        A2 a = unmarshaller.unmarshal(array, A2.class);
+        System.out.println(a);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void test2() {
+        EzyArrayWriterBuilder.setDebug(true);
+        EzyArrayReaderBuilder.setDebug(true);
+        EzySimpleBindingContext context = EzySimpleBindingContext.builder()
+                .addArrayBindingClass(A1.class)
+                .addArrayBindingClass(A2.class)
+                .addArrayBindingClass(A3.class)
+                .build();
+        EzyMarshaller marshaller = context.newMarshaller();
+        marshaller.marshal(new A3());
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class A1 {
+        private String name  = "n";
+        private String value = "v";
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @EzyArrayBinding(read = false)
+    public static class A2 {
+        private String name  = "n";
+        private String value = "v";
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @EzyArrayBinding(write = false)
+    public static class A3 {
+        private String name  = "n";
+        private String value = "v";
+    }
+
 }

@@ -15,13 +15,13 @@ import com.tvd12.ezyfox.util.EzyPropertiesAware;
 @EzyPropertiesBean(prefix = "pack1", value = PropertiesPack1.class)
 public class Configuration1 implements EzyBeanConfig, EzyPropertiesAware {
 
-	@Override
-	public void setProperties(Properties properties) {
-	}
-	
-	@Override
-	public void config() {
-		
-	}
-	
+    @Override
+    public void setProperties(Properties properties) {
+    }
+
+    @Override
+    public void config() {
+
+    }
+
 }

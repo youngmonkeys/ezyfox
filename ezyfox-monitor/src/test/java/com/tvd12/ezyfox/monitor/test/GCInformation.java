@@ -13,7 +13,7 @@ import java.util.Set;
 public class GCInformation {
     private static final String GC_BEAN_NAME =
          "java.lang:type=GarbageCollector,name=ConcurrentMarkSweep";
-	private static volatile GarbageCollectorMXBean gcMBean;
+    private static volatile GarbageCollectorMXBean gcMBean;
 
     public GCInformation() {
     }
@@ -44,7 +44,7 @@ public class GCInformation {
     }
 
     @SuppressWarnings("rawtypes")
-	static boolean printGCInfo() {
+    static boolean printGCInfo() {
         // initialize GC MBean
         initGCMBean();
         try {

@@ -15,9 +15,9 @@ import com.tvd12.ezyfox.annotation.EzyKeyValue;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.FIELD, ElementType.METHOD })
 public @interface EzyPrototype {
-	
-	String value() default "";
-	
-	EzyKeyValue[] properties() default {};
-	
+
+    String value() default "";
+
+    EzyKeyValue[] properties() default {};
+
 }

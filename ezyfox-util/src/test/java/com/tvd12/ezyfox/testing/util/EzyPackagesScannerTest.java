@@ -12,20 +12,20 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyPackagesScannerTest extends BaseTest {
 
-	@Test
-	public void test() {
-		// given
-		ExPackagesScanner sut = new ExPackagesScanner()
-				.scan("a")
-				.scan("b", "c")
-				.scan(Arrays.asList("d", "e"));
-		Asserts.assertEquals(Sets.newHashSet("a", "b", "c", "d", "e"), sut.getPackagesToScan());
-	}
-	
-	private static class ExPackagesScanner extends EzyPackagesScanner<ExPackagesScanner> {
-		public Set<String> getPackagesToScan() {
-			return packagesToScan;
-		}
-	}
-	
+    @Test
+    public void test() {
+        // given
+        ExPackagesScanner sut = new ExPackagesScanner()
+                .scan("a")
+                .scan("b", "c")
+                .scan(Arrays.asList("d", "e"));
+        Asserts.assertEquals(Sets.newHashSet("a", "b", "c", "d", "e"), sut.getPackagesToScan());
+    }
+
+    private static class ExPackagesScanner extends EzyPackagesScanner<ExPackagesScanner> {
+        public Set<String> getPackagesToScan() {
+            return packagesToScan;
+        }
+    }
+
 }

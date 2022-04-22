@@ -9,6 +9,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class DatabaseContext {
 
-	private final Set<String> packagesToScan;
-	
+    private final Set<String> packagesToScan;
+
 }

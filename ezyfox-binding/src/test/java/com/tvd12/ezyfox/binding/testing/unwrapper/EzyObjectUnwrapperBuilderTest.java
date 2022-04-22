@@ -14,22 +14,22 @@ import com.tvd12.test.base.BaseTest;
 
 public class EzyObjectUnwrapperBuilderTest extends BaseTest {
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Test
-	public void test() {
-		EzyBindingContext context = EzyBindingContext.builder()
-				.build();
-		EzyObjectUnwrapperBuilder.setDebug(true);
-		EzyObjectUnwrapperBuilder builder = 
-				new EzyObjectUnwrapperBuilder(new EzyClass(ClassA.class));
-		EzyObject object = EzyEntityFactory.create(EzyObjectBuilder.class)
-				.append("a", "hi!")
-				.build();
-		EzyUnmarshaller unmarshaller = context.newUnmarshaller();
-		EzyUnwrapper unwrapper = builder.build();
-		ClassA classA = new ClassA();
-		unwrapper.unwrap(unmarshaller, object, classA);
-		System.out.println(classA);
-	}
-	
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Test
+    public void test() {
+        EzyBindingContext context = EzyBindingContext.builder()
+                .build();
+        EzyObjectUnwrapperBuilder.setDebug(true);
+        EzyObjectUnwrapperBuilder builder =
+                new EzyObjectUnwrapperBuilder(new EzyClass(ClassA.class));
+        EzyObject object = EzyEntityFactory.create(EzyObjectBuilder.class)
+                .append("a", "hi!")
+                .build();
+        EzyUnmarshaller unmarshaller = context.newUnmarshaller();
+        EzyUnwrapper unwrapper = builder.build();
+        ClassA classA = new ClassA();
+        unwrapper.unwrap(unmarshaller, object, classA);
+        System.out.println(classA);
+    }
+
 }

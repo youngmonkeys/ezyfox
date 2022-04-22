@@ -12,10 +12,10 @@ import lombok.Setter;
 @HasIdTest
 public class Message7 {
 
-	@EzyId
-	@Getter(AccessLevel.NONE)
-	@Setter(AccessLevel.NONE)
-	private Long id;
-	private String name;
-	
+    @EzyId
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private Long id;
+    private String name;
+
 }

@@ -6,10 +6,10 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 @EzySingleton
 public class BImpl implements B {
 
-	@EzyAutoBind
-	public C c;
-	
-	@EzyAutoBind
-	public D d;
-	
+    @EzyAutoBind
+    public C c;
+
+    @EzyAutoBind
+    public D d;
+
 }

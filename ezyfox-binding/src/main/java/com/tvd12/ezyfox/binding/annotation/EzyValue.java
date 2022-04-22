@@ -13,11 +13,11 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface EzyValue {
 
-	/**
-	 * the key mapped to value
-	 * 
-	 * @return the key mapped to value
-	 */
-	public String value() default "";
+    /**
+     * the key mapped to value
+     *
+     * @return the key mapped to value
+     */
+    public String value() default "";
 
 }

@@ -27,33 +27,33 @@ import lombok.Setter;
 @SuppressWarnings("rawtypes")
 public class ClassA {
 
-	@EzyAutoBind
-	private Map map;
-	@EzyAutoBind
-	private HashMap hashMap;
-	@EzyAutoBind
-	private ConcurrentHashMap concurrentHashMap;
-	@EzyAutoBind
-	private Set set;
-	@EzyAutoBind
-	private TreeMap treeMap;
-	@EzyAutoBind
-	private HashSet hashSet;
-	@EzyAutoBind
-	private CopyOnWriteArrayList copyOnWriteArrayList;
-	@EzyAutoBind
-	private CopyOnWriteArraySet copyOnWriteArraySet;
-	@EzyAutoBind
-	private LinkedList linkedList;
-	@EzyAutoBind
-	private Queue queue;
-	@EzyAutoBind
-	private List list;
-	@EzyAutoBind
-	private ArrayList arrayList;
-	@EzyAutoBind
-	private Stack stack;
-	@EzyAutoBind
-	private Collection collection;
-	
+    @EzyAutoBind
+    private Map map;
+    @EzyAutoBind
+    private HashMap hashMap;
+    @EzyAutoBind
+    private ConcurrentHashMap concurrentHashMap;
+    @EzyAutoBind
+    private Set set;
+    @EzyAutoBind
+    private TreeMap treeMap;
+    @EzyAutoBind
+    private HashSet hashSet;
+    @EzyAutoBind
+    private CopyOnWriteArrayList copyOnWriteArrayList;
+    @EzyAutoBind
+    private CopyOnWriteArraySet copyOnWriteArraySet;
+    @EzyAutoBind
+    private LinkedList linkedList;
+    @EzyAutoBind
+    private Queue queue;
+    @EzyAutoBind
+    private List list;
+    @EzyAutoBind
+    private ArrayList arrayList;
+    @EzyAutoBind
+    private Stack stack;
+    @EzyAutoBind
+    private Collection collection;
+
 }

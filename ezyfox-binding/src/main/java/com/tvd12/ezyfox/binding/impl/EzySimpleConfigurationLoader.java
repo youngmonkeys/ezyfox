@@ -7,18 +7,18 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 
 public class EzySimpleConfigurationLoader implements EzyConfigurationLoader {
 
-	private final EzyClass clazz;
-	
-	public EzySimpleConfigurationLoader(EzyClass clazz) {
-		this.clazz = clazz;
-	}
-	
-	@Override
-	public void load(EzyBindingContext context) {
-		Object configurator = clazz.newInstance();
-		if(configurator instanceof EzyBindingContextAware)
-			((EzyBindingContextAware)configurator).setContext(context);
-		if(configurator instanceof EzyBindingConfig)
-			((EzyBindingConfig)configurator).config();
-	}
+    private final EzyClass clazz;
+
+    public EzySimpleConfigurationLoader(EzyClass clazz) {
+        this.clazz = clazz;
+    }
+
+    @Override
+    public void load(EzyBindingContext context) {
+        Object configurator = clazz.newInstance();
+        if(configurator instanceof EzyBindingContextAware)
+            ((EzyBindingContextAware)configurator).setContext(context);
+        if(configurator instanceof EzyBindingConfig)
+            ((EzyBindingConfig)configurator).config();
+    }
 }

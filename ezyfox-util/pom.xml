@@ -1,40 +1,40 @@
 <?xml version="1.0"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox-versions</artifactId>
-		<version>1.2.2</version>
-	</parent>
-	<artifactId>ezyfox-util</artifactId>
-	<name>ezyfox-util</name>
-	<url>http://maven.apache.org</url>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.tvd12</groupId>
+        <artifactId>ezyfox-versions</artifactId>
+        <version>1.2.2</version>
+    </parent>
+    <artifactId>ezyfox-util</artifactId>
+    <name>ezyfox-util</name>
+    <url>http://maven.apache.org</url>
 
-	<properties>
-		<reflections.version>1.0.1</reflections.version>
-		<properties.file.version>1.1.6</properties.file.version>
-		<logback.version>1.2.10</logback.version>
-	</properties>
+    <properties>
+        <reflections.version>1.0.1</reflections.version>
+        <properties.file.version>1.1.6</properties.file.version>
+        <logback.version>1.2.10</logback.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.tvd12</groupId>
-			<artifactId>properties-file</artifactId>
-			<version>${properties.file.version}</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>com.tvd12</groupId>
+            <artifactId>properties-file</artifactId>
+            <version>${properties.file.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.tvd12</groupId>
-			<artifactId>reflections</artifactId>
-			<version>${reflections.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.tvd12</groupId>
+            <artifactId>reflections</artifactId>
+            <version>${reflections.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+    </dependencies>
 </project>

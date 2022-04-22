@@ -5,14 +5,14 @@ import com.tvd12.ezyfox.util.EzyBoolsIterator;
 
 public class EzyBoolsIteratorTest extends EzyArrayIteratorTest {
 
-	@Override
-	protected Object newArray() {
-		return new boolean[] {true, false, true};
-	}
+    @Override
+    protected Object newArray() {
+        return new boolean[] {true, false, true};
+    }
 
-	@Override
-	protected EzyArrayIterator<?> newIterator() {
-		return EzyBoolsIterator.wrap(new boolean[] {true, false, true});
-	}
+    @Override
+    protected EzyArrayIterator<?> newIterator() {
+        return EzyBoolsIterator.wrap(new boolean[] {true, false, true});
+    }
 
 }

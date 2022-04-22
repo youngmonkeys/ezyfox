@@ -13,11 +13,11 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface EzyIndex {
 
-	/**
-	 * the key mapped to value, start from 0
-	 * 
-	 * @return the key mapped to value
-	 */
-	public int value();
+    /**
+     * the key mapped to value, start from 0
+     *
+     * @return the key mapped to value
+     */
+    public int value();
 
 }

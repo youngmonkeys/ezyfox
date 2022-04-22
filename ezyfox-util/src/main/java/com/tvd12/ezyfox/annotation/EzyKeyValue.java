@@ -7,9 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EzyKeyValue {
-	
-	String key();
-	
-	String value();
-	
+
+    String key();
+
+    String value();
+
 }

@@ -1,8 +1,8 @@
 
 public class DefaultClassX {
 
-	public Object obj = new Object() {
-		
-	};
-	
+    public Object obj = new Object() {
+
+    };
+
 }

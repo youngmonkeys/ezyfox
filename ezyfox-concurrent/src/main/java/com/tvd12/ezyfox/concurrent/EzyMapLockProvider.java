@@ -4,15 +4,15 @@ import java.util.Set;
 import java.util.concurrent.locks.Lock;
 
 public interface EzyMapLockProvider {
-	
-	Lock provideLock(Object key);
-	
-	Lock getLock(Object key);
-	
-	void removeLock(Object key);
-	
-	void removeLocks(Set<?> keys);
-	
-	int size();
-	
+
+    Lock provideLock(Object key);
+
+    Lock getLock(Object key);
+
+    void removeLock(Object key);
+
+    void removeLocks(Set<?> keys);
+
+    int size();
+
 }

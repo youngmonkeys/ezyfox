@@ -6,9 +6,9 @@ import com.tvd12.ezyfox.exception.EzyCodecException;
 
 public class EzyCodecExceptionTest {
 
-	@Test
-	public void test() {
-		new EzyCodecException("msg", new Exception());
-	}
-	
+    @Test
+    public void test() {
+        new EzyCodecException("msg", new Exception());
+    }
+
 }

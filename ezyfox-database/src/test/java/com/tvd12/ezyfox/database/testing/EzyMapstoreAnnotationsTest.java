@@ -8,16 +8,16 @@ import com.tvd12.ezyfox.database.util.EzyMapstoreAnnotations;
 import com.tvd12.test.base.BaseTest;
 
 public class EzyMapstoreAnnotationsTest extends BaseTest {
-	
-	@Test
-	public void test() {
-		assert EzyMapstoreAnnotations.getMapName(new PersonMapstore()).equals("personMapstore");
-		assert EzyMapstoreAnnotations.getMapName(new UserMapstore()).equals("user");
-	}
-	
-	@Override
-	public Class<?> getTestClass() {
-		return EzyMapstoreAnnotations.class;
-	}
-	
+
+    @Test
+    public void test() {
+        assert EzyMapstoreAnnotations.getMapName(new PersonMapstore()).equals("personMapstore");
+        assert EzyMapstoreAnnotations.getMapName(new UserMapstore()).equals("user");
+    }
+
+    @Override
+    public Class<?> getTestClass() {
+        return EzyMapstoreAnnotations.class;
+    }
+
 }

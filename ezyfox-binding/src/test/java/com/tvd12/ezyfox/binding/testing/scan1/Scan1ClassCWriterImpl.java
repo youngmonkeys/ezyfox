@@ -7,14 +7,14 @@ import com.tvd12.ezyfox.entity.EzyArray;
 
 @EzyWriterImpl
 public class Scan1ClassCWriterImpl
-		extends EzyAbstractWriter<Scan1ClassC, EzyArray> {
+        extends EzyAbstractWriter<Scan1ClassC, EzyArray> {
 
-	public EzyArray write(EzyMarshaller marshaller, Scan1ClassC object) {
-		return newArrayBuilder()
-				.append(object.getX())
-				.append(object.getY())
-				.append(object.getZ())
-				.build();
-	}
-	
+    public EzyArray write(EzyMarshaller marshaller, Scan1ClassC object) {
+        return newArrayBuilder()
+                .append(object.getX())
+                .append(object.getY())
+                .append(object.getZ())
+                .build();
+    }
+
 }

@@ -15,23 +15,23 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 
 public class EzyArrayWriterBuilderExample1 {
 
-	@Test
-	@SuppressWarnings("unchecked")
-	public void test() throws Exception {
-		EzyMarshaller marshaller = new EzySimpleMarshaller();
-		EzyArrayWriterBuilder.setDebug(true);
-		EzyArrayWriterBuilder writerBuilder 
-				= new EzyArrayWriterBuilder(new EzyClass(ClassA.class));
-		EzyWriter<ClassA, EzyArray> writer = writerBuilder.build();
-		EzyArray array = writer.write(marshaller, new ClassA());
-		System.out.println(array);
-		
-		EzyUnmarshaller unmarshaller = new EzySimpleUnmarshaller();
-		EzyArrayReaderBuilder.setDebug(true);
-		EzyArrayReaderBuilder readerBuilder 
-				= new EzyArrayReaderBuilder(new EzyClass(ClassA.class));
-		EzyReader<EzyArray, ClassA> reader = readerBuilder.build();
-		ClassA classA = reader.read(unmarshaller, array);
-		System.out.println(classA);
-	}
+    @Test
+    @SuppressWarnings("unchecked")
+    public void test() throws Exception {
+        EzyMarshaller marshaller = new EzySimpleMarshaller();
+        EzyArrayWriterBuilder.setDebug(true);
+        EzyArrayWriterBuilder writerBuilder
+                = new EzyArrayWriterBuilder(new EzyClass(ClassA.class));
+        EzyWriter<ClassA, EzyArray> writer = writerBuilder.build();
+        EzyArray array = writer.write(marshaller, new ClassA());
+        System.out.println(array);
+
+        EzyUnmarshaller unmarshaller = new EzySimpleUnmarshaller();
+        EzyArrayReaderBuilder.setDebug(true);
+        EzyArrayReaderBuilder readerBuilder
+                = new EzyArrayReaderBuilder(new EzyClass(ClassA.class));
+        EzyReader<EzyArray, ClassA> reader = readerBuilder.build();
+        ClassA classA = reader.read(unmarshaller, array);
+        System.out.println(classA);
+    }
 }

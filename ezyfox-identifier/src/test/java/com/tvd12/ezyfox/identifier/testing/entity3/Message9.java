@@ -12,19 +12,19 @@ import lombok.Setter;
 @HasIdTest
 public class Message9 {
 
-	@Getter(AccessLevel.NONE)
-	@Setter(AccessLevel.NONE)
-	private Long id;
-	private String name;
-	
-	@EzyId
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	@EzyId
-	public Long getId() {
-		return id;
-	}
-	
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private Long id;
+    private String name;
+
+    @EzyId
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @EzyId
+    public Long getId() {
+        return id;
+    }
+
 }

@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class EzyHashMapLockProxyProvider extends EzyMapLockProxyProvider {
 
-	@Override
-	protected Map<Object, EzyLockProxy> newLockMap() {
-		return new HashMap<>();
-	}
-	
+    @Override
+    protected Map<Object, EzyLockProxy> newLockMap() {
+        return new HashMap<>();
+    }
+
 }

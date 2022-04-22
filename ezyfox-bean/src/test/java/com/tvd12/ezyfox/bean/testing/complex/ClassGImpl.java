@@ -4,8 +4,8 @@ import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 
 public class ClassGImpl implements ClassG {
 
-	@EzyAutoBind
-	public ClassGImpl(ClassH classH) {
-	}
-	
+    @EzyAutoBind
+    public ClassGImpl(ClassH classH) {
+    }
+
 }
