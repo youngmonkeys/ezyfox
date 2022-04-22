@@ -21,5 +21,4 @@ public class Combine2Test {
         context.getPrototypeFactory();
 
     }
-
 }

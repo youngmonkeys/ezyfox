@@ -66,5 +66,4 @@ public class EzySimplXmlMapper implements EzyXmlMapper {
             return JAXBContext.newInstance(contextPath, classLoader);
         }
     }
-
 }

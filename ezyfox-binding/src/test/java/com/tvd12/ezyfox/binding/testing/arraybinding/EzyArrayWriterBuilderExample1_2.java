@@ -35,5 +35,4 @@ public class EzyArrayWriterBuilderExample1_2 {
         EzyReader<EzyArray, ClassA3> reader = readerBuilder.build();
         ClassA3 classA = reader.read(unmarshaller, array);
         System.out.println(classA);
-    }
-}
+    }}

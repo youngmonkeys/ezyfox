@@ -9,5 +9,4 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
         @EzyKeyValue(key = "priority", value = "1")
 })
 public class ClassA {
-
 }

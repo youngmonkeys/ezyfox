@@ -25,5 +25,4 @@ public final class EzyHashMapSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return HashMap.class;
     }
-
 }

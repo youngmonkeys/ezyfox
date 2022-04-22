@@ -23,5 +23,4 @@ public class EzySimpleValueTransformerTest extends BaseTest {
         EzyValueConverter transformer = new EzySimpleValueConverter();
         List<Integer> v = transformer.convert(Lists.newArrayList(1, 2, 3), List.class);
     }
-
 }

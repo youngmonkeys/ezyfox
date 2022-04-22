@@ -21,5 +21,4 @@ public class EzyWrapperIterator<E> extends EzyArrayIterator<E> {
     protected E getItem(int index) {
         return array[index];
     }
-
 }

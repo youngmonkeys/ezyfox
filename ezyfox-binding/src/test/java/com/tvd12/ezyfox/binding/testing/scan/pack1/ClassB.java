@@ -27,5 +27,4 @@ public class ClassB {
             return Type.valueOf(value.toString());
         }
     }
-
 }

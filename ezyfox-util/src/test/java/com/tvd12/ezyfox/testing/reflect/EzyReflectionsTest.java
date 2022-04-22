@@ -8,5 +8,4 @@ public class EzyReflectionsTest extends BaseTest {
     public java.lang.Class<?> getTestClass() {
         return EzyReflections.class;
     }
-
 }

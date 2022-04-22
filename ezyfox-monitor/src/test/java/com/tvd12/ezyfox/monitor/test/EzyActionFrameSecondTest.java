@@ -69,5 +69,4 @@ public class EzyActionFrameSecondTest {
         Asserts.assertFalse(sut.isExpired());
         Asserts.assertFalse(sut.isInvalid());
         Asserts.assertFalse(sut.addActions(10));
-    }
-}
+    }}

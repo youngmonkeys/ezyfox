@@ -37,5 +37,4 @@ public class Scan1Example1 {
         EzyUnmarshaller unmarshaller = context.newUnmarshaller();
         Scan1ClassA outEntity = unmarshaller.unmarshal(outObject, Scan1ClassA.class);
         System.out.println(outEntity);
-    }
-}
+    }}

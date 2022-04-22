@@ -9,5 +9,4 @@ public class EzyTreeMapLockProxyProvider extends EzyMapLockProxyProvider {
     protected Map<Object, EzyLockProxy> newLockMap() {
         return new TreeMap<>();
     }
-
 }

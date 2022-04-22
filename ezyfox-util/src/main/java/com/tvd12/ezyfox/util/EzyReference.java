@@ -27,5 +27,4 @@ public interface EzyReference {
     default boolean releasable() {
         return getReferenceCount() == 0;
     }
-
 }

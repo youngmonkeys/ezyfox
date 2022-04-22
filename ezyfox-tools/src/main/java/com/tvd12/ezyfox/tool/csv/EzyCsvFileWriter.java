@@ -47,5 +47,4 @@ public class EzyCsvFileWriter implements EzyCsvWriter {
         String line = EzyStrings.join(row, ",");
         return line;
     }
-
 }

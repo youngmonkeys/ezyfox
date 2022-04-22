@@ -22,5 +22,4 @@ public class EzyMapMessageHandlers extends EzyLoggable implements EzyMessageHand
     public void addHandler(Object messageType, EzyMessageHandler handler) {
         handlers.put(messageType, handler);
     }
-
 }

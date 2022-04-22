@@ -17,5 +17,4 @@ public class EzyMemoryMonitor {
     private Runtime getRuntime() {
         return Runtime.getRuntime();
     }
-
 }

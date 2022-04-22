@@ -18,5 +18,4 @@ public class EzyTestDataWriterImpl implements EzyWriter {
         builder.append("3", (Object)arg0.marshal(object.getData1()));
         return builder.build();
     }
-
 }

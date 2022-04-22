@@ -121,9 +121,7 @@ public class EzyObjectWriterBuilder
     @Override
     protected boolean isDebug() {
         return debug;
-    }
-}
-
+    }}
 class EzyObjectWriterElementsFetcher extends EzyObjectElementsFetcher {
 
     @Override
@@ -144,5 +142,4 @@ class EzyObjectWriterElementsFetcher extends EzyObjectElementsFetcher {
     @Override
     protected boolean isValidAnnotatedMethod(EzyMethod method) {
         return method.getReturnType() != void.class;
-    }
-}
+    }}

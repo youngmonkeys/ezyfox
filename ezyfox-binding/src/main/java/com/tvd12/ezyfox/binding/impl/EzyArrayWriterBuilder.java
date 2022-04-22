@@ -123,9 +123,7 @@ public class EzyArrayWriterBuilder
     @Override
     protected boolean isDebug() {
         return debug;
-    }
-}
-
+    }}
 class EzyArrayWriterElementsFetcher extends EzyArrayElementsFetcher {
 
     @Override

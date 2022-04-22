@@ -12,5 +12,4 @@ public final class EzyPackages {
     public static EzyReflection scanPackages(Iterable<String> packages) {
         return new EzyReflectionProxy(packages);
     }
-
 }

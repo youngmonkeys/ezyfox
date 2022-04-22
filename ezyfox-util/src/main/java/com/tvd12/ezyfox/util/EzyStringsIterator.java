@@ -9,5 +9,4 @@ public class EzyStringsIterator extends EzyWrapperIterator<String> {
     public static EzyStringsIterator wrap(String[] array) {
         return new EzyStringsIterator(array);
     }
-
 }

@@ -77,5 +77,4 @@ public class ClassA6 {
     }
 
     @EzyIndex(20)
-    private List<Integer> p = Lists.newArrayList(1, 2, 3);
-}
+    private List<Integer> p = Lists.newArrayList(1, 2, 3);}

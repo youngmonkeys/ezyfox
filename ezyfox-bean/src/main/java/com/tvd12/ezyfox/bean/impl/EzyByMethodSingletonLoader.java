@@ -59,5 +59,4 @@ public class EzyByMethodSingletonLoader
         EzyMethod method = methodsByType.get(clazz);
         return method != null ? method.getParameterTypes() : new Class[0];
     }
-
 }

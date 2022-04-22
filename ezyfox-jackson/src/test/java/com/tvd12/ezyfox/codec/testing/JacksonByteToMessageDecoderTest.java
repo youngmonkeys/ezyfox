@@ -14,5 +14,4 @@ public class JacksonByteToMessageDecoderTest {
         System.out.println(decoder.decode("[1, 2, 3]"));
         System.out.println(decoder.decode("[1, 2, 3]".getBytes()));
     }
-
 }

@@ -25,5 +25,4 @@ public class EzyThreadsTest extends BaseTest {
     @Override
     public Class<?> getTestClass() {
         return EzyThreads.class;
-    }
-}
+    }}

@@ -12,5 +12,4 @@ public final class EzySingletonCollectionConverter extends EzySimpleCollectionCo
     public static EzySingletonCollectionConverter getInstance() {
         return INSTANCE;
     }
-
 }

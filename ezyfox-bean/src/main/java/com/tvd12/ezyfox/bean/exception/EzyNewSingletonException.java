@@ -27,5 +27,4 @@ public class EzyNewSingletonException extends IllegalStateException {
     public final EzyBeanKey getErrorKey() {
         return EzyBeanKey.of(getErrorBeanName(), getErrorClass());
     }
-
 }

@@ -87,5 +87,4 @@ public interface EzyArray extends EzyRoArray, Comparable<EzyArray> {
     default int compareTo(EzyArray o) {
         return 0;
     }
-
 }

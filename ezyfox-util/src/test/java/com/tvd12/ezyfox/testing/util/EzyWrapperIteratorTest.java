@@ -14,5 +14,4 @@ public class EzyWrapperIteratorTest extends EzyArrayIteratorTest {
     protected EzyArrayIterator<?> newIterator() {
         return EzyWrapperIterator.wrap(new String[] {"a", "b", "c"});
     }
-
 }

@@ -120,5 +120,4 @@ public class EzyAsyCryptTesting extends BaseTest {
         System.out.println("encrypted base64 text: " + EzyBase64.encode2utf(encryptedText));
         System.out.println("normal length: " + encryptedText.length + ", encryption length = " + EzyBase64.encode2utf(encryptedText).length());
     }
-
 }

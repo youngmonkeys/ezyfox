@@ -4,5 +4,4 @@ public enum FullEnum {
 
     FOO,
     BAR
-
 }

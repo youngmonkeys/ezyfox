@@ -16,5 +16,4 @@ public @interface EzyQuery {
     String type() default "";
     boolean nativeQuery() default false;
     Class<?> resultType() default Object.class;
-
 }

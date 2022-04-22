@@ -19,5 +19,4 @@ public @interface EzyCombine0Ann {
     String value() default "";
 
     EzyKeyValue[] properties() default {};
-
 }

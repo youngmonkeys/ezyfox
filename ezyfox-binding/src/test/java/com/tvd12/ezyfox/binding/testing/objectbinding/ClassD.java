@@ -21,5 +21,4 @@ public class ClassD extends ClassA {
     public String getD1() {
         return "d1";
     }
-
 }

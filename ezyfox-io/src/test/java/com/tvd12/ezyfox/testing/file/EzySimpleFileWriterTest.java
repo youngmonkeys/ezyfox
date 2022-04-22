@@ -71,5 +71,4 @@ public class EzySimpleFileWriterTest extends BaseTest {
         File file = new File("");
         writer.write(file, "", Charset.forName("UTF-8"));
     }
-
 }

@@ -35,5 +35,4 @@ public class ClassC {
         map.put("value", new ClassA());
         return map;
     }
-
 }

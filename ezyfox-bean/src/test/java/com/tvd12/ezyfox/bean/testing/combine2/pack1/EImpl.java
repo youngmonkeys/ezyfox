@@ -17,5 +17,4 @@ public class EImpl implements E {
 
     @EzyAutoBind
     public D d;
-
 }

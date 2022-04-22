@@ -37,5 +37,4 @@ public class EzySocketAddressesTest extends BaseTest {
             return "/" + host + ":" + port;
         }
     }
-
 }

@@ -58,5 +58,4 @@ public class EzyFileListInputstream extends InputStream {
                 currentStream = null;
             }
         }
-    }
-}
+    }}

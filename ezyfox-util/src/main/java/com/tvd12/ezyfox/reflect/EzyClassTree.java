@@ -96,5 +96,4 @@ public class EzyClassTree {
             return builder.toString();
         }
     }
-
 }

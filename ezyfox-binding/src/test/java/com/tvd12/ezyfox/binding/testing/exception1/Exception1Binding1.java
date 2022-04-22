@@ -11,5 +11,4 @@ public class Exception1Binding1 {
                 .build();
         EzyMarshaller marshaller = context.newMarshaller();
         marshaller.marshal(new Exception1ClassA());
-    }
-}
+    }}

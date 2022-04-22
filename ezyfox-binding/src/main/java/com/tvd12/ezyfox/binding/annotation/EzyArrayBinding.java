@@ -44,5 +44,4 @@ public @interface EzyArrayBinding {
      * @return sub type classes to include
      */
     Class<?>[] subTypeClasses() default {};
-
 }

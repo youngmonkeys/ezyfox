@@ -42,5 +42,4 @@ public final class EzyLazyInitHelper {
                 applier.apply();
         }
     }
-
 }

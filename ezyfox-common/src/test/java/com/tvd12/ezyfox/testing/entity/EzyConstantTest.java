@@ -13,5 +13,4 @@ public class EzyConstantTest extends BaseTest {
         assert ct.getId() >= 0;
         assert ct.getName().length() >= 0;
     }
-
 }

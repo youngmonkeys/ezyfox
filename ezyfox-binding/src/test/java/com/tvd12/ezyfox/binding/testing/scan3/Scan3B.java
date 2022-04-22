@@ -11,5 +11,4 @@ import lombok.Setter;
 public class Scan3B {
 
     private String a = "1";
-
 }

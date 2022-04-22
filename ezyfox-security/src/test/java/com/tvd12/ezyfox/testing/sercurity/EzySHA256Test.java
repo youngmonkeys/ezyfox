@@ -17,5 +17,4 @@ public class EzySHA256Test {
         assert "05B3B66D444B8ED761948161AA8E4B986D2DF0588FACC556B4C97DC60D44C286".toLowerCase().equals(EzySHA256.cryptUtfToLowercase("dung"));
         assertEquals(EzySHA256.cryptUtfToBytes("dung"), EzyMessageDigests.getAlgorithm("SHA-256").digest("dung".getBytes()));
     }
-    
-}
+    }

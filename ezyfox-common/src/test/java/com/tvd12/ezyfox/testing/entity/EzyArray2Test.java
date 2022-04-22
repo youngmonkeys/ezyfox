@@ -138,5 +138,4 @@ public class EzyArray2Test extends CommonBaseTest {
 
     }
 
-
 }

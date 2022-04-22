@@ -4,5 +4,4 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 @EzySingleton("bar")
 public class BarImpl implements Bar {
-
 }

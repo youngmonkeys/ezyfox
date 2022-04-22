@@ -47,5 +47,4 @@ public class EzySimpleMessageToBytesTest {
         byte[] bytes = instance.convert(message);
         assert bytes[0] > 1;
     }
-
 }

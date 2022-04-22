@@ -31,5 +31,4 @@ public class EzySimpleStringDataEncoderTest {
         assert encoder.encode("abc").length == 3;
         assert encoder.encode("abc", String.class).equals("abc");
     }
-    
-}
+    }

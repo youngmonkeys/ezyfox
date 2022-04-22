@@ -17,5 +17,4 @@ public class Message6 {
     @Setter(AccessLevel.NONE)
     public Long id;
     private String name;
-
 }

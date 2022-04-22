@@ -17,5 +17,4 @@ public class HelloTemplate implements EzyTemplate<String, Hello> {
     public String write(EzyMarshaller marshaller, Hello object) {
         return object.getWho();
     }
-
 }

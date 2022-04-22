@@ -22,5 +22,4 @@ public class EzyMapDataHandlers extends EzyLoggable implements EzyDataHandlers {
     public void addHandler(Object dataType, EzyDataHandler handler) {
         handlers.put(dataType, handler);
     }
-
 }

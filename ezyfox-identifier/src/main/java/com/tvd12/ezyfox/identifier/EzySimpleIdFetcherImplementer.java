@@ -135,5 +135,4 @@ public class EzySimpleIdFetcherImplementer
         if(debug)
             logger.debug("getId: method content \n{}", methodContent);
     }
-
 }

@@ -50,5 +50,4 @@ public class EzySimpleMessage implements EzyMessage {
                 .append(")")
                 .toString();
     }
-
 }

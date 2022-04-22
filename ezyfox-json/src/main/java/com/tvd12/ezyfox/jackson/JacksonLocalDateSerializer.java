@@ -18,5 +18,4 @@ public class JacksonLocalDateSerializer extends StdSerializer<LocalDate> {
     @Override
     public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         gen.writeString(EzyDates.format(value, EzyDates.DATE_PATTERN));
-    }
-}
+    }}

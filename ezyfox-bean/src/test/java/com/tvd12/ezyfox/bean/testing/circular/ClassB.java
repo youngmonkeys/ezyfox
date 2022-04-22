@@ -10,5 +10,4 @@ public class ClassB {
     public ClassB(ClassA classA) {
 
     }
-
 }

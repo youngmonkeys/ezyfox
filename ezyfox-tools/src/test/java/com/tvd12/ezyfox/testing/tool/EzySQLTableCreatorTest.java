@@ -48,5 +48,4 @@ public class EzySQLTableCreatorTest {
         EzySQLTableCreator creator11 = new EzySQLTableCreator(NoIdEntity.class, EzyCaseType.CAMEL, true);
         System.out.println(creator11.createScriptToFile("test-output/NoIdEntity.sql"));
     }
-
 }

@@ -21,5 +21,4 @@ public class EzyDoublesIterator extends EzyArrayIterator<Double> {
     protected Double getItem(int index) {
         return array[index];
     }
-
 }

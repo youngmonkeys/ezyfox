@@ -117,5 +117,4 @@ public class EzyObjectInstanceRandomTest {
         private short bh;
         private boolean[] bas;
     }
-
 }

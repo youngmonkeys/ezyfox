@@ -14,5 +14,4 @@ public class EzyBuilderCreatorTest {
         protected String key;
         protected int value;
     }
-
 }

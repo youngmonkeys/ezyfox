@@ -25,5 +25,4 @@ public final class EzyHashSetSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return HashSet.class;
     }
-
 }

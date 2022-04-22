@@ -38,5 +38,4 @@ public class EzyThreadsDetail {
             return new EzyThreadsDetail(this);
         }
     }
-
 }

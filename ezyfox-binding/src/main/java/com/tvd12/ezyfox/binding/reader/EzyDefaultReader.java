@@ -18,5 +18,4 @@ public final class EzyDefaultReader implements EzyReader<Object, Object> {
     public Object read(EzyUnmarshaller unmarshaller, Object value) {
         return value;
     }
-
 }

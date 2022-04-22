@@ -21,5 +21,4 @@ public class LoggerTest extends EzyLoggable {
     public void a() {
         throw new IllegalArgumentException("i'm exception");
     }
-
 }

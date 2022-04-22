@@ -27,5 +27,4 @@ public final class EzyTimes {
         int result = getRemainTime(maxTime, startingTime);
         return result > 0 ? result : 0;
     }
-    
-}
+    }

@@ -19,5 +19,4 @@ public class EzySingletonException extends IllegalStateException {
                 .append(uncompleted);
         return new EzySingletonException(message.toString());
     }
-
 }

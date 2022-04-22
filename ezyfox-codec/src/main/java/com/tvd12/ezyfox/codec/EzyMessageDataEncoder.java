@@ -12,5 +12,4 @@ public interface EzyMessageDataEncoder {
             byte[] messageContent, byte[] encryptionKey) throws Exception {
         throw new UnsupportedOperationException("unsupported");
     }
-
 }

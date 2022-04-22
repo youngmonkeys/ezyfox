@@ -19,5 +19,4 @@ public class V111Configuration01 {
     public V111Prototype01 v111Prototype01() {
         return new V111Prototype01();
     }
-
 }

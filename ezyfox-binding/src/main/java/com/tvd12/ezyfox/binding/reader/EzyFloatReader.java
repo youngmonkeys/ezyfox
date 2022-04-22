@@ -18,5 +18,4 @@ public final class EzyFloatReader implements EzyReader<Number, Float> {
     public Float read(EzyUnmarshaller unmarshaller, Number value) {
         return value.floatValue();
     }
-
 }

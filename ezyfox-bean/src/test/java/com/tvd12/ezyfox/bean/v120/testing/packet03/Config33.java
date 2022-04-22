@@ -14,5 +14,4 @@ public class Config33 implements EzyBeanAutoConfig {
     @Override
     public void autoConfig() {
     }
-
 }

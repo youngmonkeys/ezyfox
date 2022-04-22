@@ -17,5 +17,4 @@ public class MsgPackAesObjectToByteEncoder extends MsgPackObjectToByteEncoder {
             byte[] messageContent, byte[] encryptionKey) throws Exception {
         return cryptor.encrypt(messageContent, encryptionKey);
     }
-
 }

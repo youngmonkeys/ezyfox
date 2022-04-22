@@ -11,5 +11,4 @@ public @interface EzyKeyValue {
     String key();
 
     String value();
-
 }

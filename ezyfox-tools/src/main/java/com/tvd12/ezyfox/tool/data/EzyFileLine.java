@@ -18,5 +18,4 @@ public class EzyFileLine extends EzyPathProxy {
     public String toString() {
         return line;
     }
-
 }

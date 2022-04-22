@@ -100,5 +100,4 @@ public class EzyAbstractReaderBuilderTest extends BaseTest {
     }
 
     public static class ClassA {}
-
 }

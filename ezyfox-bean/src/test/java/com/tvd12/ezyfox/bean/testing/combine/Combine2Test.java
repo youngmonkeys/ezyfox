@@ -85,5 +85,4 @@ public class Combine2Test {
         System.out.println("suppliers: " + suppliers);
         assert suppliers.size() == 2;
     }
-
 }

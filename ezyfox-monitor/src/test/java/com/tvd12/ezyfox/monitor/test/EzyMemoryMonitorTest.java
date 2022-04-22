@@ -14,5 +14,4 @@ public class EzyMemoryMonitorTest extends BaseTest {
         System.out.println(monitor.getMaxMemory());
         System.out.println(monitor.getTotalMemory());
     }
-
 }

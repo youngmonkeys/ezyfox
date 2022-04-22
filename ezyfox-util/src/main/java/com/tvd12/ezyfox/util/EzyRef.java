@@ -25,5 +25,4 @@ public class EzyRef<T> {
         return this.referenceCount == 0;
     }
 
-
 }

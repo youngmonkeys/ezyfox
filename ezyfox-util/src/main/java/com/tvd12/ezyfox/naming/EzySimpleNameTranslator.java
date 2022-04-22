@@ -69,5 +69,4 @@ public class EzySimpleNameTranslator implements EzyNameTranslator {
             return new EzySimpleNameTranslator(namingCase, ignoredSuffix);
         }
     }
-    
-}
+    }

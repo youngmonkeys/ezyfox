@@ -12,5 +12,4 @@ public interface EzyUpdateOneByIdService<I,E> {
     void updateOneById(I id, EzyApply<EzyUpdateOperations<E>> operations);
 
     void updateOneById(I id, EzyApply<EzyUpdateOperations<E>> operations, boolean upsert);
-
 }

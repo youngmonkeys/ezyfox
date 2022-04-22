@@ -18,5 +18,4 @@ public final class EzyByteReader implements EzyReader<Number, Byte> {
     public Byte read(EzyUnmarshaller unmarshaller, Number value) {
         return value.byteValue();
     }
-
 }

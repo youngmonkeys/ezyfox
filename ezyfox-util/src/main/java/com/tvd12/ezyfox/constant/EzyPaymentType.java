@@ -30,5 +30,4 @@ public enum EzyPaymentType implements EzyConstant {
     
     public static EzyPaymentType ofName(String name) {
         return MAP_BY_NAME.get(name);
-    }
-}
+    }}

@@ -78,5 +78,4 @@ public abstract class EzyAbstractBuilder<M extends EzyMethod> extends EzyLoggabl
     protected Type getElementGenericType(Object element) {
         return ((EzyGenericElement)element).getGenericType();
     }
-
 }

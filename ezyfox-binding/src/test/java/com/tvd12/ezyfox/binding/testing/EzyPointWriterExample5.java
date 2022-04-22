@@ -39,5 +39,4 @@ public class EzyPointWriterExample5 {
             throw new IllegalStateException("test");
         }
 
-    }
-}
+    }}

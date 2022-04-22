@@ -43,5 +43,4 @@ public class EzyAnywayInputStreamLoader extends EzyClassPathInputStreamLoader {
         }
 
     }
-
 }

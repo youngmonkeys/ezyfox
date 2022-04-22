@@ -20,5 +20,4 @@ public @interface EzyReader {
      */
     @SuppressWarnings("rawtypes")
     public Class<? extends com.tvd12.ezyfox.binding.EzyReader> value();
-
 }

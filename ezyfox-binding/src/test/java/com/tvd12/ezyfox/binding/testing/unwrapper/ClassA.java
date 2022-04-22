@@ -13,5 +13,4 @@ import lombok.ToString;
 public class ClassA {
 
     private String a;
-
 }

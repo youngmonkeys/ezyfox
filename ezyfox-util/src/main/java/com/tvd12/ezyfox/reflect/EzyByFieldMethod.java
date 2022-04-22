@@ -23,5 +23,4 @@ public abstract class EzyByFieldMethod
     public boolean isCollection() {
         return Collection.class.isAssignableFrom(getType());
     }
-
 }

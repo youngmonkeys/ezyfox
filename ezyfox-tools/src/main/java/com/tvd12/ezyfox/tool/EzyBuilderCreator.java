@@ -107,5 +107,4 @@ public class EzyBuilderCreator {
                 .append("\n\n")
                 .append("}").toString();
     }
-
 }

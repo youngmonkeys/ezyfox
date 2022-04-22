@@ -9,5 +9,4 @@ public class EzyAccessTypeTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyAccessType.class;
     }
-
 }

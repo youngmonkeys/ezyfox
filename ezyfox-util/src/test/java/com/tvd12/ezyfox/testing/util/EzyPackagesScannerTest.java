@@ -27,5 +27,4 @@ public class EzyPackagesScannerTest extends BaseTest {
             return packagesToScan;
         }
     }
-
 }

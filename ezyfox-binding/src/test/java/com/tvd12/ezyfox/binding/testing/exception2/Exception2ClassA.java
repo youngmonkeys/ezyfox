@@ -16,5 +16,4 @@ public class Exception2ClassA {
     @SuppressWarnings("rawtypes")
     private Map map = new HashMap<>();
 
-
 }

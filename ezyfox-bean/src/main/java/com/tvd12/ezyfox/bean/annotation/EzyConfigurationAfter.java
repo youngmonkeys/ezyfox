@@ -15,5 +15,4 @@ import java.lang.annotation.Target;
 public @interface EzyConfigurationAfter {
 
     int priority() default 0;
-
 }

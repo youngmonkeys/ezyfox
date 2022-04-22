@@ -47,5 +47,4 @@ public class EzyBytesCopyTest {
         .getTime();
         System.out.println("test2 elapsed time = " + time);
     }
-
 }

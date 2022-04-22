@@ -52,5 +52,4 @@ public class EzyBindingEntityCodec extends EzyBytesEntityCodec {
             return new EzyBindingEntityCodec(this);
         }
     }
-
 }

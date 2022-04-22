@@ -8,5 +8,4 @@ public interface EzyFileReader {
     byte[] readBytes(File file);
 
     Collection<String> readLines(File file, String charset);
-
 }

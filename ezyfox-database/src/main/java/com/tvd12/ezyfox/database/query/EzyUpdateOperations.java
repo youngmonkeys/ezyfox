@@ -210,6 +210,4 @@ public interface EzyUpdateOperations<T> {
      * @param field the field to update
      * @return this
      */
-    EzyUpdateOperations<T> unset(String field);
-}
-
+    EzyUpdateOperations<T> unset(String field);}

@@ -80,5 +80,4 @@ public final class EzyStringTool {
             return EzyStringTool.toUnderscore(str);
         return str;
     }
-
 }

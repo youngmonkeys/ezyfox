@@ -53,5 +53,4 @@ public class EzySimpleBeanContextTest {
                 .build());
         assert singleton == null;
     }
-
 }

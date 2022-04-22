@@ -16,5 +16,4 @@ public @interface EzyCachedValue {
     String value() default "";
 
     Class<?> keyType() default Object.class;
-
 }

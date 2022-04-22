@@ -30,5 +30,4 @@ public class EzyGcMonitorTest extends BaseTest {
         };
         assert monitor.getProcessGcActivity() == 0.0D;
     }
-
 }

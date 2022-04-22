@@ -25,5 +25,4 @@ public class EzyPrimitiveByteArrayReader extends EzyPrimitiveArrayReader {
     protected void setValue(Object array, int index, Object value) {
         ((byte[])array)[index] = ((Number)value).byteValue();
     }
-
 }

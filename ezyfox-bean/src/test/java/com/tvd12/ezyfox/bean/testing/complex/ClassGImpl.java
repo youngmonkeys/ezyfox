@@ -7,5 +7,4 @@ public class ClassGImpl implements ClassG {
     @EzyAutoBind
     public ClassGImpl(ClassH classH) {
     }
-
 }

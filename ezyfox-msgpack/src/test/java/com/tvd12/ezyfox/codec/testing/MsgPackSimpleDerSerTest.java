@@ -361,5 +361,4 @@ public class MsgPackSimpleDerSerTest {
         //then
         Asserts.assertEquals((byte)0xc6, bytes[0]);
         Asserts.assertEquals(actual, array);
-    }
-}
+    }}

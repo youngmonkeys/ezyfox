@@ -11,5 +11,4 @@ public class EzyLoggable {
     protected Logger getLogger() {
         return logger;
     }
-
 }

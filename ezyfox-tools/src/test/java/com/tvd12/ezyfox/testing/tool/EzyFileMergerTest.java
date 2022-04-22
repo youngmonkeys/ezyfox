@@ -23,5 +23,4 @@ public class EzyFileMergerTest {
         Path path = merger.merge("test-output/EzyFileMergerTest.txt");
         System.out.print("has merge all files to: " + path.toAbsolutePath());
     }
-
 }

@@ -302,5 +302,4 @@ public abstract class EzySimplePrototypeSupplierLoader
         if(debug)
             logger.debug("reader: method content \n{}", methodContent);
     }
-
 }

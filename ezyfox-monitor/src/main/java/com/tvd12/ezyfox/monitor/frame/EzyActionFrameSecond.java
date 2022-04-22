@@ -23,5 +23,4 @@ public class EzyActionFrameSecond extends EzyActionFrame {
     public final EzyActionFrame nextFrame() {
         return new EzyActionFrameSecond(maxActions, endTime);
     }
-
 }

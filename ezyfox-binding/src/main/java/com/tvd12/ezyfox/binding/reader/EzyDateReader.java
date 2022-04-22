@@ -27,5 +27,4 @@ public final class EzyDateReader implements EzyReader<Object, Date> {
             return EzyDates.parse((String)value);
         throw new IllegalArgumentException("can't convert: " + value + " to date");
     }
-
 }

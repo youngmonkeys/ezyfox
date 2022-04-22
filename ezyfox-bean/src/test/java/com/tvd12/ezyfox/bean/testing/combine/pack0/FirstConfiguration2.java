@@ -8,5 +8,4 @@ public class FirstConfiguration2 {
     public FirstConfiguration2() {
         System.out.println("\nHi! I will init before load bean, my priority = -1\n");
     }
-
 }

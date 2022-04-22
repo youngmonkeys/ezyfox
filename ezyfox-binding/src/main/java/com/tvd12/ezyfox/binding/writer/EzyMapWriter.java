@@ -32,5 +32,4 @@ public final class EzyMapWriter implements EzyWriter<Map, EzyObject> {
         return builder.build();
     }
 
-
 }

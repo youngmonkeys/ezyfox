@@ -12,5 +12,4 @@ import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
         @EzyKeyValue(key = "priority", value = "1")
 })
 public class ClassA {
-
 }

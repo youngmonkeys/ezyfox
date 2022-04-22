@@ -11,5 +11,4 @@ public interface EzyMarshaller {
     default <T> T marshal(Object object, Class<? extends EzyWriter> writerClass) {
         return marshal(writerClass, object);
     }
-
 }

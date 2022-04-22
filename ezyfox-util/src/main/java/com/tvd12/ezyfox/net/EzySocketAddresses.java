@@ -18,5 +18,4 @@ public final class EzySocketAddresses {
         }
         return host;
     }
-    
-}
+    }

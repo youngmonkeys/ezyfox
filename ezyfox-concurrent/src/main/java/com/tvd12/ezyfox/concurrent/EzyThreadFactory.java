@@ -149,5 +149,4 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
         }
 
     }
-
 }

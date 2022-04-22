@@ -21,5 +21,4 @@ public class EzyTimesTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyTimes.class;
     }
-
 }

@@ -54,5 +54,4 @@ public abstract class EzyAbstractByTypeSerializer implements EzyMessageByTypeSer
     }
 
     protected abstract void addParserss(Map<Class<?>, Map<Class<?>, EzyParser>> parserss);
-
 }

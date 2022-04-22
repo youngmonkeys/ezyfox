@@ -39,5 +39,4 @@ public class JavaInputStreamMarkExample {
         System.err.println("bytes: " + Arrays.toString(bytes));
         System.err.println("available: " + stream.available());
     }
-
 }

@@ -20,5 +20,4 @@ public class EzyWrapperIntegerArrayReader extends EzyWrapperArrayReader {
     protected Object[] newArray(int length) {
         return new Integer[length];
     }
-
 }

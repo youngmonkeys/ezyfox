@@ -16,5 +16,4 @@ public class EzyNotFoundException extends IllegalArgumentException {
 
     public EzyNotFoundException(String message, Throwable throwable) {
         super(message, throwable);
-    }
-}
+    }}

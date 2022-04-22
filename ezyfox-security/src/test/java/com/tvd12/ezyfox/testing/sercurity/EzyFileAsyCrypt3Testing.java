@@ -70,5 +70,4 @@ public class EzyFileAsyCrypt3Testing extends BaseTest {
         assert decrypt.equals(EzyBase64.encodeUtf("dungtv"));
 
     }
-
 }

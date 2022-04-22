@@ -14,5 +14,4 @@ public class EzyEntityTest extends BaseTest {
     protected EzyObjectBuilder newObjectBuilder() {
         return EzyEntityFactory.create(EzyObjectBuilder.class);
     }
-
 }

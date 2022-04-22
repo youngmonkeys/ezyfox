@@ -34,5 +34,4 @@ public class EzyNext extends Next {
     public static EzyNext fromPageSize(long page, long size) {
         return new EzyNext((page < 0L ? 0L : page) * size, size);
     }
-
 }

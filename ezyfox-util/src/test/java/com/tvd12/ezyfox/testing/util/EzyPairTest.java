@@ -28,5 +28,4 @@ public class EzyPairTest {
             assert e instanceof NullPointerException;
         }
     }
-
 }

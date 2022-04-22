@@ -26,5 +26,4 @@ public final class EzySetReader implements EzyReader<EzyArray, Set> {
             answer.add(value.get(i));
         return answer;
     }
-
 }

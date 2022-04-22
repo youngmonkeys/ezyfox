@@ -77,5 +77,4 @@ public class EzyLinkedListSetTest {
         assert set.pollLast() == null;
 
     }
-
 }

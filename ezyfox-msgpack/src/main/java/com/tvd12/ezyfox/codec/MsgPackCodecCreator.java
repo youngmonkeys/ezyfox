@@ -30,5 +30,4 @@ public class MsgPackCodecCreator implements EzyCodecCreator {
         return enableEncryption
                 ? new MsgPackAesObjectToByteEncoder(messageToBytes, objectToMessage)
                 : new MsgPackObjectToByteEncoder(messageToBytes, objectToMessage);
-    }
-}
+    }}

@@ -25,5 +25,4 @@ public class EzyPrimitiveFloatArrayReader extends EzyPrimitiveArrayReader {
     protected void setValue(Object array, int index, Object value) {
         ((float[])array)[index] = ((Number)value).floatValue();
     }
-
 }

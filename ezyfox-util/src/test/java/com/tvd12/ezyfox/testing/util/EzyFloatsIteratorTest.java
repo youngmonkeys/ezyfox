@@ -14,5 +14,4 @@ public class EzyFloatsIteratorTest extends EzyArrayIteratorTest {
     protected EzyArrayIterator<?> newIterator() {
         return EzyFloatsIterator.wrap(new float[] {1, 2, 3});
     }
-
 }

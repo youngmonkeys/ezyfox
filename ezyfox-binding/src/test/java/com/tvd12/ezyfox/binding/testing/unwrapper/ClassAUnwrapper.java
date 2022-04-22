@@ -13,5 +13,4 @@ public class ClassAUnwrapper implements EzyUnwrapper {
         ClassA object = (ClassA)arg2;
         object.setA(value.get(0));
     }
-
 }

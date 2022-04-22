@@ -12,5 +12,4 @@ public class EzyReflectTool {
             throw new IllegalArgumentException("has no constructor of: " + clazz, e);
         }
     }
-
 }

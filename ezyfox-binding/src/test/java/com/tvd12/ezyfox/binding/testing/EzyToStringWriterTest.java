@@ -10,5 +10,4 @@ public class EzyToStringWriterTest {
     public void test() {
         assert EzyToStringWriter.getInstance().write(null, 10).equals("10");
     }
-
 }

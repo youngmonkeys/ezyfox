@@ -69,5 +69,4 @@ public class EzySimpleInputStreamLoaderTest extends BaseTest {
             .build()
             .load("ffsadfs.afasdf") == null;
     }
-
 }

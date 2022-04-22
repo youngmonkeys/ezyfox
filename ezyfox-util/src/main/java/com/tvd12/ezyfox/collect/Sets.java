@@ -28,5 +28,4 @@ public final class Sets {
             return (Set<T>)iterable;
         return newHashSet(iterable);
     }
-
 }

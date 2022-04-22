@@ -10,5 +10,4 @@ public class ClassF {
 
     @EzyId
     public int id;
-
 }

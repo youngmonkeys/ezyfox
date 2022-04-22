@@ -39,5 +39,4 @@ public class EzySimpleBeanContextTest {
                 .build();
         context.getPrototype("unknown", Class.class);
     }
-
 }

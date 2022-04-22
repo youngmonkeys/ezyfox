@@ -65,5 +65,4 @@ public class LastGCInfo {
                     "memory usage for pool " + p.getName());
             }
         }
-    }
-}
+    }}

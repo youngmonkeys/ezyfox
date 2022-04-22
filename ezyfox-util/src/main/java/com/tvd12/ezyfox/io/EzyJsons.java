@@ -55,5 +55,4 @@ public final class EzyJsons {
                 builder.append(",");
         }
         return builder.append("}").toString();
-    }
-}
+    }}

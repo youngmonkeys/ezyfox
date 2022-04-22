@@ -24,5 +24,4 @@ public class EzyByFieldPrototypeSupplierBuilderTest {
     public static class ClassA {
 
     }
-
 }

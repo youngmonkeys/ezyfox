@@ -211,5 +211,4 @@ public class EzyFutureTaskTest extends BaseTest {
         // then
         Asserts.assertThat(() -> future.get(1, TimeUnit.SECONDS))
             .willThrows(ExecutionException.class);
-    }
-}
+    }}

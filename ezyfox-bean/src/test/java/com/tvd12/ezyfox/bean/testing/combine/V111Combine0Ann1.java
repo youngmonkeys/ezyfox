@@ -19,5 +19,4 @@ public @interface V111Combine0Ann1 {
     String value() default "";
 
     EzyKeyValue[] properties() default {};
-
 }

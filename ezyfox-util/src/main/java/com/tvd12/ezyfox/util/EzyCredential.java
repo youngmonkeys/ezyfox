@@ -12,5 +12,4 @@ public class EzyCredential implements Serializable {
 
     protected String username;
     protected String password;
-
 }

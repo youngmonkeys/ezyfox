@@ -25,5 +25,4 @@ public class EzySimplePropertiesReaderTest extends BaseTest {
         assert reader.get(map, "foo", "bar").equals("bar");
         assert reader.get(map, "foo", String.class, "bar").equals("bar");
     }
-
 }

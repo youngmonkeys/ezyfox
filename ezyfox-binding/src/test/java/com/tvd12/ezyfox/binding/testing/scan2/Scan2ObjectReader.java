@@ -13,5 +13,4 @@ public class Scan2ObjectReader extends EzyAbstractReader<EzyObject, Scan2Object>
         Scan2Object object = new Scan2Object();
         return object;
     }
-
 }

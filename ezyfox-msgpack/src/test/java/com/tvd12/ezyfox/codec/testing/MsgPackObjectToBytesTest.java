@@ -24,5 +24,4 @@ public class MsgPackObjectToBytesTest extends BaseTest {
         MsgPackObjectToBytes instance = new MsgPackObjectToBytes(serializer);
         instance.convert(new Object());
     }
-
 }

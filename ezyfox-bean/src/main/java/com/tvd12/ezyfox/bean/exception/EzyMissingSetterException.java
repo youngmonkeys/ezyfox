@@ -14,5 +14,4 @@ public class EzyMissingSetterException extends IllegalStateException {
     public EzyMissingSetterException(Field field) {
         super("missing setter for field: " + field.getName() + " on " + field.getDeclaringClass());
     }
-
 }

@@ -218,5 +218,4 @@ public class MsgPackSimpleSerializerAllTest extends CodecBaseTest {
 
     public static void main(String[] args) {
         new MsgPackSimpleSerializerAllTest().test9();
-    }
-}
+    }}

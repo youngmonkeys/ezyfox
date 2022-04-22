@@ -49,5 +49,4 @@ public class EzyFolderTreePrinterTest {
                 .print(new File("tree-for-test/a.txt"));
         System.out.println(tree);
     }
-
 }

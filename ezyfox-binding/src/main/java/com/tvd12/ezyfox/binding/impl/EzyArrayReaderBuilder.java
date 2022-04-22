@@ -248,9 +248,7 @@ public class EzyArrayReaderBuilder extends EzyAbstractReaderBuilder {
     @Override
     protected boolean isDebug() {
         return debug;
-    }
-}
-
+    }}
 class EzyArrayReaderElementsFetcher extends EzyArrayElementsFetcher {
     
     private final EzyGenericSetterValidator setterValidator = new EzyGenericSetterValidator();
@@ -283,5 +281,4 @@ class EzyArrayReaderElementsFetcher extends EzyArrayElementsFetcher {
     @Override
     protected boolean isValidAnnotatedMethod(EzyMethod method) {
         return method.getParameterCount() == 1;
-    }
-}
+    }}

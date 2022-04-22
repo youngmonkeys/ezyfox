@@ -8,5 +8,4 @@ public interface EzyObjectByTypeSerializer extends EzyObjectSerializer {
     default byte[] serialize(Object value) {
         return serialize(value, byte[].class);
     }
-
 }

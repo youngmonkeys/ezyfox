@@ -25,5 +25,4 @@ public class EzyPrimitiveIntArrayReader extends EzyPrimitiveArrayReader {
     protected void setValue(Object array, int index, Object value) {
         ((int[])array)[index] = ((Number)value).intValue();
     }
-
 }

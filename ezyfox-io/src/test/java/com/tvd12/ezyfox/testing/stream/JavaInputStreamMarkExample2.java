@@ -53,5 +53,4 @@ public class JavaInputStreamMarkExample2 {
         System.err.println("available: " + stream.available());
         
     }
-    
-}
+    }

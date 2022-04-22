@@ -17,5 +17,4 @@ public class Singleton1 {
     public void hi() {
         System.out.println("\nHi! I come from Singleton1, do you know me?\n");
     }
-
 }

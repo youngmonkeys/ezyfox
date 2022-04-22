@@ -30,5 +30,4 @@ public final class EzyKeyValueParser {
         EzyKeyValue[] keyValues = annotation != null ? annotation.properties() : new EzyKeyValue[0];
         return EzyKeyValueAnnotations.getProperties(keyValues);
     }
-
 }

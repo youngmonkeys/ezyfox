@@ -5,5 +5,4 @@ public class EzyNegativeValueException extends IllegalArgumentException {
 
     public EzyNegativeValueException(Number value) {
         super("negative value: " + value + " is not acceptable");
-    }
-}
+    }}

@@ -93,5 +93,4 @@ public class EzySimpleValueTransformerPrimitiveArraysTest extends BaseTest {
     public void test8() {
         EzyValueConverter transformer = new EzySimpleValueConverter();
         transformer.convert(new Object(), short[][].class);
-    }
-}
+    }}

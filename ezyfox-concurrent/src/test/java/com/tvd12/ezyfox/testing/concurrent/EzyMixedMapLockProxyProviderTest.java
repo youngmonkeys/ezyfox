@@ -90,5 +90,4 @@ public class EzyMixedMapLockProxyProviderTest {
         public void release() {
             throw new IllegalStateException();
         }
-    }
-}
+    }}

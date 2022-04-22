@@ -26,5 +26,4 @@ public final class EzyBigIntegerReader implements EzyReader<Object, BigInteger> 
             return new BigInteger((String)value);
         throw new IllegalArgumentException("can't convert: " + value + " to BigInteger");
     }
-
 }

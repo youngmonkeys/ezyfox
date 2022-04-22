@@ -180,5 +180,4 @@ public class EzySimpleConfigurationLoader
                 m.getReturnType() != void.class
         );
         return EzyMaps.newHashMap(methods, m -> m.getReturnType());
-    }
-}
+    }}

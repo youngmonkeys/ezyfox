@@ -3,5 +3,4 @@ package com.tvd12.ezyfox.bean.v120.testing.packet01;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 @EzySingleton
-public class Singleton11 {
-}
+public class Singleton11 {}

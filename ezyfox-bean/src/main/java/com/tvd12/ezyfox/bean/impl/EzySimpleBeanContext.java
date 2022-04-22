@@ -1242,5 +1242,4 @@ public class EzySimpleBeanContext
         }
 
     }
-
 }

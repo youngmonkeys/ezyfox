@@ -30,5 +30,4 @@ public interface EzyPushOptions {
      * @param direction the direction of the sort
      * @return this
      */
-    EzyPushOptions sort(String field, int direction);
-}
+    EzyPushOptions sort(String field, int direction);}

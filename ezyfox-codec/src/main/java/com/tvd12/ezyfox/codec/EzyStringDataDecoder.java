@@ -8,5 +8,4 @@ public interface EzyStringDataDecoder extends EzyDestroyable {
     void decode(String bytes, EzyCallback<Object> callback) throws Exception;
 
     void decode(byte[] bytes, EzyCallback<Object> callback) throws Exception;
-
 }

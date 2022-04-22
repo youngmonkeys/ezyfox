@@ -9,5 +9,4 @@ public class Implementer extends BaseTest {
         System.out.println(PersonMapService.class.isAnnotationPresent(EzyMapServiceAutoImpl.class));
         System.out.println(PersonMapService.class.isAnnotationPresent(EzyAutoImpl.class));
     }
-
 }

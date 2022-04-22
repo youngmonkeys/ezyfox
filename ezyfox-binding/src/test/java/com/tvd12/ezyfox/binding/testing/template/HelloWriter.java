@@ -11,5 +11,4 @@ public class HelloWriter implements EzyWriter<Hello, String> {
     public String write(EzyMarshaller marshaller, Hello object) {
         return object.getWho();
     }
-
 }

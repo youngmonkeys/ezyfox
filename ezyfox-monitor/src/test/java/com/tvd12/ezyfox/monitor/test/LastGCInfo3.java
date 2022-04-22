@@ -50,5 +50,4 @@ public class LastGCInfo3 {
 
     private static void checkGcInfo(String name, GcInfo info) throws Exception {
         
-    }
-}
+    }}

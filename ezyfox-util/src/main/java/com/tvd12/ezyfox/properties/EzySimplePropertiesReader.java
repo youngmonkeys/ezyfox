@@ -45,5 +45,4 @@ public class EzySimplePropertiesReader
     public boolean containsKey(Map properties, Object key) {
         return properties.containsKey(key);
     }
-
 }

@@ -19,5 +19,4 @@ public class Exception2Binding2 extends EzyEntityBuilders {
                 .build(),
                 Exception2ClassB.class);
         System.out.println(answer);
-    }
-}
+    }}

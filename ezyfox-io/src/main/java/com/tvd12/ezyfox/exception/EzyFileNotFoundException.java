@@ -20,5 +20,4 @@ public class EzyFileNotFoundException extends IllegalArgumentException {
     public EzyFileNotFoundException(String msg, Throwable e) {
         super(msg, e);
     }
-
 }

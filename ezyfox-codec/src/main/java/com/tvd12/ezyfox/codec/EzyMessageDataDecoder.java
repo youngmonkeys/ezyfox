@@ -9,5 +9,4 @@ public interface EzyMessageDataDecoder extends EzyResettable, EzyDestroyable {
     void decode(byte[] bytes, EzyCallback<EzyMessage> callback) throws Exception;
 
     Object decode(EzyMessage message, byte[] decryptionKey) throws Exception;
-
 }

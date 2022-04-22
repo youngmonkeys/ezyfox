@@ -42,9 +42,7 @@ public class RSATryTest {
         cipher.init(Cipher.DECRYPT_MODE, privKey);
         byte[] plainText = cipher.doFinal(cipherText);
         System.out.println("plain : " + new String(plainText));
-    }
-}
-
+    }}
 abstract class KeysGenerator {
 
     private KeysGenerator() {
@@ -66,5 +64,4 @@ abstract class KeysGenerator {
             throw new IllegalArgumentException(e);
         }
     }
-
 }

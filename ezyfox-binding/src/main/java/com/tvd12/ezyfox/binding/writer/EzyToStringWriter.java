@@ -20,5 +20,4 @@ public final class EzyToStringWriter implements EzyWriter<Object, Object> {
     }
 
 
-
 }

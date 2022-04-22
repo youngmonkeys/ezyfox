@@ -19,5 +19,4 @@ public @interface EzyIndex {
      * @return the key mapped to value
      */
     public int value();
-
 }

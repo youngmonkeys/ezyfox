@@ -370,5 +370,4 @@ public class EzyObjectPool6Test {
         }
 
     }
-
 }

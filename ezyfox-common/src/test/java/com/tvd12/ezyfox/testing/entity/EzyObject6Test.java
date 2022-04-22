@@ -120,5 +120,4 @@ public class EzyObject6Test extends BaseTest {
         }
 
     }
-
 }

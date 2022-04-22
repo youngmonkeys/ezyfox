@@ -585,5 +585,4 @@ public class EzySimpleOutputTransformer
             }
         });
     }
-
 }

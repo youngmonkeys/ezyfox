@@ -9,5 +9,4 @@ public interface EzyFindByField<E> {
     default Optional<E> findByFieldOptional(String field, Object value) {
         return Optional.ofNullable(findByField(field, value));
     }
-
 }

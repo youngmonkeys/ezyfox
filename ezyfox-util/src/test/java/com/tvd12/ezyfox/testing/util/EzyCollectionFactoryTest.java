@@ -43,5 +43,4 @@ public class EzyCollectionFactoryTest extends BaseTest {
         EzyCollectionFactory factory = new EzyCollectionFactory();
         factory.newCollection(Integer.class);
     }
-
 }

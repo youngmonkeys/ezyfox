@@ -266,5 +266,4 @@ public class EzySimpleUnmarshaller
             answer[index ++] = unmarshal(item, componentType);
         return answer;
     }
-
 }

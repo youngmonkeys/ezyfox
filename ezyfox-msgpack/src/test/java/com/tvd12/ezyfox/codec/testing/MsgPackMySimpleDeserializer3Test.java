@@ -47,5 +47,4 @@ public class MsgPackMySimpleDeserializer3Test extends MsgPackCodecTest {
         assert token.equals("abcdef") : "deserialize error";
         assert token.equals("abcdef") : "deserialize error";
     }
-
 }

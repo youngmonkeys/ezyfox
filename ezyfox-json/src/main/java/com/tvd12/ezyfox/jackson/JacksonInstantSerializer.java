@@ -20,5 +20,4 @@ public class JacksonInstantSerializer extends StdSerializer<Instant> {
     }
 
 
-
 }

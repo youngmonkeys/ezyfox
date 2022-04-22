@@ -11,5 +11,4 @@ public class ClassC implements InterfaceC {
     @Setter
     @Getter
     private String name;
-
 }

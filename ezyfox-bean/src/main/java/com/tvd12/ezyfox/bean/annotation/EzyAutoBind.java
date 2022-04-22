@@ -16,5 +16,4 @@ import java.lang.annotation.Target;
 public @interface EzyAutoBind {
 
     String[] value() default {};
-
 }

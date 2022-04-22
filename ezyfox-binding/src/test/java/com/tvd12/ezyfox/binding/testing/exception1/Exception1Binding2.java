@@ -18,5 +18,4 @@ public class Exception1Binding2 extends EzyEntityBuilders {
                 .append("value", "abc")
                 .build(), 
                 Exception1ClassB.class);
-    }
-}
+    }}

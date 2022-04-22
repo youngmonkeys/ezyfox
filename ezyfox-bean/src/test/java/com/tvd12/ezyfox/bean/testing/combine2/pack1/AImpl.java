@@ -23,5 +23,4 @@ public class AImpl implements A {
     
     @EzyAutoBind
     public G g;
-    
-}
+    }

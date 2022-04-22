@@ -25,5 +25,4 @@ public class Singleton22 {
     public Singleton22(ISingleton21 singleton21, ISingleton10 singleton10, ISingleton22 singleton22) {
 
     }
-
 }

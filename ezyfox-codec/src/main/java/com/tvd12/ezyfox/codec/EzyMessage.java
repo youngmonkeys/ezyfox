@@ -52,5 +52,4 @@ public interface EzyMessage {
     default int getSizeLength() {
         return hasBigSize() ? 4 : 2;
     }
-
 }

@@ -9,5 +9,4 @@ public class EzyFactoryTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyEntityFactory.class;
     }
-
 }

@@ -19,5 +19,4 @@ public class EzyBase64DoubleArraysTest extends BaseTest {
         String str = EzyBase64DoubleArrays.encode(new double[] {1, 2, 3});
         double[] array = EzyBase64DoubleArrays.decode(str);
         assertEquals(array, new double[] {1, 2, 3});
-    }
-}
+    }}

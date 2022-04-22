@@ -169,5 +169,4 @@ public class EzySimplePrototypeFactory
         Arrays.stream(keyValues).forEach(kv -> properties.put(kv.key(), kv.value()));
         return properties;
     }
-
 }

@@ -273,5 +273,4 @@ public class EzyMapsTest extends BaseTest {
     public static class ClassJ extends ClassF implements InterfaceB {
         
     }
-    
-}
+    }

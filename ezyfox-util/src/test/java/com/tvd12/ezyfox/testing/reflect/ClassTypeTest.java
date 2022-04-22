@@ -15,5 +15,4 @@ public class ClassTypeTest {
         Class clazz = map.getClass();
         System.out.println((Type)clazz instanceof ParameterizedType);
     }
-
 }

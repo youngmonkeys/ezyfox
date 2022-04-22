@@ -19,5 +19,4 @@ public class EzyObject4Test extends CommonBaseTest {
         EzyObject[][] itemss = object.get("1", EzyObject[][].class);
         assertEquals(itemss[0][0].get("1", String.class), "a");
         assertEquals(itemss[1][0].get("2", String.class), "b");
-    }
-}
+    }}

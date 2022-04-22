@@ -19,5 +19,4 @@ public class EzySimpleStringDataEncoder implements EzyStringDataEncoder {
         T answer = encoder.encode(data, outType);
         return answer;
     }
-
 }

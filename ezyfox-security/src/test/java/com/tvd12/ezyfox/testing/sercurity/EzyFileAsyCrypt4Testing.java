@@ -85,5 +85,4 @@ public class EzyFileAsyCrypt4Testing extends BaseTest {
         String string = asyCrypt.decrypt(outEncryptedFile, String.class);
         assert string.equals(EzyBase64.encodeUtf("dungtv"));
     }
-    
-}
+    }

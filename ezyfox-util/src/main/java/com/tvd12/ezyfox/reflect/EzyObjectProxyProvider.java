@@ -76,5 +76,4 @@ public class EzyObjectProxyProvider {
     protected Map<String, String> getFieldKeys(Collection<EzyField> fields) {
         return Collections.emptyMap();
     }
-
 }

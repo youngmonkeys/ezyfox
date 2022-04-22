@@ -25,5 +25,4 @@ public class EzyArrayWriterBuilderExample2_1 {
         EzyUnmarshaller unmarshaller = context.newUnmarshaller();
         ClassC classC = unmarshaller.unmarshal(array, ClassC.class);
         System.out.println(classC);
-    }
-}
+    }}

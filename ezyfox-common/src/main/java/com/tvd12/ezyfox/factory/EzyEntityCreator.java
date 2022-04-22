@@ -23,5 +23,4 @@ public interface EzyEntityCreator {
     EzyObjectBuilder newObjectBuilder();
 
     EzyArrayBuilder newArrayBuilder();
-
 }

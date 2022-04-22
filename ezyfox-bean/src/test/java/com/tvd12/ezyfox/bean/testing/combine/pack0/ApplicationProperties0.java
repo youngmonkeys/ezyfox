@@ -14,5 +14,4 @@ public class ApplicationProperties0 {
     private String server;
     private String foo;
     private int port;
-
 }

@@ -72,5 +72,4 @@ public class EzyClassTreeTest {
     public static class RootException extends Exception {
         private static final long serialVersionUID = -6068208036555261492L;
     }
-
 }

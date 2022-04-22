@@ -66,5 +66,4 @@ public class ClassB1 {
         map.put("hello", new ClassC());
         return map;
     }
-
 }

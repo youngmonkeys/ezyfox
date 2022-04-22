@@ -178,5 +178,4 @@ public interface EzyRoArray extends EzyData {
     default Object getValue(int index, Class type, Object def) {
         return size() > index ? getValue(index, type) : def;
     }
-
 }

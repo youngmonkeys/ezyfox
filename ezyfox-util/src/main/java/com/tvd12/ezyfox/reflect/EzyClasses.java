@@ -167,5 +167,4 @@ public final class EzyClasses {
         }
         return classes;
     }
-
 }

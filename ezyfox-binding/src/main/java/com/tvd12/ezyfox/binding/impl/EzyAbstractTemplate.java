@@ -6,5 +6,4 @@ import com.tvd12.ezyfox.util.EzyEntityBuilders;
 public abstract class EzyAbstractTemplate<A,B> 
         extends EzyEntityBuilders
         implements EzyTemplate<A, B> {
-
 }

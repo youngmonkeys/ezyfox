@@ -21,5 +21,4 @@ public class EzyLongsIterator extends EzyArrayIterator<Long> {
     protected Long getItem(int index) {
         return array[index];
     }
-
 }

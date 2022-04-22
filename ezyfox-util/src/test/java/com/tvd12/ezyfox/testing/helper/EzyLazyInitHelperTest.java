@@ -155,5 +155,4 @@ public class EzyLazyInitHelperTest extends BaseTest {
             System.out.println("Wrong input");
         }
     }
-
 }

@@ -430,5 +430,4 @@ public class EzyDatesTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyDates.class;
     }
-
 }

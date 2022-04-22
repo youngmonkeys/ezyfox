@@ -10,5 +10,4 @@ public class EzyCodecException extends IllegalArgumentException {
     public EzyCodecException(String msg, Throwable e) {
         super(msg, e);
     }
-
 }

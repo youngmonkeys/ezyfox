@@ -17,5 +17,4 @@ public interface EzyFuture {
     <V> V get(long timeout) throws Exception;
 
     <V> Future<V> toFuture();
-
 }

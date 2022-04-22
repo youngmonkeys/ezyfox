@@ -44,5 +44,4 @@ public class ClassB {
     protected String getD() {
         return "d";
     }
-
 }

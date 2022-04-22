@@ -14,5 +14,4 @@ public class EzyTransformable {
         this.inputTransformer = inputTransformer;
         this.outputTransformer = outputTransformer;
     }
-
 }

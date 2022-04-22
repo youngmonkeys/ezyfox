@@ -57,5 +57,4 @@ public class EzyThreadDetail {
         public EzyThreadDetail build() {
             return new EzyThreadDetail(this);
         }
-    }
-}
+    }}

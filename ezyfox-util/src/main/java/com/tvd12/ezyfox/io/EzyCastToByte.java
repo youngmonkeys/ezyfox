@@ -10,5 +10,4 @@ public interface EzyCastToByte {
         return (byte)value;
     }
 
-    
-}
+    }

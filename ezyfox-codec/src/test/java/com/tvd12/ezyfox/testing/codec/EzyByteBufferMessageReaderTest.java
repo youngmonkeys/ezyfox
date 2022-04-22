@@ -69,5 +69,4 @@ public class EzyByteBufferMessageReaderTest {
         reader.readSize(buffer, 128);
         reader.readContent(buffer);
     }
-
 }

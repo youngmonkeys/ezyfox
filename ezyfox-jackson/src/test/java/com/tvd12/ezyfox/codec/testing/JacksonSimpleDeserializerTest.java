@@ -43,5 +43,4 @@ public class JacksonSimpleDeserializerTest extends BaseTest {
         EzyArray a1 = deserializer.deserialize("1, 2, 3");
         System.out.println(a1);
     }
-
 }

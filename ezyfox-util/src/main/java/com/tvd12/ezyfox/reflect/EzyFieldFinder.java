@@ -69,5 +69,4 @@ public class EzyFieldFinder {
             return new EzyFieldFinder(clazz, fieldName);
         }
     }
-
 }

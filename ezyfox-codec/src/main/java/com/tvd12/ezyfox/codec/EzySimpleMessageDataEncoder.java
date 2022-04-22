@@ -23,5 +23,4 @@ public class EzySimpleMessageDataEncoder implements EzyMessageDataEncoder {
             byte[] messageContent, byte[] encryptionKey) throws Exception {
         return encoder.encryptMessageContent(messageContent, encryptionKey);
     }
-
 }

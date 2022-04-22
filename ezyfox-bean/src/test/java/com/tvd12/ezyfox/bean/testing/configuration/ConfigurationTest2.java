@@ -50,5 +50,4 @@ public class ConfigurationTest2 extends BaseTest {
 
 
     }
-
 }

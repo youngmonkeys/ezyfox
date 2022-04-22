@@ -18,5 +18,4 @@ public final class EzyDoubleReader implements EzyReader<Number, Double> {
     public Double read(EzyUnmarshaller unmarshaller, Number value) {
         return value.doubleValue();
     }
-
 }

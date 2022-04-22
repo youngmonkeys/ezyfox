@@ -10,5 +10,4 @@ public class Exception2ClassB {
 
     @SuppressWarnings("rawtypes")
     public Map map = new HashMap<>();
-
 }

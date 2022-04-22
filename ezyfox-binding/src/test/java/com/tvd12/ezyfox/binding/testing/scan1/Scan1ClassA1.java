@@ -17,5 +17,4 @@ public class Scan1ClassA1 {
     public String getHello() {
         return "world";
     }
-
 }

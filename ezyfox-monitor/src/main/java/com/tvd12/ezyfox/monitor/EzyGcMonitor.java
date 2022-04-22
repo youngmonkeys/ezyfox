@@ -39,5 +39,4 @@ public class EzyGcMonitor {
         List<?> beans = ManagementFactory.getGarbageCollectorMXBeans();
         return beans;
     }
-
 }

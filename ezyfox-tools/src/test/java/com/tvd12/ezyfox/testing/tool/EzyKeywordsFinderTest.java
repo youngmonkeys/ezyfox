@@ -10,5 +10,4 @@ public class EzyKeywordsFinderTest {
                 .addKeywords("public", "class");
         System.out.println(finder.findToCsv("test/find_keywords_test.csv"));
     }
-
 }

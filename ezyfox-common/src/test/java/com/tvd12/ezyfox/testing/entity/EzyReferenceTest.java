@@ -41,5 +41,4 @@ public class EzyReferenceTest extends BaseTest {
             }
         }.releasable()) == false;
     }
-
 }

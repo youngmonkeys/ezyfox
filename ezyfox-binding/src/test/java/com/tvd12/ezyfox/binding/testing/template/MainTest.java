@@ -15,5 +15,4 @@ public class MainTest {
         EzyUnmarshaller unmarshaller = ctx.newUnmarshaller();
         System.out.println("unmarshall: " + unmarshaller.unmarshal("z-war", Hello.class));
     }
-
 }

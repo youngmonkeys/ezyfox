@@ -43,5 +43,4 @@ public final class EzySHA256 {
         byte[] encodedhash = digest.digest(bytes);
         return encodedhash;
     }
-
 }

@@ -6,5 +6,4 @@ public class EzyFutureTaskCancelledException extends RuntimeException {
     public EzyFutureTaskCancelledException(String message) {
         super(message);
     }
-
 }

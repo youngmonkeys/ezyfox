@@ -36,5 +36,4 @@ public class EzyObjectBinding4Test {
         ClassD ClassD = reader.read(unmarshaller, object);
         System.out.println(ClassD);
     }
-
 }

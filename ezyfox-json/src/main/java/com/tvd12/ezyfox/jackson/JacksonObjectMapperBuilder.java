@@ -46,5 +46,4 @@ public class JacksonObjectMapperBuilder implements EzyBuilder<ObjectMapper> {
         module.addSerializer(LocalDateTime.class, new JacksonLocalDateTimeSerializer());
         return module;
     }
-
 }

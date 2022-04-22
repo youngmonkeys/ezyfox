@@ -82,5 +82,4 @@ public class EzySimpleInputStreamReaderTest extends BaseTest {
         when(inputStream.read(any(byte[].class), any(int.class), any(int.class))).thenThrow(new IOException());
         reader.readLines(inputStream, "UTF-8");
     }
-
 }

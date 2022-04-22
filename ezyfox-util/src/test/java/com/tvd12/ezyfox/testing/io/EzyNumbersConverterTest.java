@@ -63,5 +63,4 @@ public class EzyNumbersConverterTest extends BaseTest {
         Byte value = EzyNumbersConverter.convertNumber((Object)new Long(100), n -> n.byteValue());
         System.err.println("value = " + value);
         assert value == 100;
-    }
-}
+    }}

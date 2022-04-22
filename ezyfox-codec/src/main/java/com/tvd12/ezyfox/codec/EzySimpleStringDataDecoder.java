@@ -28,5 +28,4 @@ public class EzySimpleStringDataDecoder
     @Override
     public void destroy() {
     }
-
 }

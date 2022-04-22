@@ -9,5 +9,4 @@ public class EzyConfigurationClassSorterTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyConfigurationClassSorter.class;
     }
-
 }

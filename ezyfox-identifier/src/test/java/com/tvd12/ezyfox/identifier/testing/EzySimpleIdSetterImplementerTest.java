@@ -37,5 +37,4 @@ public class EzySimpleIdSetterImplementerTest extends BaseTest {
         };
         assert implementer.implement() != null;
     }
-
 }

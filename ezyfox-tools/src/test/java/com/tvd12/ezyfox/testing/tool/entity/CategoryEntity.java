@@ -58,5 +58,4 @@ public class CategoryEntity {
 
     @Column
     public void setBar(String bar) {
-    }
-}
+    }}

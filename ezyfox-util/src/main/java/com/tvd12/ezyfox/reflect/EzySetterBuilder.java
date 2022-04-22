@@ -96,5 +96,4 @@ public class EzySetterBuilder extends EzyLoggable implements EzyBuilder<BiConsum
     protected void printMethodContent(String methodContent) {
         if(debug)
             logger.info("method content \n{}", methodContent);
-    }
-}
+    }}

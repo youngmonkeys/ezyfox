@@ -23,5 +23,4 @@ public class EzyBoolsIterator extends EzyArrayIterator<Boolean> {
     }
 
 
-
 }

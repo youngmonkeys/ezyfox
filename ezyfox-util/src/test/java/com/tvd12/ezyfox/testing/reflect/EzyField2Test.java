@@ -32,5 +32,4 @@ public class EzyField2Test extends BaseTest {
         protected final String a = "a";
         public String b = "b";
     }
-    
-}
+    }

@@ -16,5 +16,4 @@ public class JacksonMessageToByteEncoderTest {
         System.out.println(encoder.encode(new HashMap<>()));
         System.out.println(encoder.encode(new HashMap<>(), byte[].class));
     }
-
 }

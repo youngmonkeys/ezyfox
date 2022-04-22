@@ -50,5 +50,4 @@ public class EzySimpleMessageHeader implements EzyMessageHeader {
                 .append(">")
                 .toString();
     }
-
 }

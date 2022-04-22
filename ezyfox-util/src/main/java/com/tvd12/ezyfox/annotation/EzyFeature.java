@@ -14,5 +14,4 @@ import java.lang.annotation.Target;
 @Target({ ElementType.TYPE, ElementType.METHOD })
 public @interface EzyFeature {
 
-    String value();
-}
+    String value();}

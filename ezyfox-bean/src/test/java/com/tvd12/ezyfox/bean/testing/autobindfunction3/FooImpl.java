@@ -13,5 +13,4 @@ public class FooImpl implements Foo {
 
     @EzyAutoBind
     private Bar bar;
-
 }

@@ -19,5 +19,4 @@ public class EzyListDataHandlersTest extends BaseTest {
         });
         handlers.handleData(new String("hello world"));
     }
-
 }

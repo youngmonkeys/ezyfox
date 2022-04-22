@@ -20,5 +20,4 @@ public interface EzyIndexedDataClassesFetcher {
     EzyIndexedDataClassesFetcher addIndexedDataClasses(Object reflection);
 
     Set<Class> getIndexedDataClasses();
-
 }

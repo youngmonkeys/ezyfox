@@ -49,6 +49,4 @@ public abstract class EzyBytesEntityCodec implements EzyEntityCodec {
             return (B)this;
         }
     }
-
 }
-

@@ -18,5 +18,4 @@ public class EzyFileContentFilterTest {
         List<Object> list = filter.filter();
         System.out.println(list);
     }
-
 }

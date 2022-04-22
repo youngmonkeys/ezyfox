@@ -47,5 +47,4 @@ public class EzyPropertiesKeeperTest extends BaseTest {
             return properties;
         }
     }
-
 }

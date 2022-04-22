@@ -18,5 +18,4 @@ public class MyTestObject {
     public MyTestObject(int id) {
         this.id = id;
     }
-
 }

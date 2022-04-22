@@ -94,5 +94,4 @@ public class EzyGenerics6Test extends BaseTest {
     public static interface InterfaceB1<T,R> extends InterfaceG<T,R> {
 
     }
-
 }

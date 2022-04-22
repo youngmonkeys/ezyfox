@@ -10,5 +10,4 @@ public class EzyProxyExceptionTest {
     public void test() {
         new EzyProxyException(new Exception());
     }
-
 }

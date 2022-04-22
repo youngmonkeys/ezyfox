@@ -19,5 +19,4 @@ public class FetchMethodTest {
         public void setValue() {
         }
     }
-
 }

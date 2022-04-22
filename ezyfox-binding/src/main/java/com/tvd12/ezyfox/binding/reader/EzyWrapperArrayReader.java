@@ -39,5 +39,4 @@ public abstract class EzyWrapperArrayReader implements EzyReader<Object, Object>
 
     protected abstract Class<?> getOutType();
     protected abstract Object[] newArray(int length);
-
 }

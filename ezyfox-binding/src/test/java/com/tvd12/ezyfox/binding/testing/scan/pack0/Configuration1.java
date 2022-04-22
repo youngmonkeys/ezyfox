@@ -29,5 +29,4 @@ public class Configuration1 implements EzyBindingContextAware, EzyBindingConfig 
     }
 
 
-
 }

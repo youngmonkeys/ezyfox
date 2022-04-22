@@ -4,5 +4,4 @@ import com.tvd12.ezyfox.bean.annotation.EzyDisableAutoConfiguration;
 
 @EzyDisableAutoConfiguration
 public class Configuration3 {
-
 }

@@ -26,5 +26,4 @@ public class EzyMapDataHandlersTest {
             e.printStackTrace();
         }
     }
-
 }

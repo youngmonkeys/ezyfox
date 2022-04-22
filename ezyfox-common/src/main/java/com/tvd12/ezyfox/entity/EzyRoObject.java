@@ -167,5 +167,4 @@ public interface EzyRoObject extends EzyData {
     default Object getValue(Object key, Class type, Object def) {
         return containsKey(key) ? getValue(key, type) : def;
     }
-    
-}
+    }

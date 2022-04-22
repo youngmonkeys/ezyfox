@@ -8,5 +8,4 @@ public class Exception1ClassA {
     public String getValue() {
         throw new IllegalArgumentException();
     }
-
 }

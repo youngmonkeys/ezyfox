@@ -25,5 +25,4 @@ public class Message8 {
     protected Long getId() {
         return id;
     }
-
 }

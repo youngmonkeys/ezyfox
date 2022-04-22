@@ -74,5 +74,4 @@ public class EzyThreadsMonitorTest extends BaseTest {
         System.out.println(monitor.getThreadsDetails());
         System.out.println(monitor.getThreadDetails(Thread.currentThread().getId()));
     }
-
 }

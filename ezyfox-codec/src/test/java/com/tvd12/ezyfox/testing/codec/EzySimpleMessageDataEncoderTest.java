@@ -57,5 +57,4 @@ public class EzySimpleMessageDataEncoderTest {
         // then
         verify(encoder, times(1)).encryptMessageContent(messageContent, encryptionKey);
     }
-
 }

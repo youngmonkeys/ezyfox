@@ -829,5 +829,4 @@ public class EzySimpleValueConverter
         public static EzySingletonValueConverter getInstance() {
             return INSTANCE;
         }
-    }
-}
+    }}

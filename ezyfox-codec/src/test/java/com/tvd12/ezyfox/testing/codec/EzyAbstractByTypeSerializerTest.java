@@ -129,5 +129,4 @@ public class EzyAbstractByTypeSerializerTest extends BaseTest {
         }
 
     }
-
 }

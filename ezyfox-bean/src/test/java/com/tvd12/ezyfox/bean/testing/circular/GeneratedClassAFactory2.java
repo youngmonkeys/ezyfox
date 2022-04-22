@@ -48,5 +48,4 @@ public class GeneratedClassAFactory2 {
             e.printStackTrace();
         }
     }
-    
-}
+    }

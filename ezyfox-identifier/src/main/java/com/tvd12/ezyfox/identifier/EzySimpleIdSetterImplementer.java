@@ -141,5 +141,4 @@ public class EzySimpleIdSetterImplementer
         if(debug)
             logger.debug("getId: method content \n{}", methodContent);
     }
-
 }

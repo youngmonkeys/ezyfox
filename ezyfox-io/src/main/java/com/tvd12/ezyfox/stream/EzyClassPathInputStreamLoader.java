@@ -52,5 +52,4 @@ public class EzyClassPathInputStreamLoader implements EzyInputStreamLoader {
             return new EzyClassPathInputStreamLoader(this);
         }
     }
-
 }

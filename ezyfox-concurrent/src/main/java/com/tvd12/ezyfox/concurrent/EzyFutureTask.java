@@ -134,5 +134,4 @@ public class EzyFutureTask implements EzyFuture {
 
         };
     }
-
 }

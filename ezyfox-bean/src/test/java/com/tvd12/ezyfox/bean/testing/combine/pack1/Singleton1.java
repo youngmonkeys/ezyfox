@@ -33,5 +33,4 @@ public class Singleton1 {
     public void post() {
         System.out.println("\n\nsingleton1: I have array: " + EzyPrints.print(array) + ", and ints: " + EzyPrints.print(ints) + "\n\n");
     }
-    
-}
+    }

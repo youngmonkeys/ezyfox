@@ -17,5 +17,4 @@ public class SingletonX4 {
 
     @EzyAutoBind
     private final Singleton12 singleton12 = new Singleton12();
-
 }

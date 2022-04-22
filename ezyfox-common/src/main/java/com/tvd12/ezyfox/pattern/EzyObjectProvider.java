@@ -170,5 +170,4 @@ public abstract class EzyObjectProvider<T>
         }
 
     }
-
 }

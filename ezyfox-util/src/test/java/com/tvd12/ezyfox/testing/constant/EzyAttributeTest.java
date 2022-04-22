@@ -18,5 +18,4 @@ public class EzyAttributeTest extends BaseTest {
         EzyAttribute<String> D = EzyAttribute.one();
         System.err.println("D.id = " + D.getId() + ", D.name = " + D.getName());
     }
-
 }

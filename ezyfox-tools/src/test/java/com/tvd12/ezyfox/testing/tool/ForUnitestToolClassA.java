@@ -7,5 +7,4 @@ public class ForUnitestToolClassA {
 
     protected int intValue;
     protected String stringValue;
-
 }

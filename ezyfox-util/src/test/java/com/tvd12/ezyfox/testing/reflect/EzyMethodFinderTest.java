@@ -58,5 +58,4 @@ public class EzyMethodFinderTest extends BaseTest {
     public static abstract class B extends A {
         public abstract String getName2();
     }
-
 }

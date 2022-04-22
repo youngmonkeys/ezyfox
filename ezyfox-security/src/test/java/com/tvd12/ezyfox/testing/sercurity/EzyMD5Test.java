@@ -40,5 +40,4 @@ public class EzyMD5Test extends BaseTest {
                 saltString.append(B64T.charAt(new Random().nextInt(B64T.length())));
            return saltString.toString();
         }
-    }
-}
+    }}

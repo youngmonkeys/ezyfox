@@ -76,5 +76,4 @@ public final class EzyBase64 {
         double[] answer = toDoubleArray(bytes);
         return answer;
     }
-
 }

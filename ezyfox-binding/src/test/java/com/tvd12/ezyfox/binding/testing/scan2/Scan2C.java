@@ -44,5 +44,4 @@ public class Scan2C {
     public Scan2Object getObject1() {
         return new Scan2Object();
     }
-
 }

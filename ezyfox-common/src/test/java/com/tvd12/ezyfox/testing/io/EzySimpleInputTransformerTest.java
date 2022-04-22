@@ -98,5 +98,4 @@ public class EzySimpleInputTransformerTest extends EzyEntityTest {
     private Object transform(Object value) {
         return transformer.transform(value);
     }
-
 }

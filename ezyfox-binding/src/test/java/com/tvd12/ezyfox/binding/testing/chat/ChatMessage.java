@@ -26,5 +26,4 @@ public class ChatMessage extends ChatData {
     @EzyValue("9")
     private String sender = "1";
 
-
 }

@@ -37,5 +37,4 @@ public class EzyMapBuilder implements EzyBuilder<Map> {
 
     public <K, V> Map<K, V> toMap() {
         return (Map<K, V>)map;
-    }
-}
+    }}

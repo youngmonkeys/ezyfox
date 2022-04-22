@@ -54,5 +54,4 @@ public class EzyFieldFinderTest extends BaseTest {
     public abstract class B extends A {
         String c;
     }
-
 }

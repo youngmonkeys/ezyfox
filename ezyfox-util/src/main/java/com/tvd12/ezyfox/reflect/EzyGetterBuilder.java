@@ -100,5 +100,4 @@ public class EzyGetterBuilder extends EzyLoggable implements EzyBuilder<Function
     protected void printMethodContent(String methodContent) {
         if(debug)
             logger.info("method content \n{}", methodContent);
-    }
-}
+    }}

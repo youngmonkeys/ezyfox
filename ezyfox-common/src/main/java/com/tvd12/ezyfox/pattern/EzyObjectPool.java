@@ -287,5 +287,4 @@ public abstract class EzyObjectPool<T>
         }
 
     }
-
 }

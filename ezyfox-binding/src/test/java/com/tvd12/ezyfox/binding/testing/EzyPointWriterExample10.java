@@ -37,5 +37,4 @@ public class EzyPointWriterExample10 {
             assert ex.getOutType() == Scan1ClassA.class;
             assert ex.getValue() == outObject;
         }
-    }
-}
+    }}

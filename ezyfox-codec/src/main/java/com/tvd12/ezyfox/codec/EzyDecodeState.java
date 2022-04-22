@@ -15,5 +15,4 @@ public enum EzyDecodeState implements EzyIDecodeState {
     private EzyDecodeState(final int id) {
         this.id = id;
     }
-
 }

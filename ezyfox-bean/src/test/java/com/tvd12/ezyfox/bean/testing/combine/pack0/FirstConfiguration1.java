@@ -10,5 +10,4 @@ public class FirstConfiguration1 {
     public FirstConfiguration1() {
         System.out.println("\nHi! I will init before load bean, my priority = 0\n");
     }
-
 }

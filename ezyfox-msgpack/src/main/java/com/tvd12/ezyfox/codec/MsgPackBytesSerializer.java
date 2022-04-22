@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.codec;
 
-public class MsgPackBytesSerializer extends MsgPackSimpleSerializer {
-}
+public class MsgPackBytesSerializer extends MsgPackSimpleSerializer {}

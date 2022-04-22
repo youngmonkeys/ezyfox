@@ -39,5 +39,4 @@ public final class EzyEntityFactory {
     public static EzyArrayBuilder newArrayBuilder() {
         return CREATOR.newArrayBuilder();
     }
-
 }

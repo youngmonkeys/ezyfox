@@ -10,5 +10,4 @@ public final class EzyReflections {
 
     private EzyReflections() {
     }
-
 }

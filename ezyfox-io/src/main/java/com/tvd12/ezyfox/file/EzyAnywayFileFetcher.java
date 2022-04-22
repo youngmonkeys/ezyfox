@@ -43,5 +43,4 @@ public class EzyAnywayFileFetcher extends EzyClassPathFileFetcher {
         }
 
     }
-
 }

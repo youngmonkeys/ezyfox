@@ -39,5 +39,4 @@ public class EzyPointReaderImpl implements EzyReader {
             object.setData1((EzyTestData1)arg0.unmarshal(TestData1ReaderImpl.class, (Object)value.getValue("data1", EzyTestData1.class)));
         return object;
     }
-
 }

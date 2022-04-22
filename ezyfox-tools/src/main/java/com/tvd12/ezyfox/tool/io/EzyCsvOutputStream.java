@@ -29,5 +29,4 @@ public class EzyCsvOutputStream implements EzyObjectOutputStream<Object[]> {
             throw new IllegalStateException(e);
         }
     }
-
 }

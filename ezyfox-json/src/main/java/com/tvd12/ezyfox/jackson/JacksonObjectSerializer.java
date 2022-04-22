@@ -23,5 +23,4 @@ public class JacksonObjectSerializer extends StdSerializer<EzyRoObject> {
         }
         gen.writeEndObject();
     }
-
 }

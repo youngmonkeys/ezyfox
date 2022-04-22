@@ -47,5 +47,4 @@ public class EzyArrayUtilTest {
         assert !EzyArrayUtil.isNotEmpty(new long[0]);
         assert !EzyArrayUtil.isNotEmpty(new short[0]);
         assert !EzyArrayUtil.isNotEmpty(new String[0]);
-    }
-}
+    }}

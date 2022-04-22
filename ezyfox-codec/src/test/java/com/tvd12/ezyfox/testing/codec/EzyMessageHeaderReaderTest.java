@@ -20,5 +20,4 @@ public class EzyMessageHeaderReaderTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyMessageHeaderReader.class;
     }
-
 }

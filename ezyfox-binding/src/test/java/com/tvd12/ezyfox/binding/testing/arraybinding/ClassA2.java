@@ -42,5 +42,4 @@ public class ClassA2 {
     public void hello() {
         System.out.println("\n\n\npostReadMethod: hello world\n\n");
     }
-
 }

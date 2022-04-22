@@ -4,5 +4,4 @@ package com.tvd12.ezyfox.util;
 public interface EzyDataHandlers extends EzyDataHandler {
 
     void addDataHandler(EzyDataHandler handler);
-
 }

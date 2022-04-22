@@ -68,5 +68,4 @@ public class EzySimpleFileWriter implements EzyFileWriter {
             return new EzySimpleFileWriter(this);
         }
     }
-
 }

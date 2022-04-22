@@ -57,5 +57,4 @@ public class EzyErrorScheduledExecutorServiceTest {
             e.printStackTrace();
         }
     }
-
 }

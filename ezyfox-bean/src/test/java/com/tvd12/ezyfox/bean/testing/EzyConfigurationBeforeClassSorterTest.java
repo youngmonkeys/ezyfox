@@ -9,5 +9,4 @@ public class EzyConfigurationBeforeClassSorterTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyConfigurationBeforeClassSorter.class;
     }
-
 }

@@ -10,5 +10,4 @@ public interface EzyObjectToMessage {
 
     default EzyMessage packToMessage(byte[] content, boolean encrypted) {
         throw new UnsupportedOperationException("unsupported");
-    }
-}
+    }}

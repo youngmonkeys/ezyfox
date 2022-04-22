@@ -25,5 +25,4 @@ public class JavaInputStreamSkipExample {
         System.err.println("available: " + stream.available());
         assertEquals(stream.available(), 10);
     }
-
 }

@@ -19,5 +19,4 @@ public class JacksonByteToMessageDecoder implements EzyStringToObjectDecoder {
         Object answer = deserializer.deserialize(bytes);
         return answer;
     }
-
 }

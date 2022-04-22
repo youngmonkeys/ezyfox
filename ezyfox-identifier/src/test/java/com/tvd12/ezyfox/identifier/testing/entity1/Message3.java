@@ -9,5 +9,4 @@ public class Message3 {
 
     private Long id;
     private String name;
-
 }

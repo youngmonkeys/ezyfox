@@ -54,5 +54,4 @@ public class Configuration2 implements EzyBindingContextAware, EzyBindingConfig 
         context.bindTemplate(ClassC.class, new Object());
 
     }
-
 }

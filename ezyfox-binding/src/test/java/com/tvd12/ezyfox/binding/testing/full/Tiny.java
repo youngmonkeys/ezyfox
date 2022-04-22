@@ -12,5 +12,4 @@ public class Tiny {
 
     protected String name;
     protected String value;
-
 }

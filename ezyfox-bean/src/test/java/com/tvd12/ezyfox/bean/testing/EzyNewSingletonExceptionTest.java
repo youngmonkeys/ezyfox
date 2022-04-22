@@ -10,5 +10,4 @@ public class EzyNewSingletonExceptionTest {
     public void test() {
         new EzyNewSingletonException(Object.class, Object.class, "object").getSingletonClass();
     }
-
 }

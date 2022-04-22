@@ -22,5 +22,4 @@ public class MsgPackMySimpleDeserializer6Test extends MsgPackCodecTest {
         EzyArray answer = deserializer.deserialize(bytes);
         getLogger().info("answer = {}", answer);
     }
-
 }

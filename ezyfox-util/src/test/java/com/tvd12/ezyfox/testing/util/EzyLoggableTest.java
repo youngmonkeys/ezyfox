@@ -30,5 +30,4 @@ public class EzyLoggableTest extends EzyLoggable {
     public static class B {
 
     }
-
 }

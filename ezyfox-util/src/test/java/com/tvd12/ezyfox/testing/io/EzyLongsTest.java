@@ -80,5 +80,4 @@ public class EzyLongsTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyLongs.class;
     }
-
 }

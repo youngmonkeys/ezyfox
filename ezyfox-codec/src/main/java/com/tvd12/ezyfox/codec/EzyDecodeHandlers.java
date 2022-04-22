@@ -45,5 +45,4 @@ public abstract class EzyDecodeHandlers implements EzyResettable {
 
         protected abstract void addHandlers(Map<EzyIDecodeState, EzyDecodeHandler> answer);
     }
-
 }

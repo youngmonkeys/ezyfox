@@ -10,5 +10,4 @@ public class Singleton3 {
     public Singleton3(Singleton1 s1) {
         this.s1 = s1;
     }
-
 }

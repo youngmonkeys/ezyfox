@@ -15,5 +15,4 @@ public class Singleton3 {
     @Setter
     @EzyAutoBind
     private ArrayList<String> list;
-
 }

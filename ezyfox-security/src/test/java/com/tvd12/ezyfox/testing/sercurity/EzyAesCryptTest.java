@@ -40,5 +40,4 @@ public class EzyAesCryptTest {
         // then
         Asserts.assertEquals(clean, decrypted);
     }
-
 }

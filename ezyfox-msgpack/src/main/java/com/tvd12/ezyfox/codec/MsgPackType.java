@@ -55,5 +55,4 @@ public enum MsgPackType implements EzyConstant {
     public String getName() {
         return toString();
     }
-
 }

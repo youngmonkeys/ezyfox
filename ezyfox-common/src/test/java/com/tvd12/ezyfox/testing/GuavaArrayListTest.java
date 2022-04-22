@@ -18,5 +18,4 @@ public class GuavaArrayListTest extends BaseTest {
                 .getTime();
                 System.out.println("test elapsed time = " + time);
     }
-
 }

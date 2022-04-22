@@ -20,5 +20,4 @@ public final class EzyCachedValueAnnotations {
             mapName = anno.mapName();
         return mapName;
     }
-
 }

@@ -10,5 +10,4 @@ public class RequestSchedule {
     public void setQueue(RequestQueue requestQueue) {
         
     }
-    
-}
+    }

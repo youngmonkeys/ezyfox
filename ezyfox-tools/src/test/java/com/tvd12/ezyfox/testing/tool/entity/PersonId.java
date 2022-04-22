@@ -9,5 +9,4 @@ public class PersonId {
 
     protected String company;
     protected String email;
-
 }

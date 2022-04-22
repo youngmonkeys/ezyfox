@@ -12,5 +12,4 @@ public class EzyConcurrentHashMapLockProviderTest {
         provider.provideLock("a");
         provider.removeLock("a");
     }
-
 }

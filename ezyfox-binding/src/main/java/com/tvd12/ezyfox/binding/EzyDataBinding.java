@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.binding;
 
-public interface EzyDataBinding {
-}
+public interface EzyDataBinding {}

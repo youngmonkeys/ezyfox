@@ -111,5 +111,4 @@ public class EzySimpleIdSettersTest extends BaseTest {
         .addClass(Message9.class)
         .build();
     }
-
 }

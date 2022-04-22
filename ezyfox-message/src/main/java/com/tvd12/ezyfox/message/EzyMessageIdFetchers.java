@@ -32,5 +32,4 @@ public class EzyMessageIdFetchers extends EzySimpleIdFetchers {
             return new EzyMessageIdFetchers(this);
         }
     }
-
 }

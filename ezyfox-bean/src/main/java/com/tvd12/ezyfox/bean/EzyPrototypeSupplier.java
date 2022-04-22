@@ -5,5 +5,4 @@ public interface EzyPrototypeSupplier {
     Class<?> getObjectType();
 
     Object supply(EzyBeanContext context);
-
 }

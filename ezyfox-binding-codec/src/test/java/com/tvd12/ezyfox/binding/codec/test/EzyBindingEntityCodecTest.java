@@ -40,5 +40,4 @@ public class EzyBindingEntityCodecTest {
     public static class A {
         protected String value;
     }
-
 }

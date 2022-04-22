@@ -16,5 +16,4 @@ public class EzyUnitestCreatorTest {
         EzyUnitestCreatorTest test = new EzyUnitestCreatorTest();
         test.test();
     }
-
 }

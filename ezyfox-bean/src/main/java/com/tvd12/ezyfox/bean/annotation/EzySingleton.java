@@ -19,5 +19,4 @@ public @interface EzySingleton {
     String value() default "";
 
     EzyKeyValue[] properties() default {};
-
 }

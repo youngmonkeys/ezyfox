@@ -108,5 +108,4 @@ public final class EzyEmptyObject implements EzyObject {
     public EzyObject duplicate() {
         throw new UnsupportedOperationException("you're using empty object");
     }
-
 }

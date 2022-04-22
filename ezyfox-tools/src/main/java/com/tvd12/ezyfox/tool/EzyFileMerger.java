@@ -91,5 +91,4 @@ public class EzyFileMerger {
             return new EzyFileMerger(this);
         }
 
-    }
-}
+    }}

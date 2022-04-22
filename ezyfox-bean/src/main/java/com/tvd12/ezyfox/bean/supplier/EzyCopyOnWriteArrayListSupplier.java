@@ -25,5 +25,4 @@ public final class EzyCopyOnWriteArrayListSupplier implements EzyPrototypeSuppli
     public Class<?> getObjectType() {
         return CopyOnWriteArrayList.class;
     }
-
 }

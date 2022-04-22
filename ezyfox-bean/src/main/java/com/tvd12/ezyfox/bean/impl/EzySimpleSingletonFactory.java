@@ -195,5 +195,4 @@ public class EzySimpleSingletonFactory
     private Map getProperties(Class<?> type) {
         return EzyKeyValueParser.getSingletonProperties(type);
     }
-    
-}
+    }

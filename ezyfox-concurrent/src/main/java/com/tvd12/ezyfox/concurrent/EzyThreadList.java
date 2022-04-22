@@ -24,5 +24,4 @@ public class EzyThreadList {
     public void interrupt() {
         for(Thread thread : threads)
             thread.interrupt();
-    }
-}
+    }}

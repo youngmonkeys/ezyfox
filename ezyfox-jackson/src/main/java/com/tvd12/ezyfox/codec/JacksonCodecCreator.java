@@ -36,5 +36,4 @@ public class JacksonCodecCreator implements EzyCodecCreator {
     public Object newDecoder(int maxRequestSize) {
         return new JacksonByteToMessageDecoder(deserializer);
     }
-
 }

@@ -48,5 +48,4 @@ public class EzySimpleBeanContextBuilderTest {
         
         // then
         Asserts.assertEquals("bar,foo", actual);
-    }
-}
+    }}

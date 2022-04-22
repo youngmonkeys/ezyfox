@@ -24,5 +24,4 @@ public class EzyHashCodes {
         this.hashCode = hashCode * prime + (value == null ? 43 : value.hashCode());
         return this;
     }
-
 }

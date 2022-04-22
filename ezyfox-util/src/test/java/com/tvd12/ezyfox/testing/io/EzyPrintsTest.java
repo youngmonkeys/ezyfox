@@ -83,5 +83,4 @@ public class EzyPrintsTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyPrints.class;
     }
-
 }

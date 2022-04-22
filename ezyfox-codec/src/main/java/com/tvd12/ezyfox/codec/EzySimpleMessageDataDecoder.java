@@ -78,5 +78,4 @@ public class EzySimpleMessageDataDecoder
     @Override
     public void reset() {
         queue.clear();
-    }
-}
+    }}

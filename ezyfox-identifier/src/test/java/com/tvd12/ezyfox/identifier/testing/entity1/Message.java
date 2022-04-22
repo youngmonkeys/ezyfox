@@ -11,5 +11,4 @@ public class Message implements EzyHasIdEntity<Long> {
 
     private Long id;
     private String name;
-
 }

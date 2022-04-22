@@ -32,5 +32,4 @@ public class EzyPackagesTest extends BaseTest {
 
     public static interface InterfaceB extends InterfaceA {
 
-    }
-}
+    }}

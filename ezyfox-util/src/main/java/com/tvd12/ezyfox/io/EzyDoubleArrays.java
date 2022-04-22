@@ -29,5 +29,4 @@ public final class EzyDoubleArrays {
         buf.get(doubleArray);
         return doubleArray;
     }
-
 }

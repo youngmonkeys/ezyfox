@@ -47,5 +47,4 @@ public class EzyReflectionProxy implements EzyReflection {
     }
 
 
-
 }

@@ -7,5 +7,4 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 public interface EzyElementsFetcher {
 
     List<Object> getElements(EzyClass clazz, int accessType);
-
 }

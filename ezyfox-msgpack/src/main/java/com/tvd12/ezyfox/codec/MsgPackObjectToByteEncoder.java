@@ -57,5 +57,4 @@ public class MsgPackObjectToByteEncoder implements EzyObjectToByteEncoder {
         byte[] bytes = messageToBytes.convert(message);
         return bytes;
     }
-
 }

@@ -47,5 +47,4 @@ public class EzyEntry<K,V> implements Entry<K, V>, Serializable {
     public int hashCode() {
         return key.hashCode();
     }
-
 }

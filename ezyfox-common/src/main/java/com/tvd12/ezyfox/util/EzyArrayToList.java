@@ -34,5 +34,4 @@ public final class EzyArrayToList {
         }
         return answer;
     }
-
 }

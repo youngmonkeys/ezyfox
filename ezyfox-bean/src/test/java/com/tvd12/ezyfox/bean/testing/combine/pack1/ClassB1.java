@@ -24,5 +24,4 @@ public class ClassB1 {
     public void post() {
         System.out.println("\n\nI have hello = " + hello + ", and foo = " + foo + "\n\n");
     }
-
 }

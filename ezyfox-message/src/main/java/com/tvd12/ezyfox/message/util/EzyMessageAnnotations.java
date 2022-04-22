@@ -20,5 +20,4 @@ public final class EzyMessageAnnotations {
             channelName = anno.channel();
         return channelName;
     }
-
 }

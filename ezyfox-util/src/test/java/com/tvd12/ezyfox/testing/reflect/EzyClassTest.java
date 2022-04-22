@@ -266,5 +266,4 @@ public class EzyClassTest extends BaseTest {
         String getName();
         
         String getValue();
-    }
-}
+    }}

@@ -79,5 +79,4 @@ public class EzyArray3Test extends CommonBaseTest {
                 .build();
         assertEquals((Object)array.toArray(String[].class), new String[][] {{"1","2"}, {"3","4"}});
     }
-
 }

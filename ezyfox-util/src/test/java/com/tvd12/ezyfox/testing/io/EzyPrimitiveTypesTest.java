@@ -23,5 +23,4 @@ public class EzyPrimitiveTypesTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyPrimitiveTypes.class;
     }
-
 }

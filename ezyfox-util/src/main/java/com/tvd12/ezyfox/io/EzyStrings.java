@@ -348,5 +348,4 @@ public final class EzyStrings {
         } catch (IOException ex) {
             return throwable.getClass().getName() + '(' + throwable.getMessage() + ')';
         }
-    }
-}
+    }}

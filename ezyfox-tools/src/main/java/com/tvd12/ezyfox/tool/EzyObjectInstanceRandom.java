@@ -494,5 +494,4 @@ public class EzyObjectInstanceRandom {
             return LocalDateTime.now();
         });
         return randoms;
-    }
-}
+    }}

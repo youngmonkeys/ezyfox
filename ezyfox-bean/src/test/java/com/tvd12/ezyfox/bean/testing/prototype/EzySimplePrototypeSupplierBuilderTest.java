@@ -32,5 +32,4 @@ public class EzySimplePrototypeSupplierBuilderTest extends BaseTest {
         }
 
     }
-
 }

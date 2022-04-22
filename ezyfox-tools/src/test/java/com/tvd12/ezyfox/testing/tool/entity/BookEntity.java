@@ -58,5 +58,4 @@ public class BookEntity {
 
     @Column
     public void setBar(String bar) {
-    }
-}
+    }}

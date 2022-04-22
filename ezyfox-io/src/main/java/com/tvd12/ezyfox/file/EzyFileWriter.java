@@ -13,5 +13,4 @@ public interface EzyFileWriter {
     void write(File file, CharSequence data, String charset);
 
     void write(File file, CharSequence data, Charset charset);
-
 }

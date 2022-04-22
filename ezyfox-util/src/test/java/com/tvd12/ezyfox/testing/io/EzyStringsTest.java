@@ -289,5 +289,4 @@ public class EzyStringsTest extends BaseTest {
                     .toString();
         }
     }
-
 }

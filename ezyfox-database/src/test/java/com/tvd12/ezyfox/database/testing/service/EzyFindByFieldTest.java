@@ -24,5 +24,4 @@ public class EzyFindByFieldTest {
         
         // then
         Asserts.assertEquals(actual, Optional.of("hello"));
-    }
-}
+    }}

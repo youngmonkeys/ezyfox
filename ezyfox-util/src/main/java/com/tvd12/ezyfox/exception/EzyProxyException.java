@@ -6,5 +6,4 @@ public class EzyProxyException extends RuntimeException {
     public EzyProxyException(Exception realExcetpion) {
         super(realExcetpion);
     }
-
 }

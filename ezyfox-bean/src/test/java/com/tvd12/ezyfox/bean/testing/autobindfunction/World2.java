@@ -24,5 +24,4 @@ public class World2 extends World1 {
     @Override
     protected String getName() {
         return "world";
-    }
-}
+    }}

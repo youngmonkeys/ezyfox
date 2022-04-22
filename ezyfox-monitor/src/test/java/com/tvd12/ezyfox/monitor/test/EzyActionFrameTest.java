@@ -24,5 +24,4 @@ public class EzyActionFrameTest {
         // when
         // then
         Asserts.assertTrue(sut.isExpired());
-    }
-}
+    }}

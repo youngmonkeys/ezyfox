@@ -15,5 +15,4 @@ public abstract class World implements HelloAware {
     }
 
     protected abstract String getName();
-
 }

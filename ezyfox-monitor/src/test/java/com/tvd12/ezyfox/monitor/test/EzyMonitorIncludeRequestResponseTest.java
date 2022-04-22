@@ -28,5 +28,4 @@ public class EzyMonitorIncludeRequestResponseTest {
         sut.increaseResponseCount();
         Asserts.assertEquals(sut.getRequestPerSecond(), 1L);
         Asserts.assertEquals(sut.getResponsePerSecond(), 1L);
-    }
-}
+    }}

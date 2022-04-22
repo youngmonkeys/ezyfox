@@ -9,5 +9,4 @@ public final class EzyAccessType {
     public static final int DECLARED_FIELDS        = 0x04;
     public static final int DECLARED_METHODS    = 0x08;
     public static final int DECLARED_ELEMENTS    = 0x0C;
-
 }

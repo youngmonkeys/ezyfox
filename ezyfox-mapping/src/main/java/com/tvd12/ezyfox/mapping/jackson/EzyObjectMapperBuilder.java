@@ -25,5 +25,4 @@ public class EzyObjectMapperBuilder implements EzyBuilder<ObjectMapper> {
         module.addSerializer(new JacksonObjectSerializer());
         return module;
     }
-
 }

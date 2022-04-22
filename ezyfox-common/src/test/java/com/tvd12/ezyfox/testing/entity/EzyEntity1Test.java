@@ -26,5 +26,4 @@ public class EzyEntity1Test extends BaseTest {
         entity.setProperty(EzyEntity1Test.class, this);
         assert entity.getProperty(EzyEntity1Test.class) == this;
     }
-
 }

@@ -16,5 +16,4 @@ public class EzyCallbackTest {
         }
         .call(new Object(), 10);;
     }
-
 }

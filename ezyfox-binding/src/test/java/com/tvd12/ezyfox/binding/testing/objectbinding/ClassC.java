@@ -14,5 +14,4 @@ public class ClassC extends ClassA {
     private String a1 = "1";
     private String b1 = "2";
     private String c1 = "3";
-
 }

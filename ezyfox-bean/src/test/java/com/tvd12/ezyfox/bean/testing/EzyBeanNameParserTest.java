@@ -33,5 +33,4 @@ public class EzyBeanNameParserTest extends BaseTest {
 
     public static class C {
 
-    }
-}
+    }}

@@ -52,5 +52,4 @@ public class EzySimpleFileReader implements EzyFileReader {
             return new EzySimpleFileReader(this);
         }
     }
-
 }

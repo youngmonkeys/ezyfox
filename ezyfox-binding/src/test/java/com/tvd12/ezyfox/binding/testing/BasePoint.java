@@ -12,5 +12,4 @@ public class BasePoint {
     public String getXY() {
         return x + "-" + y;
     }
-
 }

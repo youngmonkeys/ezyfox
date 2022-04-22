@@ -24,5 +24,4 @@ public enum EzyNamingCase {
             return NATURE;
         return valueOf(value);
     }
-
 }

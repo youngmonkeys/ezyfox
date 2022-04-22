@@ -88,5 +88,4 @@ public class EzyFileClassPackCreator {
         }
         return classFilePaths;
     }
-
 }

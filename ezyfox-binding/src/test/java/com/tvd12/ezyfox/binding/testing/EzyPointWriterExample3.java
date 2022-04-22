@@ -60,5 +60,4 @@ public class EzyPointWriterExample3 {
 //        System.out.println(time3);
 
 
-    }
-}
+    }}

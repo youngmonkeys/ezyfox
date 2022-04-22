@@ -17,5 +17,4 @@ public class PackageScanByOrderBugTest {
         EzyMarshaller marshaller = bindingContext.newMarshaller();
         marshaller.marshal(new UserData());
     }
-
 }

@@ -16,5 +16,4 @@ public class EzyFileCreatorTest {
         String content = fileCreator.createContent();
         System.out.println(content);
     }
-
 }

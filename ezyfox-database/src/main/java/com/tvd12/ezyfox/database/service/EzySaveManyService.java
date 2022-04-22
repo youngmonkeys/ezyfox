@@ -10,5 +10,4 @@ public interface EzySaveManyService<E> {
     default void save(E... entities) {
         save(Lists.newArrayList(entities));
     }
-
 }

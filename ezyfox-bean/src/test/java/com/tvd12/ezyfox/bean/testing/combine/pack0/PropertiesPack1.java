@@ -6,5 +6,4 @@ import lombok.Getter;
 public class PropertiesPack1 {
 
     private String hello1;
-
 }

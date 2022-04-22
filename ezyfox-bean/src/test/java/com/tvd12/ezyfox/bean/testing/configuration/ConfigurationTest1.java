@@ -22,5 +22,4 @@ public class ConfigurationTest1 extends BaseTest {
                 .context(context)
                 .load();
     }
-
 }

@@ -109,5 +109,4 @@ public class EzyArrayReaderBuilderTest extends BaseTest {
         @EzyIndex(0)
         public final String name = "name";
     }
-
 }

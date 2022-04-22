@@ -17,5 +17,4 @@ public class EzyUriValidatorTest extends BaseTest {
         assert EzyUriValidator.validateUri("http://127.0.0.1:8080");
         assert !EzyUriValidator.validateUri("::::::\\127.0.0.01.");
     }
-
 }

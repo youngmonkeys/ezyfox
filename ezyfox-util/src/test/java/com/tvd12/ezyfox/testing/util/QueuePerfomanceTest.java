@@ -23,5 +23,4 @@ public class QueuePerfomanceTest {
                 .getTime();
         System.out.println(time1);
     }
-
 }

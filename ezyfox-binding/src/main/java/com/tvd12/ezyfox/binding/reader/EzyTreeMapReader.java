@@ -26,5 +26,4 @@ public final class EzyTreeMapReader implements EzyReader<EzyObject, Map> {
             answer.put(key, object.get(key));
         return answer;
     }
-    
-}
+    }

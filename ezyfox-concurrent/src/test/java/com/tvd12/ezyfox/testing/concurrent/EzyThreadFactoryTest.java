@@ -114,5 +114,4 @@ public class EzyThreadFactoryTest extends BaseTest {
                 }
             };
         }
-    }
-}
+    }}

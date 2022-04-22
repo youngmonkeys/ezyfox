@@ -13,5 +13,4 @@ public @interface EzyCollection {
 
     String name() default "";
     String value() default "";
-
 }

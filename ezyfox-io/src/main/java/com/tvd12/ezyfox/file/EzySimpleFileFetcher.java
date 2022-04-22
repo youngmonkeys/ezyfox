@@ -48,5 +48,4 @@ public class EzySimpleFileFetcher implements EzyFileFetcher {
         public EzyFileFetcher build() {
             return new EzySimpleFileFetcher(this);
         }
-    }
-}
+    }}

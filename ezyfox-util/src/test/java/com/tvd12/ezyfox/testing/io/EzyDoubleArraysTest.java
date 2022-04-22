@@ -25,5 +25,4 @@ public class EzyDoubleArraysTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyDoubleArrays.class;
     }
-
 }

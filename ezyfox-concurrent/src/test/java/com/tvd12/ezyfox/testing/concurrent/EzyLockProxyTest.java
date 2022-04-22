@@ -33,5 +33,4 @@ public class EzyLockProxyTest {
         }
         lock.newCondition();
     }
-
 }

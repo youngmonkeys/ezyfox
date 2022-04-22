@@ -12,5 +12,4 @@ public class EzyNotImplementedExceptionTest {
         new EzyNotImplementedException("");
         new EzyNotImplementedException("", new Exception());
     }
-
 }

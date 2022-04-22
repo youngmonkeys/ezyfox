@@ -31,5 +31,4 @@ public class EzyObject2Test extends CommonBaseTest {
         assertEquals((Object)object.get("7", long[][].class), new long[][] {{1,2}, {3,4}});
         assertEquals((Object)object.get("8", short[][].class), new short[][] {{1,2}, {3,4}});
         assertEquals((Object)object.get("9", String[][].class), new String[][] {{"1","2"}, {"3","4"}});
-    }
-}
+    }}

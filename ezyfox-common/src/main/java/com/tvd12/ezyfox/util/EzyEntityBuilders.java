@@ -23,5 +23,4 @@ public class EzyEntityBuilders extends EzyLoggable {
     protected EzyObjectBuilder newObjectBuilder() {
         return EzyEntityFactory.newObjectBuilder();
     }
-
 }

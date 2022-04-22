@@ -672,5 +672,4 @@ public class MsgPackToByteBufferSerializerTest {
             }
         };
     }
-
 }

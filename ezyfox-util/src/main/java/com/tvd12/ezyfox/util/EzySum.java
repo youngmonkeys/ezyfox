@@ -126,5 +126,4 @@ public final class EzySum {
             total += func.apply(t);
         return total;
     }
-
 }

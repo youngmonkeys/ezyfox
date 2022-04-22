@@ -9,5 +9,4 @@ public class HImpl implements H {
     @EzyAutoBind
     public HImpl(A a, B b, C c, D d, E e, G g) {
     }
-
 }

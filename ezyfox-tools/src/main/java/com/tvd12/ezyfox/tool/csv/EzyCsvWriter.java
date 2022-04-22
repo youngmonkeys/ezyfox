@@ -7,5 +7,4 @@ public interface EzyCsvWriter {
     void append(Object... values);
 
     void flush() throws IOException;
-
 }

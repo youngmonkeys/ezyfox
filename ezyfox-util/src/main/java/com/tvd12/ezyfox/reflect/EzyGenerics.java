@@ -65,5 +65,4 @@ public final class EzyGenerics {
         if(EzyInterfaces.getInterface(clazz, interfaceClass) != null)
             throw new IllegalArgumentException("3: " + interfaceClass + " is not generics");
         throw new IllegalArgumentException("4: " + clazz + " is not directly extends/implements " + interfaceClass);
-    }
-}
+    }}

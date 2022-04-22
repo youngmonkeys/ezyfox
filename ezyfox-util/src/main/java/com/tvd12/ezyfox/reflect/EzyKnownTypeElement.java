@@ -8,5 +8,4 @@ public interface EzyKnownTypeElement {
     default String getTypeName() {
         return getType().getTypeName();
     }
-
 }

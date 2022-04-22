@@ -32,5 +32,4 @@ public class EzyAnywayInputStreamLoaderTest extends BaseTest {
                 .load("pom.xml");
         assert stream != null;
     }
-
 }

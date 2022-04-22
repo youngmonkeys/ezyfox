@@ -112,5 +112,4 @@ public class EzySimpleBindingTest {
                 .build();
         Properties properties = beanContext.getProperties();
         System.out.println(properties);
-    }
-}
+    }}

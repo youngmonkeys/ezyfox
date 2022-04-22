@@ -244,5 +244,4 @@ public class EzySimpleCollectionConverterTest extends CommonBaseTest {
     public void test6() {
         EzySingletonCollectionConverter.getInstance().toArray(Lists.newArrayList(), Void.class);
     }
-
 }

@@ -24,5 +24,4 @@ public class EzyWrap<T> {
     public boolean hasNoValue() {
         return value == null;
     }
-
 }

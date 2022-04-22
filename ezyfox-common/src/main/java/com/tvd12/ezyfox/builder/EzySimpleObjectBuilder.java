@@ -55,5 +55,4 @@ public class EzySimpleObjectBuilder
     public EzyObject build() {
         return this.product;
     }
-
 }

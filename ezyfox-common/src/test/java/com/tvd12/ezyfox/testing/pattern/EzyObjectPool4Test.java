@@ -30,5 +30,4 @@ public class EzyObjectPool4Test extends BaseTest {
         Thread.sleep(2 * 1000);
         pool.destroy();
     }
-
 }

@@ -14,5 +14,4 @@ public class Scan2ObjectWriter extends EzyAbstractWriter<Scan2Object, EzyObject>
         EzyObjectBuilder builder = newObjectBuilder();
         return builder.build();
     }
-
 }

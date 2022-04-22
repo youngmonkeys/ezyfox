@@ -5,5 +5,4 @@ import com.tvd12.ezyfox.binding.annotation.EzyConfiguration;
 
 @EzyConfiguration
 @EzyPackagesToScan({"com.tvd12.ezyfox.binding.testing.scan.pack1"})
-public class Configuration0 {
-}
+public class Configuration0 {}

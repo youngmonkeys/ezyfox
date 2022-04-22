@@ -43,5 +43,4 @@ public class EzyBeanKey implements Serializable {
     public String toString() {
         return "(" + name + "," + type.getSimpleName() + ")";
     }
-
 }

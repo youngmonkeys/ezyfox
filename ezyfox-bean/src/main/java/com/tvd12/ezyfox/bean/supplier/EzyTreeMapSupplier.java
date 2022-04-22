@@ -24,5 +24,4 @@ public final class EzyTreeMapSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return TreeMap.class;
     }
-
 }

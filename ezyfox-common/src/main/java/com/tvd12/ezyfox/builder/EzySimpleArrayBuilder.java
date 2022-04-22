@@ -66,5 +66,4 @@ public class EzySimpleArrayBuilder
     public EzyArray build() {
         return product;
     }
-
 }

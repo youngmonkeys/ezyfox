@@ -114,5 +114,4 @@ public class EzyDirectoriesTest extends BaseTest {
         Asserts.assertTrue(new File("copyFolderTest/copy/hello/world.txt").exists());
         Asserts.assertTrue(new File("copyFolderTest/copy/foo/bar.txt").exists());
         EzyDirectories.deleteFolder(new File("copyFolderTest"));
-    }
-}
+    }}

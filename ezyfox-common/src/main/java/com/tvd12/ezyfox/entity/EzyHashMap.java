@@ -296,5 +296,4 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
     @Override
     public String toString() {
         return map.toString();
-    }
-}
+    }}

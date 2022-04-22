@@ -5,5 +5,4 @@ import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
 public abstract class EzyAbstractWriter<T,R> 
         extends EzyEntityBuilders
-        implements EzyWriter<T, R> {
-}
+        implements EzyWriter<T, R> {}

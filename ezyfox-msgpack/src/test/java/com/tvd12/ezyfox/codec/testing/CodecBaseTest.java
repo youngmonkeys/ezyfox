@@ -14,5 +14,4 @@ public class CodecBaseTest extends BaseTest {
     public EzyObjectBuilder newObjectBuilder() {
         return EzyEntityFactory.create(EzyObjectBuilder.class);
     }
-
 }

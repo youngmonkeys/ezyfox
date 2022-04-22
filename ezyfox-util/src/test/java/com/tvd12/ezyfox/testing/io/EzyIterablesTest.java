@@ -19,5 +19,4 @@ public class EzyIterablesTest extends BaseTest {
         assert EzyIterables.isEmpty(Lists.newArrayList());
         assert !EzyIterables.isEmpty(Lists.newArrayList(1));
     }
-
 }

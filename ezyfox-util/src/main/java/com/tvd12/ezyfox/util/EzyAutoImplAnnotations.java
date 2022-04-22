@@ -19,5 +19,4 @@ public final class EzyAutoImplAnnotations {
             return beanName;
         return EzyClasses.getVariableName(annotatedClass);
     }
-
 }

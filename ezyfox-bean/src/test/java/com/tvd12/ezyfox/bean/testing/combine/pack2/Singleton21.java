@@ -19,5 +19,4 @@ public class Singleton21 implements ISingleton21 {
     @Setter
     @EzyAutoBind
     private ISingleton10 sgt10;
-
 }

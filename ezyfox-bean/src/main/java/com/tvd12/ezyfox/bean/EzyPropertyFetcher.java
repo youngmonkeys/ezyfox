@@ -11,5 +11,4 @@ public interface EzyPropertyFetcher {
         return value != null ? value : defaultValue;
 
     }
-
 }

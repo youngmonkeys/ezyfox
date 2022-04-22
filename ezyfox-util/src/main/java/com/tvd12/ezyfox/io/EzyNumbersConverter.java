@@ -473,5 +473,4 @@ public final class EzyNumbersConverter {
         for(int i = 0 ; i < value.length ; ++i)
             answer[i] = numbersToWrapperShorts(value[i]);
         return answer;
-    }
-}
+    }}

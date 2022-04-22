@@ -10,5 +10,4 @@ public abstract class World0 extends World {
     public void setHello(Hello hello) {
         super.setHello(hello);
     }
-
 }

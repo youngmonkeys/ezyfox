@@ -10,5 +10,4 @@ public class EImpl implements E {
     public EImpl(B b, C c, D d, F f) {
         System.out.println("EImpl: b = " + b + ", c = " + c + ", d = " + d + ", f = " + f);
     }
-
 }

@@ -195,5 +195,4 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
     protected boolean addMissingSetterFields() {
         return true;
     }
-
 }

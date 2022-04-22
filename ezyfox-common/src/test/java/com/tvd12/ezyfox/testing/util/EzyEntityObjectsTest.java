@@ -22,5 +22,4 @@ public class EzyEntityObjectsTest extends BaseTest {
         assert EzyEntityObjects.isEmpty(EzyEntityFactory.newObject());
         assert !EzyEntityObjects.isEmpty(EzyEntityObjects.newObject("hello", "world"));
     }
-
 }

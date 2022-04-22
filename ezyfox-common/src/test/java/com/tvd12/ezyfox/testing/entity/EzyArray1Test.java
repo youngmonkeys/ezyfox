@@ -218,5 +218,4 @@ public class EzyArray1Test extends EzyEntityTest {
         public Object clone() throws CloneNotSupportedException {
             throw new CloneNotSupportedException();
         }
-    }
-}
+    }}

@@ -75,5 +75,4 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
             }
         };
     };
-
 }

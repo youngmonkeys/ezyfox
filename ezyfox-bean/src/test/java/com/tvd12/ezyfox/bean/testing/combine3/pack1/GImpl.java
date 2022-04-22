@@ -9,5 +9,4 @@ public class GImpl implements G {
     @EzyAutoBind
     public GImpl(A a, E e, F f) {
     }
-
 }

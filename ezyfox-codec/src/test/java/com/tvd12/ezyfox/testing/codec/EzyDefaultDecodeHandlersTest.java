@@ -40,5 +40,4 @@ public class EzyDefaultDecodeHandlersTest {
         handlers.handle(buffer, out);
         assert out.size() == 0;
     }
-
 }

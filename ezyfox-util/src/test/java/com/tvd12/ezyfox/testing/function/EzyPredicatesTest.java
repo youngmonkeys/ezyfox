@@ -34,5 +34,4 @@ public class EzyPredicatesTest extends BaseTest {
         assert c3.test("world");
         assert !c3.test("hello world");
     }
-
 }

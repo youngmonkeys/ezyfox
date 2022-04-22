@@ -6,5 +6,4 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class LastSingleton23 {
-    private final Singleton21 singleton21;
-}
+    private final Singleton21 singleton21;}

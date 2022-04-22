@@ -25,5 +25,4 @@ public class EzyInterfacesTest {
 
     public static interface InterfaceA<D> {
     }
-
 }

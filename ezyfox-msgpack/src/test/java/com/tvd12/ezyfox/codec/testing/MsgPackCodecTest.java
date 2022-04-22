@@ -20,5 +20,4 @@ public class MsgPackCodecTest extends CodecBaseTest {
     protected Logger getLogger() {
         return LoggerFactory.getLogger(getClass());
     }
-
 }

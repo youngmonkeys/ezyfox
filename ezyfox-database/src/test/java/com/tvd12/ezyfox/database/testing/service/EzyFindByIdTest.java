@@ -24,5 +24,4 @@ public class EzyFindByIdTest {
         
         // then
         Asserts.assertEquals(actual, Optional.of("hello"));
-    }
-}
+    }}

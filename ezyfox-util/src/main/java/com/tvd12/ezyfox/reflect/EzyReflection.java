@@ -45,5 +45,4 @@ public interface EzyReflection {
             Class<? extends Annotation> annotationClass,
             Class<?> parentClass) {
         return getAnnotatedClasses(annotationClass, it -> parentClass.isAssignableFrom(it));
-    }
-}
+    }}

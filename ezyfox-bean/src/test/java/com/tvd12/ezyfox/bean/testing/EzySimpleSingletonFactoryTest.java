@@ -36,5 +36,4 @@ public class EzySimpleSingletonFactoryTest extends BaseTest {
     public static class C {
 
     }
-
 }

@@ -29,5 +29,4 @@ public class ClassA7 extends ClassA6 {
     public void setA64(List<?> a64) {
         this.a64 = a64;
     }
-
 }

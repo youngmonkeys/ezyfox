@@ -17,5 +17,4 @@ public class EzySimpleEntityCreatorTest extends BaseTest {
         instance.create(EzyObject.class);
         instance.create(EzyArray.class);
     }
-
 }

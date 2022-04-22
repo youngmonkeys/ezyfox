@@ -32,5 +32,4 @@ public class CopyOnWriteArrayListTest {
             .getTime();
         System.out.println("time2: " + time2);
     }
-
 }

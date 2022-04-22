@@ -56,5 +56,4 @@ public class MsgPackConstantTest extends BaseTest {
     public Class<?> getTestClass() {
         return MsgPackConstant.class;
     }
-
 }

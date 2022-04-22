@@ -13,5 +13,4 @@ public class BadRequestExceptionTest {
         new BadRequestException(1, "");
         assert new BadRequestException(1, "", new Exception("")).getCode() == 1;
     }
-
 }

@@ -26,5 +26,4 @@ public class Scan1ClassCReaderImpl
                 .append(object.getZ())
                 .build();
     }
-
 }

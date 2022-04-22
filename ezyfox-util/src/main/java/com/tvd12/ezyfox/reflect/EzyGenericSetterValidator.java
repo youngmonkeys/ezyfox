@@ -37,5 +37,4 @@ public class EzyGenericSetterValidator implements EzyValidator<Type> {
     protected Set<Class> getCommonGenericTypes() {
         return EzyTypes.COMMON_GENERIC_TYPES;
     }
-
 }

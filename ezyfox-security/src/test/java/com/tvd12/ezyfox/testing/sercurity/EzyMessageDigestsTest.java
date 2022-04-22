@@ -16,5 +16,4 @@ public class EzyMessageDigestsTest extends BaseTest {
     public void test() {
         EzyMessageDigests.getAlgorithm("i don't know");
     }
-
 }

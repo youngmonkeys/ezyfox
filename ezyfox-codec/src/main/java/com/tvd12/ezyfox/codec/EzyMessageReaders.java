@@ -22,5 +22,4 @@ public final class EzyMessageReaders {
         byte[] messageContent = EzyBytes.copy(bytes, contentStart, messageSize);
         return new EzySimpleMessage(header, messageContent, messageSize);
     }
-
 }

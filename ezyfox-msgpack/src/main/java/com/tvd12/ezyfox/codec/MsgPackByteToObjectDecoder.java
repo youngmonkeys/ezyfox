@@ -43,5 +43,4 @@ public class MsgPackByteToObjectDecoder implements EzyByteToObjectDecoder {
     public void reset() {
         handlers.reset();
     }
-
 }

@@ -27,5 +27,4 @@ public class EzyByteBufferMessageReader extends EzyMessageReader<ByteBuffer> {
     protected void readMessageContent(ByteBuffer buffer, byte[] content, int offset, int length) {
         buffer.get(content, offset, length);
     }
-
 }

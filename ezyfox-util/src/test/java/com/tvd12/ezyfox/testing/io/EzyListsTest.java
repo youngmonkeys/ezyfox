@@ -86,5 +86,4 @@ public class EzyListsTest extends BaseTest {
         for(int i = 0 ; i < str.length() ; ++i)
             answer.add(str.charAt(i));
         return answer;
-    }
-}
+    }}

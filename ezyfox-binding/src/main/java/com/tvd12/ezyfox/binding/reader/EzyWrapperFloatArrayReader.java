@@ -20,5 +20,4 @@ public class EzyWrapperFloatArrayReader extends EzyWrapperArrayReader {
     protected Object[] newArray(int length) {
         return new Float[length];
     }
-
 }

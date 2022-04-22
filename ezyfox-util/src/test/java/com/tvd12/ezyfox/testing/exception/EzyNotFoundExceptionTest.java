@@ -13,5 +13,4 @@ public class EzyNotFoundExceptionTest {
         new EzyNotFoundException(new Exception());
         new EzyNotFoundException("", new Exception());
     }
-
 }

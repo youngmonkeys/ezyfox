@@ -79,5 +79,4 @@ public final class EzyPrimitiveTypes {
             list.add(array[i]);
         return list;
     }
-
 }

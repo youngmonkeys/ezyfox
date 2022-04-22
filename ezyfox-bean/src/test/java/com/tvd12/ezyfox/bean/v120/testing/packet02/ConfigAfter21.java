@@ -11,5 +11,4 @@ public class ConfigAfter21 {
     @EzySingleton
     public LastSingleton21 lastSingleton21() {
         return new LastSingleton21(singleton21);
-    }
-}
+    }}

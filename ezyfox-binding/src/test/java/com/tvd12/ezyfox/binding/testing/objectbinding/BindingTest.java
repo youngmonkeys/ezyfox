@@ -19,5 +19,4 @@ public class BindingTest extends BaseTest {
         EzyObject object = marshaller.marshal(new ClassF());
         System.out.println(object);
     }
-
 }

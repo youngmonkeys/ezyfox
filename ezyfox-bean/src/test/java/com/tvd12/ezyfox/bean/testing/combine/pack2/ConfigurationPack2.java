@@ -9,5 +9,4 @@ public class ConfigurationPack2 {
     @EzySingleton
     public ISingleton10 sgt10 = new ISingleton10() {
     };
-
 }

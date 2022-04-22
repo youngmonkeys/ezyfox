@@ -148,5 +148,4 @@ public class JacksonSimpleSerializer3Test {
             throw new RuntimeException();
         }
 
-    }
-}
+    }}

@@ -13,5 +13,4 @@ public @interface EzyMessage {
 
     String channel() default "";
 
-    String value() default "";
-}
+    String value() default "";}

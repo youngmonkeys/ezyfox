@@ -125,5 +125,4 @@ public class EzyFileAsyCrypt extends EzyAsyCrypt {
             return fileReader.readBytes(privateKeyFile);
         }
     }
-
 }

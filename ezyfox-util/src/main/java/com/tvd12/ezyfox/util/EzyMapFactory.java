@@ -27,5 +27,4 @@ public class EzyMapFactory {
         map.put(ConcurrentHashMap.class, () -> new ConcurrentHashMap<>());
         return map;
     }
-
 }

@@ -44,5 +44,4 @@ public class EzySimpleStringDataDecoderTest {
         decoder.destroy();
 
     }
-
 }

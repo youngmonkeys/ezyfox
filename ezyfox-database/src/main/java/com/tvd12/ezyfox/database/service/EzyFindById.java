@@ -9,5 +9,4 @@ public interface EzyFindById<I,E> {
     default Optional<E> findByIdOptional(I id) {
         return Optional.ofNullable(findById(id));
     }
-
 }

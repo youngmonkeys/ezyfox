@@ -30,5 +30,4 @@ public class EzyCpuMonitor {
         double cpuLoad = this.osMxBean.getSystemCpuLoad();
         return cpuLoad;
     }
-
 }

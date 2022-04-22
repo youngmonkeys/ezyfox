@@ -26,5 +26,4 @@ public class EzyMapFactoryTest extends BaseTest {
     public void test1() {
         EzyMapFactory factory = new EzyMapFactory();
         factory.newMap(Integer.class);
-    }
-}
+    }}

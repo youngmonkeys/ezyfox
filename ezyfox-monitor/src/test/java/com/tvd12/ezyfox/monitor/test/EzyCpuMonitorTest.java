@@ -15,5 +15,4 @@ public class EzyCpuMonitorTest extends BaseTest {
         Thread.sleep(300);
         System.out.println(monitor.getSystemCpuLoad());
     }
-
 }

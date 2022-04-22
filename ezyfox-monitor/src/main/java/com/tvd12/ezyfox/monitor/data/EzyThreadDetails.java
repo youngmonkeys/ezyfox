@@ -37,5 +37,4 @@ public class EzyThreadDetails extends EzyThreadDetail {
     @Override
     public String toString() {
         return overview;
-    }
-}
+    }}

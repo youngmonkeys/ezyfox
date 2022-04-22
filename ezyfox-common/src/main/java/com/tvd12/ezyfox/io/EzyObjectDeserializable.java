@@ -2,5 +2,4 @@ package com.tvd12.ezyfox.io;
 
 import com.tvd12.ezyfox.entity.EzyObject;
 
-public interface EzyObjectDeserializable extends EzyDataDeserializable<EzyObject> {
-}
+public interface EzyObjectDeserializable extends EzyDataDeserializable<EzyObject> {}

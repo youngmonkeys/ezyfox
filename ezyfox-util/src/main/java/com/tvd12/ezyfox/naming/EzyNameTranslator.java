@@ -5,5 +5,4 @@ public interface EzyNameTranslator {
     String translate(String originalName);
 
     EzyNamingCase getNamingCase();
-
 }

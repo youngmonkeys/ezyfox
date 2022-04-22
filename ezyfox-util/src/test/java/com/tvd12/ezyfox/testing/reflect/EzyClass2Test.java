@@ -51,5 +51,4 @@ public class EzyClass2Test {
                 .append("}")
                 .toString();
         }
-    }
-}
+    }}

@@ -58,5 +58,4 @@ public class AnimalEntity {
 
     @Column
     public void setBar(String bar) {
-    }
-}
+    }}

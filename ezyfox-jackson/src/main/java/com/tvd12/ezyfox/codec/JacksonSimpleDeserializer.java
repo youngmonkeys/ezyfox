@@ -98,5 +98,4 @@ public class JacksonSimpleDeserializer implements EzyMessageDeserializer {
         }
         return object;
     }
-
 }

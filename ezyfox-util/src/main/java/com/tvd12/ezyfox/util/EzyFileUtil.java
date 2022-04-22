@@ -126,5 +126,4 @@ public final class EzyFileUtil {
                     return true;
                 return false;
         }
-    }
-}
+    }}

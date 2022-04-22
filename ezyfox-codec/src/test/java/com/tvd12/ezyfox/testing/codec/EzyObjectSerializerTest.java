@@ -18,5 +18,4 @@ public class EzyObjectSerializerTest {
             return value.toString().getBytes();
         }
     }
-
 }

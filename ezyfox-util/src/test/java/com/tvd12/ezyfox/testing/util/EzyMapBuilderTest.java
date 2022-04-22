@@ -28,5 +28,4 @@ public class EzyMapBuilderTest extends BaseTest {
         Asserts.assertEquals(sut.build(), expectation);
         Asserts.assertEquals(sut.toMap(), expectation);
     }
-
 }

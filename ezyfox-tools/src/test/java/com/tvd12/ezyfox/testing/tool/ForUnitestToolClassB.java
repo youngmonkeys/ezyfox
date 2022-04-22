@@ -7,5 +7,4 @@ public class ForUnitestToolClassB {
 
     protected int intValue;
     protected String stringValue;
-    protected ForUnitestToolClassC classC;
-}
+    protected ForUnitestToolClassC classC;}

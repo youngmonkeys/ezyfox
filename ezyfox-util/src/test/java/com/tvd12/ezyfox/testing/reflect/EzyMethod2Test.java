@@ -51,5 +51,4 @@ public class EzyMethod2Test extends BaseTest {
         public String getJava() {
             return "java";
         }
-    }
-}
+    }}

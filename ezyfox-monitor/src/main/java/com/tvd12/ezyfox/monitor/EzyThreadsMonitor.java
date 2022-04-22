@@ -75,5 +75,4 @@ public class EzyThreadsMonitor {
     
     protected ThreadMXBean getThreadMXBean() {
         return ManagementFactory.getThreadMXBean();
-    }
-}
+    }}

@@ -19,5 +19,4 @@ public class EzyPointWriterExample6 {
         EzyMarshaller marshaller = context.newMarshaller();
 
         System.out.println(marshaller.marshal(new Scan1ClassA()).toString());
-    }
-}
+    }}

@@ -9,5 +9,4 @@ public class EzyHashMapLockProxyProvider extends EzyMapLockProxyProvider {
     protected Map<Object, EzyLockProxy> newLockMap() {
         return new HashMap<>();
     }
-
 }

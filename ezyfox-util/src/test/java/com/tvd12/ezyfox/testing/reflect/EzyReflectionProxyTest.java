@@ -49,5 +49,4 @@ public class EzyReflectionProxyTest {
 
     @ExampleAnnotation
     public static class A implements I {
-    }
-}
+    }}

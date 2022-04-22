@@ -169,5 +169,4 @@ public class EzyInstructionTest extends BaseTest {
     public static class A {
 
     }
-
 }

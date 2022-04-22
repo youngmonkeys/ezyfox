@@ -10,5 +10,4 @@ public class EzyCodecExceptionTest {
     public void test() {
         new EzyCodecException("msg", new Exception());
     }
-
 }

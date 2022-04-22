@@ -23,5 +23,4 @@ public abstract class EzyPackagesScanner<T extends EzyPackagesScanner<T>>
         for(String packageToScan : packagesToScan)
             scan(packageToScan);
         return (T)this;
-    }
-}
+    }}

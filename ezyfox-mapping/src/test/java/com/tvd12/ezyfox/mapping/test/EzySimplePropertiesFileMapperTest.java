@@ -32,5 +32,4 @@ public class EzySimplePropertiesFileMapperTest {
         protected String first;
         protected String last;
     }
-
 }

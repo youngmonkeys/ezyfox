@@ -32,5 +32,4 @@ public class EzyConfigurationAfterClassSorter {
         if(annotation != null)
             priority = annotation.priority();
         return priority;
-    }
-}
+    }}

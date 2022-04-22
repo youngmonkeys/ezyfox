@@ -8,5 +8,4 @@ public interface EzyMapService<K,V> extends
         EzyCheckService<K, V>,
         EzyFetchSizeService,
         EzyClearService {
-
 }

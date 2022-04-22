@@ -6,5 +6,4 @@ public interface EzyFindService<I,E> extends
         EzyFindByField<E>,
         EzyFindListByField<E>,
         EzyFindAllService<E> {
-
 }

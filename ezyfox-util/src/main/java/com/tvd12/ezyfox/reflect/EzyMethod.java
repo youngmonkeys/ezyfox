@@ -204,5 +204,4 @@ public class EzyMethod implements EzyReflectElement {
         protected Class[] getParameterTypes() {
             return parameterTypes.toArray(new Class[parameterTypes.size()]);
         }
-    }
-}
+    }}
