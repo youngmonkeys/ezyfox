@@ -36,4 +36,4 @@ public class ClassA3 {
     
     @EzyIndex(7)
     private List<?> h = Lists.newArrayList(1, 2, 3, 4, 5);
-    }
+}

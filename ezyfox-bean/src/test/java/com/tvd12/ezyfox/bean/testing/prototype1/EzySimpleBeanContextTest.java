@@ -49,4 +49,4 @@ public class EzySimpleBeanContextTest {
         context.getSingletons(EzyAutoImpl.class);
         context.getPrototypeSuppliers(EzyAutoImpl.class);
     }
-    }
+}

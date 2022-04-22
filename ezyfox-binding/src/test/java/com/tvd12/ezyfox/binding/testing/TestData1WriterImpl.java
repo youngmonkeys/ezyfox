@@ -17,4 +17,4 @@ public class TestData1WriterImpl
                 .append(object.getData3())
                 .build();
     }
-    }
+}

@@ -5,4 +5,4 @@ import java.util.List;
 public interface EzyFetchListByKeys<K,V> {
 
     List<V> getListByIds(Iterable<K> keys);
-    }
+}

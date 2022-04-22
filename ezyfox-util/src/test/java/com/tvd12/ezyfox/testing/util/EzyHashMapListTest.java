@@ -29,4 +29,4 @@ public class EzyHashMapListTest extends BaseTest {
         map.addItem("a", "y");
         assert map.getItems("a").size() == 2;
     }
-    }
+}

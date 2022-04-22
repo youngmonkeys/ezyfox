@@ -4,4 +4,4 @@ public class RequestQueue {
 
     public RequestQueue(int capacity) {
     }
-    }
+}

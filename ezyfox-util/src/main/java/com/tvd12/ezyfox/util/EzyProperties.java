@@ -34,4 +34,4 @@ public interface EzyProperties extends EzyRoProperties {
      * @param key the key
      */
     void removeProperty(Object key);
-    }
+}

@@ -234,4 +234,4 @@ public final class EzyStringConveter {
             return string.charAt(0);
         throw new IllegalArgumentException("can't convert string " + string + " to char value");
     }
-    }
+}

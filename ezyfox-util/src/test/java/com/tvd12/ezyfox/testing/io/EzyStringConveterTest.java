@@ -9,4 +9,4 @@ public class EzyStringConveterTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyStringConveter.class;
     }
-    }
+}

@@ -29,4 +29,4 @@ public class EzyFieldsTest extends BaseTest {
         @ExampleAnnotation
         String name;
     }
-    }
+}

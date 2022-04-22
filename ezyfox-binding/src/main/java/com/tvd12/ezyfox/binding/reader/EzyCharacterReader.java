@@ -26,4 +26,4 @@ public final class EzyCharacterReader implements EzyReader<Object, Character> {
         char ch = str.charAt(0);
         return ch;
     }
-    }
+}

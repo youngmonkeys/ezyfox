@@ -13,4 +13,4 @@ public class EzyCastIntToByteTest extends BaseTest {
         assert cast.cast(100) == (byte)100;
         assert cast.cast(100L) == (byte)100;
     }
-    }
+}

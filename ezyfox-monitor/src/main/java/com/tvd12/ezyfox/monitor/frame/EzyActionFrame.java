@@ -49,4 +49,4 @@ public abstract class EzyActionFrame {
                 .append(df.format(endTime))
                 .toString();
     }
-    }
+}

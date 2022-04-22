@@ -74,4 +74,4 @@ public class ClassA {
     public void haha() {
         System.out.println("hello world");
     }
-    }
+}

@@ -5,4 +5,4 @@ import java.util.Map;
 public interface EzyPropertiesMap {
 
     Map<String, String> keyMap();
-    }
+}

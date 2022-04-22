@@ -17,4 +17,4 @@ public class EzyIndexedDataIdFetchersTest extends BaseTest {
         assert fetchers.getIdFetchers().size() == 3;
         assert fetchers.getIdFetcher(ClassA.class) != null;
     }
-    }
+}

@@ -35,4 +35,4 @@ public class ByteArrayTest {
     public void test2() {
         ByteArray.wrap((byte[])null);
     }
-    }
+}

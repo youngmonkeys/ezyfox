@@ -207,4 +207,4 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
         boolean containsAll = elementSet.containsAll(c);
         return containsAll;
     }
-    }
+}

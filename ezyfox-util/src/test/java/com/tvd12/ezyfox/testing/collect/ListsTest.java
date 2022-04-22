@@ -24,4 +24,4 @@ public class ListsTest extends BaseTest {
         assert Lists.tryNewArrayList(list1).equals(list1);
         assert Lists.tryNewArrayList(Sets.newHashSet(1, 2, 3)).equals(list1);
     }
-    }
+}

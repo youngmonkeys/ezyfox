@@ -79,4 +79,4 @@ public abstract class EzyEntity implements EzyProperties {
         prop.putAll(properties);
         return prop;
     }
-    }
+}

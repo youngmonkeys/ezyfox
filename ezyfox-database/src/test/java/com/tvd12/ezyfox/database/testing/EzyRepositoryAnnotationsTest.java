@@ -19,4 +19,4 @@ public class EzyRepositoryAnnotationsTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyRepositoryAnnotations.class;
     }
-    }
+}

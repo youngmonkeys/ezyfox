@@ -22,4 +22,4 @@ public class EzyRoObjectTest {
         object.removeAll(Sets.newHashSet("a", "b"));
         assert object.size() == 0;
     }
-    }
+}

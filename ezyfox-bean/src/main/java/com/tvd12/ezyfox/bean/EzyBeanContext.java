@@ -27,4 +27,4 @@ public interface EzyBeanContext extends
     static EzyBeanContextBuilder builder() {
         return EzySimpleBeanContext.builder();
     }
-    }
+}

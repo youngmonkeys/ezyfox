@@ -30,4 +30,4 @@ public class ClassA<T> {
         private String b = "b";
         private String c = "c";
     }
-    }
+}

@@ -41,4 +41,4 @@ public class EzySimpleIndexedDataClassesFetcherTest extends BaseTest {
         classes = fetcher.getIndexedDataClasses();
         assert classes.isEmpty();
     }
-    }
+}

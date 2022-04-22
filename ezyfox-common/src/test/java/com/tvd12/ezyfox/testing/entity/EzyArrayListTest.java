@@ -64,4 +64,4 @@ public class EzyArrayListTest extends BaseTest {
         }
         
     }
-    }
+}
