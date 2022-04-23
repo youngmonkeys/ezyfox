@@ -45,15 +45,15 @@ public class EzySimpleUnmarshaller
         }
     }
 
+    public void addReader(Class type, EzyReader reader) {
+        readersByObjectType.put(type, reader);
+        readersByType.put(reader.getClass(), reader);
+    }
+
     public void addReaders(Iterable<EzyReader> readers) {
         for (EzyReader reader : readers) {
             this.addReader(reader);
         }
-    }
-
-    public void addReader(Class type, EzyReader reader) {
-        readersByObjectType.put(type, reader);
-        readersByType.put(reader.getClass(), reader);
     }
 
     public void addReaders(Map<Class, EzyReader> readers) {
@@ -103,6 +103,19 @@ public class EzySimpleUnmarshaller
     }
 
     @Override
+    public <T> T unmarshal(Class<? extends EzyReader> readerClass, Object value) {
+        if (value == null) {
+            return null;
+        }
+        EzyReader reader = readersByType.get(readerClass);
+        if (reader != null) {
+            return (T) reader.read(this, value);
+        }
+        throw new IllegalArgumentException("can't unmarshal value " +
+            value + ", " + readerClass.getName() + " is not reader class");
+    }
+
+    @Override
     public <K, V> Map<K, V> unmarshalMap(
         Object value, Class mapType, Class<K> keyType, Class<V> valueType) {
         Map map = mapFactory.newMap(mapType);
@@ -129,19 +142,6 @@ public class EzySimpleUnmarshaller
             collection.add(unmarshal(iterator.next(), itemType));
         }
         return collection;
-    }
-
-    @Override
-    public <T> T unmarshal(Class<? extends EzyReader> readerClass, Object value) {
-        if (value == null) {
-            return null;
-        }
-        EzyReader reader = readersByType.get(readerClass);
-        if (reader != null) {
-            return (T) reader.read(this, value);
-        }
-        throw new IllegalArgumentException("can't unmarshal value " +
-            value + ", " + readerClass.getName() + " is not reader class");
     }
 
     private Map<Class, EzyReader> defaultReadersByType() {

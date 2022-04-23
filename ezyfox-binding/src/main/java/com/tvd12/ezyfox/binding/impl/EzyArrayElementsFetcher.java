@@ -30,19 +30,6 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
             getMethods(clazz, accessType));
     }
 
-    private List<Object> getElementsByCustomIndexes(EzyClass clazz, String[] indexes) {
-        return getElementsByCustomIndexes(
-            getFieldsByName(clazz),
-            indexes);
-    }
-
-    private List<Object> getAnnotatedElements(EzyClass clazz) {
-        return getAnnotatedElements(
-            clazz,
-            getAnnotedFields(clazz),
-            getAnnotatedMethods(clazz));
-    }
-
     private List<Object> getElementsByNativeIndexes(
         List<EzyField> fields, List<? extends EzyMethod> methods) {
 
@@ -85,6 +72,12 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
         return elements;
     }
 
+    private List<Object> getElementsByCustomIndexes(EzyClass clazz, String[] indexes) {
+        return getElementsByCustomIndexes(
+            getFieldsByName(clazz),
+            indexes);
+    }
+
     private List<Object> getElementsByCustomIndexes(Map<String, EzyField> fieldsByName, String[] indexes) {
         List<Object> elements = new ArrayList<>();
 
@@ -123,9 +116,18 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
         return elements;
     }
 
-    private List<Object> getAnnotatedElements(
-        EzyClass clazz, List<EzyField> fields, List<? extends EzyMethod> methods) {
+    private List<Object> getAnnotatedElements(EzyClass clazz) {
+        return getAnnotatedElements(
+            clazz,
+            getAnnotedFields(clazz),
+            getAnnotatedMethods(clazz));
+    }
 
+    private List<Object> getAnnotatedElements(
+        EzyClass clazz,
+        List<EzyField> fields,
+        List<? extends EzyMethod> methods
+    ) {
         List<Object> elements = new ArrayList<>();
 
         for (EzyField field : fields) {
@@ -191,9 +193,9 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 
     @Override
     protected boolean shouldAddAnnotatedMethod(EzyMethod method) {
-        return method.isPublic() &&
-            method.isAnnotated(EzyIndex.class) &&
-            isValidAnnotatedMethod(method);
+        return method.isPublic()
+            && method.isAnnotated(EzyIndex.class)
+            && isValidAnnotatedMethod(method);
     }
 
     protected abstract boolean isValidAnnotatedMethod(EzyMethod method);

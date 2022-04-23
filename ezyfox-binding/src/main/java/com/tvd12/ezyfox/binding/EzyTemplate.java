@@ -8,7 +8,11 @@ public interface EzyTemplate<A, B> extends EzyReader<A, B>, EzyWriter<B, A> {
     default Class<?> getObjectType() {
         try {
             Class<?> templateClass = getClass();
-            Class<?>[] args = EzyGenerics.getGenericInterfacesArguments(templateClass, EzyTemplate.class, 2);
+            Class<?>[] args = EzyGenerics.getGenericInterfacesArguments(
+                templateClass,
+                EzyTemplate.class,
+                2
+            );
             return args[1];
         } catch (Exception e) {
             return null;

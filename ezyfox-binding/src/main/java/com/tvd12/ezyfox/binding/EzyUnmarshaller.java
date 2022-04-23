@@ -7,7 +7,7 @@ import java.util.Map;
 public interface EzyUnmarshaller {
 
     /**
-     * check contains unwrapper or not
+     * check contains unwrapper or not.
      *
      * @param objectType the object type
      * @return contains or not
@@ -15,7 +15,7 @@ public interface EzyUnmarshaller {
     boolean containsUnwrapper(Class objectType);
 
     /**
-     * unwrap a value to pojo
+     * unwrap a value to pojo.
      *
      * @param value  the value
      * @param output the output type
@@ -23,7 +23,7 @@ public interface EzyUnmarshaller {
     void unwrap(Object value, Object output);
 
     /**
-     * unmarshal a value to pojo
+     * unmarshal a value to pojo.
      *
      * @param <T>     output type
      * @param value   the value
@@ -33,7 +33,17 @@ public interface EzyUnmarshaller {
     <T> T unmarshal(Object value, Class<T> outType);
 
     /**
-     * unmarshal a value to collection
+     * unmarshal value to object.
+     *
+     * @param <T>         output type
+     * @param readerClass the reader class
+     * @param value       the value
+     * @return a object
+     */
+    <T> T unmarshal(Class<? extends EzyReader> readerClass, Object value);
+
+    /**
+     * unmarshal a value to collection.
      *
      * @param <T>            output item type
      * @param value          the value
@@ -42,10 +52,13 @@ public interface EzyUnmarshaller {
      * @return a collection
      */
     <T> Collection<T> unmarshalCollection(
-        Object value, Class collectionType, Class<T> itemType);
+        Object value,
+        Class collectionType,
+        Class<T> itemType
+    );
 
     /**
-     * unmarshal value to map
+     * unmarshal value to map.
      *
      * @param <K>       the key type
      * @param <V>       the value type
@@ -56,15 +69,9 @@ public interface EzyUnmarshaller {
      * @return the map
      */
     <K, V> Map<K, V> unmarshalMap(
-        Object value, Class mapType, Class<K> keyType, Class<V> valueType);
-
-    /**
-     * unmarshal value to object
-     *
-     * @param <T>         output type
-     * @param readerClass the reader class
-     * @param value       the value
-     * @return a object
-     */
-    <T> T unmarshal(Class<? extends EzyReader> readerClass, Object value);
+        Object value,
+        Class mapType,
+        Class<K> keyType,
+        Class<V> valueType
+    );
 }

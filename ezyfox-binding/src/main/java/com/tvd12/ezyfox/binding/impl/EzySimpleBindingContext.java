@@ -118,7 +118,7 @@ public class EzySimpleBindingContext
         @Override
         public EzyBindingContextBuilder scan(String packageName) {
             EzyReflection reflection = EzyPackages.scanPackage(packageName);
-            this.addAllClasses(reflection);
+            this.addAllClassesFromReflection(reflection);
             return this;
         }
 
@@ -146,7 +146,7 @@ public class EzySimpleBindingContext
         public EzyBindingContextBuilder scan(Collection<String> packageNames) {
             if (packageNames.size() > 0) {
                 EzyReflection reflection = EzyPackages.scanPackages(packageNames);
-                addAllClasses(reflection);
+                addAllClassesFromReflection(reflection);
             }
             return this;
         }
@@ -212,7 +212,7 @@ public class EzySimpleBindingContext
         @Override
         public EzyBindingContextBuilder addAllClasses(Object reflection) {
             if (reflection instanceof EzyReflection) {
-                addAllClasses((EzyReflection) reflection);
+                addAllClassesFromReflection((EzyReflection) reflection);
             }
             return this;
         }
@@ -227,6 +227,25 @@ public class EzySimpleBindingContext
             }
             if (template instanceof EzyReader) {
                 readers.add((EzyReader) template);
+            }
+            return this;
+        }
+
+        /* (non-Javadoc)
+         * @see com.tvd12.ezyfox.binding.impl.EzyBindingContextBuilder#addTemplate(java.lang.Class, java.lang.Object)
+         */
+        @Override
+        public EzyBindingContextBuilder addTemplate(Class type, Object template) {
+            if (template instanceof EzyWriter) {
+                writers.add((EzyWriter) template);
+                writersByObjectType.put(type, (EzyWriter) template);
+            }
+            if (template instanceof EzyReader) {
+                readers.add((EzyReader) template);
+                readersByObjectType.put(type, (EzyReader) template);
+            }
+            if (template instanceof EzyUnwrapper) {
+                unwrappersByObjectType.put(type, (EzyUnwrapper) template);
             }
             return this;
         }
@@ -252,25 +271,6 @@ public class EzySimpleBindingContext
         public EzyBindingContextBuilder addTemplateClasses(Iterable<Class<?>> classes) {
             for (Class<?> clazz : classes) {
                 this.addTemplateClass(clazz);
-            }
-            return this;
-        }
-
-        /* (non-Javadoc)
-         * @see com.tvd12.ezyfox.binding.impl.EzyBindingContextBuilder#addTemplate(java.lang.Class, java.lang.Object)
-         */
-        @Override
-        public EzyBindingContextBuilder addTemplate(Class type, Object template) {
-            if (template instanceof EzyWriter) {
-                writers.add((EzyWriter) template);
-                writersByObjectType.put(type, (EzyWriter) template);
-            }
-            if (template instanceof EzyReader) {
-                readers.add((EzyReader) template);
-                readersByObjectType.put(type, (EzyReader) template);
-            }
-            if (template instanceof EzyUnwrapper) {
-                unwrappersByObjectType.put(type, (EzyUnwrapper) template);
             }
             return this;
         }
@@ -424,7 +424,7 @@ public class EzySimpleBindingContext
             return EzyClasses.flatSuperAndInterfaceClasses(clazz);
         }
 
-        private void addAllClasses(EzyReflection reflection) {
+        private void addAllClassesFromReflection(EzyReflection reflection) {
             objectBindingClasses.addAll(
                 reflection.getAnnotatedClasses(EzyObjectBinding.class));
             arrayBindingClasses.addAll(

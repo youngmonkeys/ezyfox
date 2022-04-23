@@ -29,11 +29,11 @@ public interface EzyBindingContextBuilder {
 
     EzyBindingContextBuilder addTemplate(Object template);
 
+    EzyBindingContextBuilder addTemplate(Class type, Object template);
+
     EzyBindingContextBuilder addTemplateClass(Class clazz);
 
     EzyBindingContextBuilder addTemplateClasses(Iterable<Class<?>> classes);
-
-    EzyBindingContextBuilder addTemplate(Class type, Object template);
 
     EzySimpleBindingContext build();
 }

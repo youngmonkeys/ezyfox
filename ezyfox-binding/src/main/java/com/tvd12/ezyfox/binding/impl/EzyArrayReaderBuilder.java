@@ -37,6 +37,7 @@ public class EzyArrayReaderBuilder extends EzyAbstractReaderBuilder {
         return new EzyArrayReaderElementsFetcher();
     }
 
+    @SuppressWarnings("MethodLength")
     @Override
     protected String makeImplMethodContent(EzyMethod readMethod) {
         EzyFunction.EzyBody methodBody = new EzyFunction(readMethod)
@@ -244,39 +245,39 @@ public class EzyArrayReaderBuilder extends EzyAbstractReaderBuilder {
     protected boolean isDebug() {
         return debug;
     }
-}
 
-class EzyArrayReaderElementsFetcher extends EzyArrayElementsFetcher {
+    public static class EzyArrayReaderElementsFetcher extends EzyArrayElementsFetcher {
 
-    private final EzyGenericSetterValidator setterValidator = new EzyGenericSetterValidator();
+        private final EzyGenericSetterValidator setterValidator = new EzyGenericSetterValidator();
 
-    @Override
-    protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
-        return clazz.getSetterMethods();
-    }
+        @Override
+        protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
+            return clazz.getSetterMethods();
+        }
 
-    @Override
-    protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
-        return clazz.getDeclaredSetterMethods();
-    }
+        @Override
+        protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
+            return clazz.getDeclaredSetterMethods();
+        }
 
-    @Override
-    protected boolean isValidGenericField(EzyField field) {
-        return setterValidator.validate(field.getGenericType());
-    }
+        @Override
+        protected boolean isValidGenericField(EzyField field) {
+            return setterValidator.validate(field.getGenericType());
+        }
 
-    @Override
-    protected boolean isValidGenericMethod(EzyMethod method) {
-        return setterValidator.validate(((EzySetterMethod) method).getGenericType());
-    }
+        @Override
+        protected boolean isValidGenericMethod(EzyMethod method) {
+            return setterValidator.validate(((EzySetterMethod) method).getGenericType());
+        }
 
-    @Override
-    protected EzyMethod newByFieldMethod(EzyMethod method) {
-        return new EzySetterMethod(method);
-    }
+        @Override
+        protected EzyMethod newByFieldMethod(EzyMethod method) {
+            return new EzySetterMethod(method);
+        }
 
-    @Override
-    protected boolean isValidAnnotatedMethod(EzyMethod method) {
-        return method.getParameterCount() == 1;
+        @Override
+        protected boolean isValidAnnotatedMethod(EzyMethod method) {
+            return method.getParameterCount() == 1;
+        }
     }
 }

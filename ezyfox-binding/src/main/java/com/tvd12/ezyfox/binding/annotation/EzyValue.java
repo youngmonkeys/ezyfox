@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * The annotated field or method will be serialized with a key or field name by default.
+ *
  * @author tavandung12
  */
 
@@ -14,7 +16,7 @@ import java.lang.annotation.Target;
 public @interface EzyValue {
 
     /**
-     * the key mapped to value
+     * the key mapped to value.
      *
      * @return the key mapped to value
      */

@@ -117,27 +117,27 @@ public class EzyArrayWriterBuilder
     protected boolean isDebug() {
         return debug;
     }
-}
 
-class EzyArrayWriterElementsFetcher extends EzyArrayElementsFetcher {
+    public static class EzyArrayWriterElementsFetcher extends EzyArrayElementsFetcher {
 
-    @Override
-    protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
-        return clazz.getGetterMethods();
-    }
+        @Override
+        protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
+            return clazz.getGetterMethods();
+        }
 
-    @Override
-    protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
-        return clazz.getDeclaredGetterMethods();
-    }
+        @Override
+        protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
+            return clazz.getDeclaredGetterMethods();
+        }
 
-    @Override
-    protected EzyMethod newByFieldMethod(EzyMethod method) {
-        return new EzyGetterMethod(method);
-    }
+        @Override
+        protected EzyMethod newByFieldMethod(EzyMethod method) {
+            return new EzyGetterMethod(method);
+        }
 
-    @Override
-    protected boolean isValidAnnotatedMethod(EzyMethod method) {
-        return method.getReturnType() != void.class;
+        @Override
+        protected boolean isValidAnnotatedMethod(EzyMethod method) {
+            return method.getReturnType() != void.class;
+        }
     }
 }

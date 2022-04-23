@@ -239,39 +239,39 @@ public class EzyObjectReaderBuilder extends EzyAbstractReaderBuilder {
     protected boolean isDebug() {
         return debug;
     }
-}
 
-class EzyObjectReaderElementsFetcher extends EzyObjectElementsFetcher {
+    public static class EzyObjectReaderElementsFetcher extends EzyObjectElementsFetcher {
 
-    private final EzyGenericSetterValidator setterValidator = new EzyGenericSetterValidator();
+        private final EzyGenericSetterValidator setterValidator = new EzyGenericSetterValidator();
 
-    @Override
-    protected boolean isValidGenericField(EzyField field) {
-        return setterValidator.validate(field.getGenericType());
-    }
+        @Override
+        protected boolean isValidGenericField(EzyField field) {
+            return setterValidator.validate(field.getGenericType());
+        }
 
-    @Override
-    protected boolean isValidGenericMethod(EzyMethod method) {
-        return setterValidator.validate(((EzyByFieldMethod) method).getGenericType());
-    }
+        @Override
+        protected boolean isValidGenericMethod(EzyMethod method) {
+            return setterValidator.validate(((EzyByFieldMethod) method).getGenericType());
+        }
 
-    @Override
-    protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
-        return clazz.getSetterMethods();
-    }
+        @Override
+        protected List<? extends EzyMethod> getMethodList(EzyClass clazz) {
+            return clazz.getSetterMethods();
+        }
 
-    @Override
-    protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
-        return clazz.getDeclaredSetterMethods();
-    }
+        @Override
+        protected List<? extends EzyMethod> getDeclaredMethods(EzyClass clazz) {
+            return clazz.getDeclaredSetterMethods();
+        }
 
-    @Override
-    protected EzyMethod newByFieldMethod(EzyMethod method) {
-        return new EzySetterMethod(method);
-    }
+        @Override
+        protected EzyMethod newByFieldMethod(EzyMethod method) {
+            return new EzySetterMethod(method);
+        }
 
-    @Override
-    protected boolean isValidAnnotatedMethod(EzyMethod method) {
-        return method.getParameterCount() == 1;
+        @Override
+        protected boolean isValidAnnotatedMethod(EzyMethod method) {
+            return method.getParameterCount() == 1;
+        }
     }
 }

@@ -9,7 +9,11 @@ public interface EzyWriter<T, R> {
     default Class<?> getObjectType() {
         try {
             Class<?> writerClass = getClass();
-            Class<?>[] args = EzyGenerics.getGenericInterfacesArguments(writerClass, EzyWriter.class, 2);
+            Class<?>[] args = EzyGenerics.getGenericInterfacesArguments(
+                writerClass,
+                EzyWriter.class,
+                2
+            );
             return args[0];
         } catch (Exception e) {
             return null;

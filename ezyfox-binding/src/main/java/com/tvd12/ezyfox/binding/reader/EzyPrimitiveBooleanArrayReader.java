@@ -2,7 +2,8 @@ package com.tvd12.ezyfox.binding.reader;
 
 public class EzyPrimitiveBooleanArrayReader extends EzyPrimitiveArrayReader {
 
-    private static final EzyPrimitiveBooleanArrayReader INSTANCE = new EzyPrimitiveBooleanArrayReader();
+    private static final EzyPrimitiveBooleanArrayReader INSTANCE
+        = new EzyPrimitiveBooleanArrayReader();
 
     private EzyPrimitiveBooleanArrayReader() {}
 

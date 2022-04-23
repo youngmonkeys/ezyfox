@@ -6,15 +6,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Specifics reader for a field or a method.
+ *
  * @author tavandung12
  */
-
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 public @interface EzyReader {
 
     /**
-     * the key mapped to value
+     * the key mapped to value.
      *
      * @return the key mapped to value
      */

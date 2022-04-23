@@ -40,15 +40,15 @@ public class EzySimpleMarshaller
         }
     }
 
+    public void addWriter(Class type, EzyWriter writer) {
+        writersByObjectType.put(type, writer);
+        writersByType.put(writer.getClass(), writer);
+    }
+
     public void addWriters(Iterable<EzyWriter> writers) {
         for (EzyWriter writer : writers) {
             this.addWriter(writer);
         }
-    }
-
-    public void addWriter(Class type, EzyWriter writer) {
-        writersByObjectType.put(type, writer);
-        writersByType.put(writer.getClass(), writer);
     }
 
     public void addWriters(Map<Class, EzyWriter> writers) {

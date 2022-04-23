@@ -13,10 +13,6 @@ import java.util.Map;
 
 import static com.tvd12.ezyfox.binding.EzyAccessType.*;
 
-/**
- * @author tavandung12
- */
-
 public abstract class EzyAbstractElementsFetcher
     extends EzyLoggable
     implements EzyElementsFetcher {
@@ -63,7 +59,10 @@ public abstract class EzyAbstractElementsFetcher
     }
 
     protected final List<? extends EzyMethod> getAnnotatedMethods(EzyClass clazz) {
-        List<EzyMethod> methods0 = EzyLists.filter(clazz.getMethods(), this::shouldAddAnnotatedMethod);
+        List<EzyMethod> methods0 = EzyLists.filter(
+            clazz.getMethods(),
+            this::shouldAddAnnotatedMethod
+        );
         List<? extends EzyMethod> methods = filterOverriddenMethods(methods0);
         return EzyLists.newArrayList(methods, this::newByFieldMethod);
     }

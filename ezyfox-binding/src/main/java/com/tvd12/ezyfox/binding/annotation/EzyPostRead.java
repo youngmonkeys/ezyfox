@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * The annotated method will be invoked after read.
+ *
  * @author tavandung12
  */
 

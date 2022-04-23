@@ -44,6 +44,7 @@ public abstract class EzyAbstractReaderBuilder
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected Object make() throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
@@ -61,7 +62,7 @@ public abstract class EzyAbstractReaderBuilder
         Class answerClass = implClass.toClass();
         implClass.detach();
         logger.debug("class {} has generated", implClassName);
-        return answerClass.newInstance();
+        return answerClass.getDeclaredConstructor().newInstance();
     }
 
     protected String getReadMethodName() {
@@ -127,23 +128,25 @@ public abstract class EzyAbstractReaderBuilder
         for (int i = 0; i < constructor.getParameterCount(); ++i) {
             String paramName = "cparam" + i;
             Parameter parameter = constructorParameters[i];
-            EzyInstruction cInstruction = new EzyInstruction("\t", "\n")
+            EzyInstruction constructorInstruction = new EzyInstruction("\t", "\n")
                 .variable(parameter.getType(), paramName)
                 .equal();
-            EzyInstruction cValueInstruction = new EzyInstruction("", "", false);
-            if (i >= keyList.size() ||
-                !parameter.getType().isAssignableFrom(declaredFields.get(i).getType())) {
-                cValueInstruction.defaultValue(parameter.getType());
+            EzyInstruction constructorValueInstruction =
+                new EzyInstruction("", "", false);
+            if (i >= keyList.size()
+                || !parameter.getType().isAssignableFrom(declaredFields.get(i).getType())
+            ) {
+                constructorValueInstruction.defaultValue(parameter.getType());
             } else {
                 appendConstructorParamValue(
-                    cValueInstruction,
+                    constructorValueInstruction,
                     parameter,
                     i,
                     declaredFields.get(i),
                     keyList.get(i));
             }
-            cInstruction.append(cValueInstruction.toString(false));
-            methodBody.append(cInstruction);
+            constructorInstruction.append(constructorValueInstruction.toString(false));
+            methodBody.append(constructorInstruction);
             paramNames.add(paramName);
         }
         return paramNames;
@@ -207,10 +210,12 @@ public abstract class EzyAbstractReaderBuilder
         return field == null ? null : getReaderImplClass(field);
     }
 
-    protected com.tvd12.ezyfox.binding.annotation.EzyReader
-    getReaderAnnotation(EzyReflectElement element) {
+    protected com.tvd12.ezyfox.binding.annotation.EzyReader getReaderAnnotation(
+        EzyReflectElement element
+    ) {
         return element.getAnnotation(
-            com.tvd12.ezyfox.binding.annotation.EzyReader.class);
+            com.tvd12.ezyfox.binding.annotation.EzyReader.class
+        );
     }
 
     protected EzyInstruction wrapUnmarshalInstruction(

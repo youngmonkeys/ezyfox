@@ -2,7 +2,8 @@ package com.tvd12.ezyfox.binding.reader;
 
 public class EzyPrimitiveDoubleArrayReader extends EzyPrimitiveArrayReader {
 
-    private static final EzyPrimitiveDoubleArrayReader INSTANCE = new EzyPrimitiveDoubleArrayReader();
+    private static final EzyPrimitiveDoubleArrayReader INSTANCE
+        = new EzyPrimitiveDoubleArrayReader();
 
     private EzyPrimitiveDoubleArrayReader() {}
 
