@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.file;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+
 import java.io.File;
 import java.net.URL;
-
-import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public class EzyClassPathFileFetcher implements EzyFileFetcher {
 
@@ -15,6 +15,10 @@ public class EzyClassPathFileFetcher implements EzyFileFetcher {
 
     protected EzyClassPathFileFetcher(Builder builder) {
         this.classLoader = builder.classLoader;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -30,10 +34,6 @@ public class EzyClassPathFileFetcher implements EzyFileFetcher {
 
     protected File secondGet(String filePath) {
         return firstGet(File.separator + filePath);
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyFileFetcher> {

@@ -1,16 +1,17 @@
 package com.tvd12.ezyfox.testing.stream;
 
-import static org.testng.Assert.assertEquals;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
+import static org.testng.Assert.assertEquals;
+
 public class JavaInputStreamMarkExample {
 
+    @SuppressWarnings("ALL")
     public static void main(String[] args) throws IOException {
-        InputStream stream = new ByteArrayInputStream(new byte[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
+        InputStream stream = new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
         assert stream.markSupported();
         assert stream.available() == 10;
         byte[] bytes = new byte[2];

@@ -10,5 +10,4 @@ public interface EzyClassesFetcher {
 
     @SuppressWarnings("rawtypes")
     List<Class> asList(String filePath);
-
 }

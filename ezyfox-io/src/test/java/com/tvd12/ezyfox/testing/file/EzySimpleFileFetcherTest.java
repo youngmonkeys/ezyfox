@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.file;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.exception.EzyFileNotFoundException;
 import com.tvd12.ezyfox.file.EzySimpleFileFetcher;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzySimpleFileFetcherTest extends BaseTest {
 

@@ -1,14 +1,14 @@
 package com.tvd12.ezyfox.stream;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.exception.EzyFileNotFoundException;
 import com.tvd12.ezyfox.file.EzyFileFetcher;
 import com.tvd12.ezyfox.file.EzySimpleFileFetcher;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
 
@@ -19,7 +19,11 @@ public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
     }
 
     protected EzySimpleInputStreamLoader(Builder builder) {
-        this.fileFetcher = builder.newFileFecher();
+        this.fileFetcher = builder.newFileFetcher();
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -33,10 +37,12 @@ public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
     }
 
     protected RuntimeException processException(Exception e) {
-        if(e instanceof EzyFileNotFoundException)
-            return (EzyFileNotFoundException)e;
-        if(e instanceof FileNotFoundException)
+        if (e instanceof EzyFileNotFoundException) {
+            return (EzyFileNotFoundException) e;
+        }
+        if (e instanceof FileNotFoundException) {
             return new EzyFileNotFoundException(e);
+        }
         throw new IllegalArgumentException(e);
     }
 
@@ -44,12 +50,8 @@ public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
         return fileFetcher.get(filePath);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public static class Builder
-            implements EzyBuilder<EzyInputStreamLoader> {
+        implements EzyBuilder<EzyInputStreamLoader> {
 
         protected boolean throwException = true;
 
@@ -63,10 +65,10 @@ public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
             return new EzySimpleInputStreamLoader(this);
         }
 
-        protected EzyFileFetcher newFileFecher() {
+        protected EzyFileFetcher newFileFetcher() {
             return EzySimpleFileFetcher.builder()
-                    .throwException(throwException)
-                    .build();
+                .throwException(throwException)
+                .build();
         }
     }
 }

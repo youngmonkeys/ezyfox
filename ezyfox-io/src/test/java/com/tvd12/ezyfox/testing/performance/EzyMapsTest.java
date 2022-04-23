@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.testing.performance;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.test.performance.Performance;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EzyMapsTest {
 
@@ -19,22 +19,13 @@ public class EzyMapsTest {
         System.out.println(time);
     }
 
-    public static interface A {
-    }
+    public interface A {}
 
-    public static interface B extends A {
+    public interface B extends A {}
 
-    }
+    public interface C extends A {}
 
-    public static interface C extends A {
+    public static class D implements C {}
 
-    }
-
-    public static class D implements C {
-
-    }
-
-    public static class E extends D {
-
-    }
+    public static class E extends D {}
 }

@@ -1,15 +1,15 @@
 package com.tvd12.ezyfox.stream;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.io.EzyClassesFetcher;
+import com.tvd12.ezyfox.io.EzyLists;
+import com.tvd12.ezyfox.reflect.EzyClasses;
+
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.io.EzyClassesFetcher;
-import com.tvd12.ezyfox.io.EzyLists;
-import com.tvd12.ezyfox.reflect.EzyClasses;
 
 public class EzyStreamClassesFetcher implements EzyClassesFetcher {
 
@@ -21,6 +21,10 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
 
     protected EzyStreamClassesFetcher(Builder builder) {
         this.classLoader = builder.classLoader;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     /* (non-Javadoc)
@@ -39,7 +43,7 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
     @SuppressWarnings("rawtypes")
     public List<Class> asList(String filePath) {
         Collection<String> classNames = getClassNames(filePath);
-        return EzyLists.newArrayList(classNames, cn -> this.getClass(cn));
+        return EzyLists.newArrayList(classNames, this::getClass);
     }
 
     @SuppressWarnings("rawtypes")
@@ -55,7 +59,7 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
 
     protected EzyInputStreamReader newInputStreamReader() {
         return new EzySimpleInputStreamReader.Builder()
-                .build();
+            .build();
     }
 
     protected InputStream loadInputStream(String filePath) {
@@ -65,12 +69,8 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
 
     protected EzyInputStreamLoader newInputStreamLoader() {
         return new EzyAnywayInputStreamLoader.Builder()
-                .classLoader(classLoader)
-                .build();
-    }
-
-    public static Builder builder() {
-        return new Builder();
+            .classLoader(classLoader)
+            .build();
     }
 
     public static class Builder implements EzyBuilder<EzyClassesFetcher> {

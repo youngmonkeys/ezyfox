@@ -1,25 +1,24 @@
 package com.tvd12.ezyfox.testing.file;
 
-import java.io.File;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.file.EzyClassPathFileFetcher;
 import com.tvd12.ezyfox.file.EzyFileFetcher;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.io.File;
 
 public class EzyClassPathFileFetcherTest extends BaseTest {
 
     @Test
     public void test1() {
         File file = EzyClassPathFileFetcher.builder()
-                .classLoader(getClass().getClassLoader())
-                .context(getClass())
-                .build()
-                .get("AllTests.tng.xml");
+            .classLoader(getClass().getClassLoader())
+            .context(getClass())
+            .build()
+            .get("AllTests.tng.xml");
         assert file != null;
         file = new EzyClassPathFileFetcher()
-                .get("AllTests.tng.xml");
+            .get("AllTests.tng.xml");
         assert file != null;
     }
 
@@ -34,21 +33,21 @@ public class EzyClassPathFileFetcherTest extends BaseTest {
                 };
 
             }
-            }
-                .classLoader(getClass().getClassLoader())
-                .context(getClass())
-                .build()
-                .get("AllTests.tng.xml");
+        }
+            .classLoader(getClass().getClassLoader())
+            .context(getClass())
+            .build()
+            .get("AllTests.tng.xml");
         assert file == null;
     }
 
     @Test
     public void test3() {
         File file = EzyClassPathFileFetcher.builder()
-                .classLoader(getClass().getClassLoader())
-                .context(getClass())
-                .build()
-                .get("safsdf.tng.xml");
+            .classLoader(getClass().getClassLoader())
+            .context(getClass())
+            .build()
+            .get("safsdf.tng.xml");
         assert file == null;
     }
 }

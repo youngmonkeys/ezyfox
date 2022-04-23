@@ -15,6 +15,10 @@ public class EzyAnywayInputStreamLoader extends EzyClassPathInputStreamLoader {
         this.firstLoader = builder.newFirstLoader();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public InputStream load(String filePath) {
         InputStream stream = tryFirstLoad(filePath);
@@ -23,10 +27,6 @@ public class EzyAnywayInputStreamLoader extends EzyClassPathInputStreamLoader {
 
     protected InputStream tryFirstLoad(String filePath) {
         return firstLoader.load(filePath);
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder extends EzyClassPathInputStreamLoader.Builder {
@@ -38,9 +38,8 @@ public class EzyAnywayInputStreamLoader extends EzyClassPathInputStreamLoader {
 
         protected EzyInputStreamLoader newFirstLoader() {
             return EzySimpleInputStreamLoader.builder()
-                    .throwException(false)
-                    .build();
+                .throwException(false)
+                .build();
         }
-
     }
 }

@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.testing.stream;
 
-import java.io.FileNotFoundException;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.exception.EzyFileNotFoundException;
 import com.tvd12.ezyfox.stream.EzySimpleInputStreamLoader;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.io.FileNotFoundException;
 
 public class EzySimpleInputStreamLoaderTest extends BaseTest {
 
@@ -30,9 +29,9 @@ public class EzySimpleInputStreamLoaderTest extends BaseTest {
                 return new EzySimpleInputStreamLoader(this) {
                     protected java.io.File getFile(String filePath) throws FileNotFoundException {
                         throw new FileNotFoundException();
-                    };
+                    }
                 };
-            };
+            }
         }
             .throwException(true)
             .build()
@@ -44,29 +43,14 @@ public class EzySimpleInputStreamLoaderTest extends BaseTest {
         new EzySimpleInputStreamLoader.Builder() {
             public com.tvd12.ezyfox.stream.EzyInputStreamLoader build() {
                 return new EzySimpleInputStreamLoader(this) {
-                    protected java.io.File getFile(String filePath) throws FileNotFoundException {
+                    protected java.io.File getFile(String filePath) {
                         throw new NullPointerException();
-                    };
+                    }
                 };
-            };
+            }
         }
             .throwException(true)
             .build()
             .load("ffsadfs.afasdf");
-    }
-
-    public void test4() {
-        assert new EzySimpleInputStreamLoader.Builder() {
-            public com.tvd12.ezyfox.stream.EzyInputStreamLoader build() {
-                return new EzySimpleInputStreamLoader(this) {
-                    protected java.io.File getFile(String filePath) throws FileNotFoundException {
-                        throw new NullPointerException();
-                    };
-                };
-            };
-        }
-            .throwException(false)
-            .build()
-            .load("ffsadfs.afasdf") == null;
     }
 }

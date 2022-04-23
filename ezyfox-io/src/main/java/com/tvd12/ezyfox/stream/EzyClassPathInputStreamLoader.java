@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.stream;
 
-import java.io.InputStream;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
+
+import java.io.InputStream;
 
 public class EzyClassPathInputStreamLoader implements EzyInputStreamLoader {
 
@@ -14,6 +14,10 @@ public class EzyClassPathInputStreamLoader implements EzyInputStreamLoader {
 
     protected EzyClassPathInputStreamLoader(Builder builder) {
         this.classLoader = builder.classLoader;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -28,10 +32,6 @@ public class EzyClassPathInputStreamLoader implements EzyInputStreamLoader {
 
     protected InputStream secondLoad(String filePath) {
         return firstLoad("/" + filePath);
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyInputStreamLoader> {

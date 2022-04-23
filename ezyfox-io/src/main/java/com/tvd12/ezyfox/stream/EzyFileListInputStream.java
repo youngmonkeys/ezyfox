@@ -6,25 +6,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class EzyFileListInputstream extends InputStream {
+public class EzyFileListInputStream extends InputStream {
 
     private final List<File> files;
     private int currentFileIndex;
     private InputStream currentStream;
     private volatile boolean closed;
     private volatile boolean done;
-    
-    public EzyFileListInputstream(List<File> files) {
+
+    public EzyFileListInputStream(List<File> files) {
         if (files.isEmpty()) {
             throw new IllegalArgumentException("file list is empty");
         }
         this.files = files;
     }
-    
+
     @Override
     public int read() throws IOException {
         while (true) {
-            synchronized(this) {
+            synchronized (this) {
                 if (closed) {
                     throw new IOException("stream closed");
                 }
@@ -40,18 +40,18 @@ public class EzyFileListInputstream extends InputStream {
                 }
                 currentStream.close();
                 currentStream = null;
-                
-                if ((++ currentFileIndex) >= files.size()) {
+
+                if ((++currentFileIndex) >= files.size()) {
                     done = true;
                     return -1;
                 }
             }
         }
     }
-    
+
     @Override
     public void close() throws IOException {
-        synchronized(this) {
+        synchronized (this) {
             this.closed = true;
             if (currentStream != null) {
                 currentStream.close();
