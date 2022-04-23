@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.tvd12.ezyfox.io.EzyDataConverter.*;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class EzyDataConverterTest extends BaseTest {
 
@@ -58,61 +59,61 @@ public class EzyDataConverterTest extends BaseTest {
     @Test
     public void arrayToListTest() {
         List<Byte> bytes = EzyDataConverter.arrayToList(new byte[]{1, 2, 3});
-        assertEquals(bytes.containsAll(Lists.newArrayList((byte) 1, (byte) 2, (byte) 3)), true);
+        assertTrue(bytes.containsAll(Lists.newArrayList((byte) 1, (byte) 2, (byte) 3)));
     }
 
     @Test
     public void arrayToListTest2() {
         List<String> bytes = EzyDataConverter.arrayToList(new String[]{"a", "b", "c"});
-        assertEquals(bytes.containsAll(Lists.newArrayList("a", "b", "c")), true);
+        assertTrue(bytes.containsAll(Lists.newArrayList("a", "b", "c")));
     }
 
     @Test
     public void arrayToListBooleanTest() {
         List<Boolean> booleans = EzyDataConverter.arrayToList(new boolean[]{true, false, true});
-        assertEquals(booleans.containsAll(Lists.newArrayList(true, false, true)), true);
+        assertTrue(booleans.containsAll(Lists.newArrayList(true, false, true)));
     }
 
     @Test
     public void arrayToListCharTest() {
         List<Character> booleans = EzyDataConverter.arrayToList(new char[]{'a', 'b', 'c'});
-        assertEquals(booleans.containsAll(Lists.newArrayList('a', 'b', 'c')), true);
+        assertTrue(booleans.containsAll(Lists.newArrayList('a', 'b', 'c')));
     }
 
     @Test
     public void arrayToListDoubleTest() {
         List<Double> booleans = EzyDataConverter.arrayToList(new double[]{1D, 2D, 3D});
-        assertEquals(booleans.containsAll(Lists.newArrayList(1D, 2D, 3D)), true);
+        assertTrue(booleans.containsAll(Lists.newArrayList(1D, 2D, 3D)));
     }
 
     @Test
     public void arrayToListFloatTest() {
         List<Float> booleans = EzyDataConverter.arrayToList(new float[]{1F, 2F, 3F});
-        assertEquals(booleans.containsAll(Lists.newArrayList(1F, 2F, 3F)), true);
+        assertTrue(booleans.containsAll(Lists.newArrayList(1F, 2F, 3F)));
     }
 
     @Test
     public void arrayToListIntTest() {
         List<Integer> ints = EzyDataConverter.arrayToList(new int[]{1, 2, 3});
-        assertEquals(ints.containsAll(Lists.newArrayList(1, 2, 3)), true);
+        assertTrue(ints.containsAll(Lists.newArrayList(1, 2, 3)));
     }
 
     @Test
     public void arrayToListLongTest() {
         List<Long> booleans = EzyDataConverter.arrayToList(new long[]{1L, 2L, 3L});
-        assertEquals(booleans.containsAll(Lists.newArrayList(1L, 2L, 3L)), true);
+        assertTrue(booleans.containsAll(Lists.newArrayList(1L, 2L, 3L)));
     }
 
     @Test
     public void arrayToListShortTest() {
         List<Short> booleans = EzyDataConverter.arrayToList(new short[]{(short) 1, (short) 2, (short) 3});
-        assertEquals(booleans.containsAll(Lists.newArrayList((short) 1, (short) 2, (short) 3)), true);
+        assertTrue(booleans.containsAll(Lists.newArrayList((short) 1, (short) 2, (short) 3)));
     }
 
     @Test
     public void byteArrayToCharListTest() {
         List<Character> chars = EzyDataConverter.byteArrayToCharList(new byte[]{'a', 'b', 'c'});
-        assertEquals(chars.containsAll(Lists.newArrayList('a', 'b', 'c')), true);
+        assertTrue(chars.containsAll(Lists.newArrayList('a', 'b', 'c')));
     }
 
     @Test
@@ -237,7 +238,8 @@ public class EzyDataConverterTest extends BaseTest {
     @Test
     public void collectionToWrapperByteArrayTest() {
         Byte[] bytes = EzyDataConverter.collectionToWrapperByteArray(
-            Lists.newArrayList(new Byte[]{1, 2, 3}));
+            Lists.newArrayList(1, 2, 3)
+        );
         assertEquals(bytes, new Byte[]{1, 2, 3});
     }
 

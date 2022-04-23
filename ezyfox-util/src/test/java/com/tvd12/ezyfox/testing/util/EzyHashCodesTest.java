@@ -14,12 +14,12 @@ public class EzyHashCodesTest {
         Asserts.assertEquals(1, hashCodes.toHashCode());
 
         hashCodes.append(1);
-        Asserts.assertEquals(1 * 31 + 1, hashCodes.toHashCode());
+        Asserts.assertEquals(31 + 1, hashCodes.toHashCode());
 
         hashCodes.append(2);
-        Asserts.assertEquals((1 * 31 + 1) * 31 + 2, hashCodes.toHashCode());
+        Asserts.assertEquals((31 + 1) * 31 + 2, hashCodes.toHashCode());
 
         hashCodes.append(null);
-        Asserts.assertEquals(((1 * 31 + 1) * 31 + 2) * 31 + 43, hashCodes.toHashCode());
+        Asserts.assertEquals(((31 + 1) * 31 + 2) * 31 + 43, hashCodes.toHashCode());
     }
 }

@@ -26,7 +26,7 @@ public class EzyListsTest extends BaseTest {
         assertEquals(set, Lists.newArrayList("1", "2", "3", "4", "5", "6"));
 
         Collection<String> coll1 = Lists.newArrayList("ab", "cde");
-        List<Character> set1 = EzyLists.newHashSetByAddAll(coll1, t -> this.stringtoChars(t));
+        List<Character> set1 = EzyLists.newHashSetByAddAll(coll1, this::stringToChars);
         assertEquals(set1, Lists.newArrayList('a', 'b', 'c', 'd', 'e'));
 
         List<String> set2 = EzyLists.filter(set,
@@ -36,10 +36,10 @@ public class EzyListsTest extends BaseTest {
         List<String> set3 = EzyLists.newArrayList(set, "3", "4");
         assertEquals(set3, Lists.newArrayList("1", "2", "5", "6"));
 
-        List<String> set4 = EzyLists.newArrayList(new Long[]{1L, 2L, 3L}, v -> v.toString());
+        List<String> set4 = EzyLists.newArrayList(new Long[]{1L, 2L, 3L}, Object::toString);
         assertEquals(set4, Lists.newArrayList("1", "2", "3"));
 
-        List<String> set5 = EzyLists.newArrayList(Lists.newArrayList(1L, 2L, 3L), v -> v.toString());
+        List<String> set5 = EzyLists.newArrayList(Lists.newArrayList(1L, 2L, 3L), Object::toString);
         assertEquals(set5, Lists.newArrayList("1", "2", "3"));
 
         Map<String, Long> map = new HashMap<>();
@@ -65,17 +65,17 @@ public class EzyListsTest extends BaseTest {
         Asserts.assertEquals(EzyLists.take(Arrays.asList(1, 2, 3), 5), Arrays.asList(1, 2, 3));
 
         Asserts.assertEquals(EzyLists.first(Arrays.asList(1, 2)), 1);
-        Asserts.assertEquals(EzyLists.first(Arrays.asList()), null);
+        Asserts.assertEquals(EzyLists.first(Collections.emptyList()), null);
         Asserts.assertEquals(EzyLists.first(Arrays.asList(1, 2), 3), 1);
-        Asserts.assertEquals(EzyLists.first(Arrays.asList(), 1), 1);
+        Asserts.assertEquals(EzyLists.first(Collections.emptyList(), 1), 1);
 
         Asserts.assertEquals(EzyLists.last(Arrays.asList(1, 2)), 2);
-        Asserts.assertEquals(EzyLists.last(Arrays.asList()), null);
+        Asserts.assertEquals(EzyLists.last(Collections.emptyList()), null);
         Asserts.assertEquals(EzyLists.last(Arrays.asList(1, 2), 3), 2);
-        Asserts.assertEquals(EzyLists.last(Arrays.asList(), 2), 2);
+        Asserts.assertEquals(EzyLists.last(Collections.emptyList(), 2), 2);
     }
 
-    private Collection<Character> stringtoChars(String str) {
+    private Collection<Character> stringToChars(String str) {
         List<Character> answer = new ArrayList<>();
         for (int i = 0; i < str.length(); ++i) {
             answer.add(str.charAt(i));

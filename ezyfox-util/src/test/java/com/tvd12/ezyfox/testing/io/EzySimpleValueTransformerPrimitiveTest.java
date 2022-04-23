@@ -19,7 +19,7 @@ public class EzySimpleValueTransformerPrimitiveTest extends BaseTest {
         assert transformer.convert("1", byte.class) == (byte) 1;
         assert transformer.convert(1.0D, byte.class) == (byte) 1;
 
-        assert transformer.convert(new Character('a'), char.class) == 'a';
+        assert transformer.convert('a', char.class) == 'a';
         assert transformer.convert(1.0D, char.class) == (char) 1;
         assert transformer.convert("a", char.class) == 'a';
 

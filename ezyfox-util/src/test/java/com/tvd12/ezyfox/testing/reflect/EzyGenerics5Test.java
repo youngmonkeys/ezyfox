@@ -18,6 +18,5 @@ public class EzyGenerics5Test {
 
     public static class Doc extends HashMap<String, String> {
         private static final long serialVersionUID = 7094427792585792941L;
-
     }
 }

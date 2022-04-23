@@ -11,9 +11,10 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -23,9 +24,9 @@ public class EzyStringsTest extends BaseTest {
 
     @Test
     public void test() throws Exception {
-        assertEquals("abc", EzyStrings.newUtf("abc".getBytes("UTF-8")));
-        assertEquals("abc", EzyStrings.newUtf(ByteBuffer.wrap("abc".getBytes("UTF-8")), 3));
-        assertEquals(EzyStrings.getUtfBytes("abc"), "abc".getBytes("UTF-8"));
+        assertEquals("abc", EzyStrings.newUtf("abc".getBytes(StandardCharsets.UTF_8)));
+        assertEquals("abc", EzyStrings.newUtf(ByteBuffer.wrap("abc".getBytes(StandardCharsets.UTF_8)), 3));
+        assertEquals(EzyStrings.getUtfBytes("abc"), "abc".getBytes(StandardCharsets.UTF_8));
         assertEquals(EzyStrings.newString('a', 3), "aaa");
         assertEquals(EzyStrings.quote(null), "\"null\"");
     }
@@ -58,7 +59,7 @@ public class EzyStringsTest extends BaseTest {
         System.out.println(EzyStrings.wrap(null, "[", "]", ",", true));
         System.out.println(EzyStrings.wrap(null, "[", "]", ",", false));
         System.out.println(EzyStrings.wrap(new ArrayList<>(), "[", "]", ",", false));
-        System.out.println(EzyStrings.wrap(Arrays.asList(1L), "[", "]", ",", false));
+        System.out.println(EzyStrings.wrap(Collections.singletonList(1L), "[", "]", ",", false));
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -99,7 +100,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkTest() {
         // given
         String queryString = "select e from E e where id = ?0 and name = ?1";
-        Object params[] = new Object[]{1, "'monkey'"};
+        Object[] params = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params);
@@ -113,7 +114,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkWithConverterTest() {
         // given
         String queryString = "select e from E e where id = ?0 and name = ?1";
-        Object params[] = new Object[]{1, "'monkey'"};
+        Object[] params = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params, it -> it);
@@ -127,7 +128,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkEndWithQuestionChar() {
         // given
         String queryString = "select e from E e where id = ?0 and name = ?";
-        Object params[] = new Object[]{1, "'monkey'"};
+        Object[] params = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params);
@@ -141,7 +142,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkDoubleQuestionChar() {
         // given
         String queryString = "select e from E e where id = ??0 and name = ??";
-        Object params[] = new Object[]{1, "'monkey'"};
+        Object[] params = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params);
@@ -155,7 +156,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkWithDuplicateParams() {
         // given
         String queryString = "select e from E e where id = ?0 or id = ?0 and name = ?1";
-        Object params[] = new Object[]{1, "'monkey'"};
+        Object[] params = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params);
@@ -169,7 +170,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceFailedWithMissingParam() {
         // given
         String queryString = "select e from E e where id = ?0 or id = ?0 and name = ?2";
-        Object params[] = new Object[]{1, "'monkey'"};
+        Object[] params = new Object[]{1, "'monkey'"};
 
         // when
         // then
@@ -277,12 +278,10 @@ public class EzyStringsTest extends BaseTest {
 
         @Override
         public String toString() {
-            return new StringBuilder()
-                .append("{")
-                .append("\"name\":").append("\"" + name + "\"").append(",")
-                .append("\"value\":").append("\"" + value + "\"")
-                .append("}")
-                .toString();
+            return "{" +
+                "\"name\":" + "\"" + name + "\"" + "," +
+                "\"value\":" + "\"" + value + "\"" +
+                "}";
         }
     }
 }

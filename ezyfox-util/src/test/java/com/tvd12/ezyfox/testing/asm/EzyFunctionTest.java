@@ -48,7 +48,7 @@ public class EzyFunctionTest extends BaseTest {
         System.out.println(body.function().toString());
     }
 
-    public static interface Reader {
-        public String read(String value);
+    public interface Reader {
+        String read(String value);
     }
 }

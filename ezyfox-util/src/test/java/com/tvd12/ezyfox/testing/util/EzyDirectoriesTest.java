@@ -13,9 +13,10 @@ import java.util.Collection;
 
 import static org.testng.Assert.assertEquals;
 
+@SuppressWarnings("ALL")
 public class EzyDirectoriesTest extends BaseTest {
 
-    private EzyDirectories directories;
+    private final EzyDirectories directories;
 
     public EzyDirectoriesTest() throws IOException {
         super();

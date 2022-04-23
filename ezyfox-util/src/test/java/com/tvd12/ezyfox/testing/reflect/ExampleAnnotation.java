@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.tvd12.ezyfox.testing.reflect;
 
 import java.lang.annotation.Documented;
@@ -14,9 +11,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER,
     TYPE_USE})
-/**
- * @author tavandung12
- *
- */
-public @interface ExampleAnnotation {
-}
+public @interface ExampleAnnotation {}

@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 public class EzyReferenceTest extends BaseTest {
 
+    @SuppressWarnings("ALL")
     @Test
     public void test() {
         assert (new EzyReference() {

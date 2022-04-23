@@ -32,18 +32,17 @@ public class EzyEnumsTest extends BaseTest {
         System.out.println("enumMapInt: " + enumMapInt);
     }
 
-    public static enum ABC implements EzyConstant {
+    public enum ABC implements EzyConstant {
 
         A(1),
         B(2),
         C(3);
 
         @Getter
-        private int id;
+        private final int id;
 
-        private ABC(int id) {
+        ABC(int id) {
             this.id = id;
         }
-
     }
 }

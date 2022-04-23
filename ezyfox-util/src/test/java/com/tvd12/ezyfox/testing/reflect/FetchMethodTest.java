@@ -16,7 +16,6 @@ public class FetchMethodTest {
     }
 
     public static class A {
-        public void setValue() {
-        }
+        public void setValue() {}
     }
 }

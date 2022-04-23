@@ -5,6 +5,7 @@ import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 public class EzySetterMethodTest extends BaseTest {
 
@@ -14,8 +15,8 @@ public class EzySetterMethodTest extends BaseTest {
             ClassA.class.getDeclaredMethod("setValue", String.class));
         assertEquals(setter.getType(), String.class);
         assertEquals(setter.getGenericType(), String.class);
-        assertEquals(setter.isMapType(), false);
-        assertEquals(setter.isCollection(), false);
+        assertFalse(setter.isMapType());
+        assertFalse(setter.isCollection());
         assertEquals(setter.getFieldName(), "value");
         assert setter.getParameterCount() >= 0;
     }
@@ -41,22 +42,15 @@ public class EzySetterMethodTest extends BaseTest {
         assert set.getFieldName().equals("set");
     }
 
+    @SuppressWarnings("unused")
     public static class ClassA {
 
-        public void setA(String a) {
+        public void setA(String a) {}
 
-        }
+        public void setValue(String value) {}
 
-        public void setValue(String value) {
-        }
+        public void duplicateValue(String value) {}
 
-        public void duplicateValue(String value) {
-
-        }
-
-        public void set(String a) {
-
-        }
-
+        public void set(String a) {}
     }
 }

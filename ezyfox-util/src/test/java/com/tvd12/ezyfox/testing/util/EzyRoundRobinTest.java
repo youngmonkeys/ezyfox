@@ -11,7 +11,7 @@ public class EzyRoundRobinTest {
         EzyRoundRobin<Integer> rr = new EzyRoundRobin<>(() -> 1, 1);
         rr.add(2);
         rr.add(3);
-        rr.forEach(i -> System.out.println(i));
+        rr.forEach(System.out::println);
         assert rr.get().equals(1);
         assert rr.get().equals(2);
         assert rr.get().equals(3);
@@ -23,9 +23,8 @@ public class EzyRoundRobinTest {
         assert rr.get().equals(3);
 
         long time = Performance.create()
-            .test(() -> {
-                rr.get();
-            }).getTime();
+            .test(rr::get)
+            .getTime();
         System.out.println("time: " + time);
     }
 }

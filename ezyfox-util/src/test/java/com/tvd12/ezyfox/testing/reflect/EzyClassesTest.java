@@ -72,16 +72,17 @@ public class EzyClassesTest extends BaseTest {
         return EzyClasses.class;
     }
 
+    @SuppressWarnings("unused")
     public static class ClassA {
         public ClassA() {}
 
         public ClassA(boolean encrypted) {}
     }
 
+    @SuppressWarnings("unused")
     public static class ClassB {
         protected ClassB(int a) {}
 
-        public ClassB(String s) {
-        }
+        public ClassB(String s) {}
     }
 }

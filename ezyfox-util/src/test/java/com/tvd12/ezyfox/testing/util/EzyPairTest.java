@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 public class EzyPairTest {
 
+    @SuppressWarnings("ALL")
     @Test
     public void test() {
         EzyPair<String, Integer> pair = new EzyPair<>("a");

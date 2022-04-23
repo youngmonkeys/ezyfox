@@ -7,13 +7,12 @@ import java.util.Set;
 
 public class SortedSetTest {
 
+    @SuppressWarnings("ALL")
     public static void main(String[] args) {
         int size = 1000000;
         Set<String> normalSet = new HashSet<>();
-//        SortedSet<String> sortedSet = new TreeSet<>();
         for (int i = 0; i < size; ++i) {
             normalSet.add(i + "");
-//            sortedSet.add(i + "");
         }
 
         System.out.println("setup done");
@@ -26,15 +25,11 @@ public class SortedSetTest {
         long endTime1 = System.currentTimeMillis();
 
         long startTime2 = System.currentTimeMillis();
-//        for(int i = 0 ; i < 1000000 ; ++i) {
-//            sortedSet.containsAll(find);
-//        }
         long endTime2 = System.currentTimeMillis();
 
         long offset1 = endTime1 - startTime1;
         long offset2 = endTime2 - startTime2;
 
         System.out.println("offset1 = " + offset1 + ", ofsset2 = " + offset2);
-
     }
 }

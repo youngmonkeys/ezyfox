@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-public class Impl {
-}
+public class Impl {}

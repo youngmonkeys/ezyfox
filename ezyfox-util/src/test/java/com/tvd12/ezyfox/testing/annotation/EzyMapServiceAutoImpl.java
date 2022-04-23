@@ -14,5 +14,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Target({TYPE})
 @EzyAutoImpl(properties = @EzyKeyValue(key = "map-name", value = ""))
-public @interface EzyMapServiceAutoImpl {
-}
+public @interface EzyMapServiceAutoImpl {}

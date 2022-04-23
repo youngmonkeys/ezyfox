@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 public class EzyLinkedListSetTest {
 
+    @SuppressWarnings("ALL")
     @Test
     public void test() {
         EzyLinkedListSet<String> set = new EzyLinkedListSet<>();
@@ -75,6 +76,5 @@ public class EzyLinkedListSetTest {
         assert set.poll() == null;
         assert set.pollFirst() == null;
         assert set.pollLast() == null;
-
     }
 }

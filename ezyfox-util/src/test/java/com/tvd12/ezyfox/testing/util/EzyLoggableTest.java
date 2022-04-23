@@ -14,10 +14,10 @@ public class EzyLoggableTest extends EzyLoggable {
     @Test
     public void performanceTest() {
         long time1 = Performance.create()
-            .test(() -> new A())
+            .test(A::new)
             .getTime();
         long time2 = Performance.create()
-            .test(() -> new B())
+            .test(B::new)
             .getTime();
         System.out.println("EzyLoggableTest:performanceTest: time1: " + time1 + ", time2: " + time2);
     }

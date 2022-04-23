@@ -10,7 +10,6 @@ import java.lang.reflect.Type;
 
 public class EzyByFieldMethodTest {
 
-
     @Test
     public void getFieldNameTest() throws Exception {
         // given
@@ -23,7 +22,6 @@ public class EzyByFieldMethodTest {
 
         // then
         Asserts.assertEquals(fieldName, "name");
-
     }
 
     private static class InternalFieldMethod extends EzyByFieldMethod {
@@ -45,6 +43,7 @@ public class EzyByFieldMethodTest {
     }
 
     @Getter
+    @SuppressWarnings("unused")
     private static class InternalClass {
         private String name;
     }

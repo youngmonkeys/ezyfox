@@ -13,7 +13,5 @@ public class EzyGenericSetterValidatorTest extends BaseTest {
         new EzyGenericSetterValidator().validate(new MyType());
     }
 
-    public static class MyType implements Type {
-
-    }
+    public static class MyType implements Type {}
 }

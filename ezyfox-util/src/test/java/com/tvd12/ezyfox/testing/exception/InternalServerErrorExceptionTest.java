@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 public class InternalServerErrorExceptionTest {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void test() {
         new InternalServerErrorException();

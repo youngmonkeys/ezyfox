@@ -32,11 +32,11 @@ public class EzySumTest extends BaseTest {
         assert EzySum.sumShorts(new short[]{1, 2, 3}) == 6D;
         assert EzySum.sumShorts(Lists.newArrayList((short) 1, (short) 2, (short) 3)) == 6;
 
-        assert EzySum.sumToInt(new String[]{"1", "2", "3"}, s -> Integer.valueOf(s)) == 6;
-        assert EzySum.sumToInt(Lists.newArrayList("1", "2", "3"), s -> Integer.valueOf(s)) == 6;
+        assert EzySum.sumToInt(new String[]{"1", "2", "3"}, Integer::valueOf) == 6;
+        assert EzySum.sumToInt(Lists.newArrayList("1", "2", "3"), Integer::valueOf) == 6;
 
-        assert EzySum.sumToLong(new String[]{"1", "2", "3"}, s -> Long.valueOf(s)) == 6;
-        assert EzySum.sumToLong(Lists.newArrayList("1", "2", "3"), s -> Long.valueOf(s)) == 6;
+        assert EzySum.sumToLong(new String[]{"1", "2", "3"}, Long::valueOf) == 6;
+        assert EzySum.sumToLong(Lists.newArrayList("1", "2", "3"), Long::valueOf) == 6;
 
         assert EzySum.sumToLongs(Lists.newArrayList(1, 2, 3)) == 6;
     }

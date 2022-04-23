@@ -29,7 +29,8 @@ public class EzyFieldTest extends BaseTest {
         assertEquals(a.getSetterMethod(), "setA");
         assertFalse(a.isAnnotated(ExampleAnnotation.class));
         assertNull(a.getAnnotation(ExampleAnnotation.class));
-        a.toString();
+        String str = a.toString();
+        System.out.println(str);
 
         EzyField ab = new EzyField(ClassA.class.getDeclaredField("ab"));
         assertEquals(ab.getGetterMethod(), "getAb");

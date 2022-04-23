@@ -17,6 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
+@SuppressWarnings("ALL")
 public class EzyMethodsTest extends BaseTest {
 
     @Override
@@ -95,99 +96,77 @@ public class EzyMethodsTest extends BaseTest {
     @Retention(RUNTIME)
     @Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER,
         TYPE_USE})
-    public static @interface Ann21 {
-    }
+    public @interface Ann21 {}
 
-    public static interface Interface21 extends Interface21Base {
+    public interface Interface21 extends Interface21Base {
         void setValue1(String value1);
     }
 
-    public static interface Interface21Base {
+    public interface Interface21Base {
         @Ann21
         void setValue(String value);
     }
 
-    public static interface Hello {
-
+    public interface Hello {
         String getMessageType();
-
     }
 
     public abstract static class Class21 extends Class21Base implements Interface21 {
 
         @Override
-        public void setValue1(String value1) {
-        }
+        public void setValue1(String value1) {}
 
-        protected void setValue5(String value5) {
-        }
-
+        protected void setValue5(String value5) {}
     }
 
     public static class Class21Base {
-        public void setValue2(String value2) {
-        }
+        public void setValue2(String value2) {}
 
         @Ann21
-        protected void setValue3(String value3) {
-        }
+        protected void setValue3(String value3) {}
     }
 
     public static class ClassA3 {
-        public void setA1(String str) {
-        }
+        public void setA1(String str) {}
     }
 
     public static class ClassA2 extends ClassA1 {
 
-        public void setB() {
-        }
+        public void setB() {}
 
         @Override
         public void setA() {
             super.setA();
         }
 
-        public void setA1(String str) {
-        }
-
+        public void setA1(String str) {}
     }
 
     public static class ClassA1 {
 
-        public void setA() {
-        }
+        public void setA() {}
 
-        public void setA1() {
-        }
-
+        public void setA1() {}
     }
 
     public static class ClassC extends ClassB {
 
-        public static void c1() {
-        }
+        public static void c1() {}
 
-        public static final void c2() {
-        }
+        public static final void c2() {}
 
-        public final void c3() {
-        }
+        public final void c3() {}
     }
 
     public static class ClassA {
 
-        public void setValue(String value) {
-        }
-
+        public void setValue(String value) {}
     }
 
     public static class ClassB extends ClassA {
 
         @ExampleAnnotation
-        public void setName(String name) {
-
-        }
+        public void setName(String name) {}
     }
 
     public static class World implements Hello {
@@ -196,6 +175,5 @@ public class EzyMethodsTest extends BaseTest {
         public String getMessageType() {
             return "hello world";
         }
-
     }
 }

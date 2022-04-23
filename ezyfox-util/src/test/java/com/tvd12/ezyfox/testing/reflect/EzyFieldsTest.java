@@ -19,11 +19,13 @@ public class EzyFieldsTest extends BaseTest {
         assertEquals(EzyFields.getAnnotatedFields(ClassB.class, ExampleAnnotation.class).size(), 2);
     }
 
+    @SuppressWarnings("unused")
     public static class ClassA {
         @ExampleAnnotation
         String value;
     }
 
+    @SuppressWarnings("unused")
     public static class ClassB extends ClassA {
         @ExampleAnnotation
         String name;

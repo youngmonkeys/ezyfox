@@ -18,7 +18,8 @@ public class EzySimpleValueConverterTest {
         Asserts.assertEquals(ExEnum.HELLO, actual);
     }
 
-    public static enum ExEnum {
+    @SuppressWarnings("unused")
+    public enum ExEnum {
         HELLO,
         WORLD
     }

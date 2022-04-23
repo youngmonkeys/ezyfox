@@ -42,15 +42,17 @@ public class EzyFieldFinderTest extends BaseTest {
         assertNull(d);
     }
 
-    public static interface I {
+    public interface I {
         String a = "";
     }
 
-    public abstract class A implements I {
+    @SuppressWarnings("unused")
+    public abstract static class A implements I {
         String b;
     }
 
-    public abstract class B extends A {
+    @SuppressWarnings("unused")
+    public abstract static class B extends A {
         String c;
     }
 }

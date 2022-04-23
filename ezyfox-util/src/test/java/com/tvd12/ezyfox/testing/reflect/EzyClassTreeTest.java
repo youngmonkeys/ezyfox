@@ -3,15 +3,13 @@ package com.tvd12.ezyfox.testing.reflect;
 import com.tvd12.ezyfox.reflect.EzyClassTree;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class EzyClassTreeTest {
 
     @Test
     public void test() {
-        EzyClassTree tree = new EzyClassTree();
-        tree = new EzyClassTree(Ex2Branch2Exception.class);
+        EzyClassTree tree = new EzyClassTree(Ex2Branch2Exception.class);
         tree.add(Ex2Branch2Exception.class);
         tree.add(Ex2Branch1Exception.class);
         tree.add(Ex1Branch2Exception.class);
@@ -24,27 +22,9 @@ public class EzyClassTreeTest {
         System.out.println(tree);
 
         System.out.println("\n================================");
-        System.out.println(String.join("\n", tree.toList().stream()
-            .map(t -> t.toString())
-            .collect(Collectors.toList())));
-    }
-
-    public static class Compa implements Comparator<Class<?>> {
-
-        @Override
-        public int compare(Class<?> a, Class<?> b) {
-            if (a == b) {
-                return 0;
-            }
-            if (a.isAssignableFrom(b)) {
-                return 1;
-            }
-            if (b.isAssignableFrom(a)) {
-                return -1;
-            }
-            return a.getName().compareTo(b.getName());
-        }
-
+        System.out.println(tree.toList().stream()
+            .map(Class::toString)
+            .collect(Collectors.joining("\n")));
     }
 
     public static class Ex2Branch2Exception extends Branch2Exception {

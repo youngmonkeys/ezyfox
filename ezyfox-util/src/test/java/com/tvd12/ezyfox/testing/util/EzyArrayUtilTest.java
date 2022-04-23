@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 public class EzyArrayUtilTest {
 
+    @SuppressWarnings("ALL")
     @Test
     public void test() {
         assert EzyArrayUtil.isEmpty((boolean[]) null);

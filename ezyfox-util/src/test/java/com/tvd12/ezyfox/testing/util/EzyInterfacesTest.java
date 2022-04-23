@@ -18,16 +18,13 @@ public class EzyInterfacesTest extends BaseTest {
         assert EzyInterfaces.getInterface(InterfaceB.class, EzyApply.class) == null;
     }
 
-    public static interface InterfaceA<I, E> {
-    }
+    @SuppressWarnings("ALL")
+    public interface InterfaceA<I, E> {}
 
-    public static interface InterfaceB extends InterfaceA<String, ClassA>, InterfaceC<String, ClassA> {
+    public interface InterfaceB extends InterfaceA<String, ClassA>, InterfaceC<String, ClassA> {}
 
-    }
+    @SuppressWarnings("ALL")
+    public interface InterfaceC<I, E> {}
 
-    public static interface InterfaceC<I, E> {
-    }
-
-    public static class ClassA {
-    }
+    public static class ClassA {}
 }

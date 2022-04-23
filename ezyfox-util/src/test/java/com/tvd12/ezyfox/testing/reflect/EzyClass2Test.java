@@ -16,6 +16,7 @@ public class EzyClass2Test {
 
     @Setter
     @Getter
+    @SuppressWarnings("unused")
     public static class GetAccountCreateIfNotExistRequest {
 
         protected String id;
@@ -23,14 +24,15 @@ public class EzyClass2Test {
         protected long bankAccountId;
         protected long initValue;
 
-        public GetAccountCreateIfNotExistRequest() {
-        }
+        public GetAccountCreateIfNotExistRequest() {}
 
-        public GetAccountCreateIfNotExistRequest(String id,
-                                                 boolean createIfNotExist,
-                                                 long bankAccountId,
-                                                 long initValue,
-                                                 String descript) {
+        public GetAccountCreateIfNotExistRequest(
+            String id,
+            boolean createIfNotExist,
+            long bankAccountId,
+            long initValue,
+            String description
+        ) {
             this.id = id;
             this.createIfNotExist = createIfNotExist;
             this.bankAccountId = bankAccountId;
@@ -39,15 +41,13 @@ public class EzyClass2Test {
 
         @Override
         public String toString() {
-            return new StringBuilder()
-                .append("{")
-                .append("\"id\":").append(id).append(",")
-                .append("\"createIfNotExist\":").append(createIfNotExist).append(",")
-                .append("\"bankAccountId\":").append(bankAccountId).append(",")
-                .append("\"initValue\":").append(initValue).append(",")
-                .append("\"descript\":").append(EzyStrings.quote(""))
-                .append("}")
-                .toString();
+            return "{" +
+                "\"id\":" + id + "," +
+                "\"createIfNotExist\":" + createIfNotExist + "," +
+                "\"bankAccountId\":" + bankAccountId + "," +
+                "\"initValue\":" + initValue + "," +
+                "\"description\":" + EzyStrings.quote("") +
+                "}";
         }
     }
 }

@@ -10,40 +10,40 @@ import java.time.*;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class EzyDatesTest extends BaseTest {
 
     @Test
     public void test() {
-        assertEquals(EzyDates.format((Date) null), null);
+        assertNull(EzyDates.format((Date) null));
     }
 
     @Test
     public void test1() {
-        EzyDates.format(LocalDateTime.of(2017, 05, 30, 12, 34, 56, 0));
+        EzyDates.format(LocalDateTime.of(2017, 5, 30, 12, 34, 56, 0));
         assertEquals(EzyDates.format(LocalDateTime.of(
-                    2017, 05, 30, 12, 34, 56, 0),
+                    2017, 5, 30, 12, 34, 56, 0),
                 "yyyy-MM-dd'T'HH:mm:ss"),
             "2017-05-30T12:34:56");
         assertEquals(EzyDates.format(LocalDateTime.of(
-                    2017, 05, 30, 12, 34, 56, 0),
+                    2017, 5, 30, 12, 34, 56, 0),
                 "yyyy-MM-dd'T'HH:mm:ss"),
             "2017-05-30T12:34:56");
-        assertEquals(EzyDates.format((TemporalAccessor) null), null);
+        assertNull(EzyDates.format((TemporalAccessor) null));
         assertEquals(EzyDates.parseDate("2017-05-30"),
-            LocalDate.of(2017, 05, 30));
+            LocalDate.of(2017, 5, 30));
         assertEquals(EzyDates.parseDate("2017-05-30", "yyyy-MM-dd"),
-            LocalDate.of(2017, 05, 30));
+            LocalDate.of(2017, 5, 30));
         assertEquals(EzyDates.parseDateTime("2017-05-30T12:34:56:000"),
-            LocalDateTime.of(2017, 05, 30, 12, 34, 56, 0));
+            LocalDateTime.of(2017, 5, 30, 12, 34, 56, 0));
         assertEquals(EzyDates.parseDateTime("2017-05-30T12:34:56", "yyyy-MM-dd'T'HH:mm:ss"),
-            LocalDateTime.of(2017, 05, 30, 12, 34, 56, 0));
+            LocalDateTime.of(2017, 5, 30, 12, 34, 56, 0));
         Date now = new Date();
-        EzyDates.format(now.getTime()).equals(EzyDates.format(now));
+        assert EzyDates.format(now.getTime()).equals(EzyDates.format(now));
 
         assertEquals(EzyDates.parseDate("2017-05-30"),
-            LocalDate.of(2017, 05, 30));
+            LocalDate.of(2017, 5, 30));
 
         assertEquals(EzyDates.parseTime("01:01:01:001"),
             LocalTime.of(1, 1, 1, 1000000));
@@ -54,9 +54,9 @@ public class EzyDatesTest extends BaseTest {
 
     @Test
     public void test2() {
-        assertEquals(EzyDates.format((Date) null), null);
-        assertEquals(EzyDates.format(new Date()).length() > 0, true);
-        assertEquals(EzyDates.parse("2017-05-30T12:34:56:000").getTime() > 0, true);
+        assertNull(EzyDates.format((Date) null));
+        assertTrue(EzyDates.format(new Date()).length() > 0);
+        assertTrue(EzyDates.parse("2017-05-30T12:34:56:000").getTime() > 0);
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
@@ -325,27 +325,27 @@ public class EzyDatesTest extends BaseTest {
         // when
         // then
         Asserts.assertEquals(
-            LocalDate.of(2019, 07, 22),
+            LocalDate.of(2019, 7, 22),
             EzyDates.parseToLocalDateOrNull(dateTimeFormat.parse(dateString))
         );
         Asserts.assertEquals(
-            LocalDate.of(2019, 07, 22),
+            LocalDate.of(2019, 7, 22),
             EzyDates.parseToLocalDateOrNull("2019-07-22")
         );
         Asserts.assertEquals(
-            LocalDate.of(2019, 07, 22),
+            LocalDate.of(2019, 7, 22),
             EzyDates.parseToLocalDateOrNull(dateTimeFormat.parse(dateString).getTime())
         );
         Asserts.assertEquals(
-            LocalDate.of(2019, 07, 22),
+            LocalDate.of(2019, 7, 22),
             EzyDates.parseToLocalDateOrNull(dateTimeFormat.parse(dateString).toInstant())
         );
         Asserts.assertEquals(
-            LocalDate.of(2019, 07, 22),
+            LocalDate.of(2019, 7, 22),
             EzyDates.parseToLocalDateOrNull(LocalDate.of(2019, 7, 22))
         );
         Asserts.assertEquals(
-            LocalDate.of(2019, 07, 22),
+            LocalDate.of(2019, 7, 22),
             EzyDates.parseToLocalDateOrNull(LocalDateTime.of(2019, 7, 22, 9, 15))
         );
         Asserts.assertNull(EzyDates.parseToLocalDateOrNull(new Object()));
@@ -395,27 +395,27 @@ public class EzyDatesTest extends BaseTest {
         // when
         // then
         Asserts.assertEquals(
-            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            LocalDateTime.of(2019, 7, 22, 9, 15, 0, 1000000),
             EzyDates.parseToLocalDateTimeOrNull(dateTimeFormat.parse(dateString))
         );
         Asserts.assertEquals(
-            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            LocalDateTime.of(2019, 7, 22, 9, 15, 0, 1000000),
             EzyDates.parseToLocalDateTimeOrNull(dateString)
         );
         Asserts.assertEquals(
-            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            LocalDateTime.of(2019, 7, 22, 9, 15, 0, 1000000),
             EzyDates.parseToLocalDateTimeOrNull(dateTimeFormat.parse(dateString).getTime())
         );
         Asserts.assertEquals(
-            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            LocalDateTime.of(2019, 7, 22, 9, 15, 0, 1000000),
             EzyDates.parseToLocalDateTimeOrNull(dateTimeFormat.parse(dateString).toInstant())
         );
         Asserts.assertEquals(
-            LocalDateTime.of(2019, 07, 22, 0, 0, 0, 0),
+            LocalDateTime.of(2019, 7, 22, 0, 0, 0, 0),
             EzyDates.parseToLocalDateTimeOrNull(LocalDate.of(2019, 7, 22))
         );
         Asserts.assertEquals(
-            LocalDateTime.of(2019, 07, 22, 9, 15, 0, 1000000),
+            LocalDateTime.of(2019, 7, 22, 9, 15, 0, 1000000),
             EzyDates.parseToLocalDateTimeOrNull(LocalDateTime.of(2019, 7, 22, 9, 15, 0, 1000000))
         );
         Asserts.assertNull(EzyDates.parseToLocalDateTimeOrNull(new Object()));

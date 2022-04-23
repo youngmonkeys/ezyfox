@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 public class NotFoundExceptionException {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void test() {
         new NotFoundException();

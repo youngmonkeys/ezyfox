@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
 
+@SuppressWarnings("ALL")
 public class EzyGenerics6Test extends BaseTest {
 
     @SuppressWarnings("rawtypes")
@@ -54,43 +55,25 @@ public class EzyGenerics6Test extends BaseTest {
             InterfaceB1.class, InterfaceG.class, 2);
     }
 
-    public static interface InterfaceA<T, R> {
-    }
+    public interface InterfaceA<T, R> {}
 
-    public static interface InterfaceC {
-    }
+    public interface InterfaceC {}
 
-    public static interface InterfaceD<T> {
+    public interface InterfaceD<T> {}
 
-    }
+    public interface InterfaceE<T, R> {}
 
-    public static interface InterfaceE<T, R> {
+    public interface InterfaceF<T, R> extends Map<String, String> {}
 
-    }
-
-    public static interface InterfaceF<T, R> extends Map<String, String> {
-
-    }
-
-    public static interface InterfaceG<T, R> {
-
-    }
-
-    public static interface MyMap extends Map<String, String> {
-
-    }
+    public interface InterfaceG<T, R> {}
 
     @SuppressWarnings("rawtypes")
-    public static interface InterfaceB extends
+    public interface InterfaceB extends
         InterfaceA<String, String>,
         InterfaceC,
         InterfaceD<String>,
         InterfaceE,
-        InterfaceF<Map<?, ?>, Map<?, ?>> {
+        InterfaceF<Map<?, ?>, Map<?, ?>> {}
 
-    }
-
-    public static interface InterfaceB1<T, R> extends InterfaceG<T, R> {
-
-    }
+    public interface InterfaceB1<T, R> extends InterfaceG<T, R> {}
 }

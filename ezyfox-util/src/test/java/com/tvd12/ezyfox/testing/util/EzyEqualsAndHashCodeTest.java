@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import java.math.BigInteger;
 
+@SuppressWarnings("ALL")
 public class EzyEqualsAndHashCodeTest extends BaseTest {
 
     @Test

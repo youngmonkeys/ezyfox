@@ -5,6 +5,7 @@ import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 public class EzyGetterMethodTest extends BaseTest {
 
@@ -14,8 +15,8 @@ public class EzyGetterMethodTest extends BaseTest {
             ClassA.class.getDeclaredMethod("getValue"));
         assertEquals(getter.getType(), String.class);
         assertEquals(getter.getGenericType(), String.class);
-        assertEquals(getter.isMapType(), false);
-        assertEquals(getter.isCollection(), false);
+        assertFalse(getter.isMapType());
+        assertFalse(getter.isCollection());
         assertEquals(getter.getFieldName(), "value");
         assertEquals(getter.getTypeName(), String.class.getTypeName());
 

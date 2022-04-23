@@ -33,11 +33,11 @@ public class EzyNumbersConverterTest extends BaseTest {
             new short[]{1, 2, 3});
 
         assertEquals(objectsToWrapperNumbers(Lists.newArrayList("1", "2", "3"),
-                (size) -> new Long[size], (str) -> Long.valueOf(str)),
+                Long[]::new, Long::valueOf),
             new Long[]{1L, 2L, 3L});
 
         assertEquals(numbersToWrapperNumbers(Lists.newArrayList(1, 2, 3),
-                (size) -> new Long[size], (number) -> number.longValue()),
+                Long[]::new, Number::longValue),
             new Long[]{1L, 2L, 3L});
 
         assertEquals(numbersToWrapperBytes(Lists.newArrayList(1, 2, 3)),
@@ -59,7 +59,7 @@ public class EzyNumbersConverterTest extends BaseTest {
 
     @Test
     public void convertNumberTest() {
-        Byte value = EzyNumbersConverter.convertNumber((Object) new Long(100), n -> n.byteValue());
+        Byte value = EzyNumbersConverter.convertNumber((Object) 100L, Number::byteValue);
         System.err.println("value = " + value);
         assert value == 100;
     }

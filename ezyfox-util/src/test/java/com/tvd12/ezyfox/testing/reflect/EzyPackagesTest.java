@@ -17,19 +17,10 @@ public class EzyPackagesTest extends BaseTest {
         EzyPackages.scanPackages(Sets.newHashSet("com.tvd12.ezyfox.testing.reflect"));
     }
 
-    public static interface InterfaceA {
-    }
-
-    public static interface InterfaceB extends InterfaceA {
-
-    }
+    public interface InterfaceA {}
 
     @ExampleAnnotation
-    public static class ClassA {
+    public static class ClassA {}
 
-    }
-
-    public static class ClassB extends ClassA {
-
-    }
+    public static class ClassB extends ClassA {}
 }

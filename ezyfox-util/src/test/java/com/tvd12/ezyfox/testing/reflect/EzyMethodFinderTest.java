@@ -46,14 +46,16 @@ public class EzyMethodFinderTest extends BaseTest {
         assertNull(m4);
     }
 
-    public static interface I {
+    public interface I {
         String getName();
     }
 
+    @SuppressWarnings("unused")
     public static abstract class A implements I {
         public abstract String getName1();
     }
 
+    @SuppressWarnings("unused")
     public static abstract class B extends A {
         public abstract String getName2();
     }

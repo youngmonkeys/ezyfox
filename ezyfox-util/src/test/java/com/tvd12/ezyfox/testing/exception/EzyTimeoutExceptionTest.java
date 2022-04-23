@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 public class EzyTimeoutExceptionTest {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void test() {
         new EzyTimeoutException("");

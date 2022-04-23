@@ -46,12 +46,12 @@ public class EzyBytesTest extends BaseTest {
 
     @Test
     public void mergePerformanceTest() {
-        byte[][] bytess = new byte[5][100];
-        for (byte[] bytes : bytess) {
+        byte[][] byteArrays = new byte[5][100];
+        for (byte[] bytes : byteArrays) {
             Arrays.fill(bytes, (byte) 1);
         }
         long time1 = Performance.create()
-            .test(() -> EzyBytes.merge(bytess))
+            .test(() -> EzyBytes.merge(byteArrays))
             .getTime();
         System.out.println("mergePerformanceTest.time1 = " + time1);
     }

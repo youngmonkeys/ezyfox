@@ -20,9 +20,9 @@ public class EzyPropertyAnnotationsTest extends BaseTest {
     public void test() {
         EzyClass clazz = new EzyClass(ClassA.class);
         EzyField a = clazz.getField("a");
-        assert EzyPropertyAnnotations.getPropertyName(clazz, (EzyReflectElement) a).equals("a");
+        assert EzyPropertyAnnotations.getPropertyName(clazz, a).equals("a");
         EzyField b = clazz.getField("b");
-        assert EzyPropertyAnnotations.getPropertyName(clazz, (EzyReflectElement) b).equals("1");
+        assert EzyPropertyAnnotations.getPropertyName(clazz, b).equals("1");
 
         EzyMethod c = clazz.getMethod("setC");
         assert EzyPropertyAnnotations.getPropertyName(clazz, (EzyReflectElement) c).equals("c");
@@ -37,6 +37,7 @@ public class EzyPropertyAnnotationsTest extends BaseTest {
         assert EzyPropertyAnnotations.getPropertyName(clazz, (EzyReflectElement) f).equals("f");
     }
 
+    @SuppressWarnings("ALL")
     public static class ClassA {
 
         @EzyProperty
@@ -60,14 +61,9 @@ public class EzyPropertyAnnotationsTest extends BaseTest {
         }
 
         @EzyProperty("3")
-        public void setE(String e) {
-
-        }
+        public void setE(String e) {}
 
         @EzyProperty
-        public void setF(String f) {
-
-        }
-
+        public void setF(String f) {}
     }
 }

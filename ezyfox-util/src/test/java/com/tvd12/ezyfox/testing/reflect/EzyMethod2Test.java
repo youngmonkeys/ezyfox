@@ -39,13 +39,9 @@ public class EzyMethod2Test extends BaseTest {
             return "";
         }
 
-        public void set() {
+        public void set() {}
 
-        }
-
-        public void hello() {
-
-        }
+        public void hello() {}
 
         public String getJava() {
             return "java";

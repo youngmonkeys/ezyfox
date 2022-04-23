@@ -23,33 +23,23 @@ public class EzyAutoImplAnnotationsTest extends BaseTest {
     }
 
     @EzyAutoImpl
-    public interface ClassA {
-
-    }
+    public interface ClassA {}
 
     @EzyAutoImpl("b")
-    public interface ClassB {
-
-    }
+    public interface ClassB {}
 
     @EzyAutoImpl(properties = {
         @EzyKeyValue(key = "name", value = "c")
     })
-    public interface ClassC {
-
-    }
+    public interface ClassC {}
 
     @EzyAutoImpl(properties = {
         @EzyKeyValue(key = "name", value = "")
     })
-    public interface ClassD {
-
-    }
+    public interface ClassD {}
 
     @EzyAutoImpl(properties = {
         @EzyKeyValue(key = "no no no", value = "e")
     })
-    public interface ClassE {
-
-    }
+    public interface ClassE {}
 }

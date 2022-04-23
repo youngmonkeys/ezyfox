@@ -17,7 +17,6 @@ public class EzyImportReflectionTest {
         // given
         EzyReflection reflection = new EzyImportReflection(Sets.newHashSet(Config.class));
 
-
         // when then
         Asserts.assertThat(reflection.getAnnotatedClasses(EzyAutoImpl.class).size())
             .isEqualsTo(1);
@@ -37,20 +36,18 @@ public class EzyImportReflectionTest {
         EzyReflection reflection = new EzyImportReflection(Sets.newHashSet(A.class));
 
 
-        // when then
+        // when
+        // then
         Asserts.assertThat(reflection.getAnnotatedClasses(EzyAutoImpl.class).size())
             .isEqualsTo(0);
     }
 
     @EzyImport(A.class)
-    private static class Config {
-    }
+    private static class Config {}
 
     @EzyAutoImpl
     @EzyPackagesToScan("")
-    private static class A extends B {
-    }
+    private static class A extends B {}
 
-    private static class B {
-    }
+    private static class B {}
 }

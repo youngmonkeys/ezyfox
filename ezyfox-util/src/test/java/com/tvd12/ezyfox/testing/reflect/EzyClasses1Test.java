@@ -12,9 +12,7 @@ import static org.testng.Assert.assertEquals;
 
 public class EzyClasses1Test extends BaseTest {
 
-    public A a = new A() {
-
-    };
+    public A a = new A() {};
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
@@ -59,22 +57,13 @@ public class EzyClasses1Test extends BaseTest {
         assert EzyClasses.getVariableName(abc.class, "abc").equals("abc");
     }
 
-    public static interface A {
+    public interface A {}
 
-    }
+    public interface B extends A {}
 
-    public static interface B extends A {
+    public static class C {}
 
-    }
+    public static class D extends C {}
 
-    public static class C {
-
-    }
-
-    public static class D extends C {
-
-    }
-
-    public static class E extends D implements B {
-    }
+    public static class E extends D implements B {}
 }

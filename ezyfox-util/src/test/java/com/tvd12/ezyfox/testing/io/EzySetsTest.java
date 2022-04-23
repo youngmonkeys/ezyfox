@@ -42,7 +42,7 @@ public class EzySetsTest extends BaseTest {
         assertEquals(set, Sets.newHashSet("1", "2", "3", "4", "5", "6"));
 
         Collection<String> coll1 = Lists.newArrayList("ab", "cde");
-        Set<Character> set1 = EzySets.newHashSetByAddAll(coll1, t -> this.stringtoChars(t));
+        Set<Character> set1 = EzySets.newHashSetByAddAll(coll1, this::stringToChars);
         assertEquals(set1, Sets.newHashSet('a', 'b', 'c', 'd', 'e'));
 
         Set<String> set2 = EzySets.filter(set,
@@ -52,10 +52,10 @@ public class EzySetsTest extends BaseTest {
         Set<String> set3 = EzySets.newHashSet(set, "3", "4");
         assertEquals(set3, Sets.newHashSet("1", "2", "5", "6"));
 
-        Set<String> set4 = EzySets.newHashSet(new Long[]{1L, 2L, 3L}, v -> v.toString());
+        Set<String> set4 = EzySets.newHashSet(new Long[]{1L, 2L, 3L}, Object::toString);
         assertEquals(set4, Sets.newHashSet("1", "2", "3"));
 
-        Set<String> set5 = EzySets.newHashSet(Lists.newArrayList(1L, 2L, 3L), v -> v.toString());
+        Set<String> set5 = EzySets.newHashSet(Lists.newArrayList(1L, 2L, 3L), Object::toString);
         assertEquals(set5, Sets.newHashSet("1", "2", "3"));
 
         Map<String, Long> map = new HashMap<>();
@@ -74,16 +74,12 @@ public class EzySetsTest extends BaseTest {
         Set<Integer> except = Sets.newHashSet(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         long time1 = Performance.create()
             .loop(1000)
-            .test(() -> {
-                EzySets.newHashSet(set, except);
-            })
+            .test(() -> EzySets.newHashSet(set, except))
             .getTime();
         System.out.println("time1: " + time1);
         long time2 = Performance.create()
             .loop(1000)
-            .test(() -> {
-                newHashSet2(set, except);
-            })
+            .test(() -> newHashSet2(set, except))
             .getTime();
         System.out.println("time2: " + time2);
         Set<Integer> newSet = newHashSet2(set, except);
@@ -93,7 +89,7 @@ public class EzySetsTest extends BaseTest {
         assertEquals(newSet2, Sets.newHashSet(11, 12, 13, 14, 15, 16, 17, 28, 39, 30));
     }
 
-    private Collection<Character> stringtoChars(String str) {
+    private Collection<Character> stringToChars(String str) {
         List<Character> answer = new ArrayList<>();
         for (int i = 0; i < str.length(); ++i) {
             answer.add(str.charAt(i));

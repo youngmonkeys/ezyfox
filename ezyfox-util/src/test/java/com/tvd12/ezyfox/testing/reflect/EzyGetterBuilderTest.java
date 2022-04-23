@@ -40,11 +40,11 @@ public class EzyGetterBuilderTest {
 
     @Setter
     @Getter
+    @SuppressWarnings("unused")
     public static class A {
         protected final String name = "name";
         protected String value;
 
-        public void getSomething() {
-        }
+        public void getSomething() {}
     }
 }

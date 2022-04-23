@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 public class EzyNegativeValueExceptionTest extends BaseTest {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void test() {
         new EzyNegativeValueException(-10);

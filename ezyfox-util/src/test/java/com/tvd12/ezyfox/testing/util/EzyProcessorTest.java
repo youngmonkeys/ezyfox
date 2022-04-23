@@ -12,8 +12,7 @@ public class EzyProcessorTest extends BaseTest {
 
     @Test
     public void test() {
-        EzyProcessor.processWithException(() -> {
-        });
+        EzyProcessor.processWithException(() -> {});
     }
 
     @Test(expectedExceptions = {IllegalStateException.class})
@@ -65,6 +64,7 @@ public class EzyProcessorTest extends BaseTest {
         try {
             EzyProcessor.processWithTryLock(() -> {throw new IllegalStateException();}, lock, 10);
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -76,8 +76,6 @@ public class EzyProcessorTest extends BaseTest {
             public boolean tryLock(long time, TimeUnit timeUnit) throws InterruptedException {
                 throw new InterruptedException();
             }
-
-            ;
         };
         try {
             EzyProcessor.processWithTryLock(() -> {
@@ -92,11 +90,9 @@ public class EzyProcessorTest extends BaseTest {
         Lock lock = new ReentrantLock() {
             private static final long serialVersionUID = 616957346213118575L;
 
-            public boolean tryLock(long time, TimeUnit timeUnit) throws InterruptedException {
+            public boolean tryLock(long time, TimeUnit timeUnit) {
                 return false;
             }
-
-            ;
         };
         try {
             EzyProcessor.processWithTryLock(() -> {
@@ -114,8 +110,6 @@ public class EzyProcessorTest extends BaseTest {
             public boolean tryLock() {
                 return false;
             }
-
-            ;
         };
         EzyProcessor.processWithTryLock(() -> {
         }, lock);

@@ -19,7 +19,7 @@ public class EzySimpleValueTransformerWrapperTest extends BaseTest {
         assert transformer.convert("1", Byte.class) == (byte) 1;
         assert transformer.convert(1.0D, Byte.class) == (byte) 1;
 
-        assert transformer.convert(new Character('a'), Character.class) == 'a';
+        assert transformer.convert('a', Character.class) == 'a';
         assert transformer.convert(1.0D, Character.class) == (char) 1;
         assert transformer.convert("a", Character.class) == 'a';
 

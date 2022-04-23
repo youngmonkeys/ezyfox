@@ -9,6 +9,7 @@ import java.util.Queue;
 public class QueuePerfomanceTest {
 
     @Test
+    @SuppressWarnings("ALL")
     public void test() {
         Queue<String> players = new EzyLinkedListSet<>();
         for (int i = 0; i < 10000; ++i) {

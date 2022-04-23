@@ -35,8 +35,8 @@ public class EzyLazyInitHelperTest extends BaseTest {
 
     @Test
     public void test() {
-        EzyLazyInitHelper.init(this, () -> new String());
-        EzyLazyInitHelper.init(this, () -> new String(), () -> new String());
+        EzyLazyInitHelper.init(this, String::new);
+        EzyLazyInitHelper.init(this, String::new, String::new);
     }
 
     @Test
@@ -57,29 +57,19 @@ public class EzyLazyInitHelperTest extends BaseTest {
         Method method = ReflectMethodUtil.getMethod("syncInit",
             EzyLazyInitHelper.class, Object.class, Supplier.class, EzyInitialize.class);
         method.setAccessible(true);
-        method.invoke(null, this, new Supplier<String>() {
-            @Override
-            public String get() {
-                return null;
-            }
-        }, new EzyInitialize<String>() {
-            @Override
-            public String init() {
-                return new String();
-            }
-        });
+        method.invoke(
+            null,
+            this,
+            (Supplier<String>) () -> null,
+            (EzyInitialize<String>) () -> ""
+        );
 
-        method.invoke(null, this, new Supplier<String>() {
-            @Override
-            public String get() {
-                return new String();
-            }
-        }, new EzyInitialize<String>() {
-            @Override
-            public String init() {
-                return new String();
-            }
-        });
+        method.invoke(
+            null,
+            this,
+            (Supplier<String>) () -> "",
+            (EzyInitialize<String>) () -> ""
+        );
     }
 
     @Test
@@ -88,31 +78,21 @@ public class EzyLazyInitHelperTest extends BaseTest {
         Method method = ReflectMethodUtil.getMethod("syncVoidInit",
             EzyLazyInitHelper.class, Object.class, Supplier.class, EzyVoid.class);
         method.setAccessible(true);
-        method.invoke(null, this, new Supplier<Boolean>() {
-            @Override
-            public Boolean get() {
-                return !map.containsKey("1");
-            }
-        }, new EzyVoid() {
-            @Override
-            public void apply() {
-                map.put("1", "a");
-            }
-        });
+        method.invoke(
+            null,
+            this,
+            (Supplier<Boolean>) () -> !map.containsKey("1"),
+            (EzyVoid) () -> map.put("1", "a")
+        );
 
         assert map.get("1").equals("a");
 
-        method.invoke(null, this, new Supplier<Boolean>() {
-            @Override
-            public Boolean get() {
-                return !map.containsKey("1");
-            }
-        }, new EzyVoid() {
-            @Override
-            public void apply() {
-                map.put("1", "b");
-            }
-        });
+        method.invoke(
+            null,
+            this,
+            (Supplier<Boolean>) () -> !map.containsKey("1"),
+            (EzyVoid) () -> map.put("1", "b")
+        );
         assert map.get("1").equals("a");
     }
 
@@ -122,31 +102,21 @@ public class EzyLazyInitHelperTest extends BaseTest {
         Method method = ReflectMethodUtil.getMethod("syncVoidInit",
             EzyLazyInitHelper.class, Object.class, Supplier.class, EzyVoid.class);
         method.setAccessible(true);
-        method.invoke(EzyLazyInitHelper.class, map, new Supplier<Boolean>() {
-            @Override
-            public Boolean get() {
-                return !map.containsKey("1");
-            }
-        }, new EzyVoid() {
-            @Override
-            public void apply() {
-                map.put("1", "a");
-            }
-        });
+        method.invoke(
+            EzyLazyInitHelper.class,
+            map,
+            (Supplier<Boolean>) () -> !map.containsKey("1"),
+            (EzyVoid) () -> map.put("1", "a")
+        );
 
         assert map.get("1").equals("a");
 
-        method.invoke(EzyLazyInitHelper.class, map, new Supplier<Boolean>() {
-            @Override
-            public Boolean get() {
-                throw new RuntimeException();
-            }
-        }, new EzyVoid() {
-            @Override
-            public void apply() {
-                map.put("1", "b");
-            }
-        });
+        method.invoke(
+            EzyLazyInitHelper.class,
+            map,
+            (Supplier<Boolean>) () -> {
+            throw new RuntimeException();
+        }, (EzyVoid) () -> map.put("1", "b"));
         assert map.get("1").equals("a");
     }
 

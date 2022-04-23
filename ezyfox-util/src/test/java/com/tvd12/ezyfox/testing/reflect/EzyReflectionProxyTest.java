@@ -43,10 +43,8 @@ public class EzyReflectionProxyTest {
         Asserts.assertEquals(annotatedExtendsClasses.size(), 1);
     }
 
-    public static interface I {
-    }
+    public interface I {}
 
     @ExampleAnnotation
-    public static class A implements I {
-    }
+    public static class A implements I {}
 }

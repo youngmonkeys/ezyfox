@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 public class EzyEntryTest extends BaseTest {
 
+    @SuppressWarnings("ALL")
     @Test
     public void test() {
         EzyEntry<String, String> ab = EzyEntry.of("a", "b");
@@ -20,7 +21,7 @@ public class EzyEntryTest extends BaseTest {
         assert !ab.equals(bc);
         assert ab.hashCode() != bc.hashCode();
         assert !ab.equals(null);
-        assert !ab.equals((Object) new String());
+        assert !ab.equals("");
 
         EzyEntry<String, String> abe = EzyEntry.of("a", "b");
         assert ab.equals(abe);

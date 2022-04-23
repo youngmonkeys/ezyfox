@@ -20,6 +20,7 @@ public class EzyGenerics4Test {
         System.out.println(field.getType().equals(type.getRawType()));
         System.out.println(Map.class.isAssignableFrom((Class) type.getRawType()));
 
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
         Map<String, String> map = new HashMap<>();
         Class<Map<String, String>> mapClass = (Class<Map<String, String>>) map.getClass();
         System.out.println("mapClass = " + mapClass);
@@ -76,9 +77,8 @@ public class EzyGenerics4Test {
         public List list2;
     }
 
+    @SuppressWarnings("unused")
     public static class ClassD<T> {
-        public ClassD(T value) {
-
-        }
+        public ClassD(T value) {}
     }
 }

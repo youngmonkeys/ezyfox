@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.testing.reflect;
 import com.tvd12.ezyfox.reflect.EzyInterfaces;
 import org.testng.annotations.Test;
 
+@SuppressWarnings("ALL")
 public class EzyInterfacesTest {
 
     @SuppressWarnings("rawtypes")
@@ -13,15 +14,11 @@ public class EzyInterfacesTest {
         System.out.println(itf);
     }
 
-    public static interface InterfaceB extends InterfaceA<String> {
-    }
+    public interface InterfaceB extends InterfaceA<String> {}
 
-    public static interface InterfaceA<D> {
-    }
+    public interface InterfaceA<D> {}
 
-    public static class ClassA extends AbstractA<Integer> {
-    }
+    public static class ClassA extends AbstractA<Integer> {}
 
-    public static class AbstractA<D> implements InterfaceA<D> {
-    }
+    public static class AbstractA<D> implements InterfaceA<D> {}
 }

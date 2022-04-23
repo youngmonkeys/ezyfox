@@ -10,11 +10,7 @@ public class EzyMapDataHandlersTest {
     @Test
     public void test() {
         EzyMapDataHandlers handlers = new EzyMapDataHandlers();
-        handlers.addHandler("1", new EzyDataHandler<String>() {
-            @Override
-            public void handleData(String data) {
-            }
-        });
+        handlers.addHandler("1", (EzyDataHandler<String>) data -> {});
         EzyDataHandler<String> handler = handlers.getHandler("1");
         handler.handleData("a");
         handler.handleException(Thread.currentThread(), new Exception());

@@ -165,7 +165,5 @@ public class EzyInstructionTest extends BaseTest {
         assert instruction.toString().equals("null");
     }
 
-    public static class A {
-
-    }
+    public static class A {}
 }

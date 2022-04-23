@@ -19,6 +19,7 @@ public class CharBufferTest {
             buffer.get(bytes);
             System.out.println(new String(bytes));
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

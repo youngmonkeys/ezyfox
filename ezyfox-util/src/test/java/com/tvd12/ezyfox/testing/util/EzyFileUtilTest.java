@@ -15,6 +15,7 @@ public class EzyFileUtilTest extends BaseTest {
         return EzyFileUtil.class;
     }
 
+    @SuppressWarnings("ALL")
     @Test
     public void createFileIfNotExistsTest() throws IOException {
         // given

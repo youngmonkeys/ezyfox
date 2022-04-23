@@ -60,9 +60,8 @@ public class EzyGenerics3Test {
         public List list2;
     }
 
+    @SuppressWarnings("unused")
     public static class ClassD<T> {
-        public ClassD(T value) {
-
-        }
+        public ClassD(T value) {}
     }
 }

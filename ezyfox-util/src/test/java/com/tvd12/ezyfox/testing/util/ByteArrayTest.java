@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ALL")
 public class ByteArrayTest {
 
     @Test
@@ -24,7 +25,7 @@ public class ByteArrayTest {
         Asserts.assertThat(
                 ByteArray.wrap(new byte[][]{{'a', 'b'}, {'c', 'd'}, {'e', 'f'}})
                     .stream()
-                    .map(it -> it.toString())
+                    .map(ByteArray::toString)
                     .collect(Collectors.toList())
             )
             .isEqualsTo(Arrays.asList("ab", "cd", "ef"), false);

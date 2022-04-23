@@ -37,6 +37,7 @@ public class EzyGenericsTest extends BaseTest {
     }
 
     private Type getGenericType(String fieldName) {
+        assert field(fieldName) != null;
         return field(fieldName).getGenericType();
     }
 
@@ -48,6 +49,7 @@ public class EzyGenericsTest extends BaseTest {
         }
     }
 
+    @SuppressWarnings("unused")
     public static class ClassA {
         String a;
         Collection<String> b;

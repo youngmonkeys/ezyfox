@@ -52,12 +52,8 @@ public class EzyObjectProxyProviderTest {
         EzyObjectProxy aProxy = EzyObjectProxy.builder()
             .propertyKey("_id", "id")
             .addPropertyType("id", int.class)
-            .addGetter("id", o -> {
-                return ((A) o).getId();
-            })
-            .addSetter("id", (o, v) -> {
-                ((A) o).setId((int) v);
-            })
+            .addGetter("id", o -> ((A) o).getId())
+            .addSetter("id", (o, v) -> ((A) o).setId((int) v))
             .build();
         A aa = new A();
         assert aProxy.getPropertyName("_id").equals("id");
@@ -98,6 +94,7 @@ public class EzyObjectProxyProviderTest {
 
     @Getter
     @Setter
+    @SuppressWarnings("unused")
     public static class A {
         protected final String finalField = "";
         protected String value;

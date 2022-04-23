@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 public class EzyNotImplementedExceptionTest {
 
+    @SuppressWarnings("ThrowableNotThrown")
     @Test
     public void test() {
         new EzyNotImplementedException();
