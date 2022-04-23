@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class EzyThreadFactory extends EzyLoggable implements ThreadFactory {
 
-    private static final AtomicInteger POOL_COUNTER = new AtomicInteger();
     protected int priority;
     protected String prefix;
     protected boolean daemon;
@@ -17,6 +16,8 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory {
     protected String threadPrefix;
     protected ThreadGroup threadGroup;
     protected AtomicInteger threadCounter = new AtomicInteger();
+
+    private static final AtomicInteger POOL_COUNTER = new AtomicInteger();
 
     protected EzyThreadFactory(Builder builder) {
         int poolId = POOL_COUNTER.incrementAndGet();
