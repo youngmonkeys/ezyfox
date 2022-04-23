@@ -1,23 +1,22 @@
 package com.tvd12.ezyfox.testing.pattern;
 
-import java.util.List;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.concurrent.EzyExecutors;
 import com.tvd12.ezyfox.exception.EzyNotImplementedException;
 import com.tvd12.ezyfox.pattern.EzyObjectFactory;
 import com.tvd12.ezyfox.pattern.EzyObjectProvider;
+import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class EzyObjectProviderTest {
 
     @Test
     public void test() throws Exception {
         TestObjectProvider provider = TestObjectProvider.builder()
-                .validationDelay(100)
-                .validationInterval(100)
-                .objectFactory(new StringFactory())
-                .build();
+            .validationDelay(100)
+            .validationInterval(100)
+            .objectFactory(new StringFactory())
+            .build();
         provider.start();
         Thread.sleep(500);
         provider.newString();
@@ -46,16 +45,16 @@ public class EzyObjectProviderTest {
     @Test
     public void test3() throws Exception {
         TestObjectProvider provider = new TestObjectProvider2.Builder()
-                .validationDelay(100)
-                .validationInterval(100)
-                .objectFactory(new StringFactory())
-                .build();
+            .validationDelay(100)
+            .validationInterval(100)
+            .objectFactory(new StringFactory())
+            .build();
         provider.start();
         Thread.sleep(500);
         try {
             provider.newString();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         provider.newString();
         Thread.sleep(500);
@@ -83,9 +82,13 @@ public class EzyObjectProviderTest {
             super(builder);
         }
 
+        public static Builder builder() {
+            return new Builder();
+        }
+
         @Override
         protected void removeStaleObjects(List<String> buffer) {
-            if(!removeStaleObjectsPassed) {
+            if (!removeStaleObjectsPassed) {
                 removeStaleObjectsPassed = true;
                 throw new IllegalStateException();
             }
@@ -93,7 +96,7 @@ public class EzyObjectProviderTest {
 
         @Override
         protected void clearAll() {
-            if(!clearAllPassed) {
+            if (!clearAllPassed) {
                 clearAllPassed = true;
                 throw new IllegalStateException();
             }
@@ -101,15 +104,11 @@ public class EzyObjectProviderTest {
 
         @Override
         protected String createObject() {
-            if(!createObjectPassed ) {
+            if (!createObjectPassed) {
                 createObjectPassed = true;
                 throw new IllegalStateException();
             }
             return super.createObject();
-        }
-
-        public static Builder builder() {
-            return new Builder();
         }
 
         public static class Builder extends TestObjectProvider.Builder {
@@ -127,16 +126,16 @@ public class EzyObjectProviderTest {
             super(builder);
         }
 
-        public String newString() {
-            return provideObject();
-        }
-
-        public List<String> getAddedStrings() {
-            return getProvidedObjects();
-        }
-
         public static Builder builder() {
             return new Builder();
+        }
+
+        public void newString() {
+            provideObject();
+        }
+
+        public void getAddedStrings() {
+            getProvidedObjects();
         }
 
         public static class Builder extends EzyObjectProvider.Builder<String, Builder> {

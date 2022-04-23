@@ -11,8 +11,12 @@ public class EzyArrayGetException extends IllegalArgumentException {
     protected final Class<?> outType;
 
     public EzyArrayGetException(
-            int index, Object value, Class<?> outType, Exception e) {
-        super("can't transform value: " + value + " at: " + index + " with outType: " + outType.getName(), e);
+        int index, Object value, Class<?> outType, Exception e) {
+        super(
+            "can't transform value: " + value +
+                " at: " + index + " with outType: " + outType.getName(),
+            e
+        );
         this.index = index;
         this.value = value;
         this.outType = outType;

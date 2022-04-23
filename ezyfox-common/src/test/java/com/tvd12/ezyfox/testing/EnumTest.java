@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
+import org.testng.annotations.Test;
 
 public class EnumTest extends BaseTest {
 
@@ -20,7 +19,8 @@ public class EnumTest extends BaseTest {
         System.err.println("loop time is: " + time);
     }
 
-    public static enum One {
-        ABC,DEF
+    @SuppressWarnings("unused")
+    public enum One {
+        ABC, DEF
     }
 }

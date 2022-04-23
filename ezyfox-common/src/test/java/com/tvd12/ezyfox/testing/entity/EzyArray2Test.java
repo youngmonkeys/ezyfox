@@ -1,25 +1,23 @@
 package com.tvd12.ezyfox.testing.entity;
 
+import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.testing.CommonBaseTest;
+import lombok.Setter;
+import org.testng.annotations.Test;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
-
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.entity.EzyArray;
-import com.tvd12.ezyfox.testing.CommonBaseTest;
-
-import lombok.Setter;
 
 public class EzyArray2Test extends CommonBaseTest {
 
     @Test
     public void test() {
         EzyArray array = newArrayBuilder()
-                .append((Object)null)
-                .append("abc")
-                .build();
+            .append((Object) null)
+            .append("abc")
+            .build();
         assert !array.isEmpty();
         System.out.println(array);
 

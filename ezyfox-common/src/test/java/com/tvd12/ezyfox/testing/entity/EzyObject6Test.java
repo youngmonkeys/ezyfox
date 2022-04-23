@@ -1,17 +1,15 @@
 package com.tvd12.ezyfox.testing.entity;
 
+import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.test.base.BaseTest;
+import lombok.Setter;
+import org.testng.annotations.Test;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.BiFunction;
-
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.entity.EzyObject;
-import com.tvd12.test.base.BaseTest;
-
-import lombok.Setter;
 
 public class EzyObject6Test extends BaseTest {
 

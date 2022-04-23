@@ -11,7 +11,7 @@ public class EzyObjectGetException extends IllegalArgumentException {
     protected final Class<?> outType;
 
     public EzyObjectGetException(
-            Object key, Object value, Class<?> outType, Exception e) {
+        Object key, Object value, Class<?> outType, Exception e) {
         super("can't transform value: " + value + " of key: " + key + " with outType: " + outType.getName(), e);
         this.key = key;
         this.value = value;

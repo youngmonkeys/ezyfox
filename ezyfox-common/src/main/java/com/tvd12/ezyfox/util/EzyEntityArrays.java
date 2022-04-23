@@ -1,15 +1,14 @@
 package com.tvd12.ezyfox.util;
 
-import java.util.List;
-
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
+
+import java.util.List;
 
 @SuppressWarnings("rawtypes")
 public final class EzyEntityArrays {
 
-    private EzyEntityArrays() {
-    }
+    private EzyEntityArrays() {}
 
     public static EzyArray newArray() {
         return EzyEntityFactory.newArray();
@@ -28,8 +27,6 @@ public final class EzyEntityArrays {
     }
 
     public static boolean isEmpty(EzyArray array) {
-        if(array == null || array.isEmpty())
-            return true;
-        return false;
+        return array == null || array.isEmpty();
     }
 }

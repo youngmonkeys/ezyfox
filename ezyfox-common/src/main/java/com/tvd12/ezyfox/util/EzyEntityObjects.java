@@ -1,15 +1,14 @@
 package com.tvd12.ezyfox.util;
 
-import java.util.Map;
-
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
+
+import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 public final class EzyEntityObjects {
 
-    private EzyEntityObjects() {
-    }
+    private EzyEntityObjects() {}
 
     public static EzyObject newObject(Object key, Object value) {
         EzyObject obj = EzyEntityFactory.newObject();
@@ -24,8 +23,6 @@ public final class EzyEntityObjects {
     }
 
     public static boolean isEmpty(EzyObject object) {
-        if(object == null || object.isEmpty())
-            return true;
-        return false;
+        return object == null || object.isEmpty();
     }
 }

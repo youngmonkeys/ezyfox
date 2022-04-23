@@ -1,14 +1,5 @@
 package com.tvd12.ezyfox.testing.entity;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
@@ -16,32 +7,39 @@ import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyDates;
+import org.testng.annotations.Test;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+
+import static org.testng.Assert.*;
 
 public class EzyArray1Test extends EzyEntityTest {
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Test
     public void test() {
         EzyArrayBuilder builder = newArrayBuilder()
-                .append(new Boolean(true))
-                .append(new Byte((byte)1))
-                .append(new Character('a'))
-                .append(new Double(2D))
-                .append(new Float(3F))
-                .append(new Integer(4))
-                .append(new Long(5L))
-                .append(new Short((short)6))
-                .append(new String("str"));
+            .append(Boolean.TRUE)
+            .append((byte) 1)
+            .append('a')
+            .append(2D)
+            .append(3F)
+            .append(4)
+            .append(5L)
+            .append((short) 6)
+            .append("str");
 
         builder
             .append(Lists.newArrayList(true, false, true))
-            .append(new byte[] {((byte)1)})
-            .append(new char[] {'a', 'b', 'c'})
-            .append(Lists.newArrayList(1D,2D,3D))
-            .append(Lists.newArrayList(4F,5F,6F))
-            .append(Lists.newArrayList(6,7,8))
-            .append(Lists.newArrayList(9L,10L,11L))
-            .append(Lists.newArrayList((short)12))
+            .append(new byte[]{((byte) 1)})
+            .append(new char[]{'a', 'b', 'c'})
+            .append(Lists.newArrayList(1D, 2D, 3D))
+            .append(Lists.newArrayList(4F, 5F, 6F))
+            .append(Lists.newArrayList(6, 7, 8))
+            .append(Lists.newArrayList(9L, 10L, 11L))
+            .append(Lists.newArrayList((short) 12))
             .append(Lists.newArrayList("1", "2", "3"));
 
         builder
@@ -50,70 +48,71 @@ public class EzyArray1Test extends EzyEntityTest {
         EzyArray array = builder.build();
 
         assert array.contains(true);
-        assert array.containsAll(Arrays.asList(true, (byte)1, 2D));
+        assert array.containsAll(Arrays.asList(true, (byte) 1, 2D));
 
         assertEquals(array.get(0), Boolean.TRUE);
-        assertEquals(array.get(1), new Byte((byte)1));
-        assertEquals(array.get(2), new Byte((byte)'a'));
+        assertEquals(array.get(1), new Byte((byte) 1));
+        assertEquals(array.get(2), new Byte((byte) 'a'));
         assertEquals(array.get(3), new Double(2D));
         assertEquals(array.get(4), new Float(3F));
         assertEquals(array.get(5), new Integer(4));
         assertEquals(array.get(6), new Long(5L));
-        assertEquals(array.get(7), new Short((short)6));
-        assertEquals(array.get(8), new String("str"));
+        assertEquals(array.get(7), new Short((short) 6));
+        assertEquals(array.get(8), "str");
 
         assertEquals(array.get(0, boolean.class), Boolean.TRUE);
-        assertEquals(array.get(1, byte.class), new Byte((byte)1));
+        assertEquals(array.get(1, byte.class), new Byte((byte) 1));
         assertEquals(array.get(2, char.class), new Character('a'));
         assertEquals(array.get(3, double.class), new Double(2D));
         assertEquals(array.get(4, float.class), new Float(3F));
         assertEquals(array.get(5, int.class), new Integer(4));
         assertEquals(array.get(6, long.class), new Long(5L));
-        assertEquals(array.get(7, short.class), new Short((short)6));
-        assertEquals(array.get(8, String.class), new String("str"));
+        assertEquals(array.get(7, short.class), new Short((short) 6));
+        assertEquals(array.get(8, String.class), "str");
 
         assertEquals(array.get(0, Boolean.class), Boolean.TRUE);
-        assertEquals(array.get(1, Byte.class), new Byte((byte)1));
+        assertEquals(array.get(1, Byte.class), new Byte((byte) 1));
         assertEquals(array.get(2, Character.class), new Character('a'));
         assertEquals(array.get(3, Double.class), new Double(2D));
         assertEquals(array.get(4, Float.class), new Float(3F));
         assertEquals(array.get(5, Integer.class), new Integer(4));
         assertEquals(array.get(6, Long.class), new Long(5L));
-        assertEquals(array.get(7, Short.class), new Short((short)6));
-        assertEquals(array.get(8, String.class), new String("str"));
+        assertEquals(array.get(7, Short.class), new Short((short) 6));
+        assertEquals(array.get(8, String.class), "str");
 
-        assertEquals(array.get(9, boolean[].class), new boolean[] {true, false, true});
-        assertEquals(array.get(10, byte[].class), new byte[] {1});
-        assertEquals(array.get(11, char[].class), new char[] {'a', 'b', 'c'});
-        assertEquals(array.get(12, double[].class),  new double[] {1D, 2D, 3D});
-        assertEquals(array.get(13, float[].class), new float[] {4F,5F,6F});
-        assertEquals(array.get(14, int[].class), new int[] {6,7,8});
-        assertEquals(array.get(15, long[].class), new long[] {9L,10L,11L});
-        assertEquals(array.get(16, short[].class), new short[] {12});
-        assertEquals(array.get(17, String[].class), new String[] {"1", "2", "3"});
+        assertEquals(array.get(9, boolean[].class), new boolean[]{true, false, true});
+        assertEquals(array.get(10, byte[].class), new byte[]{1});
+        assertEquals(array.get(11, char[].class), new char[]{'a', 'b', 'c'});
+        assertEquals(array.get(12, double[].class), new double[]{1D, 2D, 3D});
+        assertEquals(array.get(13, float[].class), new float[]{4F, 5F, 6F});
+        assertEquals(array.get(14, int[].class), new int[]{6, 7, 8});
+        assertEquals(array.get(15, long[].class), new long[]{9L, 10L, 11L});
+        assertEquals(array.get(16, short[].class), new short[]{12});
+        assertEquals(array.get(17, String[].class), new String[]{"1", "2", "3"});
 
-        assertEquals(array.get(9, Boolean[].class), new Boolean[] {true, false, true});
-        assertEquals(array.get(10, byte[].class), new byte[] {1});
-        assertEquals(array.get(11, Character[].class), new Character[] {'a', 'b', 'c'});
-        assertEquals(array.get(12, Double[].class),  new Double[] {1D, 2D, 3D});
-        assertEquals(array.get(13, Float[].class), new Float[] {4F,5F,6F});
-        assertEquals(array.get(14, Integer[].class), new Integer[] {6,7,8});
-        assertEquals(array.get(15, Long[].class), new Long[] {9L,10L,11L});
-        assertEquals(array.get(16, Short[].class), new Short[] {12});
-        assertEquals(array.get(17, String[].class), new String[] {"1", "2", "3"});
+        assertEquals(array.get(9, Boolean[].class), new Boolean[]{true, false, true});
+        assertEquals(array.get(10, byte[].class), new byte[]{1});
+        assertEquals(array.get(11, Character[].class), new Character[]{'a', 'b', 'c'});
+        assertEquals(array.get(12, Double[].class), new Double[]{1D, 2D, 3D});
+        assertEquals(array.get(13, Float[].class), new Float[]{4F, 5F, 6F});
+        assertEquals(array.get(14, Integer[].class), new Integer[]{6, 7, 8});
+        assertEquals(array.get(15, Long[].class), new Long[]{9L, 10L, 11L});
+        assertEquals(array.get(16, Short[].class), new Short[]{12});
+        assertEquals(array.get(17, String[].class), new String[]{"1", "2", "3"});
 
         assertEquals(array.get(18, Date.class), EzyDates.parse("2017-05-30T00:00:00:000"));
 
-        assertTrue(((Collection)array.get(9)).containsAll(Lists.newArrayList(true, false, true)));
+        assertTrue(((Collection) array.get(9)).containsAll(Lists.newArrayList(true, false, true)));
         assert array.size() > 0;
         array.clear();
         assert array.size() == 0;
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void test1() {
         EzyArrayBuilder builder = newArrayBuilder()
-                .append("a", "b", "c");
+            .append("a", "b", "c");
         EzyArray array = builder.build();
         assertEquals(array.size(), 3);
         assertEquals(array.get(1), "b");
@@ -122,13 +121,13 @@ public class EzyArray1Test extends EzyEntityTest {
         array.remove(1);
         assertEquals(array.size(), 2);
         assertEquals(array.get(1), "c");
-        array.forEach(i -> i.toString());
+        array.forEach(Object::toString);
         assertTrue(array.iterator().hasNext());
         assertEquals(array.toList().size(), 2);
         assertEquals(array.toList(String.class).size(), 2);
-        assertEquals(array.toArray(String.class), new String[] {"a", "c"});
+        assertEquals(array.toArray(String.class), new String[]{"a", "c"});
         EzyArray dup = array.duplicate();
-        assertTrue(array != dup);
+        assertNotSame(array, dup);
         assertTrue(dup.toList().containsAll(Sets.newHashSet("a", "c")));
         EzyArray sub = array.sub(0, 1);
         assertEquals(sub.size(), 1);
@@ -147,50 +146,52 @@ public class EzyArray1Test extends EzyEntityTest {
         array.duplicate();
     }
 
+    @SuppressWarnings("ALL")
     @Test
     public void equalsAndHashCodeTest() {
         EzyArray a = EzyEntityFactory.newArrayBuilder()
-                .append(1, 2, 3)
-                .build();
+            .append(1, 2, 3)
+            .build();
         assert !a.equals(null);
         assert a.equals(a);
         assert !a.equals(new Object());
         EzyArray b = EzyEntityFactory.newArrayBuilder()
-                .append(1, 2, 3)
-                .build();
+            .append(1, 2, 3)
+            .build();
         assert a.equals(b);
         EzyArray c = EzyEntityFactory.newArrayBuilder()
-                .append(1, 2)
-                .build();
+            .append(1, 2)
+            .build();
         assert !a.equals(c);
     }
 
+    @SuppressWarnings("ALL")
     @Test
     public void compareToTest() {
         EzyArray a = EzyEntityFactory.newArrayBuilder()
-                .append(1, 2, 3)
-                .build();
+            .append(1, 2, 3)
+            .build();
         EzyArray b = EzyEntityFactory.newArrayBuilder()
-                .append(1, 2, 3)
-                .build();
+            .append(1, 2, 3)
+            .build();
         EzyArray c = EzyEntityFactory.newArrayBuilder()
-                .append(1, 2)
-                .build();
+            .append(1, 2)
+            .build();
         EzyArray d = EzyEntityFactory.newArrayBuilder()
-                .append(1, 1, 1)
-                .build();
+            .append(1, 1, 1)
+            .build();
         EzyArray e = EzyEntityFactory.newArrayBuilder()
-                .append(3, 2, 3)
-                .build();
+            .append(3, 2, 3)
+            .build();
         EzyArray f = EzyEntityFactory.newArrayBuilder()
-                .append(null, 2, 3)
-                .build();
+            .append(null, 2, 3)
+            .build();
         EzyArray g = EzyEntityFactory.newArrayBuilder()
-                .append(null, 2, 3)
-                .build();
+            .append(null, 2, 3)
+            .build();
         EzyArray h = EzyEntityFactory.newArrayBuilder()
-                .append(new Object(), 2, 3)
-                .build();
+            .append(new Object(), 2, 3)
+            .build();
         assert a.compareTo(b) == 0;
         assert a.compareTo(c) > 0;
         assert a.compareTo(d) > 0;
@@ -200,14 +201,12 @@ public class EzyArray1Test extends EzyEntityTest {
         assert f.compareTo(g) == 0;
         try {
             a.compareTo(h);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             assert ex instanceof IllegalArgumentException;
         }
         try {
             h.compareTo(a);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             assert ex instanceof IllegalArgumentException;
         }
     }

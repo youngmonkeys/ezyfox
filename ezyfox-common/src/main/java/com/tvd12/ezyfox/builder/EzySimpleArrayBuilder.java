@@ -8,26 +8,26 @@ import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 
 public class EzySimpleArrayBuilder
-        extends EzyTransformable
-        implements EzyArrayBuilder {
+    extends EzyTransformable
+    implements EzyArrayBuilder {
 
     protected final EzyArray product;
     protected final EzyCollectionConverter collectionConverter;
 
     public EzySimpleArrayBuilder(
-            EzyInputTransformer inputTransformer,
-            EzyOutputTransformer outputTransformer,
-            EzyCollectionConverter collectionConverter) {
+        EzyInputTransformer inputTransformer,
+        EzyOutputTransformer outputTransformer,
+        EzyCollectionConverter collectionConverter) {
         super(inputTransformer, outputTransformer);
         this.collectionConverter = collectionConverter;
         this.product = newProduct();
     }
 
     protected EzyArray newProduct() {
-        EzyArrayList answer = new EzyArrayList(
-                inputTransformer,
-                outputTransformer, collectionConverter);
-        return answer;
+        return new EzyArrayList(
+            inputTransformer,
+            outputTransformer, collectionConverter
+        );
     }
 
     @Override
@@ -43,7 +43,7 @@ public class EzySimpleArrayBuilder
     @SuppressWarnings("unchecked")
     @Override
     public <T> EzyArrayBuilder append(T... items) {
-        this.product.add(items);
+        this.product.add((Object[]) items);
         return this;
     }
 
