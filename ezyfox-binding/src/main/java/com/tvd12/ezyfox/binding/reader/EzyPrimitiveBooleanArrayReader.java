@@ -4,8 +4,7 @@ public class EzyPrimitiveBooleanArrayReader extends EzyPrimitiveArrayReader {
 
     private static final EzyPrimitiveBooleanArrayReader INSTANCE = new EzyPrimitiveBooleanArrayReader();
 
-    private EzyPrimitiveBooleanArrayReader() {
-    }
+    private EzyPrimitiveBooleanArrayReader() {}
 
     public static EzyPrimitiveBooleanArrayReader getInstance() {
         return INSTANCE;
@@ -23,6 +22,6 @@ public class EzyPrimitiveBooleanArrayReader extends EzyPrimitiveArrayReader {
 
     @Override
     protected void setValue(Object array, int index, Object value) {
-        ((boolean[])array)[index] = (Boolean)value;
+        ((boolean[]) array)[index] = (Boolean) value;
     }
 }

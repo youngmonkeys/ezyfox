@@ -1,29 +1,24 @@
 package com.tvd12.ezyfox.binding.impl;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyAccessType;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
-import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyGetterMethod;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzyReflectElement;
-
+import com.tvd12.ezyfox.reflect.*;
 import lombok.Setter;
 
-@SuppressWarnings("rawtypes")
-public class EzyObjectWriterBuilder 
-        extends EzyAbstractWriterBuilder {
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("rawtypes")
+public class EzyObjectWriterBuilder
+    extends EzyAbstractWriterBuilder {
+
+    protected static final AtomicInteger COUNT = new AtomicInteger(0);
     @Setter
     protected static boolean debug;
-    protected static final AtomicInteger COUNT = new AtomicInteger(0);
 
     public EzyObjectWriterBuilder(EzyClass clazz) {
         super(clazz);
@@ -48,26 +43,26 @@ public class EzyObjectWriterBuilder
     @Override
     protected String makeImplMethodContent(EzyMethod writeMethod) {
         EzyFunction.EzyBody methodBody = new EzyFunction(writeMethod)
-                .modifier("protected")
-                .body()
-                    .append(new EzyInstruction("\t", "\n")
-                            .variable(clazz.getClazz(), "value")
-                            .equal()
-                            .cast(clazz.getClazz(), "arg1")
-                            )
-                    .append(new EzyInstruction("\t", "\n")
-                            .variable(EzyObject.class, "object")
-                            .equal()
-                            .clazz(EzyEntityFactory.class)
-                            .dot()
-                            .append("newObject()")
-                            );
-        for(Object element : getElements()) {
+            .modifier("protected")
+            .body()
+            .append(new EzyInstruction("\t", "\n")
+                .variable(clazz.getClazz(), "value")
+                .equal()
+                .cast(clazz.getClazz(), "arg1")
+            )
+            .append(new EzyInstruction("\t", "\n")
+                .variable(EzyObject.class, "object")
+                .equal()
+                .clazz(EzyEntityFactory.class)
+                .dot()
+                .append("newObject()")
+            );
+        for (Object element : getElements()) {
             methodBody.append(newInstructionByElement(element));
         }
         methodBody.append(new EzyInstruction("\t", "\n")
-                .answer()
-                .append("object"));
+            .answer()
+            .append("object"));
 
         EzyFunction method = methodBody.function();
 
@@ -75,9 +70,10 @@ public class EzyObjectWriterBuilder
     }
 
     protected EzyInstruction newInstructionByElement(Object element) {
-        if(element instanceof EzyField)
-            return newInstructionByField((EzyField)element);
-        return newInstructionByMethod((EzyMethod)element);
+        if (element instanceof EzyField) {
+            return newInstructionByField((EzyField) element);
+        }
+        return newInstructionByMethod((EzyMethod) element);
     }
 
     protected EzyInstruction newInstructionByField(EzyField field) {
@@ -89,27 +85,27 @@ public class EzyObjectWriterBuilder
     }
 
     protected EzyInstruction newInstruction(
-            EzyReflectElement element, String valueExpSuffix) {
+        EzyReflectElement element, String valueExpSuffix) {
         EzyInstruction instruction = new EzyInstruction("\t", "\n")
-                .append("object")
-                .dot()
-                .append("put")
-                .bracketopen()
-                .string(getKey(element))
-                .comma()
-                .brackets(Object.class)
-                .append("arg0.marshal(");
+            .append("object")
+            .dot()
+            .append("put")
+            .bracketopen()
+            .string(getKey(element))
+            .comma()
+            .brackets(Object.class)
+            .append("arg0.marshal(");
         com.tvd12.ezyfox.binding.annotation.EzyWriter wrt = getWriterClass(element);
-        if(wrt != null) {
+        if (wrt != null) {
             instruction
                 .clazz(wrt.value(), true)
                 .comma();
         }
         Class type = getElementType(element);
         instruction
-                .valueOf(type, "value." + element.getName() + valueExpSuffix)
-                .append(")")
-                .bracketclose();
+            .valueOf(type, "value." + element.getName() + valueExpSuffix)
+            .append(")")
+            .bracketclose();
         return instruction;
     }
 
@@ -121,7 +117,9 @@ public class EzyObjectWriterBuilder
     @Override
     protected boolean isDebug() {
         return debug;
-    }}
+    }
+}
+
 class EzyObjectWriterElementsFetcher extends EzyObjectElementsFetcher {
 
     @Override

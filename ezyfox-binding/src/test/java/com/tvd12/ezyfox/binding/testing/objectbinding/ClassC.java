@@ -2,7 +2,6 @@ package com.tvd12.ezyfox.binding.testing.objectbinding;
 
 import com.tvd12.ezyfox.binding.EzyAccessType;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
-
 import lombok.Getter;
 import lombok.Setter;
 

@@ -7,8 +7,7 @@ public final class EzyFloatReader implements EzyReader<Number, Float> {
 
     private static final EzyFloatReader INSTANCE = new EzyFloatReader();
 
-    private EzyFloatReader() {
-    }
+    private EzyFloatReader() {}
 
     public static EzyFloatReader getInstance() {
         return INSTANCE;

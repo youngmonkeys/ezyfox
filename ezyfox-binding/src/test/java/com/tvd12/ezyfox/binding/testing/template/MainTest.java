@@ -8,8 +8,8 @@ public class MainTest {
 
     public static void main(String[] args) {
         EzyBindingContext ctx = EzyBindingContext.builder()
-                .scan("com.tvd12.ezyfox.binding.testing.template")
-                .build();
+            .scan("com.tvd12.ezyfox.binding.testing.template")
+            .build();
         EzyMarshaller marshaller = ctx.newMarshaller();
         System.out.println("marshall: " + marshaller.marshal(new Hello("world")));
         EzyUnmarshaller unmarshaller = ctx.newUnmarshaller();

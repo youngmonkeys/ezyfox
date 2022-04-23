@@ -7,8 +7,7 @@ public final class EzyIntegerReader implements EzyReader<Number, Integer> {
 
     private static final EzyIntegerReader INSTANCE = new EzyIntegerReader();
 
-    private EzyIntegerReader() {
-    }
+    private EzyIntegerReader() {}
 
     public static EzyIntegerReader getInstance() {
         return INSTANCE;

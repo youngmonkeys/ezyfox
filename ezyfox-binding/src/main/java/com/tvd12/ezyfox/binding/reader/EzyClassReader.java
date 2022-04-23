@@ -9,8 +9,7 @@ public final class EzyClassReader implements EzyReader<Object, Class> {
 
     private static final EzyClassReader INSTANCE = new EzyClassReader();
 
-    private EzyClassReader() {
-    }
+    private EzyClassReader() {}
 
     public static EzyClassReader getInstance() {
         return INSTANCE;
@@ -18,10 +17,12 @@ public final class EzyClassReader implements EzyReader<Object, Class> {
 
     @Override
     public Class read(EzyUnmarshaller unmarshaller, Object value) {
-        if(value instanceof Class)
-            return (Class)value;
-        if(value instanceof String)
-            return EzyClasses.getClass((String)value);
+        if (value instanceof Class) {
+            return (Class) value;
+        }
+        if (value instanceof String) {
+            return EzyClasses.getClass((String) value);
+        }
         throw new IllegalArgumentException("can't convert: " + value + " to Class");
     }
 }

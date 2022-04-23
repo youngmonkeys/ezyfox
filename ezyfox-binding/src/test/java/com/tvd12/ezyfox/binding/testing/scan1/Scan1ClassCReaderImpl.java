@@ -1,6 +1,5 @@
 package com.tvd12.ezyfox.binding.testing.scan1;
 
-import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyReaderImpl;
 import com.tvd12.ezyfox.binding.impl.EzyAbstractReader;
@@ -8,7 +7,7 @@ import com.tvd12.ezyfox.entity.EzyArray;
 
 @EzyReaderImpl
 public class Scan1ClassCReaderImpl
-        extends EzyAbstractReader<EzyArray, Scan1ClassC> {
+    extends EzyAbstractReader<EzyArray, Scan1ClassC> {
 
     @Override
     public Scan1ClassC read(EzyUnmarshaller unmarshaller, EzyArray array) {
@@ -19,11 +18,11 @@ public class Scan1ClassCReaderImpl
         return answer;
     }
 
-    public EzyArray write(EzyMarshaller marshaller, Scan1ClassC object) {
+    public EzyArray write(Scan1ClassC object) {
         return newArrayBuilder()
-                .append(object.getX())
-                .append(object.getY())
-                .append(object.getZ())
-                .build();
+            .append(object.getX())
+            .append(object.getY())
+            .append(object.getZ())
+            .build();
     }
 }

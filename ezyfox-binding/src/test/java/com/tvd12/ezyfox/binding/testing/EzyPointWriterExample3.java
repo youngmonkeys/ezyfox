@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.impl.EzyObjectWriterBuilder;
 import com.tvd12.ezyfox.binding.impl.EzySimpleMarshaller;
 import com.tvd12.ezyfox.reflect.EzyClass;
+import org.testng.annotations.Test;
 
 public class EzyPointWriterExample3 {
 
@@ -25,40 +24,5 @@ public class EzyPointWriterExample3 {
         marshaller.addWriter(new TestData1WriterImpl());
 
         System.out.println(pointWriter.write(marshaller, new Point()));
-
-//        long time1 = Performance.create()
-//            .loop(1000000)
-//            .test(() ->
-//                writer.write(new Point())
-//            )
-//            .getTime();
-//
-//        System.out.println(time1);
-//
-//        ExWriter wr = new ExWriter();
-//        long time2 = Performance.create()
-//                .loop(1000000)
-//                .test(() ->
-//                wr.write(new Point())
-//                )
-//                .getTime();
-//
-//        System.out.println(time2);
-//
-//        long time3 = Performance.create()
-//                .loop(1000000)
-//                .test(() -> {
-//                    Point point = new Point();
-//                    EzyObjectBuilder ebuilder = EzyEntityFactory.create(EzyObjectBuilder.class);
-//                    ebuilder.append("x", point.getX());
-//                    ebuilder.append("x", point.getY());
-//                    ebuilder.append("xY", point.getXY());
-//                    ebuilder.build();
-//                })
-//                .getTime();
-//
-//        System.out.println(time3);
-
-
     }
 }

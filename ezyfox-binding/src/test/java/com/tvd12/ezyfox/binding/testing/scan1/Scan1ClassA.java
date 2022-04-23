@@ -1,17 +1,16 @@
 package com.tvd12.ezyfox.binding.testing.scan1;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyReader;
 import com.tvd12.ezyfox.binding.annotation.EzyWriter;
 import com.tvd12.ezyfox.collect.Lists;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -35,7 +34,7 @@ public class Scan1ClassA extends Scan1ClassA1 {
 
     private List<Data> dataList1 = Lists.newArrayList(new Data(), new Data());
 
-    private Data[] dataArray1 = new Data[] {new Data(), new Data()};
+    private Data[] dataArray1 = new Data[]{new Data(), new Data()};
 
     protected Map<String, String> newMap() {
         Map<String, String> map = new HashMap<>();

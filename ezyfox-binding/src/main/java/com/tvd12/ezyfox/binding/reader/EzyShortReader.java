@@ -7,8 +7,7 @@ public final class EzyShortReader implements EzyReader<Number, Short> {
 
     private static final EzyShortReader INSTANCE = new EzyShortReader();
 
-    private EzyShortReader() {
-    }
+    private EzyShortReader() {}
 
     public static EzyShortReader getInstance() {
         return INSTANCE;

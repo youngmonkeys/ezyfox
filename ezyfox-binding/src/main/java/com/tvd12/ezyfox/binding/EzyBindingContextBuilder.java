@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.binding;
 
-import java.util.Collection;
-
 import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
+
+import java.util.Collection;
 
 @SuppressWarnings("rawtypes")
 public interface EzyBindingContextBuilder {
@@ -36,5 +36,4 @@ public interface EzyBindingContextBuilder {
     EzyBindingContextBuilder addTemplate(Class type, Object template);
 
     EzySimpleBindingContext build();
-
 }

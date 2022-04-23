@@ -1,20 +1,13 @@
 package com.tvd12.ezyfox.binding.impl;
 
-import static com.tvd12.ezyfox.binding.EzyAccessType.NONE;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyIndex;
 import com.tvd12.ezyfox.io.EzyMaps;
-import com.tvd12.ezyfox.reflect.EzyAnnotatedElement;
-import com.tvd12.ezyfox.reflect.EzyByFieldMethod;
-import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.*;
+
+import java.util.*;
+
+import static com.tvd12.ezyfox.binding.EzyAccessType.NONE;
 
 //================== fetcher by array ================
 public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher {
@@ -22,77 +15,70 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
     @Override
     protected List<Object> doGetElements(EzyClass clazz, int accessType) {
         String[] indexes = getIndexes(clazz);
-        if(indexes.length > 0) {
+        if (indexes.length > 0) {
             return getElementsByCustomIndexes(clazz, indexes);
-        }
-        else if(accessType == NONE) {
+        } else if (accessType == NONE) {
             return getAnnotatedElements(clazz);
-        }
-        else {
+        } else {
             return getElementsByNativeIndexes(clazz, accessType);
         }
     }
 
     private List<Object> getElementsByNativeIndexes(EzyClass clazz, int accessType) {
         return getElementsByNativeIndexes(
-                getFields(clazz, accessType),
-                getMethods(clazz, accessType));
+            getFields(clazz, accessType),
+            getMethods(clazz, accessType));
     }
 
     private List<Object> getElementsByCustomIndexes(EzyClass clazz, String[] indexes) {
         return getElementsByCustomIndexes(
-                getFieldsByName(clazz),
-                indexes);
+            getFieldsByName(clazz),
+            indexes);
     }
 
     private List<Object> getAnnotatedElements(EzyClass clazz) {
         return getAnnotatedElements(
-                clazz,
-                getAnnotedFields(clazz),
-                getAnnotatedMethods(clazz));
+            clazz,
+            getAnnotedFields(clazz),
+            getAnnotatedMethods(clazz));
     }
 
     private List<Object> getElementsByNativeIndexes(
-            List<EzyField> fields, List<? extends EzyMethod> methods) {
+        List<EzyField> fields, List<? extends EzyMethod> methods) {
 
         List<Object> elements = new ArrayList<>();
         List<EzyMethod> remainMethods = new ArrayList<>(methods);
 
-        for(EzyField field : fields) {
+        for (EzyField field : fields) {
             logger.debug("scan field {}", field.getName());
 
             EzyMethod method = methodsByFieldName.get(field.getName());
 
-            if(method != null) {
-                if(isValidGenericMethod(method)) {
+            if (method != null) {
+                if (isValidGenericMethod(method)) {
                     elements.add(method);
-                }
-                else {
+                } else {
                     elements.add(null);
                     logger.debug("unknown generic type of method {}, ignore it", method.getName());
                 }
                 remainMethods.remove(method);
-            }
-            else if(field.isPublic()) {
-                if(isValidGenericField(field)) {
+            } else if (field.isPublic()) {
+                if (isValidGenericField(field)) {
                     elements.add(field);
-                }
-                else {
+                } else {
                     logger.debug("unknown generic type of field {}, ignore it", field.getName());
                     elements.add(null);
                 }
-            }
-            else {
+            } else {
                 logger.debug("field {} has not getter/setter, ignore it", field.getName());
             }
         }
-        for(EzyMethod method : remainMethods) {
+        for (EzyMethod method : remainMethods) {
             logger.debug("scan method {}", method.getName());
 
-            if(isValidGenericMethod(method)) {
+            if (isValidGenericMethod(method)) {
                 elements.add(method);
-            }
-            else {
+            } else {
                 logger.debug("unknown generic type of method {}, ignore it", method.getName());
             }
         }
@@ -102,37 +88,33 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
     private List<Object> getElementsByCustomIndexes(Map<String, EzyField> fieldsByName, String[] indexes) {
         List<Object> elements = new ArrayList<>();
 
-        for(String property : indexes) {
+        for (String property : indexes) {
             logger.debug("scan property {}", property);
 
             EzyMethod method = methodsByFieldName.get(property);
 
-            if(method != null) {
-                if(!isValidGenericMethod(method)) {
+            if (method != null) {
+                if (!isValidGenericMethod(method)) {
                     logger.debug("unknown generic type of method {}, ignore it", method.getName());
+                } else {
+                    elements.add(method);
+                    continue;
                 }
-                else {
-                    elements.add(method); continue;
-                }
-            }
-            else {
+            } else {
                 logger.debug("has no getter/setter method map to property {}", property);
             }
 
             EzyField field = fieldsByName.get(property);
 
-            if(field != null) {
-                if(!field.isPublic()) {
+            if (field != null) {
+                if (!field.isPublic()) {
                     logger.debug("has no public field map to property {}", property);
-                }
-                else if(isValidGenericField(field)) {
+                } else if (isValidGenericField(field)) {
                     elements.add(field);
-                }
-                else {
+                } else {
                     logger.debug("unknown generic type of field {}, ignore it", field.getName());
                 }
-            }
-            else {
+            } else {
                 elements.add(null);
                 logger.debug("nothing map to property {}, ignore it", property);
             }
@@ -142,49 +124,45 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
     }
 
     private List<Object> getAnnotatedElements(
-            EzyClass clazz, List<EzyField> fields, List<? extends EzyMethod> methods) {
+        EzyClass clazz, List<EzyField> fields, List<? extends EzyMethod> methods) {
 
         List<Object> elements = new ArrayList<>();
 
-        for(EzyField field : fields) {
+        for (EzyField field : fields) {
             logger.debug("scan field {}", field.getName());
 
             EzyMethod method = methodsByFieldName.get(field.getName());
 
-            if(method != null) {
-                if(!isValidGenericMethod(method)) {
+            if (method != null) {
+                if (!isValidGenericMethod(method)) {
                     logger.debug("unknown generic type of method {}, ignore it", method.getName());
-                }
-                else {
+                } else {
                     elements.add(method);
                     methods.remove(method);
                 }
-            }
-            else if(field.isPublic()) {
-                if(!isValidGenericField(field)) {
+            } else if (field.isPublic()) {
+                if (!isValidGenericField(field)) {
                     logger.debug("unknown generic type of field {}, ignore it", field.getName());
-                }
-                else {
+                } else {
                     elements.add(field);
                 }
-            }
-            else {
+            } else {
                 logger.debug("field {} has not getter/setter, ignore it", field.getName());
             }
         }
-        for(EzyMethod method : methods) {
+        for (EzyMethod method : methods) {
             logger.debug("scan method {}", method.getName());
 
-            if(isValidGenericMethod(method)) {
+            if (isValidGenericMethod(method)) {
                 elements.add(method);
-            }
-            else {
+            } else {
                 logger.debug("unknown generic type of method {}, ignore it", method.getName());
             }
         }
 
-        Object max = Collections.max(elements, (e1, e2) ->
-            getIndex(clazz, e1) - getIndex(clazz, e2)
+        Object max = Collections.max(
+            elements,
+            Comparator.comparingInt(e -> getIndex(clazz, e))
         );
 
         int maxIndex = getIndex(clazz, max);
@@ -192,11 +170,10 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
         Map<Integer, Object> elementsByIndex = EzyMaps.newHashMap(elements, e -> getIndex(clazz, e));
         List<Object> answer = new ArrayList<>();
 
-        for(int index = 0 ; index <= maxIndex ; index ++) {
-            if(elementsByIndex.containsKey(index)) {
+        for (int index = 0; index <= maxIndex; index++) {
+            if (elementsByIndex.containsKey(index)) {
                 answer.add(elementsByIndex.get(index));
-            }
-            else {
+            } else {
                 answer.add(null);
                 logger.debug("has not property at index {}, so at this index value is null", index);
             }
@@ -205,7 +182,7 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
     }
 
     private Map<String, EzyField> getFieldsByName(EzyClass clazz) {
-        return EzyMaps.newHashMap(clazz.getFields(), f -> f.getName());
+        return EzyMaps.newHashMap(clazz.getFields(), EzyField::getName);
     }
 
     private List<EzyField> getAnnotedFields(EzyClass clazz) {
@@ -214,9 +191,9 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
 
     @Override
     protected boolean shouldAddAnnotatedMethod(EzyMethod method) {
-        return  method.isPublic() &&
-                method.isAnnotated(EzyIndex.class) &&
-                isValidAnnotatedMethod(method);
+        return method.isPublic() &&
+            method.isAnnotated(EzyIndex.class) &&
+            isValidAnnotatedMethod(method);
     }
 
     protected abstract boolean isValidAnnotatedMethod(EzyMethod method);
@@ -227,12 +204,13 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
     }
 
     private int getIndex(EzyClass clazz, Object element) {
-        EzyIndex index = ((EzyAnnotatedElement)element).getAnnotation(EzyIndex.class);
-        if(index != null)
+        EzyIndex index = ((EzyAnnotatedElement) element).getAnnotation(EzyIndex.class);
+        if (index != null) {
             return index.value();
+        }
         return clazz
-                .getField(((EzyByFieldMethod)element).getFieldName())
-                .getAnnotation(EzyIndex.class).value();
+            .getField(((EzyByFieldMethod) element).getFieldName())
+            .getAnnotation(EzyIndex.class).value();
     }
 
 }

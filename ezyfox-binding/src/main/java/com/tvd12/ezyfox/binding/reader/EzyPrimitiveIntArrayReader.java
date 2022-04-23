@@ -4,8 +4,7 @@ public class EzyPrimitiveIntArrayReader extends EzyPrimitiveArrayReader {
 
     private static final EzyPrimitiveIntArrayReader INSTANCE = new EzyPrimitiveIntArrayReader();
 
-    private EzyPrimitiveIntArrayReader() {
-    }
+    private EzyPrimitiveIntArrayReader() {}
 
     public static EzyPrimitiveIntArrayReader getInstance() {
         return INSTANCE;
@@ -23,6 +22,6 @@ public class EzyPrimitiveIntArrayReader extends EzyPrimitiveArrayReader {
 
     @Override
     protected void setValue(Object array, int index, Object value) {
-        ((int[])array)[index] = ((Number)value).intValue();
+        ((int[]) array)[index] = ((Number) value).intValue();
     }
 }

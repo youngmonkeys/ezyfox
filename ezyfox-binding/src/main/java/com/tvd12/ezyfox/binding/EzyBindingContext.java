@@ -5,6 +5,10 @@ import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
 @SuppressWarnings("rawtypes")
 public interface EzyBindingContext {
 
+    static EzyBindingContextBuilder builder() {
+        return EzySimpleBindingContext.builder();
+    }
+
     EzyMarshaller newMarshaller();
 
     EzyUnmarshaller newUnmarshaller();
@@ -20,8 +24,4 @@ public interface EzyBindingContext {
     void bindWriter(Class clazz, EzyWriter writer);
 
     void bindTemplate(Class clazz, Object template);
-
-    static EzyBindingContextBuilder builder() {
-        return EzySimpleBindingContext.builder();
-    }
 }

@@ -7,8 +7,7 @@ public final class EzyToStringWriter implements EzyWriter<Object, Object> {
 
     private static final EzyToStringWriter INSTANCE = new EzyToStringWriter();
 
-    private EzyToStringWriter() {
-    }
+    private EzyToStringWriter() {}
 
     public static EzyToStringWriter getInstance() {
         return INSTANCE;
@@ -18,6 +17,4 @@ public final class EzyToStringWriter implements EzyWriter<Object, Object> {
     public Object write(EzyMarshaller marshaller, Object object) {
         return object.toString();
     }
-
-
 }

@@ -7,8 +7,7 @@ public final class EzyDefaultReader implements EzyReader<Object, Object> {
 
     private static final EzyDefaultReader INSTANCE = new EzyDefaultReader();
 
-    private EzyDefaultReader() {
-    }
+    private EzyDefaultReader() {}
 
     public static EzyDefaultReader getInstance() {
         return INSTANCE;

@@ -1,12 +1,12 @@
 package com.tvd12.ezyfox.binding.impl;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
-import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
+import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.EzyUnwrapper;
 import com.tvd12.ezyfox.reflect.EzyClass;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 @SuppressWarnings("rawtypes")
 public class EzyArrayUnwrapperBuilder extends EzyArrayReaderBuilder {
@@ -29,13 +29,13 @@ public class EzyArrayUnwrapperBuilder extends EzyArrayReaderBuilder {
 
     @Override
     protected Class[] getReaderMethodParameterTypes() {
-        return new Class[] {EzyUnmarshaller.class, Object.class, Object.class};
+        return new Class[]{EzyUnmarshaller.class, Object.class, Object.class};
     }
 
     @Override
     protected void appendOutputObjectConstructor(EzyBody methodBody) {
         EzyInstruction newOutputObjectInstruction = new EzyInstruction("", "", false)
-                .cast(clazz.getClazz(), "arg2");
+            .cast(clazz.getClazz(), "arg2");
         appendOutputObjectInstruction(methodBody, newOutputObjectInstruction);
     }
 

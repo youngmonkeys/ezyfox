@@ -1,24 +1,23 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-
 import com.tvd12.ezyfox.binding.annotation.EzyIgnore;
 import com.tvd12.ezyfox.binding.annotation.EzyReader;
 import com.tvd12.ezyfox.binding.annotation.EzyValue;
 import com.tvd12.ezyfox.binding.annotation.EzyWriter;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Setter
 @Getter
 @ToString
 public class Point extends BasePoint {
- 
+
     @EzyValue("3")
     public int z = 100;
 
@@ -52,15 +51,10 @@ public class Point extends BasePoint {
         this.y = y;
     }
 
-    public void move(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-    
     public String getB() {
         return "b";
     }
-    
+
     @EzyIgnore
     public String getC() {
         return "c";

@@ -1,11 +1,6 @@
 package com.tvd12.ezyfox.binding.testing.scan2;
 
-import com.tvd12.ezyfox.binding.annotation.EzyIgnore;
-import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
-import com.tvd12.ezyfox.binding.annotation.EzyReader;
-import com.tvd12.ezyfox.binding.annotation.EzyValue;
-import com.tvd12.ezyfox.binding.annotation.EzyWriter;
-
+import com.tvd12.ezyfox.binding.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +16,7 @@ public class Scan2C {
     @Setter
     private String b;
 
-    @EzyValue("")
+    @EzyValue
     @Setter
     @Getter
     private String c;

@@ -8,6 +8,5 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class Hello {
-
     private String who;
 }

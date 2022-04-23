@@ -1,8 +1,7 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.reader.EzyClassReader;
+import org.testng.annotations.Test;
 
 public class EzyClassReaderTest {
 

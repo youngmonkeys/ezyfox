@@ -2,7 +2,6 @@ package com.tvd12.ezyfox.binding.testing.scan1;
 
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
-
 import lombok.ToString;
 
 @ToString

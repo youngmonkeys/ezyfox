@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  */
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.METHOD })
+@Target({ElementType.FIELD, ElementType.METHOD})
 public @interface EzyIndex {
 
     /**
@@ -18,5 +18,5 @@ public @interface EzyIndex {
      *
      * @return the key mapped to value
      */
-    public int value();
+    int value();
 }

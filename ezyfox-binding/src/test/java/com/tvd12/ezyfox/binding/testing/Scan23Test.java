@@ -1,8 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-import org.testng.collections.Lists;
-
 import com.tvd12.ezyfox.binding.impl.EzyObjectWriterBuilder;
 import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
 import com.tvd12.ezyfox.binding.testing.scan2.Scan2Object;
@@ -10,6 +7,8 @@ import com.tvd12.ezyfox.binding.testing.scan2.Scan2ObjectReader;
 import com.tvd12.ezyfox.binding.testing.scan2.Scan2ObjectWriter;
 import com.tvd12.ezyfox.binding.testing.scan3.Scan3Array;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+import org.testng.collections.Lists;
 
 public class Scan23Test extends BaseTest {
 

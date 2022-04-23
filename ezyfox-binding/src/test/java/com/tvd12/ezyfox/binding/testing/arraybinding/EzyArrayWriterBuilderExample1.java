@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.binding.testing.arraybinding;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
@@ -12,6 +10,7 @@ import com.tvd12.ezyfox.binding.impl.EzySimpleMarshaller;
 import com.tvd12.ezyfox.binding.impl.EzySimpleUnmarshaller;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.reflect.EzyClass;
+import org.testng.annotations.Test;
 
 public class EzyArrayWriterBuilderExample1 {
 
@@ -21,7 +20,7 @@ public class EzyArrayWriterBuilderExample1 {
         EzyMarshaller marshaller = new EzySimpleMarshaller();
         EzyArrayWriterBuilder.setDebug(true);
         EzyArrayWriterBuilder writerBuilder
-                = new EzyArrayWriterBuilder(new EzyClass(ClassA.class));
+            = new EzyArrayWriterBuilder(new EzyClass(ClassA.class));
         EzyWriter<ClassA, EzyArray> writer = writerBuilder.build();
         EzyArray array = writer.write(marshaller, new ClassA());
         System.out.println(array);
@@ -29,7 +28,7 @@ public class EzyArrayWriterBuilderExample1 {
         EzyUnmarshaller unmarshaller = new EzySimpleUnmarshaller();
         EzyArrayReaderBuilder.setDebug(true);
         EzyArrayReaderBuilder readerBuilder
-                = new EzyArrayReaderBuilder(new EzyClass(ClassA.class));
+            = new EzyArrayReaderBuilder(new EzyClass(ClassA.class));
         EzyReader<EzyArray, ClassA> reader = readerBuilder.build();
         ClassA classA = reader.read(unmarshaller, array);
         System.out.println(classA);

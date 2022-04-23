@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
@@ -10,10 +8,10 @@ import com.tvd12.ezyfox.binding.impl.EzyObjectWriterBuilder;
 import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.test.base.BaseTest;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.testng.annotations.Test;
 
 public class EzySimpleBindingContextObjectTest extends BaseTest {
 
@@ -22,8 +20,8 @@ public class EzySimpleBindingContextObjectTest extends BaseTest {
         EzyObjectWriterBuilder.setDebug(true);
         EzyObjectReaderBuilder.setDebug(true);
         EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-                .addClasses(A1.class, A2.class, A3.class)
-                .build();
+            .addClasses(A1.class, A2.class, A3.class)
+            .build();
         EzyMarshaller marshaller = context.newMarshaller();
         EzyUnmarshaller unmarshaller = context.newUnmarshaller();
         EzyObject object = marshaller.marshal(new A1());
@@ -36,8 +34,8 @@ public class EzySimpleBindingContextObjectTest extends BaseTest {
         EzyObjectWriterBuilder.setDebug(true);
         EzyObjectReaderBuilder.setDebug(true);
         EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-                .addClasses(A1.class, A2.class, A3.class)
-                .build();
+            .addClasses(A1.class, A2.class, A3.class)
+            .build();
         EzyMarshaller marshaller = context.newMarshaller();
         EzyUnmarshaller unmarshaller = context.newUnmarshaller();
         EzyObject object = marshaller.marshal(new A2());
@@ -50,8 +48,8 @@ public class EzySimpleBindingContextObjectTest extends BaseTest {
         EzyObjectWriterBuilder.setDebug(true);
         EzyObjectReaderBuilder.setDebug(true);
         EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-                .addClasses(A1.class, A2.class, A3.class)
-                .build();
+            .addClasses(A1.class, A2.class, A3.class)
+            .build();
         EzyMarshaller marshaller = context.newMarshaller();
         marshaller.marshal(new A3());
     }
@@ -60,7 +58,7 @@ public class EzySimpleBindingContextObjectTest extends BaseTest {
     @Setter
     @ToString
     public static class A1 {
-        private String name  = "n";
+        private String name = "n";
         private String value = "v";
     }
 
@@ -69,7 +67,7 @@ public class EzySimpleBindingContextObjectTest extends BaseTest {
     @ToString
     @EzyObjectBinding(read = false)
     public static class A2 {
-        private String name  = "n";
+        private String name = "n";
         private String value = "v";
     }
 
@@ -78,7 +76,7 @@ public class EzySimpleBindingContextObjectTest extends BaseTest {
     @ToString
     @EzyObjectBinding(write = false)
     public static class A3 {
-        private String name  = "n";
+        private String name = "n";
         private String value = "v";
     }
 }

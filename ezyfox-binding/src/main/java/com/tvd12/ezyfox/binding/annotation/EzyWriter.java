@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  */
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.METHOD })
+@Target({ElementType.FIELD, ElementType.METHOD})
 public @interface EzyWriter {
 
     /**
@@ -19,5 +19,5 @@ public @interface EzyWriter {
      * @return the key mapped to value
      */
     @SuppressWarnings("rawtypes")
-    public Class<? extends com.tvd12.ezyfox.binding.EzyWriter> value();
+    Class<? extends com.tvd12.ezyfox.binding.EzyWriter> value();
 }

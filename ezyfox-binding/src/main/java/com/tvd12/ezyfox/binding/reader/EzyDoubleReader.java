@@ -7,8 +7,7 @@ public final class EzyDoubleReader implements EzyReader<Number, Double> {
 
     private static final EzyDoubleReader INSTANCE = new EzyDoubleReader();
 
-    private EzyDoubleReader() {
-    }
+    private EzyDoubleReader() {}
 
     public static EzyDoubleReader getInstance() {
         return INSTANCE;

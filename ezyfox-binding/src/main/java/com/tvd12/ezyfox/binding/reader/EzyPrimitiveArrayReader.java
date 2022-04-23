@@ -1,20 +1,22 @@
 package com.tvd12.ezyfox.binding.reader;
 
-import java.util.Collection;
-
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.entity.EzyArray;
+
+import java.util.Collection;
 
 @SuppressWarnings("rawtypes")
 public abstract class EzyPrimitiveArrayReader implements EzyReader<Object, Object> {
 
     @Override
     public Object read(EzyUnmarshaller unmarshaller, Object value) {
-        if(value instanceof EzyArray)
-            return readArray(unmarshaller, (EzyArray)value);
-        if(value instanceof Collection)
+        if (value instanceof EzyArray) {
+            return readArray(unmarshaller, (EzyArray) value);
+        }
+        if (value instanceof Collection) {
             return readCollection(unmarshaller, (Collection) value);
+        }
         return value;
     }
 
@@ -22,8 +24,8 @@ public abstract class EzyPrimitiveArrayReader implements EzyReader<Object, Objec
         int length = array.size();
         Class<?> outType = getOutType();
         Object answer = newArray(length);
-        for(int i = 0 ; i < length ; ++i) {
-            Object value = unmarshaller.unmarshal((Object)array.get(i), outType);
+        for (int i = 0; i < length; ++i) {
+            Object value = unmarshaller.unmarshal((Object) array.get(i), outType);
             setValue(answer, i, value);
         }
         return answer;
@@ -34,9 +36,9 @@ public abstract class EzyPrimitiveArrayReader implements EzyReader<Object, Objec
         Class<?> outType = getOutType();
         Object answer = newArray(length);
         int index = 0;
-        for(Object item : collection) {
+        for (Object item : collection) {
             Object value = unmarshaller.unmarshal(item, outType);
-            setValue(answer, index ++, value);
+            setValue(answer, index++, value);
         }
         return answer;
     }
@@ -44,5 +46,6 @@ public abstract class EzyPrimitiveArrayReader implements EzyReader<Object, Objec
     protected abstract void setValue(Object array, int index, Object value);
 
     protected abstract Class<?> getOutType();
+
     protected abstract Object newArray(int length);
 }

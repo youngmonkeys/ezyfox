@@ -1,19 +1,18 @@
 package com.tvd12.ezyfox.binding.reader;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.entity.EzyObject;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class EzyConcurrentHashMapReader implements EzyReader<EzyObject, Map> {
 
     private static final EzyConcurrentHashMapReader INSTANCE = new EzyConcurrentHashMapReader();
 
-    private EzyConcurrentHashMapReader() {
-    }
+    private EzyConcurrentHashMapReader() {}
 
     public static EzyConcurrentHashMapReader getInstance() {
         return INSTANCE;
@@ -22,8 +21,9 @@ public final class EzyConcurrentHashMapReader implements EzyReader<EzyObject, Ma
     @Override
     public Map read(EzyUnmarshaller unmarshaller, EzyObject object) {
         Map answer = new ConcurrentHashMap<>();
-        for(Object key : object.keySet())
+        for (Object key : object.keySet()) {
             answer.put(key, object.get(key));
+        }
         return answer;
     }
 }

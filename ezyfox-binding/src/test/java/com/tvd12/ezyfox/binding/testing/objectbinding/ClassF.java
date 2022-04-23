@@ -1,16 +1,15 @@
 package com.tvd12.ezyfox.binding.testing.objectbinding;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.tvd12.ezyfox.binding.EzyAccessType;
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyWriter;
 import com.tvd12.ezyfox.binding.writer.EzyMapArrayWriter;
 import com.tvd12.ezyfox.binding.writer.EzyMapObjectWriter;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -27,11 +26,11 @@ public class ClassF extends ClassA {
     @EzyWriter(EzyMapArrayWriter.class)
     private Map<Object, Object> map2 = defaultMap();
 
-    public void setD1(String d1) {
-    }
-
     public String getD1() {
         return "d1";
+    }
+
+    public void setD1(String d1) {
     }
 
     private Map<Object, Object> defaultMap() {

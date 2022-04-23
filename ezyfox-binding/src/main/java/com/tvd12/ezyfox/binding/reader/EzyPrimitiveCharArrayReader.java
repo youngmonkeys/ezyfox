@@ -4,8 +4,7 @@ public class EzyPrimitiveCharArrayReader extends EzyPrimitiveArrayReader {
 
     private static final EzyPrimitiveCharArrayReader INSTANCE = new EzyPrimitiveCharArrayReader();
 
-    private EzyPrimitiveCharArrayReader() {
-    }
+    private EzyPrimitiveCharArrayReader() {}
 
     public static EzyPrimitiveCharArrayReader getInstance() {
         return INSTANCE;
@@ -23,6 +22,6 @@ public class EzyPrimitiveCharArrayReader extends EzyPrimitiveArrayReader {
 
     @Override
     protected void setValue(Object array, int index, Object value) {
-        ((char[])array)[index] = (Character)value;
+        ((char[]) array)[index] = (Character) value;
     }
 }

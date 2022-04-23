@@ -16,9 +16,11 @@ public class EzySimpleConfigurationLoader implements EzyConfigurationLoader {
     @Override
     public void load(EzyBindingContext context) {
         Object configurator = clazz.newInstance();
-        if(configurator instanceof EzyBindingContextAware)
-            ((EzyBindingContextAware)configurator).setContext(context);
-        if(configurator instanceof EzyBindingConfig)
-            ((EzyBindingConfig)configurator).config();
+        if (configurator instanceof EzyBindingContextAware) {
+            ((EzyBindingContextAware) configurator).setContext(context);
+        }
+        if (configurator instanceof EzyBindingConfig) {
+            ((EzyBindingConfig) configurator).config();
+        }
     }
 }
