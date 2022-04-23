@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
-import java.util.concurrent.locks.Lock;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.concurrent.EzyHashMapLockProvider;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.locks.Lock;
 
 public class EzyHashMapLockProviderTest {
 

@@ -18,7 +18,7 @@ public abstract class EzyMapLockProxyProvider implements EzyMapLockProvider {
     public Lock provideLock(Object key) {
         synchronized (locks) {
             EzyLockProxy lock = locks.get(key);
-            if(lock == null) {
+            if (lock == null) {
                 lock = new EzyLockProxy();
                 locks.put(key, lock);
             }
@@ -30,8 +30,7 @@ public abstract class EzyMapLockProxyProvider implements EzyMapLockProvider {
     @Override
     public Lock getLock(Object key) {
         synchronized (locks) {
-            EzyLockProxy lock = locks.get(key);
-            return lock;
+            return locks.get(key);
         }
     }
 
@@ -39,10 +38,11 @@ public abstract class EzyMapLockProxyProvider implements EzyMapLockProvider {
     public void removeLock(Object key) {
         synchronized (locks) {
             EzyLockProxy lock = locks.get(key);
-            if(lock != null) {
+            if (lock != null) {
                 lock.release();
-                if(lock.isReleasable())
+                if (lock.isReleasable()) {
                     locks.remove(key);
+                }
             }
         }
     }
@@ -50,12 +50,13 @@ public abstract class EzyMapLockProxyProvider implements EzyMapLockProvider {
     @Override
     public void removeLocks(Set<?> keys) {
         synchronized (locks) {
-            for(Object key : keys) {
+            for (Object key : keys) {
                 EzyLockProxy lock = locks.get(key);
-                if(lock != null) {
+                if (lock != null) {
                     lock.release();
-                    if(lock.isReleasable())
+                    if (lock.isReleasable()) {
                         locks.remove(key);
+                    }
                 }
             }
         }
@@ -64,8 +65,7 @@ public abstract class EzyMapLockProxyProvider implements EzyMapLockProvider {
     @Override
     public int size() {
         synchronized (locks) {
-            int size = locks.size();
-            return size;
+            return locks.size();
         }
     }
 }

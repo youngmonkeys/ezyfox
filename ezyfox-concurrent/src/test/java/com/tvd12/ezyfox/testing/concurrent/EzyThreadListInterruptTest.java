@@ -1,21 +1,20 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
+import com.tvd12.ezyfox.concurrent.EzyThreadList;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import com.tvd12.ezyfox.concurrent.EzyThreadList;
 
 public class EzyThreadListInterruptTest {
 
     public static void main(String[] args) throws Exception {
         BlockingQueue<String> queue = new LinkedBlockingQueue<>();
         EzyThreadList threadList = new EzyThreadList(3, () -> {
-            while(true) {
+            while (true) {
                 try {
                     String str = queue.take();
                     System.out.print("str: " + str);
-                }
-                catch(InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                     break;
                 }

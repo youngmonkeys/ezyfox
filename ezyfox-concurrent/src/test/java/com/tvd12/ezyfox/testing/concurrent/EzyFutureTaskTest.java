@@ -1,33 +1,31 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
+import com.tvd12.ezyfox.concurrent.EzyFutureTask;
+import com.tvd12.test.assertion.Asserts;
+import com.tvd12.test.base.BaseTest;
+import com.tvd12.test.util.RandomUtil;
+import org.testng.annotations.Test;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.concurrent.EzyFutureTask;
-import com.tvd12.test.assertion.Asserts;
-import com.tvd12.test.base.BaseTest;
-import com.tvd12.test.util.RandomUtil;
-
 public class EzyFutureTaskTest extends BaseTest {
 
+    @SuppressWarnings("CatchMayIgnoreException")
     @Test
     public void test() throws Exception {
         EzyFutureTask task = new EzyFutureTask();
         try {
             task.setResult(null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assert e instanceof NullPointerException;
         }
 
         try {
             task.setException(null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assert e instanceof NullPointerException;
         }
 
@@ -35,8 +33,7 @@ public class EzyFutureTaskTest extends BaseTest {
             try {
                 Integer value = task.get(3000L);
                 assert value == 123;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -53,8 +50,7 @@ public class EzyFutureTaskTest extends BaseTest {
             try {
                 Integer value = task2.get(3000L);
                 assert value == 123;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -70,8 +66,7 @@ public class EzyFutureTaskTest extends BaseTest {
         Thread thread = new Thread(() -> {
             try {
                 task.get(10);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 assert e instanceof TimeoutException;
             }
         });
@@ -104,7 +99,7 @@ public class EzyFutureTaskTest extends BaseTest {
     }
 
     @Test
-    public void toFutureCancelTest() throws Exception {
+    public void toFutureCancelTest() {
         // given
         Long result = RandomUtil.randomLong();
         EzyFutureTask task = new EzyFutureTask();
@@ -118,7 +113,7 @@ public class EzyFutureTaskTest extends BaseTest {
     }
 
     @Test
-    public void toFutureGetInterruptedExceptionTest() throws Exception {
+    public void toFutureGetInterruptedExceptionTest() {
         // given
         EzyFutureTask task = new EzyFutureTask();
         task.setException(new InterruptedException());
@@ -127,12 +122,12 @@ public class EzyFutureTaskTest extends BaseTest {
         Future<Long> future = task.toFuture();
 
         // then
-        Asserts.assertThat(() -> future.get())
+        Asserts.assertThat(future::get)
             .willThrows(InterruptedException.class);
     }
 
     @Test
-    public void toFutureExecutionExceptionGetTest() throws Exception {
+    public void toFutureExecutionExceptionGetTest() {
         // given
         EzyFutureTask task = new EzyFutureTask();
         task.setException(new ExecutionException("test", new Exception()));
@@ -140,12 +135,12 @@ public class EzyFutureTaskTest extends BaseTest {
         // when
         Future<Long> future = task.toFuture();
         // then
-        Asserts.assertThat(() -> future.get())
+        Asserts.assertThat(future::get)
             .willThrows(ExecutionException.class);
     }
 
     @Test
-    public void toFutureExceptionGetTest() throws Exception {
+    public void toFutureExceptionGetTest() {
         // given
         EzyFutureTask task = new EzyFutureTask();
         task.setException(new Exception("test"));
@@ -154,12 +149,12 @@ public class EzyFutureTaskTest extends BaseTest {
         Future<Long> future = task.toFuture();
 
         // then
-        Asserts.assertThat(() -> future.get())
+        Asserts.assertThat(future::get)
             .willThrows(ExecutionException.class);
     }
 
     @Test
-    public void toFutureGetTimeoutExceptionTest() throws Exception {
+    public void toFutureGetTimeoutExceptionTest() {
         // given
         EzyFutureTask task = new EzyFutureTask();
         task.setException(new TimeoutException());
@@ -173,7 +168,7 @@ public class EzyFutureTaskTest extends BaseTest {
     }
 
     @Test
-    public void toFutureGetTimeoutInterruptedExceptionTest() throws Exception {
+    public void toFutureGetTimeoutInterruptedExceptionTest() {
         // given
         EzyFutureTask task = new EzyFutureTask();
         task.setException(new InterruptedException());
@@ -187,7 +182,7 @@ public class EzyFutureTaskTest extends BaseTest {
     }
 
     @Test
-    public void toFutureExecutionExceptionGetTimeoutTest() throws Exception {
+    public void toFutureExecutionExceptionGetTimeoutTest() {
         // given
         EzyFutureTask task = new EzyFutureTask();
         task.setException(new ExecutionException("test", new Exception()));
@@ -200,7 +195,7 @@ public class EzyFutureTaskTest extends BaseTest {
     }
 
     @Test
-    public void toFutureExceptionGetTimeoutTest() throws Exception {
+    public void toFutureExceptionGetTimeoutTest() {
         // given
         EzyFutureTask task = new EzyFutureTask();
         task.setException(new Exception("test"));

@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.concurrent;
 
+import com.tvd12.ezyfox.function.EzyFunctions;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
-
-import com.tvd12.ezyfox.function.EzyFunctions;
 
 public abstract class EzyAbstractMapLockProvider implements EzyMapLockProvider {
 
@@ -18,14 +18,12 @@ public abstract class EzyAbstractMapLockProvider implements EzyMapLockProvider {
 
     @Override
     public Lock provideLock(Object key) {
-        Lock lock = locks.computeIfAbsent(key, EzyFunctions.NEW_REENTRANT_LOCK_FUNC);
-        return lock;
+        return locks.computeIfAbsent(key, EzyFunctions.NEW_REENTRANT_LOCK_FUNC);
     }
 
     @Override
     public Lock getLock(Object key) {
-        Lock lock = locks.get(key);
-        return lock;
+        return locks.get(key);
     }
 
     @Override
@@ -35,13 +33,13 @@ public abstract class EzyAbstractMapLockProvider implements EzyMapLockProvider {
 
     @Override
     public void removeLocks(Set<?> keys) {
-        for(Object key : keys)
+        for (Object key : keys) {
             this.locks.remove(key);
+        }
     }
 
     @Override
     public int size() {
-        int size = locks.size();
-        return size;
+        return locks.size();
     }
 }

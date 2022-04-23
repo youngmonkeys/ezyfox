@@ -1,16 +1,16 @@
 package com.tvd12.ezyfox.concurrent;
 
+import com.tvd12.ezyfox.util.EzyRef;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
 
-import com.tvd12.ezyfox.util.EzyRef;
-
 public class EzyLockProxy extends EzyRef<Lock> implements Lock {
 
-    public static final Supplier<EzyLockProxy> SUPPLIER = () -> new EzyLockProxy();
+    public static final Supplier<EzyLockProxy> SUPPLIER = EzyLockProxy::new;
 
     public EzyLockProxy() {
         this(new ReentrantLock());

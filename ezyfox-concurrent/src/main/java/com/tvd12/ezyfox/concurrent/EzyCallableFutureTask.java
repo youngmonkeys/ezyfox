@@ -17,20 +17,21 @@ public class EzyCallableFutureTask extends EzyFutureTask {
 
     @Override
     public void setResult(Object result) {
-        if(result == null)
+        if (result == null) {
             throw new NullPointerException("result is null");
-        if(callback != null) {
+        }
+        if (callback != null) {
             synchronized (this) {
-                if(this.result == null) {
+                if (this.result == null) {
                     this.result = result;
                     this.callback.onResponse(result);
                 }
             }
-        }
-        else {
+        } else {
             synchronized (this) {
-                if(this.result == null)
+                if (this.result == null) {
                     this.result = result;
+                }
                 notify();
             }
         }
@@ -38,20 +39,21 @@ public class EzyCallableFutureTask extends EzyFutureTask {
 
     @Override
     public void setException(Exception exception) {
-        if(exception == null)
+        if (exception == null) {
             throw new NullPointerException("exception is null");
-        if(callback != null) {
+        }
+        if (callback != null) {
             synchronized (this) {
-                if(this.exception == null) {
+                if (this.exception == null) {
                     this.exception = exception;
                     this.callback.onException(exception);
                 }
             }
-        }
-        else {
+        } else {
             synchronized (this) {
-                if(this.exception == null)
+                if (this.exception == null) {
                     this.exception = exception;
+                }
                 notify();
             }
         }

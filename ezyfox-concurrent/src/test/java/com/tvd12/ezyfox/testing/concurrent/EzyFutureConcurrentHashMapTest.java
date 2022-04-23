@@ -1,14 +1,14 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.concurrent.EzyFuture;
 import com.tvd12.ezyfox.concurrent.EzyFutureConcurrentHashMap;
 import com.tvd12.ezyfox.concurrent.EzyFutureMap;
+import com.tvd12.ezyfox.util.EzyThreads;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EzyFutureConcurrentHashMapTest {
 
@@ -20,29 +20,30 @@ public class EzyFutureConcurrentHashMapTest {
         loop.start();
         int count = 10;
         EzyFuture[] futures = new EzyFuture[count];
-        for(int i = 0 ; i < count ; ++i)
+        for (int i = 0; i < count; ++i) {
             futures[i] = tasks.addFuture(String.valueOf(i + 1));
+        }
         new Thread(() -> {
-            for(int i = 0 ; i < count ; ++i) {
+            for (int i = 0; i < count; ++i) {
                 try {
                     String answer = futures[i].get();
                     System.out.println("answer: " + answer);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     System.out.println("error: " + e.getMessage());
-                }
-                finally {
+                } finally {
                     assert futures[i].isDone();
                 }
             }
         }).start();
         Thread.sleep(1000);
-        for(int i = 0 ; i < count ; ++i)
+        for (int i = 0; i < count; ++i) {
             queue.add(String.valueOf(i + 1));
-        while(loop.count.get() < 9)
-            Thread.sleep(1);
+        }
+        while (loop.count.get() < 9) {
+            EzyThreads.sleep(1);
+        }
         loop.stop();
-     }
+    }
 
     public static class HandlingLoop {
 
@@ -52,31 +53,31 @@ public class EzyFutureConcurrentHashMapTest {
         protected AtomicInteger count = new AtomicInteger();
 
         public HandlingLoop(
-                BlockingQueue<String> queue,
-                EzyFutureMap<String> tasks) {
+            BlockingQueue<String> queue,
+            EzyFutureMap<String> tasks) {
             this.queue = queue;
             this.tasks = tasks;
         }
 
         public void start() {
-            Thread thread = new Thread(() -> loop());
+            Thread thread = new Thread(this::loop);
             active = true;
             thread.start();
         }
 
         protected void loop() {
             try {
-                while(active) {
+                while (active) {
                     String request = queue.take();
                     EzyFuture future = tasks.removeFuture(request);
                     int c = count.incrementAndGet();
-                    if(c % 2 == 0)
+                    if (c % 2 == 0) {
                         future.setResult("result of request: " + request);
-                    else
+                    } else {
                         future.setException(new Exception("exception of: " + request));
+                    }
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -84,6 +85,5 @@ public class EzyFutureConcurrentHashMapTest {
         protected void stop() {
             this.active = false;
         }
-
     }
 }

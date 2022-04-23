@@ -1,18 +1,16 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.concurrent.EzyLockProxy;
 import com.tvd12.ezyfox.concurrent.EzyMixedMapLockProxyProvider;
 import com.tvd12.ezyfox.util.EzyMapBuilder;
 import com.tvd12.ezyfox.util.EzyMixedMap;
-
 import lombok.AllArgsConstructor;
+import org.testng.annotations.Test;
+
+import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 public class EzyMixedMapLockProxyProviderTest {
 
@@ -34,19 +32,18 @@ public class EzyMixedMapLockProxyProviderTest {
             Field field = EzyMixedMapLockProxyProvider.class.getDeclaredField("locks");
             field.setAccessible(true);
             EzyMixedMap<EzyLockProxy> locks = (EzyMixedMap<EzyLockProxy>) field.get(provider);
-            locks.computeIfAbsent(new Key("1"), () -> new ExLockProxy());
+            locks.computeIfAbsent(new Key("1"), ExLockProxy::new);
             try {
                 provider.provideLock(new Key("1"));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             try {
                 provider.removeLock(new Key("1"));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch (Exception e) {
-            }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         provider.removeLocks(Sets.newHashSet(new Key("b")));
@@ -64,13 +61,14 @@ public class EzyMixedMapLockProxyProviderTest {
         @Override
         public Map<Object, Object> getKeys() {
             return EzyMapBuilder.mapBuilder()
-                    .put("k", k)
-                    .build();
+                .put("k", k)
+                .build();
         }
 
+        @SuppressWarnings("ALL")
         @Override
         public boolean equals(Object obj) {
-            return k.equals(((Key)obj).k);
+            return k.equals(((Key) obj).k);
         }
 
         @Override

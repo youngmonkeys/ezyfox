@@ -1,15 +1,15 @@
 package com.tvd12.ezyfox.concurrent;
 
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    private int poolId;
+public class EzyThreadFactory extends EzyLoggable implements ThreadFactory {
+
+    private static final AtomicInteger POOL_COUNTER = new AtomicInteger();
     protected int priority;
     protected String prefix;
     protected boolean daemon;
@@ -18,10 +18,8 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
     protected ThreadGroup threadGroup;
     protected AtomicInteger threadCounter = new AtomicInteger();
 
-    private static final AtomicInteger POOL_COUNTER = new AtomicInteger();
-
     protected EzyThreadFactory(Builder builder) {
-        this.poolId = POOL_COUNTER.incrementAndGet();
+        int poolId = POOL_COUNTER.incrementAndGet();
         this.prefix = builder.prefix;
         this.daemon = builder.daemon;
         this.priority = builder.priority;
@@ -29,6 +27,10 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
         this.threadGroup = builder.threadGroup;
         this.poolName = getFullPoolName();
         this.threadPrefix = poolName + '-' + poolId + '-';
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -45,22 +47,24 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
     protected void setUpThread(Thread thread) {
         try {
             trySetUpThread(thread);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             logger.warn("can not setup thread {}", thread.getName(), e);
         }
     }
 
     protected void trySetUpThread(Thread thread) {
         if (thread.isDaemon()) {
-            if (!daemon)
+            if (!daemon) {
                 thread.setDaemon(false);
+            }
         } else {
-            if (daemon)
+            if (daemon) {
                 thread.setDaemon(true);
+            }
         }
-        if (thread.getPriority() != priority)
+        if (thread.getPriority() != priority) {
             thread.setPriority(priority);
+        }
     }
 
     protected String getThreadName() {
@@ -69,10 +73,6 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
 
     protected String getFullPoolName() {
         return EzyStrings.isNoContent(prefix) ? poolName : prefix + "-" + poolName;
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyThreadFactory> {
@@ -133,20 +133,20 @@ public class EzyThreadFactory extends EzyLoggable implements ThreadFactory  {
         }
 
         protected void validatePriority(int priority) {
-             if (priority < Thread.MIN_PRIORITY || priority > Thread.MAX_PRIORITY)
-                    throw new IllegalArgumentException(
-                            "priority: " + priority + " (expected: Thread.MIN_PRIORITY <= priority <= Thread.MAX_PRIORITY)");
+            if (priority < Thread.MIN_PRIORITY || priority > Thread.MAX_PRIORITY) {
+                throw new IllegalArgumentException(
+                    "priority: " + priority + " (expected: Thread.MIN_PRIORITY <= priority <= Thread.MAX_PRIORITY)");
+            }
         }
 
         protected ThreadGroup getSystemThreadGroup() {
             return getSecurityManager() == null
-                    ? Thread.currentThread().getThreadGroup()
-                    : getSecurityManager().getThreadGroup();
+                ? Thread.currentThread().getThreadGroup()
+                : getSecurityManager().getThreadGroup();
         }
 
         protected SecurityManager getSecurityManager() {
             return System.getSecurityManager();
         }
-
     }
 }
