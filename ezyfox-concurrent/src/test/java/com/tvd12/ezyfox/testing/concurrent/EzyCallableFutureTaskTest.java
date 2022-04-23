@@ -99,4 +99,5 @@ public class EzyCallableFutureTaskTest extends BaseTest {
 
         EzyResultCallback<String> callback = r -> {};
         callback.onException(new Exception("test"));
-    }}
+    }
+}

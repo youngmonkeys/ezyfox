@@ -20,4 +20,5 @@ public final class EzyIfElse {
             ifTask.run();
         else
             elseTask.run();
-    }}
+    }
+}

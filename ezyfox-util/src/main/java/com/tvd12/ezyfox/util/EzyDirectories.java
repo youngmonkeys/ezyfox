@@ -144,4 +144,5 @@ public class EzyDirectories {
     
     public static Path subpath(Path fullPath, Path rootPath) {
         return fullPath.subpath(rootPath.getNameCount(), fullPath.getNameCount());
-    }}
+    }
+}

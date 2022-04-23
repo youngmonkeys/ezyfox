@@ -16,4 +16,5 @@ public class Config32 implements EzySingletonFactoryAware, EzyBeanAutoConfig {
     @Override
     public void autoConfig() {
         singletonFactory.addSingleton(new Singleton32());
-    }}
+    }
+}

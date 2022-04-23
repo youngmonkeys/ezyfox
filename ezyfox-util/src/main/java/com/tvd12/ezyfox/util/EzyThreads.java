@@ -11,4 +11,5 @@ public final class EzyThreads {
         } catch (InterruptedException e) {
             throw new IllegalStateException(e);
         }
-    }}
+    }
+}

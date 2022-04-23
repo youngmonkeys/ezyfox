@@ -20,4 +20,5 @@ public class EzySimpleConfigurationLoader implements EzyConfigurationLoader {
             ((EzyBindingContextAware)configurator).setContext(context);
         if(configurator instanceof EzyBindingConfig)
             ((EzyBindingConfig)configurator).config();
-    }}
+    }
+}

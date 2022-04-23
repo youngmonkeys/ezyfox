@@ -75,4 +75,5 @@ public class EzySimpleMarshallerTest extends BaseTest {
             return null;
         }
 
-    }}
+    }
+}

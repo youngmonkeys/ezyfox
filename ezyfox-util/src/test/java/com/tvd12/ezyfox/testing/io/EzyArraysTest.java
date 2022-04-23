@@ -89,4 +89,5 @@ public class EzyArraysTest extends BaseTest {
                 .getTime();
         System.out.println("mergePerformaceTest.time1 = " + time1);
         System.out.println("mergePerformaceTest.time2 = " + time2);
-    }}
+    }
+}

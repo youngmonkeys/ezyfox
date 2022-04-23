@@ -26,4 +26,5 @@ public class EzyPointWriterExample8 {
         EzyUnmarshaller unmarshaller = context.newUnmarshaller();
         Point outPoint = unmarshaller.unmarshal(outObject, Point.class);
         System.out.println(outPoint);
-    }}
+    }
+}

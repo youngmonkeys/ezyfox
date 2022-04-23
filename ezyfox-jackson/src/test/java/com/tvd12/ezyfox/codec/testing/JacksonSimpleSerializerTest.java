@@ -142,4 +142,5 @@ public class JacksonSimpleSerializerTest extends BaseTest {
 
     private ObjectMapper newObjectMapper() {
         return JacksonObjectMapperBuilder.newInstance().build();
-    }}
+    }
+}

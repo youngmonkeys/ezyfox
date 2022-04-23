@@ -43,4 +43,5 @@ public final class EzyByteBuffers {
         buffer.flip();
         buffer.get(bytes);
         return bytes;
-    }}
+    }
+}

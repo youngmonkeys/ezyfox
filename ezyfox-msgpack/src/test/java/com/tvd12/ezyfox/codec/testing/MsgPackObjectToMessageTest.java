@@ -49,4 +49,5 @@ public class MsgPackObjectToMessageTest extends BaseTest {
 
     private EzyObjectToMessage newMsgPackObjectToMessage() {
         return new MsgPackObjectToMessage();
-    }}
+    }
+}

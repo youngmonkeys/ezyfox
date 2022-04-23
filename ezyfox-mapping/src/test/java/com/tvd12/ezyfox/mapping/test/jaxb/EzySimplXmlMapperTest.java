@@ -32,4 +32,5 @@ public class EzySimplXmlMapperTest {
                 .classLoader(getClass().getClassLoader())
                 .build();
         System.out.println(mapper.read("test-data/person-error.txt", Person.class));
-    }}
+    }
+}

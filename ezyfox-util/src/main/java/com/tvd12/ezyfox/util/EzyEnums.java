@@ -41,4 +41,5 @@ public final class EzyEnums {
     public static <E extends EzyConstant> Map<Integer, E> enumMapInt(
             Class<E> enumClass) {
         return enumMap(enumClass, e -> ((EzyConstant)e).getId());
-    }}
+    }
+}

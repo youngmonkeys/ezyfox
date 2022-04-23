@@ -22,4 +22,5 @@ public final class EzyCollectionAnnotations {
         if(EzyStrings.isNoContent(name))
             name = entityClass.getSimpleName();
         return name;
-    }}
+    }
+}

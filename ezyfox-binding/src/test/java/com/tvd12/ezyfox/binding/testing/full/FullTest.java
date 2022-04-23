@@ -167,4 +167,5 @@ public class FullTest {
                 .append("wrapperShortValues", newArrayBuilder().append(11, 12))
                 .append("stringValues", newArrayBuilder().append("x", "y"));
         return objectBuilder.build();
-    }}
+    }
+}

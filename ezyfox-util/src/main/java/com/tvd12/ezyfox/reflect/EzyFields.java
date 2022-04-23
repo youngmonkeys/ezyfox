@@ -88,4 +88,5 @@ public final class EzyFields {
         String name = field.getName();
         String first = name.substring(0, 1).toUpperCase();
         return name.length() == 1 ? first : first + name.substring(1);
-    }}
+    }
+}

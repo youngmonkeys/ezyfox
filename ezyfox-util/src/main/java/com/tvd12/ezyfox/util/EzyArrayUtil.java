@@ -74,4 +74,5 @@ public final class EzyArrayUtil {
     
     public static <T> boolean isNotEmpty(T[] array) {
         return !isEmpty(array);
-    }}
+    }
+}

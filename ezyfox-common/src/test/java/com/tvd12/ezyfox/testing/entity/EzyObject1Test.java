@@ -191,4 +191,5 @@ public class EzyObject1Test extends EzyEntityTest {
         EzyObject newObject = EzyEntityFactory.newObject();
         newObject.put("localTime", "123456");
         Asserts.assertNull(newObject.get("localTime", LocalTime.class));
-    }}
+    }
+}

@@ -28,4 +28,5 @@ public class EzyTemplateTest {
             return null;
         }
         
-    }}
+    }
+}

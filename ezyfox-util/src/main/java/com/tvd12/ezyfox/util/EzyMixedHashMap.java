@@ -46,4 +46,5 @@ public class EzyMixedHashMap<V> implements EzyMixedMap<V> {
     public int size() {
         int size = multiKeyMaps.size();
         return size;
-    }}
+    }
+}

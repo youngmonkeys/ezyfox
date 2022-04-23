@@ -91,4 +91,5 @@ public final class EzyExecutors {
                 .priority(priority)
                 .poolName(poolName)
                 .build();
-    }}
+    }
+}

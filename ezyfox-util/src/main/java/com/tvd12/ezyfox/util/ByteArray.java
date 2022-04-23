@@ -59,4 +59,5 @@ public class ByteArray implements Serializable {
     @Override
     public String toString() {
         return new String(bytes);
-    }}
+    }
+}

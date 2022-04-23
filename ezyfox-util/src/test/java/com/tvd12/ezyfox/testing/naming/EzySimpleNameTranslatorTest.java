@@ -142,4 +142,5 @@ public class EzySimpleNameTranslatorTest {
         // when
         // then
         Asserts.assertEquals("w", sut.translate("W"));
-    }}
+    }
+}

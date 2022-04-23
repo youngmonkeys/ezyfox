@@ -69,4 +69,5 @@ public class ClassA {
     @EzyValue("8")
     public void setH(List<?> h) {
 
-    }}
+    }
+}

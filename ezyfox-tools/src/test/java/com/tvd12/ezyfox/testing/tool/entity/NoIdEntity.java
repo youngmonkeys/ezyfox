@@ -52,4 +52,5 @@ public class NoIdEntity {
 
     @Column
     public void setBar(String bar) {
-    }}
+    }
+}

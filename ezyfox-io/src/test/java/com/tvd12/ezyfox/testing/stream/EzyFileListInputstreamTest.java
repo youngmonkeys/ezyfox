@@ -52,4 +52,5 @@ public class EzyFileListInputstreamTest {
         Throwable e = Asserts.assertThrows(sut::read);
         Asserts.assertEquals(e.getClass(), IOException.class);
         sut.close();
-    }}
+    }
+}

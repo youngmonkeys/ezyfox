@@ -50,4 +50,5 @@ public class EzyFutureSynchronizedHashMap<K> extends EzyFutureAbstractMap<K> {
         synchronized (map) {
             return super.clear();
         }
-    }}
+    }
+}

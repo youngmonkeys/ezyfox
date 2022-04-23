@@ -270,4 +270,5 @@ public class EzySimpleBeanContextTest {
 
         // then
         Asserts.assertEquals(RuntimeException.class, e.getClass());
-    }}
+    }
+}

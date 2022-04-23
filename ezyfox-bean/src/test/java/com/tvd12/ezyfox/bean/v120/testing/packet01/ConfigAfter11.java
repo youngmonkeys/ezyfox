@@ -9,4 +9,5 @@ public class ConfigAfter11 {
     @EzySingleton
     public LastSingleton11 lastSingleton11(Singleton11 singleton11) {
         return new LastSingleton11(singleton11);
-    }}
+    }
+}

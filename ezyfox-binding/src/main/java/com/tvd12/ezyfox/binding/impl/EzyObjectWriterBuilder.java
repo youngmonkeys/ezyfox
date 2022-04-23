@@ -142,4 +142,5 @@ class EzyObjectWriterElementsFetcher extends EzyObjectElementsFetcher {
     @Override
     protected boolean isValidAnnotatedMethod(EzyMethod method) {
         return method.getReturnType() != void.class;
-    }}
+    }
+}

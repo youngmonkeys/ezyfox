@@ -85,4 +85,5 @@ public abstract class EzyMessageReader<B> {
 
     protected int getHeaderLength() {
         return 1;
-    }}
+    }
+}

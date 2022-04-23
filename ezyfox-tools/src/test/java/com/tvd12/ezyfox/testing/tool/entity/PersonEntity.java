@@ -58,4 +58,5 @@ public class PersonEntity {
 
     @Column
     public void setBar(String bar) {
-    }}
+    }
+}

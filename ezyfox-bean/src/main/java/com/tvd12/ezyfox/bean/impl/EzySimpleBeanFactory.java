@@ -24,4 +24,5 @@ public class EzySimpleBeanFactory extends EzyLoggable {
 
     protected final String getDefaultBeanName(Class<?> type) {
         return EzyClasses.getVariableName(type);
-    }}
+    }
+}

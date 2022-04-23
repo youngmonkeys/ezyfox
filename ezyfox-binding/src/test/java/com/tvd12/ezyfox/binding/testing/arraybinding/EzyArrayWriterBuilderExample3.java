@@ -19,4 +19,5 @@ public class EzyArrayWriterBuilderExample3 {
         EzyArrayWriterBuilder.setDebug(true);
         EzyArray array = marshaller.marshal( new ClassB1());
         System.out.println(array);
-    }}
+    }
+}

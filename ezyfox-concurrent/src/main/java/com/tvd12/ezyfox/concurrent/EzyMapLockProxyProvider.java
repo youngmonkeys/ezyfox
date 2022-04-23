@@ -67,4 +67,5 @@ public abstract class EzyMapLockProxyProvider implements EzyMapLockProvider {
             int size = locks.size();
             return size;
         }
-    }}
+    }
+}

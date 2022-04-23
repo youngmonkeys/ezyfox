@@ -30,4 +30,5 @@ public class EzyNameStylesTest extends BaseTest {
     @Test(expectedExceptions = NullPointerException.class)
     public void test2() {
         EzyNameStyles.toLowerHyphen(null);
-    }}
+    }
+}

@@ -123,4 +123,5 @@ public final class EzyBytes {
             answer[i] = buffer.getInt();
         }
         return answer;
-    }}
+    }
+}

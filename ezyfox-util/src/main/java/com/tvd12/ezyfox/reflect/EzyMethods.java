@@ -194,4 +194,5 @@ public final class EzyMethods {
         catch(Exception e) {
             throw new IllegalArgumentException("can't check overridden of method: " + a + ", " + b, e);
         }
-    }}
+    }
+}

@@ -243,4 +243,5 @@ public final class EzyLists {
      */
     public static <T> T last(List<T> list, T defaultValue) {
         return list.isEmpty() ? defaultValue : list.get(list.size() - 1);
-    }}
+    }
+}

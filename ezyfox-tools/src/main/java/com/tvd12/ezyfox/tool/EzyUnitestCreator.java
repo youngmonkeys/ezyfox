@@ -252,4 +252,5 @@ public class EzyUnitestCreator {
     private static Set<String> alwaysImportPackages() {
         return Collections.unmodifiableSet(Sets.newHashSet(
                 "java.lang", "java.util", "java.math"));
-    }}
+    }
+}

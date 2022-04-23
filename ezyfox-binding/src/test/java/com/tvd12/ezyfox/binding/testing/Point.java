@@ -64,4 +64,5 @@ public class Point extends BasePoint {
     @EzyIgnore
     public String getC() {
         return "c";
-    }}
+    }
+}

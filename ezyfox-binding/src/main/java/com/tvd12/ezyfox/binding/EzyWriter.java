@@ -15,4 +15,5 @@ public interface EzyWriter<T,R> {
         catch(Exception e) {
             return null;
         }
-    }}
+    }
+}

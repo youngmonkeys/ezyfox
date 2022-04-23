@@ -45,4 +45,5 @@ public class EzyLazyInitializerTest extends BaseTest {
                 .object(t)
                 .invoke();
         assert s.equals("abc");
-    }}
+    }
+}

@@ -281,4 +281,5 @@ class EzyArrayReaderElementsFetcher extends EzyArrayElementsFetcher {
     @Override
     protected boolean isValidAnnotatedMethod(EzyMethod method) {
         return method.getParameterCount() == 1;
-    }}
+    }
+}

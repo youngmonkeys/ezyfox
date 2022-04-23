@@ -22,4 +22,5 @@ public class EzyPointWriterExample4 {
 
         System.out.println(pointWriter.write(marshaller, new Point()));
 
-    }}
+    }
+}

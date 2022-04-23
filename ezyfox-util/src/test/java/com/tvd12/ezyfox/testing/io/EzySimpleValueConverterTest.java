@@ -22,4 +22,5 @@ public class EzySimpleValueConverterTest {
     public static enum ExEnum {
         HELLO,
         WORLD
-    }}
+    }
+}

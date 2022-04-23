@@ -30,4 +30,5 @@ public class EzyInterfacesTest extends BaseTest {
     }
 
     public static interface InterfaceC<I,E> {
-    }}
+    }
+}

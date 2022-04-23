@@ -33,4 +33,5 @@ public class MsgPackObjectTemplate extends AbstractTemplate<EzyObject> {
     @Override
     public EzyObject read(Unpacker u, EzyObject to, boolean required) throws IOException {
         throw new UnsupportedOperationException();
-    }}
+    }
+}

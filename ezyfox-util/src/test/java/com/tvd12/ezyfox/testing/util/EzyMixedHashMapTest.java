@@ -141,4 +141,5 @@ public class EzyMixedHashMapTest {
             return ComplexQuery.class;
         }
 
-    }}
+    }
+}

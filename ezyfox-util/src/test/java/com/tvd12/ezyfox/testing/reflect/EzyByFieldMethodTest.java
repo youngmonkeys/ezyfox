@@ -49,4 +49,5 @@ public class EzyByFieldMethodTest {
     @Getter
     private static class InternalClass {
         private String name;
-    }}
+    }
+}

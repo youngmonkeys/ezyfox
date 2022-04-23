@@ -20,4 +20,5 @@ public class EzySimpleBeanNameTranslator implements EzyBeanNameTranslator {
     @Override
     public void map(String freename, Class<?> type, String realname) {
         map.put(of(freename, type), realname);
-    }}
+    }
+}

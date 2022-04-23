@@ -76,4 +76,5 @@ public class EzyPointWriterExample7 {
 
         System.out.println(time4);
 
-    }}
+    }
+}

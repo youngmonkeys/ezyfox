@@ -23,4 +23,5 @@ public interface EzyBindingContext {
 
     static EzyBindingContextBuilder builder() {
         return EzySimpleBindingContext.builder();
-    }}
+    }
+}

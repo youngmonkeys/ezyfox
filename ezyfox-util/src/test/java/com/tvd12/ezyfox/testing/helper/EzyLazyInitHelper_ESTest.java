@@ -43,4 +43,5 @@ public class EzyLazyInitHelper_ESTest  {
          //
 //         assertThrownBy("com.tvd12.ezyfox.helper.EzyLazyInitHelper", e);
       }
-  }}
+    }
+}

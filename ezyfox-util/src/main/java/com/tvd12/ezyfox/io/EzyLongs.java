@@ -41,4 +41,5 @@ public final class EzyLongs {
 
     public static long bin2ulong(ByteBuffer buffer, int size) {
         return bin2ulong(EzyBytes.copy(buffer, size));
-    }}
+    }
+}

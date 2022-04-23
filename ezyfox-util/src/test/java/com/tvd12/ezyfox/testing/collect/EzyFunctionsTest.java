@@ -15,4 +15,5 @@ public class EzyFunctionsTest extends BaseTest {
     @Override
     public Class<?> getTestClass() {
         return EzyFunctions.class;
-    }}
+    }
+}

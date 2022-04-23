@@ -39,4 +39,5 @@ public class Pack1Configuration implements EzyBeanNameTranslatorAware {
 
     public static class ClassB {
 
-    }}
+    }
+}

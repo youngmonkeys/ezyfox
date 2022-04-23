@@ -63,4 +63,5 @@ public class EzyKeysGenerator {
         public EzyKeysGenerator build() {
             return new EzyKeysGenerator(this);
         }
-    }}
+    }
+}

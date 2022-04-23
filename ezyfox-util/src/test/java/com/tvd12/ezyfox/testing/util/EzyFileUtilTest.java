@@ -100,4 +100,5 @@ public class EzyFileUtilTest extends BaseTest {
         Asserts.assertEquals(EzyFileUtil.getFileNameWithoutExtension(filePath1), "world");
         Asserts.assertEquals(EzyFileUtil.getFileNameWithoutExtension(filePath2), "");
         Asserts.assertEquals(EzyFileUtil.getFileNameWithoutExtension(filePath3), "world");
-    }}
+    }
+}

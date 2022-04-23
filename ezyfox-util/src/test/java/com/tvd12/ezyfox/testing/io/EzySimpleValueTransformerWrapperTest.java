@@ -92,4 +92,5 @@ public class EzySimpleValueTransformerWrapperTest extends BaseTest {
     public void test8() {
         EzyValueConverter transformer = new EzySimpleValueConverter();
         transformer.convert(new Object(), Short.class);
-    }}
+    }
+}

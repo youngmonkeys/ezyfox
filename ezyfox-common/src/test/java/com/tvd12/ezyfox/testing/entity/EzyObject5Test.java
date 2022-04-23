@@ -19,4 +19,5 @@ public class EzyObject5Test extends CommonBaseTest {
 
     public static enum ABC {
         A,B,C
-    }}
+    }
+}

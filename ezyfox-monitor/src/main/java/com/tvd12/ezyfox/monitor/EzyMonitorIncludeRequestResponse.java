@@ -42,4 +42,5 @@ public class EzyMonitorIncludeRequestResponse extends EzyMonitor {
 
     public long getResponsePerSecond() {
         return reponsePerSecond.isExpired() ? 0L : reponsePerSecond.getActions();
-    }}
+    }
+}

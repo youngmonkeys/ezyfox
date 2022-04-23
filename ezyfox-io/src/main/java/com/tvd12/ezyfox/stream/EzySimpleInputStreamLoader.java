@@ -68,4 +68,5 @@ public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
                     .throwException(throwException)
                     .build();
         }
-    }}
+    }
+}

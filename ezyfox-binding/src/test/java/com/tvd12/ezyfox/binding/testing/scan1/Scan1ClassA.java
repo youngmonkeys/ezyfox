@@ -41,4 +41,5 @@ public class Scan1ClassA extends Scan1ClassA1 {
         Map<String, String> map = new HashMap<>();
         map.put("hello", "world");
         return map;
-    }}
+    }
+}

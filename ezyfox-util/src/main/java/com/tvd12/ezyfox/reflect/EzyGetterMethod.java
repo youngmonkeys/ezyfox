@@ -27,4 +27,5 @@ public class EzyGetterMethod extends EzyByFieldMethod {
     @Override
     public String getFieldName() {
         return EzyMethods.getFieldNameOfGetter(method);
-    }}
+    }
+}

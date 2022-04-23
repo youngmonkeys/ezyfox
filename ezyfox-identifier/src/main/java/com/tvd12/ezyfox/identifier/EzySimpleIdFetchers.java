@@ -67,4 +67,5 @@ public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
             return new EzySimpleIdFetcherImplementer(clazz);
         }
 
-    }}
+    }
+}
