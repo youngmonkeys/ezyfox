@@ -9,5 +9,4 @@ public interface EzyCastToByte {
     default byte cast(long value) {
         return (byte) value;
     }
-
 }

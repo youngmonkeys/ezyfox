@@ -12,7 +12,7 @@ public final class EzyEnums {
     private EzyEnums() {}
 
     public static <T extends EzyHasIntId> T valueOf(T[] values, int id) {
-        return valueOf(values, id, v -> v.getId());
+        return valueOf(values, id, EzyHasIntId::getId);
     }
 
     public static <T> T valueOf(

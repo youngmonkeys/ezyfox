@@ -1,22 +1,18 @@
 package com.tvd12.ezyfox.identifier;
 
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.tvd12.ezyfox.annotation.EzyId;
 import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyInstruction;
-import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzyReflectElement;
+import com.tvd12.ezyfox.reflect.*;
 import com.tvd12.ezyfox.util.EzyHasIdEntity;
 import com.tvd12.ezyfox.util.EzyLoggable;
-
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtNewMethod;
 import lombok.Setter;
+
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EzySimpleIdFetcherImplementer 
         extends EzyLoggable
@@ -41,15 +37,14 @@ public class EzySimpleIdFetcherImplementer
     @Override
     public EzyIdFetcher implement() {
         try {
-            return doimplement();
+            return doImplement();
         }
         catch(Exception e) {
             throw new IllegalStateException("implement getter of " + clazz + " error", e);
         }
     }
 
-    @SuppressWarnings("rawtypes")
-    private EzyIdFetcher doimplement() throws Exception {
+    private EzyIdFetcher doImplement() throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
         CtClass implClass = pool.makeClass(implClassName);
@@ -59,10 +54,9 @@ public class EzySimpleIdFetcherImplementer
         printMethodContent(implMethodContent);
         implClass.setInterfaces(new CtClass[] { pool.get(EzyIdFetcher.class.getName()) });
         implClass.addMethod(CtNewMethod.make(implMethodContent, implClass));
-        Class answerClass = implClass.toClass();
+        Class<?> answerClass = implClass.toClass();
         implClass.detach();
-        Object fetcher = answerClass.newInstance();
-        return (EzyIdFetcher)fetcher;
+        return EzyClasses.newInstance(answerClass);
     }
 
     protected String makeGetIdMethodContent(EzyMethod getIdMethod) {
@@ -72,7 +66,7 @@ public class EzySimpleIdFetcherImplementer
                 .cast(clazz.getClazz(), "arg0")
                 .dot();
 
-        Class<?> valueType = null;
+        Class<?> valueType;
 
         if(idElement instanceof EzyField) {
             value.append(idElement.getName());

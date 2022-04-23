@@ -67,9 +67,9 @@ public class EzyClassTree {
 
     @Override
     public String toString() {
-        return String.join("\n", roots.stream()
-            .map(t -> t.toString())
-            .collect(Collectors.toList()));
+        return roots.stream()
+            .map(Node::toString)
+            .collect(Collectors.joining("\n"));
     }
 
     private static class Node {

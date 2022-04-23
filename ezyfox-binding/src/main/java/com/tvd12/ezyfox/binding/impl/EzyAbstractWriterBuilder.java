@@ -46,7 +46,7 @@ public abstract class EzyAbstractWriterBuilder
         Class answerClass = implClass.toClass();
         implClass.detach();
         logger.debug("class {} has generated", implClassName);
-        return (EzyWriter) answerClass.newInstance();
+        return EzyClasses.newInstance(answerClass);
     }
 
     protected String makeMethodContent(EzyMethod writeMethod) {

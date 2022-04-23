@@ -4,7 +4,6 @@ public final class EzyThreads {
 
     private EzyThreads() {}
 
-
     public static void sleep(long millis) {
         try {
             Thread.sleep(millis);

@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public class EzyLongsIterator extends EzyArrayIterator<Long> {
 
-    private long[] array;
+    private final long[] array;
 
     public EzyLongsIterator(long[] array) {
         this.array = array;

@@ -42,10 +42,6 @@ public class EzyPair<K, V> {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-            .append("(")
-            .append(key).append(":").append(value)
-            .append(")")
-            .toString();
+        return "(" + key + ":" + value + ")";
     }
 }

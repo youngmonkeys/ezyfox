@@ -20,6 +20,5 @@ public interface EzyMixedMap<V> {
         default Object getType() {
             return getClass();
         }
-
     }
 }

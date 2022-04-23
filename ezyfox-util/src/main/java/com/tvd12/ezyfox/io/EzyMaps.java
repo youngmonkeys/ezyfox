@@ -9,8 +9,7 @@ import java.util.stream.Collectors;
 
 public final class EzyMaps {
 
-    private EzyMaps() {
-    }
+    private EzyMaps() {}
 
     @SuppressWarnings("rawtypes")
     public static boolean isEmpty(Map map) {

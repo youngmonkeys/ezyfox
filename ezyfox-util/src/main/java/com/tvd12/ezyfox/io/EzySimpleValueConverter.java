@@ -13,8 +13,8 @@ import java.util.Map;
 
 import static com.tvd12.ezyfox.io.EzyDataConverter.*;
 import static com.tvd12.ezyfox.io.EzyNumbersConverter.*;
-import static com.tvd12.ezyfox.io.EzyStringConveter.stringToChar;
-import static com.tvd12.ezyfox.io.EzyStringConveter.*;
+import static com.tvd12.ezyfox.io.EzyStringConverter.stringToChar;
+import static com.tvd12.ezyfox.io.EzyStringConverter.*;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class EzySimpleValueConverter

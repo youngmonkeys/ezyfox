@@ -81,7 +81,7 @@ public class EzyMethodFinder {
             return new EzyMethodFinder(
                 clazz,
                 methodName,
-                parameterTypes.toArray(new Class[parameterTypes.size()]));
+                parameterTypes.toArray(new Class[0]));
         }
     }
 }

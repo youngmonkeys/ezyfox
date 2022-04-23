@@ -113,6 +113,5 @@ public class EzyObjectProxy {
             }
             return new EzyObjectProxy(this);
         }
-
     }
 }

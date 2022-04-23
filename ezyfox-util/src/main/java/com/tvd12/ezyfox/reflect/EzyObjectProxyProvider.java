@@ -20,7 +20,7 @@ public class EzyObjectProxyProvider {
 
     public EzyObjectProxy getObjectProxy(Class<?> objectType) {
         return objectProxies.computeIfAbsent(
-            objectType, k -> newObjectProxy(k));
+            objectType, this::newObjectProxy);
     }
 
     protected EzyObjectProxy newObjectProxy(Class<?> objectType) {

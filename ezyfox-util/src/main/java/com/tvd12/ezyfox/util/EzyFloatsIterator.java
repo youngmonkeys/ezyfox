@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public class EzyFloatsIterator extends EzyArrayIterator<Float> {
 
-    private float[] array;
+    private final float[] array;
 
     public EzyFloatsIterator(float[] array) {
         this.array = array;

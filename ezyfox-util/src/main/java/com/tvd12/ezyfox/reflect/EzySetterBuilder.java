@@ -54,12 +54,12 @@ public class EzySetterBuilder extends EzyLoggable implements EzyBuilder<BiConsum
         implClass.setInterfaces(new CtClass[]{pool.get(BiConsumer.class.getName())});
         Class answerClass = implClass.toClass();
         implClass.detach();
-        return (BiConsumer) answerClass.newInstance();
+        return EzyClasses.newInstance(answerClass);
     }
 
     protected String makeAcceptMethodContent() {
-        Class<?> type = null;
-        String methodName = null;
+        Class<?> type;
+        String methodName;
         if (field != null) {
             type = field.getType();
             methodName = field.getSetterMethod();

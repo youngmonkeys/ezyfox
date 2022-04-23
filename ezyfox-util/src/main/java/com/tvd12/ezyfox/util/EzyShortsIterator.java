@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public class EzyShortsIterator extends EzyArrayIterator<Short> {
 
-    private short[] array;
+    private final short[] array;
 
     public EzyShortsIterator(short[] array) {
         this.array = array;

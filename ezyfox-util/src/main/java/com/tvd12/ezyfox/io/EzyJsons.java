@@ -7,11 +7,10 @@ import java.util.function.Function;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public final class EzyJsons {
 
-    public static final Function TO_STRING_FUNC = t -> t.toString();
-    public static final Function QUOTE_FUNC = t -> EzyStrings.quote(t);
+    public static final Function TO_STRING_FUNC = Object::toString;
+    public static final Function QUOTE_FUNC = EzyStrings::quote;
 
-    private EzyJsons() {
-    }
+    private EzyJsons() {}
 
     public static String parse(Collection items) {
         return parse(items, TO_STRING_FUNC);

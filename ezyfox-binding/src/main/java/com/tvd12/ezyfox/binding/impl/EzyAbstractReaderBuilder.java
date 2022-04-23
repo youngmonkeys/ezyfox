@@ -44,7 +44,6 @@ public abstract class EzyAbstractReaderBuilder
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected Object make() throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
@@ -62,7 +61,7 @@ public abstract class EzyAbstractReaderBuilder
         Class answerClass = implClass.toClass();
         implClass.detach();
         logger.debug("class {} has generated", implClassName);
-        return answerClass.getDeclaredConstructor().newInstance();
+        return EzyClasses.newInstance(answerClass);
     }
 
     protected String getReadMethodName() {

@@ -36,15 +36,11 @@ public class EzyReflectionProxy implements EzyReflection {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public Set<Class<?>> getExtendsClasses(Class parentClass) {
-        Set<Class<?>> classes = reflections.getSubTypesOf(parentClass);
-        return classes;
+        return reflections.getSubTypesOf(parentClass);
     }
 
     @Override
     public Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annClass) {
-        Set<Class<?>> classes = reflections.getTypesAnnotatedWith(annClass);
-        return classes;
+        return reflections.getTypesAnnotatedWith(annClass);
     }
-
-
 }

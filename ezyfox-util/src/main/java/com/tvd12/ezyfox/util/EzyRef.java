@@ -1,9 +1,11 @@
 package com.tvd12.ezyfox.util;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class EzyRef<T> {
 
     protected final T value;
-    protected volatile int referenceCount;
+    protected final AtomicInteger referenceCount = new AtomicInteger();
 
     public EzyRef(T value) {
         this.value = value;
@@ -14,15 +16,14 @@ public class EzyRef<T> {
     }
 
     public void retain() {
-        ++this.referenceCount;
+        this.referenceCount.incrementAndGet();
     }
 
     public void release() {
-        --this.referenceCount;
+        this.referenceCount.decrementAndGet();
     }
 
     public boolean isReleasable() {
-        return this.referenceCount == 0;
+        return this.referenceCount.get() == 0;
     }
-
 }

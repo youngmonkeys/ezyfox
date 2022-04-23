@@ -8,17 +8,16 @@ import com.tvd12.ezyfox.reflect.EzyReflectElement;
 
 public final class EzyPropertyAnnotations {
 
-    private EzyPropertyAnnotations() {
-    }
+    private EzyPropertyAnnotations() {}
 
     public static String getPropertyName(EzyClass clazz, EzyReflectElement element) {
         if (element instanceof EzyField) {
-            return getPropertyName(clazz, (EzyField) element);
+            return getPropertyName((EzyField) element);
         }
         return getPropertyName(clazz, (EzyMethod) element);
     }
 
-    public static String getPropertyName(EzyClass clazz, EzyField field) {
+    public static String getPropertyName(EzyField field) {
         EzyProperty annotation = field.getAnnotation(EzyProperty.class);
         if (annotation.value().length() > 0) {
             return annotation.value();
@@ -33,6 +32,6 @@ public final class EzyPropertyAnnotations {
         }
         String fieldName = method.getFieldName();
         EzyField field = clazz.getField(fieldName);
-        return field != null ? getPropertyName(clazz, field) : fieldName;
+        return field != null ? getPropertyName(field) : fieldName;
     }
 }

@@ -11,10 +11,7 @@ import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzySetterMethod;
+import com.tvd12.ezyfox.reflect.*;
 
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -74,9 +71,9 @@ public abstract class EzySimplePrototypeSupplierLoader
         implClass.addMethod(CtNewMethod.make(supplyImplMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(supplyMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(getObjectTypeMethodContent, implClass));
-        Class answerClass = implClass.toClass();
+        Class<?> answerClass = implClass.toClass();
         implClass.detach();
-        EzyPrototypeSupplier supplier = (EzyPrototypeSupplier)answerClass.newInstance();
+        EzyPrototypeSupplier supplier = EzyClasses.newInstance(answerClass);
         factory.addSupplier(beanName, supplier, getAnnotationProperties());
         logger.debug("add prototype supplier of {}", implClassName);
         return supplier;
@@ -147,7 +144,7 @@ public abstract class EzySimplePrototypeSupplierLoader
     }
 
     protected EzyInstruction newConstructInstruction(EzyFunction.EzyBody body, List<String> cparams) {
-        EzyInstruction instruction = new EzyInstruction("\t", "\n")
+        return new EzyInstruction("\t", "\n")
                 .variable(clazz.getClazz(), "object")
                 .equal()
                 .append("new ")
@@ -155,7 +152,6 @@ public abstract class EzySimplePrototypeSupplierLoader
                 .bracketopen()
                 .append(EzyStrings.join(cparams, ", "))
                 .bracketclose();
-        return instruction;
     }
 
     protected final EzyInstruction newVariableInstruction(Class varType, String varName, String beanName) {
@@ -219,14 +215,13 @@ public abstract class EzySimplePrototypeSupplierLoader
     }
 
     private EzyInstruction newGetPropertyInstruction(Class<?> propertyType, String propertyName) {
-        EzyInstruction getPropertyInstruction = new EzyInstruction("", "", false)
+        return new EzyInstruction("", "", false)
                 .append("arg0.getProperty")
                 .bracketopen()
                 .string(propertyName)
                 .comma()
                 .clazz(propertyType, true)
                 .bracketclose();
-        return getPropertyInstruction;
     }
 
     private void addBindingValueInstructions(EzyFunction.EzyBody body) {

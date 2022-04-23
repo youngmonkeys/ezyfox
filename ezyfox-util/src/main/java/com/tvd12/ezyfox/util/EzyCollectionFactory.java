@@ -22,18 +22,18 @@ public class EzyCollectionFactory {
     @SuppressWarnings("rawtypes")
     private Map<Class, Supplier<Collection>> defaultSuppliers() {
         Map<Class, Supplier<Collection>> map = new ConcurrentHashMap<>();
-        map.put(Collection.class, () -> new ArrayList<>());
-        map.put(List.class, () -> new ArrayList<>());
-        map.put(ArrayList.class, () -> new ArrayList<>());
-        map.put(LinkedList.class, () -> new LinkedList<>());
-        map.put(CopyOnWriteArrayList.class, () -> new CopyOnWriteArrayList<>());
-        map.put(Set.class, () -> new HashSet<>());
-        map.put(HashSet.class, () -> new HashSet<>());
-        map.put(LinkedHashSet.class, () -> new LinkedHashSet<>());
-        map.put(CopyOnWriteArraySet.class, () -> new CopyOnWriteArraySet<>());
-        map.put(Vector.class, () -> new Vector<>());
-        map.put(Queue.class, () -> new LinkedList<>());
-        map.put(Stack.class, () -> new Stack<>());
+        map.put(Collection.class, ArrayList::new);
+        map.put(List.class, ArrayList::new);
+        map.put(ArrayList.class, ArrayList::new);
+        map.put(LinkedList.class, LinkedList::new);
+        map.put(CopyOnWriteArrayList.class, CopyOnWriteArrayList::new);
+        map.put(Set.class, HashSet::new);
+        map.put(HashSet.class, HashSet::new);
+        map.put(LinkedHashSet.class, LinkedHashSet::new);
+        map.put(CopyOnWriteArraySet.class, CopyOnWriteArraySet::new);
+        map.put(Vector.class, Vector::new);
+        map.put(Queue.class, LinkedList::new);
+        map.put(Stack.class, Stack::new);
         return map;
     }
 }

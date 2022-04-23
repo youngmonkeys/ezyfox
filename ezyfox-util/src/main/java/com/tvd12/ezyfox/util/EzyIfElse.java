@@ -2,8 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public final class EzyIfElse {
 
-    private EzyIfElse() {
-    }
+    private EzyIfElse() {}
 
     public static void withIf(boolean condition, Runnable ifTask) {
         if (condition) {

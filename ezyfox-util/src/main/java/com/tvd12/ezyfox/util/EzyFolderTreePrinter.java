@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tvd12.ezyfox.util.EzyReturner.returnNotNull;
+
 public class EzyFolderTreePrinter {
 
     protected boolean pretty;
@@ -70,7 +72,7 @@ public class EzyFolderTreePrinter {
                 item.setParent(parent);
             }
         } else {
-            File[] files = file.listFiles();
+            File[] files = returnNotNull(file.listFiles(), new File[0]);
             for (int i = 0; i < files.length; ++i) {
                 if (files[i].isFile() && !printFile) {
                     continue;
@@ -146,12 +148,12 @@ public class EzyFolderTreePrinter {
     @Getter
     private static class EzyFile {
 
-        private String name;
-        private boolean file;
+        private final String name;
+        private final boolean file;
         private EzyFile parent;
         @Setter
         private boolean lastFileInFolder = true;
-        private List<EzyFile> children = new ArrayList<>();
+        private final List<EzyFile> children = new ArrayList<>();
 
         public EzyFile(File file) {
             this.file = file.isFile();

@@ -42,8 +42,7 @@ public final class EzyMethods {
     public static String getFieldName(Method method, int prefixLength) {
         String name = method.getName();
         name = name.substring(prefixLength);
-        String answer = name.substring(0, 1).toLowerCase() + name.substring(1);
-        return answer;
+        return name.substring(0, 1).toLowerCase() + name.substring(1);
     }
 
     public static Object invoke(Method method, Object obj, Object... args) {
@@ -56,8 +55,7 @@ public final class EzyMethods {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static List<Method> getMethods(Class clazz) {
-        List<Method> methods = ReflectionUtils.getAllMethodList(clazz);
-        return methods;
+        return ReflectionUtils.getAllMethodList(clazz);
     }
 
     @SuppressWarnings("rawtypes")
@@ -87,8 +85,7 @@ public final class EzyMethods {
                 }
             }
             Class supperClass = clazz.getSuperclass();
-            Method method = getPublicMethod(supperClass, methodName, parameterTypes);
-            return method;
+            return getPublicMethod(supperClass, methodName, parameterTypes);
         }
     }
 
@@ -173,8 +170,7 @@ public final class EzyMethods {
     }
 
     public static boolean isOverriddenMethod(EzyMethod a, EzyMethod b) {
-        boolean answer = isOverriddenMethod(a.getMethod(), b.getMethod());
-        return answer;
+        return isOverriddenMethod(a.getMethod(), b.getMethod());
     }
 
     public static boolean isOverriddenMethod(Method a, Method b) {
@@ -190,15 +186,15 @@ public final class EzyMethods {
                     try {
                         dcb.getDeclaredMethod(a.getName(), a.getParameterTypes());
                         answer = true;
-                    } catch (NoSuchMethodException e) {
-                        answer = false;
+                    } catch (NoSuchMethodException ignored) {
+                        // do nothing
                     }
                 } else if (dcb.isAssignableFrom(dca)) {
                     try {
                         dca.getDeclaredMethod(b.getName(), b.getParameterTypes());
                         answer = true;
-                    } catch (NoSuchMethodException e) {
-                        answer = false;
+                    } catch (NoSuchMethodException ignored) {
+                        // do nothing
                     }
                 }
                 return answer;

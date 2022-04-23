@@ -2,16 +2,13 @@ package com.tvd12.ezyfox.io;
 
 public final class EzyChars {
 
-    private EzyChars() {
-    }
+    private EzyChars() {}
 
     public static boolean isUpperCase(char ch) {
-        boolean answer = ch >= 'A' && ch <= 'Z';
-        return answer;
+        return ch >= 'A' && ch <= 'Z';
     }
 
     public static boolean isLowerCase(char ch) {
-        boolean answer = ch < 'A' || ch > 'Z';
-        return answer;
+        return ch < 'A' || ch > 'Z';
     }
 }

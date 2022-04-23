@@ -7,8 +7,7 @@ import java.util.Map;
 
 public final class EzyKeyValueAnnotations {
 
-    private EzyKeyValueAnnotations() {
-    }
+    private EzyKeyValueAnnotations() {}
 
     public static String getProperty(String key, EzyKeyValue[] kvs) {
         for (EzyKeyValue kv : kvs) {
