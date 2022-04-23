@@ -1,8 +1,10 @@
 package com.tvd12.ezyfox.testing.reflect;
 
 import com.tvd12.ezyfox.reflect.EzyClassTree;
+import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class EzyClassTreeTest {
@@ -25,6 +27,18 @@ public class EzyClassTreeTest {
         System.out.println(tree.toList().stream()
             .map(Class::toString)
             .collect(Collectors.joining("\n")));
+    }
+
+    @Test
+    public void defaultConstructor() {
+        // given
+        EzyClassTree sut = new EzyClassTree();
+
+        // when
+        List<Class<?>> actual = sut.toList();
+
+        // then
+        Asserts.assertEmpty(actual);
     }
 
     public static class Ex2Branch2Exception extends Branch2Exception {
