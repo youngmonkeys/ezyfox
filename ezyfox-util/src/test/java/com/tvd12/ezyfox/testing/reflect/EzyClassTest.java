@@ -1,17 +1,5 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.annotation.EzyAutoImpl;
 import com.tvd12.ezyfox.annotation.EzyId;
 import com.tvd12.ezyfox.collect.Sets;
@@ -19,9 +7,16 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.testng.annotations.Test;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.testng.Assert.*;
 
 public class EzyClassTest extends BaseTest {
 
@@ -149,6 +144,20 @@ public class EzyClassTest extends BaseTest {
 
     }
 
+    public static interface InterfaceB extends InterfaceA {
+        @Override
+        String getValue();
+
+        String getSomething();
+    }
+
+    public static interface InterfaceA {
+
+        String getName();
+
+        String getValue();
+    }
+
     public static class ABC {
         public ABC(String s) {
         }
@@ -171,17 +180,14 @@ public class EzyClassTest extends BaseTest {
     }
 
     public static class B {
+        protected static final String FINAL_FIELD = "final field";
         public String x = "x";
-
         @Setter
         @Getter
         protected String y = "y";
-
         @Getter
         @Setter
         private String z = "z";
-
-        protected static final String FINAL_FIELD = "final field";
 
         protected String protectedMethod() {
             return "a";
@@ -252,19 +258,5 @@ public class EzyClassTest extends BaseTest {
 
     public static class DX {
         public DX(String name) {}
-    }
-
-    public static interface InterfaceB extends InterfaceA {
-        @Override
-        String getValue();
-        
-        String getSomething();
-    }
-    
-    public static interface InterfaceA {
-        
-        String getName();
-        
-        String getValue();
     }
 }

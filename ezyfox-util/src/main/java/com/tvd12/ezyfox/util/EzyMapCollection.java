@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
-public interface EzyMapCollection<K,E,V extends Collection<E>> extends Map<K,V> {
+public interface EzyMapCollection<K, E, V extends Collection<E>> extends Map<K, V> {
 
     void addItem(K key, E item);
 
@@ -24,7 +24,8 @@ public interface EzyMapCollection<K,E,V extends Collection<E>> extends Map<K,V> 
 
     default void removeItems(K key, Collection<E> items) {
         Collection<E> coll = get(key);
-        if(coll != null)
+        if (coll != null) {
             coll.removeAll(items);
+        }
     }
 }

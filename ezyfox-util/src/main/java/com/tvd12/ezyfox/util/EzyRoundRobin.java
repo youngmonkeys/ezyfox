@@ -15,8 +15,9 @@ public class EzyRoundRobin<T> {
 
     public EzyRoundRobin(Supplier<T> supplier, int size) {
         this();
-        for(int i = 0 ; i < size ; ++i)
+        for (int i = 0; i < size; ++i) {
             this.queue.offer(supplier.get());
+        }
     }
 
     public void add(T item) {
@@ -36,8 +37,9 @@ public class EzyRoundRobin<T> {
 
     public void forEach(Consumer<T> consumer) {
         synchronized (queue) {
-            for(T item : queue)
+            for (T item : queue) {
                 consumer.accept(item);
+            }
         }
     }
 }

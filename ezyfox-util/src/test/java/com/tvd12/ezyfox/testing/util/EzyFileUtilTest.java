@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyFileUtil;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.io.File;
+import java.io.IOException;
 
 public class EzyFileUtilTest extends BaseTest {
 
@@ -51,7 +50,7 @@ public class EzyFileUtilTest extends BaseTest {
 
         noParentFile.delete();
     }
-    
+
     @Test
     public void getFileNameTest() {
         // given
@@ -87,14 +86,14 @@ public class EzyFileUtilTest extends BaseTest {
         // then
         Asserts.assertEquals(filePath, actual);
     }
-    
+
     @Test
     public void getFileNameWithoutExtensionTest() {
         // given
         String filePath1 = "/hello/world.txt";
         String filePath2 = "/hello/.txt";
         String filePath3 = "/hello/world";
-        
+
         // when
         // then
         Asserts.assertEquals(EzyFileUtil.getFileNameWithoutExtension(filePath1), "world");

@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.collect;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.function.EzyPredicates;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyPredicatesTest extends BaseTest {
 

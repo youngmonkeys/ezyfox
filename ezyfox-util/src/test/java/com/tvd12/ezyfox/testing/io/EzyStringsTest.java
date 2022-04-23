@@ -1,10 +1,12 @@
 package com.tvd12.ezyfox.testing.io;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.testng.Assert.assertEquals;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.io.EzyStrings;
+import com.tvd12.test.assertion.Asserts;
+import com.tvd12.test.base.BaseTest;
+import lombok.AllArgsConstructor;
+import org.mockito.Mockito;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,15 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.mockito.Mockito;
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.collect.Lists;
-import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.test.assertion.Asserts;
-import com.tvd12.test.base.BaseTest;
-
-import lombok.AllArgsConstructor;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
+import static org.testng.Assert.assertEquals;
 
 public class EzyStringsTest extends BaseTest {
 
@@ -36,7 +32,7 @@ public class EzyStringsTest extends BaseTest {
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public void test1() {
-        EzyStrings.newString(new byte[] {1, 2, 3}, "kkk");
+        EzyStrings.newString(new byte[]{1, 2, 3}, "kkk");
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
@@ -46,7 +42,7 @@ public class EzyStringsTest extends BaseTest {
 
     @Test
     public void test3() {
-        String[] array = new String[] {"1", "2", "3"};
+        String[] array = new String[]{"1", "2", "3"};
         assert EzyStrings.getString(array, 1, "x").equals("2");
         assert EzyStrings.getString(array, 100, "x").equals("x");
     }
@@ -65,7 +61,7 @@ public class EzyStringsTest extends BaseTest {
         System.out.println(EzyStrings.wrap(Arrays.asList(1L), "[", "]", ",", false));
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void test5() {
         assert EzyStrings.isEmpty(null);
@@ -88,10 +84,10 @@ public class EzyStringsTest extends BaseTest {
         assert EzyStrings.isNotBlank("a");
         assert !EzyStrings.isNotBlank("\t");
 
-        System.out.println(EzyStrings.join(new double[] {1.1, 2.2, 3.3}, ","));
-        System.out.println(EzyStrings.join(new int[] {1, 2, 3}, ". "));
-        System.out.println(EzyStrings.join(new long[] {1, 2, 3}, ";- "));
-        System.out.println(EzyStrings.join(new String[] {"a", "b", "c"}, "><"));
+        System.out.println(EzyStrings.join(new double[]{1.1, 2.2, 3.3}, ","));
+        System.out.println(EzyStrings.join(new int[]{1, 2, 3}, ". "));
+        System.out.println(EzyStrings.join(new long[]{1, 2, 3}, ";- "));
+        System.out.println(EzyStrings.join(new String[]{"a", "b", "c"}, "><"));
 
         Collection c1 = Lists.newArrayList("a", "b");
         System.out.println(EzyStrings.join(c1, ","));
@@ -103,7 +99,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkTest() {
         // given
         String queryString = "select e from E e where id = ?0 and name = ?1";
-        Object params[] = new Object[] {1, "'monkey'"};
+        Object params[] = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params);
@@ -117,7 +113,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkWithConverterTest() {
         // given
         String queryString = "select e from E e where id = ?0 and name = ?1";
-        Object params[] = new Object[] {1, "'monkey'"};
+        Object params[] = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params, it -> it);
@@ -131,7 +127,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkEndWithQuestionChar() {
         // given
         String queryString = "select e from E e where id = ?0 and name = ?";
-        Object params[] = new Object[] {1, "'monkey'"};
+        Object params[] = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params);
@@ -145,7 +141,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkDoubleQuestionChar() {
         // given
         String queryString = "select e from E e where id = ??0 and name = ??";
-        Object params[] = new Object[] {1, "'monkey'"};
+        Object params[] = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params);
@@ -159,7 +155,7 @@ public class EzyStringsTest extends BaseTest {
     public void replaceOkWithDuplicateParams() {
         // given
         String queryString = "select e from E e where id = ?0 or id = ?0 and name = ?1";
-        Object params[] = new Object[] {1, "'monkey'"};
+        Object params[] = new Object[]{1, "'monkey'"};
 
         // when
         String actual = EzyStrings.replace(queryString, params);
@@ -173,14 +169,14 @@ public class EzyStringsTest extends BaseTest {
     public void replaceFailedWithMissingParam() {
         // given
         String queryString = "select e from E e where id = ?0 or id = ?0 and name = ?2";
-        Object params[] = new Object[] {1, "'monkey'"};
+        Object params[] = new Object[]{1, "'monkey'"};
 
         // when
         // then
         Asserts.assertThat(() ->
-            EzyStrings.replace(queryString, params)
-        )
-        .testException(it -> it.getClass().equals(IllegalArgumentException.class));
+                EzyStrings.replace(queryString, params)
+            )
+            .testException(it -> it.getClass().equals(IllegalArgumentException.class));
     }
 
     @Test
@@ -208,7 +204,7 @@ public class EzyStringsTest extends BaseTest {
     public void toDisplayNameBoundingTest() {
         // given
         String string = "hello..world_i;fine,how--are-you fine\tor  not?--";
-        
+
         // when
         // then
         Asserts.assertTrue(EzyStrings.toDisplayName(null).isEmpty());
@@ -259,10 +255,10 @@ public class EzyStringsTest extends BaseTest {
         doThrow(IOException.class)
             .when(e)
             .printStackTrace(any(PrintWriter.class));
-        
+
         // when
         String actual = EzyStrings.traceStackToString(e);
-        
+
         // then
         Asserts.assertNotNull(actual);
         verify(e, times(1)).printStackTrace(any(PrintWriter.class));
@@ -282,11 +278,11 @@ public class EzyStringsTest extends BaseTest {
         @Override
         public String toString() {
             return new StringBuilder()
-                    .append("{")
-                    .append("\"name\":").append("\"" + name + "\"").append(",")
-                    .append("\"value\":").append("\"" + value + "\"")
-                    .append("}")
-                    .toString();
+                .append("{")
+                .append("\"name\":").append("\"" + name + "\"").append(",")
+                .append("\"value\":").append("\"" + value + "\"")
+                .append("}")
+                .toString();
         }
     }
 }

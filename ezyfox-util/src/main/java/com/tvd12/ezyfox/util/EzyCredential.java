@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.util;
 
-import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 @Setter
 @Getter

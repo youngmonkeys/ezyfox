@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.properties;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 import com.tvd12.ezyfox.properties.EzySimplePropertiesReader;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EzySimplePropertiesReaderTest extends BaseTest {
 

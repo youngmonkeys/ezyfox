@@ -1,11 +1,11 @@
 package com.tvd12.ezyfox.asm;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyTypes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 public class EzyInstruction {
@@ -14,11 +14,10 @@ public class EzyInstruction {
     protected final boolean semicolon;
     protected final StringBuilder builder = new StringBuilder();
 
-    private static final Map<Class, String> FETCH_PRIMITIVE_METHODS =
-            fetchPrimitiveMethods();
-
     protected static final Map<Class, Class> PRIMITIVE_WRAPPER_TYPES =
-            EzyTypes.PRIMITIVE_WRAPPER_TYPES_MAP;
+        EzyTypes.PRIMITIVE_WRAPPER_TYPES_MAP;
+    private static final Map<Class, String> FETCH_PRIMITIVE_METHODS =
+        fetchPrimitiveMethods();
 
     public EzyInstruction() {
         this("");
@@ -36,6 +35,19 @@ public class EzyInstruction {
         this.end = end;
         this.builder.append(begin);
         this.semicolon = semicolon;
+    }
+
+    private static Map<Class, String> fetchPrimitiveMethods() {
+        Map<Class, String> map = new HashMap<>();
+        map.put(Boolean.class, "booleanValue()");
+        map.put(Byte.class, "byteValue()");
+        map.put(Character.class, "charValue()");
+        map.put(Double.class, "doubleValue()");
+        map.put(Float.class, "floatValue()");
+        map.put(Integer.class, "intValue()");
+        map.put(Long.class, "longValue()");
+        map.put(Short.class, "shortValue()");
+        return map;
     }
 
     public EzyInstruction equal() {
@@ -120,16 +132,17 @@ public class EzyInstruction {
     }
 
     public EzyInstruction cast(Class type, String expression) {
-        if(PRIMITIVE_WRAPPER_TYPES.containsKey(type))
+        if (PRIMITIVE_WRAPPER_TYPES.containsKey(type)) {
             return castPrimitive(type, expression);
+        }
         return castNormal(type, expression);
     }
 
     protected EzyInstruction castNormal(Class type, String expression) {
         builder
             .append("(")
-                .append("(").append(type.getTypeName()).append(")")
-                .append("(").append(expression).append(")")
+            .append("(").append(type.getTypeName()).append(")")
+            .append("(").append(expression).append(")")
             .append(")");
         return this;
     }
@@ -145,13 +158,13 @@ public class EzyInstruction {
 
     public EzyInstruction function(String method, String... args) {
         return append(method)
-                .brackets(EzyStrings.join(args, ", "));
+            .brackets(EzyStrings.join(args, ", "));
     }
 
     public EzyInstruction invoke(String object, String method, String... args) {
         return append(object)
-                .dot()
-                .function(method, args);
+            .dot()
+            .function(method, args);
     }
 
     public EzyInstruction valueOf(Class type, String expression) {
@@ -160,44 +173,41 @@ public class EzyInstruction {
 
     public EzyInstruction valueOf(Class type, String expression, boolean forceCast) {
         Class wrapperType = PRIMITIVE_WRAPPER_TYPES.get(type);
-        if(wrapperType != null)
+        if (wrapperType != null) {
             return clazz(wrapperType).append(".valueOf").brackets(expression);
-        if(forceCast)
+        }
+        if (forceCast) {
             return castNormal(type, expression);
+        }
         return append(expression);
     }
 
     public EzyInstruction defaultValue(Class type) {
-        if(type == boolean.class)
+        if (type == boolean.class) {
             return append("false");
-        if(type == byte.class)
+        }
+        if (type == byte.class) {
             return append("(byte)0");
-        if(type == char.class)
+        }
+        if (type == char.class) {
             return append("(char)0");
-        if(type == double.class)
+        }
+        if (type == double.class) {
             return append("0D");
-        if(type == float.class)
+        }
+        if (type == float.class) {
             return append("0F");
-        if(type == int.class)
+        }
+        if (type == int.class) {
             return append("0");
-        if(type == long.class)
+        }
+        if (type == long.class) {
             return append("0L");
-        if(type == short.class)
+        }
+        if (type == short.class) {
             return append("(short)0");
+        }
         return append("null");
-    }
-
-    private static Map<Class, String> fetchPrimitiveMethods() {
-        Map<Class, String> map = new HashMap<>();
-        map.put(Boolean.class, "booleanValue()");
-        map.put(Byte.class, "byteValue()");
-        map.put(Character.class, "charValue()");
-        map.put(Double.class, "doubleValue()");
-        map.put(Float.class, "floatValue()");
-        map.put(Integer.class, "intValue()");
-        map.put(Long.class, "longValue()");
-        map.put(Short.class, "shortValue()");
-        return map;
     }
 
     @Override
@@ -207,8 +217,9 @@ public class EzyInstruction {
 
     public String toString(boolean autoFinish) {
         String string = builder.toString();
-        if(autoFinish && semicolon)
+        if (autoFinish && semicolon) {
             string = string.endsWith(";") ? string : string + ";";
+        }
         return string + end;
     }
 }

@@ -12,11 +12,13 @@ public final class EzyAutoImplAnnotations {
     public static String getBeanName(Class<?> annotatedClass) {
         EzyAutoImpl anno = annotatedClass.getAnnotation(EzyAutoImpl.class);
         String beanName = anno.value().trim();
-        if(!EzyStrings.isNoContent(beanName))
+        if (!EzyStrings.isNoContent(beanName)) {
             return beanName;
+        }
         beanName = EzyKeyValueAnnotations.getProperty("name", anno.properties());
-        if(!EzyStrings.isNoContent(beanName))
+        if (!EzyStrings.isNoContent(beanName)) {
             return beanName;
+        }
         return EzyClasses.getVariableName(annotatedClass);
     }
 }

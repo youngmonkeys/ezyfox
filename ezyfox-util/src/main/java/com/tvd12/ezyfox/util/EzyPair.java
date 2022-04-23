@@ -13,8 +13,9 @@ public class EzyPair<K, V> {
     }
 
     public EzyPair(K key, V value) {
-        if(key == null)
+        if (key == null) {
             throw new NullPointerException("key can't be null");
+        }
         this.key = key;
         this.value = value;
     }
@@ -22,12 +23,15 @@ public class EzyPair<K, V> {
     @SuppressWarnings("rawtypes")
     @Override
     public boolean equals(Object obj) {
-        if(obj == null)
+        if (obj == null) {
             return false;
-        if(obj == this)
+        }
+        if (obj == this) {
             return true;
-        if(obj instanceof EzyPair)
-            return key.equals(((EzyPair)obj).key);
+        }
+        if (obj instanceof EzyPair) {
+            return key.equals(((EzyPair) obj).key);
+        }
         return false;
     }
 
@@ -39,9 +43,9 @@ public class EzyPair<K, V> {
     @Override
     public String toString() {
         return new StringBuilder()
-                .append("(")
-                    .append(key).append(":").append(value)
-                .append(")")
-                .toString();
+            .append("(")
+            .append(key).append(":").append(value)
+            .append(")")
+            .toString();
     }
 }

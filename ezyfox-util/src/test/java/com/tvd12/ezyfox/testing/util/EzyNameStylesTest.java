@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.testing.util;
 
-import static org.testng.Assert.assertEquals;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyNameStyles;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class EzyNameStylesTest extends BaseTest {
 

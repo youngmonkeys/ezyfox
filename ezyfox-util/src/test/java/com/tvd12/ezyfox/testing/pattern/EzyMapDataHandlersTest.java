@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.pattern;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.pattern.EzyDataHandler;
 import com.tvd12.ezyfox.pattern.EzyMapDataHandlers;
+import org.testng.annotations.Test;
 
 public class EzyMapDataHandlersTest {
 
@@ -21,8 +20,7 @@ public class EzyMapDataHandlersTest {
         handler.handleException(Thread.currentThread(), new Exception());
         try {
             handlers.getHandler("abc");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -8,24 +8,31 @@ public class EzyEquals<T> {
 
     @SuppressWarnings("unchecked")
     public boolean isEquals(T thiz, Object other) {
-        if(other == null)
+        if (other == null) {
             return false;
-        if(other == thiz)
+        }
+        if (other == thiz) {
             return true;
-        if(!other.getClass().equals(thiz.getClass()))
+        }
+        if (!other.getClass().equals(thiz.getClass())) {
             return false;
-        T t = (T)other;
-        for(Function<T, Object> func : functions) {
+        }
+        T t = (T) other;
+        for (Function<T, Object> func : functions) {
             Object v1 = func.apply(t);
             Object v2 = func.apply(thiz);
-            if(v1 == v2)
+            if (v1 == v2) {
                 continue;
-            if(v1 == null)
+            }
+            if (v1 == null) {
                 return false;
-            if(v2 == null)
+            }
+            if (v2 == null) {
                 return false;
-            if(!v1.equals(v2))
+            }
+            if (!v1.equals(v2)) {
                 return false;
+            }
         }
         return true;
     }
@@ -33,14 +40,14 @@ public class EzyEquals<T> {
     @SuppressWarnings("unchecked")
     public EzyEquals<T> function(Function<T, Object> function) {
         int i = 0;
-        if(functions == null) {
+        if (functions == null) {
             functions = new Function[i + 1];
-        }
-        else {
+        } else {
             Function<T, Object>[] old = functions;
             functions = new Function[functions.length + 1];
-            for(; i < old.length ; ++i)
+            for (; i < old.length; ++i) {
                 functions[i] = old[i];
+            }
         }
         functions[i] = function;
         return this;

@@ -15,8 +15,9 @@ public class EzyMixedHashMap<V> implements EzyMixedMap<V> {
     public V get(EzyMixedKey key) {
         Object multiKeyType = key.getType();
         EzyMixedKeyMap<V> multiKeyMap = multiKeyMaps.get(multiKeyType);
-        if(multiKeyMap == null)
+        if (multiKeyMap == null) {
             return null;
+        }
         V value = multiKeyMap.get(key);
         return value;
     }
@@ -25,8 +26,9 @@ public class EzyMixedHashMap<V> implements EzyMixedMap<V> {
     public V remove(EzyMixedKey key) {
         Object multiKeyType = key.getType();
         EzyMixedKeyMap<V> multiKeyMap = multiKeyMaps.get(multiKeyType);
-        if(multiKeyMap == null)
+        if (multiKeyMap == null) {
             return null;
+        }
         V value = multiKeyMap.remove(key);
         return value;
     }
@@ -34,7 +36,7 @@ public class EzyMixedHashMap<V> implements EzyMixedMap<V> {
     public V computeIfAbsent(EzyMixedKey key, Supplier<V> valueSupplier) {
         Object multiKeyType = key.getType();
         EzyMixedKeyMap<V> multiKeyMap = multiKeyMaps.get(multiKeyType);
-        if(multiKeyMap == null) {
+        if (multiKeyMap == null) {
             multiKeyMap = new EzyMixedKeyMap<>();
             multiKeyMaps.put(multiKeyType, multiKeyMap);
         }

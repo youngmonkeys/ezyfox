@@ -21,9 +21,10 @@ public final class EzyInterfaces {
 
     @SuppressWarnings("rawtypes")
     private static Class getInterface(Set<Class> classes, Class interfaceClass) {
-        for(Class itf : classes) {
-            if(itf.equals(interfaceClass))
+        for (Class itf : classes) {
+            if (itf.equals(interfaceClass)) {
                 return itf;
+            }
         }
         return null;
     }

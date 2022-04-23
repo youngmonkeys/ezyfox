@@ -1,5 +1,9 @@
 package com.tvd12.ezyfox.testing.reflect;
 
+import com.tvd12.ezyfox.reflect.EzyFields;
+import lombok.Data;
+import org.testng.annotations.Test;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -8,19 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.reflect.EzyFields;
-
-import lombok.Data;
-
 public class EzyGenerics1Test {
 
     @Test
     public void test() {
         System.out.println("\n======= begin check getGenericType ========\n");
         List<Field> fields = EzyFields.getFields(ClassC.class);
-        for(Field field : fields) {
+        for (Field field : fields) {
             System.out.println("field " + field.getName() + ", genericType = " + field.getGenericType().getTypeName());
         }
         System.out.println("\n======= end check getGenericType ========\n");
@@ -28,21 +26,22 @@ public class EzyGenerics1Test {
         List<Field> validFields = new ArrayList<>();
 
         System.out.println("\n======= begin check is ParameterizedType ========\n");
-        for(Field field : fields) {
+        for (Field field : fields) {
             Type type = field.getGenericType();
             System.out.println("field " + field.getName() + ", is ParameterizedType = " +
-                    (type instanceof ParameterizedType));
-            if(type instanceof ParameterizedType)
+                (type instanceof ParameterizedType));
+            if (type instanceof ParameterizedType) {
                 validFields.add(field);
+            }
         }
         System.out.println("\n======= end check getGenericType ========\n");
 
         System.out.println("\n======= begin check generic argument type ========\n");
-        for(Field field : validFields) {
+        for (Field field : validFields) {
             Type type = field.getGenericType();
-            Type[] types = ((ParameterizedType)type).getActualTypeArguments();
+            Type[] types = ((ParameterizedType) type).getActualTypeArguments();
             System.out.println("field " + field.getName() + ", genericType = " +
-                    Arrays.toString(types));
+                Arrays.toString(types));
             System.out.println(types[0].getClass());
         }
         System.out.println("\n======= end check getGenericType ========\n");
@@ -69,16 +68,16 @@ public class EzyGenerics1Test {
         private int i;
         private int j;
     }
-    
+
     @Data
     @SuppressWarnings("rawtypes")
     public static class ClassC {
-        public ClassB classB; 
+        public ClassB classB;
         public ClassD classD;
         public boolean visible;
-        
+
         public ClassD<String> classD1;
-        
+
         public Map<String, String> map1;
         public List<List<String>> list1;
         public Map map2;
@@ -86,10 +85,10 @@ public class EzyGenerics1Test {
         public Map<?, ?> map4;
         public List list2;
     }
-    
+
     public static class ClassD<T> {
         public ClassD(T value) {
-            
+
         }
     }
 }

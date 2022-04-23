@@ -11,21 +11,24 @@ public final class Sets {
 
     public static <T> Set<T> newHashSet(T... args) {
         Set<T> set = new HashSet<>();
-        for(T t : args)
+        for (T t : args) {
             set.add(t);
+        }
         return set;
     }
 
     public static <T> Set<T> newHashSet(Iterable<T> iterable) {
         Set<T> set = new HashSet<>();
-        for(T t : iterable)
+        for (T t : iterable) {
             set.add(t);
+        }
         return set;
     }
 
     public static <T> Set<T> toSet(Iterable<T> iterable) {
-        if(iterable instanceof Set)
-            return (Set<T>)iterable;
+        if (iterable instanceof Set) {
+            return (Set<T>) iterable;
+        }
         return newHashSet(iterable);
     }
 }

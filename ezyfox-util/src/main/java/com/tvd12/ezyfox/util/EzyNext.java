@@ -1,7 +1,7 @@
 package com.tvd12.ezyfox.util;
 
 public class EzyNext extends Next {
-    
+
     public EzyNext(long limit) {
         super(limit);
     }

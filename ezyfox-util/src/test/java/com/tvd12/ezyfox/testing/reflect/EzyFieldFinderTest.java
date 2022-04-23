@@ -1,49 +1,48 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
+import com.tvd12.ezyfox.reflect.EzyFieldFinder;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.Field;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.reflect.EzyFieldFinder;
-import com.tvd12.test.base.BaseTest;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 public class EzyFieldFinderTest extends BaseTest {
 
     @Test
     public void test() {
         Field a = EzyFieldFinder.builder()
-                .clazz(B.class)
-                .fieldName("a")
-                .build()
-                .find();
+            .clazz(B.class)
+            .fieldName("a")
+            .build()
+            .find();
         assertNotNull(a);
 
         Field b = EzyFieldFinder.builder()
-                .clazz(B.class)
-                .fieldName("b")
-                .build()
-                .find();
+            .clazz(B.class)
+            .fieldName("b")
+            .build()
+            .find();
         assertNotNull(b);
 
         Field c = EzyFieldFinder.builder()
-                .clazz(B.class)
-                .fieldName("c")
-                .build()
-                .find();
+            .clazz(B.class)
+            .fieldName("c")
+            .build()
+            .find();
         assertNotNull(c);
 
         Field d = EzyFieldFinder.builder()
-                .clazz(B.class)
-                .fieldName("d")
-                .build()
-                .find();
+            .clazz(B.class)
+            .fieldName("d")
+            .build()
+            .find();
         assertNull(d);
     }
 
-    public static interface I  {
+    public static interface I {
         String a = "";
     }
 

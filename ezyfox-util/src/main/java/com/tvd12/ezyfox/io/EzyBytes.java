@@ -22,11 +22,11 @@ public final class EzyBytes {
     }
 
     public static byte[] getBytes(int first, int value, int size) {
-        return getBytes(first, (long)value, size);
+        return getBytes(first, (long) value, size);
     }
 
     public static byte[] getBytes(int first, long value, int size) {
-        return getBytes((byte)first, value, size);
+        return getBytes((byte) first, value, size);
     }
 
     public static byte[] getBytes(byte first, long value, int size) {
@@ -71,7 +71,7 @@ public final class EzyBytes {
     public static byte[] merge(byte[][] bytess) {
         int position = 0;
         byte[] answer = new byte[totalBytes(bytess)];
-        for(byte[] bytes : bytess) {
+        for (byte[] bytes : bytess) {
             System.arraycopy(bytes, 0, answer, position, bytes.length);
             position += bytes.length;
         }
@@ -80,45 +80,52 @@ public final class EzyBytes {
 
     public static int totalBytes(byte[][] bytess) {
         int size = 0;
-        for(byte[] bytes : bytess)
+        for (byte[] bytes : bytess) {
             size += bytes.length;
+        }
         return size;
     }
 
     public static byte[] getBytes(long value, int size) {
         byte[] bytes = new byte[size];
-        for(int i = 0 ; i < size ; ++i)
-            bytes[i] = (byte)((value >> ((size - i - 1) * 8) & 0xff));
+        for (int i = 0; i < size; ++i) {
+            bytes[i] = (byte) ((value >> ((size - i - 1) * 8) & 0xff));
+        }
         return bytes;
     }
 
     public static byte[] numberToBytes(long number) {
-        if(number >= 0) {
-            if(number <= Byte.MAX_VALUE)
-                return new byte[] { (byte)number };
-            if(number <= Short.MAX_VALUE)
-                return getBytes((short)number);
-            if(number <= Integer.MAX_VALUE)
-                return getBytes((int)number);
+        if (number >= 0) {
+            if (number <= Byte.MAX_VALUE) {
+                return new byte[]{(byte) number};
+            }
+            if (number <= Short.MAX_VALUE) {
+                return getBytes((short) number);
+            }
+            if (number <= Integer.MAX_VALUE) {
+                return getBytes((int) number);
+            }
             return getBytes(number);
-        }
-        else {
-            if(number < Integer.MIN_VALUE)
+        } else {
+            if (number < Integer.MIN_VALUE) {
                 return getBytes(number);
-            if(number < Short.MIN_VALUE)
-                return getBytes((int)number);
-            if(number < Byte.MIN_VALUE)
-                return getBytes((short)number);
-            return new byte[] { (byte)number };
+            }
+            if (number < Short.MIN_VALUE) {
+                return getBytes((int) number);
+            }
+            if (number < Byte.MIN_VALUE) {
+                return getBytes((short) number);
+            }
+            return new byte[]{(byte) number};
         }
     }
 
     public static int[] toIntArray(byte[] bytes) {
         int[] answer = new int[bytes.length];
         ByteBuffer buffer = ByteBuffer.allocate(4);
-        for(int i = 0 ; i < bytes.length ; ++i) {
+        for (int i = 0; i < bytes.length; ++i) {
             buffer.clear();
-            buffer.put(new byte[] {0, 0, 0, bytes[i]});
+            buffer.put(new byte[]{0, 0, 0, bytes[i]});
             buffer.flip();
             answer[i] = buffer.getInt();
         }

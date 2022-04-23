@@ -1,14 +1,12 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.constant.EzyConstant;
 import com.tvd12.ezyfox.util.EzyEnums;
 import com.tvd12.test.base.BaseTest;
-
 import lombok.Getter;
+import org.testng.annotations.Test;
+
+import java.util.Map;
 
 public class EzyEnumsTest extends BaseTest {
 

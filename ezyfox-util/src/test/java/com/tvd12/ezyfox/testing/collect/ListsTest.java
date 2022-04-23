@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.collect;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ListsTest extends BaseTest {
 
@@ -15,7 +14,7 @@ public class ListsTest extends BaseTest {
     public Class<?> getTestClass() {
         return Lists.class;
     }
-    
+
     @Test
     public void test() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);

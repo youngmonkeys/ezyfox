@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.util;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.util.EzyMapBuilder;
-
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class EzyMapBuilder implements EzyBuilder<Map> {
 
     protected Map map = new HashMap<>();
@@ -36,6 +35,6 @@ public class EzyMapBuilder implements EzyBuilder<Map> {
     }
 
     public <K, V> Map<K, V> toMap() {
-        return (Map<K, V>)map;
+        return (Map<K, V>) map;
     }
 }

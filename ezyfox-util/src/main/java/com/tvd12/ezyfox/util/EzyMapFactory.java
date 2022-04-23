@@ -11,10 +11,11 @@ public class EzyMapFactory {
     @SuppressWarnings("rawtypes")
     protected final Map<Class, Supplier<Map>> suppliers = defaultSuppliers();
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public <T extends Map> T newMap(Class mapType) {
-        if(suppliers.containsKey(mapType))
+        if (suppliers.containsKey(mapType)) {
             return (T) suppliers.get(mapType).get();
+        }
         throw new IllegalArgumentException("unknown implementation of " + mapType);
     }
 

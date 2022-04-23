@@ -7,11 +7,11 @@ public class EzyIntsIteratorTest extends EzyArrayIteratorTest {
 
     @Override
     protected Object newArray() {
-        return new int[] {1, 2, 3};
+        return new int[]{1, 2, 3};
     }
 
     @Override
     protected EzyArrayIterator<?> newIterator() {
-        return EzyIntsIterator.wrap(new int[] {1, 2, 3});
+        return EzyIntsIterator.wrap(new int[]{1, 2, 3});
     }
 }

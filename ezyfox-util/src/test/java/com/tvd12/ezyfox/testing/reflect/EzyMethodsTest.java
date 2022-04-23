@@ -1,18 +1,10 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
-import static java.lang.annotation.ElementType.CONSTRUCTOR;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.LOCAL_VARIABLE;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PACKAGE;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.ElementType.TYPE_PARAMETER;
-import static java.lang.annotation.ElementType.TYPE_USE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
+import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyMethods;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -20,12 +12,10 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzyMethods;
-import com.tvd12.test.base.BaseTest;
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 public class EzyMethodsTest extends BaseTest {
 
@@ -84,7 +74,7 @@ public class EzyMethodsTest extends BaseTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void test6() throws Exception {
-        EzyMethods.isOverriddenMethod((Method)null, null);
+        EzyMethods.isOverriddenMethod((Method) null, null);
     }
 
     @Test
@@ -103,9 +93,24 @@ public class EzyMethodsTest extends BaseTest {
     }
 
     @Retention(RUNTIME)
-    @Target({ TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER,
-            TYPE_USE })
+    @Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER,
+        TYPE_USE})
     public static @interface Ann21 {
+    }
+
+    public static interface Interface21 extends Interface21Base {
+        void setValue1(String value1);
+    }
+
+    public static interface Interface21Base {
+        @Ann21
+        void setValue(String value);
+    }
+
+    public static interface Hello {
+
+        String getMessageType();
+
     }
 
     public abstract static class Class21 extends Class21Base implements Interface21 {
@@ -126,15 +131,6 @@ public class EzyMethodsTest extends BaseTest {
         @Ann21
         protected void setValue3(String value3) {
         }
-    }
-
-    public static interface Interface21 extends Interface21Base {
-        void setValue1(String value1);
-    }
-
-    public static interface Interface21Base {
-        @Ann21
-        void setValue(String value);
     }
 
     public static class ClassA3 {
@@ -192,12 +188,6 @@ public class EzyMethodsTest extends BaseTest {
         public void setName(String name) {
 
         }
-    }
-
-    public static interface Hello {
-
-        String getMessageType();
-
     }
 
     public static class World implements Hello {

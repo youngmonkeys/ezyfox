@@ -1,11 +1,11 @@
 package com.tvd12.ezyfox.reflect;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
-import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public class EzyObjectProxy {
 
@@ -21,6 +21,10 @@ public class EzyObjectProxy {
         this.propertyTypes = builder.propertyTypes;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public String getPropertyName(String key) {
         return propertyKeys.get(key);
     }
@@ -32,19 +36,17 @@ public class EzyObjectProxy {
     @SuppressWarnings("unchecked")
     public <T> T getProperty(Object object, String property) {
         Function<Object, Object> getter = getters.get(property);
-        if(getter != null)
+        if (getter != null) {
             return (T) getter.apply(object);
+        }
         return null;
     }
 
     public void setProperty(Object object, String property, Object value) {
         BiConsumer<Object, Object> setter = setters.get(property);
-        if(setter != null)
+        if (setter != null) {
             setter.accept(object, value);
-    }
-
-    public static Builder builder() {
-        return new Builder();
+        }
     }
 
     public static class Builder implements EzyBuilder<EzyObjectProxy> {
@@ -103,7 +105,7 @@ public class EzyObjectProxy {
 
         @Override
         public EzyObjectProxy build() {
-            for(String key : propertyKeys.keySet()) {
+            for (String key : propertyKeys.keySet()) {
                 String property = propertyKeys.get(key);
                 getters.put(key, getters.get(property));
                 setters.put(key, setters.get(property));

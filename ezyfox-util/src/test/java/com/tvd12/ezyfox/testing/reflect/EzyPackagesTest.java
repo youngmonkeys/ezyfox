@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyPackages;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyPackagesTest extends BaseTest {
 
@@ -18,19 +17,19 @@ public class EzyPackagesTest extends BaseTest {
         EzyPackages.scanPackages(Sets.newHashSet("com.tvd12.ezyfox.testing.reflect"));
     }
 
+    public static interface InterfaceA {
+    }
+
+    public static interface InterfaceB extends InterfaceA {
+
+    }
+
     @ExampleAnnotation
     public static class ClassA {
 
     }
 
     public static class ClassB extends ClassA {
-
-    }
-
-    public static interface InterfaceA {
-    }
-
-    public static interface InterfaceB extends InterfaceA {
 
     }
 }

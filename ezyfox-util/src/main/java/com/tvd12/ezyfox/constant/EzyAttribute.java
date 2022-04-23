@@ -1,16 +1,15 @@
 package com.tvd12.ezyfox.constant;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import lombok.Getter;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class EzyAttribute<T> implements EzyConstant {
 
+    private static final AtomicInteger COUNTER = new AtomicInteger(0);
     protected int id;
     protected String name;
-
-    private static final AtomicInteger COUNTER = new AtomicInteger(0);
 
     public EzyAttribute() {
         this(COUNTER.incrementAndGet());

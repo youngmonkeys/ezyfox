@@ -1,20 +1,15 @@
 package com.tvd12.ezyfox.reflect;
 
+import com.tvd12.ezyfox.collect.Lists;
+import lombok.Getter;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import com.tvd12.ezyfox.collect.Lists;
-
-import lombok.Getter;
 
 @SuppressWarnings("rawtypes")
 @Getter
@@ -80,16 +75,16 @@ public class EzyClass implements EzyReflectElement {
     public Constructor getDeclaredConstructor(Class... parameterTypes) {
         try {
             return clazz.getDeclaredConstructor(parameterTypes);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
 
     public Constructor getNoArgsDeclaredConstructor() {
-        for(Constructor constructor : clazz.getDeclaredConstructors()) {
-            if(constructor.getParameterCount() == 0)
+        for (Constructor constructor : clazz.getDeclaredConstructors()) {
+            if (constructor.getParameterCount() == 0) {
                 return constructor;
+            }
         }
         return null;
     }
@@ -97,9 +92,10 @@ public class EzyClass implements EzyReflectElement {
     public Constructor getMaxArgsDeclaredConstructor() {
         Constructor[] constructors = clazz.getDeclaredConstructors();
         Constructor max = constructors[0];
-        for(int i = 1 ; i < constructors.length ; ++i) {
-            if(constructors[i].getParameterCount() > max.getParameterCount())
+        for (int i = 1; i < constructors.length; ++i) {
+            if (constructors[i].getParameterCount() > max.getParameterCount()) {
                 max = constructors[i];
+            }
         }
         return max;
     }
@@ -118,13 +114,13 @@ public class EzyClass implements EzyReflectElement {
 
     public EzyMethod getSetterMethod(String methodName) {
         Optional<EzyMethod> optional =
-                getSetterMethod(m -> m.getName().equals(methodName));
+            getSetterMethod(m -> m.getName().equals(methodName));
         return optional.isPresent() ? optional.get() : null;
     }
 
     public EzyMethod getGetterMethod(String methodName) {
         Optional<EzyMethod> optional =
-                getGetterMethod(m -> m.getName().equals(methodName));
+            getGetterMethod(m -> m.getName().equals(methodName));
         return optional.isPresent() ? optional.get() : null;
     }
 
@@ -217,7 +213,7 @@ public class EzyClass implements EzyReflectElement {
     }
 
     public <T extends EzyMethod> List<T> getMethods(
-            Predicate<EzyMethod> predicate, Function<EzyMethod, T> creator) {
+        Predicate<EzyMethod> predicate, Function<EzyMethod, T> creator) {
         return methods
             .stream()
             .filter(predicate)
@@ -235,7 +231,7 @@ public class EzyClass implements EzyReflectElement {
     }
 
     public <T extends EzyMethod> List<T> getDeclaredMethods(
-            Predicate<EzyMethod> predicate, Function<EzyMethod, T> creator) {
+        Predicate<EzyMethod> predicate, Function<EzyMethod, T> creator) {
         return declaredMethods
             .stream()
             .filter(predicate)

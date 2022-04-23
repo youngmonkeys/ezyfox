@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.constant;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.constant.EzyAttribute;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyAttributeTest extends BaseTest {
 

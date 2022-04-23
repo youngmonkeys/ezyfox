@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyMethod;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyMethod2Test extends BaseTest {
 

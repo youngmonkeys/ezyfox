@@ -1,15 +1,14 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import java.util.Set;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.Set;
 
 public class EzyReflectionProxyTest {
 

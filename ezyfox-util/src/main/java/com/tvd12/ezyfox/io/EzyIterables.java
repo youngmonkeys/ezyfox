@@ -6,8 +6,9 @@ public final class EzyIterables {
     }
 
     public static boolean isEmpty(Iterable<?> iterable) {
-        if(iterable == null)
+        if (iterable == null) {
             return true;
+        }
         return !iterable.iterator().hasNext();
     }
 }

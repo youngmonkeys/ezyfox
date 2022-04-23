@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.reflect;
 
+import com.tvd12.reflections.Reflections;
+
 import java.lang.annotation.Annotation;
 import java.util.Set;
-
-import com.tvd12.reflections.Reflections;
 
 public class EzyReflectionProxy implements EzyReflection {
 
@@ -33,7 +33,7 @@ public class EzyReflectionProxy implements EzyReflection {
         this.reflections = new Reflections(packages, classLoader);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public Set<Class<?>> getExtendsClasses(Class parentClass) {
         Set<Class<?>> classes = reflections.getSubTypesOf(parentClass);

@@ -1,16 +1,18 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import java.util.function.BiConsumer;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzySetterBuilder;
-
 import lombok.Setter;
+import org.testng.annotations.Test;
+
+import java.util.function.BiConsumer;
 
 public class EzySetterBuilderTest {
+
+    public static void main(String[] args) {
+        new EzySetterBuilderTest().test();
+    }
 
     @Test
     @SuppressWarnings("unchecked")
@@ -18,7 +20,7 @@ public class EzySetterBuilderTest {
         EzyClass clazz = new EzyClass(A.class);
         EzyField field = clazz.getField("value");
         EzySetterBuilder.setDebug(true);
-        BiConsumer<A,String> setter = new EzySetterBuilder()
+        BiConsumer<A, String> setter = new EzySetterBuilder()
             .field(field)
             .build();
         A a = new A();
@@ -35,13 +37,9 @@ public class EzySetterBuilderTest {
             .build();
     }
 
-    public static void main(String[] args) {
-        new EzySetterBuilderTest().test();
-    }
-
     @Setter
     public static class A {
-        protected String value;
         protected final String name = "name";
+        protected String value;
     }
 }

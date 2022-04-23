@@ -1,18 +1,17 @@
 package com.tvd12.ezyfox.testing.util;
 
+import com.tvd12.ezyfox.util.EzyMapFactory;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.util.EzyMapFactory;
-import com.tvd12.test.base.BaseTest;
-
 public class EzyMapFactoryTest extends BaseTest {
 
-    @SuppressWarnings({ "unused", "rawtypes" })
+    @SuppressWarnings({"unused", "rawtypes"})
     @Test
     public void test() {
         EzyMapFactory factory = new EzyMapFactory();

@@ -1,16 +1,16 @@
 package com.tvd12.ezyfox.io;
 
+import java.util.Base64;
+
 import static com.tvd12.ezyfox.io.EzyDoubleArrays.toByteArray;
 import static com.tvd12.ezyfox.io.EzyDoubleArrays.toDoubleArray;
-
-import java.util.Base64;
 
 
 public final class EzyBase64DoubleArrays {
 
     private EzyBase64DoubleArrays() {
     }
-    
+
     public static String encode(double[] doubleArray) {
         byte[] bytes = toByteArray(doubleArray);
         String str = Base64.getEncoder().encodeToString(bytes);

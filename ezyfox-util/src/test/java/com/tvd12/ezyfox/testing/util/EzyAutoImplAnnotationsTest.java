@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.annotation.EzyAutoImpl;
 import com.tvd12.ezyfox.annotation.EzyKeyValue;
 import com.tvd12.ezyfox.util.EzyAutoImplAnnotations;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyAutoImplAnnotationsTest extends BaseTest {
 
@@ -34,21 +33,21 @@ public class EzyAutoImplAnnotationsTest extends BaseTest {
     }
 
     @EzyAutoImpl(properties = {
-            @EzyKeyValue(key = "name", value = "c")
+        @EzyKeyValue(key = "name", value = "c")
     })
     public interface ClassC {
 
     }
 
     @EzyAutoImpl(properties = {
-            @EzyKeyValue(key = "name", value = "")
+        @EzyKeyValue(key = "name", value = "")
     })
     public interface ClassD {
 
     }
 
     @EzyAutoImpl(properties = {
-            @EzyKeyValue(key = "no no no", value = "e")
+        @EzyKeyValue(key = "no no no", value = "e")
     })
     public interface ClassE {
 

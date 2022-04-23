@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.helper;
 
-import java.util.function.Supplier;
-
 import com.tvd12.ezyfox.function.EzyInitialize;
 import com.tvd12.ezyfox.function.EzyVoid;
+
+import java.util.function.Supplier;
 
 public final class EzyLazyInitHelper {
 
@@ -11,18 +11,18 @@ public final class EzyLazyInitHelper {
     }
 
     public static <T> T init(
-            Object context, EzyInitialize<T> initer) {
+        Object context, EzyInitialize<T> initer) {
         return init(context, () -> null, initer);
     }
 
     public static <T> T init(
-            Object context, Supplier<T> current, EzyInitialize<T> initer) {
+        Object context, Supplier<T> current, EzyInitialize<T> initer) {
         T value = current.get();
         return value != null ? value : syncInit(context, current, initer);
     }
 
     private static <T> T syncInit(
-            Object context, Supplier<T> current, EzyInitialize<T> initer) {
+        Object context, Supplier<T> current, EzyInitialize<T> initer) {
         synchronized (context) {
             T value = current.get();
             return value != null ? value : initer.init();
@@ -30,16 +30,18 @@ public final class EzyLazyInitHelper {
     }
 
     public static void voidInit(
-            Object context, Supplier<Boolean> condition, EzyVoid applier) {
-        if(condition.get())
+        Object context, Supplier<Boolean> condition, EzyVoid applier) {
+        if (condition.get()) {
             syncVoidInit(context, condition, applier);
+        }
     }
 
     private static void syncVoidInit(
-            Object context, Supplier<Boolean> condition, EzyVoid applier) {
+        Object context, Supplier<Boolean> condition, EzyVoid applier) {
         synchronized (context) {
-            if(condition.get())
+            if (condition.get()) {
                 applier.apply();
+            }
         }
     }
 }

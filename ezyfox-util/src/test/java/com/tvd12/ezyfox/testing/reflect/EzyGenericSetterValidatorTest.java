@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import java.lang.reflect.Type;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyGenericSetterValidator;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.lang.reflect.Type;
 
 public class EzyGenericSetterValidatorTest extends BaseTest {
 

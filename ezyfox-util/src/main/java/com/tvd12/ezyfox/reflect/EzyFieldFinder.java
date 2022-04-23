@@ -1,11 +1,9 @@
 package com.tvd12.ezyfox.reflect;
 
-import java.lang.reflect.Field;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.reflect.EzyFieldFinder;
-
 import lombok.AllArgsConstructor;
+
+import java.lang.reflect.Field;
 
 @SuppressWarnings("rawtypes")
 @AllArgsConstructor
@@ -13,19 +11,25 @@ public class EzyFieldFinder {
     protected Class clazz;
     protected String fieldName;
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public Field find() {
         return getField(clazz);
     }
 
     protected Field getField(Class clazz) {
         Field field = tryGetField(clazz);
-        if(field != null)
+        if (field != null) {
             return field;
+        }
         Class[] interfaces = getInterfaces(clazz);
-        for(Class itf : interfaces) {
+        for (Class itf : interfaces) {
             field = getField(itf);
-            if(field != null)
+            if (field != null) {
                 return field;
+            }
         }
         Class superClass = getSupperClasses(clazz);
         return superClass != null ? getField(superClass) : null;
@@ -47,10 +51,6 @@ public class EzyFieldFinder {
         return clazz.getInterfaces();
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public static class Builder implements EzyBuilder<EzyFieldFinder> {
         protected Class clazz;
         protected String fieldName;
@@ -59,6 +59,7 @@ public class EzyFieldFinder {
             this.clazz = clazz;
             return this;
         }
+
         public Builder fieldName(String fieldName) {
             this.fieldName = fieldName;
             return this;

@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.testing.collect;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.callback.EzyCallback;
+import org.testng.annotations.Test;
 
 public class EzyCallbackTest {
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Test
     public void test() {
         new EzyCallback() {
@@ -14,6 +13,7 @@ public class EzyCallbackTest {
             public void call(Object data) {
             }
         }
-        .call(new Object(), 10);;
+            .call(new Object(), 10);
+        ;
     }
 }

@@ -1,16 +1,6 @@
 package com.tvd12.ezyfox.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -21,10 +11,11 @@ public class EzyCollectionFactory {
     @SuppressWarnings("rawtypes")
     protected final Map<Class, Supplier<Collection>> suppliers = defaultSuppliers();
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public <T extends Collection> T newCollection(Class collectionType) {
-        if(suppliers.containsKey(collectionType))
+        if (suppliers.containsKey(collectionType)) {
             return (T) suppliers.get(collectionType).get();
+        }
         throw new IllegalArgumentException("unknown implementation of " + collectionType);
     }
 

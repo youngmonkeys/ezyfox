@@ -1,9 +1,5 @@
 package com.tvd12.ezyfox.io;
 
-import static com.tvd12.ezyfox.naming.EzyNamingCase.DASH;
-import static com.tvd12.ezyfox.naming.EzyNamingCase.DOT;
-import static com.tvd12.ezyfox.naming.EzyNamingCase.UNDERSCORE;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -14,6 +10,8 @@ import java.util.Collection;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.tvd12.ezyfox.naming.EzyNamingCase.*;
 
 public final class EzyStrings {
 
@@ -64,40 +62,43 @@ public final class EzyStrings {
 
     public static String quote(Object value) {
         return new StringBuilder()
-                .append("\"")
-                .append(value != null ? value.toString() : NULL)
-                .append("\"")
-                .toString();
+            .append("\"")
+            .append(value != null ? value.toString() : NULL)
+            .append("\"")
+            .toString();
     }
 
     public static String newString(char ch, int count) {
         StringBuilder builder = new StringBuilder();
-        for(int i = 0 ; i < count ; ++i)
+        for (int i = 0; i < count; ++i) {
             builder.append(ch);
+        }
         return builder.toString();
     }
 
     @SuppressWarnings("rawtypes")
     public static String wrap(
-            Collection collection,
-            String open,
-            String close,
-            String separator, boolean noWrapIfNull) {
-        if(collection == null) {
-            if(noWrapIfNull)
+        Collection collection,
+        String open,
+        String close,
+        String separator, boolean noWrapIfNull) {
+        if (collection == null) {
+            if (noWrapIfNull) {
                 return NULL;
+            }
             return new StringBuilder()
-                    .append(open)
-                    .append(close)
-                    .toString();
+                .append(open)
+                .append(close)
+                .toString();
         }
         int size = collection.size();
         StringBuilder builder = new StringBuilder(open);
         int index = 0;
-        for(Object item : collection) {
+        for (Object item : collection) {
             builder.append(item);
-            if((++ index) < size)
+            if ((++index) < size) {
                 builder.append(separator);
+            }
         }
         return builder.append(close).toString();
     }
@@ -138,11 +139,11 @@ public final class EzyStrings {
             return false;
         }
         int length = a.length();
-        for (int i = 0 ; i < length ; ++i) {
+        for (int i = 0; i < length; ++i) {
             char achar = a.charAt(i);
             char bchar = b.charAt(i);
             if ((achar == bchar)
-                    || (isWordSeparator(achar) && isWordSeparator(bchar))) {
+                || (isWordSeparator(achar) && isWordSeparator(bchar))) {
                 continue;
             }
             return false;
@@ -152,20 +153,20 @@ public final class EzyStrings {
 
     public static String join(double[] array, String separator) {
         return Arrays.stream(array)
-                .mapToObj(t -> String.valueOf(t))
-                .collect(Collectors.joining(separator));
+            .mapToObj(t -> String.valueOf(t))
+            .collect(Collectors.joining(separator));
     }
 
     public static String join(int[] array, String separator) {
         return Arrays.stream(array)
-                .mapToObj(t -> String.valueOf(t))
-                .collect(Collectors.joining(separator));
+            .mapToObj(t -> String.valueOf(t))
+            .collect(Collectors.joining(separator));
     }
 
     public static String join(long[] array, String separator) {
         return Arrays.stream(array)
-                .mapToObj(t -> String.valueOf(t))
-                .collect(Collectors.joining(separator));
+            .mapToObj(t -> String.valueOf(t))
+            .collect(Collectors.joining(separator));
     }
 
     public static <T> String join(T[] array, String separator) {
@@ -178,8 +179,8 @@ public final class EzyStrings {
 
     public static <T> String join(Stream<T> stream, String separator) {
         String answer = stream
-                .map(t -> t.toString())
-                .collect(Collectors.joining(separator));
+            .map(t -> t.toString())
+            .collect(Collectors.joining(separator));
         return answer;
     }
 
@@ -192,8 +193,9 @@ public final class EzyStrings {
     }
 
     public static String toCamelCase(String original) {
-        if(original.length() < 2)
+        if (original.length() < 2) {
             return original.toLowerCase();
+        }
         return original.substring(0, 1).toLowerCase() + original.substring(1);
     }
 
@@ -213,7 +215,7 @@ public final class EzyStrings {
         );
         boolean needUpper = false;
 
-        for (int i = 1 ; i < trim.length() ; ++i) {
+        for (int i = 1; i < trim.length(); ++i) {
             char ch = original.charAt(i);
             if (ch == '_') {
                 needUpper = true;
@@ -227,18 +229,19 @@ public final class EzyStrings {
 
     public static String toDotCase(String original) {
         StringBuilder builder = new StringBuilder();
-        for(int i = 0 ; i < original.length() ; ++i) {
+        for (int i = 0; i < original.length(); ++i) {
             char ch = original.charAt(i);
-            if(Character.isUpperCase(ch) && i > 0)
+            if (Character.isUpperCase(ch) && i > 0) {
                 builder.append(DOT.getSign());
+            }
             builder.append(Character.toLowerCase(ch));
         }
         return builder
-                .toString()
-                .replace(SPACE, EMPTY_STRING)
-                .replace(DASH.getSign(), DOT.getSign())
-                .replace(UNDERSCORE.getSign(), DOT.getSign())
-                .replace(DOT.getSign() + DOT.getSign(), DOT.getSign());
+            .toString()
+            .replace(SPACE, EMPTY_STRING)
+            .replace(DASH.getSign(), DOT.getSign())
+            .replace(UNDERSCORE.getSign(), DOT.getSign())
+            .replace(DOT.getSign() + DOT.getSign(), DOT.getSign());
     }
 
     public static String toDashCase(String original) {
@@ -255,10 +258,10 @@ public final class EzyStrings {
         }
         int length = orignal.length();
         StringBuilder builder = new StringBuilder();
-        for(int i = 0 ; i < length ; ++i) {
+        for (int i = 0; i < length; ++i) {
             char ch = orignal.charAt(i);
             if (isWordSeparator(ch)) {
-                while((++i) < length) {
+                while ((++i) < length) {
                     ch = orignal.charAt(i);
                     if (!isWordSeparator(ch)) {
                         if (builder.length() > 0) {
@@ -277,12 +280,12 @@ public final class EzyStrings {
 
     public static boolean isWordSeparator(char ch) {
         return ch == '-'
-                || ch == '.'
-                || ch == '_'
-                || ch == ';'
-                || ch == ','
-                || ch == ' '
-                || ch == '\t';
+            || ch == '.'
+            || ch == '_'
+            || ch == ';'
+            || ch == ','
+            || ch == ' '
+            || ch == '\t';
     }
 
     public static String replace(String query, Object[] parameters) {
@@ -290,27 +293,27 @@ public final class EzyStrings {
     }
 
     public static String replace(
-            String query,
-            Object[] parameters,
-            Function<Object, Object> parameterConveter
+        String query,
+        Object[] parameters,
+        Function<Object, Object> parameterConveter
     ) {
         final int paramCount = parameters.length;
         final int length = query.length();
         final StringBuilder builder = new StringBuilder();
-        for(int i = 0 ; i < length ; ) {
-            char ch = query.charAt(i ++);
-            if(i < length && ch == '?') {
+        for (int i = 0; i < length; ) {
+            char ch = query.charAt(i++);
+            if (i < length && ch == '?') {
                 int numberCharCount = 0;
                 final int startParamIndex = i;
                 ch = query.charAt(i);
-                while(ch >= '0' && ch <= '9') {
-                    ++ numberCharCount;
-                    if (++ i >= length) {
+                while (ch >= '0' && ch <= '9') {
+                    ++numberCharCount;
+                    if (++i >= length) {
                         break;
                     }
                     ch = query.charAt(i);
                 }
-                if(numberCharCount > 0) {
+                if (numberCharCount > 0) {
                     final char[] numberChars = new char[numberCharCount];
                     final int endParamIndex = startParamIndex + numberCharCount;
                     query.getChars(startParamIndex, endParamIndex, numberChars, 0);
@@ -320,12 +323,10 @@ public final class EzyStrings {
                     }
                     builder.append(getParameterValue(parameters[paramIndex], parameterConveter));
                     continue;
-                }
-                else {
+                } else {
                     builder.append('?');
                 }
-            }
-            else {
+            } else {
                 builder.append(ch);
             }
         }
@@ -334,8 +335,9 @@ public final class EzyStrings {
 
     private static Object getParameterValue(Object parameter, Function<Object, Object> parameterConveter) {
         Object value = parameter;
-        if(parameterConveter != null)
+        if (parameterConveter != null) {
             value = parameterConveter.apply(parameter);
+        }
         return value;
     }
 

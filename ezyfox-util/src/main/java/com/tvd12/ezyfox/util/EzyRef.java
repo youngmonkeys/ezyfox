@@ -14,11 +14,11 @@ public class EzyRef<T> {
     }
 
     public void retain() {
-        ++ this.referenceCount;
+        ++this.referenceCount;
     }
 
     public void release() {
-        -- this.referenceCount;
+        --this.referenceCount;
     }
 
     public boolean isReleasable() {

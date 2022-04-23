@@ -7,11 +7,11 @@ public class EzyLongsIteratorTest extends EzyArrayIteratorTest {
 
     @Override
     protected Object newArray() {
-        return new long[] {1, 2, 3};
+        return new long[]{1, 2, 3};
     }
 
     @Override
     protected EzyArrayIterator<?> newIterator() {
-        return EzyLongsIterator.wrap(new long[] {1, 2, 3});
+        return EzyLongsIterator.wrap(new long[]{1, 2, 3});
     }
 }

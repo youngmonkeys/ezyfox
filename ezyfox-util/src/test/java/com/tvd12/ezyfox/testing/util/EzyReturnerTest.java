@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyReturner;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class EzyReturnerTest extends BaseTest {
 
@@ -49,7 +48,7 @@ public class EzyReturnerTest extends BaseTest {
     @Test(expectedExceptions = {IllegalStateException.class})
     public void test7() {
         Lock lock = new ReentrantLock();
-        EzyReturner.returnWithLock(() ->  {
+        EzyReturner.returnWithLock(() -> {
             throw new IllegalStateException();
         }, lock);
     }

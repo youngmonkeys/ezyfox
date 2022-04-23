@@ -7,11 +7,11 @@ public class EzyWrapperIteratorTest extends EzyArrayIteratorTest {
 
     @Override
     protected Object newArray() {
-        return new String[] {"a", "b", "c"};
+        return new String[]{"a", "b", "c"};
     }
 
     @Override
     protected EzyArrayIterator<?> newIterator() {
-        return EzyWrapperIterator.wrap(new String[] {"a", "b", "c"});
+        return EzyWrapperIterator.wrap(new String[]{"a", "b", "c"});
     }
 }

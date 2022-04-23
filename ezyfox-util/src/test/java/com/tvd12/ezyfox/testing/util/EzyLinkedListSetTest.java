@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.util.EzyLinkedListSet;
+import org.testng.annotations.Test;
 
 public class EzyLinkedListSetTest {
 
@@ -70,8 +69,9 @@ public class EzyLinkedListSetTest {
         assert set.add("c");
         assert set.containsAll(Sets.newHashSet("a", "b"));
         set.retainAll(Lists.newArrayList("a", "z", "a"));
-        while(set.size() > 0)
+        while (set.size() > 0) {
             set.poll();
+        }
         assert set.poll() == null;
         assert set.pollFirst() == null;
         assert set.pollLast() == null;

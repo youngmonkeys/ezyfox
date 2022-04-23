@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static org.testng.Assert.assertEquals;
+import com.tvd12.ezyfox.reflect.EzyGenerics;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 import java.util.Map;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.reflect.EzyGenerics;
-import com.tvd12.test.base.BaseTest;
+import static org.testng.Assert.assertEquals;
 
 public class EzyGenerics6Test extends BaseTest {
 
@@ -15,47 +14,47 @@ public class EzyGenerics6Test extends BaseTest {
     @Test
     public void test1() {
         Class[] args = EzyGenerics.getGenericInterfacesArguments(
-                InterfaceB.class, InterfaceA.class, 2);
-        assertEquals(args, new Class[] {String.class, String.class});
+            InterfaceB.class, InterfaceA.class, 2);
+        assertEquals(args, new Class[]{String.class, String.class});
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public void test2() {
         EzyGenerics.getGenericInterfacesArguments(
-                InterfaceA.class, InterfaceA.class, 2);
+            InterfaceA.class, InterfaceA.class, 2);
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public void test3() {
         EzyGenerics.getGenericInterfacesArguments(
-                InterfaceB.class, InterfaceC.class, 2);
+            InterfaceB.class, InterfaceC.class, 2);
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public void test4() {
         EzyGenerics.getGenericInterfacesArguments(
-                InterfaceB.class, InterfaceD.class, 2);
+            InterfaceB.class, InterfaceD.class, 2);
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public void test5() {
         EzyGenerics.getGenericInterfacesArguments(
-                InterfaceB.class, InterfaceE.class, 2);
+            InterfaceB.class, InterfaceE.class, 2);
     }
 
     @Test
     public void test6() {
         EzyGenerics.getGenericInterfacesArguments(
-                InterfaceB.class, InterfaceF.class, 2);
+            InterfaceB.class, InterfaceF.class, 2);
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public void test7() {
         EzyGenerics.getGenericInterfacesArguments(
-                InterfaceB1.class, InterfaceG.class, 2);
+            InterfaceB1.class, InterfaceG.class, 2);
     }
 
-    public static interface InterfaceA<T,R> {
+    public static interface InterfaceA<T, R> {
     }
 
     public static interface InterfaceC {
@@ -65,15 +64,15 @@ public class EzyGenerics6Test extends BaseTest {
 
     }
 
-    public static interface InterfaceE<T,R> {
+    public static interface InterfaceE<T, R> {
 
     }
 
-    public static interface InterfaceF<T,R> extends Map<String, String> {
+    public static interface InterfaceF<T, R> extends Map<String, String> {
 
     }
 
-    public static interface InterfaceG<T,R> {
+    public static interface InterfaceG<T, R> {
 
     }
 
@@ -83,15 +82,15 @@ public class EzyGenerics6Test extends BaseTest {
 
     @SuppressWarnings("rawtypes")
     public static interface InterfaceB extends
-            InterfaceA<String, String>,
-            InterfaceC,
-            InterfaceD<String>,
-            InterfaceE,
-            InterfaceF<Map<?,?>, Map<?,?>> {
+        InterfaceA<String, String>,
+        InterfaceC,
+        InterfaceD<String>,
+        InterfaceE,
+        InterfaceF<Map<?, ?>, Map<?, ?>> {
 
     }
 
-    public static interface InterfaceB1<T,R> extends InterfaceG<T,R> {
+    public static interface InterfaceB1<T, R> extends InterfaceG<T, R> {
 
     }
 }

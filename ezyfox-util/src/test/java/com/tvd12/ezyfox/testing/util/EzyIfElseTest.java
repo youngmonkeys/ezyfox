@@ -1,12 +1,12 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyIfElse;
 import com.tvd12.test.base.BaseTest;
-import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static org.testng.Assert.assertEquals;
 
 public class EzyIfElseTest extends BaseTest {
 

@@ -1,30 +1,24 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
+import com.tvd12.ezyfox.reflect.EzyField;
+import com.tvd12.ezyfox.reflect.EzyFields;
+import com.tvd12.test.base.BaseTest;
+import lombok.Getter;
+import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Map;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyFields;
-import com.tvd12.test.base.BaseTest;
-
-import lombok.Getter;
+import static org.testng.Assert.*;
 
 public class EzyFieldTest extends BaseTest {
 
     @Test
     public void test() throws Exception {
         EzyField a = EzyField.builder()
-                .clazz(ClassA.class)
-                .fieldName("a")
-                .build();
+            .clazz(ClassA.class)
+            .fieldName("a")
+            .build();
         a.setAccessible(true);
         assertNotNull(EzyFields.getField(ClassA.class, "a"));
         assertFalse(a.isMapType());
@@ -56,7 +50,7 @@ public class EzyFieldTest extends BaseTest {
 
     public static class ClassA {
         protected String a;
-        protected Map<String,String> ab;
+        protected Map<String, String> ab;
         protected List<String> abc;
         protected boolean xyz;
         @Getter

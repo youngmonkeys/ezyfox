@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.io;
 
-import java.util.List;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.io.EzyValueConverter;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class EzySimpleValueTransformerTest extends BaseTest {
 
@@ -17,7 +16,7 @@ public class EzySimpleValueTransformerTest extends BaseTest {
         assert transformer.convert(null, null) == null;
     }
 
-    @SuppressWarnings({ "unused", "unchecked" })
+    @SuppressWarnings({"unused", "unchecked"})
     @Test
     public void test1() {
         EzyValueConverter transformer = new EzySimpleValueConverter();

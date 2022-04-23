@@ -2,11 +2,7 @@ package com.tvd12.ezyfox.io;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
@@ -20,16 +16,16 @@ public final class EzyDates {
     public static final String DATE_TIME_PATTERN_STANDARD = "yyyy-MM-dd'T'HH:mm:ss.SSS";
     public static final String DATE_TIME_PATTERN_YYYYMMDD_HHMMSS = "yyyy-MM-dd'T'HH:mm:ss";
     public static final DateTimeFormatter DATE_TIME_FORMATTER
-            = getDateTimeFormatter(getPattern());
+        = getDateTimeFormatter(getPattern());
     public static final DateTimeFormatter DATE_TIME_FORMATTER_STANDARD
-            = getDateTimeFormatter(getPatternStandard());
+        = getDateTimeFormatter(getPatternStandard());
     public static final DateTimeFormatter DATE_TIME_FORMATTER_YYYYMMDD_HHMMSS
-            = getDateTimeFormatter(DATE_TIME_PATTERN_YYYYMMDD_HHMMSS);
+        = getDateTimeFormatter(DATE_TIME_PATTERN_YYYYMMDD_HHMMSS);
 
-    private static final String[] DATE_TIME_PATTERNS = new String[] {
-            DATE_TIME_PATTERN,
-            DATE_TIME_PATTERN_STANDARD,
-            DATE_TIME_PATTERN_YYYYMMDD_HHMMSS
+    private static final String[] DATE_TIME_PATTERNS = new String[]{
+        DATE_TIME_PATTERN,
+        DATE_TIME_PATTERN_STANDARD,
+        DATE_TIME_PATTERN_YYYYMMDD_HHMMSS
     };
 
     private EzyDates() {}
@@ -62,8 +58,7 @@ public final class EzyDates {
     public static LocalTime parseTime(String source) {
         try {
             return parseTime(source, TIME_PATTERN);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return parseTime(source, TIME_PATTERN_STANDARD);
         }
     }
@@ -79,19 +74,16 @@ public final class EzyDates {
     public static LocalDateTime parseDateTime(String source) {
         try {
             return parseDateTime(source, getDateTimeFormatter());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             try {
                 return parseDateTime(source, getDateTimeFormatterStandard());
-            }
-            catch (Exception e2) {
+            } catch (Exception e2) {
                 try {
                     return parseDateTime(source, DATE_TIME_FORMATTER_YYYYMMDD_HHMMSS);
-                }
-                catch (Exception e3) {
+                } catch (Exception e3) {
                     throw new IllegalArgumentException(
                         "invalid date value: " + source +
-                        ", format must be of one " + EzyStrings.join(DATE_TIME_PATTERNS, ", ")
+                            ", format must be of one " + EzyStrings.join(DATE_TIME_PATTERNS, ", ")
                     );
                 }
             }
@@ -164,19 +156,16 @@ public final class EzyDates {
     public static Date parse(String source) {
         try {
             return parse(source, getPattern());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             try {
                 return parse(source, getPatternStandard());
-            }
-            catch (Exception e2) {
+            } catch (Exception e2) {
                 try {
                     return parse(source, DATE_TIME_PATTERN_YYYYMMDD_HHMMSS);
-                }
-                catch (Exception e3) {
+                } catch (Exception e3) {
                     throw new IllegalArgumentException(
                         "invalid date value: " + source +
-                        ", format must be one of " + EzyStrings.join(DATE_TIME_PATTERNS, ", ")
+                            ", format must be one of " + EzyStrings.join(DATE_TIME_PATTERNS, ", ")
                     );
                 }
             }
@@ -188,8 +177,9 @@ public final class EzyDates {
     }
 
     public static String format(Date date, String pattern) {
-        if(date == null)
+        if (date == null) {
             return null;
+        }
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         String answer = formatter.format(date);
         return answer;
@@ -253,109 +243,109 @@ public final class EzyDates {
     // =============================================
     public static Date parseToDateOrNull(Object value) {
         if (value instanceof Date) {
-            return (Date)value;
+            return (Date) value;
         }
         if (value instanceof String) {
-            return parse((String)value);
+            return parse((String) value);
         }
         if (value instanceof Number) {
-            return new Date(((Number)value).longValue());
+            return new Date(((Number) value).longValue());
         }
         if (value instanceof Instant) {
-            return Date.from(((Instant)value));
+            return Date.from(((Instant) value));
         }
         if (value instanceof LocalDate) {
-            return toDate((LocalDate)value);
+            return toDate((LocalDate) value);
         }
         if (value instanceof LocalDateTime) {
-            return toDate((LocalDateTime)value);
+            return toDate((LocalDateTime) value);
         }
         return null;
     }
 
     public static Instant parseToInstantOrNull(Object value) {
         if (value instanceof Date) {
-            return ((Date)value).toInstant();
+            return ((Date) value).toInstant();
         }
         if (value instanceof String) {
-            return parse((String)value).toInstant();
+            return parse((String) value).toInstant();
         }
         if (value instanceof Number) {
-            return Instant.ofEpochMilli(((Number)value).longValue());
+            return Instant.ofEpochMilli(((Number) value).longValue());
         }
         if (value instanceof Instant) {
-            return (Instant)value;
+            return (Instant) value;
         }
         if (value instanceof LocalDate) {
-            return toInstant((LocalDate)value);
+            return toInstant((LocalDate) value);
         }
         if (value instanceof LocalDateTime) {
-            return toInstant((LocalDateTime)value);
+            return toInstant((LocalDateTime) value);
         }
         return null;
     }
 
     public static LocalDate parseToLocalDateOrNull(Object value) {
         if (value instanceof Date) {
-            return dateToDateTime((Date)value).toLocalDate();
+            return dateToDateTime((Date) value).toLocalDate();
         }
         if (value instanceof String) {
-            return parseDate((String)value);
+            return parseDate((String) value);
         }
         if (value instanceof Number) {
-            return millisToDateTime(((Number)value).longValue()).toLocalDate();
+            return millisToDateTime(((Number) value).longValue()).toLocalDate();
         }
         if (value instanceof Instant) {
-            return ((Instant)value).atZone(ZoneId.systemDefault()).toLocalDate();
+            return ((Instant) value).atZone(ZoneId.systemDefault()).toLocalDate();
         }
         if (value instanceof LocalDate) {
-            return (LocalDate)value;
+            return (LocalDate) value;
         }
         if (value instanceof LocalDateTime) {
-            return ((LocalDateTime)value).toLocalDate();
+            return ((LocalDateTime) value).toLocalDate();
         }
         return null;
     }
 
     public static LocalTime parseToLocalTimeOrNull(Object value) {
         if (value instanceof Date) {
-            return dateToDateTime((Date)value).toLocalTime();
+            return dateToDateTime((Date) value).toLocalTime();
         }
         if (value instanceof String) {
-            return parseTime((String)value);
+            return parseTime((String) value);
         }
         if (value instanceof Number) {
-            return millisToDateTime(((Number)value).longValue()).toLocalTime();
+            return millisToDateTime(((Number) value).longValue()).toLocalTime();
         }
         if (value instanceof Instant) {
-            return ((Instant)value).atZone(ZoneId.systemDefault()).toLocalTime();
+            return ((Instant) value).atZone(ZoneId.systemDefault()).toLocalTime();
         }
         if (value instanceof LocalDate) {
             return LocalTime.of(0, 0);
         }
         if (value instanceof LocalDateTime) {
-            return ((LocalDateTime)value).toLocalTime();
+            return ((LocalDateTime) value).toLocalTime();
         }
         return null;
     }
 
     public static LocalDateTime parseToLocalDateTimeOrNull(Object value) {
         if (value instanceof Date) {
-            return dateToDateTime((Date)value);
+            return dateToDateTime((Date) value);
         }
         if (value instanceof String) {
-            return parseDateTime((String)value);
+            return parseDateTime((String) value);
         }
         if (value instanceof Number) {
-            return millisToDateTime(((Number)value).longValue());
+            return millisToDateTime(((Number) value).longValue());
         }
         if (value instanceof Instant) {
-            return ((Instant)value).atZone(ZoneId.systemDefault()).toLocalDateTime();
+            return ((Instant) value).atZone(ZoneId.systemDefault()).toLocalDateTime();
         }
         if (value instanceof LocalDate) {
-            LocalDate localDate = ((LocalDate)value);
+            LocalDate localDate = ((LocalDate) value);
             return LocalDateTime.of(
-                localDate.getYear(), 
+                localDate.getYear(),
                 localDate.getMonth(),
                 localDate.getDayOfMonth(),
                 0,
@@ -363,7 +353,7 @@ public final class EzyDates {
             );
         }
         if (value instanceof LocalDateTime) {
-            return (LocalDateTime)value;
+            return (LocalDateTime) value;
         }
         return null;
     }

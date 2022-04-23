@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.exception;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.exception.EzyNegativeValueException;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyNegativeValueExceptionTest extends BaseTest {
 

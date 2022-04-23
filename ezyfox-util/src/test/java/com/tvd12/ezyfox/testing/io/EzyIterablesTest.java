@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.io;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzyIterables;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyIterablesTest extends BaseTest {
 

@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyThreads;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyThreadsTest extends BaseTest {
 
@@ -11,7 +10,7 @@ public class EzyThreadsTest extends BaseTest {
     public void sleepTest() {
         EzyThreads.sleep(1);
     }
-    
+
     @Test
     public void sleepInterrupt() {
         Thread thread = new Thread(() -> {
@@ -21,7 +20,7 @@ public class EzyThreadsTest extends BaseTest {
         EzyThreads.sleep(50);
         thread.interrupt();
     }
-    
+
     @Override
     public Class<?> getTestClass() {
         return EzyThreads.class;

@@ -1,24 +1,12 @@
 package com.tvd12.ezyfox.reflect;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
-import java.util.TreeMap;
-import java.util.Vector;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.collect.Sets;
+
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
-
-import com.tvd12.ezyfox.collect.Lists;
-import com.tvd12.ezyfox.collect.Sets;
 
 @SuppressWarnings("rawtypes")
 public final class EzyTypes {
@@ -41,101 +29,101 @@ public final class EzyTypes {
 
     private static final Set<Class> booleanTypes() {
         Set<Class> set = Sets.newHashSet(
-                boolean.class,
-                Boolean.class
+            boolean.class,
+            Boolean.class
         );
         return Collections.unmodifiableSet(set);
     }
 
     private static final Set<Class> primitiveTypes() {
         Set<Class> set = Sets.newHashSet(
-                boolean.class,
-                byte.class,
-                char.class,
-                double.class,
-                float.class,
-                int.class,
-                long.class,
-                short.class
+            boolean.class,
+            byte.class,
+            char.class,
+            double.class,
+            float.class,
+            int.class,
+            long.class,
+            short.class
         );
         return Collections.unmodifiableSet(set);
     }
 
     private static final Set<Class> wrapperTypes() {
         Set<Class> set = Sets.newHashSet(
-                Boolean.class,
-                Byte.class,
-                Character.class,
-                Double.class,
-                Float.class,
-                Integer.class,
-                Long.class,
-                Short.class
+            Boolean.class,
+            Byte.class,
+            Character.class,
+            Double.class,
+            Float.class,
+            Integer.class,
+            Long.class,
+            Short.class
         );
         return Collections.unmodifiableSet(set);
     }
 
     private static final Set<Class> arrayPrimitiveTypes() {
         Set<Class> set = Sets.newHashSet(
-                boolean[].class,
-                byte[].class,
-                char[].class,
-                double[].class,
-                float[].class,
-                int[].class,
-                long[].class,
-                short[].class
+            boolean[].class,
+            byte[].class,
+            char[].class,
+            double[].class,
+            float[].class,
+            int[].class,
+            long[].class,
+            short[].class
         );
         return Collections.unmodifiableSet(set);
     }
 
     private static final Set<Class> arrayWrapperTypes() {
         Set<Class> set = Sets.newHashSet(
-                Boolean[].class,
-                Byte[].class,
-                Character[].class,
-                Double[].class,
-                Float[].class,
-                Integer[].class,
-                Long[].class,
-                Short[].class
+            Boolean[].class,
+            Byte[].class,
+            Character[].class,
+            Double[].class,
+            Float[].class,
+            Integer[].class,
+            Long[].class,
+            Short[].class
         );
         return Collections.unmodifiableSet(set);
     }
 
     private static final Set<Class> twoDimensionsArrayPrimitiveTypes() {
         Set<Class> set = Sets.newHashSet(
-                boolean[][].class,
-                byte[][].class,
-                char[][].class,
-                double[][].class,
-                float[][].class,
-                int[][].class,
-                long[][].class,
-                short[][].class
+            boolean[][].class,
+            byte[][].class,
+            char[][].class,
+            double[][].class,
+            float[][].class,
+            int[][].class,
+            long[][].class,
+            short[][].class
         );
         return Collections.unmodifiableSet(set);
     }
 
     private static final Set<Class> twoDimensionsArrayWrapperTypes() {
         Set<Class> set = Sets.newHashSet(
-                Boolean[][].class,
-                Byte[][].class,
-                Character[][].class,
-                Double[][].class,
-                Float[][].class,
-                Integer[][].class,
-                Long[][].class,
-                Short[][].class
+            Boolean[][].class,
+            Byte[][].class,
+            Character[][].class,
+            Double[][].class,
+            Float[][].class,
+            Integer[][].class,
+            Long[][].class,
+            Short[][].class
         );
         return Collections.unmodifiableSet(set);
     }
 
     private static final Set<Class> stringTypes() {
         Set<Class> set = Sets.newHashSet(
-                String.class,
-                String[].class,
-                String[][].class
+            String.class,
+            String[].class,
+            String[][].class
         );
         return Collections.unmodifiableSet(set);
     }
@@ -175,22 +163,22 @@ public final class EzyTypes {
 
     private static final Set<Class> commonGenericTypes() {
         Set<Class> set = Sets.newHashSet(
-                Collection.class,
-                List.class,
-                ArrayList.class,
-                CopyOnWriteArrayList.class,
-                LinkedList.class,
-                Set.class,
-                HashSet.class,
-                CopyOnWriteArraySet.class,
-                Vector.class,
-                Stack.class,
-                Queue.class,
-                Map.class,
-                HashMap.class,
-                TreeMap.class,
-                ConcurrentHashMap.class
-            );
+            Collection.class,
+            List.class,
+            ArrayList.class,
+            CopyOnWriteArrayList.class,
+            LinkedList.class,
+            Set.class,
+            HashSet.class,
+            CopyOnWriteArraySet.class,
+            Vector.class,
+            Stack.class,
+            Queue.class,
+            Map.class,
+            HashMap.class,
+            TreeMap.class,
+            ConcurrentHashMap.class
+        );
         return Collections.unmodifiableSet(set);
     }
 }

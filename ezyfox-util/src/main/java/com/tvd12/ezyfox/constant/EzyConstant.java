@@ -1,24 +1,13 @@
 package com.tvd12.ezyfox.constant;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.tvd12.ezyfox.io.EzyStrings;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public interface EzyConstant extends EzyHasIntId, EzyHasName {
 
     // the counter utility
     AtomicInteger COUNTER = new AtomicInteger(0);
-
-    /**
-     * Get constant name
-     *
-     * @return the constant name
-     */
-    default String getName() {
-        String name = getClass().getSimpleName().trim();
-        name = EzyStrings.isNoContent(name) ? "attribute" : name;
-        return name + "#" + getId();
-    }
 
     /**
      * Create new constant
@@ -46,18 +35,13 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
      */
     static EzyConstant one(int id) {
         COUNTER.incrementAndGet();
-        return new EzyConstant() {
-            @Override
-            public int getId() {
-                return id;
-            }
-        };
-    };
+        return () -> id;
+    }
 
     /**
      * Create new constant with id
      *
-     * @param id the constant id
+     * @param id   the constant id
      * @param name the constant name
      * @return a constant
      */
@@ -74,5 +58,16 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
                 return name;
             }
         };
-    };
+    }
+
+    /**
+     * Get constant name
+     *
+     * @return the constant name
+     */
+    default String getName() {
+        String name = getClass().getSimpleName().trim();
+        name = EzyStrings.isNoContent(name) ? "attribute" : name;
+        return name + "#" + getId();
+    }
 }

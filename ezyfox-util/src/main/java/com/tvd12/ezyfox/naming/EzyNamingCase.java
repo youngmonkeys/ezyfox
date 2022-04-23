@@ -20,8 +20,9 @@ public enum EzyNamingCase {
     }
 
     public static EzyNamingCase of(String value) {
-        if(value == null)
+        if (value == null) {
             return NATURE;
+        }
         return valueOf(value);
     }
 }

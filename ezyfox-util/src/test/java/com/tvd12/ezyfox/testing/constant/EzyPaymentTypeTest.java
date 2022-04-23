@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.constant;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.constant.EzyPaymentType;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzyPaymentTypeTest {
 

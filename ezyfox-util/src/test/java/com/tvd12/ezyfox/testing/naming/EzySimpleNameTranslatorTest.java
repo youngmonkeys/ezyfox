@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.naming;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.naming.EzyNamingCase;
 import com.tvd12.ezyfox.naming.EzySimpleNameTranslator;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzySimpleNameTranslatorTest {
 
@@ -12,8 +11,8 @@ public class EzySimpleNameTranslatorTest {
     public void natureCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .ignoredSuffix(null)
-                .build();
+            .ignoredSuffix(null)
+            .build();
 
         // when
         // then
@@ -25,8 +24,8 @@ public class EzySimpleNameTranslatorTest {
     public void upperCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .namingCase(EzyNamingCase.UPPER)
-                .build();
+            .namingCase(EzyNamingCase.UPPER)
+            .build();
 
         // when
         // then
@@ -37,8 +36,8 @@ public class EzySimpleNameTranslatorTest {
     public void lowerCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .namingCase(EzyNamingCase.LOWER)
-                .build();
+            .namingCase(EzyNamingCase.LOWER)
+            .build();
 
         // when
         // then
@@ -49,8 +48,8 @@ public class EzySimpleNameTranslatorTest {
     public void camelCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .namingCase(EzyNamingCase.of("CAMEL"))
-                .build();
+            .namingCase(EzyNamingCase.of("CAMEL"))
+            .build();
 
         // when
         // then
@@ -61,8 +60,8 @@ public class EzySimpleNameTranslatorTest {
     public void dashCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .namingCase(EzyNamingCase.DASH)
-                .build();
+            .namingCase(EzyNamingCase.DASH)
+            .build();
 
         // when
         // then
@@ -73,8 +72,8 @@ public class EzySimpleNameTranslatorTest {
     public void dotCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .namingCase(EzyNamingCase.DOT)
-                .build();
+            .namingCase(EzyNamingCase.DOT)
+            .build();
 
         // when
         // then
@@ -85,8 +84,8 @@ public class EzySimpleNameTranslatorTest {
     public void underscoreCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .namingCase(EzyNamingCase.UNDERSCORE)
-                .build();
+            .namingCase(EzyNamingCase.UNDERSCORE)
+            .build();
 
         // when
         // then
@@ -97,8 +96,8 @@ public class EzySimpleNameTranslatorTest {
     public void ingnoreSuffixCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .ignoredSuffix("World")
-                .build();
+            .ignoredSuffix("World")
+            .build();
 
         // when
         // then
@@ -109,8 +108,8 @@ public class EzySimpleNameTranslatorTest {
     public void ignoreSuffixFitSizeCase() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .ignoredSuffix("HelloWorld")
-                .build();
+            .ignoredSuffix("HelloWorld")
+            .build();
 
         // when
         // then
@@ -121,8 +120,8 @@ public class EzySimpleNameTranslatorTest {
     public void originalNameDoesntEndsWithIgnoredSuffix() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .ignoredSuffix("World1")
-                .build();
+            .ignoredSuffix("World1")
+            .build();
 
         // when
         // then
@@ -133,11 +132,11 @@ public class EzySimpleNameTranslatorTest {
     public void namingCaseCamelWithLengthIs1() {
         // given
         EzySimpleNameTranslator sut = EzySimpleNameTranslator.builder()
-                .ignoredSuffix("World1")
-                .namingCase(null)
-                .namingCase(EzyNamingCase.of(null))
-                .namingCase(EzyNamingCase.CAMEL)
-                .build();
+            .ignoredSuffix("World1")
+            .namingCase(null)
+            .namingCase(EzyNamingCase.of(null))
+            .namingCase(EzyNamingCase.CAMEL)
+            .build();
 
         // when
         // then

@@ -1,12 +1,10 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyClass;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.testng.annotations.Test;
 
 public class EzyClass2Test {
 
@@ -29,7 +27,7 @@ public class EzyClass2Test {
         }
 
         public GetAccountCreateIfNotExistRequest(String id,
-                                                    boolean createIfNotExist,
+                                                 boolean createIfNotExist,
                                                  long bankAccountId,
                                                  long initValue,
                                                  String descript) {

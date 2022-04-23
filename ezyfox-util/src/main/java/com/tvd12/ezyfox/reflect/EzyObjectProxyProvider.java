@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class EzyObjectProxyProvider {
 
     protected final Map<Class, EzyObjectProxy> objectProxies;
@@ -20,7 +20,7 @@ public class EzyObjectProxyProvider {
 
     public EzyObjectProxy getObjectProxy(Class<?> objectType) {
         return objectProxies.computeIfAbsent(
-                objectType, k -> newObjectProxy(k));
+            objectType, k -> newObjectProxy(k));
     }
 
     protected EzyObjectProxy newObjectProxy(Class<?> objectType) {
@@ -29,23 +29,23 @@ public class EzyObjectProxyProvider {
         Map<String, Function> getters = new HashMap<>();
         Map<String, BiConsumer> setters = new HashMap<>();
         Map<String, Class<?>> propertyTypes = new HashMap<>();
-        for(EzyField field : fields) {
+        for (EzyField field : fields) {
             getters.put(field.getName(), newGetter(field));
             setters.put(field.getName(), newSetter(field));
             propertyTypes.put(field.getName(), field.getType());
         }
         Map<String, String> fieldKeys = getFieldKeys(fields);
         EzyObjectProxy.Builder builder = newObjectProxyBuilder(clazz)
-                .propertyKey(fieldKeys)
-                .addSetters((Map)setters)
-                .addGetters((Map)getters)
-                .addPropertyTypes(propertyTypes);
+            .propertyKey(fieldKeys)
+            .addSetters((Map) setters)
+            .addGetters((Map) getters)
+            .addPropertyTypes(propertyTypes);
         preBuildObjectProxy(clazz, builder);
         return builder.build();
     }
 
     protected void preBuildObjectProxy(
-            EzyClass clazz, EzyObjectProxy.Builder builder) {
+        EzyClass clazz, EzyObjectProxy.Builder builder) {
     }
 
     protected Collection<EzyField> getFields(EzyClass clazz) {
@@ -53,20 +53,20 @@ public class EzyObjectProxyProvider {
     }
 
     protected boolean isSettableField(EzyField field) {
-        return  field.isWritable() &&
-                !Modifier.isStatic(field.getField().getModifiers());
+        return field.isWritable() &&
+            !Modifier.isStatic(field.getField().getModifiers());
     }
 
     protected Function newGetter(EzyField field) {
         return new EzyGetterBuilder()
-                .field(field)
-                .build();
+            .field(field)
+            .build();
     }
 
     protected BiConsumer newSetter(EzyField field) {
         return new EzySetterBuilder()
-                .field(field)
-                .build();
+            .field(field)
+            .build();
     }
 
     protected EzyObjectProxy.Builder newObjectProxyBuilder(EzyClass clazz) {
