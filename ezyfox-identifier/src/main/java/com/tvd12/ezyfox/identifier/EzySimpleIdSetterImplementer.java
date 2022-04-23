@@ -6,10 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.tvd12.ezyfox.annotation.EzyId;
 import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyInstruction;
-import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzyReflectElement;
+import com.tvd12.ezyfox.reflect.*;
 import com.tvd12.ezyfox.util.EzyHasIdEntity;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
@@ -41,15 +38,14 @@ public class EzySimpleIdSetterImplementer
     @Override
     public EzyIdSetter implement() {
         try {
-            return doimplement();
+            return doImplement();
         }
         catch(Exception e) {
             throw new IllegalStateException("implement setter of " + clazz + " error", e);
         }
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    private EzyIdSetter doimplement() throws Exception {
+    private EzyIdSetter doImplement() throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
         CtClass implClass = pool.makeClass(implClassName);
@@ -59,10 +55,9 @@ public class EzySimpleIdSetterImplementer
         printMethodContent(implMethodContent);
         implClass.setInterfaces(new CtClass[] { pool.get(EzyIdSetter.class.getName()) });
         implClass.addMethod(CtNewMethod.make(implMethodContent, implClass));
-        Class answerClass = implClass.toClass();
+        Class<?> answerClass = implClass.toClass();
         implClass.detach();
-        Object setter = answerClass.getDeclaredConstructor().newInstance();
-        return (EzyIdSetter)setter;
+        return EzyClasses.newInstance(answerClass);
     }
 
     protected String makeSetIdMethodContent(EzyMethod setIdMethod) {

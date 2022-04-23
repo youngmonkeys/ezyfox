@@ -97,9 +97,10 @@ public final class EzyClasses {
         }
     }
 
-    public static <T> T newInstance(Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+    public static <T> T newInstance(Class<?> clazz) {
         try {
-            return clazz.getDeclaredConstructor().newInstance();
+            return (T) clazz.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

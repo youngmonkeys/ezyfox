@@ -44,7 +44,6 @@ public class EzyGetterBuilder extends EzyLoggable implements EzyBuilder<Function
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected Function doBuild() throws Exception {
         String implClassName = getImplClassName();
         ClassPool pool = ClassPool.getDefault();
@@ -53,9 +52,9 @@ public class EzyGetterBuilder extends EzyLoggable implements EzyBuilder<Function
         printMethodContent(acceptMethodContent);
         implClass.addMethod(CtNewMethod.make(acceptMethodContent, implClass));
         implClass.setInterfaces(new CtClass[]{pool.get(Function.class.getName())});
-        Class answerClass = implClass.toClass();
+        Class<?> answerClass = implClass.toClass();
         implClass.detach();
-        return (Function) answerClass.getDeclaredConstructor().newInstance();
+        return EzyClasses.newInstance(answerClass);
     }
 
     protected String makeApplyMethodContent() {

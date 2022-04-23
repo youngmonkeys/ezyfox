@@ -11,10 +11,7 @@ import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzySetterMethod;
+import com.tvd12.ezyfox.reflect.*;
 
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -52,7 +49,6 @@ public abstract class EzySimplePrototypeSupplierLoader
         return EzyKeyValueParser.getPrototypeProperties(getPrototypeClass());
     }
 
-    @SuppressWarnings("unchecked")
     private EzyPrototypeSupplier process(EzyPrototypeFactory factory) throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
@@ -75,10 +71,9 @@ public abstract class EzySimplePrototypeSupplierLoader
         implClass.addMethod(CtNewMethod.make(supplyImplMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(supplyMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(getObjectTypeMethodContent, implClass));
-        Class answerClass = implClass.toClass();
+        Class<?> answerClass = implClass.toClass();
         implClass.detach();
-        EzyPrototypeSupplier supplier =
-            (EzyPrototypeSupplier) answerClass.getDeclaredConstructor().newInstance();
+        EzyPrototypeSupplier supplier = EzyClasses.newInstance(answerClass);
         factory.addSupplier(beanName, supplier, getAnnotationProperties());
         logger.debug("add prototype supplier of {}", implClassName);
         return supplier;

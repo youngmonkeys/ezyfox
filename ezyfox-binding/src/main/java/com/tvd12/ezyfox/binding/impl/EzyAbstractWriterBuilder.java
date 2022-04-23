@@ -29,7 +29,6 @@ public abstract class EzyAbstractWriterBuilder
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected EzyWriter make() throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
@@ -47,7 +46,7 @@ public abstract class EzyAbstractWriterBuilder
         Class answerClass = implClass.toClass();
         implClass.detach();
         logger.debug("class {} has generated", implClassName);
-        return (EzyWriter) answerClass.getDeclaredConstructor().newInstance();
+        return EzyClasses.newInstance(answerClass);
     }
 
     protected String makeMethodContent(EzyMethod writeMethod) {

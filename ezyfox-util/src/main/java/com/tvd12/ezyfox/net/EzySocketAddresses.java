@@ -13,7 +13,7 @@ public final class EzySocketAddresses {
             host = ((InetSocketAddress) address).getHostString();
         } else {
             String[] strs = address.toString().split(":");
-            host = strs[0].substring(1);
+            host = strs[0].startsWith("/") ? strs[0].substring(1) : strs[0];
         }
         return host;
     }

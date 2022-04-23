@@ -44,7 +44,6 @@ public class EzySetterBuilder extends EzyLoggable implements EzyBuilder<BiConsum
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected BiConsumer doBuild() throws Exception {
         String implClassName = getImplClassName();
         ClassPool pool = ClassPool.getDefault();
@@ -55,7 +54,7 @@ public class EzySetterBuilder extends EzyLoggable implements EzyBuilder<BiConsum
         implClass.setInterfaces(new CtClass[]{pool.get(BiConsumer.class.getName())});
         Class answerClass = implClass.toClass();
         implClass.detach();
-        return (BiConsumer) answerClass.getDeclaredConstructor().newInstance();
+        return EzyClasses.newInstance(answerClass);
     }
 
     protected String makeAcceptMethodContent() {
