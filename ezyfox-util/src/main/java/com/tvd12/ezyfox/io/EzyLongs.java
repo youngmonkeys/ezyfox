@@ -4,8 +4,7 @@ import java.nio.ByteBuffer;
 
 public final class EzyLongs {
 
-    private EzyLongs() {
-    }
+    private EzyLongs() {}
 
     public static long bin2long(int length) {
         return EzyMath.bin2long(length);
@@ -15,16 +14,8 @@ public final class EzyLongs {
         return EzyMath.bin2long(bytes);
     }
 
-    public static long bin2ulong(byte[] bytes) {
-        return EzyMath.bin2ulong(bytes);
-    }
-
     public static long bin2long(ByteBuffer buffer) {
         return bin2long(buffer, 8);
-    }
-
-    public static long bin2ulong(ByteBuffer buffer) {
-        return bin2ulong(buffer, 8);
     }
 
     public static long bin2long(ByteBuffer buffer, int size) {
@@ -41,6 +32,14 @@ public final class EzyLongs {
             return buffer.get();
         }
         return bin2long(EzyBytes.copy(buffer, size));
+    }
+
+    public static long bin2ulong(byte[] bytes) {
+        return EzyMath.bin2ulong(bytes);
+    }
+
+    public static long bin2ulong(ByteBuffer buffer) {
+        return bin2ulong(buffer, 8);
     }
 
     public static long bin2ulong(ByteBuffer buffer, int size) {

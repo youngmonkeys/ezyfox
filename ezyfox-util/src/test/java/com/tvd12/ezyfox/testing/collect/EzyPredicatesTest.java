@@ -8,7 +8,7 @@ public class EzyPredicatesTest extends BaseTest {
 
     @Test
     public void test() {
-        EzyPredicates.alwayTrue().test(null);
+        EzyPredicates.alwaysTrue().test(null);
     }
 
     @Override

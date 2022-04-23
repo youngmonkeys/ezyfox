@@ -2,15 +2,15 @@ package com.tvd12.ezyfox.testing.io;
 
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzyArrays;
-import com.tvd12.ezyfox.io.EzyByteBuffers;
 import com.tvd12.ezyfox.io.EzyBytes;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
-import com.tvd12.test.performance.Performance;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import static org.testng.Assert.assertEquals;
 
@@ -25,8 +25,8 @@ public class EzyArraysTest extends BaseTest {
     public void test() {
         Collection<String> coll = Lists.newArrayList("1", "2", "3");
         Long[] array = EzyArrays.newArray(coll,
-            (s) -> new Long[s],
-            s -> Long.valueOf(s));
+            Long[]::new,
+            Long::valueOf);
         Assert.assertEquals(array, new Long[]{1L, 2L, 3L});
         byte[] bytes1 = new byte[]{1, 2, 3};
         byte[] bytes2 = new byte[2];
@@ -47,19 +47,9 @@ public class EzyArraysTest extends BaseTest {
     }
 
     @Test
-    public void test2() {
-        Collection<Long> coll = Lists.newArrayList(1L, 2L, 3L);
-        Long[] array = EzyArrays.newArray(coll,
-            (s) -> new Long[s]);
-        Assert.assertEquals(array, new Long[]{1L, 2L, 3L});
-    }
-
-    @Test
     public void test3() {
         byte[] bytes = new byte[2000];
-        for (int i = 0; i < bytes.length; ++i) {
-            bytes[i] = 2;
-        }
+        Arrays.fill(bytes, (byte) 2);
         byte[] bytes1 = new byte[bytes.length + 1];
         bytes1[0] = 1;
         System.arraycopy(bytes, 0, bytes1, 1, bytes.length);
@@ -73,21 +63,32 @@ public class EzyArraysTest extends BaseTest {
     }
 
     @Test
-    public void mergePerformaceTest() {
-        byte[] bytes = new byte[20000];
-        long time1 = Performance.create()
-            .loop(1000)
-            .test(() -> {
-                EzyBytes.merge((byte) 1, bytes);
-            })
-            .getTime();
-        long time2 = Performance.create()
-            .loop(1000)
-            .test(() -> {
-                EzyByteBuffers.merge2bytes((byte) 1, bytes);
-            })
-            .getTime();
-        System.out.println("mergePerformaceTest.time1 = " + time1);
-        System.out.println("mergePerformaceTest.time2 = " + time2);
+    public void minFailedDueToStreamIsEmpty() {
+        // given
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            EzyArrays.min(
+                Stream.empty(),
+                Integer::compareTo
+            )
+        );
+
+        // then
+        Asserts.assertEqualsType(e, IllegalArgumentException.class);
+    }
+
+    @Test
+    public void maxFailedDueToStreamIsEmpty() {
+        // given
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            EzyArrays.max(
+                Stream.empty(),
+                Integer::compareTo
+            )
+        );
+
+        // then
+        Asserts.assertEqualsType(e, IllegalArgumentException.class);
     }
 }

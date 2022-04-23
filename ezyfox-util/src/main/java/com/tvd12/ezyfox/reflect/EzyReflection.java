@@ -11,8 +11,6 @@ public interface EzyReflection {
 
     Set<Class<?>> getExtendsClasses(Class<?> parentClass);
 
-    Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotationClass);
-
     default Class<?> getExtendsClass(Class<?> parentClass) {
         Set<Class<?>> set = getExtendsClasses(parentClass);
         for (Class<?> clazz : set) {
@@ -28,6 +26,8 @@ public interface EzyReflection {
         }
         return null;
     }
+
+    Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotationClass);
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     default Set<Class<?>> getAnnotatedClasses(Set<?> annotationClasses) {
@@ -47,6 +47,6 @@ public interface EzyReflection {
     default Set<Class<?>> getAnnotatedExtendsClasses(
         Class<? extends Annotation> annotationClass,
         Class<?> parentClass) {
-        return getAnnotatedClasses(annotationClass, it -> parentClass.isAssignableFrom(it));
+        return getAnnotatedClasses(annotationClass, parentClass::isAssignableFrom);
     }
 }

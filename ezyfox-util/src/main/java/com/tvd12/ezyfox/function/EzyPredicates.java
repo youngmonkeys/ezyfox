@@ -6,13 +6,13 @@ import java.util.function.Predicate;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class EzyPredicates {
 
-    public static final Predicate ALWAY_TRUE = o -> true;
+    public static final Predicate ALWAYS_TRUE = o -> true;
 
     private EzyPredicates() {
     }
 
-    public static <T> Predicate<T> alwayTrue() {
-        return ALWAY_TRUE;
+    public static <T> Predicate<T> alwaysTrue() {
+        return ALWAYS_TRUE;
     }
 
     public static Predicate and(Iterable predicates) {
@@ -27,8 +27,7 @@ public final class EzyPredicates {
     }
 
     public static Predicate or(Predicate... predicates) {
-        Predicate predicate = or(Arrays.asList(predicates));
-        return predicate;
+        return or(Arrays.asList(predicates));
     }
 
     public static Predicate or(Iterable predicates) {

@@ -3,8 +3,7 @@ package com.tvd12.ezyfox.exception;
 public class EzyNotFoundException extends IllegalArgumentException {
     private static final long serialVersionUID = 4266477686637543686L;
 
-    public EzyNotFoundException() {
-    }
+    public EzyNotFoundException() {}
 
     public EzyNotFoundException(String message) {
         super(message);

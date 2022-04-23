@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,30 +43,10 @@ public final class EzyStrings {
         }
     }
 
-    public static byte[] getBytes(String str, String charset) {
-        try {
-            return str.getBytes(charset);
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
     public static String newString(ByteBuffer buffer, int size, String charset) {
         byte[] bytes = new byte[size];
         buffer.get(bytes);
         return newString(bytes, charset);
-    }
-
-    public static String getString(String[] array, int index, String def) {
-        return array.length > index ? array[index] : def;
-    }
-
-    public static String quote(Object value) {
-        return new StringBuilder()
-            .append("\"")
-            .append(value != null ? value.toString() : NULL)
-            .append("\"")
-            .toString();
     }
 
     public static String newString(char ch, int count) {
@@ -74,6 +55,24 @@ public final class EzyStrings {
             builder.append(ch);
         }
         return builder.toString();
+    }
+
+    public static byte[] getBytes(String str, String charset) {
+        try {
+            return str.getBytes(charset);
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public static String getString(String[] array, int index, String def) {
+        return array.length > index ? array[index] : def;
+    }
+
+    public static String quote(Object value) {
+        return "\"" +
+            (value != null ? value.toString() : NULL) +
+            "\"";
     }
 
     @SuppressWarnings("rawtypes")
@@ -86,10 +85,7 @@ public final class EzyStrings {
             if (noWrapIfNull) {
                 return NULL;
             }
-            return new StringBuilder()
-                .append(open)
-                .append(close)
-                .toString();
+            return open + close;
         }
         int size = collection.size();
         StringBuilder builder = new StringBuilder(open);
@@ -104,8 +100,7 @@ public final class EzyStrings {
     }
 
     public static boolean isEmpty(CharSequence value) {
-        boolean empty = (value == null || value.length() == 0);
-        return empty;
+        return (value == null || value.length() == 0);
     }
 
     public static boolean isNotEmpty(CharSequence value) {
@@ -117,8 +112,7 @@ public final class EzyStrings {
     }
 
     public static boolean isNoContent(String value) {
-        boolean noContent = (value == null || value.isEmpty() || value.trim().isEmpty());
-        return noContent;
+        return (value == null || value.isEmpty() || value.trim().isEmpty());
     }
 
     public static boolean isNotBlank(String value) {
@@ -129,7 +123,7 @@ public final class EzyStrings {
         if (a == null && b == null) {
             return true;
         }
-        if (a == b) {
+        if (Objects.equals(a, b)) {
             return true;
         }
         if (a == null || b == null) {
@@ -153,19 +147,19 @@ public final class EzyStrings {
 
     public static String join(double[] array, String separator) {
         return Arrays.stream(array)
-            .mapToObj(t -> String.valueOf(t))
+            .mapToObj(String::valueOf)
             .collect(Collectors.joining(separator));
     }
 
     public static String join(int[] array, String separator) {
         return Arrays.stream(array)
-            .mapToObj(t -> String.valueOf(t))
+            .mapToObj(String::valueOf)
             .collect(Collectors.joining(separator));
     }
 
     public static String join(long[] array, String separator) {
         return Arrays.stream(array)
-            .mapToObj(t -> String.valueOf(t))
+            .mapToObj(String::valueOf)
             .collect(Collectors.joining(separator));
     }
 
@@ -178,10 +172,9 @@ public final class EzyStrings {
     }
 
     public static <T> String join(Stream<T> stream, String separator) {
-        String answer = stream
-            .map(t -> t.toString())
+        return stream
+            .map(Object::toString)
             .collect(Collectors.joining(separator));
-        return answer;
     }
 
     public static String toUpperCase(String original) {
@@ -319,10 +312,11 @@ public final class EzyStrings {
                     query.getChars(startParamIndex, endParamIndex, numberChars, 0);
                     final int paramIndex = Integer.parseInt(new String(numberChars));
                     if (paramIndex >= paramCount) {
-                        throw new IllegalArgumentException("invalid query: " + query + ", not enough parameter values, required: " + paramIndex);
+                        throw new IllegalArgumentException(
+                            "invalid query: " + query + ", not enough parameter values, required: " + paramIndex
+                        );
                     }
                     builder.append(getParameterValue(parameters[paramIndex], parameterConveter));
-                    continue;
                 } else {
                     builder.append('?');
                 }

@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.testing.util;
 
 import com.tvd12.ezyfox.util.EzyReturner;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -11,8 +12,8 @@ public class EzyReturnerTest extends BaseTest {
 
     @Test
     public void test() {
-        assert EzyReturner.returnNotNull(10, 100) == 10;
-        assert EzyReturner.returnNotNull(null, 100) == 100;
+        Asserts.assertEquals(EzyReturner.returnNotNull(10, 100), 10);
+        Asserts.assertEquals(EzyReturner.returnNotNull(null, 100), 100);
     }
 
     @Test
@@ -51,11 +52,6 @@ public class EzyReturnerTest extends BaseTest {
         EzyReturner.returnWithLock(() -> {
             throw new IllegalStateException();
         }, lock);
-    }
-
-    @Test
-    public void test8() {
-        assert EzyReturner.returnAndApply(10L, () -> {}) == 10L;
     }
 
     @Test

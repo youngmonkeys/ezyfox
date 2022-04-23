@@ -3,11 +3,11 @@ package com.tvd12.ezyfox.io;
 import java.util.Arrays;
 
 public final class EzyPrints {
-    private final static char[] HEX_ARRAY = new char[]{
+    private static final char[] HEX_ARRAY = new char[]{
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
     };
 
-    private final static char[] HEX_ARRAY_LOWERCASE = new char[]{
+    private static final char[] HEX_ARRAY_LOWERCASE = new char[]{
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
     };
 
@@ -50,8 +50,8 @@ public final class EzyPrints {
 
     public static String printBits(byte[] bytes) {
         StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < bytes.length; ++i) {
-            builder.append(printBits(bytes[i]));
+        for (byte b : bytes) {
+            builder.append(printBits(b));
         }
         return builder.toString();
     }
@@ -73,10 +73,6 @@ public final class EzyPrints {
         return printHex(bytes, HEX_ARRAY);
     }
 
-    public static String printHexLowercase(byte[] bytes) {
-        return printHex(bytes, HEX_ARRAY_LOWERCASE);
-    }
-
     public static String printHex(byte[] bytes, char[] hexArray) {
         char[] hexChars = new char[bytes.length * 2];
         for (int i = 0; i < bytes.length; ++i) {
@@ -84,8 +80,11 @@ public final class EzyPrints {
             hexChars[i * 2] = hexArray[v >>> 4];
             hexChars[i * 2 + 1] = hexArray[v & 0x0F];
         }
-        String answer = new String(hexChars);
-        return answer;
+        return new String(hexChars);
+    }
+
+    public static String printHexLowercase(byte[] bytes) {
+        return printHex(bytes, HEX_ARRAY_LOWERCASE);
     }
 
     public static String print2d(int[][] table) {
@@ -106,16 +105,16 @@ public final class EzyPrints {
         return Arrays.toString(EzyBytes.toIntArray(bytes));
     }
 
+    @SuppressWarnings("AbbreviationAsWordInName")
     public static final class Array2DPrinter {
+        private final StringBuilder out;
+        private final String asNull;
 
         private static final char BORDER_KNOT = '+';
         private static final char HORIZONTAL_BORDER = '-';
         private static final char VERTICAL_BORDER = '|';
 
         private static final String DEFAULT_AS_NULL = "(NULL)";
-
-        private final StringBuilder out;
-        private final String asNull;
 
         public Array2DPrinter(StringBuilder out) {
             this(out, DEFAULT_AS_NULL);
@@ -163,7 +162,11 @@ public final class EzyPrints {
             printPreparedTable(table, widths, getHorizontalBorder(widths));
         }
 
-        private void printPreparedTable(String[][] table, int widths[], String horizontalBorder) {
+        private void printPreparedTable(
+            String[][] table,
+            int[] widths,
+            String horizontalBorder
+        ) {
             final int lineLength = horizontalBorder.length();
             out.append(horizontalBorder).append("\n");
             int index = 0;

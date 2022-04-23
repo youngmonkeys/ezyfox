@@ -21,74 +21,97 @@ import static org.testng.Assert.*;
 public class EzyClassTest extends BaseTest {
 
     @Test
-    public void test() {
+    public void test() throws Exception {
         EzyClass clazz = new EzyClass(A.class);
         System.out.println("test classA methods: " + clazz.getMethods());
         assertEquals(clazz.getName(), A.class.getName());
         assertTrue(clazz.isAnnotated(ExampleAnnotation.class));
         ExampleAnnotation ann = clazz.getAnnotation(ExampleAnnotation.class);
         assertNotNull(ann);
-        assertTrue(clazz.getPublicMethods().size() == 10);
-        assertTrue(clazz.getSetterMethods().size() == 5);
-        assertTrue(clazz.getGetterMethods().size() == 5);
-        assertTrue(clazz.getPublicMethods(m -> !m.getName().contains("D")).size() == 8);
-        assertTrue(clazz.getSetterMethods(m -> !m.getName().contains("D")).size() == 4);
-        assertTrue(clazz.getGetterMethods(m -> !m.getName().contains("D")).size() == 4);
-        assertTrue(clazz.getGetterMethods(m -> !m.getName().contains("D")).size() == 4);
-        assertTrue(clazz.getField(f -> f.getName().equals("a")) != null);
-        assertTrue(clazz.getMethod(m -> m.getName().equals("getE")) != null);
-        assertTrue(clazz.getPublicMethod(m -> m.getName().equals("getE")) != null);
+        assertEquals(clazz.getPublicMethods().size(), 10);
+        assertEquals(clazz.getSetterMethods().size(), 5);
+        assertEquals(clazz.getGetterMethods().size(), 5);
+        assertEquals(clazz.getPublicMethods(m -> !m.getName().contains("D")).size(), 8);
+        assertEquals(clazz.getSetterMethods(m -> !m.getName().contains("D")).size(), 4);
+        assertEquals(clazz.getGetterMethods(m -> !m.getName().contains("D")).size(), 4);
+        assertEquals(clazz.getGetterMethods(m -> !m.getName().contains("D")).size(), 4);
+        assertNotNull(clazz.getField(f -> f.getName().equals("a")));
+        assertNotNull(clazz.getMethod(m -> m.getName().equals("getE")));
+        assertNotNull(clazz.getPublicMethod(m -> m.getName().equals("getE")));
         System.err.println("size = " + clazz.getMethods(m -> !m.getName().contains("D")).size());
-        assertEquals(clazz.getMethods(m -> !m.getName().contains("D")).size(), 9 + 2);
-        assertEquals(clazz.getFields().size(), 10 + 2);
-        assertEquals(clazz.getWritableFields().size(), 9 + 2);
+        Asserts.assertTrue(
+            clazz.getMethods(m -> !m.getName().contains("D")).size() >= 9
+        );
+        Asserts.assertTrue(
+            clazz.getFields().size() >= 10
+        );
+        Asserts.assertTrue(
+            clazz.getWritableFields().size() >= 9
+        );
         assertEquals(clazz.getPublicFields().size(), 4);
         assertEquals(clazz.getPublicFields(f -> !f.getName().equals("a")).size(), 3);
-        assertEquals(clazz.getFields(f -> !f.getName().equals("a")).size(), 9 + 2);
+        Asserts.assertTrue(
+            clazz.getFields(f -> !f.getName().equals("a")).size() >= 9
+        );
         clazz.getMethods(m -> !m.getName().contains("D"), m -> new EzyMethod(m.getMethod()));
-        assertTrue(clazz.toString().equals(A.class.toString()));
+        assertEquals(A.class.toString(), clazz.toString());
         assertEquals(clazz.getClazz(), A.class);
-        assertEquals(clazz.getMethods().size(), 11 + 2);
+        Asserts.assertTrue(clazz.getMethods().size() >= 11);
 
-        assertEquals(clazz.getDeclaredFields().size(), 6 + 1);
-        assertEquals(clazz.getDeclaredMethods().size(), 6 + 1);
+        Asserts.assertTrue(clazz.getDeclaredFields().size() >= 6);
+        Asserts.assertTrue(clazz.getDeclaredMethods().size() >= 6);
         System.err.println("fields = " + clazz.getDeclaredFields());
         System.err.println("methods = " + clazz.getDeclaredMethods());
         assert clazz.getField("x") != null;
         clazz.getDeclaredMethods(m -> true);
         clazz.getDeclaredSetterMethods();
         clazz.getDeclaredGetterMethods();
-        clazz.getFieldsByName();
-        clazz.getMethodsByName();
+        Asserts.assertTrue(clazz.getFieldsByName().size() > 0);
+        Asserts.assertTrue(clazz.getMethodsByName().size() > 0);
         clazz.getMethod("setY");
         clazz.newInstance();
         clazz.getDeclaredConstructors();
-        clazz.getDeclaredConstructor();
+        Asserts.assertEquals(
+            clazz.getDeclaredConstructor(),
+            A.class.getDeclaredConstructor()
+        );
 
-        assert clazz.getModifiers() == clazz.getClazz().getModifiers();
+        Asserts.assertEquals(clazz.getModifiers(), clazz.getClazz().getModifiers());
 
         EzyClass clazzX = new EzyClass(AX.class);
-        assertTrue(clazzX.getAnnotatedMethods(ExampleAnnotation.class).size() == 4);
+        assertEquals(clazzX.getAnnotatedMethods(ExampleAnnotation.class).size(), 4);
         assertTrue(clazzX.getAnnotatedMethod(ExampleAnnotation.class).isPresent());
         assertTrue(clazzX.getAnnotatedSetterMethod(ExampleAnnotation.class).isPresent());
         assertTrue(clazzX.getAnnotatedGetterMethod(ExampleAnnotation.class).isPresent());
-        assertTrue(clazzX.getAnnotatedFields(ExampleAnnotation.class).size() == 2);
+        assertEquals(clazzX.getAnnotatedFields(ExampleAnnotation.class).size(), 2);
         assertTrue(clazzX.getAnnotatedField(ExampleAnnotation.class).isPresent());
     }
 
     @Test
     public void test2() {
         EzyClass clazz = new EzyClass(A2.class);
-        assertEquals(clazz.getGetterMethod(m -> m.isAnnotated(EzyId.class)).get().getName(), "getName");
-        assertEquals(clazz.getSetterMethod(m -> m.isAnnotated(EzyId.class)).get().getName(), "setName");
-        assertFalse(clazz.getGetterMethod(m -> m.isAnnotated(EzyAutoImpl.class)).isPresent());
-        assertFalse(clazz.getSetterMethod(m -> m.isAnnotated(EzyAutoImpl.class)).isPresent());
+        assertEquals(
+            clazz.getGetterMethod(m -> m.isAnnotated(EzyId.class))
+                .orElseThrow(IllegalArgumentException::new).getName(),
+            "getName"
+        );
+        assertEquals(clazz.getSetterMethod(
+            m -> m.isAnnotated(EzyId.class))
+                .orElseThrow(IllegalArgumentException::new).getName(),
+            "setName"
+        );
+        assertFalse(clazz.getGetterMethod(
+            m -> m.isAnnotated(EzyAutoImpl.class)).isPresent()
+        );
+        assertFalse(clazz.getSetterMethod(
+            m -> m.isAnnotated(EzyAutoImpl.class)).isPresent()
+        );
 
         assertEquals(clazz.getGetterMethod("getName").getName(), "getName");
         assertEquals(clazz.getSetterMethod("setName").getName(), "setName");
 
-        assertEquals(clazz.getGetterMethod("getName x"), null);
-        assertEquals(clazz.getSetterMethod("setName z"), null);
+        assertNull(clazz.getGetterMethod("getName x"));
+        assertNull(clazz.getSetterMethod("setName z"));
 
         assert clazz.getPublicMethod(m -> m.getName().equals("getName")).isPresent();
         assert !clazz.getPublicMethod(m -> m.getName().equals("getNameXYZ")).isPresent();
@@ -131,7 +154,7 @@ public class EzyClassTest extends BaseTest {
         // when
         List<String> actual = clazz.getDistinctMethods(it -> true)
             .stream()
-            .map(it -> it.getName())
+            .map(EzyMethod::getName)
             .collect(Collectors.toList());
 
         // then
@@ -144,25 +167,27 @@ public class EzyClassTest extends BaseTest {
 
     }
 
-    public static interface InterfaceB extends InterfaceA {
+    @SuppressWarnings("unused")
+    public interface InterfaceB extends InterfaceA {
         @Override
         String getValue();
 
         String getSomething();
     }
 
-    public static interface InterfaceA {
+    public interface InterfaceA {
 
         String getName();
 
         String getValue();
     }
 
+    @SuppressWarnings("unused")
     public static class ABC {
-        public ABC(String s) {
-        }
+        public ABC(String s) {}
     }
 
+    @SuppressWarnings("unused")
     public static class A2 {
 
         @EzyId
@@ -171,14 +196,12 @@ public class EzyClassTest extends BaseTest {
         }
 
         @EzyId
-        public void setName(String name) {
-        }
+        public void setName(String name) {}
 
-        protected void setNo() {
-        }
-
+        protected void setNo() {}
     }
 
+    @SuppressWarnings("unused")
     public static class B {
         protected static final String FINAL_FIELD = "final field";
         public String x = "x";
@@ -219,8 +242,8 @@ public class EzyClassTest extends BaseTest {
 
     }
 
+    @SuppressWarnings("unused")
     public static class AX {
-
         @ExampleAnnotation
         protected String fieldA;
         @ExampleAnnotation
@@ -242,6 +265,7 @@ public class EzyClassTest extends BaseTest {
         public void setValue(String value) {}
     }
 
+    @SuppressWarnings("unused")
     public static class BX {
         protected BX(String name) {
             this(name, "value");
@@ -256,6 +280,7 @@ public class EzyClassTest extends BaseTest {
 
     public static class CX {}
 
+    @SuppressWarnings("unused")
     public static class DX {
         public DX(String name) {}
     }

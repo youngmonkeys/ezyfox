@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.tvd12.ezyfox.util;
 
 import java.io.File;
@@ -14,9 +11,12 @@ import java.util.Stack;
 import java.util.function.Consumer;
 
 /**
+ * Utilities method for directory I/O.
+ *
  * @author tavandung12
  *
  */
+@SuppressWarnings("AbbreviationAsWordInName")
 public class EzyDirectories {
 
     private File directory;
@@ -105,6 +105,15 @@ public class EzyDirectories {
         return getURLs(getFiles(extensions, recursive));
     }
 
+    private URL[] getURLs(Collection<File> files) throws IOException {
+        int index = 0;
+        URL[] urls = new URL[files.size()];
+        for (File file : files) {
+            urls[index++] = file.toURI().toURL();
+        }
+        return urls;
+    }
+
     public Collection<File> getFiles() {
         return EzyFileUtil.listFiles(directory, true);
     }
@@ -122,15 +131,6 @@ public class EzyDirectories {
             .printFile(printFile)
             .build()
             .print(directory);
-    }
-
-    private URL[] getURLs(Collection<File> files) throws IOException {
-        int index = 0;
-        URL[] urls = new URL[files.size()];
-        for (File file : files) {
-            urls[index++] = file.toURI().toURL();
-        }
-        return urls;
     }
 
     public EzyDirectories directory(File directory) {

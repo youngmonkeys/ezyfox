@@ -44,20 +44,20 @@ public class EzyMethod implements EzyReflectElement {
     }
 
     public boolean isSetter() {
-        return isPublic() &&
-            method.getName().startsWith(METHOD_PREFIX_SET) &&
-            method.getParameterCount() == 1;
+        return isPublic()
+            && method.getName().startsWith(METHOD_PREFIX_SET)
+            && method.getParameterCount() == 1;
     }
 
     public boolean isGetter() {
         String methodName = method.getName();
-        return isPublic() &&
-            (
-                methodName.startsWith(METHOD_PREFIX_GET) ||
-                    methodName.startsWith(METHOD_PREFIX_IS)
-            ) &&
-            method.getParameterCount() == 0 &&
-            method.getReturnType() != void.class;
+        return isPublic()
+            && (
+                methodName.startsWith(METHOD_PREFIX_GET)
+                    || methodName.startsWith(METHOD_PREFIX_IS)
+            )
+            && method.getParameterCount() == 0
+            && method.getReturnType() != void.class;
     }
 
     public boolean isPublic() {
@@ -102,9 +102,10 @@ public class EzyMethod implements EzyReflectElement {
 
     public String getFieldName() {
         String name = getName();
-        if (!name.startsWith(METHOD_PREFIX_SET) &&
-            !name.startsWith(METHOD_PREFIX_GET) &&
-            !name.startsWith(METHOD_PREFIX_NEW)) {
+        if (!name.startsWith(METHOD_PREFIX_SET)
+            && !name.startsWith(METHOD_PREFIX_GET)
+            && !name.startsWith(METHOD_PREFIX_NEW)
+        ) {
             return name;
         }
         if (name.length() <= 3) {
@@ -117,10 +118,6 @@ public class EzyMethod implements EzyReflectElement {
     public String getDeclaration() {
         int modifiers = method.getModifiers();
         return getDeclaration(Modifier.toString(modifiers));
-    }
-
-    public String getPublicDeclaration() {
-        return getDeclaration(MODIFIER_PUBLIC);
     }
 
     public String getDeclaration(String modifierName) {
@@ -144,6 +141,10 @@ public class EzyMethod implements EzyReflectElement {
         }
         builder.append(")");
         return builder.toString();
+    }
+
+    public String getPublicDeclaration() {
+        return getDeclaration(MODIFIER_PUBLIC);
     }
 
     public void setAccessible(boolean flag) {

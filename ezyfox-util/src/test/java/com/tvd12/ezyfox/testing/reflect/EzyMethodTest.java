@@ -1,7 +1,9 @@
 package com.tvd12.ezyfox.testing.reflect;
 
 import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
+import com.tvd12.test.reflect.ReflectMethodUtil;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -24,9 +26,29 @@ public class EzyMethodTest extends BaseTest {
         assertEquals(method1.getParameterTypes().length, 2);
         assertFalse(method1.isAnnotated(ExampleAnnotation.class));
         assertNull(method1.getAnnotation(ExampleAnnotation.class));
-        method1.getDeclaration();
-        method1.getPublicDeclaration();
-        method1.toString();
+
+        Asserts.assertEquals(
+            method1.getDeclaration(),
+            "public java.lang.String getValue$impl(java.lang.String arg0, java.lang.String arg1)"
+        );
+        System.out.println(method1.getDeclaration());
+
+        Asserts.assertEquals(
+            method1.getPublicDeclaration(),
+            "public java.lang.String getValue$impl(java.lang.String arg0, java.lang.String arg1)"
+        );
+        System.out.println(method1.getPublicDeclaration());
+
+        String methodToString = method1.toString();
+        Asserts.assertEquals(
+            methodToString,
+            ReflectMethodUtil.getMethod(
+                "getValue",
+                ClassA.class,
+                String.class,
+                String.class
+            ).toString()
+        );
 
         EzyMethod method2 = new EzyMethod(ClassA.class.getDeclaredMethod("notSetter1", String.class));
         assertFalse(method2.isSetter());
@@ -50,12 +72,13 @@ public class EzyMethodTest extends BaseTest {
         assertFalse(method7.isGetter());
 
         assert !method7.equals(method6);
-        method7.hashCode();
+        System.out.println(method7.hashCode());
 
         EzyMethod method8 = new EzyMethod(ClassA.class.getDeclaredMethod("newHello"));
         assert method8.getFieldName().equals("hello");
     }
 
+    @SuppressWarnings("unused")
     public static class ClassA {
 
         public String getValue(String a, String b) {
@@ -66,25 +89,18 @@ public class EzyMethodTest extends BaseTest {
             return "hello";
         }
 
-        public void notSetter1(String a) {
-        }
+        public void notSetter1(String a) {}
 
-        protected void notSetter2() {
-        }
+        protected void notSetter2() {}
 
-        protected void notSetter3(String a, String b) {
-        }
+        protected void notSetter3(String a, String b) {}
 
-        public void setNotSetter(String a, String b) {
-
-        }
+        public void setNotSetter(String a, String b) {}
 
         public String getNotGetter3(String a) {
             return null;
         }
 
-        public void getNotGetter4() {
-        }
-
+        public void getNotGetter4() {}
     }
 }

@@ -53,8 +53,8 @@ public class EzyObjectProxyProvider {
     }
 
     protected boolean isSettableField(EzyField field) {
-        return field.isWritable() &&
-            !Modifier.isStatic(field.getField().getModifiers());
+        return field.isWritable()
+            && !Modifier.isStatic(field.getField().getModifiers());
     }
 
     protected Function newGetter(EzyField field) {

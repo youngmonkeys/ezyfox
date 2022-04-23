@@ -8,34 +8,29 @@ import java.util.function.Supplier;
 
 public final class EzyReturner {
 
-    private EzyReturner() {
-    }
+    private EzyReturner() {}
 
     public static <T> T returnNotNull(T rvalue, T svalue) {
         return rvalue != null ? rvalue : svalue;
     }
 
-    public static <T> T returnAndApply(T rvalue, Runnable applier) {
-        T temp = rvalue;
-        applier.run();
-        return temp;
-    }
-
     public static <T> T returnWithException(EzySupplier<T> supplier) {
-        return returnWithException(supplier, e -> new IllegalStateException(e));
-    }
-
-    public static <T> T returnWithIllegalArgumentException(EzySupplier<T> supplier) {
-        return returnWithException(supplier, e -> new IllegalArgumentException(e));
+        return returnWithException(supplier, IllegalStateException::new);
     }
 
     public static <T> T returnWithException(
-        EzySupplier<T> supplier, Function<Throwable, RuntimeException> handler) {
+        EzySupplier<T> supplier,
+        Function<Throwable, RuntimeException> handler
+    ) {
         try {
             return supplier.get();
         } catch (Exception e) {
             throw handler.apply(e);
         }
+    }
+
+    public static <T> T returnWithIllegalArgumentException(EzySupplier<T> supplier) {
+        return returnWithException(supplier, IllegalArgumentException::new);
     }
 
     public static <T> T returnWithSync(Supplier<T> supplier, Object context) {

@@ -3,55 +3,55 @@ package com.tvd12.ezyfox.util;
 import java.util.Collection;
 import java.util.function.Function;
 
+@SuppressWarnings("OverloadMethodsDeclarationOrder")
 public final class EzySum {
 
-    private EzySum() {
-    }
+    private EzySum() {}
 
     public static int sumBytes(byte[] numbers) {
         int total = 0;
-        for (int i = 0; i < numbers.length; ++i) {
-            total += numbers[i];
+        for (byte number : numbers) {
+            total += number;
         }
         return total;
     }
 
     public static double sumDoubles(double[] numbers) {
         double total = 0;
-        for (int i = 0; i < numbers.length; ++i) {
-            total += numbers[i];
+        for (double number : numbers) {
+            total += number;
         }
         return total;
     }
 
     public static float sumFloats(float[] numbers) {
         float total = 0;
-        for (int i = 0; i < numbers.length; ++i) {
-            total += numbers[i];
+        for (float number : numbers) {
+            total += number;
         }
         return total;
     }
 
     public static int sumInts(int[] numbers) {
         int total = 0;
-        for (int i = 0; i < numbers.length; ++i) {
-            total += numbers[i];
+        for (int number : numbers) {
+            total += number;
         }
         return total;
     }
 
     public static long sumLongs(long[] numbers) {
         long total = 0;
-        for (int i = 0; i < numbers.length; ++i) {
-            total += numbers[i];
+        for (long number : numbers) {
+            total += number;
         }
         return total;
     }
 
     public static int sumShorts(short[] numbers) {
         int total = 0;
-        for (int i = 0; i < numbers.length; ++i) {
-            total += numbers[i];
+        for (short number : numbers) {
+            total += number;
         }
         return total;
     }

@@ -5,11 +5,12 @@ import lombok.Getter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
-public class EzyAttribute<T> implements EzyConstant {
+public class EzyAttribute implements EzyConstant {
 
-    private static final AtomicInteger COUNTER = new AtomicInteger(0);
     protected int id;
     protected String name;
+
+    private static final AtomicInteger COUNTER = new AtomicInteger(0);
 
     public EzyAttribute() {
         this(COUNTER.incrementAndGet());
@@ -29,19 +30,19 @@ public class EzyAttribute<T> implements EzyConstant {
         COUNTER.incrementAndGet();
     }
 
-    public static <T> EzyAttribute<T> one() {
-        return new EzyAttribute<>();
+    public static EzyAttribute one() {
+        return new EzyAttribute();
     }
 
-    public static <T> EzyAttribute<T> valueOf(int id) {
-        return new EzyAttribute<>(id);
+    public static EzyAttribute valueOf(int id) {
+        return new EzyAttribute(id);
     }
 
-    public static <T> EzyAttribute<T> valueOf(String name) {
-        return new EzyAttribute<>(name);
+    public static EzyAttribute valueOf(String name) {
+        return new EzyAttribute(name);
     }
 
-    public static <T> EzyAttribute<T> valueOf(int id, String name) {
-        return new EzyAttribute<>(id, name);
+    public static EzyAttribute valueOf(int id, String name) {
+        return new EzyAttribute(id, name);
     }
 }

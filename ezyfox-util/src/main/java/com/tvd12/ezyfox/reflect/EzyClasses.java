@@ -10,8 +10,7 @@ public final class EzyClasses {
 
     private static final String DOT = ".";
 
-    private EzyClasses() {
-    }
+    private EzyClasses() {}
 
     @SuppressWarnings("rawtypes")
     public static String getSimpleName(Class clazz) {
@@ -45,6 +44,24 @@ public final class EzyClasses {
 
     }
 
+    @SuppressWarnings("rawtypes")
+    public static Class getClass(String className) {
+        try {
+            return Class.forName(className);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static Class getClass(String className, ClassLoader classLoader) {
+        try {
+            return Class.forName(className, true, classLoader);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     public static <T> T newInstance(String className) {
         return newInstance(className, new Class<?>[0], new Object[0]);
     }
@@ -71,24 +88,6 @@ public final class EzyClasses {
     public static <T> T newInstance(String className, ClassLoader classLoader) {
         try {
             return (T) getClass(className, classLoader).newInstance();
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    @SuppressWarnings("rawtypes")
-    public static Class getClass(String className) {
-        try {
-            return Class.forName(className);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    @SuppressWarnings("rawtypes")
-    public static Class getClass(String className, ClassLoader classLoader) {
-        try {
-            return Class.forName(className, true, classLoader);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
@@ -139,9 +138,8 @@ public final class EzyClasses {
 
     @SuppressWarnings("rawtypes")
     public static Set<Class> flatInterfaces(Class clazz) {
-        Set<Class> classes = new HashSet<>();
         Class[] interfaces = clazz.getInterfaces();
-        classes.addAll(Sets.newHashSet(interfaces));
+        Set<Class> classes = new HashSet<>(Sets.newHashSet(interfaces));
         for (Class itf : interfaces) {
             classes.addAll(flatInterfaces(itf));
         }
@@ -155,10 +153,9 @@ public final class EzyClasses {
 
     @SuppressWarnings("rawtypes")
     public static Set<Class> flatSuperAndInterfaceClasses(Class clazz, boolean includeObject) {
-        Set<Class> classes = new HashSet<>();
         Set<Class> interfaces = flatInterfaces(clazz);
         Set<Class> superClasses = flatSuperClasses(clazz, includeObject);
-        classes.addAll(interfaces);
+        Set<Class> classes = new HashSet<>(interfaces);
         for (Class superClass : superClasses) {
             Set<Class> superAndInterfaceClasses = flatSuperAndInterfaceClasses(superClass, includeObject);
             classes.add(superClass);

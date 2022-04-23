@@ -4,8 +4,7 @@ import java.nio.ByteBuffer;
 
 public final class EzyByteBuffers {
 
-    private EzyByteBuffers() {
-    }
+    private EzyByteBuffers() {}
 
     public static byte[] getBytes(ByteBuffer buffer) {
         if (!buffer.hasRemaining()) {

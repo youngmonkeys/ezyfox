@@ -8,7 +8,7 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
     AtomicInteger COUNTER = new AtomicInteger(0);
 
     /**
-     * Create new constant
+     * Create new constant.
      *
      * @return a constant
      */
@@ -17,7 +17,7 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
     }
 
     /**
-     * Create new constant
+     * Create new constant.
      *
      * @return a constant
      */
@@ -26,7 +26,7 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
     }
 
     /**
-     * Create new constant with id
+     * Create new constant with id.
      *
      * @param id the constant id
      * @return a constant
@@ -37,7 +37,7 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
     }
 
     /**
-     * Create new constant with id
+     * Create new constant with id.
      *
      * @param id   the constant id
      * @param name the constant name
@@ -59,7 +59,7 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
     }
 
     /**
-     * Get constant name
+     * Get constant name.
      *
      * @return the constant name
      */

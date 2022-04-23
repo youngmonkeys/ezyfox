@@ -32,15 +32,7 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
     @Override
     public boolean remove(Object o) {
         super.remove(o);
-        boolean contains = elementSet.remove(o);
-        return contains;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        super.removeAll(c);
-        boolean changed = elementSet.removeAll(c);
-        return changed;
+        return elementSet.remove(o);
     }
 
     @Override
@@ -48,6 +40,19 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
         E e = super.remove();
         elementSet.remove(e);
         return e;
+    }
+
+    @Override
+    public E remove(int index) {
+        E e = super.remove(index);
+        elementSet.remove(e);
+        return e;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        super.removeAll(c);
+        return elementSet.removeAll(c);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -62,15 +67,7 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
             }
         }
         super.retainAll(toRetain);
-        boolean changed = elementSet.retainAll(toRetain);
-        return changed;
-    }
-
-    @Override
-    public E remove(int index) {
-        E e = super.remove(index);
-        elementSet.remove(e);
-        return e;
+        return elementSet.retainAll(toRetain);
     }
 
     @Override
@@ -90,8 +87,7 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
     @Override
     public boolean removeIf(Predicate<? super E> filter) {
         super.removeIf(filter);
-        boolean removed = elementSet.removeIf(filter);
-        return removed;
+        return elementSet.removeIf(filter);
     }
 
     @Override
@@ -129,8 +125,7 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
                 toAdd.add(e);
             }
         }
-        boolean changed = super.addAll(index, toAdd);
-        return changed;
+        return super.addAll(index, toAdd);
     }
 
     @Override
@@ -155,7 +150,7 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
         if (success) {
             return super.add(e);
         }
-        return success;
+        return false;
     }
 
     @Override
@@ -204,13 +199,11 @@ public class EzyLinkedListSet<E> extends LinkedList<E> {
 
     @Override
     public boolean contains(Object o) {
-        boolean contains = elementSet.contains(o);
-        return contains;
+        return elementSet.contains(o);
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        boolean containsAll = elementSet.containsAll(c);
-        return containsAll;
+        return elementSet.containsAll(c);
     }
 }

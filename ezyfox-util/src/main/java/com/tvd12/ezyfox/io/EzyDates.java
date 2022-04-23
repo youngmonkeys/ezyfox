@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
+@SuppressWarnings("OverloadMethodsDeclarationOrder")
 public final class EzyDates {
 
     public static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -141,8 +142,6 @@ public final class EzyDates {
     public static Date toDate(LocalDateTime localDateTime, ZoneId zoneId) {
         return Date.from(toInstant(localDateTime, zoneId));
     }
-    //=================================
-
 
     // =================== java 7 ===============
     public static String format(long millis) {
@@ -172,6 +171,15 @@ public final class EzyDates {
         }
     }
 
+    public static Date parse(String source, String pattern) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+            return formatter.parse(source);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     public static String format(long millis, String pattern) {
         return format(new Date(millis), pattern);
     }
@@ -181,18 +189,7 @@ public final class EzyDates {
             return null;
         }
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        String answer = formatter.format(date);
-        return answer;
-    }
-
-    public static Date parse(String source, String pattern) {
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-            Date answer = formatter.parse(source);
-            return answer;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e);
-        }
+        return formatter.format(date);
     }
 
     public static String getPattern() {
@@ -218,8 +215,7 @@ public final class EzyDates {
     }
 
     public static LocalDateTime dateToDateTime(Date date) {
-        LocalDateTime dateTime = millisToDateTime(date.getTime());
-        return dateTime;
+        return millisToDateTime(date.getTime());
     }
 
     public static LocalDateTime millisToDateTime(long millis) {
@@ -236,8 +232,7 @@ public final class EzyDates {
     }
 
     public static LocalDateTime instantToDateTime(Instant instant, ZoneId zoneId) {
-        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, zoneId);
-        return dateTime;
+        return LocalDateTime.ofInstant(instant, zoneId);
     }
 
     // =============================================

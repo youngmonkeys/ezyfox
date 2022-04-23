@@ -21,7 +21,7 @@ public enum EzyPaymentType implements EzyConstant {
     private static final Map<String, EzyPaymentType> MAP_BY_NAME =
         EzyEnums.enumMap(EzyPaymentType.class, it -> it.name);
 
-    private EzyPaymentType(int id, String name) {
+    EzyPaymentType(int id, String name) {
         this.id = id;
         this.name = name;
     }

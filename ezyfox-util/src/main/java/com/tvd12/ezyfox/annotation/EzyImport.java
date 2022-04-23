@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Import classes to the context to manage or process
+ * Import classes to the context to manage or process.
  *
  * @author tavandung12
  */
@@ -16,9 +16,9 @@ import java.lang.annotation.Target;
 public @interface EzyImport {
 
     /**
-     * the array of classes
+     * the array of classes.
      *
      * @return array of classes
      */
-    public Class<?>[] value();
+    Class<?>[] value();
 }

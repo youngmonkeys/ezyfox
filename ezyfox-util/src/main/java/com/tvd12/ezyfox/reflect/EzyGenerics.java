@@ -7,8 +7,7 @@ import java.util.List;
 
 public final class EzyGenerics {
 
-    private EzyGenerics() {
-    }
+    private EzyGenerics() {}
 
     @SuppressWarnings("rawtypes")
     public static Class getOneGenericClassArgument(Type genericType) {
@@ -23,12 +22,16 @@ public final class EzyGenerics {
     @SuppressWarnings("rawtypes")
     public static Class[] getGenericClassArguments(Type genericType, int size) {
         if (!(genericType instanceof ParameterizedType)) {
-            throw new IllegalArgumentException("1: " + genericType.getTypeName() + " is not generic type");
+            throw new IllegalArgumentException(
+                "1: " + genericType.getTypeName() + " is not generic type"
+            );
         }
         List<Class> answer = new ArrayList<>();
         Type[] types = ((ParameterizedType) genericType).getActualTypeArguments();
         if (types.length != size) {
-            throw new IllegalArgumentException("2: " + genericType.getTypeName() + " has != " + size + " generic argument");
+            throw new IllegalArgumentException(
+                "2: " + genericType.getTypeName() + " has != " + size + " generic argument"
+            );
         }
         for (Type type : types) {
             if (type instanceof Class) {
@@ -36,14 +39,20 @@ public final class EzyGenerics {
             } else if (type instanceof ParameterizedType) {
                 answer.add((Class) ((ParameterizedType) type).getRawType());
             } else {
-                throw new IllegalArgumentException("3: unknown generic argument type of " + genericType.getTypeName());
+                throw new IllegalArgumentException(
+                    "3: unknown generic argument type of " + genericType.getTypeName()
+                );
             }
         }
-        return answer.toArray(new Class[answer.size()]);
+        return answer.toArray(new Class[0]);
     }
 
     @SuppressWarnings("rawtypes")
-    public static Class[] getGenericInterfacesArguments(Class<?> clazz, Class<?> interfaceClass, int size) {
+    public static Class[] getGenericInterfacesArguments(
+        Class<?> clazz,
+        Class<?> interfaceClass,
+        int size
+    ) {
         Type[] genericInterfaces = clazz.getGenericInterfaces();
         for (Type genericInterface : genericInterfaces) {
             if (!(genericInterface instanceof ParameterizedType)) {
@@ -55,7 +64,9 @@ public final class EzyGenerics {
             }
             Type[] genericTypes = parameterizedType.getActualTypeArguments();
             if (genericTypes.length != size) {
-                throw new IllegalArgumentException("1:" + genericInterface.getTypeName() + " has != " + size + " generic argument");
+                throw new IllegalArgumentException(
+                    "1:" + genericInterface.getTypeName() + " has != " + size + " generic argument"
+                );
             }
             List<Class> answer = new ArrayList<>();
             for (Type genericType : genericTypes) {
@@ -64,14 +75,20 @@ public final class EzyGenerics {
                 } else if (genericType instanceof ParameterizedType) {
                     answer.add((Class) ((ParameterizedType) genericType).getRawType());
                 } else {
-                    throw new IllegalArgumentException("2: unknown generic argument type of " + genericType.getTypeName());
+                    throw new IllegalArgumentException(
+                        "2: unknown generic argument type of " + genericType.getTypeName()
+                    );
                 }
             }
-            return answer.toArray(new Class[answer.size()]);
+            return answer.toArray(new Class[0]);
         }
         if (EzyInterfaces.getInterface(clazz, interfaceClass) != null) {
-            throw new IllegalArgumentException("3: " + interfaceClass + " is not generics");
+            throw new IllegalArgumentException(
+                "3: " + interfaceClass + " is not generics"
+            );
         }
-        throw new IllegalArgumentException("4: " + clazz + " is not directly extends/implements " + interfaceClass);
+        throw new IllegalArgumentException(
+            "4: " + clazz + " is not directly extends/implements " + interfaceClass
+        );
     }
 }
