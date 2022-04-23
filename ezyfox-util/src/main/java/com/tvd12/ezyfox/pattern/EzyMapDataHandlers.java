@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.pattern;
 
+import com.tvd12.ezyfox.util.EzyLoggable;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.tvd12.ezyfox.util.EzyLoggable;
 
 @SuppressWarnings("rawtypes")
 public class EzyMapDataHandlers extends EzyLoggable implements EzyDataHandlers {
@@ -13,8 +13,9 @@ public class EzyMapDataHandlers extends EzyLoggable implements EzyDataHandlers {
     @Override
     public EzyDataHandler getHandler(Object dataType) {
         EzyDataHandler handler = handlers.get(dataType);
-        if(handler != null)
+        if (handler != null) {
             return handler;
+        }
         throw new IllegalArgumentException("has no handler with data type: " + dataType);
     }
 

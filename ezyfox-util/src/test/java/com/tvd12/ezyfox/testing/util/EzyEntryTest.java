@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyEntry;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyEntryTest extends BaseTest {
 
@@ -21,7 +20,7 @@ public class EzyEntryTest extends BaseTest {
         assert !ab.equals(bc);
         assert ab.hashCode() != bc.hashCode();
         assert !ab.equals(null);
-        assert !ab.equals((Object)new String());
+        assert !ab.equals((Object) new String());
 
         EzyEntry<String, String> abe = EzyEntry.of("a", "b");
         assert ab.equals(abe);

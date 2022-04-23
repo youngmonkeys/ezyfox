@@ -1,21 +1,15 @@
 package com.tvd12.ezyfox.testing.io;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzyLists;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.*;
+
+import static org.testng.Assert.assertEquals;
 
 public class EzyListsTest extends BaseTest {
 
@@ -28,7 +22,7 @@ public class EzyListsTest extends BaseTest {
     @Test
     public void test() {
         List<String> set = EzyLists.combine(Sets.newHashSet("1", "2", "3"),
-                Sets.newHashSet("4", "5", "6"));
+            Sets.newHashSet("4", "5", "6"));
         assertEquals(set, Lists.newArrayList("1", "2", "3", "4", "5", "6"));
 
         Collection<String> coll1 = Lists.newArrayList("ab", "cde");
@@ -36,13 +30,13 @@ public class EzyListsTest extends BaseTest {
         assertEquals(set1, Lists.newArrayList('a', 'b', 'c', 'd', 'e'));
 
         List<String> set2 = EzyLists.filter(set,
-                (str) -> (!str.startsWith("1") && !str.startsWith("5")));
+            (str) -> (!str.startsWith("1") && !str.startsWith("5")));
         assertEquals(set2, Lists.newArrayList("2", "3", "4", "6"));
 
-        List<String> set3 = EzyLists.newArrayList(set, "3" ,"4");
+        List<String> set3 = EzyLists.newArrayList(set, "3", "4");
         assertEquals(set3, Lists.newArrayList("1", "2", "5", "6"));
 
-        List<String> set4 = EzyLists.newArrayList(new Long[] {1L, 2L, 3L}, v -> v.toString());
+        List<String> set4 = EzyLists.newArrayList(new Long[]{1L, 2L, 3L}, v -> v.toString());
         assertEquals(set4, Lists.newArrayList("1", "2", "3"));
 
         List<String> set5 = EzyLists.newArrayList(Lists.newArrayList(1L, 2L, 3L), v -> v.toString());
@@ -83,8 +77,9 @@ public class EzyListsTest extends BaseTest {
 
     private Collection<Character> stringtoChars(String str) {
         List<Character> answer = new ArrayList<>();
-        for(int i = 0 ; i < str.length() ; ++i)
+        for (int i = 0; i < str.length(); ++i) {
             answer.add(str.charAt(i));
+        }
         return answer;
     }
 }

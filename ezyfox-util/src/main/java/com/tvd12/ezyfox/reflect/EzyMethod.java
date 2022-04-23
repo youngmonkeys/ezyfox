@@ -1,10 +1,11 @@
 package com.tvd12.ezyfox.reflect;
 
-import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_GET;
-import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_IS;
-import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_NEW;
-import static com.tvd12.ezyfox.reflect.EzyReflections.METHOD_PREFIX_SET;
-import static com.tvd12.ezyfox.reflect.EzyReflections.MODIFIER_PUBLIC;
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.util.EzyEquals;
+import com.tvd12.ezyfox.util.EzyHashCodes;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -14,13 +15,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.collect.Lists;
-import com.tvd12.ezyfox.util.EzyEquals;
-import com.tvd12.ezyfox.util.EzyHashCodes;
-
-import lombok.Getter;
-import lombok.Setter;
+import static com.tvd12.ezyfox.reflect.EzyReflections.*;
 
 @Getter
 public class EzyMethod implements EzyReflectElement {
@@ -35,6 +30,10 @@ public class EzyMethod implements EzyReflectElement {
         this.displayName = method.getName();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public Object invoke(Object obj, Object... args) {
         return EzyMethods.invoke(method, obj, args);
     }
@@ -45,20 +44,20 @@ public class EzyMethod implements EzyReflectElement {
     }
 
     public boolean isSetter() {
-        return  isPublic() &&
-                method.getName().startsWith(METHOD_PREFIX_SET) &&
-                method.getParameterCount() == 1;
+        return isPublic() &&
+            method.getName().startsWith(METHOD_PREFIX_SET) &&
+            method.getParameterCount() == 1;
     }
 
     public boolean isGetter() {
         String methodName = method.getName();
-        return  isPublic() &&
-                (
-                    methodName.startsWith(METHOD_PREFIX_GET) ||
+        return isPublic() &&
+            (
+                methodName.startsWith(METHOD_PREFIX_GET) ||
                     methodName.startsWith(METHOD_PREFIX_IS)
-                ) &&
-                method.getParameterCount() == 0 &&
-                method.getReturnType() != void.class;
+            ) &&
+            method.getParameterCount() == 0 &&
+            method.getReturnType() != void.class;
     }
 
     public boolean isPublic() {
@@ -103,12 +102,14 @@ public class EzyMethod implements EzyReflectElement {
 
     public String getFieldName() {
         String name = getName();
-        if(!name.startsWith(METHOD_PREFIX_SET) &&
-                !name.startsWith(METHOD_PREFIX_GET) &&
-                !name.startsWith(METHOD_PREFIX_NEW))
+        if (!name.startsWith(METHOD_PREFIX_SET) &&
+            !name.startsWith(METHOD_PREFIX_GET) &&
+            !name.startsWith(METHOD_PREFIX_NEW)) {
             return name;
-        if(name.length() <= 3)
+        }
+        if (name.length() <= 3) {
             return name;
+        }
         String remain = name.substring(3);
         return remain.substring(0, 1).toLowerCase() + remain.substring(1);
     }
@@ -133,12 +134,13 @@ public class EzyMethod implements EzyReflectElement {
             .append(" ")
             .append(displayName)
             .append("(");
-        for(int i = 0 ; i < params.length ; ++i) {
+        for (int i = 0; i < params.length; ++i) {
             builder.append(params[i].getType().getTypeName())
                 .append(" ")
                 .append(params[i].getName());
-            if(i < params.length - 1)
+            if (i < params.length - 1) {
                 builder.append(", ");
+            }
         }
         builder.append(")");
         return builder.toString();
@@ -151,24 +153,20 @@ public class EzyMethod implements EzyReflectElement {
     @Override
     public boolean equals(Object obj) {
         return new EzyEquals<EzyMethod>()
-                .function(m -> m.method)
-                .isEquals(this, obj);
+            .function(m -> m.method)
+            .isEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
         return new EzyHashCodes()
-                .append(method)
-                .toHashCode();
+            .append(method)
+            .toHashCode();
     }
 
     @Override
     public String toString() {
         return method.toString();
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     @SuppressWarnings("rawtypes")

@@ -1,8 +1,7 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyInterfaces;
+import org.testng.annotations.Test;
 
 public class EzyInterfacesTest {
 
@@ -14,15 +13,15 @@ public class EzyInterfacesTest {
         System.out.println(itf);
     }
 
-    public static class ClassA extends AbstractA<Integer> {
-    }
-
     public static interface InterfaceB extends InterfaceA<String> {
     }
 
-    public static class AbstractA<D> implements InterfaceA<D> {
+    public static interface InterfaceA<D> {
     }
 
-    public static interface InterfaceA<D> {
+    public static class ClassA extends AbstractA<Integer> {
+    }
+
+    public static class AbstractA<D> implements InterfaceA<D> {
     }
 }

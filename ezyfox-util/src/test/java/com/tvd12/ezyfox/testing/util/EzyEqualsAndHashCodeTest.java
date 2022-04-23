@@ -1,17 +1,15 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.math.BigInteger;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyEquals;
 import com.tvd12.ezyfox.util.EzyHashCodes;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.testng.annotations.Test;
+
+import java.math.BigInteger;
 
 public class EzyEqualsAndHashCodeTest extends BaseTest {
 
@@ -133,21 +131,21 @@ public class EzyEqualsAndHashCodeTest extends BaseTest {
         @Override
         public boolean equals(Object obj) {
             return new EzyEquals<ClassA>()
-                    .function(c -> c.id)
-                    .function(c -> c.name)
-                    .function(c -> c.value)
-                    .function(c -> c.object)
-                    .isEquals(this, obj);
+                .function(c -> c.id)
+                .function(c -> c.name)
+                .function(c -> c.value)
+                .function(c -> c.object)
+                .isEquals(this, obj);
         }
 
         @Override
         public int hashCode() {
             return new EzyHashCodes()
-                    .append(id)
-                    .append(name)
-                    .append(value)
-                    .append(object)
-                    .toHashCode();
+                .append(id)
+                .append(name)
+                .append(value)
+                .append(object)
+                .toHashCode();
         }
     }
 

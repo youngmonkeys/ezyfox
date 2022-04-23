@@ -1,14 +1,12 @@
 package com.tvd12.ezyfox.reflect;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.collect.Lists;
+import lombok.AllArgsConstructor;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tvd12.ezyfox.collect.Lists;
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.reflect.EzyMethodFinder;
-
-import lombok.AllArgsConstructor;
 
 @SuppressWarnings("rawtypes")
 @AllArgsConstructor
@@ -17,25 +15,31 @@ public class EzyMethodFinder {
     protected String methodName;
     protected Class[] parameterTypes;
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public Method find() {
         return getMethod(clazz);
     }
 
     protected Method getMethod(Class clazz) {
         Method method = tryGetMethod(clazz);
-        if(method != null)
+        if (method != null) {
             return method;
+        }
         Class[] interfaces = getInterfaces(clazz);
-        for(Class itf : interfaces) {
+        for (Class itf : interfaces) {
             method = getMethod(itf);
-            if(method != null)
+            if (method != null) {
                 return method;
+            }
         }
         Class superClass = getSupperClasses(clazz);
         return superClass != null ? getMethod(superClass) : null;
     }
 
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings({"unchecked"})
     protected Method tryGetMethod(Class clazz) {
         try {
             return clazz.getDeclaredMethod(methodName, parameterTypes);
@@ -52,10 +56,6 @@ public class EzyMethodFinder {
         return clazz.getInterfaces();
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public static class Builder implements EzyBuilder<EzyMethodFinder> {
         protected Class clazz;
         protected String methodName;
@@ -65,6 +65,7 @@ public class EzyMethodFinder {
             this.clazz = clazz;
             return this;
         }
+
         public Builder methodName(String methodName) {
             this.methodName = methodName;
             return this;
@@ -78,9 +79,9 @@ public class EzyMethodFinder {
         @Override
         public EzyMethodFinder build() {
             return new EzyMethodFinder(
-                    clazz,
-                    methodName,
-                    parameterTypes.toArray(new Class[parameterTypes.size()]));
+                clazz,
+                methodName,
+                parameterTypes.toArray(new Class[parameterTypes.size()]));
         }
     }
 }

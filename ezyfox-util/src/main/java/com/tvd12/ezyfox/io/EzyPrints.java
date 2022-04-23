@@ -3,45 +3,56 @@ package com.tvd12.ezyfox.io;
 import java.util.Arrays;
 
 public final class EzyPrints {
-    private final static char[] HEX_ARRAY = new char[] {
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
+    private final static char[] HEX_ARRAY = new char[]{
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
     };
 
-    private final static char[] HEX_ARRAY_LOWERCASE = new char[] {
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+    private final static char[] HEX_ARRAY_LOWERCASE = new char[]{
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
     };
 
     private EzyPrints() {
     }
 
     public static String print(Object object) {
-        if(object == null)
+        if (object == null) {
             return "null";
-        if(object instanceof boolean[])
-            return Arrays.toString((boolean[])object);
-        if(object instanceof byte[])
-            return Arrays.toString((byte[])object);
-        if(object instanceof char[])
-            return Arrays.toString((char[])object);
-        if(object instanceof double[])
-            return Arrays.toString((double[])object);
-        if(object instanceof float[])
-            return Arrays.toString((float[])object);
-        if(object instanceof int[])
-            return Arrays.toString((int[])object);
-        if(object instanceof long[])
-            return Arrays.toString((long[])object);
-        if(object instanceof short[])
-            return Arrays.toString((short[])object);
-        if(object instanceof Object[])
-            return Arrays.toString((Object[])object);
+        }
+        if (object instanceof boolean[]) {
+            return Arrays.toString((boolean[]) object);
+        }
+        if (object instanceof byte[]) {
+            return Arrays.toString((byte[]) object);
+        }
+        if (object instanceof char[]) {
+            return Arrays.toString((char[]) object);
+        }
+        if (object instanceof double[]) {
+            return Arrays.toString((double[]) object);
+        }
+        if (object instanceof float[]) {
+            return Arrays.toString((float[]) object);
+        }
+        if (object instanceof int[]) {
+            return Arrays.toString((int[]) object);
+        }
+        if (object instanceof long[]) {
+            return Arrays.toString((long[]) object);
+        }
+        if (object instanceof short[]) {
+            return Arrays.toString((short[]) object);
+        }
+        if (object instanceof Object[]) {
+            return Arrays.toString((Object[]) object);
+        }
         return object.toString();
     }
 
     public static String printBits(byte[] bytes) {
         StringBuilder builder = new StringBuilder();
-        for(int i = 0 ; i < bytes.length ; ++i)
+        for (int i = 0; i < bytes.length; ++i) {
             builder.append(printBits(bytes[i]));
+        }
         return builder.toString();
     }
 
@@ -52,8 +63,9 @@ public final class EzyPrints {
 
     public static String insertBegin(String str, String ch, int maxlen) {
         StringBuilder builder = new StringBuilder(str);
-        while(builder.length() < maxlen)
+        while (builder.length() < maxlen) {
             builder.insert(0, ch);
+        }
         return builder.toString();
     }
 
@@ -120,12 +132,21 @@ public final class EzyPrints {
             this.asNull = asNull;
         }
 
+        private static String padRight(String s, int n) {
+            return String.format("%1$-" + n + "s", s);
+        }
+
+        private static String safeGet(String[] array, int index, String defaultValue) {
+            return index < array.length ? array[index] : defaultValue;
+        }
+
         public void print(int[][] table) {
             String[][] strss = new String[table.length][];
             for (int i = 0; i < table.length; ++i) {
                 strss[i] = new String[table[i].length];
-                for (int k = 0; k < table[i].length; ++k)
+                for (int k = 0; k < table[i].length; ++k) {
                     strss[i][k] = String.valueOf(table[i][k]);
+                }
             }
             print(strss);
         }
@@ -151,8 +172,9 @@ public final class EzyPrints {
                     out.append(getRow(row, widths, lineLength))
                         .append("\n")
                         .append(horizontalBorder);
-                    if((index ++) < table.length - 1)
+                    if ((index++) < table.length - 1) {
                         out.append("\n");
+                    }
                 }
             }
         }
@@ -200,14 +222,6 @@ public final class EzyPrints {
                     }
                 }
             }
-        }
-
-        private static String padRight(String s, int n) {
-            return String.format("%1$-" + n + "s", s);
-        }
-
-        private static String safeGet(String[] array, int index, String defaultValue) {
-            return index < array.length ? array[index] : defaultValue;
         }
 
         private String getCellValue(Object value) {

@@ -1,15 +1,13 @@
 package com.tvd12.ezyfox.util;
 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-import java.util.function.Function;
-
+import com.tvd12.ezyfox.function.EzyExceptionVoid;
+import com.tvd12.ezyfox.function.EzyVoid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tvd12.ezyfox.function.EzyExceptionVoid;
-import com.tvd12.ezyfox.function.EzyVoid;
-import com.tvd12.ezyfox.util.EzyProcessor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.function.Function;
 
 public final class EzyProcessor {
 
@@ -20,8 +18,8 @@ public final class EzyProcessor {
     public static void processSilently(EzyExceptionVoid applier) {
         try {
             applier.apply();
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
     }
 
     public static void processWithException(EzyExceptionVoid applier) {
@@ -33,11 +31,10 @@ public final class EzyProcessor {
     }
 
     public static void processWithException(
-            EzyExceptionVoid applier, Function<Throwable, RuntimeException> handler) {
+        EzyExceptionVoid applier, Function<Throwable, RuntimeException> handler) {
         try {
             applier.apply();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw handler.apply(e);
         }
     }
@@ -49,12 +46,12 @@ public final class EzyProcessor {
     public static void processWithLogException(EzyExceptionVoid applier, boolean warn) {
         try {
             applier.apply();
-        }
-        catch(Exception e) {
-            if(warn)
+        } catch (Exception e) {
+            if (warn) {
                 warn("can't process " + applier, e);
-            else
+            } else {
                 debug("can't process " + applier, e);
+            }
         }
     }
 
@@ -68,31 +65,30 @@ public final class EzyProcessor {
         lock.lock();
         try {
             applier.apply();
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
 
     public static void processWithTryLock(EzyVoid applier, Lock lock) {
-        if(!lock.tryLock())
+        if (!lock.tryLock()) {
             return;
+        }
         try {
             applier.apply();
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }
 
     public static void processWithTryLock(
-            EzyVoid applier, Lock lock, long time) throws InterruptedException {
-        if(!tryLock(lock, time))
+        EzyVoid applier, Lock lock, long time) throws InterruptedException {
+        if (!tryLock(lock, time)) {
             return;
+        }
         try {
             applier.apply();
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }

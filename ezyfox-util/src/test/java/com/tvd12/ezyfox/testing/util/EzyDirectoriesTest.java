@@ -1,18 +1,17 @@
 package com.tvd12.ezyfox.testing.util;
 
-import static org.testng.Assert.assertEquals;
+import com.tvd12.ezyfox.util.EzyDirectories;
+import com.tvd12.ezyfox.util.EzyFileUtil;
+import com.tvd12.test.assertion.Asserts;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.util.EzyDirectories;
-import com.tvd12.ezyfox.util.EzyFileUtil;
-import com.tvd12.test.assertion.Asserts;
-import com.tvd12.test.base.BaseTest;
+import static org.testng.Assert.assertEquals;
 
 public class EzyDirectoriesTest extends BaseTest {
 
@@ -55,10 +54,10 @@ public class EzyDirectoriesTest extends BaseTest {
         URL[] urls = directories.getURLs();
         assertEquals(urls.length, 6);
 
-        urls = directories.getURLs(new String[] {"txt"});
+        urls = directories.getURLs(new String[]{"txt"});
         assertEquals(urls.length, 2);
 
-        urls = directories.getURLs(new String[] {"md"});
+        urls = directories.getURLs(new String[]{"md"});
         assertEquals(urls.length, 2);
 
         Collection<File> files = directories.getFiles();
@@ -70,21 +69,21 @@ public class EzyDirectoriesTest extends BaseTest {
     @Test
     public void test2() {
         String tree = new EzyDirectories()
-                .directory("tree-for-test/a.txt")
-                .printTree(true);
+            .directory("tree-for-test/a.txt")
+            .printTree(true);
         System.out.println(tree);
     }
 
     @Test
     public void test3() {
         Collection<File> files = new EzyDirectories()
-                .directory("tree-for-test")
-                .getFiles(new String[] {"txt"});
+            .directory("tree-for-test")
+            .getFiles(new String[]{"txt"});
         System.out.println(files);
 
         Collection<File> files1 = new EzyDirectories()
-                .directory("tree-for-test")
-                .getFiles(new String[] {"txt"}, false);
+            .directory("tree-for-test")
+            .getFiles(new String[]{"txt"}, false);
         System.out.println(files1);
     }
 
@@ -105,11 +104,11 @@ public class EzyDirectoriesTest extends BaseTest {
         EzyFileUtil.createFileIfNotExists(new File("copyFolderTest/hello/world.txt"));
         EzyFileUtil.createFileIfNotExists(new File("copyFolderTest/foo/bar.txt"));
         new File("copyFolderTest/no-files/").mkdir();
-        
+
         // when
         EzyDirectories.copyFolder(new File("not found"), new File("not found/copy"));
         EzyDirectories.copyFolder(new File("copyFolderTest"), new File("copyFolderTest/copy"));
-        
+
         // then
         Asserts.assertTrue(new File("copyFolderTest/copy/hello/world.txt").exists());
         Asserts.assertTrue(new File("copyFolderTest/copy/foo/bar.txt").exists());

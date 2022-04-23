@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.annotation.EzyAutoImpl;
 import com.tvd12.ezyfox.annotation.EzyId;
 import com.tvd12.ezyfox.annotation.EzyImport;
@@ -10,6 +8,7 @@ import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyImportReflection;
 import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzyImportReflectionTest {
 

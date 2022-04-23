@@ -1,8 +1,7 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyPair;
+import org.testng.annotations.Test;
 
 public class EzyPairTest {
 
@@ -16,15 +15,14 @@ public class EzyPairTest {
         assert pair.getValue() == 2;
         assert pair.equals(pair);
         assert !pair.equals(null);
-        assert !pair.equals((Object)new String());
+        assert !pair.equals((Object) new String());
         assert pair.equals(new EzyPair<>("b"));
         assert !pair.equals(new EzyPair<>("a"));
         assert pair.hashCode() == "b".hashCode();
         System.out.println(pair.toString());
         try {
             pair = new EzyPair<>(null);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assert e instanceof NullPointerException;
         }
     }

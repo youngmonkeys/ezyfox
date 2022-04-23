@@ -2,9 +2,9 @@ package com.tvd12.ezyfox.util;
 
 public class EzyHashCodes {
 
-    protected int hashCode;
     protected final int initial;
     protected final int prime;
+    protected int hashCode;
 
     public EzyHashCodes() {
         this(1, 31);

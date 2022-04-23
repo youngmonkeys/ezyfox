@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.io;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.io.EzyValueConverter;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzySimpleValueTransformerPrimitiveTest extends BaseTest {
 
@@ -17,11 +16,11 @@ public class EzySimpleValueTransformerPrimitiveTest extends BaseTest {
         assert !transformer.convert("FALSE", boolean.class);
         assert transformer.convert(Boolean.TRUE, boolean.class);
 
-        assert transformer.convert("1", byte.class) == (byte)1;
-        assert transformer.convert(1.0D, byte.class) == (byte)1;
+        assert transformer.convert("1", byte.class) == (byte) 1;
+        assert transformer.convert(1.0D, byte.class) == (byte) 1;
 
         assert transformer.convert(new Character('a'), char.class) == 'a';
-        assert transformer.convert(1.0D, char.class) == (char)1;
+        assert transformer.convert(1.0D, char.class) == (char) 1;
         assert transformer.convert("a", char.class) == 'a';
 
         assert transformer.convert("1.0", double.class) == 1.0D;
@@ -36,8 +35,8 @@ public class EzySimpleValueTransformerPrimitiveTest extends BaseTest {
         assert transformer.convert("1", long.class) == 1L;
         assert transformer.convert(1.0D, long.class) == 1L;
 
-        assert transformer.convert("1", short.class) == (short)1;
-        assert transformer.convert(1.0D, short.class) == (short)1;
+        assert transformer.convert("1", short.class) == (short) 1;
+        assert transformer.convert(1.0D, short.class) == (short) 1;
 
         assert transformer.convert(1, String.class).equals("1");
     }

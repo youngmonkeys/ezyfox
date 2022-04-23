@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.test.performance.Performance;
+import org.testng.annotations.Test;
 
 public class EzyLoggableTest extends EzyLoggable {
 
@@ -15,11 +14,11 @@ public class EzyLoggableTest extends EzyLoggable {
     @Test
     public void performanceTest() {
         long time1 = Performance.create()
-                .test(() -> new A())
-                .getTime();
+            .test(() -> new A())
+            .getTime();
         long time2 = Performance.create()
-                .test(() -> new B())
-                .getTime();
+            .test(() -> new B())
+            .getTime();
         System.out.println("EzyLoggableTest:performanceTest: time1: " + time1 + ", time2: " + time2);
     }
 

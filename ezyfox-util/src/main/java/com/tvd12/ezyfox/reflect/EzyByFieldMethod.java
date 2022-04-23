@@ -4,9 +4,9 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Map;
 
-public abstract class EzyByFieldMethod 
-        extends EzyMethod
-        implements EzyGenericElement, EzyKnownTypeElement {
+public abstract class EzyByFieldMethod
+    extends EzyMethod
+    implements EzyGenericElement, EzyKnownTypeElement {
 
     public EzyByFieldMethod(Method method) {
         super(method);

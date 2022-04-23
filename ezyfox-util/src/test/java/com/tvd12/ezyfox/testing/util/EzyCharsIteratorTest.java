@@ -7,11 +7,11 @@ public class EzyCharsIteratorTest extends EzyArrayIteratorTest {
 
     @Override
     protected Object newArray() {
-        return new char[] {'a', 'b', 'c'};
+        return new char[]{'a', 'b', 'c'};
     }
 
     @Override
     protected EzyArrayIterator<?> newIterator() {
-        return EzyCharsIterator.wrap(new char[] {'a', 'b', 'c'});
+        return EzyCharsIterator.wrap(new char[]{'a', 'b', 'c'});
     }
 }

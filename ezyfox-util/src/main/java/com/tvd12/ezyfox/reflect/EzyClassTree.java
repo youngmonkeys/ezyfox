@@ -17,8 +17,9 @@ public class EzyClassTree {
     }
 
     public EzyClassTree(Collection<Class<?>> classes) {
-        for(Class<?> clazz : classes)
+        for (Class<?> clazz : classes) {
             add(clazz);
+        }
     }
 
     public void add(Class<?> clazz) {
@@ -26,27 +27,29 @@ public class EzyClassTree {
     }
 
     private void add(Class<?> clazz, List<Node> existedNodes) {
-        if(existedNodes.isEmpty()) {
+        if (existedNodes.isEmpty()) {
             existedNodes.add(new Node(clazz));
             return;
         }
-        for(Node node : existedNodes) {
-            if(node.clazz.equals(clazz))
+        for (Node node : existedNodes) {
+            if (node.clazz.equals(clazz)) {
                 return;
+            }
         }
         List<Node> children = new ArrayList<>();
-        for(Node node : existedNodes) {
-            if(clazz.isAssignableFrom(node.clazz))
+        for (Node node : existedNodes) {
+            if (clazz.isAssignableFrom(node.clazz)) {
                 children.add(node);
+            }
         }
-        if(children.size() > 0) {
+        if (children.size() > 0) {
             Node newRootNode = new Node(clazz, children);
             existedNodes.removeAll(children);
             existedNodes.add(newRootNode);
             return;
         }
-        for(Node node : existedNodes) {
-            if(node.clazz.isAssignableFrom(clazz)) {
+        for (Node node : existedNodes) {
+            if (node.clazz.isAssignableFrom(clazz)) {
                 add(clazz, node.children);
                 return;
             }
@@ -56,16 +59,17 @@ public class EzyClassTree {
 
     public List<Class<?>> toList() {
         List<Class<?>> list = new ArrayList<>();
-        for(Node root : roots)
+        for (Node root : roots) {
             root.appendToList(list);
+        }
         return list;
     }
 
     @Override
     public String toString() {
         return String.join("\n", roots.stream()
-                .map(t -> t.toString())
-                .collect(Collectors.toList()));
+            .map(t -> t.toString())
+            .collect(Collectors.toList()));
     }
 
     private static class Node {
@@ -82,17 +86,19 @@ public class EzyClassTree {
         }
 
         private void appendToList(List<Class<?>> list) {
-            for(Node child : children)
+            for (Node child : children) {
                 child.appendToList(list);
+            }
             list.add(clazz);
         }
 
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder()
-                    .append(clazz.getName());
-            if(children.size() > 0)
+                .append(clazz.getName());
+            if (children.size() > 0) {
                 builder.append(" => ").append(children);
+            }
             return builder.toString();
         }
     }

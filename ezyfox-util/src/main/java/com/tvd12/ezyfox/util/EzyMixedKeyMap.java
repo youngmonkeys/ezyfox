@@ -1,11 +1,11 @@
 package com.tvd12.ezyfox.util;
 
+import com.tvd12.ezyfox.util.EzyMixedMap.EzyMixedKey;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
-
-import com.tvd12.ezyfox.util.EzyMixedMap.EzyMixedKey;
 
 public class EzyMixedKeyMap<V> {
 
@@ -19,15 +19,17 @@ public class EzyMixedKeyMap<V> {
         Map<Object, Object> keys = key.getKeys();
         Set<Object> keyTypeSet = keys.keySet();
         V value = null;
-        for(Object keyType : keyTypeSet) {
+        for (Object keyType : keyTypeSet) {
             Map<Object, V> map = maps.get(keyType);
-            if(map != null) {
+            if (map != null) {
                 Object keyValue = keys.get(keyType);
                 V v = map.get(keyValue);
-                if(value == null)
+                if (value == null) {
                     value = v;
-                if(value != v)
+                }
+                if (value != v) {
                     throw new IllegalArgumentException("too many value mapping to key: " + key);
+                }
             }
         }
         return value;
@@ -37,20 +39,22 @@ public class EzyMixedKeyMap<V> {
         Map<Object, Object> keys = key.getKeys();
         Set<Object> keyTypeSet = keys.keySet();
         V value = null;
-        for(Object keyType : keyTypeSet) {
+        for (Object keyType : keyTypeSet) {
             Map<Object, V> map = maps.get(keyType);
-            if(map != null) {
+            if (map != null) {
                 Object keyValue = keys.get(keyType);
                 V v = map.get(keyValue);
-                if(value == null)
+                if (value == null) {
                     value = v;
-                if(value != v)
+                }
+                if (value != v) {
                     throw new IllegalArgumentException("too many value mapping to key: " + key);
+                }
             }
         }
-        for(Object keyType : keyTypeSet) {
+        for (Object keyType : keyTypeSet) {
             Map<Object, V> map = maps.get(keyType);
-            if(map != null) {
+            if (map != null) {
                 Object keyValue = keys.get(keyType);
                 map.remove(keyValue);
             }
@@ -62,22 +66,23 @@ public class EzyMixedKeyMap<V> {
         Map<Object, Object> keys = key.getKeys();
         Set<Object> keyTypeSet = keys.keySet();
         V value = null;
-        for(Object keyType : keyTypeSet) {
+        for (Object keyType : keyTypeSet) {
             Map<Object, V> map = maps.get(keyType);
-            if(map == null) {
+            if (map == null) {
                 map = new HashMap<>();
                 maps.put(keyType, map);
-            }
-            else {
+            } else {
                 Object keyValue = keys.get(keyType);
                 value = map.get(keyValue);
-                if(value != null)
+                if (value != null) {
                     break;
+                }
             }
         }
-        if(value == null)
+        if (value == null) {
             value = valueSupplier.get();
-        for(Object keyType : keyTypeSet) {
+        }
+        for (Object keyType : keyTypeSet) {
             Object keyValue = keys.get(keyType);
             Map<Object, V> map = maps.get(keyType);
             map.put(keyValue, value);

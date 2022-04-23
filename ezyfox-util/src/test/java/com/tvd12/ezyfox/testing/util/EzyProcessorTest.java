@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.util;
 
+import com.tvd12.ezyfox.util.EzyProcessor;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.util.EzyProcessor;
-import com.tvd12.test.base.BaseTest;
 
 public class EzyProcessorTest extends BaseTest {
 
@@ -76,7 +75,9 @@ public class EzyProcessorTest extends BaseTest {
 
             public boolean tryLock(long time, TimeUnit timeUnit) throws InterruptedException {
                 throw new InterruptedException();
-            };
+            }
+
+            ;
         };
         try {
             EzyProcessor.processWithTryLock(() -> {
@@ -93,7 +94,9 @@ public class EzyProcessorTest extends BaseTest {
 
             public boolean tryLock(long time, TimeUnit timeUnit) throws InterruptedException {
                 return false;
-            };
+            }
+
+            ;
         };
         try {
             EzyProcessor.processWithTryLock(() -> {
@@ -108,9 +111,11 @@ public class EzyProcessorTest extends BaseTest {
         Lock lock = new ReentrantLock() {
             private static final long serialVersionUID = 616957346213118575L;
 
-            public boolean tryLock()  {
+            public boolean tryLock() {
                 return false;
-            };
+            }
+
+            ;
         };
         EzyProcessor.processWithTryLock(() -> {
         }, lock);
@@ -159,7 +164,7 @@ public class EzyProcessorTest extends BaseTest {
     @Test
     public void processSilentlyTest() {
         EzyProcessor.processSilently(() -> {});
-        EzyProcessor.processSilently(() -> { throw new Exception("just test"); });
+        EzyProcessor.processSilently(() -> {throw new Exception("just test");});
     }
 
     @Override

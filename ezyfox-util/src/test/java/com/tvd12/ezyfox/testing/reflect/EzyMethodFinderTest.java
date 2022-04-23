@@ -1,14 +1,13 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
+import com.tvd12.ezyfox.reflect.EzyMethodFinder;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.reflect.EzyMethodFinder;
-import com.tvd12.test.base.BaseTest;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 public class EzyMethodFinderTest extends BaseTest {
 
@@ -23,27 +22,27 @@ public class EzyMethodFinderTest extends BaseTest {
         assertNotNull(m1);
 
         Method m2 = EzyMethodFinder.builder()
-                .clazz(B.class)
-                .methodName("getName1")
-                .parameterTypes()
-                .build()
-                .find();
+            .clazz(B.class)
+            .methodName("getName1")
+            .parameterTypes()
+            .build()
+            .find();
         assertNotNull(m2);
 
         Method m3 = EzyMethodFinder.builder()
-                .clazz(B.class)
-                .methodName("getName2")
-                .parameterTypes()
-                .build()
-                .find();
+            .clazz(B.class)
+            .methodName("getName2")
+            .parameterTypes()
+            .build()
+            .find();
         assertNotNull(m3);
 
         Method m4 = EzyMethodFinder.builder()
-                .clazz(B.class)
-                .methodName("getName3")
-                .parameterTypes()
-                .build()
-                .find();
+            .clazz(B.class)
+            .methodName("getName3")
+            .parameterTypes()
+            .build()
+            .find();
         assertNull(m4);
     }
 

@@ -1,17 +1,15 @@
 package com.tvd12.ezyfox.testing.reflect;
 
+import com.tvd12.ezyfox.reflect.EzyFields;
+import com.tvd12.ezyfox.reflect.EzyGenericSetterValidator;
+import lombok.Data;
+import org.testng.annotations.Test;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.reflect.EzyFields;
-import com.tvd12.ezyfox.reflect.EzyGenericSetterValidator;
-
-import lombok.Data;
 
 public class EzySetterValidatorTest {
 
@@ -19,12 +17,12 @@ public class EzySetterValidatorTest {
     public void test() throws Exception {
         System.out.println("\n======= begin validator ========\n");
         List<Field> fields = EzyFields.getFields(ClassC.class);
-        for(Field field : fields) {
+        for (Field field : fields) {
             System.out.println("field " + field.getName() +
-                    ", valid = " + new EzyGenericSetterValidator().validate(field.getGenericType()) +
-                    ", instance of class = " + (field.getGenericType() instanceof Class) +
-                    ", instance of ParameterizedType " + (field.getGenericType() instanceof ParameterizedType) +
-                    ", genericType = " + field.getGenericType().getTypeName());
+                ", valid = " + new EzyGenericSetterValidator().validate(field.getGenericType()) +
+                ", instance of class = " + (field.getGenericType() instanceof Class) +
+                ", instance of ParameterizedType " + (field.getGenericType() instanceof ParameterizedType) +
+                ", genericType = " + field.getGenericType().getTypeName());
         }
         System.out.println("\n======= end validator ========\n");
     }
@@ -50,16 +48,16 @@ public class EzySetterValidatorTest {
         private int i;
         private int j;
     }
-    
+
     @Data
     @SuppressWarnings("rawtypes")
     public static class ClassC {
-        public ClassB classB; 
+        public ClassB classB;
         public ClassD classD;
         public boolean visible;
-        
+
         public ClassD<String> classD1;
-        
+
         public Map<String, String> map1;
         public List<List<String>> list1;
         public Map map2;
@@ -67,10 +65,10 @@ public class EzySetterValidatorTest {
         public Map<?, ?> map4;
         public List list2;
     }
-    
+
     public static class ClassD<T> {
         public ClassD(T value) {
-            
+
         }
     }
 }

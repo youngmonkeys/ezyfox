@@ -1,11 +1,11 @@
 package com.tvd12.ezyfox.util;
 
+import lombok.Getter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import lombok.Getter;
 
 public class ByteArray implements Serializable {
     private static final long serialVersionUID = 7607209931402134720L;
@@ -18,8 +18,9 @@ public class ByteArray implements Serializable {
     }
 
     public ByteArray(byte[] bytes) {
-        if(bytes == null)
+        if (bytes == null) {
             throw new NullPointerException("bytes can not be null");
+        }
         this.bytes = bytes;
     }
 
@@ -33,20 +34,24 @@ public class ByteArray implements Serializable {
 
     public static List<ByteArray> wrap(byte[][] bytess) {
         List<ByteArray> list = new ArrayList<>(bytess.length);
-        for(byte[] bytes : bytess)
+        for (byte[] bytes : bytess) {
             list.add(wrap(bytes));
+        }
         return list;
     }
 
     @Override
     public boolean equals(Object other) {
-        if(other == null)
+        if (other == null) {
             return false;
-        if(other == this)
+        }
+        if (other == this) {
             return true;
-        if(!other.getClass().equals(this.getClass()))
+        }
+        if (!other.getClass().equals(this.getClass())) {
             return false;
-        ByteArray t = (ByteArray)other;
+        }
+        ByteArray t = (ByteArray) other;
         boolean result = Arrays.equals(this.bytes, t.bytes);
         return result;
     }

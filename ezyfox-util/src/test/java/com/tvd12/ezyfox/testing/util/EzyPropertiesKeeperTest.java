@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.util.Properties;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyPropertiesKeeper;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.util.RandomUtil;
+import org.testng.annotations.Test;
+
+import java.util.Properties;
 
 public class EzyPropertiesKeeperTest extends BaseTest {
 
@@ -22,12 +21,12 @@ public class EzyPropertiesKeeperTest extends BaseTest {
         String key = RandomUtil.randomShortAlphabetString();
         String value = RandomUtil.randomShortHexString();
         ExPropertiesKeeper keeper = new ExPropertiesKeeper()
-                .properties(properties1)
-                .properties(properties1, "database")
-                .properties(properties2, "cache", true)
-                .propertiesFile("application-test.properties")
-                .propertiesFile("application-test.properties", "alpha")
-                .property(key, value);
+            .properties(properties1)
+            .properties(properties1, "database")
+            .properties(properties2, "cache", true)
+            .propertiesFile("application-test.properties")
+            .propertiesFile("application-test.properties", "alpha")
+            .property(key, value);
 
         // when
         Properties props = keeper.getProperties();

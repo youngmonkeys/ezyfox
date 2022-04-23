@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyField2Test extends BaseTest {
 
@@ -12,13 +11,13 @@ public class EzyField2Test extends BaseTest {
         EzyField field = new EzyField(ClassA.class.getDeclaredField("a"));
         field.set(new ClassA(), "10");
     }
-    
+
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public void test2() throws Exception {
         EzyField field = new EzyField(ClassA.class.getDeclaredField("a"));
         field.get(this);
     }
-    
+
     @Test
     public void test3() throws Exception {
         EzyField field = new EzyField(ClassA.class.getDeclaredField("b"));
@@ -27,7 +26,7 @@ public class EzyField2Test extends BaseTest {
         field.set(obj, "10");
         assert field.get(obj).equals("10");
     }
-    
+
     public static class ClassA {
         protected final String a = "a";
         public String b = "b";

@@ -1,14 +1,12 @@
 package com.tvd12.ezyfox.testing.net;
 
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.net.EzySocketAddresses;
 import com.tvd12.test.base.BaseTest;
-
 import lombok.AllArgsConstructor;
+import org.testng.annotations.Test;
+
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 
 public class EzySocketAddressesTest extends BaseTest {
 

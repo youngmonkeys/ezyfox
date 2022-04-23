@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.util;
 
+import com.tvd12.ezyfox.function.EzySupplier;
+
 import java.util.concurrent.locks.Lock;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import com.tvd12.ezyfox.function.EzySupplier;
 
 public final class EzyReturner {
 
@@ -16,7 +16,9 @@ public final class EzyReturner {
     }
 
     public static <T> T returnAndApply(T rvalue, Runnable applier) {
-        T temp = rvalue; applier.run(); return temp;
+        T temp = rvalue;
+        applier.run();
+        return temp;
     }
 
     public static <T> T returnWithException(EzySupplier<T> supplier) {
@@ -28,11 +30,10 @@ public final class EzyReturner {
     }
 
     public static <T> T returnWithException(
-            EzySupplier<T> supplier, Function<Throwable, RuntimeException> handler) {
+        EzySupplier<T> supplier, Function<Throwable, RuntimeException> handler) {
         try {
             return supplier.get();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw handler.apply(e);
         }
     }
@@ -47,8 +48,7 @@ public final class EzyReturner {
         lock.lock();
         try {
             return supplier.get();
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
     }

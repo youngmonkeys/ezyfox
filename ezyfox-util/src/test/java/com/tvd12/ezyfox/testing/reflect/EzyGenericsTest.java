@@ -1,14 +1,13 @@
 package com.tvd12.ezyfox.testing.reflect;
 
+import com.tvd12.ezyfox.reflect.EzyGenerics;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
-
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.reflect.EzyGenerics;
-import com.tvd12.test.base.BaseTest;
 
 public class EzyGenericsTest extends BaseTest {
 

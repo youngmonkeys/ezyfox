@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.util;
 
+import com.tvd12.ezyfox.collect.Sets;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,13 +12,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import com.tvd12.ezyfox.collect.Sets;
-
 public final class EzyFileUtil {
 
+    public static final char EXTENSION_SEPARATOR = '.';
     private static final int NOT_FOUND = -1;
     private static final String EMPTY_STRING = "";
-    public static final char EXTENSION_SEPARATOR = '.';
     private static final Predicate<File> EMPTY_FILTER = t -> true;
 
     private EzyFileUtil() {
@@ -27,49 +27,53 @@ public final class EzyFileUtil {
     }
 
     public static Collection<File> listFiles(
-            File directory,
-            String[] extensions, boolean recursive) {
+        File directory,
+        String[] extensions, boolean recursive) {
         return listFiles(directory, Sets.newHashSet(extensions), recursive);
     }
 
     public static Collection<File> listFiles(
-            File directory,
-            Set<String> extensions, boolean recursive) {
+        File directory,
+        Set<String> extensions, boolean recursive) {
         ExtensionsFilter filter = new ExtensionsFilter(extensions);
         return listFiles(directory, filter, recursive);
     }
 
     public static Collection<File> listFiles(
-            File directory,
-            Predicate<File> filter, boolean recursive) {
+        File directory,
+        Predicate<File> filter, boolean recursive) {
         List<File> files = new ArrayList<>();
         listFiles0(directory, filter, recursive, files);
         return files;
     }
 
     private static void listFiles0(
-            File directory,
-            Predicate<File> filter,
-            boolean recursive, Collection<File> output) {
+        File directory,
+        Predicate<File> filter,
+        boolean recursive, Collection<File> output) {
         File[] files = directory.listFiles();
-        for(File file : files) {
-                if(file.isDirectory())
-                    continue;
-                if(filter.test(file))
-                    output.add(file);
+        for (File file : files) {
+            if (file.isDirectory()) {
+                continue;
+            }
+            if (filter.test(file)) {
+                output.add(file);
+            }
         }
-        if(recursive) {
-                for(File file : files) {
-                    if(file.isDirectory())
-                        listFiles0(file, filter, recursive, output);
+        if (recursive) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    listFiles0(file, filter, recursive, output);
                 }
+            }
         }
     }
 
     public static String getFileExtension(String fileName) {
         int index = fileName.lastIndexOf(EXTENSION_SEPARATOR);
-        if (index == NOT_FOUND)
+        if (index == NOT_FOUND) {
             return EMPTY_STRING;
+        }
         String answer = fileName.substring(index + 1);
         return answer;
     }
@@ -87,10 +91,12 @@ public final class EzyFileUtil {
 
     public static String getFileName(String filePath) {
         int index = filePath.lastIndexOf('/');
-        if(index < 0)
+        if (index < 0) {
             return filePath;
-        if(index >= filePath.length() - 1)
+        }
+        if (index >= filePath.length() - 1) {
             return filePath;
+        }
         return filePath.substring(index + 1, filePath.length());
     }
 
@@ -121,10 +127,11 @@ public final class EzyFileUtil {
         @Override
         public boolean test(File file) {
             String fileName = file.getName();
-                String fileExtension = getFileExtension(fileName);
-                if(extensions.contains(fileExtension))
-                    return true;
-                return false;
+            String fileExtension = getFileExtension(fileName);
+            if (extensions.contains(fileExtension)) {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.util.Date;
-
+import com.tvd12.ezyfox.util.EzyLoggable;
 import org.testng.annotations.Test;
 
-import com.tvd12.ezyfox.util.EzyLoggable;
+import java.util.Date;
 
 public class LoggerTest extends EzyLoggable {
 
@@ -12,8 +11,7 @@ public class LoggerTest extends EzyLoggable {
     public void test() {
         try {
             a();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             getLogger().info("error at: {}", new Date(), e);
         }
     }

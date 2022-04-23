@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.testing.io;
 
+import org.testng.annotations.Test;
+
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-
-import org.testng.annotations.Test;
 
 public class CharBufferTest {
 
@@ -18,8 +18,7 @@ public class CharBufferTest {
             byte[] bytes = new byte[hello.length()];
             buffer.get(bytes);
             System.out.println(new String(bytes));
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
         }
     }
 }

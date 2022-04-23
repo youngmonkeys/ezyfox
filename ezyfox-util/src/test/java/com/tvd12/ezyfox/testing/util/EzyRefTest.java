@@ -1,8 +1,7 @@
 package com.tvd12.ezyfox.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyRef;
+import org.testng.annotations.Test;
 
 public class EzyRefTest {
 

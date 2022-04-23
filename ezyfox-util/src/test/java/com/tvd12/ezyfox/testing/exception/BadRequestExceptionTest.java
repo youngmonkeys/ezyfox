@@ -1,8 +1,7 @@
 package com.tvd12.ezyfox.testing.exception;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.exception.BadRequestException;
+import org.testng.annotations.Test;
 
 public class BadRequestExceptionTest {
 

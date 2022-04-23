@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.io;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.io.EzyValueConverter;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzySimpleValueTransformerWrapperTest extends BaseTest {
 
@@ -17,11 +16,11 @@ public class EzySimpleValueTransformerWrapperTest extends BaseTest {
         assert !transformer.convert("FALSE", Boolean.class);
         assert transformer.convert(Boolean.TRUE, Boolean.class);
 
-        assert transformer.convert("1", Byte.class) == (byte)1;
-        assert transformer.convert(1.0D, Byte.class) == (byte)1;
+        assert transformer.convert("1", Byte.class) == (byte) 1;
+        assert transformer.convert(1.0D, Byte.class) == (byte) 1;
 
         assert transformer.convert(new Character('a'), Character.class) == 'a';
-        assert transformer.convert(1.0D, Character.class) == (char)1;
+        assert transformer.convert(1.0D, Character.class) == (char) 1;
         assert transformer.convert("a", Character.class) == 'a';
 
         assert transformer.convert("1.0", Double.class) == 1.0D;
@@ -36,8 +35,8 @@ public class EzySimpleValueTransformerWrapperTest extends BaseTest {
         assert transformer.convert("1", Long.class) == 1L;
         assert transformer.convert(1.0D, Long.class) == 1L;
 
-        assert transformer.convert("1", Short.class) == (short)1;
-        assert transformer.convert(1.0D, Short.class) == (short)1;
+        assert transformer.convert("1", Short.class) == (short) 1;
+        assert transformer.convert(1.0D, Short.class) == (short) 1;
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

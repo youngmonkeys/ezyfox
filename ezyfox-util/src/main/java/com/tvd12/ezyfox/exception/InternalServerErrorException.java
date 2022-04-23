@@ -8,14 +8,14 @@ public class InternalServerErrorException extends RuntimeException {
     }
 
     public InternalServerErrorException(String msg) {
-            super(msg);
+        super(msg);
     }
 
     public InternalServerErrorException(Exception e) {
-            super("server error", e);
+        super("server error", e);
     }
 
     public InternalServerErrorException(String msg, Exception e) {
-            super(msg, e);
+        super(msg, e);
     }
 }

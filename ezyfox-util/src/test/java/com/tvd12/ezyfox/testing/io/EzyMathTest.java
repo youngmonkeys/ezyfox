@@ -1,41 +1,40 @@
 package com.tvd12.ezyfox.testing.io;
 
-import static org.testng.Assert.assertEquals;
-
-import java.nio.ByteBuffer;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyLongs;
 import com.tvd12.ezyfox.io.EzyMath;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
+import org.testng.annotations.Test;
+
+import java.nio.ByteBuffer;
+
+import static org.testng.Assert.assertEquals;
 
 public class EzyMathTest extends BaseTest {
 
     @Test
     public void test() {
         assertEquals(EzyMath.bin2uint(
-                new byte[] {1, 2, 3, 4}),
-                ByteBuffer.wrap(new byte[] {1, 2, 3, 4}).getInt());
+                new byte[]{1, 2, 3, 4}),
+            ByteBuffer.wrap(new byte[]{1, 2, 3, 4}).getInt());
         assertEquals(EzyMath.bin2int(8), 255);
 
         assertEquals(EzyMath.bin2ulong(
-                new byte[] {1, 2, 3, 4, 5, 6, 7, 8}),
-                ByteBuffer.wrap(new byte[] {1, 2, 3, 4, 5, 6, 7, 8}).getLong());
+                new byte[]{1, 2, 3, 4, 5, 6, 7, 8}),
+            ByteBuffer.wrap(new byte[]{1, 2, 3, 4, 5, 6, 7, 8}).getLong());
         assertEquals(EzyMath.bin2long(40), 1099511627775L);
 
         assertEquals(EzyMath.bin2int(
                 getBytes(ByteBuffer.allocate(4).putInt(-100))),
-                -100);
+            -100);
 
         assertEquals(EzyMath.bin2long(
                 getBytes(ByteBuffer.allocate(8).putLong(-100000))),
-                -100000L);
-        byte[] xor = new byte[] {(byte) 255, (byte) 255, (byte) 255};
+            -100000L);
+        byte[] xor = new byte[]{(byte) 255, (byte) 255, (byte) 255};
         EzyMath.xor(xor);
-        assertEquals(xor, new byte[] {0, 0, 0});
+        assertEquals(xor, new byte[]{0, 0, 0});
     }
 
     protected byte[] getBytes(ByteBuffer buffer) {
@@ -51,16 +50,16 @@ public class EzyMathTest extends BaseTest {
         buffer.get(bytes);
         assert EzyMath.bin2long(bytes) == Long.MAX_VALUE;
         long time1 = Performance.create()
-                .test(() -> {
-                    EzyMath.bin2long(bytes);
-                })
-                .getTime();
+            .test(() -> {
+                EzyMath.bin2long(bytes);
+            })
+            .getTime();
         long time2 = Performance.create()
-                .test(() -> {
-                    ByteBuffer buf = ByteBuffer.wrap(bytes);
-                    buf.getLong();
-                })
-                .getTime();
+            .test(() -> {
+                ByteBuffer buf = ByteBuffer.wrap(bytes);
+                buf.getLong();
+            })
+            .getTime();
         System.out.println("time1: " + time1 + ", time2: " + time2);
     }
 
@@ -73,16 +72,16 @@ public class EzyMathTest extends BaseTest {
         buffer.get(bytes);
         assert EzyMath.bin2long(bytes) == Integer.MAX_VALUE;
         long time1 = Performance.create()
-                .test(() -> {
-                    EzyMath.bin2long(bytes);
-                })
-                .getTime();
+            .test(() -> {
+                EzyMath.bin2long(bytes);
+            })
+            .getTime();
         long time2 = Performance.create()
-                .test(() -> {
-                    ByteBuffer buf = ByteBuffer.wrap(bytes);
-                    buf.getInt();
-                })
-                .getTime();
+            .test(() -> {
+                ByteBuffer buf = ByteBuffer.wrap(bytes);
+                buf.getInt();
+            })
+            .getTime();
         System.out.println("time1: " + time1 + ", time2: " + time2);
     }
 
@@ -93,17 +92,17 @@ public class EzyMathTest extends BaseTest {
         buffer.flip();
         assert EzyLongs.bin2long(buffer) == Long.MAX_VALUE;
         long time1 = Performance.create()
-                .test(() -> {
-                    buffer.flip();
-                    EzyLongs.bin2long(buffer);
-                })
-                .getTime();
+            .test(() -> {
+                buffer.flip();
+                EzyLongs.bin2long(buffer);
+            })
+            .getTime();
         long time2 = Performance.create()
-                .test(() -> {
-                    buffer.flip();
-                    buffer.getLong();
-                })
-                .getTime();
+            .test(() -> {
+                buffer.flip();
+                buffer.getLong();
+            })
+            .getTime();
         System.out.println("time1: " + time1 + ", time2: " + time2);
     }
 

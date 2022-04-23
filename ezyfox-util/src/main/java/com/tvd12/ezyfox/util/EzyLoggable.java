@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 public class EzyLoggable {
 
     protected transient final Logger logger
-            = LoggerFactory.getLogger(getClass());
+        = LoggerFactory.getLogger(getClass());
 
     protected Logger getLogger() {
         return logger;

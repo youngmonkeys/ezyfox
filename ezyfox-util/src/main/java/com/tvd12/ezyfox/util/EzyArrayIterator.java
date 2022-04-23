@@ -13,7 +13,7 @@ public abstract class EzyArrayIterator<E> implements Iterator<E> {
 
     @Override
     public E next() {
-        return getItem(rindex ++);
+        return getItem(rindex++);
     }
 
     protected abstract int getLength();

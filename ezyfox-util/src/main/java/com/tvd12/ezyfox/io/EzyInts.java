@@ -28,12 +28,15 @@ public final class EzyInts {
     }
 
     public static int bin2int(ByteBuffer buffer, int size) {
-        if(size == 4)
+        if (size == 4) {
             return buffer.getInt();
-        if(size == 2)
+        }
+        if (size == 2) {
             return buffer.getShort();
-        if(size == 1)
+        }
+        if (size == 1) {
             return buffer.get();
+        }
         return bin2int(EzyBytes.copy(buffer, size));
     }
 

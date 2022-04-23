@@ -1,18 +1,17 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static org.testng.Assert.assertEquals;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyGetterMethod;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class EzyGetterMethodTest extends BaseTest {
 
     @Test
     public void test() throws Exception {
         EzyGetterMethod getter = new EzyGetterMethod(
-                ClassA.class.getDeclaredMethod("getValue"));
+            ClassA.class.getDeclaredMethod("getValue"));
         assertEquals(getter.getType(), String.class);
         assertEquals(getter.getGenericType(), String.class);
         assertEquals(getter.isMapType(), false);
@@ -21,28 +20,28 @@ public class EzyGetterMethodTest extends BaseTest {
         assertEquals(getter.getTypeName(), String.class.getTypeName());
 
         EzyGetterMethod getter2 = new EzyGetterMethod(
-                ClassA.class.getDeclaredMethod("isHello"));
+            ClassA.class.getDeclaredMethod("isHello"));
         assert getter2.getFieldName().equals("hello");
     }
 
     @Test
     public void test2() throws Exception {
         EzyGetterMethod getter = new EzyGetterMethod(
-                ClassA.class.getDeclaredMethod("getA"));
+            ClassA.class.getDeclaredMethod("getA"));
         assertEquals(getter.getFieldName(), "a");
     }
 
     @Test
     public void test3() throws Exception {
         EzyGetterMethod getter = new EzyGetterMethod(
-                ClassA.class.getDeclaredMethod("duplicateValue"));
+            ClassA.class.getDeclaredMethod("duplicateValue"));
         assertEquals(getter.getFieldName(), "duplicateValue");
     }
 
     @Test
     public void test4() throws Exception {
         EzyGetterMethod get = new EzyGetterMethod(
-                ClassA.class.getDeclaredMethod("get"));
+            ClassA.class.getDeclaredMethod("get"));
         assert get.getFieldName().equals("get");
     }
 

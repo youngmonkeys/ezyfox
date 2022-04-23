@@ -1,16 +1,15 @@
 package com.tvd12.ezyfox.testing.collect;
 
-import static org.testng.Assert.assertEquals;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.collect.Sets;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.collect.Lists;
-import com.tvd12.ezyfox.collect.Sets;
-import com.tvd12.test.base.BaseTest;
+import static org.testng.Assert.assertEquals;
 
 public class SetsTest extends BaseTest {
 

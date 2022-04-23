@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.testing.asm;
 
-import static org.testng.Assert.assertEquals;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class EzyInstructionTest extends BaseTest {
 
@@ -16,17 +15,17 @@ public class EzyInstructionTest extends BaseTest {
 
         instruction = new EzyInstruction();
         assertEquals(instruction.constructor(A.class).toString(),
-                A.class.getName() + "();");
+            A.class.getName() + "();");
 
         instruction = new EzyInstruction();
-        assertEquals(instruction.append((Object)"hello").toString(), "hello;");
+        assertEquals(instruction.append((Object) "hello").toString(), "hello;");
 
         instruction = new EzyInstruction();
         assertEquals(instruction.string("hello").toString(), "\"hello\";");
 
         instruction = new EzyInstruction();
         assertEquals(instruction.clazz(A.class, true).toString(),
-                A.class.getName() + ".class;");
+            A.class.getName() + ".class;");
 
         instruction = new EzyInstruction();
         assertEquals(instruction.dot().toString(), ".;");
@@ -39,43 +38,43 @@ public class EzyInstructionTest extends BaseTest {
 
         instruction = new EzyInstruction();
         assertEquals(instruction.brackets(A.class).toString(),
-                "(" + A.class.getTypeName() + ");");
+            "(" + A.class.getTypeName() + ");");
 
         instruction = new EzyInstruction();
         assertEquals(instruction.brackets("hello").toString(), "(hello);");
 
         instruction = new EzyInstruction();
         assertEquals(instruction.variable(A.class).toString(),
-                A.class.getTypeName() + " a;");
+            A.class.getTypeName() + " a;");
 
         instruction = new EzyInstruction();
         assertEquals(instruction.cast(A.class, "va").toString(),
-                "((" + A.class.getTypeName() + ")(va));");
+            "((" + A.class.getTypeName() + ")(va));");
 
         instruction = new EzyInstruction();
         assertEquals(instruction.valueOf(int.class, "value").toString(),
-                Integer.class.getName() + ".valueOf(value);");
+            Integer.class.getName() + ".valueOf(value);");
 
         instruction = new EzyInstruction();
         assertEquals(instruction.valueOf(Integer.class, "value").toString(), "value;");
 
         instruction = new EzyInstruction("", "", true);
-        assertEquals(instruction.append((Object)"hello").toString(), "hello;");
+        assertEquals(instruction.append((Object) "hello").toString(), "hello;");
 
         instruction = new EzyInstruction("", "", true);
-        assertEquals(instruction.append((Object)"hello;").toString(), "hello;");
+        assertEquals(instruction.append((Object) "hello;").toString(), "hello;");
 
         instruction = new EzyInstruction("", "", false);
-        assertEquals(instruction.append((Object)"hello").toString(true), "hello");
+        assertEquals(instruction.append((Object) "hello").toString(true), "hello");
 
         instruction = new EzyInstruction("", "", true);
-        assertEquals(instruction.append((Object)"hello;").toString(true), "hello;");
+        assertEquals(instruction.append((Object) "hello;").toString(true), "hello;");
 
         instruction = new EzyInstruction("", "", true);
-        assertEquals(instruction.append((Object)"hello;").toString(false), "hello;");
+        assertEquals(instruction.append((Object) "hello;").toString(false), "hello;");
 
         instruction = new EzyInstruction("", "", true);
-        assertEquals(instruction.append((Object)"hello").toString(false), "hello");
+        assertEquals(instruction.append((Object) "hello").toString(false), "hello");
 
         instruction = new EzyInstruction("", "", true);
         instruction.invoke("object", "hello");
@@ -130,39 +129,39 @@ public class EzyInstructionTest extends BaseTest {
     @Test
     public void defaultValueTest() {
         EzyInstruction instruction = new EzyInstruction("", "", false)
-                .defaultValue(boolean.class);
+            .defaultValue(boolean.class);
         assert instruction.toString().equals("false");
 
         instruction = new EzyInstruction("", "", false)
-                .defaultValue(byte.class);
+            .defaultValue(byte.class);
         assert instruction.toString().equals("(byte)0");
 
         instruction = new EzyInstruction("", "", false)
-                .defaultValue(char.class);
+            .defaultValue(char.class);
         assert instruction.toString().equals("(char)0");
 
         instruction = new EzyInstruction("", "", false)
-                .defaultValue(double.class);
+            .defaultValue(double.class);
         assert instruction.toString().equals("0D");
 
         instruction = new EzyInstruction("", "", false)
-                .defaultValue(float.class);
+            .defaultValue(float.class);
         assert instruction.toString().equals("0F");
 
         instruction = new EzyInstruction("", "", false)
-                .defaultValue(int.class);
+            .defaultValue(int.class);
         assert instruction.toString().equals("0");
 
         instruction = new EzyInstruction("", "", false)
-                .defaultValue(long.class);
+            .defaultValue(long.class);
         assert instruction.toString().equals("0L");
 
         instruction = new EzyInstruction("", "", false)
-                .defaultValue(short.class);
+            .defaultValue(short.class);
         assert instruction.toString().equals("(short)0");
 
         instruction = new EzyInstruction("", "", false)
-                .defaultValue(String.class);
+            .defaultValue(String.class);
         assert instruction.toString().equals("null");
     }
 

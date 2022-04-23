@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import java.lang.reflect.Constructor;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.lang.reflect.Constructor;
 
 public class EzyClassesTest extends BaseTest {
 
@@ -58,14 +57,14 @@ public class EzyClassesTest extends BaseTest {
     @Test
     public void newInstanceTest() {
         Asserts.assertNotNull(EzyClasses.newInstance(
-                ClassA.class.getName(),
-                new Class<?>[] {boolean.class},
-                new Object[] {true}));
+            ClassA.class.getName(),
+            new Class<?>[]{boolean.class},
+            new Object[]{true}));
 
         Asserts.assertNotNull(EzyClasses.newInstance(
-                ClassA.class.getName(),
-                new Class<?>[] {String.class},
-                new Object[] {true}));
+            ClassA.class.getName(),
+            new Class<?>[]{String.class},
+            new Object[]{true}));
     }
 
     @Override

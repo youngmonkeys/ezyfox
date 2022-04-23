@@ -13,6 +13,6 @@ public class ClassTypeTest {
 
         Map<String, String> map = new HashMap<>();
         Class clazz = map.getClass();
-        System.out.println((Type)clazz instanceof ParameterizedType);
+        System.out.println((Type) clazz instanceof ParameterizedType);
     }
 }

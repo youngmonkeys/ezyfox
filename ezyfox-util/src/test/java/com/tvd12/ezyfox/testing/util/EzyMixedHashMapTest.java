@@ -1,20 +1,18 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.util.EzyMapBuilder;
 import com.tvd12.ezyfox.util.EzyMixedHashMap;
 import com.tvd12.ezyfox.util.EzyMixedMap;
 import com.tvd12.ezyfox.util.EzyMixedMap.EzyMixedKey;
 import com.tvd12.test.performance.Performance;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.testng.annotations.Test;
+
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class EzyMixedHashMapTest {
 
@@ -26,10 +24,10 @@ public class EzyMixedHashMapTest {
         EzyMixedMap<ReentrantLock> map = new EzyMixedHashMap<>();
         ComplexQuery query = new ComplexQuery("1", "1", "foo", "bar", "hello");
         long time = Performance.create()
-                .test(() -> {
-                    map.computeIfAbsent(query, () -> new ReentrantLock());
-                })
-                .getTime();
+            .test(() -> {
+                map.computeIfAbsent(query, () -> new ReentrantLock());
+            })
+            .getTime();
         System.out.println(time);
         ReentrantLock value = map.computeIfAbsent(query, () -> new ReentrantLock());
         ReentrantLock value2 = map.get(query);
@@ -102,12 +100,12 @@ public class EzyMixedHashMapTest {
         @Override
         public Map<Object, Object> getKeys() {
             return EzyMapBuilder.mapBuilder()
-                    .put("talkId", talkId)
-                    .put("phoneNumber", phoneNumber)
-                    .put("foo", foo)
-                    .put("bar", bar)
-                    .put("hello", hello)
-                    .build();
+                .put("talkId", talkId)
+                .put("phoneNumber", phoneNumber)
+                .put("foo", foo)
+                .put("bar", bar)
+                .put("hello", hello)
+                .build();
         }
 
     }
@@ -127,13 +125,13 @@ public class EzyMixedHashMapTest {
         @Override
         public Map<Object, Object> getKeys() {
             return EzyMapBuilder.mapBuilder()
-                    .put("talkId", talkId)
-                    .put("phoneNumber", phoneNumber)
-                    .put("foo", foo)
-                    .put("bar", bar)
-                    .put("hello", hello)
-                    .put("world", world)
-                    .build();
+                .put("talkId", talkId)
+                .put("phoneNumber", phoneNumber)
+                .put("foo", foo)
+                .put("bar", bar)
+                .put("hello", hello)
+                .put("world", world)
+                .build();
         }
 
         @Override

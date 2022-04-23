@@ -1,30 +1,34 @@
 package com.tvd12.ezyfox.reflect;
 
+import com.tvd12.ezyfox.function.EzyValidator;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.WildcardType;
 import java.util.Set;
 
-import com.tvd12.ezyfox.function.EzyValidator;
-
 public class EzyGenericSetterValidator implements EzyValidator<Type> {
 
     @Override
     public boolean validate(Type genericType) {
-        if(genericType instanceof WildcardType)
+        if (genericType instanceof WildcardType) {
             return false;
-        if(genericType instanceof Class)
+        }
+        if (genericType instanceof Class) {
             return validateClassType(genericType);
-        if(genericType instanceof ParameterizedType)
-            return validate((ParameterizedType)genericType);
+        }
+        if (genericType instanceof ParameterizedType) {
+            return validate((ParameterizedType) genericType);
+        }
         return false;
     }
 
     protected boolean validate(ParameterizedType parameterizedType) {
         Type[] types = parameterizedType.getActualTypeArguments();
-        for(Type type : types) {
-            if(!validate(type))
+        for (Type type : types) {
+            if (!validate(type)) {
                 return false;
+            }
         }
         return true;
     }

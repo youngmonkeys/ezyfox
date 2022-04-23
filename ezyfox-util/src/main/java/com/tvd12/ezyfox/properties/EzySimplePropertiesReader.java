@@ -1,15 +1,15 @@
 package com.tvd12.ezyfox.properties;
 
-import java.util.Map;
-
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.io.EzyValueConverter;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
+import java.util.Map;
+
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class EzySimplePropertiesReader
-        extends EzyLoggable
-        implements EzyPropertiesReader {
+    extends EzyLoggable
+    implements EzyPropertiesReader {
 
     protected final EzyValueConverter conveter;
 

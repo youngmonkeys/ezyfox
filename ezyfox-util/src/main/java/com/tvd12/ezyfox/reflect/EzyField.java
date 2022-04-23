@@ -1,5 +1,10 @@
 package com.tvd12.ezyfox.reflect;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.util.EzyEquals;
+import com.tvd12.ezyfox.util.EzyHashCodes;
+import lombok.Getter;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -7,20 +12,18 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
 
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.util.EzyEquals;
-import com.tvd12.ezyfox.util.EzyHashCodes;
-
-import lombok.Getter;
-
-public class EzyField 
-        implements EzyReflectElement, EzyGenericElement, EzyKnownTypeElement {
+public class EzyField
+    implements EzyReflectElement, EzyGenericElement, EzyKnownTypeElement {
 
     @Getter
     protected final Field field;
 
     public EzyField(Field field) {
         this.field = field;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public Object get(Object obj) {
@@ -88,24 +91,20 @@ public class EzyField
     @Override
     public boolean equals(Object obj) {
         return new EzyEquals<EzyField>()
-                .function(f -> f.field)
-                .isEquals(this, obj);
+            .function(f -> f.field)
+            .isEquals(this, obj);
     }
 
     @Override
     public int hashCode() {
         return new EzyHashCodes()
-                .append(field)
-                .toHashCode();
+            .append(field)
+            .toHashCode();
     }
 
     @Override
     public String toString() {
         return field.toString();
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     @SuppressWarnings("rawtypes")

@@ -1,19 +1,15 @@
 /**
- * 
+ *
  */
 package com.tvd12.ezyfox.io;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import com.tvd12.ezyfox.collect.Lists;
+
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import com.tvd12.ezyfox.collect.Lists;
 
 /**
  * @author tavandung12
@@ -23,10 +19,10 @@ public final class EzyLists {
 
     // prevent new instance
     private EzyLists() {}
-    
+
     /**
      * Combine some collections to one
-     * 
+     *
      * @param <T> the value type
      * @param lists the collections to combine 
      * @return a new list
@@ -34,44 +30,46 @@ public final class EzyLists {
     @SuppressWarnings("unchecked")
     public static <T> List<T> combine(Collection<T>... lists) {
         List<T> answer = new ArrayList<>();
-        for(Collection<T> list : lists)
+        for (Collection<T> list : lists) {
             answer.addAll(list);
+        }
         return answer;
     }
-    
+
     /**
      * Transform for each item in a collection to new collection 
      * and add to new list
-     * 
+     *
      * @param coll the collection
      * @param trans the transformer
      * @return the new list
      */
     public static <I, O> List<O> newHashSetByAddAll(
-            Collection<I> coll, Function<I, Collection<O>> trans) {
+        Collection<I> coll, Function<I, Collection<O>> trans) {
         List<O> set = new ArrayList<>();
-        for(I input : coll)
+        for (I input : coll) {
             set.addAll(trans.apply(input));
+        }
         return set;
     }
-    
-    
+
+
     /**
      * Filter the collection and create a new list
-     * 
+     *
      * @param <T> the value type
      * @param coll the collection
      * @param predicate the predicate
      * @return a new list
      */
     public static <T> List<T> filter(Collection<T> coll, Predicate<T> predicate) {
-            List<T> answer = coll.stream().filter(predicate).collect(Collectors.toList());
-            return answer;
+        List<T> answer = coll.stream().filter(predicate).collect(Collectors.toList());
+        return answer;
     }
-    
+
     /**
      * Remove some item from the collection and create a new list
-     * 
+     *
      * @param <T> the value type
      * @param coll the collection
      * @param except the unexpected items
@@ -82,10 +80,10 @@ public final class EzyLists {
         answer.removeAll(except);
         return answer;
     }
-    
+
     /**
      * Remove some item from the collection and create a new list
-     * 
+     *
      * @param <T> the value type
      * @param coll the collection
      * @param except the unexpected items
@@ -95,10 +93,10 @@ public final class EzyLists {
     public static <T> List<T> newArrayList(Collection<T> coll, T... except) {
         return newArrayList(coll, Arrays.asList(except));
     }
-    
+
     /**
      * Transform an array to a new list
-     * 
+     *
      * @param <I> the input type
      * @param <O> the output type
      * @param input the input
@@ -108,10 +106,10 @@ public final class EzyLists {
     public static <I, O> List<O> newArrayList(I[] input, Function<I, O> refactor) {
         return newArrayList(Lists.newArrayList(input), refactor);
     }
-    
+
     /**
      * Transform a collection to a new list
-     * 
+     *
      * @param <I> the input type
      * @param <O> the output type
      * @param input the input
@@ -120,15 +118,16 @@ public final class EzyLists {
      */
     public static <I, O> List<O> newArrayList(Collection<I> input, Function<I, O> refactor) {
         List<O> answer = new ArrayList<>();
-        for(I value : input)
+        for (I value : input) {
             answer.add(refactor.apply(value));
+        }
         return answer;
     }
-    
+
     /**
-     * 
+     *
      * Transform a map to new list
-     * 
+     *
      * @param <K> the key type
      * @param <V> the value type
      * @param <O> the output type
@@ -138,14 +137,15 @@ public final class EzyLists {
      */
     public static <K, V, O> List<O> newArrayList(Map<K, V> input, BiFunction<K, V, O> refactor) {
         List<O> answer = new ArrayList<>();
-        for(K key : input.keySet())
+        for (K key : input.keySet()) {
             answer.add(refactor.apply(key, input.get(key)));
+        }
         return answer;
     }
-    
+
     /**
      * Combine a collection and an array of elements to a new list
-     * 
+     *
      * @param <T> the value type
      * @param coll the collection
      * @param elements the array of elements
@@ -157,35 +157,37 @@ public final class EzyLists {
         answer.addAll(Arrays.asList(elements));
         return answer;
     }
-    
+
     /**
      * Resizes the container so that it contains n elements.
-     * 
+     *
      * @param list the list to resize
      * @param n new container size, expressed in number of elements.
      * @param defValue value whose content is copied to the added elements in case that n is greater than the current container size
      */
     public static <T> void resize(List<T> list, int n, T defValue) {
         int size = list.size();
-        if(size == n)
+        if (size == n) {
             return;
-        if(size > n) {
-            int offset = size - n;
-            while((offset --) > 0)
-                list.remove(list.size() - 1);
         }
-        else {
+        if (size > n) {
+            int offset = size - n;
+            while ((offset--) > 0) {
+                list.remove(list.size() - 1);
+            }
+        } else {
             int offset = n - size;
-            while((offset --) > 0)
+            while ((offset--) > 0) {
                 list.add(defValue);
+            }
         }
 
     }
-    
+
     /**
-     * 
+     *
      * Take n items from the list start from 0
-     * 
+     *
      * @param <T> the item type
      * @param list the list
      * @param limit the number of items
@@ -194,11 +196,11 @@ public final class EzyLists {
     public static <T> List<T> take(List<T> list, int limit) {
         return (list.size() > limit) ? list.subList(0, limit) : list;
     }
-    
+
     /**
-     * 
+     *
      * Get the first value of the list
-     * 
+     *
      * @param <T> the item type
      * @param list the list
      * @return the first value or null
@@ -206,11 +208,11 @@ public final class EzyLists {
     public static <T> T first(List<T> list) {
         return list.isEmpty() ? null : list.get(0);
     }
-    
+
     /**
-     * 
+     *
      * Get the first value of the list
-     * 
+     *
      * @param <T> the item type
      * @param list the list
      * @param defaultValue the default value
@@ -219,11 +221,11 @@ public final class EzyLists {
     public static <T> T first(List<T> list, T defaultValue) {
         return list.isEmpty() ? defaultValue : list.get(0);
     }
-    
+
     /**
-     * 
+     *
      * Get the last value of the list
-     * 
+     *
      * @param <T> the item type
      * @param list the list
      * @return the last value or null
@@ -231,11 +233,11 @@ public final class EzyLists {
     public static <T> T last(List<T> list) {
         return list.isEmpty() ? null : list.get(list.size() - 1);
     }
-    
+
     /**
-     * 
+     *
      * Get the last value of the list
-     * 
+     *
      * @param <T> the item type
      * @param list the list
      * @param defaultValue the default value

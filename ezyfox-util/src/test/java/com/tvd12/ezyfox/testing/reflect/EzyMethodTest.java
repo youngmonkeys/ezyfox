@@ -1,23 +1,20 @@
 package com.tvd12.ezyfox.testing.reflect;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNull;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.reflect.EzyMethod;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
 
 public class EzyMethodTest extends BaseTest {
 
     @Test
     public void test() throws Exception {
         EzyMethod method1 = EzyMethod.builder()
-                .clazz(ClassA.class)
-                .methodName("getValue")
-                .parameterTypes(String.class, String.class)
-                .build();
+            .clazz(ClassA.class)
+            .methodName("getValue")
+            .parameterTypes(String.class, String.class)
+            .build();
         method1.setAccessible(true);
         method1.setDisplayName("getValue$impl");
         assertEquals(method1.getDisplayName(), "getValue$impl");

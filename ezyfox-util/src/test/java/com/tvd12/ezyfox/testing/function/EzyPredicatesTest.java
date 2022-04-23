@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.function;
 
-import java.util.List;
-import java.util.function.Predicate;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.function.EzyPredicates;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public class EzyPredicatesTest extends BaseTest {
 
