@@ -17,10 +17,6 @@ public class EzySimpleFileFetcher implements EzyFileFetcher {
         this.throwException = builder.throwException;
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public File get(String filePath) {
         File file = new File(filePath);
@@ -35,6 +31,10 @@ public class EzySimpleFileFetcher implements EzyFileFetcher {
 
     protected boolean isThrowException() {
         return throwException;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyFileFetcher> {

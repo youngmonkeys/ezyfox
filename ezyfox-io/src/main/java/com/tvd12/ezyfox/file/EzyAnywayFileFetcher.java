@@ -15,10 +15,6 @@ public class EzyAnywayFileFetcher extends EzyClassPathFileFetcher {
         this.firstFetcher = builder.newFirstFetcher();
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public File get(String filePath) {
         File file = tryFirstFetch(filePath);
@@ -27,6 +23,10 @@ public class EzyAnywayFileFetcher extends EzyClassPathFileFetcher {
 
     protected File tryFirstFetch(String filePath) {
         return firstFetcher.get(filePath);
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder extends EzyClassPathFileFetcher.Builder {

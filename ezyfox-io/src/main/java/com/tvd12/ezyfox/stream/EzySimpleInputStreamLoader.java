@@ -22,10 +22,6 @@ public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
         this.fileFetcher = builder.newFileFetcher();
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public InputStream load(String filePath) {
         try {
@@ -48,6 +44,10 @@ public class EzySimpleInputStreamLoader implements EzyInputStreamLoader {
 
     protected File getFile(String filePath) throws FileNotFoundException {
         return fileFetcher.get(filePath);
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder

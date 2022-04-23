@@ -10,10 +10,6 @@ import java.util.Collection;
 
 public class EzySimpleFileReader implements EzyFileReader {
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public byte[] readBytes(File file) {
         try {
@@ -33,6 +29,10 @@ public class EzySimpleFileReader implements EzyFileReader {
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyFileReader> {

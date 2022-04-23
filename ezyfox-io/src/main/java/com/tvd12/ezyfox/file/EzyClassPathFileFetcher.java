@@ -17,10 +17,6 @@ public class EzyClassPathFileFetcher implements EzyFileFetcher {
         this.classLoader = builder.classLoader;
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public File get(String filePath) {
         File file = firstGet(filePath);
@@ -34,6 +30,10 @@ public class EzyClassPathFileFetcher implements EzyFileFetcher {
 
     protected File secondGet(String filePath) {
         return firstGet(File.separator + filePath);
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyFileFetcher> {

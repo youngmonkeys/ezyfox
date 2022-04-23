@@ -11,10 +11,6 @@ import java.nio.file.StandardCopyOption;
 
 public class EzySimpleFileWriter implements EzyFileWriter {
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public void write(File file, byte[] data) {
         try {
@@ -49,6 +45,10 @@ public class EzySimpleFileWriter implements EzyFileWriter {
     @Override
     public void write(File file, CharSequence data, String charset) {
         write(file, data, Charset.forName(charset));
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyFileWriter> {

@@ -9,10 +9,6 @@ import static com.tvd12.ezyfox.util.EzyReturner.returnWithIllegalArgumentExcepti
 
 public class EzySimpleInputStreamReader implements EzyInputStreamReader {
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     @Override
     public byte[] readBytes(InputStream stream) {
         try {
@@ -39,6 +35,10 @@ public class EzySimpleInputStreamReader implements EzyInputStreamReader {
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyInputStreamReader> {

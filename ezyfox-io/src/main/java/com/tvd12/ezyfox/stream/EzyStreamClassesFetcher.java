@@ -23,10 +23,6 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
         this.classLoader = builder.classLoader;
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     /* (non-Javadoc)
      * @see com.tvd12.ezyfox.file.EzyClassesFetcher#asSet()
      */
@@ -71,6 +67,10 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
         return new EzyAnywayInputStreamLoader.Builder()
             .classLoader(classLoader)
             .build();
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyClassesFetcher> {
