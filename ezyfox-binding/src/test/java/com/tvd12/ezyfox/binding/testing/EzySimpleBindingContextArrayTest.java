@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
@@ -10,10 +8,10 @@ import com.tvd12.ezyfox.binding.impl.EzyArrayWriterBuilder;
 import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.test.base.BaseTest;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.testng.annotations.Test;
 
 public class EzySimpleBindingContextArrayTest extends BaseTest {
 
@@ -22,10 +20,10 @@ public class EzySimpleBindingContextArrayTest extends BaseTest {
         EzyArrayWriterBuilder.setDebug(true);
         EzyArrayReaderBuilder.setDebug(true);
         EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-                .addArrayBindingClass(A1.class)
-                .addArrayBindingClass(A2.class)
-                .addArrayBindingClass(A3.class)
-                .build();
+            .addArrayBindingClass(A1.class)
+            .addArrayBindingClass(A2.class)
+            .addArrayBindingClass(A3.class)
+            .build();
         EzyMarshaller marshaller = context.newMarshaller();
         EzyUnmarshaller unmarshaller = context.newUnmarshaller();
         EzyArray array = marshaller.marshal(new A1());
@@ -38,10 +36,10 @@ public class EzySimpleBindingContextArrayTest extends BaseTest {
         EzyArrayWriterBuilder.setDebug(true);
         EzyArrayReaderBuilder.setDebug(true);
         EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-                .addArrayBindingClass(A1.class)
-                .addArrayBindingClass(A2.class)
-                .addArrayBindingClass(A3.class)
-                .build();
+            .addArrayBindingClass(A1.class)
+            .addArrayBindingClass(A2.class)
+            .addArrayBindingClass(A3.class)
+            .build();
         EzyMarshaller marshaller = context.newMarshaller();
         EzyUnmarshaller unmarshaller = context.newUnmarshaller();
         EzyArray array = marshaller.marshal(new A2());
@@ -54,10 +52,10 @@ public class EzySimpleBindingContextArrayTest extends BaseTest {
         EzyArrayWriterBuilder.setDebug(true);
         EzyArrayReaderBuilder.setDebug(true);
         EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-                .addArrayBindingClass(A1.class)
-                .addArrayBindingClass(A2.class)
-                .addArrayBindingClass(A3.class)
-                .build();
+            .addArrayBindingClass(A1.class)
+            .addArrayBindingClass(A2.class)
+            .addArrayBindingClass(A3.class)
+            .build();
         EzyMarshaller marshaller = context.newMarshaller();
         marshaller.marshal(new A3());
     }
@@ -66,7 +64,7 @@ public class EzySimpleBindingContextArrayTest extends BaseTest {
     @Setter
     @ToString
     public static class A1 {
-        private String name  = "n";
+        private String name = "n";
         private String value = "v";
     }
 
@@ -75,7 +73,7 @@ public class EzySimpleBindingContextArrayTest extends BaseTest {
     @ToString
     @EzyArrayBinding(read = false)
     public static class A2 {
-        private String name  = "n";
+        private String name = "n";
         private String value = "v";
     }
 
@@ -84,7 +82,7 @@ public class EzySimpleBindingContextArrayTest extends BaseTest {
     @ToString
     @EzyArrayBinding(write = false)
     public static class A3 {
-        private String name  = "n";
+        private String name = "n";
         private String value = "v";
     }
 }

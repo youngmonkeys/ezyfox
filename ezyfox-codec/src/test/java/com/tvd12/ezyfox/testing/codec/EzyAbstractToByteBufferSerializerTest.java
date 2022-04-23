@@ -18,8 +18,7 @@ public class EzyAbstractToByteBufferSerializerTest {
         assert serializer.serialize(new Integer(1)) != null;
         try {
             serializer.serialize(new Object());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assert e instanceof IllegalArgumentException;
         }
     }
@@ -37,7 +36,7 @@ public class EzyAbstractToByteBufferSerializerTest {
                 @Override
                 public ByteBuffer parse(Object input) {
                     ByteBuffer buffer = ByteBuffer.allocate(4);
-                    buffer.putInt((Integer)input);
+                    buffer.putInt((Integer) input);
                     return buffer;
                 }
             });

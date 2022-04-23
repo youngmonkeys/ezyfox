@@ -2,10 +2,10 @@ package com.tvd12.ezyfox.binding.reader;
 
 public class EzyWrapperCharacterArrayReader extends EzyWrapperArrayReader {
 
-    private static final EzyWrapperCharacterArrayReader INSTANCE = new EzyWrapperCharacterArrayReader();
+    private static final EzyWrapperCharacterArrayReader INSTANCE
+        = new EzyWrapperCharacterArrayReader();
 
-    private EzyWrapperCharacterArrayReader() {
-    }
+    private EzyWrapperCharacterArrayReader() {}
 
     public static EzyWrapperCharacterArrayReader getInstance() {
         return INSTANCE;

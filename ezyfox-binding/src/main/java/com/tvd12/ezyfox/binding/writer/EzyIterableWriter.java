@@ -11,8 +11,7 @@ public final class EzyIterableWriter implements EzyWriter<Iterable, EzyArray> {
 
     private static final EzyIterableWriter INSTANCE = new EzyIterableWriter();
 
-    private EzyIterableWriter() {
-    }
+    private EzyIterableWriter() {}
 
     public static EzyIterableWriter getInstance() {
         return INSTANCE;
@@ -21,7 +20,7 @@ public final class EzyIterableWriter implements EzyWriter<Iterable, EzyArray> {
     @Override
     public EzyArray write(EzyMarshaller marshaller, Iterable iterable) {
         EzyArrayBuilder builder = EzyEntityFactory.newArrayBuilder();
-        for(Object value : iterable) {
+        for (Object value : iterable) {
             Object mvalue = marshaller.marshal(value);
             builder.append(mvalue);
         }

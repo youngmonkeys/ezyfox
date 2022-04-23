@@ -4,8 +4,7 @@ public class EzyPrimitiveByteArrayReader extends EzyPrimitiveArrayReader {
 
     private static final EzyPrimitiveByteArrayReader INSTANCE = new EzyPrimitiveByteArrayReader();
 
-    private EzyPrimitiveByteArrayReader() {
-    }
+    private EzyPrimitiveByteArrayReader() {}
 
     public static EzyPrimitiveByteArrayReader getInstance() {
         return INSTANCE;
@@ -23,6 +22,6 @@ public class EzyPrimitiveByteArrayReader extends EzyPrimitiveArrayReader {
 
     @Override
     protected void setValue(Object array, int index, Object value) {
-        ((byte[])array)[index] = ((Number)value).byteValue();
+        ((byte[]) array)[index] = ((Number) value).byteValue();
     }
 }

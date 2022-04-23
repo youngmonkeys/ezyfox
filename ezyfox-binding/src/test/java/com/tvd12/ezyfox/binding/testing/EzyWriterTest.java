@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.annotation.EzyTemplateImpl;
 import com.tvd12.ezyfox.entity.EzyObject;
+import org.testng.annotations.Test;
 
 public class EzyWriterTest {
 
@@ -15,8 +14,7 @@ public class EzyWriterTest {
         assert new ClassATemplate().getObjectType() == ClassA.class;
     }
 
-    public static class ClassA {
-    }
+    public static class ClassA {}
 
     public static class ClassAWriter implements EzyWriter<ClassA, EzyObject> {
 
@@ -29,11 +27,9 @@ public class EzyWriterTest {
     @EzyTemplateImpl
     public static class ClassATemplate implements EzyWriter<ClassA, EzyObject> {
 
-
         @Override
         public EzyObject write(EzyMarshaller marshaller, ClassA object) {
             return null;
         }
-
     }
 }

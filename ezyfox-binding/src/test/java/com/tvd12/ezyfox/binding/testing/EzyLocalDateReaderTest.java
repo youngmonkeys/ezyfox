@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import java.time.LocalDate;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.reader.EzyLocalDateReader;
 import com.tvd12.ezyfox.io.EzyDates;
+import org.testng.annotations.Test;
+
+import java.time.LocalDate;
 
 public class EzyLocalDateReaderTest {
 

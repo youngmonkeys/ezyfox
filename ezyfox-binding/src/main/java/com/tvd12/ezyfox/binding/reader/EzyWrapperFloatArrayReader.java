@@ -4,8 +4,7 @@ public class EzyWrapperFloatArrayReader extends EzyWrapperArrayReader {
 
     private static final EzyWrapperFloatArrayReader INSTANCE = new EzyWrapperFloatArrayReader();
 
-    private EzyWrapperFloatArrayReader() {
-    }
+    private EzyWrapperFloatArrayReader() {}
 
     public static EzyWrapperFloatArrayReader getInstance() {
         return INSTANCE;

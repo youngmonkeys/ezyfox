@@ -1,21 +1,16 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import static org.testng.Assert.assertEquals;
+import com.tvd12.ezyfox.binding.EzyAccessType;
+import com.tvd12.ezyfox.binding.impl.EzyAbstractBuilder;
+import com.tvd12.ezyfox.binding.impl.EzyObjectElementsFetcher;
+import com.tvd12.ezyfox.reflect.*;
+import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.binding.EzyAccessType;
-import com.tvd12.ezyfox.binding.impl.EzyAbstractBuilder;
-import com.tvd12.ezyfox.binding.impl.EzyObjectElementsFetcher;
-import com.tvd12.ezyfox.reflect.EzyClass;
-import com.tvd12.ezyfox.reflect.EzyField;
-import com.tvd12.ezyfox.reflect.EzyMethod;
-import com.tvd12.ezyfox.reflect.EzyReflectElement;
-import com.tvd12.ezyfox.reflect.EzySetterMethod;
-import com.tvd12.test.base.BaseTest;
+import static org.testng.Assert.assertEquals;
 
 public class EzyAbstractBuilderTest extends BaseTest {
 

@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyTemplateImpl;
 import com.tvd12.ezyfox.entity.EzyObject;
+import org.testng.annotations.Test;
 
 public class EzyReaderTest {
 

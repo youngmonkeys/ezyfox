@@ -4,8 +4,7 @@ public class EzyWrapperBooleanArrayReader extends EzyWrapperArrayReader {
 
     private static final EzyWrapperBooleanArrayReader INSTANCE = new EzyWrapperBooleanArrayReader();
 
-    private EzyWrapperBooleanArrayReader() {
-    }
+    private EzyWrapperBooleanArrayReader() {}
 
     public static EzyWrapperBooleanArrayReader getInstance() {
         return INSTANCE;

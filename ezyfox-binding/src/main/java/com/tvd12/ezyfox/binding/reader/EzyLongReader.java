@@ -7,8 +7,7 @@ public final class EzyLongReader implements EzyReader<Number, Long> {
 
     private static final EzyLongReader INSTANCE = new EzyLongReader();
 
-    private EzyLongReader() {
-    }
+    private EzyLongReader() {}
 
     public static EzyLongReader getInstance() {
         return INSTANCE;

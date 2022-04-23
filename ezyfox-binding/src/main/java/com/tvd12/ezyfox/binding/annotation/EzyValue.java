@@ -6,17 +6,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * The annotated field or method will be serialized with a key or field name by default.
+ *
  * @author tavandung12
  */
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.METHOD })
+@Target({ElementType.FIELD, ElementType.METHOD})
 public @interface EzyValue {
 
     /**
-     * the key mapped to value
+     * the key mapped to value.
      *
      * @return the key mapped to value
      */
-    public String value() default "";
+    String value() default "";
 }

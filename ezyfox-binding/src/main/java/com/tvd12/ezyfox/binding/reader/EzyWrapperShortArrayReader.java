@@ -4,8 +4,7 @@ public class EzyWrapperShortArrayReader extends EzyWrapperArrayReader {
 
     private static final EzyWrapperShortArrayReader INSTANCE = new EzyWrapperShortArrayReader();
 
-    private EzyWrapperShortArrayReader() {
-    }
+    private EzyWrapperShortArrayReader() {}
 
     public static EzyWrapperShortArrayReader getInstance() {
         return INSTANCE;

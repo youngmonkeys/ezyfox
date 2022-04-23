@@ -9,8 +9,8 @@ public class ClassAUnwrapper implements EzyUnwrapper {
 
     @Override
     public void unwrap(EzyUnmarshaller arg0, Object arg1, Object arg2) {
-        EzyArray value = (EzyArray)arg1;
-        ClassA object = (ClassA)arg2;
+        EzyArray value = (EzyArray) arg1;
+        ClassA object = (ClassA) arg2;
         object.setA(value.get(0));
     }
 }

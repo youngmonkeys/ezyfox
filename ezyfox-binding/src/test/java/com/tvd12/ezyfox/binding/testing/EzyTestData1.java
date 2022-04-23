@@ -8,7 +8,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class EzyTestData1 {
-
     private int data1 = 100;
     private int data2 = 100;
     private int data3 = 100;

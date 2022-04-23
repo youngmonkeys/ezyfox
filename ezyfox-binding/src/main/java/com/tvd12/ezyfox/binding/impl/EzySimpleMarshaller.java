@@ -1,20 +1,5 @@
 package com.tvd12.ezyfox.binding.impl;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.writer.EzyDefaultWriter;
@@ -27,10 +12,17 @@ import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.reflect.EzyTypes;
 import com.tvd12.ezyfox.util.EzyEntityBuilders;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class EzySimpleMarshaller
-        extends EzyEntityBuilders
-        implements EzyMarshaller {
+    extends EzyEntityBuilders
+    implements EzyMarshaller {
 
     protected final Map<Class, EzyWriter> writersByType;
     protected final Map<Class, EzyWriter> writersByObjectType;
@@ -43,18 +35,20 @@ public class EzySimpleMarshaller
     public void addWriter(EzyWriter writer) {
         writersByType.put(writer.getClass(), writer);
         Class<?> objectType = writer.getObjectType();
-        if(objectType != null)
+        if (objectType != null) {
             writersByObjectType.put(objectType, writer);
-    }
-
-    public void addWriters(Iterable<EzyWriter> writers) {
-        for(EzyWriter writer : writers)
-            this.addWriter(writer);
+        }
     }
 
     public void addWriter(Class type, EzyWriter writer) {
         writersByObjectType.put(type, writer);
         writersByType.put(writer.getClass(), writer);
+    }
+
+    public void addWriters(Iterable<EzyWriter> writers) {
+        for (EzyWriter writer : writers) {
+            this.addWriter(writer);
+        }
     }
 
     public void addWriters(Map<Class, EzyWriter> writers) {
@@ -63,26 +57,32 @@ public class EzySimpleMarshaller
 
     @Override
     public <T> T marshal(Object object) {
-        if(object == null)
+        if (object == null) {
             return null;
+        }
         Class objectType = object.getClass();
         EzyWriter writer = EzyMaps.getValue(writersByObjectType, objectType);
-        if(writer != null)
+        if (writer != null) {
             return (T) writer.write(this, object);
-        if(objectType.isEnum())
+        }
+        if (objectType.isEnum()) {
             return (T) object.toString();
-        if(objectType.isArray())
-            return (T) writeArray((Object[])object);
+        }
+        if (objectType.isArray()) {
+            return (T) writeArray((Object[]) object);
+        }
         throw new IllegalArgumentException("has no writer for " + object.getClass());
     }
 
     @Override
     public <T> T marshal(Class<? extends EzyWriter> writerClass, Object object) {
-        if(object == null)
+        if (object == null) {
             return null;
+        }
         EzyWriter writer = writersByType.get(writerClass);
-        if(writer != null)
-            return (T)writer.write(this, object);
+        if (writer != null) {
+            return (T) writer.write(this, object);
+        }
         throw new IllegalArgumentException("can't marshal object " +
             object + ", " + writerClass.getName() + " is not writer class");
     }
@@ -96,8 +96,9 @@ public class EzySimpleMarshaller
     private Map<Class, EzyWriter> defaultWriters() {
         Map<Class, EzyWriter> map = new ConcurrentHashMap<>();
         Set<Class> normalTypes = EzyTypes.ALL_TYPES;
-        for(Class normalType : normalTypes)
+        for (Class normalType : normalTypes) {
             map.put(normalType, EzyDefaultWriter.getInstance());
+        }
         map.put(Date.class, EzyDefaultWriter.getInstance());
         map.put(Class.class, EzyDefaultWriter.getInstance());
         map.put(LocalDate.class, EzyDefaultWriter.getInstance());
@@ -121,7 +122,7 @@ public class EzySimpleMarshaller
 
     private EzyArray writeArray(Object[] array) {
         EzyArrayBuilder builder = newArrayBuilder();
-        for(Object item : array) {
+        for (Object item : array) {
             Object value = marshal(item);
             builder.append(value);
         }

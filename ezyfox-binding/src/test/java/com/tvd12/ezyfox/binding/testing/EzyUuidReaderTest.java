@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import java.util.UUID;
-
+import com.tvd12.ezyfox.binding.reader.EzyUuidReader;
 import org.testng.annotations.Test;
 
-import com.tvd12.ezyfox.binding.reader.EzyUuidReader;
+import java.util.UUID;
 
 public class EzyUuidReaderTest {
 

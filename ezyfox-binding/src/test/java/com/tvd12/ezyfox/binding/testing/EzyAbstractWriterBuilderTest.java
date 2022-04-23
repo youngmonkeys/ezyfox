@@ -1,9 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import java.util.List;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyAccessType;
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.impl.EzyAbstractWriterBuilder;
@@ -13,6 +9,9 @@ import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyGetterMethod;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class EzyAbstractWriterBuilderTest extends BaseTest {
 

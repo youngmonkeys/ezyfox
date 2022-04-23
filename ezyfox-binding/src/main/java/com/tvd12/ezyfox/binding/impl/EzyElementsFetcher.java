@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.binding.impl;
 
-import java.util.List;
-
 import com.tvd12.ezyfox.reflect.EzyClass;
+
+import java.util.List;
 
 public interface EzyElementsFetcher {
 

@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import java.math.BigInteger;
-import java.util.Date;
-
+import com.tvd12.ezyfox.binding.reader.EzyBigIntegerReader;
 import org.testng.annotations.Test;
 
-import com.tvd12.ezyfox.binding.reader.EzyBigIntegerReader;
+import java.math.BigInteger;
+import java.util.Date;
 
 public class EzyBigIntegerReaderTest {
 

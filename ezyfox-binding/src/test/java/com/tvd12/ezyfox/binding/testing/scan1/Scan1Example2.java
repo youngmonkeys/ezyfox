@@ -2,17 +2,13 @@ package com.tvd12.ezyfox.binding.testing.scan1;
 
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
-import com.tvd12.ezyfox.binding.impl.EzyArrayReaderBuilder;
-import com.tvd12.ezyfox.binding.impl.EzyArrayWriterBuilder;
-import com.tvd12.ezyfox.binding.impl.EzyObjectReaderBuilder;
-import com.tvd12.ezyfox.binding.impl.EzyObjectWriterBuilder;
-import com.tvd12.ezyfox.binding.impl.EzySimpleBindingContext;
+import com.tvd12.ezyfox.binding.impl.*;
 import com.tvd12.ezyfox.binding.testing.scan1.ClassA.ClassB;
 import com.tvd12.ezyfox.entity.EzyObject;
 
 public class Scan1Example2 {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         new Scan1Example2().test();
     }
 
@@ -25,9 +21,9 @@ public class Scan1Example2 {
         EzyArrayWriterBuilder.setDebug(true);
 
         EzySimpleBindingContext context = EzySimpleBindingContext.builder()
-                .addClass(ClassA.class)
-                .addClass(ClassB.class)
-                .build();
+            .addClass(ClassA.class)
+            .addClass(ClassB.class)
+            .build();
 
         EzyMarshaller marshaller = context.newMarshaller();
         EzyObject outObject = marshaller.marshal(new ClassA());

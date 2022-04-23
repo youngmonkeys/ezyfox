@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyReader;
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.impl.EzySimpleMarshaller;
@@ -9,6 +7,7 @@ import com.tvd12.ezyfox.binding.impl.EzySimpleUnmarshaller;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.test.performance.Performance;
+import org.testng.annotations.Test;
 
 public class EzyPointWriterExample7 {
 
@@ -41,20 +40,20 @@ public class EzyPointWriterExample7 {
         System.out.println(outPoint);
 
         long time1 = Performance.create()
-                .loop(10000)
-                .test(() ->
-                    pointWriter.write(marshaller, new Point())
-                )
-                .getTime();
+            .loop(10000)
+            .test(() ->
+                pointWriter.write(marshaller, new Point())
+            )
+            .getTime();
 
         System.out.println(time1);
 
         long time2 = Performance.create()
-                .loop(10000)
-                .test(() ->
-                    pointWriter.write(marshaller, new Point())
-                )
-                .getTime();
+            .loop(10000)
+            .test(() ->
+                pointWriter.write(marshaller, new Point())
+            )
+            .getTime();
 
         System.out.println(time2);
 
@@ -68,11 +67,11 @@ public class EzyPointWriterExample7 {
         System.out.println(time3);
 
         long time4 = Performance.create()
-                .loop(10000)
-                .test(() ->
-                    pointReader.read(unmarshaller, outObject)
-                )
-                .getTime();
+            .loop(10000)
+            .test(() ->
+                pointReader.read(unmarshaller, outObject)
+            )
+            .getTime();
 
         System.out.println(time4);
 

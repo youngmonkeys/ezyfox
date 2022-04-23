@@ -7,8 +7,7 @@ public final class EzyDefaultWriter implements EzyWriter<Object, Object> {
 
     private static final EzyDefaultWriter INSTANCE = new EzyDefaultWriter();
 
-    private EzyDefaultWriter() {
-    }
+    private EzyDefaultWriter() {}
 
     public static EzyDefaultWriter getInstance() {
         return INSTANCE;

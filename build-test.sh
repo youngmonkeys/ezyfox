@@ -1,2 +1,2 @@
+mvn clean install -f parent
 mvn clean install
-mvn clean install -f ezyfox-versions

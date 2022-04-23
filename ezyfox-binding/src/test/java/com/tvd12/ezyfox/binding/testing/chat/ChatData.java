@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.binding.testing.chat;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.tvd12.ezyfox.binding.annotation.EzyValue;
 import com.tvd12.ezyfox.io.EzyDates;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Setter
 @Getter

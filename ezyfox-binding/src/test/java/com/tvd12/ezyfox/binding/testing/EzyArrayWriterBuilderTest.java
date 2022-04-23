@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
 import com.tvd12.ezyfox.binding.annotation.EzyReader;
 import com.tvd12.ezyfox.binding.annotation.EzyWriter;
@@ -11,7 +9,9 @@ import com.tvd12.ezyfox.binding.testing.scan2.Scan2ObjectReader;
 import com.tvd12.ezyfox.binding.testing.scan2.Scan2ObjectWriter;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
+@SuppressWarnings("unused")
 public class EzyArrayWriterBuilderTest extends BaseTest {
 
     @Test
@@ -44,16 +44,16 @@ public class EzyArrayWriterBuilderTest extends BaseTest {
     @EzyArrayBinding
     public static class ClassB {
 
-        private String value1 = "value1";
         protected String value2 = "value2";
         protected String value3 = "value3";
-
-        protected void setValue1(String value1) {
-            this.value1 = value1;
-        }
+        private String value1 = "value1";
 
         protected String getValue1() {
             return value1;
+        }
+
+        protected void setValue1(String value1) {
+            this.value1 = value1;
         }
 
         public String getValue3x() {

@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.impl.EzySimpleMarshaller;
 import com.tvd12.ezyfox.entity.EzyArray;
+import org.testng.annotations.Test;
 
 public class EzyPointWriterExample4 {
 

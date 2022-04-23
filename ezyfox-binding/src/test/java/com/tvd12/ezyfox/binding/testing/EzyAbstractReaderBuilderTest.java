@@ -1,10 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import java.lang.reflect.Parameter;
-import java.util.List;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.binding.EzyAccessType;
 import com.tvd12.ezyfox.binding.EzyReader;
@@ -16,6 +11,10 @@ import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 import com.tvd12.ezyfox.reflect.EzySetterMethod;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.lang.reflect.Parameter;
+import java.util.List;
 
 public class EzyAbstractReaderBuilderTest extends BaseTest {
 
@@ -42,11 +41,11 @@ public class EzyAbstractReaderBuilderTest extends BaseTest {
 
         @Override
         public void appendConstructorParamValue(
-                EzyInstruction instruction,
-                Parameter parameter,
-                int parameterIndex,
-                EzyField field,
-                String key) {
+            EzyInstruction instruction,
+            Parameter parameter,
+            int parameterIndex,
+            EzyField field,
+            String key) {
             super.appendConstructorParamValue(instruction, parameter, parameterIndex, field, key);
         }
 

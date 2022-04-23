@@ -1,10 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyBindingContext;
 import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
@@ -17,9 +12,12 @@ import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.util.EzyEntityArrays;
 import com.tvd12.test.base.BaseTest;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.testng.annotations.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EzyArrayReaderBuilderTest extends BaseTest {
 
@@ -49,9 +47,9 @@ public class EzyArrayReaderBuilderTest extends BaseTest {
         // given
         EzyArrayReaderBuilder.setDebug(true);
         EzyBindingContext bindingContext = EzyBindingContext.builder()
-                .addClass(ClassE.class)
-                .addClass(AbstractClassA.class)
-                .build();
+            .addClass(ClassE.class)
+            .addClass(AbstractClassA.class)
+            .build();
 
         // when
         EzyUnmarshaller unmarshaller = bindingContext.newUnmarshaller();
@@ -60,27 +58,22 @@ public class EzyArrayReaderBuilderTest extends BaseTest {
 
         // then
         assert classE.name.equals("name");
-
     }
 
     public static abstract class AbstractClassA {}
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unused"})
     public static class ClassA {
         public Map map = new HashMap<>();
         @EzyReader(Scan2ObjectReader.class)
         public Scan2Object object = new Scan2Object();
         public ClassB classB;
 
-        public void setValue(String value) {
-
-        }
+        public void setValue(String value) {}
     }
 
-    @SuppressWarnings({ "rawtypes", "serial" })
-    public static class ClassB extends HashMap {
-
-    }
+    @SuppressWarnings({"rawtypes"})
+    public static class ClassB extends HashMap {}
 
     @Getter
     @AllArgsConstructor
@@ -90,17 +83,19 @@ public class EzyArrayReaderBuilderTest extends BaseTest {
     }
 
     @Getter
+    @SuppressWarnings("unused")
     public static class ClassD {
         public ClassD(
-                boolean booleanValue,
-                byte byteValue,
-                char charValue,
-                double doubleValue,
-                float floatValue,
-                int intValue,
-                long longValue,
-                short shortValue,
-                String stringValue) {}
+            boolean booleanValue,
+            byte byteValue,
+            char charValue,
+            double doubleValue,
+            float floatValue,
+            int intValue,
+            long longValue,
+            short shortValue,
+            String stringValue
+        ) {}
     }
 
     @Getter

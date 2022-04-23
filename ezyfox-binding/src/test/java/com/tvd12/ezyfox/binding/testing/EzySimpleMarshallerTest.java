@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.binding.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.binding.EzyBindingContext;
 import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyWriter;
@@ -13,8 +11,8 @@ import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
-
 import lombok.Getter;
+import org.testng.annotations.Test;
 
 public class EzySimpleMarshallerTest extends BaseTest {
 
@@ -22,7 +20,7 @@ public class EzySimpleMarshallerTest extends BaseTest {
     public void test1() {
         EzySimpleMarshaller marshaller = new EzySimpleMarshaller();
         marshaller.addWriter(ClassA.class, new EzyObjectWriterBuilder(new EzyClass(ClassA.class)).build());
-        ClassA[] arrayInput = new ClassA[] {new ClassA(), new ClassA(), new ClassA()};
+        ClassA[] arrayInput = new ClassA[]{new ClassA(), new ClassA(), new ClassA()};
         EzyArray arrayOutput = marshaller.marshal(arrayInput);
         assert arrayOutput.size() == 3;
     }
@@ -63,6 +61,7 @@ public class EzySimpleMarshallerTest extends BaseTest {
     public static class ClassA {}
 
     @Getter
+    @SuppressWarnings("unsed")
     public static class ClassB {
         private boolean correct;
     }

@@ -1,7 +1,6 @@
 package com.tvd12.ezyfox.binding.testing.scan2;
 
 import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +19,5 @@ public class Scan2A {
     private short h = 5;
 
 
-    public void setObject(Scan2Object object) {
-
-    }
+    public void setObject(Scan2Object object) {}
 }
