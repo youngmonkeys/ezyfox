@@ -5,8 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public final class EzyMessageDigests {
 
-    private EzyMessageDigests() {
-    }
+    private EzyMessageDigests() {}
 
     public static MessageDigest getAlgorithm(String algorithm) {
         try {

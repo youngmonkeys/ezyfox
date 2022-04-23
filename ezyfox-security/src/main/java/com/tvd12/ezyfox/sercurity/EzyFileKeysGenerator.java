@@ -1,12 +1,12 @@
 package com.tvd12.ezyfox.sercurity;
 
+import com.tvd12.ezyfox.file.EzyFileWriter;
+
 import java.io.File;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-
-import com.tvd12.ezyfox.file.EzyFileWriter;
 
 public class EzyFileKeysGenerator extends EzyKeysGenerator {
 
@@ -38,8 +38,9 @@ public class EzyFileKeysGenerator extends EzyKeysGenerator {
     }
 
     protected void writeKey(File file, Key key) {
-        if(file != null)
+        if (file != null) {
             fileWriter.write(file, key.getEncoded());
+        }
     }
 
     public static Builder builder() {
@@ -70,6 +71,5 @@ public class EzyFileKeysGenerator extends EzyKeysGenerator {
         public EzyFileKeysGenerator build() {
             return new EzyFileKeysGenerator(this);
         }
-
     }
 }
