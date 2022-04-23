@@ -34,7 +34,7 @@ public final class EzyMath {
 
     private static long bin2long(byte[] bytes, boolean unsigned) {
         int len = bytes.length - 1;
-        long result = (long) bytes[0];
+        long result = bytes[0];
         result = unsigned ? result & 0xff : result;
         result = result << (len * 8);
         for (int i = 1; i <= len; ++i) {

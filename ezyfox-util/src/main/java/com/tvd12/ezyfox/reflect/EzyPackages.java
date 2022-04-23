@@ -2,8 +2,7 @@ package com.tvd12.ezyfox.reflect;
 
 public final class EzyPackages {
 
-    private EzyPackages() {
-    }
+    private EzyPackages() {}
 
     public static EzyReflection scanPackage(String packet) {
         return new EzyReflectionProxy(packet);

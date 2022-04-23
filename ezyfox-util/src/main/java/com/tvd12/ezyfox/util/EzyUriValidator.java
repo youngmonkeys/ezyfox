@@ -4,8 +4,7 @@ import java.net.URL;
 
 public final class EzyUriValidator {
 
-    private EzyUriValidator() {
-    }
+    private EzyUriValidator() {}
 
     public static boolean validateUri(String uri) {
         try {

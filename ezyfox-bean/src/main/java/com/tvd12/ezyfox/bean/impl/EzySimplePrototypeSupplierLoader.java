@@ -52,6 +52,7 @@ public abstract class EzySimplePrototypeSupplierLoader
         return EzyKeyValueParser.getPrototypeProperties(getPrototypeClass());
     }
 
+    @SuppressWarnings("unchecked")
     private EzyPrototypeSupplier process(EzyPrototypeFactory factory) throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
@@ -76,7 +77,8 @@ public abstract class EzySimplePrototypeSupplierLoader
         implClass.addMethod(CtNewMethod.make(getObjectTypeMethodContent, implClass));
         Class answerClass = implClass.toClass();
         implClass.detach();
-        EzyPrototypeSupplier supplier = (EzyPrototypeSupplier)answerClass.newInstance();
+        EzyPrototypeSupplier supplier =
+            (EzyPrototypeSupplier) answerClass.getDeclaredConstructor().newInstance();
         factory.addSupplier(beanName, supplier, getAnnotationProperties());
         logger.debug("add prototype supplier of {}", implClassName);
         return supplier;
@@ -147,7 +149,7 @@ public abstract class EzySimplePrototypeSupplierLoader
     }
 
     protected EzyInstruction newConstructInstruction(EzyFunction.EzyBody body, List<String> cparams) {
-        EzyInstruction instruction = new EzyInstruction("\t", "\n")
+        return new EzyInstruction("\t", "\n")
                 .variable(clazz.getClazz(), "object")
                 .equal()
                 .append("new ")
@@ -155,7 +157,6 @@ public abstract class EzySimplePrototypeSupplierLoader
                 .bracketopen()
                 .append(EzyStrings.join(cparams, ", "))
                 .bracketclose();
-        return instruction;
     }
 
     protected final EzyInstruction newVariableInstruction(Class varType, String varName, String beanName) {
@@ -219,14 +220,13 @@ public abstract class EzySimplePrototypeSupplierLoader
     }
 
     private EzyInstruction newGetPropertyInstruction(Class<?> propertyType, String propertyName) {
-        EzyInstruction getPropertyInstruction = new EzyInstruction("", "", false)
+        return new EzyInstruction("", "", false)
                 .append("arg0.getProperty")
                 .bracketopen()
                 .string(propertyName)
                 .comma()
                 .clazz(propertyType, true)
                 .bracketclose();
-        return getPropertyInstruction;
     }
 
     private void addBindingValueInstructions(EzyFunction.EzyBody body) {

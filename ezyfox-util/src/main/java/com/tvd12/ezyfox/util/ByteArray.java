@@ -32,9 +32,9 @@ public class ByteArray implements Serializable {
         return new ByteArray(bytes);
     }
 
-    public static List<ByteArray> wrap(byte[][] bytess) {
-        List<ByteArray> list = new ArrayList<>(bytess.length);
-        for (byte[] bytes : bytess) {
+    public static List<ByteArray> wrap(byte[][] byteArrays) {
+        List<ByteArray> list = new ArrayList<>(byteArrays.length);
+        for (byte[] bytes : byteArrays) {
             list.add(wrap(bytes));
         }
         return list;
@@ -52,8 +52,7 @@ public class ByteArray implements Serializable {
             return false;
         }
         ByteArray t = (ByteArray) other;
-        boolean result = Arrays.equals(this.bytes, t.bytes);
-        return result;
+        return Arrays.equals(this.bytes, t.bytes);
     }
 
     @Override

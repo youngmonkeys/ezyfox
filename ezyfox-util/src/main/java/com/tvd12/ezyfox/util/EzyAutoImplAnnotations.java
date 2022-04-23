@@ -6,8 +6,7 @@ import com.tvd12.ezyfox.reflect.EzyClasses;
 
 public final class EzyAutoImplAnnotations {
 
-    private EzyAutoImplAnnotations() {
-    }
+    private EzyAutoImplAnnotations() {}
 
     public static String getBeanName(Class<?> annotatedClass) {
         EzyAutoImpl anno = annotatedClass.getAnnotation(EzyAutoImpl.class);

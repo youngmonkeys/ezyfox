@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public class EzyBytesIterator extends EzyArrayIterator<Byte> {
 
-    private byte[] array;
+    private final byte[] array;
 
     public EzyBytesIterator(byte[] array) {
         this.array = array;

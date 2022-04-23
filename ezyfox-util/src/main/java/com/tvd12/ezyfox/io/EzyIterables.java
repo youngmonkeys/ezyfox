@@ -2,8 +2,7 @@ package com.tvd12.ezyfox.io;
 
 public final class EzyIterables {
 
-    private EzyIterables() {
-    }
+    private EzyIterables() {}
 
     public static boolean isEmpty(Iterable<?> iterable) {
         if (iterable == null) {

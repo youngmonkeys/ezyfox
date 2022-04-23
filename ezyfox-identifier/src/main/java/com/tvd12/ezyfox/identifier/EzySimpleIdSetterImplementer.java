@@ -48,7 +48,7 @@ public class EzySimpleIdSetterImplementer
         }
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private EzyIdSetter doimplement() throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
@@ -61,7 +61,7 @@ public class EzySimpleIdSetterImplementer
         implClass.addMethod(CtNewMethod.make(implMethodContent, implClass));
         Class answerClass = implClass.toClass();
         implClass.detach();
-        Object setter = answerClass.newInstance();
+        Object setter = answerClass.getDeclaredConstructor().newInstance();
         return (EzyIdSetter)setter;
     }
 
@@ -69,7 +69,7 @@ public class EzySimpleIdSetterImplementer
         EzyInstruction instruction = new EzyInstruction("\t", "\n")
                 .append("object.")
                 .append(idElement.getName());
-        Class<?> valueType = null;
+        Class<?> valueType;
         if(idElement instanceof EzyField) {
             valueType = ((EzyField)idElement).getType();
             instruction

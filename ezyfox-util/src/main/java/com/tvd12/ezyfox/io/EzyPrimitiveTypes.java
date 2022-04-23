@@ -13,8 +13,8 @@ public final class EzyPrimitiveTypes {
             return null;
         }
         List<Boolean> list = new ArrayList<>();
-        for (int i = 0; i < array.length; ++i) {
-            list.add(array[i]);
+        for (boolean b : array) {
+            list.add(b);
         }
         return list;
     }
@@ -24,8 +24,8 @@ public final class EzyPrimitiveTypes {
             return null;
         }
         List<Byte> list = new ArrayList<>();
-        for (int i = 0; i < array.length; ++i) {
-            list.add(array[i]);
+        for (byte b : array) {
+            list.add(b);
         }
         return list;
     }
@@ -35,8 +35,8 @@ public final class EzyPrimitiveTypes {
             return null;
         }
         List<Character> list = new ArrayList<>();
-        for (int i = 0; i < array.length; ++i) {
-            list.add(array[i]);
+        for (char c : array) {
+            list.add(c);
         }
         return list;
     }
@@ -46,8 +46,8 @@ public final class EzyPrimitiveTypes {
             return null;
         }
         List<Double> list = new ArrayList<>();
-        for (int i = 0; i < array.length; ++i) {
-            list.add(array[i]);
+        for (double v : array) {
+            list.add(v);
         }
         return list;
     }
@@ -57,8 +57,8 @@ public final class EzyPrimitiveTypes {
             return null;
         }
         List<Float> list = new ArrayList<>();
-        for (int i = 0; i < array.length; ++i) {
-            list.add(array[i]);
+        for (float v : array) {
+            list.add(v);
         }
         return list;
     }
@@ -68,8 +68,8 @@ public final class EzyPrimitiveTypes {
             return null;
         }
         List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < array.length; ++i) {
-            list.add(array[i]);
+        for (int j : array) {
+            list.add(j);
         }
         return list;
     }
@@ -79,8 +79,8 @@ public final class EzyPrimitiveTypes {
             return null;
         }
         List<Long> list = new ArrayList<>();
-        for (int i = 0; i < array.length; ++i) {
-            list.add(array[i]);
+        for (long l : array) {
+            list.add(l);
         }
         return list;
     }
@@ -90,8 +90,8 @@ public final class EzyPrimitiveTypes {
             return null;
         }
         List<Short> list = new ArrayList<>();
-        for (int i = 0; i < array.length; ++i) {
-            list.add(array[i]);
+        for (short value : array) {
+            list.add(value);
         }
         return list;
     }

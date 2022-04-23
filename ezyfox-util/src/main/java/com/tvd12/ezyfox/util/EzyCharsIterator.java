@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public class EzyCharsIterator extends EzyArrayIterator<Character> {
 
-    private char[] array;
+    private final char[] array;
 
     public EzyCharsIterator(char[] array) {
         this.array = array;

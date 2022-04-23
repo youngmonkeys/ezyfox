@@ -288,7 +288,7 @@ public final class EzyStrings {
     public static String replace(
         String query,
         Object[] parameters,
-        Function<Object, Object> parameterConveter
+        Function<Object, Object> parameterConverter
     ) {
         final int paramCount = parameters.length;
         final int length = query.length();
@@ -316,7 +316,7 @@ public final class EzyStrings {
                             "invalid query: " + query + ", not enough parameter values, required: " + paramIndex
                         );
                     }
-                    builder.append(getParameterValue(parameters[paramIndex], parameterConveter));
+                    builder.append(getParameterValue(parameters[paramIndex], parameterConverter));
                 } else {
                     builder.append('?');
                 }
@@ -327,10 +327,10 @@ public final class EzyStrings {
         return builder.toString();
     }
 
-    private static Object getParameterValue(Object parameter, Function<Object, Object> parameterConveter) {
+    private static Object getParameterValue(Object parameter, Function<Object, Object> parameterConverter) {
         Object value = parameter;
-        if (parameterConveter != null) {
-            value = parameterConveter.apply(parameter);
+        if (parameterConverter != null) {
+            value = parameterConverter.apply(parameter);
         }
         return value;
     }

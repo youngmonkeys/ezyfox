@@ -4,8 +4,7 @@ import static com.tvd12.ezyfox.io.EzyChars.isLowerCase;
 
 public final class EzyNameStyles {
 
-    private EzyNameStyles() {
-    }
+    private EzyNameStyles() {}
 
     public static String toLowerHyphen(String name) {
         if (name == null) {

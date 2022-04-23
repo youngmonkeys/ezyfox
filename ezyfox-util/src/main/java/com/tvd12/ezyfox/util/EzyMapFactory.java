@@ -22,10 +22,10 @@ public class EzyMapFactory {
     @SuppressWarnings("rawtypes")
     private Map<Class, Supplier<Map>> defaultSuppliers() {
         Map<Class, Supplier<Map>> map = new ConcurrentHashMap<>();
-        map.put(Map.class, () -> new HashMap<>());
-        map.put(HashMap.class, () -> new HashMap<>());
-        map.put(TreeMap.class, () -> new TreeMap<>());
-        map.put(ConcurrentHashMap.class, () -> new ConcurrentHashMap<>());
+        map.put(Map.class, HashMap::new);
+        map.put(HashMap.class, HashMap::new);
+        map.put(TreeMap.class, TreeMap::new);
+        map.put(ConcurrentHashMap.class, ConcurrentHashMap::new);
         return map;
     }
 }

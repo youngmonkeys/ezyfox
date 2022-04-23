@@ -24,10 +24,9 @@ public final class EzyTypes {
     public static final Set<Class> COMMON_GENERIC_TYPES = commonGenericTypes();
     public static final Map<Class, Class> PRIMITIVE_WRAPPER_TYPES_MAP = mapPrimitiveAndWrapperTypes();
 
-    private EzyTypes() {
-    }
+    private EzyTypes() {}
 
-    private static final Set<Class> booleanTypes() {
+    private static Set<Class> booleanTypes() {
         Set<Class> set = Sets.newHashSet(
             boolean.class,
             Boolean.class
@@ -35,7 +34,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(set);
     }
 
-    private static final Set<Class> primitiveTypes() {
+    private static Set<Class> primitiveTypes() {
         Set<Class> set = Sets.newHashSet(
             boolean.class,
             byte.class,
@@ -49,7 +48,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(set);
     }
 
-    private static final Set<Class> wrapperTypes() {
+    private static Set<Class> wrapperTypes() {
         Set<Class> set = Sets.newHashSet(
             Boolean.class,
             Byte.class,
@@ -63,7 +62,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(set);
     }
 
-    private static final Set<Class> arrayPrimitiveTypes() {
+    private static Set<Class> arrayPrimitiveTypes() {
         Set<Class> set = Sets.newHashSet(
             boolean[].class,
             byte[].class,
@@ -77,7 +76,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(set);
     }
 
-    private static final Set<Class> arrayWrapperTypes() {
+    private static Set<Class> arrayWrapperTypes() {
         Set<Class> set = Sets.newHashSet(
             Boolean[].class,
             Byte[].class,
@@ -91,7 +90,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(set);
     }
 
-    private static final Set<Class> twoDimensionsArrayPrimitiveTypes() {
+    private static Set<Class> twoDimensionsArrayPrimitiveTypes() {
         Set<Class> set = Sets.newHashSet(
             boolean[][].class,
             byte[][].class,
@@ -105,7 +104,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(set);
     }
 
-    private static final Set<Class> twoDimensionsArrayWrapperTypes() {
+    private static Set<Class> twoDimensionsArrayWrapperTypes() {
         Set<Class> set = Sets.newHashSet(
             Boolean[][].class,
             Byte[][].class,
@@ -119,7 +118,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(set);
     }
 
-    private static final Set<Class> stringTypes() {
+    private static Set<Class> stringTypes() {
         Set<Class> set = Sets.newHashSet(
             String.class,
             String[].class,
@@ -128,7 +127,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(set);
     }
 
-    private static final Set<Class> mergeAllTypes() {
+    private static Set<Class> mergeAllTypes() {
         Set<Class> merge = new HashSet<>();
         merge.addAll(Lists.newArrayList(PRIMITIVE_TYPES));
         merge.addAll(Lists.newArrayList(WRAPPER_TYPES));
@@ -140,7 +139,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(merge);
     }
 
-    private static final Set<Class> nonArrayTypes() {
+    private static Set<Class> nonArrayTypes() {
         Set<Class> merge = new HashSet<>();
         merge.addAll(Lists.newArrayList(PRIMITIVE_TYPES));
         merge.addAll(Lists.newArrayList(WRAPPER_TYPES));
@@ -148,7 +147,7 @@ public final class EzyTypes {
         return Collections.unmodifiableSet(merge);
     }
 
-    private static final Map<Class, Class> mapPrimitiveAndWrapperTypes() {
+    private static Map<Class, Class> mapPrimitiveAndWrapperTypes() {
         Map<Class, Class> map = new ConcurrentHashMap<>();
         map.put(boolean.class, Boolean.class);
         map.put(byte.class, Byte.class);
@@ -161,7 +160,7 @@ public final class EzyTypes {
         return Collections.unmodifiableMap(map);
     }
 
-    private static final Set<Class> commonGenericTypes() {
+    private static Set<Class> commonGenericTypes() {
         Set<Class> set = Sets.newHashSet(
             Collection.class,
             List.class,

@@ -11,14 +11,14 @@ public class EzySimplePropertiesReader
     extends EzyLoggable
     implements EzyPropertiesReader {
 
-    protected final EzyValueConverter conveter;
+    protected final EzyValueConverter converter;
 
     public EzySimplePropertiesReader() {
         this(EzySimpleValueConverter.getSingleton());
     }
 
-    public EzySimplePropertiesReader(EzyValueConverter conveter) {
-        this.conveter = conveter;
+    public EzySimplePropertiesReader(EzyValueConverter converter) {
+        this.converter = converter;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class EzySimplePropertiesReader
 
     @Override
     public <T> T get(Map properties, Object key, Class<T> outType) {
-        return conveter.convert(get(properties, key), outType);
+        return converter.convert(get(properties, key), outType);
     }
 
     @Override

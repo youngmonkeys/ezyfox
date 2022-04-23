@@ -130,6 +130,5 @@ public class EzyField
         protected Field getField() {
             return EzyFields.getField(clazz, fieldName);
         }
-
     }
 }

@@ -3,7 +3,6 @@ package com.tvd12.ezyfox.naming;
 import lombok.Getter;
 
 public enum EzyNamingCase {
-
     NATURE(""),
     UPPER(""),
     LOWER(""),
@@ -15,7 +14,7 @@ public enum EzyNamingCase {
     @Getter
     private final String sign;
 
-    private EzyNamingCase(String sign) {
+    EzyNamingCase(String sign) {
         this.sign = sign;
     }
 

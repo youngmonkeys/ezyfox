@@ -8,11 +8,11 @@ public final class EzySocketAddresses {
     private EzySocketAddresses() {}
 
     public static String getHost(SocketAddress address) {
-        String host = null;
+        String host;
         if (address instanceof InetSocketAddress) {
             host = ((InetSocketAddress) address).getHostString();
         } else {
-            String[] strs = address.toString().split("\\:");
+            String[] strs = address.toString().split(":");
             host = strs[0].substring(1);
         }
         return host;

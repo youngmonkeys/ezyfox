@@ -8,6 +8,5 @@ public final class EzyReflections {
     public static final String METHOD_PREFIX_NEW = "new";
     public static final String MODIFIER_PUBLIC = "public";
 
-    private EzyReflections() {
-    }
+    private EzyReflections() {}
 }

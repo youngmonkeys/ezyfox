@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public class EzyDoublesIterator extends EzyArrayIterator<Double> {
 
-    private double[] array;
+    private final double[] array;
 
     public EzyDoublesIterator(double[] array) {
         this.array = array;

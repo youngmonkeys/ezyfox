@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public class EzyObjectsIterator<T> extends EzyArrayIterator<T> {
 
-    private T[] array;
+    private final T[] array;
 
     public EzyObjectsIterator(T[] array) {
         this.array = array;

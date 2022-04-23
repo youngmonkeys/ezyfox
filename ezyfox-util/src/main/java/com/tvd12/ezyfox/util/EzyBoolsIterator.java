@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public class EzyBoolsIterator extends EzyArrayIterator<Boolean> {
 
-    private boolean[] array;
+    private final boolean[] array;
 
     public EzyBoolsIterator(boolean[] array) {
         this.array = array;
@@ -21,6 +21,4 @@ public class EzyBoolsIterator extends EzyArrayIterator<Boolean> {
     protected Boolean getItem(int index) {
         return array[index];
     }
-
-
 }

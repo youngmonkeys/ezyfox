@@ -77,7 +77,9 @@ public final class EzyClasses {
                 .newInstance(constructorParameterValues);
         } catch (Exception e) {
             try {
-                return (T) getClass(className).newInstance();
+                return (T) getClass(className)
+                    .getDeclaredConstructor()
+                    .newInstance();
             } catch (Exception ex) {
                 throw new IllegalArgumentException(e);
             }
@@ -87,7 +89,9 @@ public final class EzyClasses {
     @SuppressWarnings("unchecked")
     public static <T> T newInstance(String className, ClassLoader classLoader) {
         try {
-            return (T) getClass(className, classLoader).newInstance();
+            return (T) getClass(className, classLoader)
+                .getDeclaredConstructor()
+                .newInstance();
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
@@ -95,7 +99,7 @@ public final class EzyClasses {
 
     public static <T> T newInstance(Class<T> clazz) {
         try {
-            return clazz.newInstance();
+            return clazz.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

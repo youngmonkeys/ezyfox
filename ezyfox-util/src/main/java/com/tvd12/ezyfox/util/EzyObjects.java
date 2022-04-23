@@ -2,8 +2,7 @@ package com.tvd12.ezyfox.util;
 
 public final class EzyObjects {
 
-    private EzyObjects() {
-    }
+    private EzyObjects() {}
 
     public static boolean equals(Object o1, Object o2) {
         if (o1 == o2) {

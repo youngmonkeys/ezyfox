@@ -48,7 +48,7 @@ public class EzySimpleIdFetcherImplementer
         }
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private EzyIdFetcher doimplement() throws Exception {
         ClassPool pool = ClassPool.getDefault();
         String implClassName = getImplClassName();
@@ -61,7 +61,7 @@ public class EzySimpleIdFetcherImplementer
         implClass.addMethod(CtNewMethod.make(implMethodContent, implClass));
         Class answerClass = implClass.toClass();
         implClass.detach();
-        Object fetcher = answerClass.newInstance();
+        Object fetcher = answerClass.getDeclaredConstructor().newInstance();
         return (EzyIdFetcher)fetcher;
     }
 
