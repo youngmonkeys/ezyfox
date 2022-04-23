@@ -24,14 +24,19 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
         }
     }
 
-    private List<Object> getElementsByNativeIndexes(EzyClass clazz, int accessType) {
+    private List<Object> getElementsByNativeIndexes(
+        EzyClass clazz,
+        int accessType
+    ) {
         return getElementsByNativeIndexes(
             getFields(clazz, accessType),
             getMethods(clazz, accessType));
     }
 
     private List<Object> getElementsByNativeIndexes(
-        List<EzyField> fields, List<? extends EzyMethod> methods) {
+        List<EzyField> fields,
+        List<? extends EzyMethod> methods
+    ) {
 
         List<Object> elements = new ArrayList<>();
         List<EzyMethod> remainMethods = new ArrayList<>(methods);
@@ -78,7 +83,10 @@ public abstract class EzyArrayElementsFetcher extends EzyAbstractElementsFetcher
             indexes);
     }
 
-    private List<Object> getElementsByCustomIndexes(Map<String, EzyField> fieldsByName, String[] indexes) {
+    private List<Object> getElementsByCustomIndexes(
+        Map<String, EzyField> fieldsByName,
+        String[] indexes
+    ) {
         List<Object> elements = new ArrayList<>();
 
         for (String property : indexes) {

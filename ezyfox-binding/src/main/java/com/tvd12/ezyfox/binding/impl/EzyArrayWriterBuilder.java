@@ -83,7 +83,9 @@ public class EzyArrayWriterBuilder
     }
 
     protected EzyInstruction newInstruction(
-        EzyReflectElement element, String valueExpSuffix) {
+        EzyReflectElement element,
+        String valueExpSuffix
+    ) {
         EzyInstruction instruction = new EzyInstruction("\t", "\n")
             .append("array")
             .dot()

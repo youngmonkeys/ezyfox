@@ -157,7 +157,8 @@ public abstract class EzyAbstractReaderBuilder
         Parameter parameter,
         int parameterIndex,
         EzyField field,
-        String key) {}
+        String key
+    ) {}
 
     protected void appendOutputObjectInstruction(
         EzyFunction.EzyBody methodBody,

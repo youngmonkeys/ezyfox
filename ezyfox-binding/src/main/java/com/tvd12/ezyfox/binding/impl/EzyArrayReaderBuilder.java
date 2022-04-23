@@ -165,7 +165,9 @@ public class EzyArrayReaderBuilder extends EzyAbstractReaderBuilder {
     }
 
     protected EzyInstruction newUnmarshalCollectionInstruction(
-        EzyReflectElement element, int index) {
+        EzyReflectElement element,
+        int index
+    ) {
         Class collectionType = getElementType(element);
         Type genericType = getElementGenericType(element);
         Class itemType = EzyGenerics.getOneGenericClassArgument(genericType);
@@ -222,7 +224,8 @@ public class EzyArrayReaderBuilder extends EzyAbstractReaderBuilder {
         Parameter parameter,
         int parameterIndex,
         EzyField field,
-        String key) {
+        String key
+    ) {
         instruction
             .append("value")
             .dot()

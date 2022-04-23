@@ -117,7 +117,11 @@ public class EzySimpleUnmarshaller
 
     @Override
     public <K, V> Map<K, V> unmarshalMap(
-        Object value, Class mapType, Class<K> keyType, Class<V> valueType) {
+        Object value,
+        Class mapType,
+        Class<K> keyType,
+        Class<V> valueType
+    ) {
         Map map = mapFactory.newMap(mapType);
         EzyObject object = (EzyObject) value;
         for (Object key : object.keySet()) {
@@ -128,7 +132,10 @@ public class EzySimpleUnmarshaller
 
     @Override
     public <T> Collection<T> unmarshalCollection(
-        Object value, Class collectionType, Class<T> itemType) {
+        Object value,
+        Class collectionType,
+        Class<T> itemType
+    ) {
         if (value instanceof Collection) {
             return unmarshalCollection(((Collection) value).iterator(), collectionType, itemType);
         }
@@ -136,7 +143,10 @@ public class EzySimpleUnmarshaller
     }
 
     private <T> Collection<T> unmarshalCollection(
-        Iterator iterator, Class collectionType, Class<T> itemType) {
+        Iterator iterator,
+        Class collectionType,
+        Class<T> itemType
+    ) {
         Collection<T> collection = collectionFactory.newCollection(collectionType);
         while (iterator.hasNext()) {
             collection.add(unmarshal(iterator.next(), itemType));

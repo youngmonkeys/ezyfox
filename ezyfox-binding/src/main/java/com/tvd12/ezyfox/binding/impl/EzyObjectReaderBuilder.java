@@ -128,7 +128,9 @@ public class EzyObjectReaderBuilder extends EzyAbstractReaderBuilder {
         return wrapUnmarshalInstruction(instruction, type);
     }
 
-    protected EzyInstruction newUnmarshalGenericInstruction(EzyReflectElement element) {
+    protected EzyInstruction newUnmarshalGenericInstruction(
+        EzyReflectElement element
+    ) {
         Class genericType = getElementType(element);
         if (Map.class.isAssignableFrom(genericType)) {
             return newUnmarshalMapInstruction(element);
@@ -182,7 +184,10 @@ public class EzyObjectReaderBuilder extends EzyAbstractReaderBuilder {
             .bracketclose();
     }
 
-    protected EzyInstruction newUnmarshalNormalInstruction(EzyReflectElement element, Class readerImpl) {
+    protected EzyInstruction newUnmarshalNormalInstruction(
+        EzyReflectElement element,
+        Class readerImpl
+    ) {
         EzyInstruction instruction = new EzyInstruction("", "", false)
             .append("arg0.unmarshal")
             .bracketopen();
@@ -216,7 +221,8 @@ public class EzyObjectReaderBuilder extends EzyAbstractReaderBuilder {
         Parameter parameter,
         int parameterIndex,
         EzyField field,
-        String key) {
+        String key
+    ) {
         instruction
             .append("value")
             .dot()

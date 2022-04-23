@@ -45,7 +45,8 @@ public class EzyAbstractReaderBuilderTest extends BaseTest {
             Parameter parameter,
             int parameterIndex,
             EzyField field,
-            String key) {
+            String key
+        ) {
             super.appendConstructorParamValue(instruction, parameter, parameterIndex, field, key);
         }
 
@@ -95,7 +96,6 @@ public class EzyAbstractReaderBuilderTest extends BaseTest {
         protected boolean isDebug() {
             return false;
         }
-
     }
 
     public static class ClassA {}
