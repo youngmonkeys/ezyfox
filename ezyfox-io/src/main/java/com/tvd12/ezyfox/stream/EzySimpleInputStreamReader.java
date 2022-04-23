@@ -1,23 +1,19 @@
 package com.tvd12.ezyfox.stream;
 
-import static com.tvd12.ezyfox.util.EzyReturner.returnWithIllegalArgumentException;
+import com.tvd12.ezyfox.builder.EzyBuilder;
 
 import java.io.InputStream;
 import java.util.List;
 
-import com.tvd12.ezyfox.builder.EzyBuilder;
+import static com.tvd12.ezyfox.util.EzyReturner.returnWithIllegalArgumentException;
 
 public class EzySimpleInputStreamReader implements EzyInputStreamReader {
-
-    protected EzySimpleInputStreamReader(Builder builder) {}
 
     @Override
     public byte[] readBytes(InputStream stream) {
         try {
-            byte[] bytes = EzyInputStreams.toByteArray(stream);
-            return bytes;
-        }
-        catch (Exception e) {
+            return EzyInputStreams.toByteArray(stream);
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -35,10 +31,8 @@ public class EzySimpleInputStreamReader implements EzyInputStreamReader {
     @Override
     public List<String> readLines(InputStream stream, String charset) {
         try {
-            List<String> lines = EzyInputStreams.toLines(stream, charset);
-            return lines;
-        }
-        catch(Exception e) {
+            return EzyInputStreams.toLines(stream, charset);
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -51,7 +45,7 @@ public class EzySimpleInputStreamReader implements EzyInputStreamReader {
 
         @Override
         public EzyInputStreamReader build() {
-            return new EzySimpleInputStreamReader(this);
+            return new EzySimpleInputStreamReader();
         }
     }
 }

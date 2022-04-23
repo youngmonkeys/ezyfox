@@ -38,9 +38,8 @@ public class EzyAnywayInputStreamLoader extends EzyClassPathInputStreamLoader {
 
         protected EzyInputStreamLoader newFirstLoader() {
             return EzySimpleInputStreamLoader.builder()
-                    .throwException(false)
-                    .build();
+                .throwException(false)
+                .build();
         }
-
     }
 }

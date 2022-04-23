@@ -7,8 +7,9 @@ import java.util.Arrays;
 
 public class JavaInputStreamExample {
 
+    @SuppressWarnings("ALL")
     public static void main(String[] args) throws IOException {
-        InputStream stream = new ByteArrayInputStream(new byte[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+        InputStream stream = new ByteArrayInputStream(new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
         assert stream.markSupported();
         assert stream.available() == 10;
         byte[] bytes = new byte[2];

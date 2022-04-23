@@ -38,9 +38,8 @@ public class EzyAnywayFileFetcher extends EzyClassPathFileFetcher {
 
         protected EzyFileFetcher newFirstFetcher() {
             return EzySimpleFileFetcher.builder()
-                    .throwException(false)
-                    .build();
+                .throwException(false)
+                .build();
         }
-
     }
 }

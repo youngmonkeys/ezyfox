@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class JavaInputStreamMarkExample3 {
 
-    @SuppressWarnings("resource")
+    @SuppressWarnings("ALL")
     public static void main(String[] args) throws IOException {
         InputStream stream = new FileInputStream(new File("src/test/resources/example.txt"));
         assert stream.markSupported();
@@ -17,14 +17,9 @@ public class JavaInputStreamMarkExample3 {
         stream.read(bytes);
         System.err.println("bytes: " + Arrays.toString(bytes));
         System.err.println("available: " + stream.available());
-//        assertEquals(stream.available(), 13);
         stream.mark(2);
         System.err.println("========== after set mark =========");
         stream.reset();
-//        System.err.println("========== after reset =========");
-//        stream.read(bytes);
-//        System.err.println("bytes: " + Arrays.toString(bytes));
         System.err.println("available: " + stream.available());
-
     }
 }

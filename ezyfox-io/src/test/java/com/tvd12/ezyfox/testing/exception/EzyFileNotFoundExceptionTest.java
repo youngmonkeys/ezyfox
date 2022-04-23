@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.exception;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.exception.EzyFileNotFoundException;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyFileNotFoundExceptionTest extends BaseTest {
 

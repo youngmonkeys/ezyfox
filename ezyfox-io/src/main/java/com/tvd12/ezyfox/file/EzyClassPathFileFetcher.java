@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.file;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+
 import java.io.File;
 import java.net.URL;
-
-import com.tvd12.ezyfox.builder.EzyBuilder;
 
 public class EzyClassPathFileFetcher implements EzyFileFetcher {
 

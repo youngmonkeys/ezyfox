@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.file;
 
-import java.io.File;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.exception.EzyFileNotFoundException;
+
+import java.io.File;
 
 public class EzySimpleFileFetcher implements EzyFileFetcher {
 
@@ -20,10 +20,12 @@ public class EzySimpleFileFetcher implements EzyFileFetcher {
     @Override
     public File get(String filePath) {
         File file = new File(filePath);
-        if(file.exists())
+        if (file.exists()) {
             return file;
-        if(isThrowException())
+        }
+        if (isThrowException()) {
             throw new EzyFileNotFoundException(file);
+        }
         return null;
     }
 

@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.file;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+
 import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -7,23 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import com.tvd12.ezyfox.builder.EzyBuilder;
-
 public class EzySimpleFileWriter implements EzyFileWriter {
-
-    public EzySimpleFileWriter() {
-        this(builder());
-    }
-
-    protected EzySimpleFileWriter(Builder builder) {}
 
     @Override
     public void write(File file, byte[] data) {
         try {
             Path path = file.toPath();
             Files.write(path, data);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -33,8 +26,7 @@ public class EzySimpleFileWriter implements EzyFileWriter {
         try {
             Path target = file.toPath();
             Files.copy(stream, target, StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -45,8 +37,7 @@ public class EzySimpleFileWriter implements EzyFileWriter {
             Path path = file.toPath();
             byte[] bytes = data.toString().getBytes(charset);
             Files.write(path, bytes);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -56,7 +47,6 @@ public class EzySimpleFileWriter implements EzyFileWriter {
         write(file, data, Charset.forName(charset));
     }
 
-
     public static Builder builder() {
         return new Builder();
     }
@@ -65,7 +55,7 @@ public class EzySimpleFileWriter implements EzyFileWriter {
 
         @Override
         public EzyFileWriter build() {
-            return new EzySimpleFileWriter(this);
+            return new EzySimpleFileWriter();
         }
     }
 }

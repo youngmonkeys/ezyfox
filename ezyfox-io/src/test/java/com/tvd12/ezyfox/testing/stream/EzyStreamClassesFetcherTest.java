@@ -1,16 +1,15 @@
 package com.tvd12.ezyfox.testing.stream;
 
-import java.util.Set;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.io.EzyClassesFetcher;
 import com.tvd12.ezyfox.stream.EzyStreamClassesFetcher;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.Set;
 
 public class EzyStreamClassesFetcherTest extends BaseTest {
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void test() {
         Set<Class> set = EzyStreamClassesFetcher.builder()

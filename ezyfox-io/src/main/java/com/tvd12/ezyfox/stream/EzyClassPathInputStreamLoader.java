@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.stream;
 
-import java.io.InputStream;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
+
+import java.io.InputStream;
 
 public class EzyClassPathInputStreamLoader implements EzyInputStreamLoader {
 
