@@ -13,12 +13,13 @@ public enum EzyPaymentType implements EzyConstant {
     ANNUALLY(3, "annually"),
     PERMANENTLY(4, "permanently");
 
-    private static final Map<String, EzyPaymentType> MAP_BY_NAME =
-        EzyEnums.enumMap(EzyPaymentType.class, it -> it.name);
     @Getter
     private final int id;
     @Getter
     private final String name;
+
+    private static final Map<String, EzyPaymentType> MAP_BY_NAME =
+        EzyEnums.enumMap(EzyPaymentType.class, it -> it.name);
 
     private EzyPaymentType(int id, String name) {
         this.id = id;

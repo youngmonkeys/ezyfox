@@ -10,13 +10,14 @@ import java.util.Map;
 @SuppressWarnings("rawtypes")
 public class EzyInstruction {
 
+    protected final String end;
+    protected final boolean semicolon;
+    protected final StringBuilder builder = new StringBuilder();
+
     protected static final Map<Class, Class> PRIMITIVE_WRAPPER_TYPES =
         EzyTypes.PRIMITIVE_WRAPPER_TYPES_MAP;
     private static final Map<Class, String> FETCH_PRIMITIVE_METHODS =
         fetchPrimitiveMethods();
-    protected final String end;
-    protected final boolean semicolon;
-    protected final StringBuilder builder = new StringBuilder();
 
     public EzyInstruction() {
         this("");

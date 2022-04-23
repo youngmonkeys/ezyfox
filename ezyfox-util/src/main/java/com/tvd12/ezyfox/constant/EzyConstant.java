@@ -35,12 +35,7 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
      */
     static EzyConstant one(int id) {
         COUNTER.incrementAndGet();
-        return new EzyConstant() {
-            @Override
-            public int getId() {
-                return id;
-            }
-        };
+        return () -> id;
     }
 
     /**
@@ -65,8 +60,6 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
         };
     }
 
-    ;
-
     /**
      * Get constant name
      *
@@ -77,6 +70,4 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
         name = EzyStrings.isNoContent(name) ? "attribute" : name;
         return name + "#" + getId();
     }
-
-    ;
 }
