@@ -4,5 +4,4 @@ import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
 
 @EzyObjectBinding
 public class UserData {
-
 }

@@ -87,5 +87,4 @@ public class EzySimpleBindingContextArrayTest extends BaseTest {
         private String name  = "n";
         private String value = "v";
     }
-
 }

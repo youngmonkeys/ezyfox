@@ -56,5 +56,4 @@ public class ClassB {
         map.put("hello", "world");
         return map;
     }
-
 }

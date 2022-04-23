@@ -37,5 +37,4 @@ public class EzySimpleJsonMapperTest {
             throw new RuntimeException();
         }
     }
-
 }

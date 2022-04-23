@@ -48,5 +48,4 @@ public class EzyByMethodSingletonLoaderTest extends BaseTest {
     public static class B {
 
     }
-
 }

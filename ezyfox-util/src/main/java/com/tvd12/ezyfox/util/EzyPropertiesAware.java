@@ -5,5 +5,4 @@ import java.util.Properties;
 public interface EzyPropertiesAware {
 
     void setProperties(Properties properties);
-
 }

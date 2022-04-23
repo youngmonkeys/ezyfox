@@ -15,5 +15,4 @@ public class EzyCredentialTest extends BaseTest {
         assert credential.getUsername().equals("dungtv");
         assert credential.getPassword().equals("123456");
     }
-
 }

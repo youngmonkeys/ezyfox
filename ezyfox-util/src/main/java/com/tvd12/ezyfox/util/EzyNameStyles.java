@@ -29,5 +29,4 @@ public final class EzyNameStyles {
         }
         return builder.toString();
     }
-
 }

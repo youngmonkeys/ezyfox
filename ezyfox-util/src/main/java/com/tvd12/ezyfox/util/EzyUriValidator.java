@@ -15,5 +15,4 @@ public final class EzyUriValidator {
             return false;
         }
     }
-
 }

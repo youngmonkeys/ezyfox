@@ -129,5 +129,4 @@ public class EzyObjectProxyProviderTest {
             return this.em;
         }
     }
-
 }

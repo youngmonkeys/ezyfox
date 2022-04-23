@@ -15,5 +15,4 @@ public class SuperAndInterfaceTest {
     public static interface B extends A {
 
     }
-
 }

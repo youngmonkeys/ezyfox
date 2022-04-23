@@ -23,5 +23,4 @@ public class EzyHashCodesTest {
         hashCodes.append(null);
         Asserts.assertEquals(((1 * 31 + 1) * 31 + 2) * 31 + 43, hashCodes.toHashCode());
     }
-
 }

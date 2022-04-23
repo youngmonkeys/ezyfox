@@ -62,5 +62,4 @@ public class EzyFieldTest extends BaseTest {
         @Getter
         protected Boolean booleanValue;
     }
-
 }

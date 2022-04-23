@@ -39,5 +39,4 @@ public class ClassA {
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     public String f = "6";
-
 }

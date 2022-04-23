@@ -19,5 +19,4 @@ public @interface EzyValue {
      * @return the key mapped to value
      */
     public String value() default "";
-
 }

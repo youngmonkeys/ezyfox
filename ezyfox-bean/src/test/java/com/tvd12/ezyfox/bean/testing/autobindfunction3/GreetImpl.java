@@ -16,5 +16,4 @@ public class GreetImpl implements Greet {
 
     @EzyAutoBind
     private X x;
-
 }

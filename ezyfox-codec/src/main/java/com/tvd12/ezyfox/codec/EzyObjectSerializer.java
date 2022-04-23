@@ -26,5 +26,4 @@ public interface EzyObjectSerializer {
         // wrap the byte array
         return ByteBuffer.wrap(bytes);
     }
-
 }

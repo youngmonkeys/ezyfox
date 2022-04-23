@@ -10,5 +10,4 @@ import lombok.ToString;
 public class Hello {
 
     private String who;
-
 }

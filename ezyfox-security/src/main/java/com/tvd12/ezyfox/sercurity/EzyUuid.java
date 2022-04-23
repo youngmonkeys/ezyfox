@@ -11,5 +11,4 @@ public final class EzyUuid {
         UUID answer = UUID.randomUUID();
         return answer;
     }
-
 }

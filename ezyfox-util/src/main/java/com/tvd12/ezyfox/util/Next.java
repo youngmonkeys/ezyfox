@@ -42,5 +42,4 @@ public class Next {
     public static Next fromPageSize(long page, long size) {
         return new Next((page < 0L ? 0L : page) * size, size);
     }
-    
 }

@@ -81,5 +81,4 @@ public class EzySimpleBindingContextObjectTest extends BaseTest {
         private String name  = "n";
         private String value = "v";
     }
-
 }

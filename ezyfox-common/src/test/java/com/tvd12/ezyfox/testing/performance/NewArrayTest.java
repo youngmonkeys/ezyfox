@@ -39,5 +39,4 @@ public class NewArrayTest extends BaseTest {
         System.out.println("test2 elapsed time = " + time);
     }
 
-
 }

@@ -22,5 +22,4 @@ public final class EzyBase64DoubleArrays {
         double[] array = toDoubleArray(bytes);
         return array;
     }
-
 }

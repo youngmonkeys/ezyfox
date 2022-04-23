@@ -21,5 +21,4 @@ public class EzyListDataHandlers
     public void addDataHandler(EzyDataHandler handler) {
         this.handlers.add(handler);
     }
-
 }

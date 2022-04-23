@@ -14,5 +14,4 @@ public class MsgPackTypeTest extends BaseTest {
         MsgPackType.values();
         MsgPackType.valueOf("POSITIVE_FIXINT");
     }
-
 }

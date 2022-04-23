@@ -17,5 +17,4 @@ public interface EzyFutureMap<K> {
     int size();
     
     Map<K, EzyFuture> clear();
-    
 }

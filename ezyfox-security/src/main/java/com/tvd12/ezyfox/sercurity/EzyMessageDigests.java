@@ -15,5 +15,4 @@ public final class EzyMessageDigests {
             throw new IllegalArgumentException("has no algorithm: " + algorithm);
         }
     }
-
 }

@@ -24,5 +24,4 @@ public class EzyHashMapSetTest extends BaseTest {
         map.addItems("abc", new HashSet<>());
         map.addItems("abc", new HashSet<>());
     }
-
 }

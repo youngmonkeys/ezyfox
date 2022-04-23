@@ -27,5 +27,4 @@ public class EzyInputStreamsTest extends BaseTest {
         String utf8 = EzyInputStreams.toStringUtf8(targetStream);
         assert utf8.equals(initialString);
     }
-
 }

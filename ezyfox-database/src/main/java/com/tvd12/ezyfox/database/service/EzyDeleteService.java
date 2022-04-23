@@ -4,5 +4,4 @@ public interface EzyDeleteService<I> extends
         EzyDeleteAllService,
         EzyDeleteByIdService<I>,
         EzyDeleteByIdsService<I> {
-
 }

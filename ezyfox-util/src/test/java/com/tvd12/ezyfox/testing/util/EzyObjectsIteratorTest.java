@@ -12,5 +12,4 @@ public class EzyObjectsIteratorTest {
         assert iterator.hasNext();
         assert iterator.next().equals("1");
     }
-
 }

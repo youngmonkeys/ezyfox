@@ -14,5 +14,4 @@ public class EzyBoolsIteratorTest extends EzyArrayIteratorTest {
     protected EzyArrayIterator<?> newIterator() {
         return EzyBoolsIterator.wrap(new boolean[] {true, false, true});
     }
-
 }

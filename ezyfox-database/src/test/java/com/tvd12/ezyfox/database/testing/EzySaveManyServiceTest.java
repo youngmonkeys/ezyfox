@@ -13,5 +13,4 @@ public class EzySaveManyServiceTest {
         }
         .save(new Object(), new Object());
     }
-
 }

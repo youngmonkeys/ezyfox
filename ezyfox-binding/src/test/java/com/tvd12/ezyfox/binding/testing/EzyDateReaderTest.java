@@ -21,5 +21,4 @@ public class EzyDateReaderTest {
     public void test1() {
         EzyDateReader.getInstance().read(null, getClass());
     }
-
 }

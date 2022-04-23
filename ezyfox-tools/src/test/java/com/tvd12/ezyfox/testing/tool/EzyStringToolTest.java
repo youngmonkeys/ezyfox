@@ -23,5 +23,4 @@ public class EzyStringToolTest {
         System.out.println(EzyStringTool.toUnderscore("Id"));
         System.out.println(EzyStringTool.lowerFistChar("Dzung"));
     }
-
 }

@@ -26,5 +26,4 @@ public final class EzyConcurrentHashMapReader implements EzyReader<EzyObject, Ma
             answer.put(key, object.get(key));
         return answer;
     }
-
 }

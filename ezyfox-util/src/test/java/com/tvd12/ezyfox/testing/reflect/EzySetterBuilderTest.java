@@ -44,5 +44,4 @@ public class EzySetterBuilderTest {
         protected String value;
         protected final String name = "name";
     }
-
 }

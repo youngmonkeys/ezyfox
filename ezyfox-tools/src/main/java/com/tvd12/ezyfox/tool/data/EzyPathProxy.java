@@ -48,5 +48,4 @@ public class EzyPathProxy {
     public String toString() {
         return path.toString();
     }
-
 }

@@ -40,5 +40,4 @@ public class EzyByFieldSingletonLoaderTest extends BaseTest {
     public static class A {
         public String value = "v";
     }
-
 }

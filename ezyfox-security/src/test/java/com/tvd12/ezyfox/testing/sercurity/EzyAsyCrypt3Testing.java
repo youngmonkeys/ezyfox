@@ -37,5 +37,4 @@ public class EzyAsyCrypt3Testing extends BaseTest {
         System.out.println("decryptedText = " + decryptedText);
 
     }
-
 }

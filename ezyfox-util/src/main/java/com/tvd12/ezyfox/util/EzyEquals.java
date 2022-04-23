@@ -45,5 +45,4 @@ public class EzyEquals<T> {
         functions[i] = function;
         return this;
     }
-
 }

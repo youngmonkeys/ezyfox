@@ -43,5 +43,4 @@ public final class EzyToolTypes {
         allTypes.add(Class.class);
         return Collections.unmodifiableSet(allTypes);
     }
-
 }

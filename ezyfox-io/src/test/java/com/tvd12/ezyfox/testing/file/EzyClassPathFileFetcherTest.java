@@ -51,5 +51,4 @@ public class EzyClassPathFileFetcherTest extends BaseTest {
                 .get("safsdf.tng.xml");
         assert file == null;
     }
-
 }

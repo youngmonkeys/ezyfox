@@ -376,5 +376,4 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
     public String toString() {
         return list.toString();
     }
-
 }

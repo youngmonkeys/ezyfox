@@ -87,5 +87,4 @@ public class EzySimpleJsonWriter implements EzyJsonWriter {
             output.append("]");
         }
     }
-
 }

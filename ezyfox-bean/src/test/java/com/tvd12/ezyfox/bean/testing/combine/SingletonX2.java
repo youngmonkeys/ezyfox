@@ -14,5 +14,4 @@ public class SingletonX2 {
 
     @EzyAutoBind
     private SingletonX2 singletonX2;
-
 }

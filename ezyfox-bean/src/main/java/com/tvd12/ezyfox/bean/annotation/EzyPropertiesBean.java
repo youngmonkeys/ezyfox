@@ -17,5 +17,4 @@ public @interface EzyPropertiesBean {
     Class<?> value() default Object.class;
 
     String prefix() default "";
-
 }

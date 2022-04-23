@@ -26,5 +26,4 @@ public final class EzyListSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return List.class;
     }
-
 }

@@ -90,5 +90,4 @@ public class SerializeArrayTest extends BaseTest {
         .getTime();
         System.out.println("SerializeArrayTest:test2 elapsed time = " + time);
     }
-
 }

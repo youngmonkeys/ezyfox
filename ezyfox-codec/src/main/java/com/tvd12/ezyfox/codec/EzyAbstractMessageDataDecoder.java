@@ -23,5 +23,4 @@ public class EzyAbstractMessageDataDecoder<D>
     public void destroy() {
         this.active = false;
     }
-
 }

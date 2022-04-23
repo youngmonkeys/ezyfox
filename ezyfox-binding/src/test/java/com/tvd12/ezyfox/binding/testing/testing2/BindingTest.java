@@ -29,5 +29,4 @@ public class BindingTest extends BaseTest {
         InterfaceA interfaceA = unmarshaller.unmarshal(object, InterfaceA.class);
         System.out.println(interfaceA);
     }
-
 }

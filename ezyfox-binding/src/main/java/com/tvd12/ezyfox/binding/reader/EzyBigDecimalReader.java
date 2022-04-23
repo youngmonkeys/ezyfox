@@ -30,5 +30,4 @@ public final class EzyBigDecimalReader implements EzyReader<Object, BigDecimal> 
             return new BigDecimal((String)value);
         throw new IllegalArgumentException("can't convert: " + value + " to BigDecimal");
     }
-
 }

@@ -244,9 +244,7 @@ public class EzyObjectReaderBuilder extends EzyAbstractReaderBuilder {
     @Override
     protected boolean isDebug() {
         return debug;
-    }
-}
-
+    }}
 class EzyObjectReaderElementsFetcher extends EzyObjectElementsFetcher {
 
     private EzyGenericSetterValidator setterValidator = new EzyGenericSetterValidator();

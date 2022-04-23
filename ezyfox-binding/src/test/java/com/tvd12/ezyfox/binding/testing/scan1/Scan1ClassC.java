@@ -12,5 +12,4 @@ public class Scan1ClassC {
     public String x = "x";
     public String y = "y";
     public String z = "z";
-
 }

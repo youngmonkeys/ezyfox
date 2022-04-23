@@ -38,5 +38,4 @@ public class EzyIndexedDataIdFetchers extends EzySimpleIdFetchers {
         }
 
     }
-
 }

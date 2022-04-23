@@ -10,5 +10,4 @@ public final class EzyIterables {
             return true;
         return !iterable.iterator().hasNext();
     }
-
 }

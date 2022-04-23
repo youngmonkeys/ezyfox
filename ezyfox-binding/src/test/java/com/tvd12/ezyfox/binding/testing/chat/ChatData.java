@@ -22,5 +22,4 @@ public class ChatData implements Serializable {
     private Date lastModifiedDate = new Date();
     @EzyValue("5")
     private int day = EzyDates.formatAsInteger(new Date());
-
 }

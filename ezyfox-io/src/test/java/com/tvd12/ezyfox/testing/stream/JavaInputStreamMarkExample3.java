@@ -27,5 +27,4 @@ public class JavaInputStreamMarkExample3 {
         System.err.println("available: " + stream.available());
 
     }
-
 }

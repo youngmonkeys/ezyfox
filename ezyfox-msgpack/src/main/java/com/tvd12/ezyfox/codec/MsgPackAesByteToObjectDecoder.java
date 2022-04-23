@@ -18,5 +18,4 @@ public class MsgPackAesByteToObjectDecoder extends MsgPackByteToObjectDecoder {
             return content;
         return cryptor.decrypt(content, decryptionKey);
     }
-
 }

@@ -19,5 +19,4 @@ public class EzyListExceptionHandlers
         for(EzyExceptionHandler handler : handlers)
             handler.handleException(thread, throwable);
     }
-
 }

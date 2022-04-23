@@ -37,5 +37,4 @@ public class EzyMapsTest {
     public static class E extends D {
 
     }
-
 }

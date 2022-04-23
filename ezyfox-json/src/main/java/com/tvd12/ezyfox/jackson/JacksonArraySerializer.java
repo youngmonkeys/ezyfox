@@ -25,5 +25,4 @@ public class JacksonArraySerializer extends StdSerializer<EzyRoArray> {
     }
 
 
-
 }

@@ -36,5 +36,4 @@ public interface EzyObjectBuilder extends EzyBuilder<EzyObject> {
         Object value = builder.build();
         return this.append(key, value);
     }
-
 }

@@ -14,5 +14,4 @@ public class EzyWriteValueException extends IllegalArgumentException {
         this.value = value;
         this.outType = outType;
     }
-
 }

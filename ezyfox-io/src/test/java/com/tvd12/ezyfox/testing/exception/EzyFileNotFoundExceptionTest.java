@@ -21,5 +21,4 @@ public class EzyFileNotFoundExceptionTest extends BaseTest {
     public void test3() {
         throw new EzyFileNotFoundException("", new Exception());
     }
-
 }

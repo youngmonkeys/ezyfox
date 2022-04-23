@@ -22,5 +22,4 @@ public class CharBufferTest {
         catch(Exception e) {
         }
     }
-
 }

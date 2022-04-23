@@ -16,5 +16,4 @@ public interface EzyReader<T,R> {
             return null;
         }
     }
-
 }

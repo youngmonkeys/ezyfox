@@ -20,5 +20,4 @@ public class EzyWrapperBooleanArrayReader extends EzyWrapperArrayReader {
     protected Object[] newArray(int length) {
         return new Boolean[length];
     }
-
 }

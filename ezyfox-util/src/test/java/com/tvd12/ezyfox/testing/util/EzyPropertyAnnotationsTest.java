@@ -71,5 +71,4 @@ public class EzyPropertyAnnotationsTest extends BaseTest {
         }
 
     }
-
 }

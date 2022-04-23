@@ -37,5 +37,4 @@ public class EzyRoPropertiesTest extends BaseTest {
 
         assert properties.getProperty(String.class).equals("hello");
     }
-
 }

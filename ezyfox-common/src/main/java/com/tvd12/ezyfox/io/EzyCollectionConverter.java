@@ -7,5 +7,4 @@ import java.util.Collection;
 public interface EzyCollectionConverter extends Serializable {
 
     <T> T toArray(Collection coll, Class type);
-
 }

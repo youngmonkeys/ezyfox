@@ -272,9 +272,7 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     protected void updateBufferPosition(ByteBuffer buffer, int offset) {
         buffer.position(buffer.position() + offset);
     }
-
 }
-
 abstract class AbstractSizeDeserializer {
 
     public int deserialize(ByteBuffer buffer, int nbytes) {
@@ -288,27 +286,21 @@ abstract class AbstractSizeDeserializer {
     protected int getOther(ByteBuffer buffer, int nbytes) {
         buffer.get();
         return EzyInts.bin2uint(buffer, nbytes - 1);
-    }
-}
-
+    }}
 class StringSizeDeserializer extends AbstractSizeDeserializer {
 
     @Override
     protected int getFix(ByteBuffer buffer) {
         return buffer.get() & 0x1F;
     }
-
 }
-
 class MapSizeDeserializer extends AbstractSizeDeserializer {
 
     @Override
     protected int getFix(ByteBuffer buffer) {
         return buffer.get() & 0xF;
     }
-
 }
-
 class ArraySizeDeserializer extends AbstractSizeDeserializer {
 
     @Override

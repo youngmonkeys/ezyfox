@@ -5,5 +5,4 @@ public interface EzyCrudService<I,E> extends
         EzySaveService<E>,
         EzyFindService<I, E>,
         EzyDeleteService<I> {
-
 }

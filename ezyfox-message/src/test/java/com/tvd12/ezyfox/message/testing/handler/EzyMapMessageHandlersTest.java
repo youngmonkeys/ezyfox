@@ -30,5 +30,4 @@ public class EzyMapMessageHandlersTest extends BaseTest {
             assert e instanceof IllegalArgumentException;
         }
     }
-
 }

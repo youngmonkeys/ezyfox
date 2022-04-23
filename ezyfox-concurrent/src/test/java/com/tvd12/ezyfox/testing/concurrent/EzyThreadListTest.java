@@ -48,5 +48,4 @@ public class EzyThreadListTest extends BaseTest {
             e.printStackTrace();
         }
     }
-
 }

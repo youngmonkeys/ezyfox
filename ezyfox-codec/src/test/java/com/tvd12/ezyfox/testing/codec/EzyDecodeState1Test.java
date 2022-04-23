@@ -17,5 +17,4 @@ public class EzyDecodeState1Test extends BaseTest {
         state = EzyDecodeState.READ_MESSAGE_SIZE;
         state = EzyDecodeState.READ_MESSAGE_CONTENT;
     }
-
 }

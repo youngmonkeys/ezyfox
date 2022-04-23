@@ -25,5 +25,4 @@ public final class EzyStackSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return Stack.class;
     }
-
 }

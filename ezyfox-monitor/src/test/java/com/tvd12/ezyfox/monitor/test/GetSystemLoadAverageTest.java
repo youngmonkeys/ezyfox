@@ -12,5 +12,4 @@ public class GetSystemLoadAverageTest {
         double systemLoadAverage = osMxBean.getSystemLoadAverage();
         System.out.println("systemLoadAverage: " + systemLoadAverage);
     }
-
 }

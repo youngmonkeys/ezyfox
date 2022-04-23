@@ -43,5 +43,4 @@ public interface EzyMessageHeader {
      * @return true or false
      */
     boolean isUdpHandshake(); // bit 6
-
 }

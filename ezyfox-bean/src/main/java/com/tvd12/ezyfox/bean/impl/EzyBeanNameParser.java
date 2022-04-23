@@ -71,5 +71,4 @@ public final class EzyBeanNameParser {
             return defaultName;
         return value;
     }
-
 }

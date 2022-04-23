@@ -93,5 +93,4 @@ public class EzyObjectReaderBuilderTest extends BaseTest {
         @EzyValue("name")
         public final String name = "name"; 
     }
-    
 }

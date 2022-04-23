@@ -60,5 +60,4 @@ public class ClassA4 {
     public String getK() {
         return "k";
     }
-
 }

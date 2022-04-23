@@ -21,5 +21,4 @@ public class EzyShortsIterator extends EzyArrayIterator<Short> {
     protected Short getItem(int index) {
         return array[index];
     }
-
 }

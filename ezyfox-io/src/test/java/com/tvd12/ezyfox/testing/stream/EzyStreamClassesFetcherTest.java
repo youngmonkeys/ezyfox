@@ -25,5 +25,4 @@ public class EzyStreamClassesFetcherTest extends BaseTest {
         assert first.getClassLoader() == EzyClassesFetcher.class.getClassLoader();
         assert first == EzyClassesFetcher.class;
     }
-
 }

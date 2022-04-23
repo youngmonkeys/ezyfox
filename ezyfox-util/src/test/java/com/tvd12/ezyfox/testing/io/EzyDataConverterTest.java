@@ -297,5 +297,4 @@ public class EzyDataConverterTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyDataConverter.class;
     }
-
 }

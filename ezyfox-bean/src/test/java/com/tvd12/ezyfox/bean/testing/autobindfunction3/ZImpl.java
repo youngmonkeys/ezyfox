@@ -4,5 +4,4 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 @EzySingleton("z")
 public class ZImpl implements Z {
-
 }

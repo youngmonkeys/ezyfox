@@ -15,5 +15,4 @@ public class EzyFileClassPackCreatorTest {
                 .add("ServiceImpl", "service.impl", "service-impl.txt");
         System.out.println(creator.create());
     }
-
 }

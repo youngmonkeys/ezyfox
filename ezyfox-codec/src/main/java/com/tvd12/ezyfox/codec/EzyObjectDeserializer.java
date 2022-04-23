@@ -23,5 +23,4 @@ public interface EzyObjectDeserializer {
     default <T> T deserialize(String text) {
         return deserialize(EzyStrings.getUtfBytes(text));
     }
-
 }

@@ -6,5 +6,4 @@ public interface EzyDataHandlers {
     EzyDataHandler getHandler(Object dataType);
 
     void addHandler(Object dataType, EzyDataHandler handler);
-
 }

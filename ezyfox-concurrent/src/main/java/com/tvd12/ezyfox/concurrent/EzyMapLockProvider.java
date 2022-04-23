@@ -14,5 +14,4 @@ public interface EzyMapLockProvider {
     void removeLocks(Set<?> keys);
 
     int size();
-
 }

@@ -63,5 +63,4 @@ public abstract class EzyFutureAbstractMap<K> implements EzyFutureMap<K> {
         map.clear();
         return answer;
     }
-
 }

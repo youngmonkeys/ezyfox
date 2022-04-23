@@ -18,5 +18,4 @@ public final class EzyMapstoreAnnotations {
         String name = anno.value();
         return EzyStrings.isNoContent(name) ? getVariableName(clazz) : name;
     }
-
 }

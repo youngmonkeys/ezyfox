@@ -40,5 +40,4 @@ public abstract class EzyHashMapCollection<K,E,V extends Collection<E>>
             value.clear();
         this.clear();
     }
-
 }

@@ -23,5 +23,4 @@ public class EzyBigDecimalReaderTest {
     public void test1() {
         EzyBigDecimalReader.getInstance().read(null, new Date());
     }
-
 }

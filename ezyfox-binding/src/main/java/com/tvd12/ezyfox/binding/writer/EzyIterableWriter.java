@@ -28,5 +28,4 @@ public final class EzyIterableWriter implements EzyWriter<Iterable, EzyArray> {
         return builder.build();
     }
 
-
 }

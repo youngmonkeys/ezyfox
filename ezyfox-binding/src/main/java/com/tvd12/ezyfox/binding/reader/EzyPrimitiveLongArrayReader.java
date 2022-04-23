@@ -25,5 +25,4 @@ public class EzyPrimitiveLongArrayReader extends EzyPrimitiveArrayReader {
     protected void setValue(Object array, int index, Object value) {
         ((long[])array)[index] = ((Number)value).longValue();
     }
-
 }

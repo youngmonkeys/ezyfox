@@ -17,5 +17,4 @@ public class EzySimpleFileFetcherTest extends BaseTest {
     public void test1() {
         EzySimpleFileFetcher.builder().build().get("fsadfsaf.csdf");
     }
-
 }

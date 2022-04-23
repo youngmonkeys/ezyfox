@@ -19,5 +19,4 @@ public class EzyMapstoreAnnotationsTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyMapstoreAnnotations.class;
     }
-
 }

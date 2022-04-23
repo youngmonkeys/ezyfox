@@ -10,5 +10,4 @@ public class EzyHashMapLockProvider extends EzyAbstractMapLockProvider {
     protected Map<Object, Lock> newLockMap() {
         return new HashMap<>();
     }
-
 }

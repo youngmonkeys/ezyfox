@@ -41,5 +41,4 @@ public class EzyByConstructorSingletonLoader
             return clazz.newInstance();
         return constructor.newInstance(getArguments(parameterTypes, context));
     }
-
 }

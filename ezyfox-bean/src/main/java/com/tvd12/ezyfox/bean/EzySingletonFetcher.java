@@ -28,5 +28,4 @@ public interface EzySingletonFetcher {
     <T> T getAnnotatedSingleton(Class annotationClass);
     
     Map<EzyBeanKey, Object> getSingletonMapByKey();
-    
 }

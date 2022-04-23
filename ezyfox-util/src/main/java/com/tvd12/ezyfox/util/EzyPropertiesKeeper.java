@@ -46,5 +46,4 @@ public abstract class EzyPropertiesKeeper<P extends EzyPropertiesKeeper<P>>
     private Properties loadProperties(String filePath, String profiles) {
         return new MultiFileReader(profiles).read(filePath);
     }
-
 }

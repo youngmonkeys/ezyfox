@@ -12,5 +12,4 @@ public class MsgPackCodecCreatorTest {
         codecCreator.newDecoder(100);
         codecCreator.newEncoder();
     }
-
 }

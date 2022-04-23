@@ -654,5 +654,4 @@ public final class EzyDataConverter {
             Object value) {
         return Arrays.asList((T[])value);
     }
-    
 }

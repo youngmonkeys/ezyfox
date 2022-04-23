@@ -14,5 +14,4 @@ public @interface EzyNamedQuery {
     String name() default "";
     String value() default "";
     String type() default "";
-    boolean nativeQuery() default false;
-}
+    boolean nativeQuery() default false;}

@@ -27,5 +27,4 @@ public class EzyByteBuffersTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyByteBuffers.class;
     }
-
 }

@@ -351,5 +351,4 @@ public class EzyLiteOutputTransformerTest extends EzyEntityTest {
         new EzyLiteOutputTransformerTest().test5();
     }
 
-
 }

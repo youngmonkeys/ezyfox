@@ -14,5 +14,4 @@ public class Message5 {
     @EzyId
     private long id;
     private String name;
-
 }

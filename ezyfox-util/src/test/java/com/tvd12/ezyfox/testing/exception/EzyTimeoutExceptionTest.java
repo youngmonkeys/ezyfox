@@ -11,5 +11,4 @@ public class EzyTimeoutExceptionTest {
         new EzyTimeoutException("");
         new EzyTimeoutException("", new Exception());
     }
-
 }

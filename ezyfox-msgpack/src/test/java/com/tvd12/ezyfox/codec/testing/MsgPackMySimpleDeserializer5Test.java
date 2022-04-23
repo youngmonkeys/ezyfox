@@ -28,5 +28,4 @@ public class MsgPackMySimpleDeserializer5Test extends MsgPackCodecTest {
         EzyArray answer = deserializer.deserialize(bytes);
         Assert.assertEquals(answer.get(size - 1), new Integer(size - 1));
     }
-
 }

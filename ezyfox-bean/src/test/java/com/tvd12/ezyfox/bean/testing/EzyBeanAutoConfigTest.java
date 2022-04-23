@@ -28,5 +28,4 @@ public class EzyBeanAutoConfigTest {
             throw new IllegalStateException();
         }
     }
-
 }

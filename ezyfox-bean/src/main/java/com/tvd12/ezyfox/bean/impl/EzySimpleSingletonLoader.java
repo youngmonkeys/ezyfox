@@ -218,5 +218,4 @@ public abstract class EzySimpleSingletonLoader
             return new Class[0];
         }
     }
-
 }

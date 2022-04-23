@@ -24,5 +24,4 @@ public class Configuration1 extends EzyLoggable {
         logger.debug("\nnew singleton 2 call\n");
         return new Singleton2();
     }
-
 }

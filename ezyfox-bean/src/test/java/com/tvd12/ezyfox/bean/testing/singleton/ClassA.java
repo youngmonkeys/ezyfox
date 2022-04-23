@@ -9,5 +9,4 @@ import lombok.Getter;
 public class ClassA {
 
     private String value1 = "1";
-
 }

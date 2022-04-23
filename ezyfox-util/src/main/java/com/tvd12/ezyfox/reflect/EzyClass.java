@@ -308,5 +308,4 @@ public class EzyClass implements EzyReflectElement {
     public String toString() {
         return clazz.toString();
     }
-
 }

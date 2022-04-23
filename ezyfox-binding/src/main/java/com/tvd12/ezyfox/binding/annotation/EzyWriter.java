@@ -20,5 +20,4 @@ public @interface EzyWriter {
      */
     @SuppressWarnings("rawtypes")
     public Class<? extends com.tvd12.ezyfox.binding.EzyWriter> value();
-
 }

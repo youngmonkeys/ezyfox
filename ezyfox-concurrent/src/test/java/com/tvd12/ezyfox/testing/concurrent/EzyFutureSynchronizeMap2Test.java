@@ -28,5 +28,4 @@ public class EzyFutureSynchronizeMap2Test {
         assert future != null;
         map.putFuture("1");
     }
-
 }

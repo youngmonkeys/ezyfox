@@ -4,5 +4,4 @@ public class Scan3C {
 
     public String a = "a";
     public String b = "b";
-
 }

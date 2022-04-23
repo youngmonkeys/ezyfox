@@ -8,5 +8,4 @@ public interface EzyConfigurationLoader {
 
     EzyConfigurationLoader context(EzyBeanContext context);
 
-    void load();
-}
+    void load();}

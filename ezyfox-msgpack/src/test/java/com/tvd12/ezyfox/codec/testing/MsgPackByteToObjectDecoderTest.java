@@ -27,5 +27,4 @@ public class MsgPackByteToObjectDecoderTest {
         decoder.decode(out.poll());
         decoder.reset();
     }
-
 }

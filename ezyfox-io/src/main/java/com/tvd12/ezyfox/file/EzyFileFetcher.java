@@ -5,5 +5,4 @@ import java.io.File;
 public interface EzyFileFetcher {
 
     File get(String filePath);
-
 }

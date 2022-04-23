@@ -9,5 +9,4 @@ public class EzyTypesTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyTypes.class;
     }
-
 }

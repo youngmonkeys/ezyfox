@@ -13,5 +13,4 @@ public class YImpl implements Y {
 
     @EzyAutoBind
     private Z z;
-
 }

@@ -24,5 +24,4 @@ public final class EzyUuidReader implements EzyReader<Object, UUID> {
             return UUID.fromString((String)value);
         throw new IllegalArgumentException("can't convert: " + value + " to UUID");
     }
-
 }

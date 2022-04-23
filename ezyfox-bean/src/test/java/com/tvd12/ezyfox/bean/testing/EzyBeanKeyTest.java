@@ -11,5 +11,4 @@ public class EzyBeanKeyTest extends BaseTest {
     public void test() {
         new EzyBeanKey("hello", getClass()).toString();
     }
-
 }

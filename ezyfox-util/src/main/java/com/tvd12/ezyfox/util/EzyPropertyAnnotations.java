@@ -32,5 +32,4 @@ public final class EzyPropertyAnnotations {
         EzyField field = clazz.getField(fieldName);
         return field != null ? getPropertyName(clazz, field) : fieldName;
     }
-
 }

@@ -8,5 +8,4 @@ public class Pack3A1Impl implements Pack3A1 {
 
     @EzyAutoBind
     public Pack3A2 pack3A2;
-
 }

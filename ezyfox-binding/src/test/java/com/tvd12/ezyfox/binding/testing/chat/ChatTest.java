@@ -16,5 +16,4 @@ public class ChatTest {
         Object object = marshaller.marshal(new ChatMessage());
         System.out.println(object);
     }
-
 }

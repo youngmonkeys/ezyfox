@@ -71,5 +71,4 @@ public class GetSingletonOfErrorBeanKeyTest {
 
     public static class D implements ID {
     }
-
 }

@@ -45,5 +45,4 @@ public abstract class EzyPrimitiveArrayReader implements EzyReader<Object, Objec
 
     protected abstract Class<?> getOutType();
     protected abstract Object newArray(int length);
-
 }

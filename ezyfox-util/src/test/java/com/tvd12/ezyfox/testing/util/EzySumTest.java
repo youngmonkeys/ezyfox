@@ -41,5 +41,4 @@ public class EzySumTest extends BaseTest {
 
         assert EzySum.sumToLongs(Lists.newArrayList(1, 2, 3)) == 6;
     }
-
 }

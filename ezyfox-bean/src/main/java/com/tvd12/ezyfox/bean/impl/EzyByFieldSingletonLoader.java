@@ -66,5 +66,4 @@ public class EzyByFieldSingletonLoader
     @Override
     protected void detectCircularDependency(Class[] parameterTypes, StringBuilder log) {
     }
-
 }

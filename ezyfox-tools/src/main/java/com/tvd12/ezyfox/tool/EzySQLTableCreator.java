@@ -309,5 +309,4 @@ public class EzySQLTableCreator {
         map.put(BigDecimal.class, "DECIMAL(19,5)");
         return Collections.unmodifiableMap(map);
     }
-
 }

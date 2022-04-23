@@ -6,5 +6,4 @@ public interface EzyOutputTransformer extends Serializable {
 
     @SuppressWarnings("rawtypes")
     Object transform(Object value, Class type);
-
 }

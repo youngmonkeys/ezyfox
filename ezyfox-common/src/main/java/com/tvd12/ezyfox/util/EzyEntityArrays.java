@@ -32,5 +32,4 @@ public final class EzyEntityArrays {
             return true;
         return false;
     }
-
 }

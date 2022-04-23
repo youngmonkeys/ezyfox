@@ -17,5 +17,4 @@ public class MsgPackObjectToByteEncoderTest {
                 messageToBytes, objectToMessage);
         encoder.encode(new Object());
     }
-
 }

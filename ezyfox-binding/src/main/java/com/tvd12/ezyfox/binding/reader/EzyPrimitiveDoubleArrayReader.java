@@ -25,5 +25,4 @@ public class EzyPrimitiveDoubleArrayReader extends EzyPrimitiveArrayReader {
     protected void setValue(Object array, int index, Object value) {
         ((double[])array)[index] = ((Number)value).doubleValue();
     }
-
 }

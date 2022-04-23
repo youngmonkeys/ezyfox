@@ -15,5 +15,4 @@ public class EzyFileTool {
             throw new IllegalArgumentException(e);
         }
     }
-
 }

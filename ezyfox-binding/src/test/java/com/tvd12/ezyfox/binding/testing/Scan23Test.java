@@ -25,5 +25,4 @@ public class Scan23Test extends BaseTest {
             .addTemplateClasses(Lists.newArrayList(Scan2ObjectReader.class, Scan2ObjectWriter.class))
             .build();
     }
-
 }

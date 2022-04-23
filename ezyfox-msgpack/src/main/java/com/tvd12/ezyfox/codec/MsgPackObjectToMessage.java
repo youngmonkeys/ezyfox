@@ -39,5 +39,4 @@ public class MsgPackObjectToMessage implements EzyObjectToMessage {
         boolean answer = content.length > MsgPackConstant.MAX_SMALL_MESSAGE_SIZE;
         return answer;
     }
-
 }

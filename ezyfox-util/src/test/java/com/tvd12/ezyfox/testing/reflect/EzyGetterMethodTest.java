@@ -69,5 +69,4 @@ public class EzyGetterMethodTest extends BaseTest {
         }
 
     }
-
 }

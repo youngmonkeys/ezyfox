@@ -23,5 +23,4 @@ public class EnumTest extends BaseTest {
     public static enum One {
         ABC,DEF
     }
-
 }

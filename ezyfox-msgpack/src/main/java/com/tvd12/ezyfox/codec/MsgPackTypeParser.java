@@ -79,5 +79,4 @@ public class MsgPackTypeParser {
             return MsgPackType.NEGATIVE_FIXINT;
         return null;
     }
-
 }

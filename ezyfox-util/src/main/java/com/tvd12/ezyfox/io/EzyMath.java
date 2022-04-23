@@ -46,5 +46,4 @@ public final class EzyMath {
         for(int i = 0 ; i < bytes.length ; ++i)
             bytes[i] ^= 0xff;
     }
-
 }

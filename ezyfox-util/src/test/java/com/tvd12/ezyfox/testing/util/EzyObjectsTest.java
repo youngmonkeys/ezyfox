@@ -25,5 +25,4 @@ public class EzyObjectsTest extends BaseTest {
     @EqualsAndHashCode
     public static class ClassA {
     }
-
 }

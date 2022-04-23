@@ -8,5 +8,4 @@ public class V112Prototype2 {
 
     @EzyAutoBind
     protected V112Prototype1 v112Prototype1;
-
 }

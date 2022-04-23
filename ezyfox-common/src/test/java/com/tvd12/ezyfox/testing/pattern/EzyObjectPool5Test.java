@@ -99,5 +99,4 @@ public class EzyObjectPool5Test extends BaseTest {
                 .build();
         pool.start();
     }
-
 }

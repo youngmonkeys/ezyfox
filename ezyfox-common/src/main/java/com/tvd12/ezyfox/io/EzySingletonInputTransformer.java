@@ -11,5 +11,4 @@ public class EzySingletonInputTransformer extends EzySimpleInputTransformer {
     public static EzySingletonInputTransformer getInstance() {
         return INSTANCE;
     }
-
 }

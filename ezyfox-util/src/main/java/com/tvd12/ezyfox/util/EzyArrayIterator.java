@@ -19,5 +19,4 @@ public abstract class EzyArrayIterator<E> implements Iterator<E> {
     protected abstract int getLength();
 
     protected abstract E getItem(int index);
-
 }

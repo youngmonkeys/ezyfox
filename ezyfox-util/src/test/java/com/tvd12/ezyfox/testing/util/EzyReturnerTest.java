@@ -73,5 +73,4 @@ public class EzyReturnerTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyReturner.class;
     }
-
 }

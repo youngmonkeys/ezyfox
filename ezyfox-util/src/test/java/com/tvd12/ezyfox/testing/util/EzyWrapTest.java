@@ -19,5 +19,4 @@ public class EzyWrapTest {
         wrap = new EzyWrap<>("world");
         assert wrap.getValue().equals("world");
     }
-    
 }

@@ -54,5 +54,4 @@ public class JarClassLoader extends ClassLoader {
             return null;
         }
     }
-
 }

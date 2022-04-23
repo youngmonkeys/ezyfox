@@ -20,5 +20,4 @@ public class EzyGenerics5Test {
         private static final long serialVersionUID = 7094427792585792941L;
 
     }
-
 }

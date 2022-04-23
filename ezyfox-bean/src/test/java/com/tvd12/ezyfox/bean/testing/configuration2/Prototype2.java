@@ -24,5 +24,4 @@ public class Prototype2 {
     public void sayThank() {
         System.out.println("thank you! I have " + prototype0 + " and " + singleton0);
     }
-
 }

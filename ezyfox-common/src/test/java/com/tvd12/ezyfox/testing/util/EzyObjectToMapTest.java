@@ -23,5 +23,4 @@ public class EzyObjectToMapTest {
         Map map = object.toMap();
         System.out.println("map: " + map);
     }
-
 }

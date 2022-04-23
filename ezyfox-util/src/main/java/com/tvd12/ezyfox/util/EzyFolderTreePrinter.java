@@ -166,5 +166,4 @@ public class EzyFolderTreePrinter {
             this.children.add(child);
         }
     }
-    
 }

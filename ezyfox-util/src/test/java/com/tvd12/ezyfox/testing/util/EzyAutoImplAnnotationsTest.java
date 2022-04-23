@@ -53,5 +53,4 @@ public class EzyAutoImplAnnotationsTest extends BaseTest {
     public interface ClassE {
 
     }
-
 }

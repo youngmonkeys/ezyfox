@@ -21,5 +21,4 @@ public class JacksonDateSerializer extends StdSerializer<Date> {
     }
 
 
-
 }

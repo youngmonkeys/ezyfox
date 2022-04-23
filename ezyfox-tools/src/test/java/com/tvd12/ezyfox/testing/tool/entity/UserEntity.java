@@ -45,5 +45,4 @@ public class UserEntity {
     protected LocalDateTime localDateTime;
     protected BigInteger bigInteger;
     protected BigDecimal bigDecimal;
-    protected byte[] byteArray;
-}
+    protected byte[] byteArray;}

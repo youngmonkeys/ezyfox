@@ -74,5 +74,4 @@ public abstract class EzyDataClassesFetcher<T> extends EzyLoggable {
     }
 
     protected abstract Set<Class<? extends Annotation>> getAnnotationClasses();
-
 }

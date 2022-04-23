@@ -6,5 +6,4 @@ import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 public interface EzyPrototypeSupplierLoader {
 
     EzyPrototypeSupplier load(EzyPrototypeFactory factory);
-
 }

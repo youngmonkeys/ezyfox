@@ -5,5 +5,4 @@ public interface EzySetService<K,V> extends
         EzySetValueService<V>,
         EzySetValuesService<V>,
         EzySetMapService<K, V> {
-
 }

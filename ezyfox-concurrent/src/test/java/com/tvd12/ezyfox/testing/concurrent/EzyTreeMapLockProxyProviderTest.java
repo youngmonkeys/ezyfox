@@ -58,5 +58,4 @@ public class EzyTreeMapLockProxyProviderTest {
             throw new IllegalStateException();
         }
     }
-
 }

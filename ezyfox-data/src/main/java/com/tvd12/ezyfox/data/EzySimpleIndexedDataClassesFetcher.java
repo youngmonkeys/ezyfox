@@ -42,5 +42,4 @@ public class EzySimpleIndexedDataClassesFetcher
     protected Set<Class<? extends Annotation>> getAnnotationClasses() {
         return Sets.newHashSet(EzyIndexedData.class, IndexedData.class);
     }
-
 }

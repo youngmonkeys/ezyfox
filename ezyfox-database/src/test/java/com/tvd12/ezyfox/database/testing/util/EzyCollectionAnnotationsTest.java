@@ -39,5 +39,4 @@ public class EzyCollectionAnnotationsTest extends BaseTest {
     private static class D {
 
     }
-
 }

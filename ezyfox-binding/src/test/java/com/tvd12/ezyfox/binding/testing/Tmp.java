@@ -30,5 +30,4 @@ public class Tmp {
             object.setData1(((com.tvd12.ezyfox.binding.testing.EzyTestData1)(arg0.unmarshal(com.tvd12.ezyfox.binding.testing.TestData1ReaderImpl.class, (java.lang.Object)value.getValue("data1", com.tvd12.ezyfox.binding.testing.EzyTestData1.class)))));
         return object;
     }
-
 }

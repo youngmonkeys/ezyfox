@@ -80,5 +80,4 @@ public class Combine {
     public void hello1(String value) {
         System.out.println("hung dep trai");
     }
-
 }

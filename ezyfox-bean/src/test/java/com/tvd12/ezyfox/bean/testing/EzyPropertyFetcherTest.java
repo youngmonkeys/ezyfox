@@ -42,5 +42,4 @@ public class EzyPropertyFetcherTest {
     }
 
     public static abstract class A implements EzyPropertyFetcher {}
-
 }

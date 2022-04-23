@@ -34,5 +34,4 @@ public class EzyEntityBuildersTest extends BaseTest {
             return super.newObjectBuilder();
         }
     }
-
 }

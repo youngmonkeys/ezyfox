@@ -29,5 +29,4 @@ public class EzyHashMapLockProxyProviderTest {
         provider.removeLocks(Sets.newHashSet("a", "b", "d"));
         provider.removeLocks(Sets.newHashSet("a", "b", "d"));
     }
-
 }

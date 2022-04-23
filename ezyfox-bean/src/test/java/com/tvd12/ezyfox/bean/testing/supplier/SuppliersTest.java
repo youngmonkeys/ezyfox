@@ -15,5 +15,4 @@ public class SuppliersTest extends BaseTest {
         ClassA classA = (ClassA)context.getBean(ClassA.class);
         assert classA.getHashSet() != null;
     }
-
 }

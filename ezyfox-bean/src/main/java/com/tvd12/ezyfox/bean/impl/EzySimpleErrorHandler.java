@@ -11,5 +11,4 @@ public class EzySimpleErrorHandler
     public void handle(Throwable error) {
         logger.warn("error", error);
     }
-
 }

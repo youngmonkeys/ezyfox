@@ -26,5 +26,4 @@ public final class EzyQueueSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return Queue.class;
     }
-
 }

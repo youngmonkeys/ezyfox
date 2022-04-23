@@ -8,5 +8,4 @@ public class V112Singleton2 {
 
     @EzyAutoBind
     private V112Singleton1 v112Singleton1;
-
 }

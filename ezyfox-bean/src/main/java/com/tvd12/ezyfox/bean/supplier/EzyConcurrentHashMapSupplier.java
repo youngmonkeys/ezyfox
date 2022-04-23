@@ -25,5 +25,4 @@ public final class EzyConcurrentHashMapSupplier implements EzyPrototypeSupplier 
     public Class<?> getObjectType() {
         return ConcurrentHashMap.class;
     }
-
 }

@@ -34,5 +34,4 @@ public class ConfigClass1 {
     public void sayReady() {
         System.out.println("I'm ready, I have " + singleton0);
     }
-    
 }

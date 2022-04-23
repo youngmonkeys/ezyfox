@@ -34,5 +34,4 @@ public final class Lists {
             return (List<T>)iterable;
         return newArrayList(iterable);
     }
-
 }

@@ -90,5 +90,4 @@ public class EzyMethodTest extends BaseTest {
         }
 
     }
-
 }

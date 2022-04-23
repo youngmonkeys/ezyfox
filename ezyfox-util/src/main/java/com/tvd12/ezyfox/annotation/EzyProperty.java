@@ -17,5 +17,4 @@ public @interface EzyProperty {
     String value() default "";
 
     String prefix() default "";
-
 }

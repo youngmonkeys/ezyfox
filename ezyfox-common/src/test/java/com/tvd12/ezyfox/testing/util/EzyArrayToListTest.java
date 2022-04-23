@@ -15,5 +15,4 @@ public class EzyArrayToListTest {
                 .build();
         System.out.println("array: " + array.toList());
     }
-
 }

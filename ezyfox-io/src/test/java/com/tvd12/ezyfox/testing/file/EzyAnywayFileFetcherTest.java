@@ -31,5 +31,4 @@ public class EzyAnywayFileFetcherTest extends BaseTest {
                 .get("pom.xml");
         assert file != null;
     }
-
 }

@@ -18,5 +18,4 @@ public class InternalServerErrorException extends RuntimeException {
     public InternalServerErrorException(String msg, Exception e) {
             super(msg, e);
     }
-
 }

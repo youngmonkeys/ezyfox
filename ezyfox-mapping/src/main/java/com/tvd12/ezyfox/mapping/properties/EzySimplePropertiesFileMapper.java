@@ -61,5 +61,4 @@ public class EzySimplePropertiesFileMapper
             return new EzySimplePropertiesFileMapper(this);
         }
     }
-
 }

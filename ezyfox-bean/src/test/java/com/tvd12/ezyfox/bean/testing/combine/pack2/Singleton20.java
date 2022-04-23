@@ -27,5 +27,4 @@ public class Singleton20 {
     protected void setStg21(ISingleton21 stg21) {
         System.out.println("set stg21: " + stg21);
     }
-
 }

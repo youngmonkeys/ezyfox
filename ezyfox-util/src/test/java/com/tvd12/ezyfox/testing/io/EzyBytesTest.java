@@ -100,5 +100,4 @@ public class EzyBytesTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyBytes.class;
     }
-
 }

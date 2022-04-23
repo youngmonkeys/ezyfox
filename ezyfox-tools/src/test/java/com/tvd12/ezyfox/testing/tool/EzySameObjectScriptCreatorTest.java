@@ -37,5 +37,4 @@ public class EzySameObjectScriptCreatorTest {
         private String value;
 
     }
-
 }

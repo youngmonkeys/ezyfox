@@ -166,5 +166,4 @@ public class EzyProcessorTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyProcessor.class;
     }
-
 }

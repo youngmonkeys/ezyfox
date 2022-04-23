@@ -15,5 +15,4 @@ public class EzyMonitorTest extends BaseTest {
         System.out.println(monitor.getMemoryMonitor());
         System.out.println(monitor.getThreadsMonitor());
     }
-
 }

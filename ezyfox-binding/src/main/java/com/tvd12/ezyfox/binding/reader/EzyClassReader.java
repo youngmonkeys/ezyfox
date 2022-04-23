@@ -24,5 +24,4 @@ public final class EzyClassReader implements EzyReader<Object, Class> {
             return EzyClasses.getClass((String)value);
         throw new IllegalArgumentException("can't convert: " + value + " to Class");
     }
-
 }

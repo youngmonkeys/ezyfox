@@ -16,5 +16,4 @@ public class EzySimpleMessageHeaderTest {
         assert header.isRawBytes();
         assert header.isUdpHandshake();
     }
-
 }

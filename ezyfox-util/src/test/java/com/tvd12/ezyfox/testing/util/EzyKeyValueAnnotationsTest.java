@@ -30,5 +30,4 @@ public class EzyKeyValueAnnotationsTest extends BaseTest {
     public interface ClassE {
 
     }
-
 }

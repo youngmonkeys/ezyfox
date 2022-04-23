@@ -53,5 +53,4 @@ public class EzySimpleBeanContextPropertiesTest {
         Asserts.assertEquals("bar", properties.getProperty("foo"));
         Asserts.assertEquals("3006", properties.getProperty("port"));
     }
-
 }

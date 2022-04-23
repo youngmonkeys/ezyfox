@@ -57,9 +57,7 @@ public class GetParameterTypeTest {
                     + " on class " + clazz);
         return (Class<?>) types[0];
     }
-
 }
-
 class StringList extends ArrayList<String> {
     private static final long serialVersionUID = 3251751102634031407L;
 };

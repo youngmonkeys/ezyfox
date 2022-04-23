@@ -16,5 +16,4 @@ public class EzyPredicatesTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyPredicates.class;
     }
-
 }

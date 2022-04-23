@@ -40,5 +40,4 @@ public class MsgPackTypeParserTest {
     public void test3() {
         assert parser.parse(256) == null;
     }
-
 }

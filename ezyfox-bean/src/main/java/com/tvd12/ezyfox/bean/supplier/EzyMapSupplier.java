@@ -26,5 +26,4 @@ public final class EzyMapSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return Map.class;
     }
-
 }

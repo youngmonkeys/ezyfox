@@ -21,5 +21,4 @@ public class EzyIntsIterator extends EzyArrayIterator<Integer> {
     protected Integer getItem(int index) {
         return array[index];
     }
-
 }

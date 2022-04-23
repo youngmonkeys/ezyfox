@@ -37,5 +37,4 @@ public class ConfigClassA {
     public AvailableSingleton1 newAvailableSingleton1() {
         return new AvailableSingleton1();
     }
-    
 }

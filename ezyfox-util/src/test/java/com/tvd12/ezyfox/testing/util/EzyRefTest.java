@@ -15,5 +15,4 @@ public class EzyRefTest {
         ref.release();
         assert ref.isReleasable();
     }
-
 }

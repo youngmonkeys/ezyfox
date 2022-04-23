@@ -11,5 +11,4 @@ public class ClassB implements InterfaceB {
     @Setter
     @Getter
     private String name;
-
 }

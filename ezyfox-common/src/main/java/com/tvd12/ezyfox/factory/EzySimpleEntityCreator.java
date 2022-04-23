@@ -88,5 +88,4 @@ public final class EzySimpleEntityCreator implements EzyEntityCreator {
         answer.put(EzyArrayBuilder.class, () -> newArrayBuilder());
         return answer;
     }
-
 }

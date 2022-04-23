@@ -10,5 +10,4 @@ public class EzyConcurrentHashMapLockProvider extends EzyAbstractMapLockProvider
     protected Map<Object, Lock> newLockMap() {
         return new ConcurrentHashMap<>();
     }
-
 }

@@ -14,5 +14,4 @@ public final class EzyFunctions {
     public static Function<Object, Lock> newReentrantLockFunc() {
         return NEW_REENTRANT_LOCK_FUNC;
     }
-
 }

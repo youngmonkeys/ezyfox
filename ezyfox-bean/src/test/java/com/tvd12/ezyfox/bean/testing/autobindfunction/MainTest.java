@@ -32,5 +32,4 @@ public class MainTest {
         assert ((XImpl)greet.getX()).getY() != null;
         assert ((YImpl)((XImpl)greet.getX()).getY()).getZ() != null;
     }
-
 }

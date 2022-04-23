@@ -16,5 +16,4 @@ public class TestData1ReaderImpl extends EzyAbstractReader<EzyArray, EzyTestData
         data.setData3(((Integer)arg0.unmarshal((Object)array.getValue(2, int.class), int.class)).intValue());
         return data;
     }
-
 }

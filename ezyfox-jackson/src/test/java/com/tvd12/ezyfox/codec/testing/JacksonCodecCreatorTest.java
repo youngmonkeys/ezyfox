@@ -12,5 +12,4 @@ public class JacksonCodecCreatorTest {
         creator.newDecoder(1000);
         creator.newEncoder();
     }
-
 }

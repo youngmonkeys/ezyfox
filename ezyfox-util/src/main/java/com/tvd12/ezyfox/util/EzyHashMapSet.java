@@ -12,5 +12,4 @@ public class EzyHashMapSet<K,E>
     protected Set<E> newCollection() {
         return new HashSet<>();
     }
-
 }

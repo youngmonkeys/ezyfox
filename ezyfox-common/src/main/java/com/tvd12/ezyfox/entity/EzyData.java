@@ -20,5 +20,4 @@ public interface EzyData extends Cloneable, Serializable {
      * @return a duplicated object
      */
     EzyData duplicate();
-
 }

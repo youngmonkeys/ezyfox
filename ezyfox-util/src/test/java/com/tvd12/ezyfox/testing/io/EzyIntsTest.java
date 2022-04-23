@@ -69,5 +69,4 @@ public class EzyIntsTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyInts.class;
     }
-
 }

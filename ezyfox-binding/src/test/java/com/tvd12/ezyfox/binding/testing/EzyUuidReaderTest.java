@@ -19,5 +19,4 @@ public class EzyUuidReaderTest {
     public void test1() {
         EzyUuidReader.getInstance().read(null, getClass());
     }
-
 }

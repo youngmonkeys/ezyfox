@@ -29,5 +29,4 @@ public class EzyRoundRobinTest {
             }).getTime();
         System.out.println("time: " + time);
     }
-
 }

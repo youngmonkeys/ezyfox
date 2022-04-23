@@ -45,5 +45,4 @@ public class EzyBeanNameTranslatorTest extends BaseTest {
         assert map != null;
         assert map instanceof ConcurrentHashMap;
     }
-
 }

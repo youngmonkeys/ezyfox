@@ -21,5 +21,4 @@ public class ArrayCollectionToObjectArrayTest {
         System.out.println(array.get(1, byte[].class));
         System.out.println(array.get(1, int[].class));
     }
-    
 }

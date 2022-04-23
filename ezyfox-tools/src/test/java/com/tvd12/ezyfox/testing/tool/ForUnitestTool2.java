@@ -20,5 +20,4 @@ public class ForUnitestTool2 {
             Map<String, String> i,
             BigDecimal j) {
     }
-
 }

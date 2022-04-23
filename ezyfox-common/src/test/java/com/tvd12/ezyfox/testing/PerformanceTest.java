@@ -29,5 +29,4 @@ public class PerformanceTest extends BaseTest {
         System.out.println("time = " + (end - start));
         System.out.println("\n========= end =========\n");
     }
-
 }

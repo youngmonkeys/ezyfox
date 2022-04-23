@@ -14,5 +14,4 @@ public final class EzyChars {
         boolean answer = ch < 'A' || ch > 'Z';
         return answer;
     }
-
 }

@@ -21,5 +21,4 @@ public class EzyCharsIterator extends EzyArrayIterator<Character> {
     protected Character getItem(int index) {
         return array[index];
     }
-
 }

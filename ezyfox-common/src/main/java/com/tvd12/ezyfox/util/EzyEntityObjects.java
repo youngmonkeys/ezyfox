@@ -28,5 +28,4 @@ public final class EzyEntityObjects {
             return true;
         return false;
     }
-
 }

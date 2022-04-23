@@ -18,5 +18,4 @@ public final class EzyIntegerReader implements EzyReader<Number, Integer> {
     public Integer read(EzyUnmarshaller unmarshaller, Number value) {
         return value.intValue();
     }
-
 }

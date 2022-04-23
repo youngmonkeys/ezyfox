@@ -26,5 +26,4 @@ public class Combine3Test {
         assert h != null;
 
     }
-
 }

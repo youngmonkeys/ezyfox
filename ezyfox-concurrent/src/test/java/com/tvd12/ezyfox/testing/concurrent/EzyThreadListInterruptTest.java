@@ -27,5 +27,4 @@ public class EzyThreadListInterruptTest {
         Thread.sleep(300);
         threadList.interrupt();
     }
-
 }

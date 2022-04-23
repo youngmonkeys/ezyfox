@@ -12,5 +12,4 @@ public class EzyTestData {
     private int data1 = 100;
     private int data2 = 100;
     private int data3 = 100;
-
 }

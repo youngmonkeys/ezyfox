@@ -40,5 +40,4 @@ public class EzyRoundRobin<T> {
                 consumer.accept(item);
         }
     }
-
 }

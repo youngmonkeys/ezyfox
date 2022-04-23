@@ -18,5 +18,4 @@ public class ForUnitestTool {
             BigDecimal j) {
         return 10;
     }
-
 }

@@ -21,5 +21,4 @@ public class EzyCharsTest extends BaseTest {
         assert !EzyChars.isUpperCase('z');
         assert !EzyChars.isUpperCase('1');
     }
-
 }

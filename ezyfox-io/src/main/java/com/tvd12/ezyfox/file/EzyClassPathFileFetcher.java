@@ -53,5 +53,4 @@ public class EzyClassPathFileFetcher implements EzyFileFetcher {
             return new EzyClassPathFileFetcher(this);
         }
     }
-
 }

@@ -40,5 +40,4 @@ public class FullData {
     protected Short[] wrapperShortValues = new Short[] {11, 12};
     protected String[] stringValues = new String[] {"c", "d"};
 
-
 }

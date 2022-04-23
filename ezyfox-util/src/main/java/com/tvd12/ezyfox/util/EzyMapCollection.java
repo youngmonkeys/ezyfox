@@ -27,5 +27,4 @@ public interface EzyMapCollection<K,E,V extends Collection<E>> extends Map<K,V> 
         if(coll != null)
             coll.removeAll(items);
     }
-
 }

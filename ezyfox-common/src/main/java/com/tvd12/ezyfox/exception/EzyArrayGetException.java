@@ -17,5 +17,4 @@ public class EzyArrayGetException extends IllegalArgumentException {
         this.value = value;
         this.outType = outType;
     }
-
 }

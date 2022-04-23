@@ -8,5 +8,4 @@ public class BImpl implements B {
 //
 //    @EzyAutoBind
 //    public D d;
-
 }

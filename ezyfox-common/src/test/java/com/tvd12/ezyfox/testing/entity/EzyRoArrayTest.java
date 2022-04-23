@@ -22,5 +22,4 @@ public class EzyRoArrayTest {
         assert array.getValue(3, int.class, 0) == (Object)0;
         array.add(Lists.newArrayList(2, 3));
     }
-
 }

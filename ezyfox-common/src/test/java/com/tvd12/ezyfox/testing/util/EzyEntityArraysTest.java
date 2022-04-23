@@ -24,5 +24,4 @@ public class EzyEntityArraysTest extends BaseTest {
         assert EzyEntityArrays.isEmpty(EzyEntityFactory.newArray());
         assert !EzyEntityArrays.isEmpty(EzyEntityArrays.newArray(1, 2, 3));
     }
-
 }

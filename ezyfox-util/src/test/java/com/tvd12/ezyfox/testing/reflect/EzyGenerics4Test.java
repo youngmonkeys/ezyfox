@@ -87,5 +87,4 @@ public class EzyGenerics4Test {
             
         }
     }
-
 }

@@ -15,5 +15,4 @@ import com.tvd12.ezyfox.annotation.EzyKeyValue;
 @Target({ TYPE })
 @EzyAutoImpl(properties = @EzyKeyValue(key = "map-name", value = ""))
 public @interface EzyMapServiceAutoImpl {
-
 }

@@ -52,5 +52,4 @@ public class EzyFunctionTest extends BaseTest {
     public static interface Reader {
         public String read(String value);
     }
-
 }

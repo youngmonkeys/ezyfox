@@ -54,5 +54,4 @@ public class EzyImportReflectionTest {
 
     private static class B {
     }
-
 }

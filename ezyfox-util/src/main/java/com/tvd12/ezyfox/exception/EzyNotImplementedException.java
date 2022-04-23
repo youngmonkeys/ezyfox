@@ -14,5 +14,4 @@ public class EzyNotImplementedException extends RuntimeException {
     public EzyNotImplementedException(String msg, Throwable throwable) {
         super(msg, throwable);
     }
-
 }

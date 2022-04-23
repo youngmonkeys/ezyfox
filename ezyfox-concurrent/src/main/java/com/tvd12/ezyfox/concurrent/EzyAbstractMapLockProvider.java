@@ -44,5 +44,4 @@ public abstract class EzyAbstractMapLockProvider implements EzyMapLockProvider {
         int size = locks.size();
         return size;
     }
-
 }

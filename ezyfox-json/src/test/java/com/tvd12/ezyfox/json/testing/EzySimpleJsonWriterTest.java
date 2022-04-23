@@ -84,5 +84,4 @@ public class EzySimpleJsonWriterTest {
             return null;
         }
     }
-
 }

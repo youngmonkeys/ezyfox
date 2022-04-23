@@ -9,5 +9,4 @@ public class NotMessage {
 
     private Long id;
     private String name;
-
 }

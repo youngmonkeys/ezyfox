@@ -54,5 +54,4 @@ public class EzyByFieldPrototypeSupplierLoader
                 .append(field.getName());
         return instruction;
     }
-
 }

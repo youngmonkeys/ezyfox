@@ -9,5 +9,4 @@ public class EzyKeyValueParserTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyKeyValueParser.class;
     }
-
 }

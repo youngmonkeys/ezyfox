@@ -32,5 +32,4 @@ public class EzyMessageIdSettersTest extends BaseTest {
         idSetter.setId(msg, 300L);
         assert msg.getId() == 300L;
     }
-
 }

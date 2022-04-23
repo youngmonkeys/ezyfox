@@ -56,5 +56,4 @@ public class MsgPackMySimpleDeserializer2Test extends MsgPackCodecTest {
             assert e.getCause().getCause() instanceof EzyCodecException;
         }
     }
-
 }

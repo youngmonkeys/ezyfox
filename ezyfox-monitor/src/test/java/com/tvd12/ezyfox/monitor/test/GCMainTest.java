@@ -30,5 +30,4 @@ public class GCMainTest {
         builder.append(", time: " + time + ", count: " + count);
         System.out.println(builder);
     }
-
 }

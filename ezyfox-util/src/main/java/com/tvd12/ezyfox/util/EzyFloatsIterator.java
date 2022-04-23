@@ -21,5 +21,4 @@ public class EzyFloatsIterator extends EzyArrayIterator<Float> {
     protected Float getItem(int index) {
         return array[index];
     }
-
 }

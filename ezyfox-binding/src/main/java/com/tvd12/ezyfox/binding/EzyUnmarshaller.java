@@ -67,5 +67,4 @@ public interface EzyUnmarshaller {
      * @return a object
      */
     <T> T unmarshal(Class<? extends EzyReader> readerClass, Object value);
-
 }

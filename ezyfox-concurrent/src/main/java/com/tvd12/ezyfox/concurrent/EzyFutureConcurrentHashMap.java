@@ -9,5 +9,4 @@ public class EzyFutureConcurrentHashMap<K> extends EzyFutureAbstractMap<K> {
     protected Map<K, EzyFuture> newFutureMap() {
         return new ConcurrentHashMap<>();
     }
-
 }

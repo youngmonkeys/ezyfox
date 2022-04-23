@@ -5,5 +5,4 @@ public interface EzyDataHandler<D> {
     void handleData(D data);
 
     default void handleException(Thread thread, Throwable throwable) {}
-
 }

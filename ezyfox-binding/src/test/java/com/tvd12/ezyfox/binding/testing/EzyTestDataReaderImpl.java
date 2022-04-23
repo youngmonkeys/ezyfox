@@ -21,5 +21,4 @@ public class EzyTestDataReaderImpl extends EzyAbstractReader {
     }
 
 
-
 }

@@ -21,5 +21,4 @@ public class JacksonLocalDateTimeSerializer extends StdSerializer<LocalDateTime>
     }
 
 
-
 }

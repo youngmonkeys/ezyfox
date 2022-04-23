@@ -227,5 +227,4 @@ public class CombineTest {
     public static class InternalSingleton2 {
 
     }
-
 }

@@ -14,5 +14,4 @@ public class CommonBaseTest extends BaseTest {
     protected EzyArrayBuilder newArrayBuilder() {
         return EzyEntityFactory.create(EzyArrayBuilder.class);
     }
-
 }

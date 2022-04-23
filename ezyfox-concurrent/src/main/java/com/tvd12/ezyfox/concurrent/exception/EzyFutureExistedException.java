@@ -8,5 +8,4 @@ public class EzyFutureExistedException extends IllegalArgumentException {
     public EzyFutureExistedException(Object key, EzyFuture old) {
         super("future with key: " + key + " existed: " + old);
     }
-
 }

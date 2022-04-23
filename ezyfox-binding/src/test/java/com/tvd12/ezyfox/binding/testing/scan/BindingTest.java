@@ -24,5 +24,4 @@ public class BindingTest extends BaseTest {
         ClassB classB = unmarshaller.unmarshal(object, ClassB.class);
         System.out.println(classB);
     }
-
 }

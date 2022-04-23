@@ -23,5 +23,4 @@ public class EzyMessageAnnotationsTest {
 
     @EzyMessage
     public static class C {}
-
 }

@@ -10,5 +10,4 @@ public class UnimplementedOperationExceptionTest {
     public void test() {
         new UnimplementedOperationException("", new Exception());
     }
-
 }

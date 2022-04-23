@@ -36,5 +36,4 @@ public class EzyEmptyArrayTest {
         assert !array.containsAll(new HashSet<>());
         array.sort(null);
     }
-
 }

@@ -12,5 +12,4 @@ public class MainTest {
             .scan("com.tvd12.ezyfox.bean.testing.issue59")
             .build();
     }
-
 }

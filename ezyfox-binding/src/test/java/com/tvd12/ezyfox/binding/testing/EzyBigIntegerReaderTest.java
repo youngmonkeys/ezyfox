@@ -21,5 +21,4 @@ public class EzyBigIntegerReaderTest {
     public void test2() {
         EzyBigIntegerReader.getInstance().read(null, new Date());
     }
-
 }

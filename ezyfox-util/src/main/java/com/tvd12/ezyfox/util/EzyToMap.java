@@ -5,5 +5,4 @@ import java.util.Map;
 public interface EzyToMap {
 
     Map<Object, Object> toMap();
-
 }

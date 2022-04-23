@@ -25,5 +25,4 @@ public class EzyMessageReadersTest extends BaseTest {
         bytes = new byte[] {0, 0, 3, 1, 1, 1, 1};
         assert EzyMessageReaders.bytesToMessage(bytes) != null;
     }
-
 }

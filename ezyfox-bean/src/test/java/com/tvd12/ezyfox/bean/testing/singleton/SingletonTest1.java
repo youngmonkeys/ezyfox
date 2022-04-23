@@ -28,5 +28,4 @@ public class SingletonTest1 {
         assert combine.getXClassA() != null;
         assert combine.getXClassA() == xClassA;
     }
-
 }

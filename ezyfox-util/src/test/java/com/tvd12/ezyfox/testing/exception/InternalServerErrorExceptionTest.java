@@ -13,5 +13,4 @@ public class InternalServerErrorExceptionTest {
         new InternalServerErrorException(new Exception());
         new InternalServerErrorException("", new Exception());
     }
-
 }

@@ -9,5 +9,4 @@ public interface EzyXmlReader {
     default <T> T read(String filePath, Class<T> outputType) {
         return read(new File(filePath), outputType);
     }
-
 }

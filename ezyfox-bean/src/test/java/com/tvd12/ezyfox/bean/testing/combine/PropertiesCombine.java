@@ -13,5 +13,4 @@ public class PropertiesCombine {
 
     @EzyProperty(prefix = "pack1")
     private PropertiesPack1 pack1;
-
 }

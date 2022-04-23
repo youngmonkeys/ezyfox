@@ -40,5 +40,4 @@ public final class EzyInts {
     public static int bin2uint(ByteBuffer buffer, int size) {
         return bin2uint(EzyBytes.copy(buffer, size));
     }
-
 }

@@ -52,5 +52,4 @@ public final class EzyReturner {
             lock.unlock();
         }
     }
-
 }

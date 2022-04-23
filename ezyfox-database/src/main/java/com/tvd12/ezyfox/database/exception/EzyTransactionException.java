@@ -14,5 +14,4 @@ public class EzyTransactionException extends Exception {
     public EzyTransactionException(String msg, Throwable e) {
         super(msg, e);
     }
-
 }

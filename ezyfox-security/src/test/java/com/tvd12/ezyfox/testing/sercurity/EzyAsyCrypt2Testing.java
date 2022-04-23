@@ -70,5 +70,4 @@ public class EzyAsyCrypt2Testing extends BaseTest {
                 .publicKey(keyPair.getPublic().getEncoded())
                 .build();
     }
-
 }

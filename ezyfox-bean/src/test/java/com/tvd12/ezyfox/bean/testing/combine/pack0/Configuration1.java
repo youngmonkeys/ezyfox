@@ -23,5 +23,4 @@ public class Configuration1 implements EzyBeanConfig, EzyPropertiesAware {
     public void config() {
 
     }
-
 }

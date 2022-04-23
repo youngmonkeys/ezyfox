@@ -9,5 +9,4 @@ public interface EzyObjectOutputStream<T> extends EzyCloseable {
     @Override
     default void close() {
     }
-
 }

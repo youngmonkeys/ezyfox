@@ -22,5 +22,4 @@ public interface EzyMixedMap<V> {
         }
         
     }
-    
 }

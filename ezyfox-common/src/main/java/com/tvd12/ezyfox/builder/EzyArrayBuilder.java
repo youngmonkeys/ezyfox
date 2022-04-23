@@ -43,5 +43,4 @@ public interface EzyArrayBuilder extends EzyBuilder<EzyArray> {
         Object value = builder.build();
         return this.append(value);
     }
-
 }

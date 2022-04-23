@@ -143,5 +143,4 @@ public class EzyObjectPool1Test extends BaseTest {
             e.printStackTrace();
         }
     }
-
 }

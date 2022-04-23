@@ -25,5 +25,4 @@ public final class EzySetSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return Set.class;
     }
-
 }

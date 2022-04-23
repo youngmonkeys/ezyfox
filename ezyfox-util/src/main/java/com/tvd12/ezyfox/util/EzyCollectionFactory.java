@@ -45,5 +45,4 @@ public class EzyCollectionFactory {
         map.put(Stack.class, () -> new Stack<>());
         return map;
     }
-
 }

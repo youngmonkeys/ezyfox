@@ -12,5 +12,4 @@ public class ReflectionsTest extends BaseTest {
     public void test() {
         new Reflections("non-exists").getTypesAnnotatedWith(EzyAutoImpl.class);
     }
-
 }

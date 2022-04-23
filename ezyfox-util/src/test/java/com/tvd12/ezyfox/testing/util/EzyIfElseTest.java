@@ -31,5 +31,4 @@ public class EzyIfElseTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyIfElse.class;
     }
-
 }

@@ -8,5 +8,4 @@ public interface EzyBuilder<T> {
      * @return the constructed product
      */
     T build();
-
 }

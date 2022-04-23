@@ -26,5 +26,4 @@ public class EzyFutureHashMapTest {
         assert future != null;
         map.putFuture("1");
     }
-
 }

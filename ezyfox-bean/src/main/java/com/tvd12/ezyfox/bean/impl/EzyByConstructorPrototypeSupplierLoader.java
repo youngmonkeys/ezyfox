@@ -24,5 +24,4 @@ public class EzyByConstructorPrototypeSupplierLoader
     protected Class<?>[] getConstructorParameterTypes() {
         return constructor.getParameterTypes();
     }
-
 }

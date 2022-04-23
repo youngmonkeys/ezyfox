@@ -12,5 +12,4 @@ public interface EzyInputStreamReader {
     String readString(InputStream stream, String charset);
 
     List<String> readLines(InputStream stream, String charset);
-
 }

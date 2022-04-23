@@ -99,5 +99,4 @@ public class JacksonSimpleSerializer
         });
         parserss.put(EzyArray.class, arrayParsers);
     }
-
 }

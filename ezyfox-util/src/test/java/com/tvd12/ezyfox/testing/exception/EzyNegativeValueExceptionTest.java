@@ -11,5 +11,4 @@ public class EzyNegativeValueExceptionTest extends BaseTest {
     public void test() {
         new EzyNegativeValueException(-10);
     }
-
 }

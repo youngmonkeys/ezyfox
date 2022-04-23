@@ -16,5 +16,4 @@ public class Combine1Test extends BaseTest {
         assert s1.getSingleton0() == context.getBean(Singleton0.class);
         assert s1.getSingleton2() == context.getBean(Singleton2.class);
     }
-
 }

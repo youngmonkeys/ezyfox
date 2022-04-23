@@ -26,5 +26,4 @@ public final class EzyListReader implements EzyReader<EzyArray, List> {
             answer.add(value.get(i));
         return answer;
     }
-
 }

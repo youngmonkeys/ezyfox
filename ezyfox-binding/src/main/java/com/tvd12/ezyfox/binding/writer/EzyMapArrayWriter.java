@@ -38,5 +38,4 @@ public final class EzyMapArrayWriter
 
     @Override
     public Class<?> getObjectType() { return null; }
-
 }

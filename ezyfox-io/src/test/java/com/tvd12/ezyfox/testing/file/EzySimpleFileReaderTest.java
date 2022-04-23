@@ -38,5 +38,4 @@ public class EzySimpleFileReaderTest extends BaseTest {
     public void test2() {
         reader.readLines(new File("\\/xfav"), "i dont know");
     }
-
 }

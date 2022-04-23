@@ -18,5 +18,4 @@ public final class EzyShortReader implements EzyReader<Number, Short> {
     public Short read(EzyUnmarshaller unmarshaller, Number value) {
         return value.shortValue();
     }
-
 }

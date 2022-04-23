@@ -111,5 +111,4 @@ public class EzyMathTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyMath.class;
     }
-
 }

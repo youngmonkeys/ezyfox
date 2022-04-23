@@ -116,5 +116,4 @@ public final class EzyEmptyArray implements EzyArray {
     public EzyArray duplicate() {
         throw new UnsupportedOperationException("you're using empty array");
     }
-
 }

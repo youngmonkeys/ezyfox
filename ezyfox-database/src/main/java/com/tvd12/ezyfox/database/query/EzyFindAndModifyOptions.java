@@ -64,5 +64,4 @@ public interface EzyFindAndModifyOptions {
      * @return this
      */
     EzyFindAndModifyOptions maxTime(long maxTime, TimeUnit timeUnit);
-
 }

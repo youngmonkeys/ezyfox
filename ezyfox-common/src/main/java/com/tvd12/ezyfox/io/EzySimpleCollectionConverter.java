@@ -341,5 +341,4 @@ public class EzySimpleCollectionConverter implements EzyCollectionConverter {
         });
 
     }
-
 }

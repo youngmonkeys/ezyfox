@@ -26,5 +26,4 @@ public class EzySimpleMessageTest {
         assert message.getContentStartIndex() == 0;
         System.out.println(message);
     }
-
 }

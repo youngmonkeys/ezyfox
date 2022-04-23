@@ -34,5 +34,4 @@ public class MsgPackArrayTemplateTest extends BaseTest {
         Unpacker unpacker = messagePack.createBufferUnpacker();
         template.read(unpacker, null);
     }
-
 }

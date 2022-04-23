@@ -19,5 +19,4 @@ public class EzyListExceptionHandlersTest extends BaseTest {
         });
         handlers.handleException(Thread.currentThread(), new Exception());
     }
-
 }

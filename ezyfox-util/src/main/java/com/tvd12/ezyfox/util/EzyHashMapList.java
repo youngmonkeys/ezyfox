@@ -12,5 +12,4 @@ public class EzyHashMapList<K,E>
     protected List<E> newCollection() {
         return new ArrayList<>();
     }
-
 }

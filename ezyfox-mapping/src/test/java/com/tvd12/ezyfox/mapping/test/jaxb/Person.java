@@ -10,5 +10,4 @@ import lombok.ToString;
 public class Person {
 
     protected String name;
-
 }

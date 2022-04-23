@@ -5,5 +5,4 @@ public interface EzyError {
     int getCode();
 
     String getMessage();
-
 }

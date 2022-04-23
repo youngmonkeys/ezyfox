@@ -19,5 +19,4 @@ public abstract class LazyInitializer<T> {
     }
 
     protected abstract T initialize();
-
 }

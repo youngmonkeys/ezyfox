@@ -14,5 +14,4 @@ public class EzyCharsIteratorTest extends EzyArrayIteratorTest {
     protected EzyArrayIterator<?> newIterator() {
         return EzyCharsIterator.wrap(new char[] {'a', 'b', 'c'});
     }
-
 }

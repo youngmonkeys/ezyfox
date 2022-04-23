@@ -7,5 +7,4 @@ public interface EzyCallback<T> {
     default void call(T data, int dataSize) {
         call(data);
     }
-
 }

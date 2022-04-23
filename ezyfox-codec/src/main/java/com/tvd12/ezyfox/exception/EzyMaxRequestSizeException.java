@@ -10,5 +10,4 @@ public class EzyMaxRequestSizeException extends IllegalStateException {
     public EzyMaxRequestSizeException(int size, int maxSize) {
         this("size = " + size + " when max size = " + maxSize);
     }
-
 }

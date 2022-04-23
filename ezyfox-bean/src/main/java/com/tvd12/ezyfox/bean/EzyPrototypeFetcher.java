@@ -21,5 +21,4 @@ public interface EzyPrototypeFetcher {
     List<EzyPrototypeSupplier> getPrototypeSuppliers(Map properties);
 
     List<EzyPrototypeSupplier> getPrototypeSuppliers(Class annotationClass);
-
 }

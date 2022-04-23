@@ -229,5 +229,4 @@ public abstract class EzyAbstractReaderBuilder
     }
 
     protected abstract boolean isDebug();
-
 }

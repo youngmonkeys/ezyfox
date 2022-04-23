@@ -10,5 +10,4 @@ import lombok.Getter;
 public class DatabaseContext {
 
     private final Set<String> packagesToScan;
-
 }

@@ -39,5 +39,4 @@ public @interface EzyObjectBinding {
      * @return sub type classes to include
      */
     Class<?>[] subTypeClasses() default {};
-
 }

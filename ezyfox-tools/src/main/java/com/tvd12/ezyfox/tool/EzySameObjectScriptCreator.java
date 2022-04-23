@@ -124,5 +124,4 @@ public class EzySameObjectScriptCreator {
         }
         return builder.append("\t.build();").toString();
     }
-
 }

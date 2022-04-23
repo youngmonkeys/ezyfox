@@ -12,5 +12,4 @@ public @interface EzyAutoImpl {
     String value() default "";
 
     EzyKeyValue[] properties() default {};
-
 }

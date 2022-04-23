@@ -7,5 +7,4 @@ public class ClassFImpl implements ClassF {
     @EzyAutoBind
     public ClassFImpl(ClassG classG) {
     }
-
 }

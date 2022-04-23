@@ -31,5 +31,4 @@ public class EzyArrayUnwrapperBuilderTest extends BaseTest {
         unwrapper.unwrap(unmarshaller, array, classA);
         System.out.println(classA);
     }
-
 }

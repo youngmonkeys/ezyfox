@@ -27,5 +27,4 @@ public class EzyBase64Test extends BaseTest {
         String doubleArrayEncode = EzyBase64.encode(doubleArray);
         assertEquals(EzyBase64.decode2doubles(doubleArrayEncode), doubleArray);
     }
-
 }

@@ -19,5 +19,4 @@ public class Singleton2 {
     @Setter
     @EzyAutoBind
     private ISingleton10 sgt10;
-
 }

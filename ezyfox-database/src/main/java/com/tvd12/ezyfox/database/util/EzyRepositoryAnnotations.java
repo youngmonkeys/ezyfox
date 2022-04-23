@@ -18,5 +18,4 @@ public final class EzyRepositoryAnnotations {
         String name = anno.value();
         return EzyStrings.isNoContent(name) ? getVariableName(clazz) : name;
     }
-
 }

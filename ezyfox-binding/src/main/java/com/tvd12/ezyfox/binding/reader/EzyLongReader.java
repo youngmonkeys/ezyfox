@@ -18,5 +18,4 @@ public final class EzyLongReader implements EzyReader<Number, Long> {
     public Long read(EzyUnmarshaller unmarshaller, Number value) {
         return value.longValue();
     }
-
 }

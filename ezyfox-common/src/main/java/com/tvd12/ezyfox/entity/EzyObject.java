@@ -77,5 +77,4 @@ public interface EzyObject extends EzyRoObject, Comparable<EzyObject> {
     default int compareTo(EzyObject o) {
         return 0;
     }
-
 }

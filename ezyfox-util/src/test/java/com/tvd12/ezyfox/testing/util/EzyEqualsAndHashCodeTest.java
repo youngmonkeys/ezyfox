@@ -160,5 +160,4 @@ public class EzyEqualsAndHashCodeTest extends BaseTest {
         private String value;
         private Object object;
     }
-
 }

@@ -29,5 +29,4 @@ public class EzySimpleValueTransformerOtherTest extends BaseTest {
         assert transformer.convert(getClass().getName(), Class.class) != null;
 
     }
-
 }

@@ -15,5 +15,4 @@ public class ClassB {
 
     @EzyId
     private int id;
-
 }

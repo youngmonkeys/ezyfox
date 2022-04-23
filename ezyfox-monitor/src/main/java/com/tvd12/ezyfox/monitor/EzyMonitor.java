@@ -16,5 +16,4 @@ public class EzyMonitor {
         this.memoryMonitor = new EzyMemoryMonitor();
         this.threadsMonitor = new EzyThreadsMonitor();
     }
-
 }

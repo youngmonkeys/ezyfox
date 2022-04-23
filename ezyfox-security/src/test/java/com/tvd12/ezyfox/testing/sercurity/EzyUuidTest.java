@@ -16,5 +16,4 @@ public class EzyUuidTest extends BaseTest {
     public void test() {
         assert !EzyUuid.random().equals(EzyUuid.random());
     }
-
 }

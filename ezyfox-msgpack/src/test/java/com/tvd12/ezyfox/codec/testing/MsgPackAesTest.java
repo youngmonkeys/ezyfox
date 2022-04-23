@@ -123,5 +123,4 @@ public class MsgPackAesTest {
         // then
         verify(deserializer, times(1)).deserialize(messageContent);
     }
-
 }

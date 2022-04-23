@@ -37,5 +37,4 @@ public final class EzyPredicates {
             return false;
         };
     }
-
 }

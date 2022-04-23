@@ -21,5 +21,4 @@ public @interface EzyImport {
      * 
      * @return array of classes
      */
-    public Class<?>[] value();
-}
+    public Class<?>[] value();}

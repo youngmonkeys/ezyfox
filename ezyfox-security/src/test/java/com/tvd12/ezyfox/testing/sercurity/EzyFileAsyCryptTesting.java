@@ -48,5 +48,4 @@ public class EzyFileAsyCryptTesting extends BaseTest {
         System.out.println("decryptedText = " + decryptedText);
 
     }
-
 }

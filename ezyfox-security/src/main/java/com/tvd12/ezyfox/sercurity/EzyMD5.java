@@ -61,5 +61,4 @@ public final class EzyMD5 {
         byte[] digest = md.digest();
         return digest;
     }
-
 }

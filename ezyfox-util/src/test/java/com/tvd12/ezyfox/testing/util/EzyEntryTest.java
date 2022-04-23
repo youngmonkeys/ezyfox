@@ -27,5 +27,4 @@ public class EzyEntryTest extends BaseTest {
         assert ab.equals(abe);
         assert ab.hashCode() == abe.hashCode();
     }
-
 }

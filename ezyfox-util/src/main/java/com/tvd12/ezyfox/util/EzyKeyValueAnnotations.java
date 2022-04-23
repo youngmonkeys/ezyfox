@@ -23,5 +23,4 @@ public final class EzyKeyValueAnnotations {
             answer.put(kv.key(), kv.value());
         return answer;
     }
-
 }

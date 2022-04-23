@@ -27,5 +27,4 @@ public interface EzyDecodeHandler {
      * @return true if decoding is successful or not
      */
     boolean handle(ByteBuffer in, Queue<EzyMessage> out);
-
 }

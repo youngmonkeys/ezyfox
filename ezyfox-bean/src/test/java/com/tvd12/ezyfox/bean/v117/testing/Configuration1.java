@@ -9,5 +9,4 @@ import com.tvd12.ezyfox.boot.DatabaseConfiguration;
 @EzyPropertiesSources("v117_config.properties")
 @EzyPackagesToScan("com.tvd12.ezyfox.bean.v117.testing.packet1")
 public class Configuration1 {
-
 }

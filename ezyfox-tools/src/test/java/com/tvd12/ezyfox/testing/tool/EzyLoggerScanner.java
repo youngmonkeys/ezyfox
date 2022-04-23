@@ -32,5 +32,4 @@ public class EzyLoggerScanner {
         filter.filter(outputStream);
         outputStream.close();
     }
-
 }

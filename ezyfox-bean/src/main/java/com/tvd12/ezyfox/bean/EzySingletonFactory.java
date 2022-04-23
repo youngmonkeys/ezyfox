@@ -48,5 +48,4 @@ public interface EzySingletonFactory {
     default <T> T getSingletonCast(Class<T> type) {
         return (T)getSingleton(type);
     }
-
 }

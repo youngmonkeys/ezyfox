@@ -32,5 +32,4 @@ public interface EzyPrototypeFactory {
     void addSupplier(String objectName, EzyPrototypeSupplier supplier);
 
     void addSupplier(String objectName, EzyPrototypeSupplier supplier, Map properties);
-
 }

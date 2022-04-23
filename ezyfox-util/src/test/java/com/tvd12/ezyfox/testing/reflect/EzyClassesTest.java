@@ -85,5 +85,4 @@ public class EzyClassesTest extends BaseTest {
         public ClassB(String s) {
         }
     }
-
 }

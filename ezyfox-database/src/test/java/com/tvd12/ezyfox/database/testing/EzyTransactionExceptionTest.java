@@ -12,5 +12,4 @@ public class EzyTransactionExceptionTest {
         new EzyTransactionException("");
         new EzyTransactionException("", new Throwable());
     }
-
 }

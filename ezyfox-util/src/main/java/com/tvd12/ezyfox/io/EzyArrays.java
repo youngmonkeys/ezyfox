@@ -61,5 +61,4 @@ public final class EzyArrays {
     public static <T> T max(Stream<T> stream, Comparator<T> comparator) {
         return stream.max(comparator).get();
     }
-    
 }

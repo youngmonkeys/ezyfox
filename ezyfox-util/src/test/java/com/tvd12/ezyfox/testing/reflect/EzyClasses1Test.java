@@ -78,5 +78,4 @@ public class EzyClasses1Test extends BaseTest {
 
     public static class E extends D implements B {
     }
-
 }

@@ -15,5 +15,4 @@ public class Scan1ClassB {
     public String one = "a";
     public String two = "b";
     public String three = "c";
-
 }

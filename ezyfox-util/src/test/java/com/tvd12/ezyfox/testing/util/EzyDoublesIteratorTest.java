@@ -14,5 +14,4 @@ public class EzyDoublesIteratorTest extends EzyArrayIteratorTest {
     protected EzyArrayIterator<?> newIterator() {
         return EzyDoublesIterator.wrap(new double[] {1, 2, 3});
     }
-
 }

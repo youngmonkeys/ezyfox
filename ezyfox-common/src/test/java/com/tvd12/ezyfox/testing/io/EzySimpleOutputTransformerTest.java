@@ -61,5 +61,4 @@ public class EzySimpleOutputTransformerTest extends EzyEntityTest {
     public static class ClassA {
 
     }
-
 }

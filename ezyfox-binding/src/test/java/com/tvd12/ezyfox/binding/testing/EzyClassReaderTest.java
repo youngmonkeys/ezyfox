@@ -16,5 +16,4 @@ public class EzyClassReaderTest {
     public void test1() {
         EzyClassReader.getInstance().read(null, 123);
     }
-
 }

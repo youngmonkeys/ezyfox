@@ -23,5 +23,4 @@ public class Scan2A {
     public void setObject(Scan2Object object) {
 
     }
-
 }

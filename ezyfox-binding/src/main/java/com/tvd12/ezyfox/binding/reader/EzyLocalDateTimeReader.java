@@ -27,5 +27,4 @@ public final class EzyLocalDateTimeReader implements EzyReader<Object, LocalDate
             return EzyDates.parseDateTime((String)value);
         throw new IllegalArgumentException("can't convert: " + value + " to LocalDateTime");
     }
-    
 }

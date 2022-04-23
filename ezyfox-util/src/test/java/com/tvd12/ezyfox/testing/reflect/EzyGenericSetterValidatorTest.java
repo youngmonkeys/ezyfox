@@ -17,5 +17,4 @@ public class EzyGenericSetterValidatorTest extends BaseTest {
     public static class MyType implements Type {
 
     }
-
 }

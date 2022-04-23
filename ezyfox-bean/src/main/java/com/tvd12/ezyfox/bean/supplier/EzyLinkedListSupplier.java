@@ -25,5 +25,4 @@ public final class EzyLinkedListSupplier implements EzyPrototypeSupplier {
     public Class<?> getObjectType() {
         return LinkedList.class;
     }
-
 }

@@ -13,5 +13,4 @@ public class NotFoundExceptionException {
         new NotFoundException(new Exception());
         new NotFoundException("", new Exception());
     }
-
 }

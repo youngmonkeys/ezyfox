@@ -21,5 +21,4 @@ public abstract class EzyArrayIteratorTest {
     }
 
     protected abstract Object newArray();
-    protected abstract EzyArrayIterator<?> newIterator();
-}
+    protected abstract EzyArrayIterator<?> newIterator();}

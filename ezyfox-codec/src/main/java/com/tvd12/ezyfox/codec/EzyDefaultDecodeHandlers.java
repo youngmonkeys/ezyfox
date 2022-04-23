@@ -61,9 +61,7 @@ public class EzyDefaultDecodeHandlers extends EzyDecodeHandlers {
             handler.setMessageReader(messageReader);
             return handler;
         }
-    }
-}
-
+    }}
 @Setter
 abstract class AbstractDecodeHandler implements EzyDecodeHandler {
 
@@ -73,9 +71,7 @@ abstract class AbstractDecodeHandler implements EzyDecodeHandler {
     @Override
     public EzyDecodeHandler nextHandler() {
         return nextHandler;
-    }
-}
-
+    }}
 class PrepareMessage extends AbstractDecodeHandler {
     
     @Override
@@ -87,9 +83,7 @@ class PrepareMessage extends AbstractDecodeHandler {
     public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
         messageReader.clear();
         return true;
-    }
-}
-
+    }}
 class ReadMessageHeader extends AbstractDecodeHandler {
 
     @Override
@@ -101,9 +95,7 @@ class ReadMessageHeader extends AbstractDecodeHandler {
     public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
         return messageReader.readHeader(in);
     }
-    
-}
-
+    }
 class ReadMessageSize extends AbstractDecodeHandler {
 
     protected final int maxSize;
@@ -120,9 +112,7 @@ class ReadMessageSize extends AbstractDecodeHandler {
     @Override
     public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
         return messageReader.readSize(in, maxSize);
-    }
-}
-
+    }}
 class ReadMessageContent extends AbstractDecodeHandler {
     
     @Override

@@ -5,5 +5,4 @@ public interface InterfaceA {
     String getName();
 
     void setName(String name);
-
 }

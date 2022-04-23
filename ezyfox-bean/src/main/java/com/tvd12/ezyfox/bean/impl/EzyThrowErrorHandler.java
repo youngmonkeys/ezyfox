@@ -11,5 +11,4 @@ public class EzyThrowErrorHandler
     public void handle(Throwable error) {
         throw new IllegalStateException(error);
     }
-
 }

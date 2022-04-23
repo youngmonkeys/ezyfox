@@ -7,5 +7,4 @@ public class ClassBImpl implements ClassB {
     @EzyAutoBind
     public ClassBImpl(ClassC classC) {
     }
-
 }

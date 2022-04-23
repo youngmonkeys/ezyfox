@@ -25,5 +25,4 @@ import com.tvd12.ezyfox.annotation.EzyKeyValue;
 public @interface IncludeAnnotation {
 
     EzyKeyValue[] properties() default {};
-
 }

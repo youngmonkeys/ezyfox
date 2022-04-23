@@ -15,5 +15,4 @@ public class EzyDecodeStateTest extends BaseTest {
         EzyDecodeState.values();
         EzyDecodeState.valueOf("PREPARE_MESSAGE");
     }
-
 }

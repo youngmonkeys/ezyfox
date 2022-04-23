@@ -14,5 +14,4 @@ public class EzyShortsIteratorTest extends EzyArrayIteratorTest {
     protected EzyArrayIterator<?> newIterator() {
         return EzyBytesIterator.wrap(new byte[] {1, 2, 3});
     }
-
 }

@@ -54,5 +54,4 @@ public class EzySimpleInputStreamReader implements EzyInputStreamReader {
             return new EzySimpleInputStreamReader(this);
         }
     }
-
 }

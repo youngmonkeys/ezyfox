@@ -14,5 +14,4 @@ public interface EzyMaxIdService {
     Long incrementAndGet(String key);
     
     Long incrementAndGet(String key, int delta);
-    
 }

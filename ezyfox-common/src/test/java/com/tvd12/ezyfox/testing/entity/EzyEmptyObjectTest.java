@@ -33,5 +33,4 @@ public class EzyEmptyObjectTest {
         try {object.clone();} catch (Exception e) {assert e instanceof CloneNotSupportedException;};
         try {object.duplicate();} catch (Exception e) {assert e instanceof UnsupportedOperationException;};
     }
-
 }

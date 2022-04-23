@@ -21,5 +21,4 @@ public class EzyExecutorsTest extends BaseTest {
     public Class<?> getTestClass() {
         return EzyExecutors.class;
     }
-
 }

@@ -108,5 +108,4 @@ public final class EzyProcessor {
     private static void warn(String message, Throwable throwable) {
         LOGGER.warn(message, throwable);
     }
-
 }

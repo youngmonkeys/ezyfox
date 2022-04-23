@@ -49,5 +49,4 @@ public class EzyLockProxy extends EzyRef<Lock> implements Lock {
     public Condition newCondition() {
         return value.newCondition();
     }
-
 }

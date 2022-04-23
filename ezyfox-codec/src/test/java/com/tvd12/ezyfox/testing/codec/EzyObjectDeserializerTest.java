@@ -25,5 +25,4 @@ public class EzyObjectDeserializerTest {
             return (T)buffer;
         }
     }
-
 }

@@ -26,5 +26,4 @@ public class ListSetTest {
             .getTime();
         System.out.println("time2: " + time2);
     }
-
 }

@@ -19,5 +19,4 @@ public @interface EzyPrototype {
     String value() default "";
 
     EzyKeyValue[] properties() default {};
-
 }

@@ -59,5 +59,4 @@ public class EzyNextTest {
         assert next.getSkip() == 0;
         assert next.getLimit() == 10;
     }
-
 }

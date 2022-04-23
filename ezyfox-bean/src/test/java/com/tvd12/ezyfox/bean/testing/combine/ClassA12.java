@@ -19,5 +19,4 @@ public class ClassA12 {
 
     @EzyAutoBind("a2")
     private ClassA2 classA2;
-
 }

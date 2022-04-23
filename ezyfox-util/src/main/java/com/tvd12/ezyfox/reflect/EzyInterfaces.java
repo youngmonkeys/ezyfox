@@ -27,5 +27,4 @@ public final class EzyInterfaces {
         }
         return null;
     }
-
 }

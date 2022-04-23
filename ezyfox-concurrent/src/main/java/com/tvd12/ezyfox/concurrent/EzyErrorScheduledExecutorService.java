@@ -104,5 +104,4 @@ public class EzyErrorScheduledExecutorService implements ScheduledExecutorServic
     public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
         throw new UnsupportedOperationException(errorMessage);
     }
-
 }

@@ -91,5 +91,4 @@ public class EzyStreamClassesFetcher implements EzyClassesFetcher {
             return new EzyStreamClassesFetcher(this);
         }
     }
-
 }

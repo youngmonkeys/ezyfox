@@ -56,5 +56,4 @@ public class EzyGenericsTest extends BaseTest {
         Map<Collection<String>, Map<String, String>> d;
         Map<?, ?> e;
     }
-
 }

@@ -20,5 +20,4 @@ public class EzyWrapperDoubleArrayReader extends EzyWrapperArrayReader {
     protected Object[] newArray(int length) {
         return new Double[length];
     }
-
 }

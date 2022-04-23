@@ -19,5 +19,4 @@ public class JacksonMessageToByteEncoder implements EzyObjectToStringEncoder {
         T answer = serializer.serialize(msg, outType);
         return answer;
     }
-
 }

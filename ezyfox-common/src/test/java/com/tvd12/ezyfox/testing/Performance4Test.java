@@ -28,5 +28,4 @@ public class Performance4Test {
         private String d;
         private String e;
     }
-
 }

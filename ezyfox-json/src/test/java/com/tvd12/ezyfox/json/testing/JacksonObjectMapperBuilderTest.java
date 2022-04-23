@@ -74,5 +74,4 @@ public class JacksonObjectMapperBuilderTest {
         public LocalTime localTime = RandomUtil.randomLocalTime();
         public LocalDateTime localDateTime = RandomUtil.randomLocalDateTime();
     }
-
 }

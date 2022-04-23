@@ -49,5 +49,4 @@ public class EzyCollectionsTest extends BaseTest {
         assert EzyCollections.isEmpty(Lists.newArrayList());
         assert !EzyCollections.isEmpty(Lists.newArrayList(1));
     }
-
 }

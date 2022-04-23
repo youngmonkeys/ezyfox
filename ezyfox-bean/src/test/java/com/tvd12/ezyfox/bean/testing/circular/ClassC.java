@@ -9,5 +9,4 @@ public class ClassC {
     @EzyAutoBind
     public ClassC(ClassB classB) {
     }
-
 }

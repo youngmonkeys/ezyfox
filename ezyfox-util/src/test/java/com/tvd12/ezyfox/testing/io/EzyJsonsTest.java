@@ -32,5 +32,4 @@ public class EzyJsonsTest extends BaseTest {
         System.out.println(EzyJsons.parse(map1));
         System.out.println(EzyJsons.parse(map1, EzyJsons.QUOTE_FUNC));
     }
-
 }

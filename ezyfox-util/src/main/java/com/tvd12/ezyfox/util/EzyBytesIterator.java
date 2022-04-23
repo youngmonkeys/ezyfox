@@ -21,5 +21,4 @@ public class EzyBytesIterator extends EzyArrayIterator<Byte> {
     protected Byte getItem(int index) {
         return array[index];
     }
-
 }

@@ -30,5 +30,4 @@ public class JavaInputStreamExample {
         stream.read(bytes, 0, 2);
         System.err.println(Arrays.toString(bytes));
     }
-
 }

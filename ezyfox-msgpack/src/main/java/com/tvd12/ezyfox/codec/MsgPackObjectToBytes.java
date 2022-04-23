@@ -16,5 +16,4 @@ public class MsgPackObjectToBytes implements EzyObjectToBytes {
             throw new IllegalArgumentException(e);
         }
     }
-
 }

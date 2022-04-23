@@ -25,5 +25,4 @@ public class EzyPrimitiveCharArrayReader extends EzyPrimitiveArrayReader {
     protected void setValue(Object array, int index, Object value) {
         ((char[])array)[index] = (Character)value;
     }
-
 }

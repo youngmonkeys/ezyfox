@@ -28,5 +28,4 @@ public class SetsTest extends BaseTest {
         assert Sets.toSet(set) == set;
         assert Sets.toSet(Arrays.asList(1, 2, 3)).size() == 3;
     }
-
 }

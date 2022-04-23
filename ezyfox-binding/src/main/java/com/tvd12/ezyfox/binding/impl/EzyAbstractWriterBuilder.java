@@ -112,5 +112,4 @@ public abstract class EzyAbstractWriterBuilder
     }
 
     protected abstract boolean isDebug();
-
 }

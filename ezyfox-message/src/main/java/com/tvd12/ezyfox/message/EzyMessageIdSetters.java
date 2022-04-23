@@ -32,5 +32,4 @@ public class EzyMessageIdSetters extends EzySimpleIdSetters {
         }
 
     }
-
 }

@@ -11,5 +11,4 @@ import lombok.Setter;
 public class PropertiesPack0 {
 
     private String hello1;
-
 }

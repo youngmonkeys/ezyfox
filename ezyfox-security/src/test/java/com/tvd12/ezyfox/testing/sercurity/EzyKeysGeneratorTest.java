@@ -15,5 +15,4 @@ public class EzyKeysGeneratorTest extends BaseTest {
             .build()
             .generate();
     }
-    
 }

@@ -54,5 +54,4 @@ public class MyTestObjectPool4 extends EzyObjectPool<MyTestObject> {
         }
 
     }
-
 }

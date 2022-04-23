@@ -75,5 +75,4 @@ public class GeneratedClassAFactory {
         ClassA classA = (ClassA) supplier.supply(context);
         System.out.println(classA.getClassB());
     }
-
 }

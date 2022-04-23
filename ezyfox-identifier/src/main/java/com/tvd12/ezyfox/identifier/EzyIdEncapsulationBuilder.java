@@ -100,5 +100,4 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
     protected Set<Class<? extends Annotation>> getAnnotationClasses() {
         return new HashSet<>();
     }
-
 }

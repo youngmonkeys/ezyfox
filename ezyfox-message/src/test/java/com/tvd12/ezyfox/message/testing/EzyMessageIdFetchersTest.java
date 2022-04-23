@@ -24,5 +24,4 @@ public class EzyMessageIdFetchersTest extends BaseTest {
         EzyIdFetcher idFetcher = idFetchers.get(Message2.class);
         assert idFetcher.getId(new Message2(100L, "hello")).equals(100L);
     }
-
 }

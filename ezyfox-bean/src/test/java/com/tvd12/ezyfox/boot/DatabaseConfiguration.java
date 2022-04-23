@@ -27,5 +27,4 @@ public class DatabaseConfiguration implements
     public void config() {
         singletonFactory.addSingleton(new DatabaseContext(packagesToScan));
     }
-
 }

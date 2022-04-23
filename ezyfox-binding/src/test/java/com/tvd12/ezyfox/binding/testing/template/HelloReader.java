@@ -11,5 +11,4 @@ public class HelloReader implements EzyReader<String, Hello> {
     public Hello read(EzyUnmarshaller unmarshaller, String value) {
         return new Hello(value);
     }
-
 }

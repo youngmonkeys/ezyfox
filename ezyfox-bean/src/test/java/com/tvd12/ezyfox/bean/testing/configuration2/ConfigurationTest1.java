@@ -33,5 +33,4 @@ public class ConfigurationTest1 extends BaseTest {
         System.out.println("=========== second get =========");
         context.getBean("p1", Prototype1.class);
     }
-
 }

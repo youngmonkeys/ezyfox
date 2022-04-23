@@ -12,5 +12,4 @@ public class JacksonDetectTypeTest extends BaseTest {
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println(Arrays.toString(objectMapper.writeValueAsBytes(null)));
     }
-
 }

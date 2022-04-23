@@ -25,5 +25,4 @@ public class ChangeAssemblyConfigTool {
             Files.write(p, newStr.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
         }
     }
-
 }

@@ -25,5 +25,4 @@ public class EzyPrimitiveBooleanArrayReader extends EzyPrimitiveArrayReader {
     protected void setValue(Object array, int index, Object value) {
         ((boolean[])array)[index] = (Boolean)value;
     }
-
 }

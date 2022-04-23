@@ -14,5 +14,4 @@ public class EzyLazyInitializer<T> extends LazyInitializer<T> {
     protected T initialize() {
         return initializer.init();
     }
-
 }

@@ -8,5 +8,4 @@ public class FetchAllRequestQueue extends RequestQueue {
     public FetchAllRequestQueue() {
         super(3);
     }
-
 }

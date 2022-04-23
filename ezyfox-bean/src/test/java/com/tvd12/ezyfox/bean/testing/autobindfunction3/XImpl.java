@@ -13,5 +13,4 @@ public class XImpl implements X {
 
     @EzyAutoBind
     private Y y;
-
 }

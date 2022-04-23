@@ -77,5 +77,4 @@ public class EzyFunction {
             return EzyStrings.join(instructions, "");
         }
     }
-    
 }

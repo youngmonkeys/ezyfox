@@ -45,5 +45,4 @@ public class EzyAttribute<T> implements EzyConstant {
     public static <T> EzyAttribute<T> valueOf(int id, String name) {
         return new EzyAttribute<>(id, name);
     }
-
 }

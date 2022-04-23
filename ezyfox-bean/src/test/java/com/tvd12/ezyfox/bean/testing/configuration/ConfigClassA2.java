@@ -46,5 +46,4 @@ public class ConfigClassA2 {
     public PrototypeEx12 newPrototypeEx12() {
         return new PrototypeEx12();
     }
-
 }

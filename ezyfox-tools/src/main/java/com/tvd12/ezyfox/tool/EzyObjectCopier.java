@@ -52,5 +52,4 @@ public class EzyObjectCopier {
         }
         return builder.toString();
     }
-
 }

@@ -16,5 +16,4 @@ public class BeanContextTest {
         ClassA a = (ClassA) supplier.supply(ctx);
         System.out.println(a);
     }
-
 }

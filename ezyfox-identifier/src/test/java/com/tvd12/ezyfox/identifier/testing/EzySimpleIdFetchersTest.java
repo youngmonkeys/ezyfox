@@ -109,5 +109,4 @@ public class EzySimpleIdFetchersTest extends BaseTest {
         .addClass(Message9.class)
         .build();
     }
-
 }

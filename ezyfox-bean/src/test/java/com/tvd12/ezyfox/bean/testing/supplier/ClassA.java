@@ -55,5 +55,4 @@ public class ClassA {
     private Stack stack;
     @EzyAutoBind
     private Collection collection;
-
 }

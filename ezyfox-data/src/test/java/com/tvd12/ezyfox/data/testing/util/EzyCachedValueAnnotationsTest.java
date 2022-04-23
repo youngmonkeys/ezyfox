@@ -23,5 +23,4 @@ public class EzyCachedValueAnnotationsTest {
 
     @EzyCachedValue
     private static class C {}
-
 }

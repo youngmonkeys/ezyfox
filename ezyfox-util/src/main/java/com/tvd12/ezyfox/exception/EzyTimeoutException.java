@@ -10,5 +10,4 @@ public class EzyTimeoutException extends RuntimeException {
     public EzyTimeoutException(String msg, Exception e) {
         super(msg, e);
     }
-
 }

@@ -12,5 +12,4 @@ public class ClassA5 {
 
     public void setA(List<?> a) {
     }
-
 }
