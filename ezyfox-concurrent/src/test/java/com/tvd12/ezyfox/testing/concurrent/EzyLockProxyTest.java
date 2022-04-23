@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
-import java.util.concurrent.TimeUnit;
-
+import com.tvd12.ezyfox.concurrent.EzyLockProxy;
 import org.testng.annotations.Test;
 
-import com.tvd12.ezyfox.concurrent.EzyLockProxy;
+import java.util.concurrent.TimeUnit;
 
 public class EzyLockProxyTest {
 
@@ -14,12 +13,11 @@ public class EzyLockProxyTest {
         lock.lock();
         try {
             System.out.println("lock");
-        }
-        finally {
+        } finally {
             lock.unlock();
         }
-        lock.tryLock();
-        lock.tryLock();
+        System.out.println(lock.tryLock());
+        System.out.println(lock.tryLock());
         lock.unlock();
         try {
             assert lock.tryLock(3, TimeUnit.SECONDS);
@@ -31,6 +29,6 @@ public class EzyLockProxyTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        lock.newCondition();
+        System.out.println(lock.newCondition());
     }
 }

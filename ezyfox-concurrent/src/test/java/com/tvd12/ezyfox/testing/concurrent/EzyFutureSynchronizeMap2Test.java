@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.concurrent.EzyFuture;
 import com.tvd12.ezyfox.concurrent.EzyFutureMap;
 import com.tvd12.ezyfox.concurrent.EzyFutureSynchronizedHashMap;
 import com.tvd12.ezyfox.concurrent.exception.EzyFutureExistedException;
+import org.testng.annotations.Test;
 
 public class EzyFutureSynchronizeMap2Test {
 

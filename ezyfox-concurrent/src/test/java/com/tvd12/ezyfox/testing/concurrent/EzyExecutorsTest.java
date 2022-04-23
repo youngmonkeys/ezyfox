@@ -1,20 +1,31 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.concurrent.EzyExecutors;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyExecutorsTest extends BaseTest {
 
     @Test
     public void test() {
-        EzyExecutors.newFixedThreadPool(5, "test");
-        EzyExecutors.newScheduledThreadPool(5, "test");
-        EzyExecutors.newSingleThreadExecutor("test");
-        EzyExecutors.newSingleThreadScheduledExecutor("test");
-        EzyExecutors.newThreadFactory("test", false);
-        EzyExecutors.newThreadFactory("test", Thread.NORM_PRIORITY);
+        System.out.println(
+            EzyExecutors.newFixedThreadPool(5, "test")
+        );
+        System.out.println(
+            EzyExecutors.newScheduledThreadPool(5, "test")
+        );
+        System.out.println(
+            EzyExecutors.newSingleThreadExecutor("test")
+        );
+        System.out.println(
+            EzyExecutors.newSingleThreadScheduledExecutor("test")
+        );
+        System.out.println(
+            EzyExecutors.newThreadFactory("test", false)
+        );
+        System.out.println(
+            EzyExecutors.newThreadFactory("test", Thread.NORM_PRIORITY)
+        );
     }
 
     @Override

@@ -5,15 +5,17 @@ public abstract class LazyInitializer<T> {
     protected T object;
 
     public T get() {
-        if(object == null)
+        if (object == null) {
             return synGet();
+        }
         return object;
     }
 
     protected T synGet() {
         synchronized (this) {
-            if(object == null)
+            if (object == null) {
                 object = initialize();
+            }
         }
         return object;
     }

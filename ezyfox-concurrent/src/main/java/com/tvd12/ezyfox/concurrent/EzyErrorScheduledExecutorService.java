@@ -2,14 +2,9 @@ package com.tvd12.ezyfox.concurrent;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
 
+@SuppressWarnings("ALL")
 public class EzyErrorScheduledExecutorService implements ScheduledExecutorService {
 
     private final String errorMessage;
@@ -39,7 +34,7 @@ public class EzyErrorScheduledExecutorService implements ScheduledExecutorServic
     }
 
     @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+    public boolean awaitTermination(long timeout, TimeUnit unit) {
         throw new UnsupportedOperationException(errorMessage);
     }
 
@@ -59,24 +54,34 @@ public class EzyErrorScheduledExecutorService implements ScheduledExecutorServic
     }
 
     @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
+    public <T> List<Future<T>> invokeAll(
+        Collection<? extends Callable<T>> tasks
+    ) {
         throw new UnsupportedOperationException(errorMessage);
     }
 
     @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException {
+    public <T> List<Future<T>> invokeAll(
+        Collection<? extends Callable<T>> tasks,
+        long timeout,
+        TimeUnit unit
+    ) {
         throw new UnsupportedOperationException(errorMessage);
     }
 
     @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
+    public <T> T invokeAny(
+        Collection<? extends Callable<T>> tasks
+    ) {
         throw new UnsupportedOperationException(errorMessage);
     }
 
     @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException, ExecutionException, TimeoutException {
+    public <T> T invokeAny(
+        Collection<? extends Callable<T>> tasks,
+        long timeout,
+        TimeUnit unit
+    ) {
         throw new UnsupportedOperationException(errorMessage);
     }
 
@@ -86,22 +91,40 @@ public class EzyErrorScheduledExecutorService implements ScheduledExecutorServic
     }
 
     @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+    public ScheduledFuture<?> schedule(
+        Runnable command,
+        long delay,
+        TimeUnit unit
+    ) {
         throw new UnsupportedOperationException(errorMessage);
     }
 
     @Override
-    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+    public <V> ScheduledFuture<V> schedule(
+        Callable<V> callable,
+        long delay,
+        TimeUnit unit
+    ) {
         throw new UnsupportedOperationException(errorMessage);
     }
 
     @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
+    public ScheduledFuture<?> scheduleAtFixedRate(
+        Runnable command,
+        long initialDelay,
+        long period,
+        TimeUnit unit
+    ) {
         throw new UnsupportedOperationException(errorMessage);
     }
 
     @Override
-    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
+    public ScheduledFuture<?> scheduleWithFixedDelay(
+        Runnable command,
+        long initialDelay,
+        long delay,
+        TimeUnit unit
+    ) {
         throw new UnsupportedOperationException(errorMessage);
     }
 }

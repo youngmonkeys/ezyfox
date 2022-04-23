@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.concurrent.EzyLockProxy;
 import com.tvd12.ezyfox.concurrent.EzyMapLockProxyProvider;
 import com.tvd12.ezyfox.concurrent.EzyTreeMapLockProxyProvider;
+import org.testng.annotations.Test;
+
+import java.lang.reflect.Field;
+import java.util.Map;
 
 public class EzyTreeMapLockProxyProviderTest {
 
@@ -32,16 +31,15 @@ public class EzyTreeMapLockProxyProviderTest {
             locks.put("1", new ExLockProxy());
             try {
                 provider.provideLock("1");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             try {
                 provider.removeLock("1");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            catch (Exception e) {
-            }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

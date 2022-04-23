@@ -1,8 +1,7 @@
 package com.tvd12.ezyfox.testing.concurrent;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.concurrent.EzyConcurrentHashMapLockProvider;
+import org.testng.annotations.Test;
 
 public class EzyConcurrentHashMapLockProviderTest {
 

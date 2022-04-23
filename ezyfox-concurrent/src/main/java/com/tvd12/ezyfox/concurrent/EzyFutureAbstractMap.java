@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.concurrent;
 
+import com.tvd12.ezyfox.concurrent.exception.EzyFutureExistedException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import com.tvd12.ezyfox.concurrent.exception.EzyFutureExistedException;
 
 public abstract class EzyFutureAbstractMap<K> implements EzyFutureMap<K> {
 
@@ -34,27 +34,25 @@ public abstract class EzyFutureAbstractMap<K> implements EzyFutureMap<K> {
             existed.set(false);
             return new EzyFutureTask();
         });
-        if(existed.get())
+        if (existed.get()) {
             throw new EzyFutureExistedException(key, future);
+        }
         return future;
     }
 
     @Override
     public EzyFuture getFuture(K key) {
-        EzyFuture future = map.get(key);
-        return future;
+        return map.get(key);
     }
 
     @Override
     public EzyFuture removeFuture(K key) {
-        EzyFuture future = map.remove(key);
-        return future;
+        return map.remove(key);
     }
 
     @Override
     public int size() {
-        int size = map.size();
-        return size;
+        return map.size();
     }
 
     @Override

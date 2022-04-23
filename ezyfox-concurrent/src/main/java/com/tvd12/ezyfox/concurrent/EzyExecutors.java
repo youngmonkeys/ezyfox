@@ -5,91 +5,99 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 
+@SuppressWarnings("OverloadMethodsDeclarationOrder")
 public final class EzyExecutors {
 
-    private EzyExecutors() {
-    }
+    private EzyExecutors() {}
 
     public static ScheduledExecutorService newScheduledThreadPool(
-            int corePoolSize, String threadName) {
-        ScheduledExecutorService service = newScheduledThreadPool(corePoolSize, newThreadFactory(threadName));
-        return service;
+        int corePoolSize,
+        String threadName
+    ) {
+        return newScheduledThreadPool(corePoolSize, newThreadFactory(threadName));
     }
 
     public static ExecutorService newFixedThreadPool(
-            int nThreads, String threadName) {
-        ExecutorService service = newFixedThreadPool(nThreads, newThreadFactory(threadName));
-        return service;
+        int threadPoolSize,
+        String threadName
+    ) {
+        return newFixedThreadPool(threadPoolSize, newThreadFactory(threadName));
     }
 
     public static ExecutorService newSingleThreadExecutor(
-            String threadName) {
-        ExecutorService service = newSingleThreadExecutor(newThreadFactory(threadName));
-        return service;
+        String threadName
+    ) {
+        return newSingleThreadExecutor(newThreadFactory(threadName));
     }
 
     public static ScheduledExecutorService newSingleThreadScheduledExecutor(
-            String threadName) {
-        ScheduledExecutorService service = newSingleThreadScheduledExecutor(newThreadFactory(threadName));
-        return service;
+        String threadName
+    ) {
+        return newSingleThreadScheduledExecutor(newThreadFactory(threadName));
     }
 
     // ====== by thread factory ==========
     public static ScheduledExecutorService newScheduledThreadPool(
-            int corePoolSize, ThreadFactory threadFactory) {
-        ScheduledExecutorService service = Executors.newScheduledThreadPool(corePoolSize, threadFactory);
-        return service;
+        int corePoolSize,
+        ThreadFactory threadFactory
+    ) {
+        return Executors.newScheduledThreadPool(corePoolSize, threadFactory);
     }
 
     public static ExecutorService newFixedThreadPool(
-            int nThreads, ThreadFactory threadFactory) {
-        ExecutorService service = Executors.newFixedThreadPool(nThreads, threadFactory);
-        return service;
+        int threadPoolSize,
+        ThreadFactory threadFactory
+    ) {
+        return Executors.newFixedThreadPool(threadPoolSize, threadFactory);
     }
 
     public static ExecutorService newSingleThreadExecutor(
-            ThreadFactory threadFactory) {
-        ExecutorService service = Executors.newSingleThreadExecutor(threadFactory);
-        return service;
+        ThreadFactory threadFactory
+    ) {
+        return Executors.newSingleThreadExecutor(threadFactory);
     }
 
     public static ScheduledExecutorService newSingleThreadScheduledExecutor(
-            ThreadFactory threadFactory) {
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor(threadFactory);
-        return service;
+        ThreadFactory threadFactory
+    ) {
+        return Executors.newSingleThreadScheduledExecutor(threadFactory);
     }
 
     public static ScheduledExecutorService newErrorScheduledExecutor(
-            String errorMessage) {
-        ScheduledExecutorService service = new EzyErrorScheduledExecutorService(errorMessage);
-        return service;
+        String errorMessage
+    ) {
+        return new EzyErrorScheduledExecutorService(errorMessage);
     }
 
     // ===================================
 
     public static EzyThreadFactory newThreadFactory(String poolName) {
-        EzyThreadFactory factory = newThreadFactory(poolName, false, Thread.NORM_PRIORITY);
-        return factory;
+        return newThreadFactory(poolName, false, Thread.NORM_PRIORITY);
     }
 
     public static EzyThreadFactory newThreadFactory(
-            String poolName, int priority) {
-        EzyThreadFactory factory = newThreadFactory(poolName, false, priority);
-        return factory;
+        String poolName,
+        int priority
+    ) {
+        return newThreadFactory(poolName, false, priority);
     }
 
     public static EzyThreadFactory newThreadFactory(
-            String poolName, boolean daemon) {
-        EzyThreadFactory factory = newThreadFactory(poolName, daemon, Thread.NORM_PRIORITY);
-        return factory;
+        String poolName,
+        boolean daemon
+    ) {
+        return newThreadFactory(poolName, daemon, Thread.NORM_PRIORITY);
     }
 
     public static EzyThreadFactory newThreadFactory(
-            String poolName, boolean daemon, int priority) {
+        String poolName,
+        boolean daemon,
+        int priority
+    ) {
         return EzyThreadFactory.builder()
-                .daemon(daemon)
-                .priority(priority)
-                .poolName(poolName)
-                .build();
+            .daemon(daemon)
+            .priority(priority)
+            .poolName(poolName)
+            .build();
     }
 }

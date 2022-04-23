@@ -12,17 +12,20 @@ public class EzyThreadList {
 
     public EzyThreadList(int size, Runnable task, ThreadFactory threadFactory) {
         this.threads = new Thread[size];
-        for(int i = 0 ; i < threads.length ; ++i)
+        for (int i = 0; i < threads.length; ++i) {
             threads[i] = threadFactory.newThread(task);
+        }
     }
 
     public void execute() {
-        for(Thread thread : threads)
+        for (Thread thread : threads) {
             thread.start();
+        }
     }
 
     public void interrupt() {
-        for(Thread thread : threads)
+        for (Thread thread : threads) {
             thread.interrupt();
+        }
     }
 }
