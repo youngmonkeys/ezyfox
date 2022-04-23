@@ -1,17 +1,17 @@
 package com.tvd12.ezyfox.testing;
 
+import com.tvd12.test.performance.Performance;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.tvd12.test.performance.Performance;
 
 public class ListSetTest {
 
     public static void main(String[] args) {
         int size = 1000;
         Set<String> set = new HashSet<>();
-        for(int i = 0 ; i < size ; ++i) {
+        for (int i = 0; i < size; ++i) {
             set.add(String.valueOf(i));
         }
         System.out.println("start test1");

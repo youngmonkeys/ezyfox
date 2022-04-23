@@ -1,17 +1,13 @@
 package com.tvd12.ezyfox.entity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.Consumer;
-
 import com.tvd12.ezyfox.exception.EzyArrayGetException;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 import com.tvd12.ezyfox.util.EzyArrayToList;
+
+import java.util.*;
+import java.util.function.Consumer;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class EzyArrayList extends EzyTransformable implements EzyArray {
@@ -22,18 +18,20 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
     protected final EzyCollectionConverter collectionConverter;
 
     public EzyArrayList(
-            EzyInputTransformer inputTransformer,
-            EzyOutputTransformer outputTransformer,
-            EzyCollectionConverter collectionConverter) {
+        EzyInputTransformer inputTransformer,
+        EzyOutputTransformer outputTransformer,
+        EzyCollectionConverter collectionConverter
+    ) {
         super(inputTransformer, outputTransformer);
         this.collectionConverter = collectionConverter;
     }
 
     public EzyArrayList(
-            Collection items,
-            EzyInputTransformer inputTransformer,
-            EzyOutputTransformer outputTransformer,
-            EzyCollectionConverter collectionConverter) {
+        Collection items,
+        EzyInputTransformer inputTransformer,
+        EzyOutputTransformer outputTransformer,
+        EzyCollectionConverter collectionConverter
+    ) {
         this(inputTransformer, outputTransformer, collectionConverter);
         this.list.addAll(items);
 
@@ -41,8 +39,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
 
     @Override
     public <T> T get(int index) {
-        T answer = (T)list.get(index);
-        return answer;
+        return (T) list.get(index);
     }
 
     /*
@@ -51,8 +48,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public <T> T get(int index, Class<T> type) {
-        T answer = (T) getValue(index, type);
-        return answer;
+        return (T) getValue(index, type);
     }
 
     /*
@@ -63,10 +59,8 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
     public Object getValue(int index, Class type) {
         Object value = list.get(index);
         try {
-            Object answer = transformOutput(value, type);
-            return answer;
-        }
-        catch(Exception e) {
+            return transformOutput(value, type);
+        } catch (Exception e) {
             throw new EzyArrayGetException(index, value, type, e);
         }
     }
@@ -79,8 +73,9 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
     public boolean isNotNullValue(int index) {
         boolean answer = false;
         int size = size();
-        if(index < size)
+        if (index < size) {
             answer = list.get(index) != null;
+        }
         return answer;
     }
 
@@ -90,8 +85,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public boolean contains(Object value) {
-        boolean answer = list.contains(value);
-        return answer;
+        return list.contains(value);
     }
 
     /*
@@ -100,8 +94,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public boolean containsAll(Collection values) {
-        boolean answer = list.containsAll(values);
-        return answer;
+        return list.containsAll(values);
     }
 
     /*
@@ -112,14 +105,15 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
     public EzyArray sub(int fromIndex, int toIndex) {
         List<Object> subList = list.subList(fromIndex, toIndex);
         return new EzyArrayList(
-                subList,
-                inputTransformer,
-                outputTransformer,
-                collectionConverter);
+            subList,
+            inputTransformer,
+            outputTransformer,
+            collectionConverter
+        );
     }
 
     /**
-     * add an item to the list
+     * add an item to the list.
      *
      * @param item the item
      */
@@ -134,8 +128,9 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public void add(Object... items) {
-        for(Object item : items)
+        for (Object item : items) {
             this.add(item);
+        }
     }
 
     /*
@@ -144,8 +139,9 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public void add(Collection items) {
-        for(Object item : items)
+        for (Object item : items) {
             this.add(item);
+        }
     }
 
     /*
@@ -154,8 +150,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public int size() {
-        int size = list.size();
-        return size;
+        return list.size();
     }
 
     /*
@@ -164,8 +159,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public boolean isEmpty() {
-        boolean answer = list.isEmpty();
-        return answer;
+        return list.isEmpty();
     }
 
     /*
@@ -174,8 +168,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public <T> T set(int index, Object item) {
-        T answer = (T) list.set(index, transformInput(item));
-        return answer;
+        return (T) list.set(index, transformInput(item));
     }
 
     /*
@@ -184,8 +177,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public <T> T remove(int index) {
-        T answer = (T) list.remove(index);
-        return answer;
+        return (T) list.remove(index);
     }
 
     /*
@@ -221,8 +213,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public Iterator<Object> iterator() {
-        Iterator<Object> it = list.iterator();
-        return it;
+        return list.iterator();
     }
 
     /*
@@ -232,8 +223,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
     @Override
     public List toList() {
         EzyArrayToList arrayToList = EzyArrayToList.getInstance();
-        List list = arrayToList.toList(this);
-        return list;
+        return arrayToList.toList(this);
     }
 
     /*
@@ -242,8 +232,7 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public <T> List<T> toList(Class<T> type) {
-        List<T> list = toList();
-        return list;
+        return (List<T>) toList();
     }
 
     /*
@@ -251,24 +240,24 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      * @see com.tvd12.ezyfox.entity.EzyRoArray#toArray(java.lang.Class)
      */
     @Override
-    public <T,A> A toArray(Class<T> type) {
-        A array = collectionConverter.toArray(list, type);
-        return array;
+    public <T, A> A toArray(Class<T> type) {
+        return collectionConverter.toArray(list, type);
     }
 
     /*
      * (non-Javadoc)
      * @see java.lang.Object#clone()
      */
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
     public Object clone() throws CloneNotSupportedException {
         Collection listClone = (Collection) list.clone();
-        EzyArrayList clone = new EzyArrayList(
-                listClone,
-                inputTransformer,
-                outputTransformer,
-                collectionConverter);
-        return clone;
+        return new EzyArrayList(
+            listClone,
+            inputTransformer,
+            outputTransformer,
+            collectionConverter
+        );
     }
 
     /*
@@ -290,30 +279,39 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public int compareTo(EzyArray o) {
-        EzyArrayList other = (EzyArrayList)o;
+        EzyArrayList other = (EzyArrayList) o;
         int result = this.list.size() - other.list.size();
-        if(result != 0)
+        if (result != 0) {
             return result;
-        for(int i = 0 ; i < list.size() ; ++i) {
+        }
+        for (int i = 0; i < list.size(); ++i) {
             Object value = list.get(i);
             Object otherValue = other.list.get(i);
-            if(value == null) {
-                if(otherValue != null)
+            if (value == null) {
+                if (otherValue != null) {
                     return -1;
-            }
-            else {
-                if(otherValue == null)
-                    return 1;
-                if(value instanceof Comparable && otherValue instanceof Comparable) {
-                    result = ((Comparable)value).compareTo((Comparable)otherValue);
-                    if(result != 0)
-                        return result;
                 }
-                else {
-                    if(!(value instanceof Comparable))
-                        throw new IllegalArgumentException("value: " + value.getClass().getName() + "(" + value + ") is not comparable");
-                    else
-                        throw new IllegalArgumentException("value: " + otherValue.getClass().getName() + "(" + otherValue + ") is not comparable");
+            } else {
+                if (otherValue == null) {
+                    return 1;
+                }
+                if (value instanceof Comparable && otherValue instanceof Comparable) {
+                    result = ((Comparable) value).compareTo(otherValue);
+                    if (result != 0) {
+                        return result;
+                    }
+                } else {
+                    if (!(value instanceof Comparable)) {
+                        throw new IllegalArgumentException(
+                            "value: " + value.getClass().getName() +
+                                "(" + value + ") is not comparable"
+                        );
+                    } else {
+                        throw new IllegalArgumentException(
+                            "value: " + otherValue.getClass().getName() +
+                                "(" + otherValue + ") is not comparable"
+                        );
+                    }
                 }
             }
         }
@@ -326,13 +324,16 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
      */
     @Override
     public boolean equals(Object other) {
-        if(other == null)
+        if (other == null) {
             return false;
-        if(other == this)
+        }
+        if (other == this) {
             return true;
-        if(!other.getClass().equals(this.getClass()))
+        }
+        if (!other.getClass().equals(this.getClass())) {
             return false;
-        EzyArrayList t = (EzyArrayList)other;
+        }
+        EzyArrayList t = (EzyArrayList) other;
         return t.list.equals(this.list);
     }
 
@@ -346,26 +347,24 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
     }
 
     /**
-     * Transform input value
+     * Transform input value.
      *
      * @param input the input value
      * @return the transformed value
      */
     protected Object transformInput(Object input) {
-        Object answer = inputTransformer.transform(input);
-        return answer;
+        return inputTransformer.transform(input);
     }
 
     /**
-     * Transform output value
+     * Transform output value.
      *
      * @param output the output value
-     * @param type the output type
+     * @param type   the output type
      * @return the transformed value
      */
     private Object transformOutput(Object output, Class type) {
-        Object answer = outputTransformer.transform(output, type);
-        return answer;
+        return outputTransformer.transform(output, type);
     }
 
     /*

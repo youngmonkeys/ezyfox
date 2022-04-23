@@ -1,17 +1,17 @@
 package com.tvd12.ezyfox.testing;
 
+import com.tvd12.test.base.BaseTest;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.tvd12.test.base.BaseTest;
 
 public class PerformanceTest extends BaseTest {
 
     @SuppressWarnings("unused")
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         System.out.println("\n========= begin =========\n");
         long start = System.currentTimeMillis();
-        for(int i = 0 ; i < 10000000 ; ++i) {
+        for (int i = 0; i < 10000000; ++i) {
             Map<String, String> strs = new HashMap<>();
             strs.put("a", "1");
             strs.put("b", "2");

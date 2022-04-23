@@ -1,18 +1,5 @@
 package com.tvd12.ezyfox.pattern;
 
-import static com.tvd12.ezyfox.util.EzyProcessor.processWithLogException;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.concurrent.EzyExecutors;
 import com.tvd12.ezyfox.exception.EzyNotImplementedException;
@@ -20,9 +7,18 @@ import com.tvd12.ezyfox.util.EzyDestroyable;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyStartable;
 
-public abstract class EzyObjectProvider<T> 
-        extends EzyLoggable
-        implements EzyStartable, EzyDestroyable {
+import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static com.tvd12.ezyfox.util.EzyProcessor.processWithLogException;
+
+public abstract class EzyObjectProvider<T>
+    extends EzyLoggable
+    implements EzyStartable, EzyDestroyable {
 
     protected final long validationDelay;
     protected final long validationInterval;
@@ -32,7 +28,7 @@ public abstract class EzyObjectProvider<T>
 
     protected final Lock lock = new ReentrantLock();
 
-    @SuppressWarnings({ "rawtypes", "unchecked"})
+    @SuppressWarnings({"rawtypes", "unchecked"})
     protected EzyObjectProvider(Builder builder) {
         this.objectFactory = builder.getObjectFactory();
         this.validationDelay = builder.validationDelay;
@@ -60,27 +56,24 @@ public abstract class EzyObjectProvider<T>
 
     protected void startValidationService() {
         List<T> buffer = new ArrayList<>();
-        validationService.scheduleWithFixedDelay(newValidationTask(buffer),
-                validationDelay, validationInterval, TimeUnit.MILLISECONDS);
+        validationService.scheduleWithFixedDelay(
+            newValidationTask(buffer),
+            validationDelay,
+            validationInterval,
+            TimeUnit.MILLISECONDS
+        );
     }
 
     protected Runnable newValidationTask(List<T> buffer) {
-        return new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    buffer.addAll(providedObjects);
-                    removeStaleObjects(buffer);
-                }
-                catch(Exception e) {
-                    logger.error("object provider validation error", e);
-                }
-                finally {
-                    buffer.clear();
-                }
+        return () -> {
+            try {
+                buffer.addAll(providedObjects);
+                removeStaleObjects(buffer);
+            } catch (Exception e) {
+                logger.error("object provider validation error", e);
+            } finally {
+                buffer.clear();
             }
-
         };
     }
 
@@ -90,7 +83,7 @@ public abstract class EzyObjectProvider<T>
         return provideObject0();
     }
 
-    private final T provideObject0() {
+    private T provideObject0() {
         T object = createObject();
         providedObjects.add(object);
         return object;
@@ -101,8 +94,7 @@ public abstract class EzyObjectProvider<T>
         try {
             clearAll();
             shutdownAll();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             logger.error("{} error", getClass().getSimpleName(), e);
         }
     }
@@ -112,12 +104,12 @@ public abstract class EzyObjectProvider<T>
     }
 
     protected void shutdownAll() {
-        processWithLogException(() -> validationService.shutdown());
+        processWithLogException(validationService::shutdown);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static abstract class Builder<T, B extends Builder>
-            implements EzyBuilder<EzyObjectProvider<T>> {
+    public abstract static class Builder<T, B extends Builder>
+        implements EzyBuilder<EzyObjectProvider<T>> {
 
         protected long validationInterval = 100;
         protected long validationDelay = 3 * 1000;
@@ -126,22 +118,22 @@ public abstract class EzyObjectProvider<T>
 
         public B objectFactory(EzyObjectFactory<T> objectFactory) {
             this.objectFactory = objectFactory;
-            return (B)this;
+            return (B) this;
         }
 
         public B validationDelay(long validationDelay) {
             this.validationDelay = validationDelay;
-            return (B)this;
+            return (B) this;
         }
 
         public B validationInterval(long validationInterval) {
             this.validationInterval = validationInterval;
-            return (B)this;
+            return (B) this;
         }
 
         public B validationService(ScheduledExecutorService validationService) {
             this.validationService = validationService;
-            return (B)this;
+            return (B) this;
         }
 
         protected abstract String getValidationThreadPoolName();
@@ -152,7 +144,9 @@ public abstract class EzyObjectProvider<T>
         }
 
         protected EzyObjectFactory<T> newObjectFactory() {
-            throw new EzyNotImplementedException("you must implement newObjectFactory method when objectFactory is null");
+            throw new EzyNotImplementedException(
+                "you must implement newObjectFactory method when objectFactory is null"
+            );
         }
 
         protected ScheduledExecutorService getValidationService() {
@@ -160,14 +154,15 @@ public abstract class EzyObjectProvider<T>
         }
 
         protected ScheduledExecutorService newValidationService() {
-            ScheduledExecutorService service = EzyExecutors.newSingleThreadScheduledExecutor(newValidationThreadFactory());
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> service.shutdown()));
+            ScheduledExecutorService service = EzyExecutors.newSingleThreadScheduledExecutor(
+                newValidationThreadFactory()
+            );
+            Runtime.getRuntime().addShutdownHook(new Thread(service::shutdown));
             return service;
         }
 
         protected ThreadFactory newValidationThreadFactory() {
             return EzyExecutors.newThreadFactory(getValidationThreadPoolName());
         }
-
     }
 }

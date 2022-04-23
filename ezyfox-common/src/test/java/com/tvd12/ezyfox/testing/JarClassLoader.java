@@ -6,24 +6,27 @@ import java.util.Hashtable;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+@SuppressWarnings("unused")
 public class JarClassLoader extends ClassLoader {
-    private String jarFile = "jar/test.jar"; //Path to the jar file
-    @SuppressWarnings("rawtypes")
-    private Hashtable classes = new Hashtable(); //used to cache already defined classes
 
+    //used to cache already defined classes
+    @SuppressWarnings("rawtypes")
+    private final Hashtable classes = new Hashtable();
+
+    //calls the parent class loader's constructor
     public JarClassLoader() {
-        super(JarClassLoader.class.getClassLoader()); //calls the parent class loader's constructor
+        super(JarClassLoader.class.getClassLoader());
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Class loadClass(String className) throws ClassNotFoundException {
+    @SuppressWarnings({"rawtypes"})
+    public Class loadClass(String className) {
         return findClass(className);
     }
 
-    @SuppressWarnings({ "unchecked", "resource", "rawtypes" })
+    @SuppressWarnings({"unchecked", "resource", "rawtypes"})
     public Class findClass(String className) {
-        byte classByte[];
-        Class result = null;
+        byte[] classByte;
+        Class result;
 
         result = (Class) classes.get(className); //checks in cached classes
         if (result != null) {
@@ -33,9 +36,12 @@ public class JarClassLoader extends ClassLoader {
         try {
             return findSystemClass(className);
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         try {
+            //Path to the jar file
+            String jarFile = "jar/test.jar";
             JarFile jar = new JarFile(jarFile);
             JarEntry entry = jar.getJarEntry(className + ".class");
             InputStream is = jar.getInputStream(entry);

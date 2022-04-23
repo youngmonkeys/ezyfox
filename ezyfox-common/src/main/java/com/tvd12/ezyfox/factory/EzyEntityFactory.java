@@ -9,16 +9,14 @@ import com.tvd12.ezyfox.entity.EzyObject;
 
 public final class EzyEntityFactory {
 
-    private static final EzyEntityCreator CREATOR
-            = EzySimpleEntityCreator.getInstance();
     public static final EzyArray EMPTY_ARRAY
-            = EzyEmptyArray.getInstance();
+        = EzyEmptyArray.getInstance();
     public static final EzyObject EMPTY_OBJECT
-            = EzyEmptyObject.getInstance();
+        = EzyEmptyObject.getInstance();
+    private static final EzyEntityCreator CREATOR
+        = EzySimpleEntityCreator.getInstance();
 
-    private EzyEntityFactory() {
-        // do nothing
-    }
+    private EzyEntityFactory() {}
 
     public static <T> T create(Class<T> productType) {
         return CREATOR.create(productType);

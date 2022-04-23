@@ -11,7 +11,8 @@ import java.util.function.BiFunction;
 public final class EzyEmptyObject implements EzyObject {
     private static final long serialVersionUID = 7760695245885076646L;
 
-    private Map<Object, Object> map;
+    private final Map<Object, Object> map;
+
     private static final EzyEmptyObject INSTANCE = new EzyEmptyObject();
 
     private EzyEmptyObject() {
@@ -74,21 +75,19 @@ public final class EzyEmptyObject implements EzyObject {
 
     @Override
     public <V> V put(Object key, Object value) {
-        return (V)value;
+        return (V) value;
     }
 
     @Override
-    public void putAll(Map m) {
-    }
+    public void putAll(Map m) {}
 
     @Override
     public <V> V remove(Object key) {
-        return (V)null;
+        return null;
     }
 
     @Override
-    public void removeAll(Collection keys) {
-    }
+    public void removeAll(Collection keys) {}
 
     @Override
     public <V> V compute(Object key, BiFunction func) {
@@ -96,8 +95,7 @@ public final class EzyEmptyObject implements EzyObject {
     }
 
     @Override
-    public void clear() {
-    }
+    public void clear() {}
 
     @Override
     public Object clone() throws CloneNotSupportedException {

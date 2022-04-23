@@ -1,19 +1,17 @@
 package com.tvd12.ezyfox.testing.entity;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.entity.EzyEntity;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EzyEntity1Test extends BaseTest {
 
     @Test
     public void test() {
-        EzyEntity entity = new EzyEntity() {
-        };
+        EzyEntity entity = new EzyEntity() {};
         Map<String, String> strs = new HashMap<>();
         strs.put("1", "a");
         entity.setProperties(strs);

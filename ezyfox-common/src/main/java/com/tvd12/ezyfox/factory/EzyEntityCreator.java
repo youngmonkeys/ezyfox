@@ -8,9 +8,9 @@ import com.tvd12.ezyfox.entity.EzyObject;
 public interface EzyEntityCreator {
 
     /**
-     * create a product
+     * create a product.
      *
-     * @param <T> the clazz type
+     * @param <T>         the clazz type
      * @param productType the product type
      * @return the created product
      */

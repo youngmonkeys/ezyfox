@@ -7,36 +7,36 @@ import java.util.List;
 public interface EzyRoArray extends EzyData {
 
     /**
-     * Get value by index
+     * Get value by index.
      *
-     * @param <T> the value type
+     * @param <T>   the value type
      * @param index the index
      * @return the value
      */
     <T> T get(int index);
 
     /**
-     * Get and cast value by index
+     * Get and cast value by index.
      *
-     * @param <T> the value
+     * @param <T>   the value
      * @param index the index
-     * @param type the value type
+     * @param type  the value type
      * @return the value
      */
     <T> T get(int index, Class<T> type);
 
     /**
-     * Get value by index but not cast
+     * Get value by index but not cast.
      *
      * @param index the index
-     * @param type the value type
+     * @param type  the value type
      * @return the object value
      */
     @SuppressWarnings("rawtypes")
     Object getValue(int index, Class type);
 
     /**
-     * Check if value in the index is not null
+     * Check if value in the index is not null.
      *
      * @param index the index
      * @return true or false
@@ -44,7 +44,7 @@ public interface EzyRoArray extends EzyData {
     boolean isNotNullValue(int index);
 
     /**
-     * Check if contains value or not
+     * Check if contains value or not.
      *
      * @param value the value
      * @return contains or not
@@ -52,7 +52,7 @@ public interface EzyRoArray extends EzyData {
     boolean contains(Object value);
 
     /**
-     * Check if contains all a collection of values not
+     * Check if contains all a collection of values not.
      *
      * @param values the collection of values
      * @return contains all or not
@@ -61,20 +61,24 @@ public interface EzyRoArray extends EzyData {
     boolean containsAll(Collection values);
 
     /**
-     * Get new array
+     * Get new array.
      *
      * @param fromIndex the from index
-     * @param toIndex the to index
+     * @param toIndex   the to index
      * @return the new array
      */
     EzyRoArray sub(int fromIndex, int toIndex);
 
     /**
+     * Get size of an array.
+     *
      * @return the size of array
      */
     int size();
 
     /**
+     * Check an array is empty or not.
+     *
      * @return is empty or not
      */
     default boolean isEmpty() {
@@ -82,35 +86,42 @@ public interface EzyRoArray extends EzyData {
     }
 
     /**
+     * Convert an array to a list.
+     *
      * @param <T> type of value
      * @return covert this array to list
      */
     <T> List<T> toList();
 
     /**
-     * @param <T> type of value
+     * Convert an anrray to a list with specific item type.
+     *
+     * @param <T>  type of value
      * @param type the item type
      * @return covert this array to list
      */
     <T> List<T> toList(Class<T> type);
 
     /**
-     * @param <T> the array type
-     * @param <A> the return type
+     * Convert a EzyArray to java array.
+     *
+     * @param <T>  the array type
+     * @param <A>  the return type
      * @param type type array type
      * @return the array value
      */
-    <T,A> A toArray(Class<T> type);
+    <T, A> A toArray(Class<T> type);
 
     /**
-     * (non-Javadoc)
+     * (non-Javadoc).
+     *
      * @see com.tvd12.ezyfox.entity.EzyData#duplicate()
      */
     @Override
     EzyRoArray duplicate();
 
     /**
-     * sort this array
+     * sort this array.
      *
      * @param comparator the comparator
      */
@@ -119,7 +130,7 @@ public interface EzyRoArray extends EzyData {
     }
 
     /**
-     * Get first value
+     * Get first value.
      *
      * @param <T> the value type
      * @param def the default value
@@ -130,11 +141,11 @@ public interface EzyRoArray extends EzyData {
     }
 
     /**
-     * Get first value
+     * Get first value.
      *
-     * @param <T> the value type
+     * @param <T>  the value type
      * @param type the value class
-     * @param def the default value
+     * @param def  the default value
      * @return the first value
      */
     default <T> T first(Class<T> type, T def) {
@@ -142,11 +153,11 @@ public interface EzyRoArray extends EzyData {
     }
 
     /**
-     * Get value by index
+     * Get value by index.
      *
-     * @param <T> the value type
+     * @param <T>   the value type
      * @param index the index
-     * @param def the default value
+     * @param def   the default value
      * @return the value
      */
     default <T> T getWithDefault(int index, T def) {
@@ -154,12 +165,12 @@ public interface EzyRoArray extends EzyData {
     }
 
     /**
-     * Get and cast value by index
+     * Get and cast value by index.
      *
-     * @param <T> the value type
+     * @param <T>   the value type
      * @param index the index
-     * @param type the value type
-     * @param def the default value
+     * @param type  the value type
+     * @param def   the default value
      * @return the value
      */
     default <T> T get(int index, Class<T> type, T def) {
@@ -167,11 +178,11 @@ public interface EzyRoArray extends EzyData {
     }
 
     /**
-     * Get value by index but not cast
+     * Get value by index but not cast.
      *
      * @param index the index
-     * @param type the value type
-     * @param def the default value
+     * @param type  the value type
+     * @param def   the default value
      * @return the object value
      */
     @SuppressWarnings("rawtypes")

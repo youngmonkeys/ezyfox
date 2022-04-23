@@ -1,16 +1,16 @@
 package com.tvd12.ezyfox.entity;
 
+import com.tvd12.ezyfox.exception.EzyObjectGetException;
+import com.tvd12.ezyfox.io.EzyInputTransformer;
+import com.tvd12.ezyfox.io.EzyOutputTransformer;
+import com.tvd12.ezyfox.util.EzyObjectToMap;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.BiFunction;
-
-import com.tvd12.ezyfox.exception.EzyObjectGetException;
-import com.tvd12.ezyfox.io.EzyInputTransformer;
-import com.tvd12.ezyfox.io.EzyOutputTransformer;
-import com.tvd12.ezyfox.util.EzyObjectToMap;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class EzyHashMap extends EzyTransformable implements EzyObject {
@@ -19,14 +19,17 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
     protected final HashMap<Object, Object> map = new HashMap<>();
 
     public EzyHashMap(
-            EzyInputTransformer inputTransformer,
-            EzyOutputTransformer outputTransformer) {
+        EzyInputTransformer inputTransformer,
+        EzyOutputTransformer outputTransformer
+    ) {
         super(inputTransformer, outputTransformer);
     }
 
-    public EzyHashMap(Map map,
-            EzyInputTransformer inputTransformer,
-            EzyOutputTransformer outputTransformer) {
+    public EzyHashMap(
+        Map map,
+        EzyInputTransformer inputTransformer,
+        EzyOutputTransformer outputTransformer
+    ) {
         this(inputTransformer, outputTransformer);
         this.map.putAll(map);
     }
@@ -37,8 +40,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public <V> V put(Object key, Object value) {
-        V answer = (V) map.put(key, transformInput(value));
-        return answer;
+        return (V) map.put(key, transformInput(value));
     }
 
     /*
@@ -47,8 +49,9 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public void putAll(Map m) {
-        for(Object key : m.keySet())
+        for (Object key : m.keySet()) {
             put(key, m.get(key));
+        }
     }
 
     /*
@@ -57,8 +60,16 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public <V> V get(Object key, Class<V> type) {
-        V value = (V) getValue(key, type);
-        return value;
+        return (V) getValue(key, type);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see com.tvd12.ezyfox.entity.EzyRoObject#get(java.lang.Object)
+     */
+    @Override
+    public <V> V get(Object key) {
+        return (V) map.get(key);
     }
 
     /*
@@ -69,10 +80,8 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
     public Object getValue(Object key, Class type) {
         Object value = map.get(key);
         try {
-            Object answer = transformOutput(value, type);
-            return answer;
-        }
-        catch(Exception e) {
+            return transformOutput(value, type);
+        } catch (Exception e) {
             throw new EzyObjectGetException(key, value, type, e);
         }
     }
@@ -83,8 +92,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public <V> V remove(Object key) {
-        V answer = (V) map.remove(key);
-        return answer;
+        return (V) map.remove(key);
     }
 
     /*
@@ -93,8 +101,9 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public void removeAll(Collection keys) {
-        for(Object key : keys)
+        for (Object key : keys) {
             map.remove(key);
+        }
     }
 
     /*
@@ -102,8 +111,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public <V> V compute(Object key, BiFunction func) {
-        V answer = (V) map.compute(key, func);
-        return answer;
+        return (V) map.compute(key, func);
     }
 
     /*
@@ -112,8 +120,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public int size() {
-        int size = map.size();
-        return size;
+        return map.size();
     }
 
     /*
@@ -122,8 +129,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public boolean isEmpty() {
-        boolean answer = map.isEmpty();
-        return answer;
+        return map.isEmpty();
     }
 
     /*
@@ -132,8 +138,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public boolean containsKey(Object key) {
-        boolean answer = map.containsKey(key);
-        return answer;
+        return map.containsKey(key);
     }
 
     /*
@@ -142,9 +147,10 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public boolean containsKeys(Collection keys) {
-        for(Object key : keys) {
-            if(!map.containsKey(key))
+        for (Object key : keys) {
+            if (!map.containsKey(key)) {
                 return false;
+            }
         }
         return true;
     }
@@ -155,18 +161,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public boolean isNotNullValue(Object key) {
-        boolean answer = map.get(key) != null;
-        return answer;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see com.tvd12.ezyfox.entity.EzyRoObject#get(java.lang.Object)
-     */
-    @Override
-    public <V> V get(Object key) {
-        V value = (V) map.get(key);
-        return value;
+        return map.get(key) != null;
     }
 
     /*
@@ -175,8 +170,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public Set<Object> keySet() {
-        Set<Object> set = map.keySet();
-        return set;
+        return map.keySet();
     }
 
     /*
@@ -185,8 +179,7 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
      */
     @Override
     public Set<Entry<Object, Object>> entrySet() {
-        Set<Entry<Object, Object>> entries = map.entrySet();
-        return entries;
+        return map.entrySet();
     }
 
     /*
@@ -205,20 +198,21 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
     @Override
     public Map toMap() {
         EzyObjectToMap objectToMap = EzyObjectToMap.getInstance();
-        Map map = objectToMap.toMap(this);
-        return map;
+        return objectToMap.toMap(this);
     }
 
     /*
      * (non-Javadoc)
      * @see java.lang.Object#clone()
      */
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     @Override
     public Object clone() throws CloneNotSupportedException {
-        EzyHashMap clone = new EzyHashMap(
-                map,
-                inputTransformer, outputTransformer);
-        return clone;
+        return new EzyHashMap(
+            map,
+            inputTransformer,
+            outputTransformer
+        );
     }
 
     /*
@@ -236,30 +230,39 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 
     @Override
     public int compareTo(EzyObject o) {
-        EzyHashMap other = (EzyHashMap)o;
+        EzyHashMap other = (EzyHashMap) o;
         int result = this.map.size() - other.map.size();
-        if(result != 0)
+        if (result != 0) {
             return result;
-        for(Object key : map.keySet()) {
+        }
+        for (Object key : map.keySet()) {
             Object value = map.get(key);
             Object otherValue = other.map.get(key);
-            if(value == null) {
-                if(otherValue != null)
+            if (value == null) {
+                if (otherValue != null) {
                     return -1;
-            }
-            else {
-                if(otherValue == null)
-                    return 1;
-                if(value instanceof Comparable && otherValue instanceof Comparable) {
-                    result = ((Comparable)value).compareTo((Comparable)otherValue);
-                    if(result != 0)
-                        return result;
                 }
-                else {
-                    if(!(value instanceof Comparable))
-                        throw new IllegalArgumentException("value: " + value.getClass().getName() + "(" + value + ") is not comparable");
-                    else
-                        throw new IllegalArgumentException("value: " + otherValue.getClass().getName() + "(" + otherValue + ") is not comparable");
+            } else {
+                if (otherValue == null) {
+                    return 1;
+                }
+                if (value instanceof Comparable && otherValue instanceof Comparable) {
+                    result = ((Comparable) value).compareTo(otherValue);
+                    if (result != 0) {
+                        return result;
+                    }
+                } else {
+                    if (!(value instanceof Comparable)) {
+                        throw new IllegalArgumentException(
+                            "value: " + value.getClass().getName() +
+                                "(" + value + ") is not comparable"
+                        );
+                    } else {
+                        throw new IllegalArgumentException(
+                            "value: " + otherValue.getClass().getName() +
+                                "(" + otherValue + ") is not comparable"
+                        );
+                    }
                 }
             }
         }
@@ -268,13 +271,16 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 
     @Override
     public boolean equals(Object other) {
-        if(other == null)
+        if (other == null) {
             return false;
-        if(other == this)
+        }
+        if (other == this) {
             return true;
-        if(!other.getClass().equals(this.getClass()))
+        }
+        if (!other.getClass().equals(this.getClass())) {
             return false;
-        EzyHashMap t = (EzyHashMap)other;
+        }
+        EzyHashMap t = (EzyHashMap) other;
         return t.map.equals(this.map);
     }
 
@@ -284,13 +290,11 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
     }
 
     protected Object transformInput(Object input) {
-        Object answer = inputTransformer.transform(input);
-        return answer;
+        return inputTransformer.transform(input);
     }
 
     protected Object transformOutput(Object output, Class type) {
-        Object answer = outputTransformer.transform(output, type);
-        return answer;
+        return outputTransformer.transform(output, type);
     }
 
     @Override

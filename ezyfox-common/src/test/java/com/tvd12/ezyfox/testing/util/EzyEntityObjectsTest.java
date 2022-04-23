@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.util.HashMap;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.util.EzyEntityObjects;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.HashMap;
 
 public class EzyEntityObjectsTest extends BaseTest {
 
@@ -15,6 +14,7 @@ public class EzyEntityObjectsTest extends BaseTest {
         return EzyEntityObjects.class;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Test
     public void test() {
         EzyEntityObjects.newObject(new HashMap<>());

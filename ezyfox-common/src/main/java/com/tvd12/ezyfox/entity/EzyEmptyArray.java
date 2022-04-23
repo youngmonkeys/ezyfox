@@ -9,9 +9,8 @@ import java.util.function.Consumer;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public final class EzyEmptyArray implements EzyArray {
     private static final long serialVersionUID = 7419371637164947028L;
-
-    private final List<Object> list;
     private static final EzyEmptyArray INSTANCE = new EzyEmptyArray();
+    private final List<Object> list;
 
     private EzyEmptyArray() {
         this.list = Collections.EMPTY_LIST;
@@ -58,7 +57,7 @@ public final class EzyEmptyArray implements EzyArray {
 
     @Override
     public <T> List<T> toList() {
-        return (List<T>)list;
+        return (List<T>) list;
     }
 
     @Override
@@ -85,7 +84,7 @@ public final class EzyEmptyArray implements EzyArray {
 
     @Override
     public <T> T set(int index, Object item) {
-        return (T)item;
+        return (T) item;
     }
 
     @Override

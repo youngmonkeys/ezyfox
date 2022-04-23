@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class EzyObjectToMap {
 
@@ -14,23 +14,26 @@ public final class EzyObjectToMap {
         return INSTANCE;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Map toMap(EzyObject object) {
         Map answer = new HashMap<>();
-        for(Object key : object.keySet()) {
+        for (Object key : object.keySet()) {
             Object value = object.get(key);
             Object skey = key;
             EzyArrayToList arrayToList = EzyArrayToList.getInstance();
-            if(key instanceof EzyArray)
-                skey = arrayToList.toList((EzyArray)key);
-            else if(key instanceof EzyObject)
+            if (key instanceof EzyArray) {
+                skey = arrayToList.toList((EzyArray) key);
+            } else if (key instanceof EzyObject) {
                 skey = toMap((EzyObject) key);
+            }
             Object svalue = value;
-            if(value != null) {
-                if(value instanceof EzyArray)
+            if (value != null) {
+                if (value instanceof EzyArray) {
                     svalue = arrayToList.toList((EzyArray) value);
-                if(value instanceof EzyObject)
+                }
+                if (value instanceof EzyObject) {
                     svalue = toMap((EzyObject) value);
+                }
             }
             answer.put(skey, svalue);
         }

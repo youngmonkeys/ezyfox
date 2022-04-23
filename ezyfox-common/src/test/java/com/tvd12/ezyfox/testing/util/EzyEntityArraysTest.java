@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.testing.util;
 
-import java.util.ArrayList;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.util.EzyEntityArrays;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.ArrayList;
 
 public class EzyEntityArraysTest extends BaseTest {
 
@@ -15,6 +14,7 @@ public class EzyEntityArraysTest extends BaseTest {
         return EzyEntityArrays.class;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Test
     public void test() {
         EzyEntityArrays.newArray(new ArrayList<>());

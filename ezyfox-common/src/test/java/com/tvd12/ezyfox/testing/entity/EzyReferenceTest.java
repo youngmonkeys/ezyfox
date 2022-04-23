@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.entity;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.util.EzyReference;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyReferenceTest extends BaseTest {
 
@@ -25,7 +24,7 @@ public class EzyReferenceTest extends BaseTest {
             }
         }.releasable());
 
-        assert (new EzyReference() {
+        assert !(new EzyReference() {
 
             @Override
             public void retain() {
@@ -39,6 +38,6 @@ public class EzyReferenceTest extends BaseTest {
             public int getReferenceCount() {
                 return 1;
             }
-        }.releasable()) == false;
+        }.releasable());
     }
 }

@@ -1,29 +1,29 @@
 package com.tvd12.ezyfox.builder;
 
-import java.util.Map;
-
 import com.tvd12.ezyfox.entity.EzyHashMap;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.entity.EzyTransformable;
 import com.tvd12.ezyfox.io.EzyInputTransformer;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 
-public class EzySimpleObjectBuilder 
-        extends EzyTransformable
-        implements EzyObjectBuilder {
+import java.util.Map;
+
+public class EzySimpleObjectBuilder
+    extends EzyTransformable
+    implements EzyObjectBuilder {
 
     protected final EzyObject product;
 
     public EzySimpleObjectBuilder(
-            EzyInputTransformer inputTransformer,
-            EzyOutputTransformer outputTransformer) {
+        EzyInputTransformer inputTransformer,
+        EzyOutputTransformer outputTransformer
+    ) {
         super(inputTransformer, outputTransformer);
         this.product = newProduct();
     }
 
     protected EzyHashMap newProduct() {
-        EzyHashMap answer = new EzyHashMap(inputTransformer, outputTransformer);
-        return answer;
+        return new EzyHashMap(inputTransformer, outputTransformer);
     }
 
     /*
