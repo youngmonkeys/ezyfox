@@ -20,7 +20,8 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
 
     public EzyHashMap(
         EzyInputTransformer inputTransformer,
-        EzyOutputTransformer outputTransformer) {
+        EzyOutputTransformer outputTransformer
+    ) {
         super(inputTransformer, outputTransformer);
     }
 
@@ -209,7 +210,8 @@ public class EzyHashMap extends EzyTransformable implements EzyObject {
     public Object clone() throws CloneNotSupportedException {
         return new EzyHashMap(
             map,
-            inputTransformer, outputTransformer
+            inputTransformer,
+            outputTransformer
         );
     }
 

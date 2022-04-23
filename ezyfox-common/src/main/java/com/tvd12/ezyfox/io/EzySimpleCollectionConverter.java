@@ -237,8 +237,10 @@ public class EzySimpleCollectionConverter implements EzyCollectionConverter {
         );
 
         // wrapper
-        converters.put(Boolean[].class, (EzyToObject<Collection>) input -> toArray(input, new Boolean[input.size()][]));
-
+        converters.put(
+            Boolean[].class,
+            (EzyToObject<Collection>) input -> toArray(input, new Boolean[input.size()][])
+        );
         converters.put(Byte[].class, (EzyToObject<Collection>) input -> {
             int count = 0;
             Byte[][] answer = new Byte[input.size()][];

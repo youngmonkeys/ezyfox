@@ -20,7 +20,8 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
     public EzyArrayList(
         EzyInputTransformer inputTransformer,
         EzyOutputTransformer outputTransformer,
-        EzyCollectionConverter collectionConverter) {
+        EzyCollectionConverter collectionConverter
+    ) {
         super(inputTransformer, outputTransformer);
         this.collectionConverter = collectionConverter;
     }
@@ -29,7 +30,8 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
         Collection items,
         EzyInputTransformer inputTransformer,
         EzyOutputTransformer outputTransformer,
-        EzyCollectionConverter collectionConverter) {
+        EzyCollectionConverter collectionConverter
+    ) {
         this(inputTransformer, outputTransformer, collectionConverter);
         this.list.addAll(items);
 
@@ -106,7 +108,8 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
             subList,
             inputTransformer,
             outputTransformer,
-            collectionConverter);
+            collectionConverter
+        );
     }
 
     /**
@@ -253,7 +256,8 @@ public class EzyArrayList extends EzyTransformable implements EzyArray {
             listClone,
             inputTransformer,
             outputTransformer,
-            collectionConverter);
+            collectionConverter
+        );
     }
 
     /*

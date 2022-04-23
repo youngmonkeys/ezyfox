@@ -16,7 +16,8 @@ public class EzySimpleObjectBuilder
 
     public EzySimpleObjectBuilder(
         EzyInputTransformer inputTransformer,
-        EzyOutputTransformer outputTransformer) {
+        EzyOutputTransformer outputTransformer
+    ) {
         super(inputTransformer, outputTransformer);
         this.product = newProduct();
     }

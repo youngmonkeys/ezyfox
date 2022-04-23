@@ -10,7 +10,8 @@ public class EzyTransformable {
 
     public EzyTransformable(
         EzyInputTransformer inputTransformer,
-        EzyOutputTransformer outputTransformer) {
+        EzyOutputTransformer outputTransformer
+    ) {
         this.inputTransformer = inputTransformer;
         this.outputTransformer = outputTransformer;
     }
