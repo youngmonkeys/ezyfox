@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.sercurity;
 
-import java.io.File;
-
 import com.tvd12.ezyfox.file.EzyFileReader;
 import com.tvd12.ezyfox.file.EzyFileWriter;
+
+import java.io.File;
 
 public class EzyFileAsyCrypt extends EzyAsyCrypt {
 
@@ -27,6 +27,15 @@ public class EzyFileAsyCrypt extends EzyAsyCrypt {
         return bytes;
     }
 
+    public byte[] encrypt(File file) throws Exception {
+        return encrypt(readFile(file));
+    }
+
+    public <T> T encrypt(File file, Class<T> outType) throws Exception {
+        byte[] bytes = encrypt(file);
+        return convertBytes(bytes, outType);
+    }
+
     @Override
     public byte[] decrypt(byte[] data) throws Exception {
         byte[] bytes = super.decrypt(data);
@@ -34,17 +43,8 @@ public class EzyFileAsyCrypt extends EzyAsyCrypt {
         return bytes;
     }
 
-    public byte[] encrypt(File file) throws Exception {
-        return encrypt(readFile(file));
-    }
-
     public byte[] decrypt(File file) throws Exception {
         return decrypt(readFile(file));
-    }
-
-    public <T> T encrypt(File file, Class<T> outType) throws Exception {
-        byte[] bytes = encrypt(file);
-        return convertBytes(bytes, outType);
     }
 
     public <T> T decrypt(File file, Class<T> outType) throws Exception {
@@ -57,8 +57,9 @@ public class EzyFileAsyCrypt extends EzyAsyCrypt {
     }
 
     protected void writeToFile(File file, byte[] data) {
-        if(file != null)
+        if (file != null) {
             fileWriter.write(file, data);
+        }
     }
 
     public static Builder builder() {
@@ -82,6 +83,7 @@ public class EzyFileAsyCrypt extends EzyAsyCrypt {
             this.privateKeyFile = privateKeyFile;
             return this;
         }
+
         public Builder outEncryptedFile(File outEncryptedFile) {
             this.outEncryptedFile = outEncryptedFile;
             return this;

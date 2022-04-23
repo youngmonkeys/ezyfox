@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.sercurity;
 
-import java.util.concurrent.ThreadLocalRandom;
+import com.tvd12.ezyfox.builder.EzyBuilder;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import com.tvd12.ezyfox.builder.EzyBuilder;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class EzyAesCrypt {
 
@@ -68,11 +67,11 @@ public class EzyAesCrypt {
         cipherDecrypt.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
         return cipherDecrypt.doFinal(encryptedBytes);
     }
-    
+
     public static Builder builder() {
         return new Builder();
     }
-    
+
     public static class Builder implements EzyBuilder<EzyAesCrypt> {
         private int initVectorSize = 16;
         private String keySpecAlgorithm = "AES";
@@ -97,6 +96,5 @@ public class EzyAesCrypt {
         public EzyAesCrypt build() {
             return new EzyAesCrypt(this);
         }
-
     }
 }

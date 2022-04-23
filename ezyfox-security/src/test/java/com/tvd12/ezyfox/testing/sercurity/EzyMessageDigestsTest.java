@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.sercurity;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.sercurity.EzyMessageDigests;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyMessageDigestsTest extends BaseTest {
 

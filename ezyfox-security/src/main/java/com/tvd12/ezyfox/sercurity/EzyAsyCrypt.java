@@ -1,5 +1,9 @@
 package com.tvd12.ezyfox.sercurity;
 
+import com.tvd12.ezyfox.function.EzyBytesFunction;
+
+import javax.crypto.Cipher;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -7,10 +11,6 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import javax.crypto.Cipher;
-
-import com.tvd12.ezyfox.function.EzyBytesFunction;
 
 public class EzyAsyCrypt {
 
@@ -22,8 +22,8 @@ public class EzyAsyCrypt {
     public static final String DEFAULT_ALGORITHM = "RSA";
     public static final String TRANSFORMATION = "RSA/ECB/PKCS1Padding";
 
-    @SuppressWarnings("rawtypes")
-    protected static final Map<Class, EzyBytesFunction> BYTES_CONVERTERS = defaultBytesConverters();
+    protected static final Map<Class<?>, EzyBytesFunction<Object>> BYTES_CONVERTERS
+        = defaultBytesConverters();
 
     protected EzyAsyCrypt(Builder<?> builder) {
         try {
@@ -31,8 +31,7 @@ public class EzyAsyCrypt {
             this.publicKey = builder.getPublicKey();
             this.privateKey = builder.getPrivateKey();
             this.keyFactory = builder.newKeyFactory();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw new IllegalStateException("init asymmetric encryption error", e);
         }
     }
@@ -42,14 +41,22 @@ public class EzyAsyCrypt {
         return cipher.doFinal(data);
     }
 
-    public byte[] decrypt(byte[] data) throws Exception {
-        cipher.init(Cipher.DECRYPT_MODE, getPrivateKey());
-        return cipher.doFinal(data);
-    }
-
     public <T> T encrypt(byte[] data, Class<T> outType) throws Exception {
         byte[] bytes = encrypt(data);
         return convertBytes(bytes, outType);
+    }
+
+    public byte[] encrypt(String data) throws Exception {
+        return encrypt(data.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public <T> T encrypt(String data, Class<T> outType) throws Exception {
+        return encrypt(data.getBytes(StandardCharsets.UTF_8), outType);
+    }
+
+    public byte[] decrypt(byte[] data) throws Exception {
+        cipher.init(Cipher.DECRYPT_MODE, getPrivateKey());
+        return cipher.doFinal(data);
     }
 
     public <T> T decrypt(byte[] data, Class<T> outType) throws Exception {
@@ -57,16 +64,8 @@ public class EzyAsyCrypt {
         return convertBytes(bytes, outType);
     }
 
-    public byte[] encrypt(String data) throws Exception {
-        return encrypt(data.getBytes("UTF-8"));
-    }
-
     public byte[] decrypt(String data) throws Exception {
         return decrypt(EzyBase64.decode(data));
-    }
-
-    public <T> T encrypt(String data, Class<T> outType) throws Exception {
-        return encrypt(data.getBytes("UTF-8"), outType);
     }
 
     public <T> T decrypt(String data, Class<T> outType) throws Exception {
@@ -78,9 +77,9 @@ public class EzyAsyCrypt {
         return (T) getBytesConverters().get(outType).apply(bytes);
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     protected Map<Class, EzyBytesFunction> getBytesConverters() {
-        return BYTES_CONVERTERS;
+        return (Map) BYTES_CONVERTERS;
     }
 
     /**
@@ -103,11 +102,10 @@ public class EzyAsyCrypt {
         return keyFactory.generatePublic(new X509EncodedKeySpec(publicKey));
     }
 
-    @SuppressWarnings("rawtypes")
-    private static Map<Class, EzyBytesFunction> defaultBytesConverters() {
-        Map<Class, EzyBytesFunction> answer = new ConcurrentHashMap<>();
+    private static Map<Class<?>, EzyBytesFunction<Object>> defaultBytesConverters() {
+        Map<Class<?>, EzyBytesFunction<Object>> answer = new ConcurrentHashMap<>();
         answer.put(byte[].class, (bytes) -> bytes);
-        answer.put(String.class, (bytes) -> EzyBase64.encode2utf((byte[])bytes));
+        answer.put(String.class, EzyBase64::encode2utf);
         return answer;
     }
 
@@ -125,22 +123,22 @@ public class EzyAsyCrypt {
 
         public B algorithm(String algorithm) {
             this.algorithm = algorithm;
-            return (B)this;
+            return (B) this;
         }
 
         public B transformation(String transformation) {
             this.transformation = transformation;
-            return (B)this;
+            return (B) this;
         }
 
         public B publicKey(byte[] publicKey) {
             this.publicKey = publicKey;
-            return (B)this;
+            return (B) this;
         }
 
         public B privateKey(byte[] privateKey) {
             this.privateKey = privateKey;
-            return (B)this;
+            return (B) this;
         }
 
         protected byte[] getPublicKey() {

@@ -1,14 +1,13 @@
 package com.tvd12.ezyfox.testing.sercurity;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.Random;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.sercurity.EzyMD5;
 import com.tvd12.ezyfox.sercurity.EzyMessageDigests;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.Random;
+
+import static org.testng.Assert.assertEquals;
 
 public class EzyMD5Test extends BaseTest {
 
@@ -21,7 +20,7 @@ public class EzyMD5Test extends BaseTest {
 
     @Test
     public void test() throws Exception {
-        String salt = "$1$" + B64.getRandomSalt(8);
+        String salt = "$1$" + B64.getRandomSalt();
         System.out.println(salt);
         System.out.println("a: " + EzyMD5.cryptUtf("dungtv"));
         System.out.println("a: " + EzyMD5.cryptUtf("", "dungtv"));
@@ -34,11 +33,12 @@ public class EzyMD5Test extends BaseTest {
     }
 
     public static class B64 {
-        static String getRandomSalt(int num) {
+        static String getRandomSalt() {
             StringBuilder saltString = new StringBuilder();
-            for (int i = 1; i <= num; ++i)
+            for (int i = 1; i <= 8; ++i) {
                 saltString.append(B64T.charAt(new Random().nextInt(B64T.length())));
-           return saltString.toString();
+            }
+            return saltString.toString();
         }
     }
 }

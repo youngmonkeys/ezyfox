@@ -1,10 +1,5 @@
 package com.tvd12.ezyfox.testing.sercurity;
 
-import java.io.File;
-import java.security.KeyPair;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.file.EzyFileReader;
 import com.tvd12.ezyfox.file.EzyFileWriter;
 import com.tvd12.ezyfox.file.EzySimpleFileReader;
@@ -13,30 +8,34 @@ import com.tvd12.ezyfox.sercurity.EzyBase64;
 import com.tvd12.ezyfox.sercurity.EzyFileAsyCrypt;
 import com.tvd12.ezyfox.sercurity.EzyFileKeysGenerator;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.io.File;
+import java.security.KeyPair;
 
 public class EzyFileAsyCryptTesting extends BaseTest {
 
-    private EzyFileReader fileReader = EzySimpleFileReader.builder().build();
-    private EzyFileWriter fileWriter = EzySimpleFileWriter.builder().build();
+    private final EzyFileReader fileReader = EzySimpleFileReader.builder().build();
+    private final EzyFileWriter fileWriter = EzySimpleFileWriter.builder().build();
 
     @Test
     public void test() throws Exception {
         EzyFileKeysGenerator keysGenerator = EzyFileKeysGenerator.builder()
-                .algorithm("RSA")
-                .keysize(512)
-                .publicKeyFile(new File("output/publickey.txt"))
-                .privateKeyFile(new File("output/privatekey.txt"))
-                .fileWriter(EzySimpleFileWriter.builder().build())
-                .build();
+            .algorithm("RSA")
+            .keySize(512)
+            .publicKeyFile(new File("output/publickey.txt"))
+            .privateKeyFile(new File("output/privatekey.txt"))
+            .fileWriter(EzySimpleFileWriter.builder().build())
+            .build();
         KeyPair keyPair = keysGenerator.generate();
 
         EzyFileAsyCrypt asyCrypt = EzyFileAsyCrypt.builder()
-                .algorithm("RSA")
-                .privateKey(keyPair.getPrivate().getEncoded())
-                .publicKey(keyPair.getPublic().getEncoded())
-                .fileReader(fileReader)
-                .fileWriter(fileWriter)
-                .build();
+            .algorithm("RSA")
+            .privateKey(keyPair.getPrivate().getEncoded())
+            .publicKey(keyPair.getPublic().getEncoded())
+            .fileReader(fileReader)
+            .fileWriter(fileWriter)
+            .build();
 
         String text = "i'm dzung";
         String encryptedText = asyCrypt.encrypt(text, String.class);
@@ -46,6 +45,5 @@ public class EzyFileAsyCryptTesting extends BaseTest {
         String decryptedText = asyCrypt.decrypt(EzyBase64.decode(encryptedText), String.class);
 
         System.out.println("decryptedText = " + decryptedText);
-
     }
 }

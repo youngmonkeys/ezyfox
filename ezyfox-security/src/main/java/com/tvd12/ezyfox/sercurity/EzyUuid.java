@@ -4,11 +4,9 @@ import java.util.UUID;
 
 public final class EzyUuid {
 
-    private EzyUuid() {
-    }
+    private EzyUuid() {}
 
     public static UUID random() {
-        UUID answer = UUID.randomUUID();
-        return answer;
+        return UUID.randomUUID();
     }
 }

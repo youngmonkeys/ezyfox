@@ -7,14 +7,20 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EzyKeysGenerator {
 
-    protected int keysize;
+    protected int keySize;
     protected String algorithm;
 
     public static final String DEFAULT_ALGORITHM = "RSA";
 
     protected EzyKeysGenerator(Builder<?> builder) {
-        this.keysize = builder.keysize;
+        this.keySize = builder.keySize;
         this.algorithm = builder.algorithm;
+    }
+
+    public static byte[] randomKey(int keySize) {
+        byte[] key = new byte[keySize];
+        ThreadLocalRandom.current().nextBytes(key);
+        return key;
     }
 
     public KeyPair generate() {
@@ -22,9 +28,8 @@ public class EzyKeysGenerator {
     }
 
     protected KeyPair generate(KeyPairGenerator generator) {
-        generator.initialize(keysize);
-        KeyPair keyPair = generator.generateKeyPair();
-        return keyPair;
+        generator.initialize(keySize);
+        return generator.generateKeyPair();
     }
 
     protected KeyPairGenerator newKeyPairGenerator() {
@@ -35,12 +40,6 @@ public class EzyKeysGenerator {
         }
     }
 
-    public static byte[] randomKey(int keySize) {
-        byte[] key = new byte[keySize];
-        ThreadLocalRandom.current().nextBytes(key);
-        return key;
-    }
-
     @SuppressWarnings("rawtypes")
     public static Builder builder() {
         return new Builder<>();
@@ -48,16 +47,17 @@ public class EzyKeysGenerator {
 
     @SuppressWarnings("unchecked")
     public static class Builder<B extends Builder<B>> {
-        protected int keysize = 2048;
+        protected int keySize = 2048;
         protected String algorithm = DEFAULT_ALGORITHM;
 
-        public B keysize(int keysize) {
-            this.keysize = keysize;
-            return (B)this;
+        public B keySize(int keysize) {
+            this.keySize = keysize;
+            return (B) this;
         }
+
         public B algorithm(String algorithm) {
             this.algorithm = algorithm;
-            return (B)this;
+            return (B) this;
         }
 
         public EzyKeysGenerator build() {
