@@ -3,12 +3,14 @@ package com.tvd12.ezyfox.testing.io;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.io.EzyArrays;
 import com.tvd12.ezyfox.io.EzyBytes;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import static org.testng.Assert.assertEquals;
 
@@ -58,5 +60,35 @@ public class EzyArraysTest extends BaseTest {
     @Test
     public void test5() {
         System.out.println(Arrays.toString(EzyBytes.merge((byte) 1, new byte[]{3, 6, 2, 5})));
+    }
+
+    @Test
+    public void minFailedDueToStreamIsEmpty() {
+        // given
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            EzyArrays.min(
+                Stream.empty(),
+                Integer::compareTo
+            )
+        );
+
+        // then
+        Asserts.assertEqualsType(e, IllegalArgumentException.class);
+    }
+
+    @Test
+    public void maxFailedDueToStreamIsEmpty() {
+        // given
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            EzyArrays.max(
+                Stream.empty(),
+                Integer::compareTo
+            )
+        );
+
+        // then
+        Asserts.assertEqualsType(e, IllegalArgumentException.class);
     }
 }

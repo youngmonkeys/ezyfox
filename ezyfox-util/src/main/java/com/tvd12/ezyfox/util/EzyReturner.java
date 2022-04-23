@@ -14,11 +14,6 @@ public final class EzyReturner {
         return rvalue != null ? rvalue : svalue;
     }
 
-    public static <T> T returnAndApply(T rvalue, Runnable applier) {
-        applier.run();
-        return rvalue;
-    }
-
     public static <T> T returnWithException(EzySupplier<T> supplier) {
         return returnWithException(supplier, IllegalStateException::new);
     }
@@ -35,7 +30,7 @@ public final class EzyReturner {
     }
 
     public static <T> T returnWithIllegalArgumentException(EzySupplier<T> supplier) {
-        return returnWithException(supplier, e -> new IllegalArgumentException(e));
+        return returnWithException(supplier, IllegalArgumentException::new);
     }
 
     public static <T> T returnWithSync(Supplier<T> supplier, Object context) {

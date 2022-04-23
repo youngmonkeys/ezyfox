@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.builder;
 public interface EzyBuilder<T> {
 
     /**
-     * build a project.
+     * build a product.
      *
      * @return the constructed product
      */
