@@ -161,5 +161,4 @@ public class EzyAsyCrypt {
             return KeyFactory.getInstance(algorithm);
         }
     }
-
 }
