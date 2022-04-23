@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.constant;
 
-import com.tvd12.ezyfox.io.EzyStrings;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 public interface EzyConstant extends EzyHasIntId, EzyHasName {
@@ -66,8 +64,6 @@ public interface EzyConstant extends EzyHasIntId, EzyHasName {
      * @return the constant name
      */
     default String getName() {
-        String name = getClass().getSimpleName().trim();
-        name = EzyStrings.isNoContent(name) ? "attribute" : name;
-        return name + "#" + getId();
+        return getClass().getSimpleName().trim() + "#" + getId();
     }
 }

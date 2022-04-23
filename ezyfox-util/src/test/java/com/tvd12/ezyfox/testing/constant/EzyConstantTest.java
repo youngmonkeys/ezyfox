@@ -19,6 +19,8 @@ public class EzyConstantTest extends BaseTest {
 
         MyConstant d = new MyConstant();
         System.err.println("d.id = " + c.getId() + ", d.name = " + d.getName());
+
+        System.out.println(((EzyConstant) () -> 0).getName());
     }
 
     public static class MyConstant implements EzyConstant {
