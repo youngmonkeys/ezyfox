@@ -35,11 +35,13 @@ public class Next {
     }
 
     /**
+     * Calculate next from a page and size.
+     *
      * @param page the page start from 0
      * @param size the page size
      * @return the Next object
      */
     public static Next fromPageSize(long page, long size) {
-        return new Next((page < 0L ? 0L : page) * size, size);
+        return new Next((Math.max(page, 0L)) * size, size);
     }
 }

@@ -7,11 +7,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
 
-@SuppressWarnings({"rawtypes"})
+@SuppressWarnings({
+    "rawtypes",
+    "OverloadMethodsDeclarationOrder",
+    "MethodCount"
+})
 public final class EzyNumbersConverter {
 
-    private EzyNumbersConverter() {
-    }
+    private EzyNumbersConverter() {}
 
     // primitive
     public static byte[] numbersToPrimitiveBytes(Collection coll) {
@@ -80,7 +83,7 @@ public final class EzyNumbersConverter {
     // wrapper
     public static <I, O> O[] objectsToWrapperNumbers(
         Collection<I> coll, EzyNewArray<O> newer, Function<I, O> mapper) {
-        return coll.stream().map(mapper).toArray((size) -> newer.apply(size));
+        return coll.stream().map(mapper).toArray(newer::apply);
     }
 
     public static <O> O[] numbersToWrapperNumbers(
@@ -90,7 +93,7 @@ public final class EzyNumbersConverter {
 
     public static <I, O> O[] objectsToWrapperNumbers(
         I[] array, EzyNewArray<O> newer, Function<I, O> mapper) {
-        return Arrays.stream(array).map(mapper).toArray((size) -> newer.apply(size));
+        return Arrays.stream(array).map(mapper).toArray(newer::apply);
     }
 
     public static <O> O[] numbersToWrapperNumbers(
@@ -99,7 +102,7 @@ public final class EzyNumbersConverter {
     }
 
     public static Byte[] numbersToWrapperBytes(Collection<? extends Number> coll) {
-        return numbersToWrapperNumbers(coll, size -> new Byte[size], num -> numberToByte(num));
+        return numbersToWrapperNumbers(coll, Byte[]::new, EzyNumbersConverter::numberToByte);
     }
 
     public static Character[] numbersToWrapperChars(Collection coll) {
@@ -112,28 +115,28 @@ public final class EzyNumbersConverter {
     }
 
     public static Double[] numbersToWrapperDoubles(Collection<? extends Number> coll) {
-        return numbersToWrapperNumbers(coll, size -> new Double[size], num -> numberToDouble(num));
+        return numbersToWrapperNumbers(coll, Double[]::new, EzyNumbersConverter::numberToDouble);
     }
 
     public static Float[] numbersToWrapperFloats(Collection<? extends Number> coll) {
-        return numbersToWrapperNumbers(coll, size -> new Float[size], num -> numberToFloat(num));
+        return numbersToWrapperNumbers(coll, Float[]::new, EzyNumbersConverter::numberToFloat);
     }
 
     public static Integer[] numbersToWrapperInts(Collection<? extends Number> coll) {
-        return numbersToWrapperNumbers(coll, size -> new Integer[size], num -> numberToInt(num));
+        return numbersToWrapperNumbers(coll, Integer[]::new, EzyNumbersConverter::numberToInt);
     }
 
     public static Long[] numbersToWrapperLongs(Collection<? extends Number> coll) {
-        return numbersToWrapperNumbers(coll, size -> new Long[size], num -> numberToLong(num));
+        return numbersToWrapperNumbers(coll, Long[]::new, EzyNumbersConverter::numberToLong);
     }
 
     public static Short[] numbersToWrapperShorts(Collection<? extends Number> coll) {
-        return numbersToWrapperNumbers(coll, size -> new Short[size], num -> numberToShort(num));
+        return numbersToWrapperNumbers(coll, Short[]::new, EzyNumbersConverter::numberToShort);
     }
 
     //=================================================
     public static Byte[] numbersToWrapperBytes(Number[] array) {
-        return numbersToWrapperNumbers(array, size -> new Byte[size], num -> numberToByte(num));
+        return numbersToWrapperNumbers(array, Byte[]::new, EzyNumbersConverter::numberToByte);
     }
 
     public static Character[] numbersToWrapperChars(Object[] value) {
@@ -145,28 +148,28 @@ public final class EzyNumbersConverter {
     }
 
     public static Double[] numbersToWrapperDoubles(Number[] array) {
-        return numbersToWrapperNumbers(array, size -> new Double[size], num -> numberToDouble(num));
+        return numbersToWrapperNumbers(array, Double[]::new, EzyNumbersConverter::numberToDouble);
     }
 
     public static Float[] numbersToWrapperFloats(Number[] array) {
-        return numbersToWrapperNumbers(array, size -> new Float[size], num -> numberToFloat(num));
+        return numbersToWrapperNumbers(array, Float[]::new, EzyNumbersConverter::numberToFloat);
     }
 
     public static Integer[] numbersToWrapperInts(Number[] array) {
-        return numbersToWrapperNumbers(array, size -> new Integer[size], num -> numberToInt(num));
+        return numbersToWrapperNumbers(array, Integer[]::new, EzyNumbersConverter::numberToInt);
     }
 
     public static Long[] numbersToWrapperLongs(Number[] array) {
-        return numbersToWrapperNumbers(array, size -> new Long[size], num -> numberToLong(num));
+        return numbersToWrapperNumbers(array, Long[]::new, EzyNumbersConverter::numberToLong);
     }
 
     public static Short[] numbersToWrapperShorts(Number[] array) {
-        return numbersToWrapperNumbers(array, size -> new Short[size], num -> numberToShort(num));
+        return numbersToWrapperNumbers(array, Short[]::new, EzyNumbersConverter::numberToShort);
     }
     //=================================================
 
     public static Byte numberToByte(Number number) {
-        return convertNumber(number, num -> num.byteValue());
+        return convertNumber(number, Number::byteValue);
     }
 
     public static Character numberToChar(Number number) {
@@ -179,23 +182,23 @@ public final class EzyNumbersConverter {
     }
 
     public static Double numberToDouble(Number number) {
-        return convertNumber(number, num -> num.doubleValue());
+        return convertNumber(number, Number::doubleValue);
     }
 
     public static Float numberToFloat(Number number) {
-        return convertNumber(number, num -> num.floatValue());
+        return convertNumber(number, Number::floatValue);
     }
 
     public static Integer numberToInt(Number number) {
-        return convertNumber(number, num -> num.intValue());
+        return convertNumber(number, Number::intValue);
     }
 
     public static Long numberToLong(Number number) {
-        return convertNumber(number, num -> num.longValue());
+        return convertNumber(number, Number::longValue);
     }
 
     public static Short numberToShort(Number number) {
-        return convertNumber(number, num -> num.shortValue());
+        return convertNumber(number, Number::shortValue);
     }
 
     public static <T> T convertNumber(Object number, EzyNumber<T> converter) {

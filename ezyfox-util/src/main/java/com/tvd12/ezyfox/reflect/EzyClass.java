@@ -51,8 +51,16 @@ public class EzyClass implements EzyReflectElement {
         return fieldsByName.get(name);
     }
 
+    public Optional<EzyField> getField(Predicate<EzyField> predicate) {
+        return fields.stream().filter(predicate).findFirst();
+    }
+
     public EzyMethod getMethod(String name) {
         return methodsByName.get(name);
+    }
+
+    public Optional<EzyMethod> getMethod(Predicate<EzyMethod> predicate) {
+        return methods.stream().filter(predicate).findFirst();
     }
 
     @SuppressWarnings("unchecked")
@@ -100,35 +108,10 @@ public class EzyClass implements EzyReflectElement {
         return max;
     }
 
-    public List<EzyMethod> getPublicMethods() {
-        return getMethods(m -> m.isPublic());
-    }
-
-    public List<EzySetterMethod> getSetterMethods() {
-        return getMethods(m -> m.isSetter(), m -> new EzySetterMethod(m));
-    }
-
-    public List<EzyGetterMethod> getGetterMethods() {
-        return getMethods(m -> m.isGetter(), m -> new EzyGetterMethod(m));
-    }
-
-    public EzyMethod getSetterMethod(String methodName) {
-        Optional<EzyMethod> optional =
-            getSetterMethod(m -> m.getName().equals(methodName));
-        return optional.isPresent() ? optional.get() : null;
-    }
-
     public EzyMethod getGetterMethod(String methodName) {
         Optional<EzyMethod> optional =
             getGetterMethod(m -> m.getName().equals(methodName));
-        return optional.isPresent() ? optional.get() : null;
-    }
-
-    public Optional<EzyMethod> getPublicMethod(Predicate<EzyMethod> predicate) {
-        return methods
-            .stream()
-            .filter(m -> m.isPublic() && predicate.test(m))
-            .findFirst();
+        return optional.orElse(null);
     }
 
     public Optional<EzyMethod> getGetterMethod(Predicate<EzyMethod> predicate) {
@@ -138,8 +121,10 @@ public class EzyClass implements EzyReflectElement {
             .findFirst();
     }
 
-    public Optional<EzyMethod> getAnnotatedGetterMethod(Class<? extends Annotation> annClass) {
-        return getGetterMethod(m -> m.isAnnotated(annClass));
+    public EzyMethod getSetterMethod(String methodName) {
+        Optional<EzyMethod> optional =
+            getSetterMethod(m -> m.getName().equals(methodName));
+        return optional.orElse(null);
     }
 
     public Optional<EzyMethod> getSetterMethod(Predicate<EzyMethod> predicate) {
@@ -149,19 +134,8 @@ public class EzyClass implements EzyReflectElement {
             .findFirst();
     }
 
-    public Optional<EzyMethod> getAnnotatedSetterMethod(Class<? extends Annotation> annClass) {
-        return getSetterMethod(m -> m.isAnnotated(annClass));
-    }
-
-    public List<EzyMethod> getPublicMethods(Predicate<EzyMethod> predicate) {
-        return getMethods(m -> m.isPublic() && predicate.test(m));
-    }
-
-    public List<EzySetterMethod> getSetterMethods(Predicate<EzySetterMethod> predicate) {
-        return getSetterMethods()
-            .stream()
-            .filter(predicate)
-            .collect(Collectors.toList());
+    public List<EzyGetterMethod> getGetterMethods() {
+        return getMethods(EzyMethod::isGetter, EzyGetterMethod::new);
     }
 
     public List<EzyGetterMethod> getGetterMethods(Predicate<EzyGetterMethod> predicate) {
@@ -171,45 +145,46 @@ public class EzyClass implements EzyReflectElement {
             .collect(Collectors.toList());
     }
 
+    public List<EzySetterMethod> getSetterMethods() {
+        return getMethods(EzyMethod::isSetter, EzySetterMethod::new);
+    }
+
+    public List<EzySetterMethod> getSetterMethods(Predicate<EzySetterMethod> predicate) {
+        return getSetterMethods()
+            .stream()
+            .filter(predicate)
+            .collect(Collectors.toList());
+    }
+
+    public Optional<EzyMethod> getAnnotatedGetterMethod(Class<? extends Annotation> annClass) {
+        return getGetterMethod(m -> m.isAnnotated(annClass));
+    }
+
+    public Optional<EzyMethod> getAnnotatedSetterMethod(Class<? extends Annotation> annClass) {
+        return getSetterMethod(m -> m.isAnnotated(annClass));
+    }
+
+    public Optional<EzyMethod> getPublicMethod(Predicate<EzyMethod> predicate) {
+        return methods
+            .stream()
+            .filter(m -> m.isPublic() && predicate.test(m))
+            .findFirst();
+    }
+
+    public List<EzyMethod> getPublicMethods() {
+        return getMethods(EzyMethod::isPublic);
+    }
+
+    public List<EzyMethod> getPublicMethods(Predicate<EzyMethod> predicate) {
+        return getMethods(m -> m.isPublic() && predicate.test(m));
+    }
+
     public List<EzyMethod> getMethods(Predicate<EzyMethod> predicate) {
         return methods
             .stream()
             .filter(predicate)
             .distinct()
             .collect(Collectors.toList());
-    }
-
-    public List<EzyMethod> getDistinctMethods(Predicate<EzyMethod> predicate) {
-        List<EzyMethod> allMethods = getMethods(predicate);
-        return EzyMethods.filterOverriddenMethods(allMethods);
-    }
-
-    public List<EzyField> getWritableFields() {
-        return getFields(f -> f.isWritable());
-    }
-
-    public List<EzyField> getPublicFields() {
-        return getFields(f -> f.isPublic());
-    }
-
-    public List<EzyField> getPublicFields(Predicate<EzyField> predicate) {
-        return getFields(f -> f.isPublic() && predicate.test(f));
-    }
-
-    public Optional<EzyField> getField(Predicate<EzyField> predicate) {
-        return fields.stream().filter(predicate).findFirst();
-    }
-
-    public List<EzyField> getFields(Predicate<EzyField> predicate) {
-        return fields
-            .stream()
-            .filter(predicate)
-            .distinct()
-            .collect(Collectors.toList());
-    }
-
-    public Optional<EzyMethod> getMethod(Predicate<EzyMethod> predicate) {
-        return methods.stream().filter(predicate).findFirst();
     }
 
     public <T extends EzyMethod> List<T> getMethods(
@@ -222,12 +197,37 @@ public class EzyClass implements EzyReflectElement {
             .collect(Collectors.toList());
     }
 
+    public List<EzyMethod> getDistinctMethods(Predicate<EzyMethod> predicate) {
+        List<EzyMethod> allMethods = getMethods(predicate);
+        return EzyMethods.filterOverriddenMethods(allMethods);
+    }
+
+    public List<EzyField> getWritableFields() {
+        return getFields(EzyField::isWritable);
+    }
+
+    public List<EzyField> getPublicFields() {
+        return getFields(EzyField::isPublic);
+    }
+
+    public List<EzyField> getPublicFields(Predicate<EzyField> predicate) {
+        return getFields(f -> f.isPublic() && predicate.test(f));
+    }
+
+    public List<EzyField> getFields(Predicate<EzyField> predicate) {
+        return fields
+            .stream()
+            .filter(predicate)
+            .distinct()
+            .collect(Collectors.toList());
+    }
+
     public List<EzySetterMethod> getDeclaredSetterMethods() {
-        return getDeclaredMethods(m -> m.isSetter(), m -> new EzySetterMethod(m));
+        return getDeclaredMethods(EzyMethod::isSetter, EzySetterMethod::new);
     }
 
     public List<EzyGetterMethod> getDeclaredGetterMethods() {
-        return getDeclaredMethods(m -> m.isGetter(), m -> new EzyGetterMethod(m));
+        return getDeclaredMethods(EzyMethod::isGetter, EzyGetterMethod::new);
     }
 
     public <T extends EzyMethod> List<T> getDeclaredMethods(

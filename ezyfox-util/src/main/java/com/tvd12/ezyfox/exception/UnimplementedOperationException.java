@@ -6,5 +6,4 @@ public class UnimplementedOperationException extends RuntimeException {
     public UnimplementedOperationException(String msg, Throwable e) {
         super(msg, e);
     }
-
 }

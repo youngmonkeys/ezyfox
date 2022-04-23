@@ -5,14 +5,14 @@ import java.util.Properties;
 public interface EzyRoProperties {
 
     /**
-     * Get all properties
+     * Get all properties.
      *
      * @return all properties
      */
     Properties getProperties();
 
     /**
-     * get the value to which the specified key is mapped
+     * get the value to which the specified key is mapped.
      *
      * @param <T> type of value
      * @param key the key
@@ -21,7 +21,8 @@ public interface EzyRoProperties {
     <T> T getProperty(Object key);
 
     /**
-     * get the value to which the specified key is mapped and cast value to specific type
+     * get the value to which the specified key is mapped
+     * and cast value to specific type.
      *
      * @param <T>   the value type
      * @param key   key
@@ -31,15 +32,7 @@ public interface EzyRoProperties {
     <T> T getProperty(Object key, Class<T> clazz);
 
     /**
-     * check whether has value mapped to the or not
-     *
-     * @param key the key to check
-     * @return true or false;
-     */
-    boolean containsKey(Object key);
-
-    /**
-     * get the value to which the specified key is mapped
+     * get the value to which the specified key is mapped.
      *
      * @param <T> type of value
      * @param key the key
@@ -48,4 +41,12 @@ public interface EzyRoProperties {
     default <T> T getProperty(Class<T> key) {
         return getProperty((Object) key);
     }
+
+    /**
+     * check whether has value mapped to the or not.
+     *
+     * @param key the key to check
+     * @return true or false;
+     */
+    boolean containsKey(Object key);
 }

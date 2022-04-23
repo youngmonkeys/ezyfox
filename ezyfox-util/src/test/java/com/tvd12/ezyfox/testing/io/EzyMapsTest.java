@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 import java.util.*;
 
-import static org.mockito.Mockito.*;
 import static org.testng.Assert.assertEquals;
 
 public class EzyMapsTest extends BaseTest {
@@ -48,7 +47,7 @@ public class EzyMapsTest extends BaseTest {
         map.put("2", "b");
         map.put("3", "c");
         Map<Long, String> map1 =
-            EzyMaps.newHashMapNewKeys(map, (k) -> Long.valueOf(k));
+            EzyMaps.newHashMapNewKeys(map, Long::valueOf);
         assertEquals(map1.keySet(), Sets.newHashSet(1L, 2L, 3L));
         assertEquals(map1.values(), Sets.newHashSet("a", "b", "c"));
     }
@@ -56,7 +55,7 @@ public class EzyMapsTest extends BaseTest {
     @Test
     public void test4() {
         Collection<String> coll = Sets.newHashSet("1", "2", "3");
-        Map<Long, String> map = EzyMaps.newHashMap(coll, (v) -> Long.valueOf(v));
+        Map<Long, String> map = EzyMaps.newHashMap(coll, Long::valueOf);
         assertEquals(map.keySet(), Sets.newHashSet(1L, 2L, 3L));
         assertEquals(map.values(), Sets.newHashSet("1", "2", "3"));
     }
@@ -98,7 +97,7 @@ public class EzyMapsTest extends BaseTest {
     @Test
     public void test8() {
         Map<String, List<String>> map = new HashMap<>();
-        EzyMaps.addItemsToList(map, "1", "a", "b", "c", "d", "e");
+        map.put("1", Lists.newArrayList("a", "b", "c", "d", "e"));
         assertEquals(map.get("1"), Lists.newArrayList("a", "b", "c", "d", "e"));
         EzyMaps.removeItems(map, "2", "d", "e");
         EzyMaps.removeItems(map, "1", "d", "e");
@@ -108,7 +107,7 @@ public class EzyMapsTest extends BaseTest {
     @Test
     public void test9() {
         Map<String, Set<String>> map = new HashMap<>();
-        EzyMaps.addItemsToSet(map, "1", "a", "b", "c", "d", "e");
+        map.put("1", Sets.newHashSet("a", "b", "c", "d", "e"));
         assertEquals(map.get("1"), Sets.newHashSet("a", "b", "c", "d", "e"));
     }
 
@@ -160,52 +159,16 @@ public class EzyMapsTest extends BaseTest {
         assert !EzyMaps.containsAll(map1b, map2b);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
-    public void test12() {
-        EzyMaps.putIfAbsent(null, null, null);
-    }
-
     @Test
     public void test13() {
-        Map<String, String> map = new HashMap<>();
-        EzyMaps.putIfAbsent(map, "1", "2");
-        EzyMaps.putIfAbsent(map, "1", "3");
-        assert map.size() == 1;
-
-        Map<String, Set<String>> map2 = new HashMap<>();
-        EzyMaps.addItemsToSet(map2, "1", new HashSet<>());
-        EzyMaps.addItemsToSet(map2, "1", new HashSet<>());
 
         Map<String, List<String>> map3 = new HashMap<>();
-        EzyMaps.addItemsToList(map3, "1", new ArrayList<>());
-        EzyMaps.addItemsToList(map3, "1", new ArrayList<>());
+        map3.put("1", new ArrayList<>());
+        map3.put("2", new ArrayList<>());
 
         EzyMaps.removeItems(map3, "1", new ArrayList<>());
         map3.remove("1");
         EzyMaps.removeItems(map3, "1", new ArrayList<>());
-    }
-
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    @Test
-    public void test14() {
-        Map map = mock(Map.class);
-        try {
-            when(map.computeIfAbsent(any(), any())).thenThrow(new IllegalArgumentException());
-            EzyMaps.putIfAbsent(map, new Object(), 1);
-        } catch (Exception e) {
-        }
-        try {
-            when(map.put(any(), any())).thenThrow(new RuntimeException());
-            EzyMaps.addItemsToSet(map, new Object(), new HashSet<>());
-
-        } catch (Exception e) {
-        }
-
-        try {
-            EzyMaps.addItemsToList(map, new Object(), new HashSet<>());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
@@ -230,36 +193,19 @@ public class EzyMapsTest extends BaseTest {
         return EzyMaps.class;
     }
 
-    public static interface InterfaceA {
+    public interface InterfaceA {}
 
-    }
+    public interface InterfaceB {}
 
-    public static interface InterfaceB {
+    public static class ClassA implements InterfaceA {}
 
-    }
+    public static class ClassB extends ClassA {}
 
-    public static class ClassA implements InterfaceA {
+    public static class ClassD {}
 
-    }
+    public static class ClassE extends ClassD {}
 
-    public static class ClassB extends ClassA {
+    public static class ClassF {}
 
-    }
-
-    public static class ClassD {
-
-    }
-
-    public static class ClassE extends ClassD {
-
-    }
-
-
-    public static class ClassF {
-
-    }
-
-    public static class ClassJ extends ClassF implements InterfaceB {
-
-    }
+    public static class ClassJ extends ClassF implements InterfaceB {}
 }

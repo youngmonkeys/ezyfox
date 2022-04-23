@@ -1,6 +1,5 @@
 package com.tvd12.ezyfox.io;
 
-import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.util.EzyObjects;
 
 import java.util.*;
@@ -15,10 +14,7 @@ public final class EzyMaps {
 
     @SuppressWarnings("rawtypes")
     public static boolean isEmpty(Map map) {
-        if (map == null || map.isEmpty()) {
-            return true;
-        }
-        return false;
+        return map == null || map.isEmpty();
     }
 
     // =============================================
@@ -44,13 +40,13 @@ public final class EzyMaps {
 
     @SuppressWarnings("rawtypes")
     private static Object getValueOfInterfaces(Map map, Class<?> type) {
-        Object answer = null;
+        Object answer;
         for (Class<?> clazz : type.getInterfaces()) {
             if ((answer = getValue(map, clazz)) != null) {
                 return answer;
             }
         }
-        return answer;
+        return null;
     }
 
     // =============================================
@@ -75,35 +71,37 @@ public final class EzyMaps {
 
     // =============================================
     public static <K, V> Map<K, V> newHashMap(
-        Collection<V> coll, Function<V, K> keyGentor) {
+        Collection<V> coll, Function<V, K> keyGenerator) {
         Map<K, V> map = new HashMap<>();
         for (V v : coll) {
-            map.put(keyGentor.apply(v), v);
+            map.put(keyGenerator.apply(v), v);
         }
         return map;
     }
 
-    public static <K, V, K1> Map<K1, V> newHashMapNewKeys(
-        Map<K, V> origin, Function<K, K1> keyGentor) {
-        return newHashMap(origin, keyGentor, (v) -> v);
-    }
-
-    public static <K, V, V1> Map<K, V1> newHashMapNewValues(
-        Map<K, V> origin, Function<V, V1> valueGentor) {
-        return newHashMap(origin, (k) -> k, valueGentor);
-    }
-
-    public static <K, V, K1, V1> Map<K1, V1> newHashMap(Map<K, V> origin,
-                                                        Function<K, K1> keyGentor, Function<V, V1> valueGentor) {
+    public static <K, V, K1, V1> Map<K1, V1> newHashMap(
+        Map<K, V> origin,
+        Function<K, K1> keyGenerator, Function<V, V1> valueGenerator
+    ) {
         Map<K1, V1> map = new HashMap<>();
         for (K k : origin.keySet()) {
-            map.put(keyGentor.apply(k), valueGentor.apply(origin.get(k)));
+            map.put(keyGenerator.apply(k), valueGenerator.apply(origin.get(k)));
         }
         return map;
     }
 
     public static <K, V> Map<K, V> newHashMap(K key, V value) {
         return newMap(key, value, new HashMap<>());
+    }
+
+    public static <K, V, K1> Map<K1, V> newHashMapNewKeys(
+        Map<K, V> origin, Function<K, K1> keyGenerator) {
+        return newHashMap(origin, keyGenerator, (v) -> v);
+    }
+
+    public static <K, V, V1> Map<K, V1> newHashMapNewValues(
+        Map<K, V> origin, Function<V, V1> valueGenerator) {
+        return newHashMap(origin, (k) -> k, valueGenerator);
     }
 
     public static <K, V, M extends Map<K, V>> M newMap(K key, V value, M map) {
@@ -129,63 +127,29 @@ public final class EzyMaps {
             .collect(Collectors.toList());
     }
 
-    public static <K, V> V putIfAbsent(Map<K, V> map, K key, V value) {
-        if (map == null) {
-            throw new NullPointerException("map is null");
-        }
-        synchronized (map) {
-            V v = map.computeIfAbsent(key, (k) -> value);
-            return v;
-        }
-    }
-
     @SuppressWarnings("unchecked")
-    public static <K, E> void addItemsToSet(Map<K, Set<E>> map, K key, E... items) {
-        addItemsToSet(map, key, Lists.newArrayList(items));
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <K, E> void addItemsToList(Map<K, List<E>> map, K key, E... items) {
-        addItemsToList(map, key, Lists.newArrayList(items));
-    }
-
-    public static <K, E> void addItemsToSet(Map<K, Set<E>> map, K key, Collection<E> items) {
-        synchronized (map) {
-            Set<E> set = map.get(key);
-            if (set == null) {
-                set = new HashSet<>();
-                map.put(key, set);
-            }
-            set.addAll(items);
-        }
-    }
-
-    public static <K, E> void addItemsToList(Map<K, List<E>> map, K key, Collection<E> items) {
-        synchronized (map) {
-            List<E> set = map.get(key);
-            if (set == null) {
-                set = new ArrayList<>();
-                map.put(key, set);
-            }
-            set.addAll(items);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <K, E> void removeItems(Map<K, ? extends Collection<E>> map, K key, E... items) {
-        if (map.containsKey(key)) {
-            Collection<E> collection = map.get(key);
+    public static <K, E> void removeItems(
+        Map<K, ? extends Collection<E>> map,
+        K key,
+        E... items
+    ) {
+        map.computeIfPresent(key, (k, v) -> {
             for (E item : items) {
-                collection.remove(item);
+                v.remove(item);
             }
-        }
+            return v;
+        });
     }
 
-    public static <K, E> void removeItems(Map<K, ? extends Collection<E>> map, K key, Collection<E> items) {
-        if (map.containsKey(key)) {
-            Collection<E> collection = map.get(key);
-            collection.removeAll(items);
-        }
+    public static <K, E> void removeItems(
+        Map<K, ? extends Collection<E>> map,
+        K key,
+        Collection<E> items
+    ) {
+        map.computeIfPresent(key, (k, v) -> {
+            v.removeAll(items);
+            return v;
+        });
     }
 
     // =============================================

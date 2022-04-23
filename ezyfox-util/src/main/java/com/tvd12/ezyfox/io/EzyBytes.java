@@ -4,12 +4,7 @@ import java.nio.ByteBuffer;
 
 public final class EzyBytes {
 
-    private EzyBytes() {
-    }
-
-    public static byte[] getBytes(ByteBuffer buffer) {
-        return EzyByteBuffers.getBytes(buffer);
-    }
+    private EzyBytes() {}
 
     public static byte[] copy(ByteBuffer buffer, int size) {
         return EzyByteBuffers.getBytes(buffer, size);
@@ -19,6 +14,10 @@ public final class EzyBytes {
         byte[] answer = new byte[length];
         System.arraycopy(bytes, offset, answer, 0, length);
         return answer;
+    }
+
+    public static byte[] getBytes(ByteBuffer buffer) {
+        return EzyByteBuffers.getBytes(buffer);
     }
 
     public static byte[] getBytes(int first, int value, int size) {
@@ -61,6 +60,14 @@ public final class EzyBytes {
         return getBytes(value, 2);
     }
 
+    public static byte[] getBytes(long value, int size) {
+        byte[] bytes = new byte[size];
+        for (int i = 0; i < size; ++i) {
+            bytes[i] = (byte) ((value >> ((size - i - 1) * 8) & 0xff));
+        }
+        return bytes;
+    }
+
     public static byte[] merge(byte first, byte[] other) {
         byte[] bytes = new byte[other.length + 1];
         bytes[0] = first;
@@ -84,14 +91,6 @@ public final class EzyBytes {
             size += bytes.length;
         }
         return size;
-    }
-
-    public static byte[] getBytes(long value, int size) {
-        byte[] bytes = new byte[size];
-        for (int i = 0; i < size; ++i) {
-            bytes[i] = (byte) ((value >> ((size - i - 1) * 8) & 0xff));
-        }
-        return bytes;
     }
 
     public static byte[] numberToBytes(long number) {

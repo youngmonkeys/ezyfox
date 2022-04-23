@@ -8,13 +8,13 @@ public class EzyAttributeTest extends BaseTest {
 
     @Test
     public void test() {
-        EzyAttribute<String> A = EzyAttribute.valueOf(1, "a");
+        EzyAttribute A = EzyAttribute.valueOf(1, "a");
         assert A.getName().equals("a");
-        EzyAttribute<String> B = EzyAttribute.valueOf(2);
+        EzyAttribute B = EzyAttribute.valueOf(2);
         assert B.getName().equals("attribute#2");
-        EzyAttribute<String> C = EzyAttribute.valueOf("c");
+        EzyAttribute C = EzyAttribute.valueOf("c");
         assert C.getId() > 2;
-        EzyAttribute<String> D = EzyAttribute.one();
+        EzyAttribute D = EzyAttribute.one();
         System.err.println("D.id = " + D.getId() + ", D.name = " + D.getName());
     }
 }

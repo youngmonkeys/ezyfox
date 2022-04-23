@@ -7,8 +7,7 @@ import java.util.function.Supplier;
 
 public final class EzyLazyInitHelper {
 
-    private EzyLazyInitHelper() {
-    }
+    private EzyLazyInitHelper() {}
 
     public static <T> T init(
         Object context, EzyInitialize<T> initer) {
@@ -22,22 +21,28 @@ public final class EzyLazyInitHelper {
     }
 
     private static <T> T syncInit(
-        Object context, Supplier<T> current, EzyInitialize<T> initer) {
+        Object context,
+        Supplier<T> current, EzyInitialize<T> initializer
+    ) {
         synchronized (context) {
             T value = current.get();
-            return value != null ? value : initer.init();
+            return value != null ? value : initializer.init();
         }
     }
 
     public static void voidInit(
-        Object context, Supplier<Boolean> condition, EzyVoid applier) {
+        Object context, Supplier<Boolean> condition,
+        EzyVoid applier
+    ) {
         if (condition.get()) {
             syncVoidInit(context, condition, applier);
         }
     }
 
     private static void syncVoidInit(
-        Object context, Supplier<Boolean> condition, EzyVoid applier) {
+        Object context,
+        Supplier<Boolean> condition, EzyVoid applier
+    ) {
         synchronized (context) {
             if (condition.get()) {
                 applier.apply();

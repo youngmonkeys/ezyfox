@@ -18,25 +18,28 @@ public final class EzyProcessor {
     public static void processSilently(EzyExceptionVoid applier) {
         try {
             applier.apply();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
+            // do nothing
         }
     }
 
     public static void processWithException(EzyExceptionVoid applier) {
-        processWithException(applier, e -> new IllegalStateException(e));
-    }
-
-    public static void processWithIllegalArgumentException(EzyExceptionVoid applier) {
-        processWithException(applier, e -> new IllegalArgumentException(e));
+        processWithException(applier, IllegalStateException::new);
     }
 
     public static void processWithException(
-        EzyExceptionVoid applier, Function<Throwable, RuntimeException> handler) {
+        EzyExceptionVoid applier,
+        Function<Throwable, RuntimeException> handler
+    ) {
         try {
             applier.apply();
         } catch (Exception e) {
             throw handler.apply(e);
         }
+    }
+
+    public static void processWithIllegalArgumentException(EzyExceptionVoid applier) {
+        processWithException(applier, IllegalArgumentException::new);
     }
 
     public static void processWithLogException(EzyExceptionVoid applier) {

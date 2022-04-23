@@ -7,6 +7,7 @@ import com.tvd12.test.performance.Performance;
 import org.testng.annotations.Test;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 import static org.testng.Assert.assertEquals;
 
@@ -44,19 +45,15 @@ public class EzyBytesTest extends BaseTest {
     }
 
     @Test
-    public void mergePerformaceTest() {
+    public void mergePerformanceTest() {
         byte[][] bytess = new byte[5][100];
-        for (int i = 0; i < bytess.length; ++i) {
-            for (int k = 0; k < bytess[i].length; ++k) {
-                bytess[i][k] = 1;
-            }
+        for (byte[] bytes : bytess) {
+            Arrays.fill(bytes, (byte) 1);
         }
         long time1 = Performance.create()
-            .test(() -> {
-                EzyBytes.merge(bytess);
-            })
+            .test(() -> EzyBytes.merge(bytess))
             .getTime();
-        System.out.println("mergePerformaceTest.time1 = " + time1);
+        System.out.println("mergePerformanceTest.time1 = " + time1);
     }
 
     @Test

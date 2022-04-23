@@ -74,13 +74,13 @@ public class EzyInstruction {
         return this;
     }
 
+    public EzyInstruction append(EzyInstruction instruction) {
+        return append(instruction.toString());
+    }
+
     public EzyInstruction string(String str) {
         builder.append("\"").append(str).append("\"");
         return this;
-    }
-
-    public EzyInstruction append(EzyInstruction instruction) {
-        return append(instruction.toString());
     }
 
     public EzyInstruction clazz(Class clazz) {

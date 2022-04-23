@@ -13,7 +13,7 @@ public final class EzySets {
     private EzySets() {}
 
     /**
-     * Combine some set of items
+     * Combine some set of items.
      *
      * @param sets some set of items
      * @return the new HashSet
@@ -29,7 +29,7 @@ public final class EzySets {
 
     /**
      * Transform for each item in a collection to new collection
-     * and add to new HashSet
+     * and add to new HashSet.
      *
      * @param coll  the collection
      * @param trans the transformer
@@ -45,7 +45,7 @@ public final class EzySets {
     }
 
     /**
-     * Filter the collection and create a new hash set
+     * Filter the collection and create a new hash set.
      *
      * @param <T>       the value type
      * @param coll      the collection
@@ -57,7 +57,7 @@ public final class EzySets {
     }
 
     /**
-     * Remove some item from the collection and create a new hash set
+     * Remove some item from the collection and create a new hash set.
      *
      * @param <T>    the value type
      * @param coll   the collection
@@ -75,7 +75,7 @@ public final class EzySets {
     }
 
     /**
-     * Remove some item from the collection and create a new hash set
+     * Remove some item from the collection and create a new hash set.
      *
      * @param <T>    the value type
      * @param coll   the collection
@@ -88,7 +88,7 @@ public final class EzySets {
     }
 
     /**
-     * Transform an array to a new hash set
+     * Transform an array to a new hash set.
      *
      * @param <I>      the input type
      * @param <O>      the output type
@@ -101,7 +101,7 @@ public final class EzySets {
     }
 
     /**
-     * Transform a collection to a new hash set
+     * Transform a collection to a new hash set.
      *
      * @param <I>      the input type
      * @param <O>      the output type
@@ -118,7 +118,7 @@ public final class EzySets {
     }
 
     /**
-     * Transform a map to new hash set
+     * Transform a map to new hash set.
      *
      * @param <K>      the key type
      * @param <V>      the value type
@@ -136,7 +136,7 @@ public final class EzySets {
     }
 
     /**
-     * Combine a collection and an array of elements to a new hash set
+     * Combine a collection and an array of elements to a new hash set.
      *
      * @param <T>      the value type
      * @param coll     the collection

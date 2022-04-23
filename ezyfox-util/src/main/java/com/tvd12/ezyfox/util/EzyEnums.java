@@ -27,8 +27,10 @@ public final class EzyEnums {
     }
 
     @SuppressWarnings("unchecked")
-    public static <I, E> Map<I, E>
-    enumMap(Class<E> enumClass, Function<E, I> idFetcher) {
+    public static <I, E> Map<I, E> enumMap(
+        Class<E> enumClass,
+        Function<E, I> idFetcher
+    ) {
         Object[] values = enumClass.getEnumConstants();
         Map<I, E> answer = new HashMap<>();
         for (Object value : values) {
@@ -40,6 +42,6 @@ public final class EzyEnums {
 
     public static <E extends EzyConstant> Map<Integer, E> enumMapInt(
         Class<E> enumClass) {
-        return enumMap(enumClass, e -> ((EzyConstant) e).getId());
+        return enumMap(enumClass, EzyHasIntId::getId);
     }
 }

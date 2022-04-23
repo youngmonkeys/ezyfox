@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.tvd12.ezyfox.io;
 
 import com.tvd12.ezyfox.collect.Lists;
@@ -12,6 +9,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
+ * Utilities methods for lists.
+ *
  * @author tavandung12
  *
  */
@@ -21,7 +20,7 @@ public final class EzyLists {
     private EzyLists() {}
 
     /**
-     * Combine some collections to one
+     * Combine some collections to one.
      *
      * @param <T> the value type
      * @param lists the collections to combine 
@@ -37,8 +36,8 @@ public final class EzyLists {
     }
 
     /**
-     * Transform for each item in a collection to new collection 
-     * and add to new list
+     * Transform for each item in a collection to new collection.
+     * and add to new list.
      *
      * @param coll the collection
      * @param trans the transformer
@@ -55,7 +54,7 @@ public final class EzyLists {
 
 
     /**
-     * Filter the collection and create a new list
+     * Filter the collection and create a new list.
      *
      * @param <T> the value type
      * @param coll the collection
@@ -63,12 +62,11 @@ public final class EzyLists {
      * @return a new list
      */
     public static <T> List<T> filter(Collection<T> coll, Predicate<T> predicate) {
-        List<T> answer = coll.stream().filter(predicate).collect(Collectors.toList());
-        return answer;
+        return coll.stream().filter(predicate).collect(Collectors.toList());
     }
 
     /**
-     * Remove some item from the collection and create a new list
+     * Remove some item from the collection and create a new list.
      *
      * @param <T> the value type
      * @param coll the collection
@@ -82,7 +80,7 @@ public final class EzyLists {
     }
 
     /**
-     * Remove some item from the collection and create a new list
+     * Remove some item from the collection and create a new list.
      *
      * @param <T> the value type
      * @param coll the collection
@@ -95,7 +93,7 @@ public final class EzyLists {
     }
 
     /**
-     * Transform an array to a new list
+     * Transform an array to a new list.
      *
      * @param <I> the input type
      * @param <O> the output type
@@ -108,7 +106,7 @@ public final class EzyLists {
     }
 
     /**
-     * Transform a collection to a new list
+     * Transform a collection to a new list.
      *
      * @param <I> the input type
      * @param <O> the output type
@@ -125,8 +123,7 @@ public final class EzyLists {
     }
 
     /**
-     *
-     * Transform a map to new list
+     * Transform a map to new list.
      *
      * @param <K> the key type
      * @param <V> the value type
@@ -144,7 +141,7 @@ public final class EzyLists {
     }
 
     /**
-     * Combine a collection and an array of elements to a new list
+     * Combine a collection and an array of elements to a new list.
      *
      * @param <T> the value type
      * @param coll the collection
@@ -152,7 +149,10 @@ public final class EzyLists {
      * @return the new list
      */
     @SuppressWarnings("unchecked")
-    public static <T> List<T> addElementsToNewList(Collection<T> coll, T... elements) {
+    public static <T> List<T> addElementsToNewList(
+        Collection<T> coll,
+        T... elements
+    ) {
         List<T> answer = new ArrayList<>(coll);
         answer.addAll(Arrays.asList(elements));
         return answer;
@@ -163,7 +163,8 @@ public final class EzyLists {
      *
      * @param list the list to resize
      * @param n new container size, expressed in number of elements.
-     * @param defValue value whose content is copied to the added elements in case that n is greater than the current container size
+     * @param defValue value whose content is copied to the added elements
+     *      in case that n is greater than the current container size
      */
     public static <T> void resize(List<T> list, int n, T defValue) {
         int size = list.size();
@@ -185,21 +186,20 @@ public final class EzyLists {
     }
 
     /**
-     *
-     * Take n items from the list start from 0
+     * Take n items from the list start from 0.
      *
      * @param <T> the item type
      * @param list the list
      * @param limit the number of items
-     * @return if the list size greater than limit then return a sublist or else return the list
+     * @return if the list size greater than limit
+     *      then return a sublist or else return the list
      */
     public static <T> List<T> take(List<T> list, int limit) {
         return (list.size() > limit) ? list.subList(0, limit) : list;
     }
 
     /**
-     *
-     * Get the first value of the list
+     * Get the first value of the list.
      *
      * @param <T> the item type
      * @param list the list
@@ -210,8 +210,7 @@ public final class EzyLists {
     }
 
     /**
-     *
-     * Get the first value of the list
+     * Get the first value of the list.
      *
      * @param <T> the item type
      * @param list the list
@@ -223,8 +222,7 @@ public final class EzyLists {
     }
 
     /**
-     *
-     * Get the last value of the list
+     * Get the last value of the list.
      *
      * @param <T> the item type
      * @param list the list
@@ -235,8 +233,7 @@ public final class EzyLists {
     }
 
     /**
-     *
-     * Get the last value of the list
+     * Get the last value of the list.
      *
      * @param <T> the item type
      * @param list the list

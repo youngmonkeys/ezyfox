@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.collect;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
@@ -11,9 +12,7 @@ public final class Lists {
 
     public static <T> List<T> newArrayList(T... args) {
         List<T> list = new ArrayList<>();
-        for (T t : args) {
-            list.add(t);
-        }
+        Collections.addAll(list, args);
         return list;
     }
 

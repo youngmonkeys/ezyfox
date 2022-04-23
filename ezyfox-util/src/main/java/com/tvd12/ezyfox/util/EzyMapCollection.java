@@ -10,8 +10,6 @@ public interface EzyMapCollection<K, E, V extends Collection<E>> extends Map<K, 
 
     void addItems(K key, Collection<E> items);
 
-    void deepClear();
-
     @SuppressWarnings("unchecked")
     default void addItems(K key, E... items) {
         addItems(key, Arrays.asList(items));
@@ -28,4 +26,6 @@ public interface EzyMapCollection<K, E, V extends Collection<E>> extends Map<K, 
             coll.removeAll(items);
         }
     }
+
+    void deepClear();
 }

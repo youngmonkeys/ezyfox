@@ -1,12 +1,10 @@
-/**
- *
- */
 package com.tvd12.ezyfox.util;
 
 import java.util.Map;
 
 /**
- * Each model in application should have properties, and we think key/value is good idea
+ * Each model in application should have properties,
+ * and we think key/value is good idea.
  *
  * @author tavandung12
  *
@@ -14,7 +12,7 @@ import java.util.Map;
 public interface EzyProperties extends EzyRoProperties {
 
     /**
-     * put key and value to map
+     * put key and value to map.
      *
      * @param key key 
      * @param value value
@@ -22,14 +20,14 @@ public interface EzyProperties extends EzyRoProperties {
     void setProperty(Object key, Object value);
 
     /**
-     * put all
+     * put all.
      *
-     * @param map the map to put
+     * @param map the map to put.
      */
-    void setProperties(Map<? extends Object, ? extends Object> map);
+    void setProperties(Map<?, ?> map);
 
     /**
-     * removes the mapping for a key from the map
+     * removes the mapping for a key from the map.
      *
      * @param key the key
      */
