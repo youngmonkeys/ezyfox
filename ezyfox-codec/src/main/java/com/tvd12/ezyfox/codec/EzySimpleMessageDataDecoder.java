@@ -36,8 +36,7 @@ public class EzySimpleMessageDataDecoder
             do {
                 EzyMessage message = queue.poll();
                 callback.call(message);
-            }
-            while (queue.size() > 0);
+            } while (queue.size() > 0);
 
             if (buffer.hasRemaining()) {
                 decoder.decode(buffer, queue);

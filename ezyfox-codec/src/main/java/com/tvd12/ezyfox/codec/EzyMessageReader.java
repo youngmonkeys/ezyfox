@@ -33,6 +33,10 @@ public abstract class EzyMessageReader<B> {
         return true;
     }
 
+    private void readHeader(byte header) {
+        this.header = EzyMessageHeaderReader.read(header);
+    }
+
     public boolean readSize(B buffer, int maxSize) {
         int remaining = remaining(buffer);
         if (remaining < getSizeLength()) {
@@ -74,10 +78,6 @@ public abstract class EzyMessageReader<B> {
 
     public EzyMessage get() {
         return new EzySimpleMessage(header, content, size);
-    }
-
-    private void readHeader(byte header) {
-        this.header = EzyMessageHeaderReader.read(header);
     }
 
     protected int getSizeLength() {

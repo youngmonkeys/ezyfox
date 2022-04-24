@@ -59,79 +59,79 @@ public class EzyDefaultDecodeHandlers extends EzyDecodeHandlers {
             return handler;
         }
     }
-}
 
-@Setter
-abstract class AbstractDecodeHandler implements EzyDecodeHandler {
+    @Setter
+    public abstract static class AbstractDecodeHandler implements EzyDecodeHandler {
 
-    protected EzyDecodeHandler nextHandler;
-    protected EzyByteBufferMessageReader messageReader;
+        protected EzyDecodeHandler nextHandler;
+        protected EzyByteBufferMessageReader messageReader;
 
-    @Override
-    public EzyDecodeHandler nextHandler() {
-        return nextHandler;
-    }
-}
-
-class PrepareMessage extends AbstractDecodeHandler {
-
-    @Override
-    public EzyIDecodeState nextState() {
-        return READ_MESSAGE_HEADER;
-    }
-
-    @Override
-    public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
-        messageReader.clear();
-        return true;
-    }
-}
-
-class ReadMessageHeader extends AbstractDecodeHandler {
-
-    @Override
-    public EzyIDecodeState nextState() {
-        return READ_MESSAGE_SIZE;
-    }
-
-    @Override
-    public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
-        return messageReader.readHeader(in);
-    }
-}
-
-class ReadMessageSize extends AbstractDecodeHandler {
-
-    protected final int maxSize;
-
-    public ReadMessageSize(int maxSize) {
-        this.maxSize = maxSize;
-    }
-
-    @Override
-    public EzyIDecodeState nextState() {
-        return READ_MESSAGE_CONTENT;
-    }
-
-    @Override
-    public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
-        return messageReader.readSize(in, maxSize);
-    }
-}
-
-class ReadMessageContent extends AbstractDecodeHandler {
-
-    @Override
-    public EzyIDecodeState nextState() {
-        return PREPARE_MESSAGE;
-    }
-
-    @Override
-    public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
-        if (!messageReader.readContent(in)) {
-            return false;
+        @Override
+        public EzyDecodeHandler nextHandler() {
+            return nextHandler;
         }
-        out.add(messageReader.get());
-        return true;
+    }
+
+    public static class PrepareMessage extends AbstractDecodeHandler {
+
+        @Override
+        public EzyIDecodeState nextState() {
+            return READ_MESSAGE_HEADER;
+        }
+
+        @Override
+        public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
+            messageReader.clear();
+            return true;
+        }
+    }
+
+    public static class ReadMessageHeader extends AbstractDecodeHandler {
+
+        @Override
+        public EzyIDecodeState nextState() {
+            return READ_MESSAGE_SIZE;
+        }
+
+        @Override
+        public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
+            return messageReader.readHeader(in);
+        }
+    }
+
+    public static class ReadMessageSize extends AbstractDecodeHandler {
+
+        protected final int maxSize;
+
+        public ReadMessageSize(int maxSize) {
+            this.maxSize = maxSize;
+        }
+
+        @Override
+        public EzyIDecodeState nextState() {
+            return READ_MESSAGE_CONTENT;
+        }
+
+        @Override
+        public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
+            return messageReader.readSize(in, maxSize);
+        }
+    }
+
+    public static class ReadMessageContent extends AbstractDecodeHandler {
+
+        @Override
+        public EzyIDecodeState nextState() {
+            return PREPARE_MESSAGE;
+        }
+
+        @Override
+        public boolean handle(ByteBuffer in, Queue<EzyMessage> out) {
+            if (!messageReader.readContent(in)) {
+                return false;
+            }
+            out.add(messageReader.get());
+            return true;
+        }
     }
 }

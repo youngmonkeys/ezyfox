@@ -32,7 +32,7 @@ public abstract class EzyBytesEntityCodec implements EzyEntityCodec {
     protected abstract <T> T unmarshalValue(Object value, Class<T> entityType);
 
     @SuppressWarnings("unchecked")
-    public static abstract class Builder<B extends Builder<B>>
+    public abstract static class Builder<B extends Builder<B>>
         implements EzyBuilder<EzyEntityCodec> {
 
         protected EzyMessageSerializer messageSerializer;
