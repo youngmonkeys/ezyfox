@@ -1,28 +1,27 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.util.UUID;
-
-import org.testng.annotations.Test;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
 import com.tvd12.ezyfox.codec.JacksonSimpleDeserializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.util.UUID;
 
 public class JacksonSimpleDeserializerTest extends BaseTest {
 
-    private ObjectMapper objectMapper
-            = new ObjectMapper();
-    private EzyMessageDeserializer deserializer
-            = new JacksonSimpleDeserializer(objectMapper);
+    private final ObjectMapper objectMapper
+        = new ObjectMapper();
+    private final EzyMessageDeserializer deserializer
+        = new JacksonSimpleDeserializer(objectMapper);
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
     public void test() {
-        EzyArray a1 = deserializer.deserialize(ByteBuffer.wrap(new byte[] {1, 2, 3}));
+        EzyArray a1 = deserializer.deserialize(ByteBuffer.wrap(new byte[]{1, 2, 3}));
         System.out.print("a1: " + a1);
     }
 

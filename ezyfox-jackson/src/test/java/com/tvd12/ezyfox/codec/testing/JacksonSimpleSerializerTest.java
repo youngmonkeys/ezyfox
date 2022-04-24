@@ -1,6 +1,23 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import static org.testng.Assert.assertEquals;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tvd12.ezyfox.builder.EzyArrayBuilder;
+import com.tvd12.ezyfox.builder.EzyObjectBuilder;
+import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
+import com.tvd12.ezyfox.codec.EzyMessageSerializer;
+import com.tvd12.ezyfox.codec.JacksonSimpleDeserializer;
+import com.tvd12.ezyfox.codec.JacksonSimpleSerializer;
+import com.tvd12.ezyfox.collect.Lists;
+import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
+import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
+import com.tvd12.ezyfox.sercurity.EzyBase64;
+import com.tvd12.test.base.BaseTest;
+import lombok.Data;
+import org.testng.annotations.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,34 +25,16 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
 
-import org.testng.annotations.Test;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tvd12.ezyfox.collect.Lists;
-import com.tvd12.ezyfox.builder.EzyArrayBuilder;
-import com.tvd12.ezyfox.builder.EzyObjectBuilder;
-import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
-import com.tvd12.ezyfox.codec.EzyMessageSerializer;
-import com.tvd12.ezyfox.codec.JacksonSimpleDeserializer;
-import com.tvd12.ezyfox.codec.JacksonSimpleSerializer;
-import com.tvd12.ezyfox.entity.EzyArray;
-import com.tvd12.ezyfox.entity.EzyObject;
-import com.tvd12.ezyfox.factory.EzyEntityFactory;
-import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
-import com.tvd12.test.base.BaseTest;
-
-import lombok.Data;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
 public class JacksonSimpleSerializerTest extends BaseTest {
 
-    private ObjectMapper objectMapper = newObjectMapper();
-    private EzyMessageSerializer serializer
-                = new JacksonSimpleSerializer(objectMapper);
-    private EzyMessageDeserializer deserializer
-                = new JacksonSimpleDeserializer(objectMapper);
+    private final ObjectMapper objectMapper = newObjectMapper();
+    private final EzyMessageSerializer serializer
+        = new JacksonSimpleSerializer(objectMapper);
+    private final EzyMessageDeserializer deserializer
+        = new JacksonSimpleDeserializer(objectMapper);
 
     @Test
     public void test() throws JsonProcessingException {
@@ -46,25 +45,25 @@ public class JacksonSimpleSerializerTest extends BaseTest {
         assert object.get("name").equals("abc");
         assert object.get("value", Long.class) == 123;
         assertEquals(object.get("parents", String[].class),
-                new String[] {"dungtv", "tuyennc", "hunglq"});
+            new String[]{"dungtv", "tuyennc", "hunglq"});
         assert object.get("yesNo", boolean.class);
         System.out.println(Arrays.toString(object.get("bytes", byte[].class)));
-        assertEquals(object.get("bytes", byte[].class), new byte[] {1, 2, 3, 4, 5});
-        assertEquals(object.get("longValue", Long.class), null);
-        assertEquals(object.get("chs", char[].class), new char[] {'1', '2', '3'});
-        assertEquals((Object)object.get("doubleValue", Double.class), 123.456D);
+        assertEquals(object.get("bytes", byte[].class), new byte[]{1, 2, 3, 4, 5});
+        assertNull(object.get("longValue", Long.class));
+        assertEquals(object.get("chs", char[].class), new char[]{'1', '2', '3'});
+        assertEquals((Object) object.get("doubleValue", Double.class), 123.456D);
         assertEquals(object.get("classC", EzyObject.class).get("name"), "dungtv");
-        assertEquals(object.get("strs", String[].class), new String[] {"a", "b", "c"});
-        assertEquals((Object)object.get("byteList",  byte[][].class), new byte[][] {{1, 2,3}});
+        assertEquals(object.get("strs", String[].class), new String[]{"a", "b", "c"});
+        assertEquals((Object) object.get("byteList", byte[][].class), new byte[][]{{1, 2, 3}});
     }
 
     @Test
     public void test1() {
         EzyObject origin = EzyEntityFactory.create(EzyObjectBuilder.class)
-                .append("a", 1)
-                .append("b", 2)
-                .append("c", 3)
-                .build();
+            .append("a", 1)
+            .append("b", 2)
+            .append("c", 3)
+            .build();
         byte[] bytes = serializer.serialize(origin);
         EzyObject after = deserializer.deserialize(bytes);
         assert after.size() == 3;
@@ -78,8 +77,8 @@ public class JacksonSimpleSerializerTest extends BaseTest {
     @Test
     public void test2() {
         EzyArray origin = EzyEntityFactory.create(EzyArrayBuilder.class)
-                .append(1, 2, 3)
-                .build();
+            .append(1, 2, 3)
+            .build();
         byte[] bytes = serializer.serialize(origin);
         EzyArray after = deserializer.deserialize(ByteBuffer.wrap(bytes));
         assert after.size() == 3;
@@ -91,22 +90,30 @@ public class JacksonSimpleSerializerTest extends BaseTest {
     @Test(expectedExceptions = {InvocationTargetException.class})
     public void test3() throws Exception {
         Method method = JacksonSimpleSerializer
-                .class.getDeclaredMethod("writeValueAsBytes", Object.class);
+            .class.getDeclaredMethod("writeValueAsBytes", Object.class);
         method.setAccessible(true);
         method.invoke(serializer, new ClassB());
     }
 
+    @Test
     public void test5() {
         EzyArray array = EzyEntityFactory.create(EzyArrayBuilder.class)
-                .append((Long)null)
-                .append(1L)
-                .append(new byte[] {1, 2, 3})
-                .build();
+            .append((Long) null)
+            .append(1L)
+            .append(new byte[]{1, 2, 3})
+            .build();
         byte[] bytes = serializer.serialize(array);
         EzyArray after = deserializer.deserialize(bytes);
-        assertEquals(after.get(0, Long.class), null);
+        assertNull(after.get(0, Long.class));
         assertEquals(after.get(1, Long.class), new Long(1L));
-        assertEquals(after.get(2), new byte[] {1, 2, 3});
+        assertEquals(
+            EzyBase64.decode((String) after.get(2)),
+            new byte[]{1, 2, 3}
+        );
+    }
+
+    private ObjectMapper newObjectMapper() {
+        return JacksonObjectMapperBuilder.newInstance().build();
     }
 
     @Data
@@ -115,13 +122,13 @@ public class JacksonSimpleSerializerTest extends BaseTest {
         private long value = 123;
         private String[] parents = {"dungtv", "tuyennc", "hunglq"};
         private boolean yesNo = true;
-        private byte[] bytes = new byte[] {1, 2, 3, 4, 5};
+        private byte[] bytes = new byte[]{1, 2, 3, 4, 5};
         private Long longValue;
         private char[] chs = {'1', '2', '3'};
         private double doubleValue = 123.456D;
         private ClassC classC = new ClassC();
         private List<String> strs = Lists.newArrayList("a", "b", "c");
-        private List<byte[]> byteList = Lists.newArrayList(new byte[] {1, 2, 3});
+        private List<byte[]> byteList = Lists.newArrayList(new byte[]{1, 2, 3});
         private List<ClassC> classCs = Lists.newArrayList(new ClassC());
         private byte[] base64Bytes = EzyBase64.encode("base64");
         private String base64String = EzyBase64.encodeUtf("base64");
@@ -129,6 +136,7 @@ public class JacksonSimpleSerializerTest extends BaseTest {
 
     public static class ClassB {
 
+        @SuppressWarnings("unused")
         @JsonProperty("name")
         public String getName() {
             throw new RuntimeException();
@@ -138,9 +146,5 @@ public class JacksonSimpleSerializerTest extends BaseTest {
     @Data
     public static class ClassC {
         private String name = "dungtv";
-    }
-
-    private ObjectMapper newObjectMapper() {
-        return JacksonObjectMapperBuilder.newInstance().build();
     }
 }

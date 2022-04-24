@@ -1,9 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import java.nio.ByteBuffer;
-import java.util.Iterator;
-import java.util.Map.Entry;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tvd12.ezyfox.entity.EzyArray;
@@ -11,6 +7,10 @@ import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyByteBuffers;
+
+import java.nio.ByteBuffer;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 public class JacksonSimpleDeserializer implements EzyMessageDeserializer {
 
@@ -40,8 +40,7 @@ public class JacksonSimpleDeserializer implements EzyMessageDeserializer {
     protected JsonNode readTree(byte[] data) {
         try {
             return objectMapper.readTree(data);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new EzyCodecException("read tree error", e);
         }
     }
@@ -49,23 +48,27 @@ public class JacksonSimpleDeserializer implements EzyMessageDeserializer {
     protected JsonNode readTree(String text) {
         try {
             return objectMapper.readTree(text);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new EzyCodecException("read tree error", e);
         }
     }
 
     protected Object parse(JsonNode node) {
-        if(node.isArray())
+        if (node.isArray()) {
             return parseArray(node);
-        if(node.isObject())
+        }
+        if (node.isObject()) {
             return parseObject(node);
-        if(node.isBoolean())
+        }
+        if (node.isBoolean()) {
             return parseBoolean(node);
-        if(node.isNumber())
+        }
+        if (node.isNumber()) {
             return parseNumber(node);
-        if(node.isNull())
+        }
+        if (node.isNull()) {
             return null;
+        }
         return parseText(node);
     }
 
@@ -83,16 +86,16 @@ public class JacksonSimpleDeserializer implements EzyMessageDeserializer {
 
     protected EzyArray parseArray(JsonNode node) {
         EzyArray array = EzyEntityFactory.newArray();
-        Iterator<JsonNode> iterator = node.iterator();
-        while(iterator.hasNext())
-            array.add(parse(iterator.next()));
+        for (JsonNode jsonNode : node) {
+            array.add(parse(jsonNode));
+        }
         return array;
     }
 
     protected EzyObject parseObject(JsonNode node) {
         EzyObject object = EzyEntityFactory.newObject();
         Iterator<Entry<String, JsonNode>> fields = node.fields();
-        while(fields.hasNext()) {
+        while (fields.hasNext()) {
             Entry<String, JsonNode> field = fields.next();
             object.put(field.getKey(), parse(field.getValue()));
         }

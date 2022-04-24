@@ -1,22 +1,20 @@
 package com.tvd12.ezyfox.json.testing;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
-
-import org.testng.annotations.Test;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyDates;
 import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.util.RandomUtil;
-
 import lombok.ToString;
+import org.testng.annotations.Test;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
 public class JacksonObjectMapperBuilderTest {
 
@@ -41,28 +39,28 @@ public class JacksonObjectMapperBuilderTest {
         ObjectMapper mapper = builder.build();
         Instant instant = RandomUtil.randomInstant();
         Asserts.assertEquals(
-                String.valueOf(instant.toEpochMilli()),
-                mapper.writeValueAsString(instant)
+            String.valueOf(instant.toEpochMilli()),
+            mapper.writeValueAsString(instant)
         );
         Date date = RandomUtil.randomDate();
         Asserts.assertEquals(
-                "\"" + EzyDates.format(date) + "\"",
-                mapper.writeValueAsString(date)
+            "\"" + EzyDates.format(date) + "\"",
+            mapper.writeValueAsString(date)
         );
         LocalDate localDate = RandomUtil.randomLocalDate();
         Asserts.assertEquals(
-                "\"" + EzyDates.format(localDate, EzyDates.DATE_PATTERN) + "\"",
-                mapper.writeValueAsString(localDate)
+            "\"" + EzyDates.format(localDate, EzyDates.DATE_PATTERN) + "\"",
+            mapper.writeValueAsString(localDate)
         );
         LocalTime localTime = RandomUtil.randomLocalTime();
         Asserts.assertEquals(
-                "\"" + EzyDates.format(localTime, EzyDates.TIME_PATTERN) + "\"",
-                mapper.writeValueAsString(localTime)
+            "\"" + EzyDates.format(localTime, EzyDates.TIME_PATTERN) + "\"",
+            mapper.writeValueAsString(localTime)
         );
         LocalDateTime localDateTime = RandomUtil.randomLocalDateTime();
         Asserts.assertEquals(
-                "\"" + EzyDates.format(localDateTime) + "\"",
-                mapper.writeValueAsString(localDateTime)
+            "\"" + EzyDates.format(localDateTime) + "\"",
+            mapper.writeValueAsString(localDateTime)
         );
     }
 

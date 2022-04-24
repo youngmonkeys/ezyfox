@@ -1,22 +1,20 @@
 package com.tvd12.ezyfox.json.testing;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.constant.EzyConstant;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.json.EzySimpleJsonWriter;
 import com.tvd12.ezyfox.util.EzyToMap;
 import com.tvd12.test.reflect.MethodInvoker;
-
 import lombok.Getter;
+import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.testng.Assert.assertEquals;
 
 public class EzySimpleJsonWriterTest {
 
@@ -56,26 +54,25 @@ public class EzySimpleJsonWriterTest {
         EzySimpleJsonWriter writer = new EzySimpleJsonWriter();
         StringBuilder builder = new StringBuilder();
         MethodInvoker.create()
-                .object(writer)
-                .method("writeListAsString")
-                .param(List.class, null)
-                .param(String.class, "")
-                .param(StringBuilder.class, builder)
-                .invoke();
+            .object(writer)
+            .method("writeListAsString")
+            .param(List.class, null)
+            .param(String.class, "")
+            .param(StringBuilder.class, builder)
+            .invoke();
         assertEquals(builder.toString(), EzyStrings.NULL);
     }
 
-    public static enum MyEnum implements EzyConstant {
+    public enum MyEnum implements EzyConstant {
 
         HELLO(10);
 
         @Getter
         private final int id;
 
-        private MyEnum(int id) {
+        MyEnum(int id) {
             this.id = id;
         }
-
     }
 
     public static class A implements EzyToMap {

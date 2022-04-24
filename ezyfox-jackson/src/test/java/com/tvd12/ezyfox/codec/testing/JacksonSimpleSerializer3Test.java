@@ -1,5 +1,12 @@
 package com.tvd12.ezyfox.codec.testing;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tvd12.ezyfox.codec.JacksonSimpleSerializer;
+import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.factory.EzyEntityFactory;
+import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
+import org.testng.annotations.Test;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -7,21 +14,9 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.UUID;
 import java.util.function.BiFunction;
-
-import org.testng.annotations.Test;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tvd12.ezyfox.codec.JacksonSimpleSerializer;
-import com.tvd12.ezyfox.entity.EzyObject;
-import com.tvd12.ezyfox.factory.EzyEntityFactory;
-import com.tvd12.ezyfox.jackson.JacksonObjectMapperBuilder;
 
 public class JacksonSimpleSerializer3Test {
 
@@ -30,16 +25,16 @@ public class JacksonSimpleSerializer3Test {
         ObjectMapper objectMapper = JacksonObjectMapperBuilder.newInstance().build();
         JacksonSimpleSerializer serializer = new JacksonSimpleSerializer(objectMapper);
         EzyObject object = EzyEntityFactory.newObjectBuilder()
-                .append("hello", "world")
-                .append("a", new BigInteger("123"))
-                .append("b", new BigDecimal("45.6"))
-                .append("c", UUID.randomUUID())
-                .append("d", new Date())
-                .append("e", LocalDate.now())
-                .append("f", LocalTime.now())
-                .append("g", LocalDateTime.now())
-                .append("h", Instant.now())
-                .build();
+            .append("hello", "world")
+            .append("a", new BigInteger("123"))
+            .append("b", new BigDecimal("45.6"))
+            .append("c", UUID.randomUUID())
+            .append("d", new Date())
+            .append("e", LocalDate.now())
+            .append("f", LocalTime.now())
+            .append("g", LocalDateTime.now())
+            .append("h", Instant.now())
+            .build();
         System.out.println("string: " + serializer.serialize(object, String.class));
         System.out.println("buffer: " + serializer.serialize(object, ByteBuffer.class));
         System.out.println("map: " + serializer.serialize(object, Map.class));
@@ -56,6 +51,7 @@ public class JacksonSimpleSerializer3Test {
     public static class A implements EzyObject {
         private static final long serialVersionUID = 1641863166027487146L;
 
+        @SuppressWarnings("MethodDoesntCallSuperMethod")
         public Object clone() {
             return null;
         }
