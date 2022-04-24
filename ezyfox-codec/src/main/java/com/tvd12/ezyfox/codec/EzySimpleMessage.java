@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.codec;
 
-import java.util.Arrays;
-
 import lombok.Getter;
+
+import java.util.Arrays;
 
 @Getter
 public class EzySimpleMessage implements EzyMessage {
@@ -26,28 +26,26 @@ public class EzySimpleMessage implements EzyMessage {
 
     @Override
     public int getContentStartIndex() {
-        if(header.isRawBytes())
+        if (header.isRawBytes()) {
             return 0;
-        int index = 1 + getSizeLength();
-        return index;
+        }
+        return 1 + getSizeLength();
     }
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("(")
-                .append("header: ")
-                    .append(header)
-                    .append(", ")
-                .append("size: ")
-                    .append(size)
-                    .append(", ")
-                .append("byteCount: ")
-                    .append(byteCount)
-                    .append(", ")
-                .append("content: ")
-                    .append(Arrays.toString(content))
-                .append(")")
-                .toString();
+        return "(" +
+            "header: " +
+            header +
+            ", " +
+            "size: " +
+            size +
+            ", " +
+            "byteCount: " +
+            byteCount +
+            ", " +
+            "content: " +
+            Arrays.toString(content) +
+            ")";
     }
 }

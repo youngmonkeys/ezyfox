@@ -1,8 +1,9 @@
-package com.tvd12.ezyfox.codec; 
- 
-import java.nio.ByteBuffer; 
- 
-public abstract class EzyAbstractToByteBufferSerializer extends EzyAbstractSerializer<ByteBuffer> { 
+package com.tvd12.ezyfox.codec;
+
+import java.nio.ByteBuffer;
+
+public abstract class EzyAbstractToByteBufferSerializer
+    extends EzyAbstractSerializer<ByteBuffer> {
 
     @Override
     public byte[] serialize(Object value) {
@@ -15,8 +16,7 @@ public abstract class EzyAbstractToByteBufferSerializer extends EzyAbstractSeria
     @Override
     public ByteBuffer write(Object value) {
         return value == null
-                ? parseNil()
-                : parseNotNull(value);
+            ? parseNil()
+            : parseNotNull(value);
     }
-
-} 
+}

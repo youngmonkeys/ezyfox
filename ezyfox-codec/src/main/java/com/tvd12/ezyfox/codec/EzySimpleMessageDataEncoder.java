@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.codec;
 
 public class EzySimpleMessageDataEncoder implements EzyMessageDataEncoder {
 
-    private EzyObjectToByteEncoder encoder;
+    private final EzyObjectToByteEncoder encoder;
 
     public EzySimpleMessageDataEncoder(EzyObjectToByteEncoder encoder) {
         this.encoder = encoder;
@@ -20,7 +20,7 @@ public class EzySimpleMessageDataEncoder implements EzyMessageDataEncoder {
 
     @Override
     public byte[] encryptMessageContent(
-            byte[] messageContent, byte[] encryptionKey) throws Exception {
+        byte[] messageContent, byte[] encryptionKey) throws Exception {
         return encoder.encryptMessageContent(messageContent, encryptionKey);
     }
 }

@@ -1,13 +1,5 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import java.nio.ByteBuffer;
-import java.util.Queue;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.callback.EzyCallback;
 import com.tvd12.ezyfox.codec.EzyByteToObjectDecoder;
 import com.tvd12.ezyfox.codec.EzyDefaultDecodeHandlers;
 import com.tvd12.ezyfox.codec.EzyMessage;
@@ -15,6 +7,12 @@ import com.tvd12.ezyfox.codec.EzySimpleMessageDataDecoder;
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.util.RandomUtil;
+import org.testng.annotations.Test;
+
+import java.nio.ByteBuffer;
+import java.util.Queue;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.mockito.Mockito.*;
 
@@ -25,18 +23,13 @@ public class EzySimpleMessageDataDecoderTest {
         EzyByteToObjectDecoder d = new ExByteToObjectDecoder();
         EzySimpleMessageDataDecoder decoder = new EzySimpleMessageDataDecoder(d);
         ByteBuffer buffer = ByteBuffer.allocate(12);
-        buffer.put((byte)0);
-        buffer.putShort((short)9);
+        buffer.put((byte) 0);
+        buffer.putShort((short) 9);
         buffer.put("012345678".getBytes());
         buffer.flip();
         byte[] bytes = EzyBytes.getBytes(buffer);
         AtomicBoolean called = new AtomicBoolean(false);
-        decoder.decode(bytes, new EzyCallback<EzyMessage>() {
-            @Override
-            public void call(EzyMessage data) {
-                called.set(true);
-            }
-        });
+        decoder.decode(bytes, data -> called.set(true));
         assert called.get();
     }
 
@@ -45,30 +38,22 @@ public class EzySimpleMessageDataDecoderTest {
         EzyByteToObjectDecoder d = new ExByteToObjectDecoder();
         EzySimpleMessageDataDecoder decoder = new EzySimpleMessageDataDecoder(d);
         ByteBuffer buffer = ByteBuffer.allocate(12 + 6);
-        buffer.put((byte)0);
-        buffer.putShort((short)9);
+        buffer.put((byte) 0);
+        buffer.putShort((short) 9);
         buffer.put("012345678012345".getBytes());
         buffer.flip();
         byte[] bytes = EzyBytes.getBytes(buffer);
         AtomicBoolean called = new AtomicBoolean(false);
-        decoder.decode(bytes, new EzyCallback<EzyMessage>() {
-            @Override
-            public void call(EzyMessage data) {
-                called.set(true);
-                try {
-                    decoder.decode(data, null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        decoder.decode(bytes, data -> {
+            called.set(true);
+            try {
+                decoder.decode(data, null);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         assert called.get();
-        decoder.decode(bytes, new EzyCallback<EzyMessage>() {
-            @Override
-            public void call(EzyMessage data) {
-                called.set(true);
-            }
-        });
+        decoder.decode(bytes, data -> called.set(true));
         decoder.reset();
     }
 
@@ -77,21 +62,16 @@ public class EzySimpleMessageDataDecoderTest {
         EzyByteToObjectDecoder d = new ExByteToObjectDecoder2();
         EzySimpleMessageDataDecoder decoder = new EzySimpleMessageDataDecoder(d);
         ByteBuffer buffer = ByteBuffer.allocate(12 * 2);
-        buffer.put((byte)0);
-        buffer.putShort((short)9);
+        buffer.put((byte) 0);
+        buffer.putShort((short) 9);
         buffer.put("012345678".getBytes());
-        buffer.put((byte)0);
-        buffer.putShort((short)9);
+        buffer.put((byte) 0);
+        buffer.putShort((short) 9);
         buffer.put("012345678".getBytes());
         buffer.flip();
         byte[] bytes = EzyBytes.getBytes(buffer);
         AtomicInteger count = new AtomicInteger();
-        decoder.decode(bytes, new EzyCallback<EzyMessage>() {
-            @Override
-            public void call(EzyMessage data) {
-                count.incrementAndGet();
-            }
-        });
+        decoder.decode(bytes, data -> count.incrementAndGet());
         assert count.get() == 2;
     }
 
@@ -100,19 +80,14 @@ public class EzySimpleMessageDataDecoderTest {
         EzyByteToObjectDecoder d = new ExByteToObjectDecoder();
         EzySimpleMessageDataDecoder decoder = new EzySimpleMessageDataDecoder(d);
         ByteBuffer buffer = ByteBuffer.allocate(12);
-        buffer.put((byte)0);
-        buffer.putShort((short)9);
+        buffer.put((byte) 0);
+        buffer.putShort((short) 9);
         buffer.put("012345678".getBytes());
         buffer.flip();
         byte[] bytes = EzyBytes.getBytes(buffer);
         AtomicBoolean called = new AtomicBoolean(false);
         decoder.destroy();
-        decoder.decode(bytes, new EzyCallback<EzyMessage>() {
-            @Override
-            public void call(EzyMessage data) {
-                called.set(true);
-            }
-        });
+        decoder.decode(bytes, data -> called.set(true));
         assert !called.get();
     }
 
@@ -142,17 +117,17 @@ public class EzySimpleMessageDataDecoderTest {
 
         public ExByteToObjectDecoder() {
             this.handlers = EzyDefaultDecodeHandlers.builder()
-                    .maxSize(128 * 1000000)
-                    .build();
+                .maxSize(128 * 1000000)
+                .build();
         }
 
         @Override
-        public Object decode(EzyMessage message) throws Exception {
+        public Object decode(EzyMessage message) {
             return message;
         }
 
         @Override
-        public void decode(ByteBuffer bytes, Queue<EzyMessage> queue) throws Exception {
+        public void decode(ByteBuffer bytes, Queue<EzyMessage> queue) {
             handlers.handle(bytes, queue);
         }
 
@@ -168,17 +143,17 @@ public class EzySimpleMessageDataDecoderTest {
 
         public ExByteToObjectDecoder2() {
             this.handlers = EzyDefaultDecodeHandlers.builder()
-                    .maxSize(128 * 1000000)
-                    .build();
+                .maxSize(128 * 1000000)
+                .build();
         }
 
         @Override
-        public Object decode(EzyMessage message) throws Exception {
+        public Object decode(EzyMessage message) {
             return message;
         }
 
         @Override
-        public void decode(ByteBuffer bytes, Queue<EzyMessage> queue) throws Exception {
+        public void decode(ByteBuffer bytes, Queue<EzyMessage> queue) {
             handlers.handle(bytes, queue);
             handlers.handle(bytes, queue);
         }

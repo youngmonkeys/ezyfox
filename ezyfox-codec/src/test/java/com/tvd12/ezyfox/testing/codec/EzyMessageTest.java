@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.EzyMessage;
 import com.tvd12.ezyfox.codec.EzyMessageHeader;
+import org.testng.annotations.Test;
 
 public class EzyMessageTest {
 
@@ -52,6 +51,5 @@ public class EzyMessageTest {
         public int getContentStartIndex() {
             return 0;
         }
-
     }
 }

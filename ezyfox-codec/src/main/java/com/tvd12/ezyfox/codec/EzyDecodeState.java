@@ -12,7 +12,7 @@ public enum EzyDecodeState implements EzyIDecodeState {
     @Getter
     private final int id;
 
-    private EzyDecodeState(final int id) {
+    EzyDecodeState(final int id) {
         this.id = id;
     }
 }

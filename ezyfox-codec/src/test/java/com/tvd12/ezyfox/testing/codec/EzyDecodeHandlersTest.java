@@ -1,19 +1,18 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.EzyDecodeHandler;
 import com.tvd12.ezyfox.codec.EzyDecodeHandlers;
 import com.tvd12.ezyfox.codec.EzyIDecodeState;
+import org.testng.annotations.Test;
+
+import java.util.Map;
 
 public class EzyDecodeHandlersTest {
 
     @Test
     public void test() {
         EzyDecodeHandlers handlers = ExEzyDecodeHandlers.builder()
-                .build();
+            .build();
         handlers.reset();
     }
 
@@ -37,6 +36,5 @@ public class EzyDecodeHandlersTest {
                 return new ExEzyDecodeHandlers(this);
             }
         }
-
     }
 }

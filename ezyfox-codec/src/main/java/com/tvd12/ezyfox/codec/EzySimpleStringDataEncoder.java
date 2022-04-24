@@ -2,7 +2,7 @@ package com.tvd12.ezyfox.codec;
 
 public class EzySimpleStringDataEncoder implements EzyStringDataEncoder {
 
-    private EzyObjectToStringEncoder encoder;
+    private final EzyObjectToStringEncoder encoder;
 
     public EzySimpleStringDataEncoder(EzyObjectToStringEncoder encoder) {
         this.encoder = encoder;
@@ -10,13 +10,11 @@ public class EzySimpleStringDataEncoder implements EzyStringDataEncoder {
 
     @Override
     public byte[] encode(Object data) throws Exception {
-        byte[] answer = encoder.encode(data);
-        return answer;
+        return encoder.encode(data);
     }
 
     @Override
     public <T> T encode(Object data, Class<T> outType) throws Exception {
-        T answer = encoder.encode(data, outType);
-        return answer;
+        return encoder.encode(data, outType);
     }
 }

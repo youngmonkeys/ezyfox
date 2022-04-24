@@ -4,8 +4,8 @@ import com.tvd12.ezyfox.callback.EzyCallback;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzySimpleStringDataDecoder
-        extends EzyLoggable
-        implements EzyStringDataDecoder {
+    extends EzyLoggable
+    implements EzyStringDataDecoder {
 
     protected final EzyStringToObjectDecoder decoder;
 
@@ -26,6 +26,5 @@ public class EzySimpleStringDataDecoder
     }
 
     @Override
-    public void destroy() {
-    }
+    public void destroy() {}
 }

@@ -13,11 +13,11 @@ public class EzySimpleMessageHeader implements EzyMessageHeader {
     protected boolean udpHandshake;
 
     public EzySimpleMessageHeader(
-            boolean bigSize,
-            boolean encrypted,
-            boolean compressed,
-            boolean text,
-            boolean rawBytes, boolean udpHandshake) {
+        boolean bigSize,
+        boolean encrypted,
+        boolean compressed,
+        boolean text,
+        boolean rawBytes, boolean udpHandshake) {
         this.bigSize = bigSize;
         this.encrypted = encrypted;
         this.compressed = compressed;
@@ -28,26 +28,24 @@ public class EzySimpleMessageHeader implements EzyMessageHeader {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("<")
-                .append("bigSize: ")
-                    .append(bigSize)
-                    .append(", ")
-                .append("encrypted: ")
-                    .append(encrypted)
-                    .append(", ")
-                .append("compressed: ")
-                    .append(compressed)
-                    .append(", ")
-                .append("text: ")
-                    .append(text)
-                    .append(", ")
-                .append("rawBytes: ")
-                    .append(rawBytes)
-                    .append(", ")
-                .append("udpHandshake: ")
-                    .append(udpHandshake)
-                .append(">")
-                .toString();
+        return "<" +
+            "bigSize: " +
+            bigSize +
+            ", " +
+            "encrypted: " +
+            encrypted +
+            ", " +
+            "compressed: " +
+            compressed +
+            ", " +
+            "text: " +
+            text +
+            ", " +
+            "rawBytes: " +
+            rawBytes +
+            ", " +
+            "udpHandshake: " +
+            udpHandshake +
+            ">";
     }
 }

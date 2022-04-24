@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.EzyAbstractByTypeSerializer;
 import com.tvd12.ezyfox.function.EzyParser;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EzyAbstractByTypeSerializerTest extends BaseTest {
 
@@ -15,7 +14,7 @@ public class EzyAbstractByTypeSerializerTest extends BaseTest {
     public void test() {
         EzyAbstractByTypeSerializer serializer = new Serializer();
         assert serializer.serialize(null) == null;
-        assert serializer.serialize(new String("abc")) != null;
+        assert serializer.serialize("abc") != null;
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})
@@ -51,17 +50,16 @@ public class EzyAbstractByTypeSerializerTest extends BaseTest {
 
         @SuppressWarnings("rawtypes")
         @Override
-        protected void addParserss(Map<Class<?>, Map<Class<?>, EzyParser>> parserss) {
+        protected void addParserMap(
+            Map<Class<?>, Map<Class<?>, EzyParser>> parserMaps
+        ) {
             Map<Class<?>, EzyParser> map = new ConcurrentHashMap<>();
-            parserss.put(String.class, map);
-            map.put(byte[].class, new EzyParser<Object, Object>() {
-                @Override
-                public byte[] parse(Object input) {
-                    return input.toString().getBytes();
-                }
-            });
+            parserMaps.put(String.class, map);
+            map.put(
+                byte[].class,
+                (EzyParser<Object, Object>) input -> input.toString().getBytes()
+            );
         }
-
     }
 
     public static class Serializer1 extends EzyAbstractByTypeSerializer {
@@ -71,31 +69,26 @@ public class EzyAbstractByTypeSerializerTest extends BaseTest {
             return null;
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected <T> T parseWithNoParsers(Object value, Class<T> outType) {
-            return (T) new byte[] {};
+            return (T) new byte[]{};
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         protected <T> T parseWithNoParser(Object value, Class<T> outType) {
-            return (T) new byte[] {};
+            return (T) new byte[]{};
         }
 
         @SuppressWarnings("rawtypes")
         @Override
-        protected void addParserss(Map<Class<?>, Map<Class<?>, EzyParser>> parserss) {
+        protected void addParserMap(Map<Class<?>, Map<Class<?>, EzyParser>> parserMaps) {
             Map<Class<?>, EzyParser> map = new ConcurrentHashMap<>();
-            parserss.put(String.class, map);
-            map.put(byte[].class, new EzyParser<Object, Object>() {
-                @Override
-                public byte[] parse(Object input) {
-                    return input.toString().getBytes();
-                }
-            });
+            parserMaps.put(String.class, map);
+            map.put(
+                byte[].class,
+                (EzyParser<Object, Object>) input -> input.toString().getBytes()
+            );
         }
-
     }
 
     public static class Serializer2 extends EzyAbstractByTypeSerializer {
@@ -117,16 +110,13 @@ public class EzyAbstractByTypeSerializerTest extends BaseTest {
 
         @SuppressWarnings("rawtypes")
         @Override
-        protected void addParserss(Map<Class<?>, Map<Class<?>, EzyParser>> parserss) {
+        protected void addParserMap(Map<Class<?>, Map<Class<?>, EzyParser>> parserMaps) {
             Map<Class<?>, EzyParser> map = new ConcurrentHashMap<>();
-            parserss.put(String.class, map);
-            map.put(byte[].class, new EzyParser<Object, Object>() {
-                @Override
-                public byte[] parse(Object input) {
-                    return input.toString().getBytes();
-                }
-            });
+            parserMaps.put(String.class, map);
+            map.put(
+                byte[].class,
+                (EzyParser<Object, Object>) input -> input.toString().getBytes()
+            );
         }
-
     }
 }

@@ -1,8 +1,7 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.EzyObjectSerializer;
+import org.testng.annotations.Test;
 
 public class EzyObjectSerializerTest {
 

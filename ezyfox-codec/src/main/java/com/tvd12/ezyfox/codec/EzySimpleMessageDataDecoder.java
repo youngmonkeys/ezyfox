@@ -1,14 +1,14 @@
 package com.tvd12.ezyfox.codec;
 
+import com.tvd12.ezyfox.callback.EzyCallback;
+
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.tvd12.ezyfox.callback.EzyCallback;
-
 public class EzySimpleMessageDataDecoder
-        extends EzyAbstractMessageDataDecoder<EzyByteToObjectDecoder>
-        implements EzyMessageDataDecoder {
+    extends EzyAbstractMessageDataDecoder<EzyByteToObjectDecoder>
+    implements EzyMessageDataDecoder {
 
     private final Queue<EzyMessage> queue;
 
@@ -24,35 +24,36 @@ public class EzySimpleMessageDataDecoder
 
     @Override
     public void decode(
-            byte[] bytes, EzyCallback<EzyMessage> callback) throws Exception {
-        predecode(bytes);
+        byte[] bytes, EzyCallback<EzyMessage> callback) throws Exception {
+        preDecode(bytes);
         decoder.decode(buffer, queue);
         handleQueue(callback);
-        postdecode();
+        postDecode();
     }
 
     private void handleQueue(EzyCallback<EzyMessage> callback) throws Exception {
-        while(queue.size() > 0 && active) {
+        while (queue.size() > 0 && active) {
             do {
                 EzyMessage message = queue.poll();
                 callback.call(message);
             }
-            while(queue.size() > 0);
+            while (queue.size() > 0);
 
-            if(buffer.hasRemaining()) {
+            if (buffer.hasRemaining()) {
                 decoder.decode(buffer, queue);
             }
         }
     }
 
-    private void predecode(byte[] bytes) {
-        if(buffer == null)
+    private void preDecode(byte[] bytes) {
+        if (buffer == null) {
             buffer = newBuffer(bytes);
-        else
+        } else {
             buffer = mergeBytes(bytes);
+        }
     }
 
-    private void postdecode() {
+    private void postDecode() {
         buffer = getRemainBytes(buffer);
     }
 
@@ -68,8 +69,9 @@ public class EzySimpleMessageDataDecoder
     }
 
     private ByteBuffer getRemainBytes(ByteBuffer old) {
-        if(!old.hasRemaining())
+        if (!old.hasRemaining()) {
             return null;
+        }
         byte[] bytes = new byte[old.remaining()];
         old.get(bytes);
         return ByteBuffer.wrap(bytes);

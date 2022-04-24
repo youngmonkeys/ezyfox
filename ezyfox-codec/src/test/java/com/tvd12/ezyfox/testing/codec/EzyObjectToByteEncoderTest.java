@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.EzyObjectToByteEncoder;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzyObjectToByteEncoderTest {
 
@@ -15,13 +14,12 @@ public class EzyObjectToByteEncoderTest {
         Asserts.assertThat(() -> sut.encryptMessageContent(null, null))
             .willThrows(UnsupportedOperationException.class);
     }
-    
+
     private static class A implements EzyObjectToByteEncoder {
 
         @Override
-        public byte[] encode(Object msg) throws Exception {
+        public byte[] encode(Object msg) {
             return null;
         }
-
     }
 }

@@ -9,7 +9,7 @@ public interface EzyMessageDataEncoder {
     }
 
     default byte[] encryptMessageContent(
-            byte[] messageContent, byte[] encryptionKey) throws Exception {
+        byte[] messageContent, byte[] encryptionKey) throws Exception {
         throw new UnsupportedOperationException("unsupported");
     }
 }

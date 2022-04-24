@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.EzyMessage;
 import com.tvd12.ezyfox.codec.EzyObjectToMessage;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzyObjectToMessageTest {
 
@@ -14,7 +13,7 @@ public class EzyObjectToMessageTest {
         Asserts.assertThat(() -> sut.convertToMessageContent(null))
             .willThrows(UnsupportedOperationException.class);
         Asserts.assertThat(() -> sut.packToMessage(null, false))
-        .willThrows(UnsupportedOperationException.class);
+            .willThrows(UnsupportedOperationException.class);
     }
 
     private static class A implements EzyObjectToMessage {
@@ -23,6 +22,5 @@ public class EzyObjectToMessageTest {
         public EzyMessage convert(Object object) {
             return null;
         }
-
     }
 }
