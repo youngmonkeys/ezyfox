@@ -1,30 +1,10 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_ARRAY16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_BIN16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_BIN32_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_BIN8_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXARRAY_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXMAP_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXSTR_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_MAP16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_POSITIVE_FIXINT;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_SMALL_MESSAGE_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_STR16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_STR32_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_STR8_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT16;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT32;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT8;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT16;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT32;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT8;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_NEGATIVE_FIXINT;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.MsgPackConstant;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import static com.tvd12.ezyfox.codec.MsgPackConstant.*;
 
 public class MsgPackConstantTest extends BaseTest {
 

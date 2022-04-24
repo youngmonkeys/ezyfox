@@ -112,10 +112,10 @@ public class EzySimpleCollectionConverterTest extends CommonBaseTest {
         assertEquals((Object) collectionConverter.toArray(booleanss, boolean[].class),
             new boolean[][]{{true, false, true}, {false, true, false}});
 
-        Collection<Collection<Byte>> bytess = new ArrayList<>();
-        bytess.add(Lists.newArrayList((byte) 1, (byte) 2, (byte) 3));
-        bytess.add(Lists.newArrayList((byte) 4, (byte) 5, (byte) 6));
-        assertEquals((Object) collectionConverter.toArray(bytess, byte[].class),
+        Collection<Collection<Byte>> byteArrays = new ArrayList<>();
+        byteArrays.add(Lists.newArrayList((byte) 1, (byte) 2, (byte) 3));
+        byteArrays.add(Lists.newArrayList((byte) 4, (byte) 5, (byte) 6));
+        assertEquals((Object) collectionConverter.toArray(byteArrays, byte[].class),
             new byte[][]{{(byte) 1, (byte) 2, (byte) 3}, {(byte) 4, (byte) 5, (byte) 6}});
 
         Collection<Collection<Character>> characterss = new ArrayList<>();
@@ -170,10 +170,10 @@ public class EzySimpleCollectionConverterTest extends CommonBaseTest {
         assertEquals((Object) collectionConverter.toArray(booleanss, Boolean[].class),
             new Boolean[][]{{true, false, true}, {false, true, false}});
 
-        Collection<Collection<Byte>> bytess = new ArrayList<>();
-        bytess.add(Lists.newArrayList((byte) 1, (byte) 2, (byte) 3));
-        bytess.add(Lists.newArrayList((byte) 4, (byte) 5, (byte) 6));
-        assertEquals((Object) collectionConverter.toArray(bytess, Byte[].class),
+        Collection<Collection<Byte>> byteArrays = new ArrayList<>();
+        byteArrays.add(Lists.newArrayList((byte) 1, (byte) 2, (byte) 3));
+        byteArrays.add(Lists.newArrayList((byte) 4, (byte) 5, (byte) 6));
+        assertEquals((Object) collectionConverter.toArray(byteArrays, Byte[].class),
             new Byte[][]{{(byte) 1, (byte) 2, (byte) 3}, {(byte) 4, (byte) 5, (byte) 6}});
 
         Collection<Collection<Character>> characterss = new ArrayList<>();

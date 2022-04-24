@@ -1,7 +1,6 @@
 package com.tvd12.ezyfox.codec;
 
 import com.tvd12.ezyfox.constant.EzyConstant;
-
 import lombok.Getter;
 
 public enum MsgPackType implements EzyConstant {
@@ -47,7 +46,7 @@ public enum MsgPackType implements EzyConstant {
     @Getter
     private final int id;
 
-    private MsgPackType(final int id) {
+    MsgPackType(final int id) {
         this.id = id;
     }
 

@@ -1,19 +1,18 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
+import com.tvd12.test.base.BaseTest;
 import org.msgpack.MessagePack;
 import org.msgpack.packer.Packer;
 import org.msgpack.unpacker.Unpacker;
 import org.testng.annotations.Test;
 
-import com.tvd12.test.base.BaseTest;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class MsgPackObjectTemplateTest extends BaseTest {
 
-    private MessagePack messagePack = new MessagePack();
-    private MsgPackObjectTemplate template = new MsgPackObjectTemplate();
+    private final MessagePack messagePack = new MessagePack();
+    private final MsgPackObjectTemplate template = new MsgPackObjectTemplate();
 
     @Test
     public void test() throws IOException {

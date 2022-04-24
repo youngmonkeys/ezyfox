@@ -21,14 +21,14 @@ public class MsgPackCodecCreator implements EzyCodecCreator {
     @Override
     public EzyByteToObjectDecoder newDecoder(int maxRequestSize) {
         return enableEncryption
-                ? new MsgPackAesByteToObjectDecoder(deserializer, maxRequestSize)
-                : new MsgPackByteToObjectDecoder(deserializer, maxRequestSize);
+            ? new MsgPackAesByteToObjectDecoder(deserializer, maxRequestSize)
+            : new MsgPackByteToObjectDecoder(deserializer, maxRequestSize);
     }
 
     @Override
     public EzyObjectToByteEncoder newEncoder() {
         return enableEncryption
-                ? new MsgPackAesObjectToByteEncoder(messageToBytes, objectToMessage)
-                : new MsgPackObjectToByteEncoder(messageToBytes, objectToMessage);
+            ? new MsgPackAesObjectToByteEncoder(messageToBytes, objectToMessage)
+            : new MsgPackObjectToByteEncoder(messageToBytes, objectToMessage);
     }
 }

@@ -112,10 +112,10 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
         assertEquals((Object) collectionConverter.toArray(booleanss, boolean[].class),
             new boolean[][]{{true, false, true}, {false, true, false}});
 
-        Collection<EzyArray> bytess = new ArrayList<>();
-        bytess.add(newArrayBuilder().append((byte) 1, (byte) 2, (byte) 3).build());
-        bytess.add(newArrayBuilder().append((byte) 4, (byte) 5, (byte) 6).build());
-        assertEquals((Object) collectionConverter.toArray(bytess, byte[].class),
+        Collection<EzyArray> byteArrays = new ArrayList<>();
+        byteArrays.add(newArrayBuilder().append((byte) 1, (byte) 2, (byte) 3).build());
+        byteArrays.add(newArrayBuilder().append((byte) 4, (byte) 5, (byte) 6).build());
+        assertEquals((Object) collectionConverter.toArray(byteArrays, byte[].class),
             new byte[][]{{(byte) 1, (byte) 2, (byte) 3}, {(byte) 4, (byte) 5, (byte) 6}});
 
         Collection<EzyArray> characterss = new ArrayList<>();
@@ -170,10 +170,10 @@ public class EzyLiteCollectionConverterTest extends CommonBaseTest {
         assertEquals((Object) collectionConverter.toArray(booleanss, Boolean[].class),
             new Boolean[][]{{true, false, true}, {false, true, false}});
 
-        Collection<EzyArray> bytess = new ArrayList<>();
-        bytess.add(newArrayBuilder().append((byte) 1, (byte) 2, (byte) 3).build());
-        bytess.add(newArrayBuilder().append((byte) 4, (byte) 5, (byte) 6).build());
-        assertEquals((Object) collectionConverter.toArray(bytess, Byte[].class),
+        Collection<EzyArray> byteArrays = new ArrayList<>();
+        byteArrays.add(newArrayBuilder().append((byte) 1, (byte) 2, (byte) 3).build());
+        byteArrays.add(newArrayBuilder().append((byte) 4, (byte) 5, (byte) 6).build());
+        assertEquals((Object) collectionConverter.toArray(byteArrays, Byte[].class),
             new Byte[][]{{(byte) 1, (byte) 2, (byte) 3}, {(byte) 4, (byte) 5, (byte) 6}});
 
         Collection<EzyArray> characterss = new ArrayList<>();

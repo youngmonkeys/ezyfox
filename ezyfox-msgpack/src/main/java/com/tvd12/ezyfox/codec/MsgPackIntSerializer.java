@@ -1,16 +1,9 @@
 package com.tvd12.ezyfox.codec;
 
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_POSITIVE_FIXINT;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT16;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT32;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_UINT8;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT16;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT32;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_INT8;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MIN_NEGATIVE_FIXINT;
-
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyCastToByte;
+
+import static com.tvd12.ezyfox.codec.MsgPackConstant.*;
 
 public class MsgPackIntSerializer implements EzyCastToByte {
 
@@ -24,24 +17,28 @@ public class MsgPackIntSerializer implements EzyCastToByte {
 
     public byte[] serialize(long value) {
         return value >= 0
-                ? parsePositive(value)
-                : parseNegative(value);
+            ? parsePositive(value)
+            : parseNegative(value);
     }
 
     private byte[] parsePositive(long value) {
-        if(value <= MAX_POSITIVE_FIXINT)
+        if (value <= MAX_POSITIVE_FIXINT) {
             return parsePositiveFix(value);
-        if(value <= MAX_UINT8)
+        }
+        if (value <= MAX_UINT8) {
             return parseU8(value);
-        if(value <= MAX_UINT16)
+        }
+        if (value <= MAX_UINT16) {
             return parseU16(value);
-        if(value <= MAX_UINT32)
+        }
+        if (value <= MAX_UINT32) {
             return parseU32(value);
+        }
         return parseU64(value);
     }
 
     private byte[] parsePositiveFix(long value) {
-        return new byte[] {cast(0x0 | value)};
+        return new byte[]{cast(value)};
     }
 
     private byte[] parseU8(long value) {
@@ -61,19 +58,23 @@ public class MsgPackIntSerializer implements EzyCastToByte {
     }
 
     private byte[] parseNegative(long value) {
-        if(value >= MIN_NEGATIVE_FIXINT)
+        if (value >= MIN_NEGATIVE_FIXINT) {
             return parseNegativeFix(value);
-        if(value >= MIN_INT8)
+        }
+        if (value >= MIN_INT8) {
             return parse8(value);
-        if(value >= MIN_INT16)
+        }
+        if (value >= MIN_INT16) {
             return parse16(value);
-        if(value >= MIN_INT32)
+        }
+        if (value >= MIN_INT32) {
             return parse32(value);
+        }
         return parse64(value);
     }
 
     private byte[] parseNegativeFix(long value) {
-        return new byte[] {cast(0xe0 | value)};
+        return new byte[]{cast(0xe0 | value)};
     }
 
     private byte[] parse8(long value) {

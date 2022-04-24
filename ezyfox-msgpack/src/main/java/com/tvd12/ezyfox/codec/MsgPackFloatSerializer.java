@@ -16,5 +16,4 @@ public class MsgPackFloatSerializer implements EzyCastToByte {
     public byte[] serialize(float value) {
         return EzyBytes.getBytes(cast(0xca), value);
     }
-
 }

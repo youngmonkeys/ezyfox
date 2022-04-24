@@ -3,9 +3,9 @@ package com.tvd12.ezyfox.codec.testing;
 import com.tvd12.ezyfox.codec.EzyMessageToBytes;
 import com.tvd12.ezyfox.codec.EzyObjectToMessage;
 import com.tvd12.ezyfox.codec.MsgPackObjectToByteEncoder;
-
 import org.testng.annotations.Test;
-import static org.mockito.Mockito.*;
+
+import static org.mockito.Mockito.mock;
 
 public class MsgPackObjectToByteEncoderTest {
 
@@ -14,7 +14,7 @@ public class MsgPackObjectToByteEncoderTest {
         EzyMessageToBytes messageToBytes = mock(EzyMessageToBytes.class);
         EzyObjectToMessage objectToMessage = mock(EzyObjectToMessage.class);
         MsgPackObjectToByteEncoder encoder = new MsgPackObjectToByteEncoder(
-                messageToBytes, objectToMessage);
+            messageToBytes, objectToMessage);
         encoder.encode(new Object());
     }
 }

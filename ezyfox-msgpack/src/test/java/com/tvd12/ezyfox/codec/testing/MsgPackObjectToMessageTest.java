@@ -1,7 +1,5 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.codec.EzyMessage;
 import com.tvd12.ezyfox.codec.EzyObjectToMessage;
@@ -10,6 +8,7 @@ import com.tvd12.ezyfox.codec.MsgPackObjectToMessage;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class MsgPackObjectToMessageTest extends BaseTest {
 
@@ -17,10 +16,10 @@ public class MsgPackObjectToMessageTest extends BaseTest {
     public void test() {
         EzyObjectToMessage converter = newMsgPackObjectToMessage();
         EzyArray params = EzyEntityFactory.create(EzyArrayBuilder.class)
-                .append("clientId")
-                .append("token")
-                .append(1)
-                .build();
+            .append("clientId")
+            .append("token")
+            .append(1)
+            .build();
         EzyMessage message = converter.convert(params);
         assert !message.getHeader().isBigSize();
         assert !message.getHeader().isCompressed();
@@ -36,11 +35,11 @@ public class MsgPackObjectToMessageTest extends BaseTest {
     public void test2() {
         EzyObjectToMessage converter = newMsgPackObjectToMessage();
         EzyArray params = EzyEntityFactory.create(EzyArrayBuilder.class)
-                .append("clientId")
-                .append("token")
-                .append(1)
-                .append(new int[MsgPackConstant.MAX_BIN16_SIZE])
-                .build();
+            .append("clientId")
+            .append("token")
+            .append(1)
+            .append(new int[MsgPackConstant.MAX_BIN16_SIZE])
+            .build();
         EzyMessage message = converter.convert(params);
         assert message.getHeader().isBigSize();
         assert message.getSizeLength() == 4;

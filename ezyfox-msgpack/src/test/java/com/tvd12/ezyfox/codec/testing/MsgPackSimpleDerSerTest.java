@@ -1,10 +1,5 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import java.nio.ByteBuffer;
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.MsgPackConstant;
 import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
@@ -12,6 +7,10 @@ import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.util.RandomUtil;
+import org.testng.annotations.Test;
+
+import java.nio.ByteBuffer;
+import java.util.Map;
 
 public class MsgPackSimpleDerSerTest {
 
@@ -19,7 +18,7 @@ public class MsgPackSimpleDerSerTest {
     private final MsgPackSimpleDeserializer der = new MsgPackSimpleDeserializer();
 
     @Test
-    public void serializePostiveFixInt() {
+    public void serializePositiveFixInt() {
         // given
         int number = RandomUtil.randomInt(0x00, 0x7f + 1);
 
@@ -31,7 +30,7 @@ public class MsgPackSimpleDerSerTest {
         Asserts.assertEquals(bytes.length, 1);
         Asserts.assertEquals(actual, number);
         ByteBuffer buffer = ByteBuffer.allocate(1);
-        buffer.put((byte)number);
+        buffer.put((byte) number);
         buffer.flip();
         Asserts.assertEquals(buffer, (ByteBuffer.wrap(bytes)));
     }
@@ -39,7 +38,7 @@ public class MsgPackSimpleDerSerTest {
     @Test
     public void serializeNegativeFixInt() {
         // given
-        int number = (byte)RandomUtil.randomInt(0xe0, 0xff + 1);
+        int number = (byte) RandomUtil.randomInt(0xe0, 0xff + 1);
 
         // when
         byte[] bytes = ser.serialize(number);
@@ -49,7 +48,7 @@ public class MsgPackSimpleDerSerTest {
         Asserts.assertEquals(bytes.length, 1);
         Asserts.assertEquals(actual, number);
         ByteBuffer buffer = ByteBuffer.allocate(1);
-        buffer.put((byte)number);
+        buffer.put((byte) number);
         buffer.flip();
         Asserts.assertEquals(buffer, (ByteBuffer.wrap(bytes)));
     }
@@ -63,7 +62,7 @@ public class MsgPackSimpleDerSerTest {
 
         // when
         byte[] bytes = ser.serialize(map);
-        Map<Integer, String> actual = ((EzyObject)der.deserialize(bytes)).toMap();
+        Map<Integer, String> actual = ((EzyObject) der.deserialize(bytes)).toMap();
 
         //then
         Asserts.assertEquals(actual, map);
@@ -78,10 +77,10 @@ public class MsgPackSimpleDerSerTest {
 
         // when
         byte[] bytes = ser.serialize(map);
-        Map<Integer, String> actual = ((EzyObject)der.deserialize(bytes)).toMap();
+        Map<Integer, String> actual = ((EzyObject) der.deserialize(bytes)).toMap();
 
         //then
-        Asserts.assertEquals((byte)0xde, bytes[0]);
+        Asserts.assertEquals((byte) 0xde, bytes[0]);
         Asserts.assertEquals(actual, map);
     }
 
@@ -94,10 +93,10 @@ public class MsgPackSimpleDerSerTest {
 
         // when
         byte[] bytes = ser.serialize(map);
-        Map<Integer, String> actual = ((EzyObject)der.deserialize(bytes)).toMap();
+        Map<Integer, String> actual = ((EzyObject) der.deserialize(bytes)).toMap();
 
         //then
-        Asserts.assertEquals((byte)0xdf, bytes[0]);
+        Asserts.assertEquals((byte) 0xdf, bytes[0]);
         Asserts.assertEquals(actual, map);
     }
 
@@ -109,7 +108,7 @@ public class MsgPackSimpleDerSerTest {
 
         // when
         byte[] bytes = ser.serialize(array);
-        String[] actual = ((EzyArray)der.deserialize(bytes)).toArray(String.class);
+        String[] actual = ((EzyArray) der.deserialize(bytes)).toArray(String.class);
 
         //then
         Asserts.assertEquals(actual, array);
@@ -123,10 +122,10 @@ public class MsgPackSimpleDerSerTest {
 
         // when
         byte[] bytes = ser.serialize(array);
-        String[] actual = ((EzyArray)der.deserialize(bytes)).toArray(String.class);
+        String[] actual = ((EzyArray) der.deserialize(bytes)).toArray(String.class);
 
         //then
-        Asserts.assertEquals((byte)0xdc, bytes[0]);
+        Asserts.assertEquals((byte) 0xdc, bytes[0]);
         Asserts.assertEquals(actual, array);
     }
 
@@ -138,10 +137,10 @@ public class MsgPackSimpleDerSerTest {
 
         // when
         byte[] bytes = ser.serialize(array);
-        String[] actual = ((EzyArray)der.deserialize(bytes)).toArray(String.class);
+        String[] actual = ((EzyArray) der.deserialize(bytes)).toArray(String.class);
 
         //then
-        Asserts.assertEquals((byte)0xdd, bytes[0]);
+        Asserts.assertEquals((byte) 0xdd, bytes[0]);
         Asserts.assertEquals(actual, array);
     }
 
@@ -170,7 +169,7 @@ public class MsgPackSimpleDerSerTest {
         String actual = der.deserialize(bytes);
 
         //then
-        Asserts.assertEquals((byte)0xd9, bytes[0]);
+        Asserts.assertEquals((byte) 0xd9, bytes[0]);
         Asserts.assertEquals(actual, string);
     }
 
@@ -185,7 +184,7 @@ public class MsgPackSimpleDerSerTest {
         String actual = der.deserialize(bytes);
 
         //then
-        Asserts.assertEquals((byte)0xda, bytes[0]);
+        Asserts.assertEquals((byte) 0xda, bytes[0]);
         Asserts.assertEquals(actual, string);
     }
 
@@ -200,7 +199,7 @@ public class MsgPackSimpleDerSerTest {
         String actual = der.deserialize(bytes);
 
         //then
-        Asserts.assertEquals((byte)0xdb, bytes[0]);
+        Asserts.assertEquals((byte) 0xdb, bytes[0]);
         Asserts.assertEquals(actual, string);
     }
 
@@ -217,7 +216,7 @@ public class MsgPackSimpleDerSerTest {
         assert bytes.length == 5;
         assert actual == number;
         ByteBuffer buffer = ByteBuffer.allocate(5);
-        buffer.put((byte)0xca);
+        buffer.put((byte) 0xca);
         buffer.putFloat(number);
         buffer.flip();
         assert buffer.equals(ByteBuffer.wrap(bytes));
@@ -236,7 +235,7 @@ public class MsgPackSimpleDerSerTest {
         assert bytes.length == 9;
         assert actual == number;
         ByteBuffer buffer = ByteBuffer.allocate(9);
-        buffer.put((byte)0xcb);
+        buffer.put((byte) 0xcb);
         buffer.putDouble(number);
         buffer.flip();
         assert buffer.equals(ByteBuffer.wrap(bytes));
@@ -245,7 +244,7 @@ public class MsgPackSimpleDerSerTest {
     @Test
     public void serializeNegateByte() {
         // given
-        byte number = (byte)RandomUtil.randomInt(Byte.MIN_VALUE, (int)MsgPackConstant.MIN_NEGATIVE_FIXINT);
+        byte number = (byte) RandomUtil.randomInt(Byte.MIN_VALUE, (int) MsgPackConstant.MIN_NEGATIVE_FIXINT);
 
         // when
         byte[] bytes = ser.serialize(number);
@@ -255,7 +254,7 @@ public class MsgPackSimpleDerSerTest {
         Asserts.assertEquals(2, bytes.length);
         assert actual == number;
         ByteBuffer buffer = ByteBuffer.allocate(2);
-        buffer.put((byte)0xd0);
+        buffer.put((byte) 0xd0);
         buffer.put(number);
         buffer.flip();
         assert buffer.equals(ByteBuffer.wrap(bytes));
@@ -264,7 +263,7 @@ public class MsgPackSimpleDerSerTest {
     @Test
     public void serializeNegateShort() {
         // given
-        short number = RandomUtil.randomShort(Short.MIN_VALUE, (short)0);
+        short number = RandomUtil.randomShort(Short.MIN_VALUE, (short) 0);
 
         // when
         byte[] bytes = ser.serialize(number);
@@ -274,7 +273,7 @@ public class MsgPackSimpleDerSerTest {
         assert bytes.length == 3;
         assert actual == number;
         ByteBuffer buffer = ByteBuffer.allocate(3);
-        buffer.put((byte)0xd1);
+        buffer.put((byte) 0xd1);
         buffer.putShort(number);
         buffer.flip();
         assert buffer.equals(ByteBuffer.wrap(bytes));
@@ -293,7 +292,7 @@ public class MsgPackSimpleDerSerTest {
         assert bytes.length == 5;
         assert actual == number;
         ByteBuffer buffer = ByteBuffer.allocate(5);
-        buffer.put((byte)0xd2);
+        buffer.put((byte) 0xd2);
         buffer.putInt(number);
         buffer.flip();
         assert buffer.equals(ByteBuffer.wrap(bytes));
@@ -312,7 +311,7 @@ public class MsgPackSimpleDerSerTest {
         assert bytes.length == 9;
         assert actual == number;
         ByteBuffer buffer = ByteBuffer.allocate(9);
-        buffer.put((byte)0xd3);
+        buffer.put((byte) 0xd3);
         buffer.putLong(number);
         buffer.flip();
         assert buffer.equals(ByteBuffer.wrap(bytes));
@@ -329,7 +328,7 @@ public class MsgPackSimpleDerSerTest {
         byte[] actual = der.deserialize(bytes);
 
         //then
-        Asserts.assertEquals((byte)0xc4, bytes[0]);
+        Asserts.assertEquals((byte) 0xc4, bytes[0]);
         Asserts.assertEquals(actual, array);
     }
 
@@ -344,7 +343,7 @@ public class MsgPackSimpleDerSerTest {
         byte[] actual = der.deserialize(bytes);
 
         //then
-        Asserts.assertEquals((byte)0xc5, bytes[0]);
+        Asserts.assertEquals((byte) 0xc5, bytes[0]);
         Asserts.assertEquals(actual, array);
     }
 
@@ -359,7 +358,7 @@ public class MsgPackSimpleDerSerTest {
         byte[] actual = der.deserialize(bytes);
 
         //then
-        Asserts.assertEquals((byte)0xc6, bytes[0]);
+        Asserts.assertEquals((byte) 0xc6, bytes[0]);
         Asserts.assertEquals(actual, array);
     }
 }

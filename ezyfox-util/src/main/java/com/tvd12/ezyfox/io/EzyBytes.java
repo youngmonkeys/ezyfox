@@ -75,19 +75,19 @@ public final class EzyBytes {
         return bytes;
     }
 
-    public static byte[] merge(byte[][] bytess) {
+    public static byte[] merge(byte[][] byteArrays) {
         int position = 0;
-        byte[] answer = new byte[totalBytes(bytess)];
-        for (byte[] bytes : bytess) {
+        byte[] answer = new byte[totalBytes(byteArrays)];
+        for (byte[] bytes : byteArrays) {
             System.arraycopy(bytes, 0, answer, position, bytes.length);
             position += bytes.length;
         }
         return answer;
     }
 
-    public static int totalBytes(byte[][] bytess) {
+    public static int totalBytes(byte[][] byteArrays) {
         int size = 0;
-        for (byte[] bytes : bytess) {
+        for (byte[] bytes : byteArrays) {
             size += bytes.length;
         }
         return size;

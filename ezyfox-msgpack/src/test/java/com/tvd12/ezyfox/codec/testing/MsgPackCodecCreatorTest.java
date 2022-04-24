@@ -1,8 +1,7 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.MsgPackCodecCreator;
+import org.testng.annotations.Test;
 
 public class MsgPackCodecCreatorTest {
 

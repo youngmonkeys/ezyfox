@@ -16,5 +16,4 @@ public class MsgPackDoubleSerializer implements EzyCastToByte {
     public byte[] serialize(double value) {
         return EzyBytes.getBytes(cast(0xcb), value);
     }
-
 }
