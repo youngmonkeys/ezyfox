@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.codec;
 
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXMAP_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_MAP16_SIZE;
-
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyCastToByte;
+
+import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXMAP_SIZE;
+import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_MAP16_SIZE;
 
 public class MsgPackMapSizeSerializer implements EzyCastToByte {
 
@@ -17,15 +17,17 @@ public class MsgPackMapSizeSerializer implements EzyCastToByte {
     }
 
     public byte[] serialize(int size) {
-        if(size <= MAX_FIXMAP_SIZE)
+        if (size <= MAX_FIXMAP_SIZE) {
             return parseFix(size);
-        if(size <= MAX_MAP16_SIZE)
+        }
+        if (size <= MAX_MAP16_SIZE) {
             return parse16(size);
+        }
         return parse32(size);
     }
 
     private byte[] parseFix(int size) {
-        return new byte[] {
+        return new byte[]{
             cast(0x80 | size)
         };
     }

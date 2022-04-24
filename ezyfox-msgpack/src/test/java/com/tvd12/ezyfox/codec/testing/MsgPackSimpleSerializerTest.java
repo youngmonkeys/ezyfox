@@ -1,27 +1,5 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import static org.testng.Assert.assertEquals;
-
-import java.util.AbstractCollection;
-import java.util.AbstractList;
-import java.util.AbstractMap;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-
-import org.msgpack.MessagePack;
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
 import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
@@ -30,12 +8,23 @@ import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyPrints;
 import com.tvd12.ezyfox.util.EzyMapBuilder;
+import org.msgpack.MessagePack;
+import org.testng.annotations.Test;
 
-@SuppressWarnings("rawtypes")
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+
+import static org.testng.Assert.assertEquals;
+
+@SuppressWarnings({"rawtypes", "ConstantConditions", "Contract", "NullableProblems"})
 public class MsgPackSimpleSerializerTest {
 
-    private MessagePack messagePack = new MessagePack();
-    private MsgPackSimpleSerializer serializer = new MsgPackSimpleSerializer();
+    private final MessagePack messagePack = new MessagePack();
+    private final MsgPackSimpleSerializer serializer = new MsgPackSimpleSerializer();
 
     public static void main(String[] args) {
         MsgPackSimpleSerializer serializer = new MsgPackSimpleSerializer();
@@ -45,31 +34,31 @@ public class MsgPackSimpleSerializerTest {
     @Test
     public void test() throws Exception {
         check(Boolean.TRUE);
-        check(new Byte((byte)1));
-        check(new Character('a'));
-        check(new Double(1.0D));
-        check(new Float(1.0F));
-        check(new Long(1L));
-        check(new Short((short)1));
+        check((byte) 1);
+        check('a');
+        check(1.0D);
+        check(1.0F);
+        check(1L);
+        check((short) 1);
 
-        check(new boolean[] {true, false});
-        assert serializer.serialize(new byte[] {1, 2, 3})[0] == ((byte)0xc4);
-        assert serializer.serialize(new char[] {'a', 'b', 'c'})[0] == ((byte)0xc4);
-        check(new double[] {1, 2, 3});
-        check(new float[] {1, 2, 3});
-        check(new int[] {1, 2, 3});
-        check(new long[] {1, 2, 3});
-        check(new short[] {1, 2, 3});
-        check(new String[] {"a", "b", "c"});
+        check(new boolean[]{true, false});
+        assert serializer.serialize(new byte[]{1, 2, 3})[0] == ((byte) 0xc4);
+        assert serializer.serialize(new char[]{'a', 'b', 'c'})[0] == ((byte) 0xc4);
+        check(new double[]{1, 2, 3});
+        check(new float[]{1, 2, 3});
+        check(new int[]{1, 2, 3});
+        check(new long[]{1, 2, 3});
+        check(new short[]{1, 2, 3});
+        check(new String[]{"a", "b", "c"});
 
-        check(new Boolean[] {true, false});
-        assert serializer.serialize(new Byte[] {1, 2, 3})[0] == ((byte)0xc4);
-        assert serializer.serialize(new Character[] {'a', 'b', 'c'})[0] == ((byte)0xc4);
-        check(new Double[] {1D, 2D, 3D});
-        check(new Float[] {1F, 2F, 3F});
-        check(new Integer[] {1, 2, 3});
-        check(new Long[] {1L, 2L, 3L});
-        check(new Short[] {1, 2, 3});
+        check(new Boolean[]{true, false});
+        assert serializer.serialize(new Byte[]{1, 2, 3})[0] == ((byte) 0xc4);
+        assert serializer.serialize(new Character[]{'a', 'b', 'c'})[0] == ((byte) 0xc4);
+        check(new Double[]{1D, 2D, 3D});
+        check(new Float[]{1F, 2F, 3F});
+        check(new Integer[]{1, 2, 3});
+        check(new Long[]{1L, 2L, 3L});
+        check(new Short[]{1, 2, 3});
 
         check(EzyMapBuilder.mapBuilder().put(1, 2).build());
         check(newEmptyMap());
@@ -100,203 +89,9 @@ public class MsgPackSimpleSerializerTest {
         return new EmptyEzyArray();
     }
 
-    public static class EmptyEzyArray implements EzyArray {
-        private static final long serialVersionUID = 7904063160934793640L;
-
-        @Override
-        public <T> T get(int index) {
-            return null;
-        }
-
-        @Override
-        public <T> T get(int index, Class<T> type) {
-            return null;
-        }
-
-        @Override
-        public Object getValue(int index, Class type) {
-            return null;
-        }
-
-        @Override
-        public boolean isNotNullValue(int index) {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object value) {
-            return false;
-        }
-
-        @Override
-        public boolean containsAll(Collection values) {
-            return false;
-        }
-
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public <T> List<T> toList() {
-            return null;
-        }
-
-        @Override
-        public <T> List<T> toList(Class<T> type) {
-            return null;
-        }
-
-        @Override
-        public <T, A> A toArray(Class<T> type) {
-            return null;
-        }
-
-        @Override
-        public void add(Object item) {
-        }
-
-        @Override
-        public void add(Object... items) {
-        }
-
-        @Override
-        public void add(Collection items) {
-        }
-
-        @Override
-        public <T> T set(int index, Object item) {
-            return null;
-        }
-
-        @Override
-        public <T> T remove(int index) {
-            return null;
-        }
-
-        @Override
-        public EzyArray sub(int fromIndex, int toIndex) {
-            return null;
-        }
-
-        @Override
-        public void forEach(Consumer<Object> action) {
-        }
-
-        @Override
-        public Iterator<Object> iterator() {
-            return Lists.newArrayList().iterator();
-        }
-
-        @Override
-        public EzyArray duplicate() {
-            return null;
-        }
-
-        public Object clone() {
-            return null;
-        }
-
-    }
-
     private EzyObject newEmptyObject() {
         return new EmptyEzyObject();
     }
-
-    public static class EmptyEzyObject implements EzyObject {
-        /**
-         *
-         */
-        private static final long serialVersionUID = 5658012267109087959L;
-
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean containsKey(Object key) {
-            return false;
-        }
-
-        @Override
-        public boolean isNotNullValue(Object key) {
-            return false;
-        }
-
-        public boolean containsKeys(Collection keys) {
-            return false;
-        }
-
-        @Override
-        public <V> V get(Object key) {
-            return null;
-        }
-
-        @Override
-        public <V> V get(Object key, Class<V> type) {
-            return null;
-        }
-
-        @Override
-        public Object getValue(Object key, Class type) {
-            return null;
-        }
-
-        @Override
-        public Set<Object> keySet() {
-            return new HashSet<>();
-        }
-
-        @Override
-        public Set<Entry<Object, Object>> entrySet() {
-            return new HashSet<>();
-        }
-
-        @Override
-        public Map toMap() {
-            return null;
-        }
-
-        @Override
-        public <V> V put(Object key, Object value) {
-            return null;
-        }
-
-        @Override
-        public void putAll(Map m) {
-        }
-
-        @Override
-        public <V> V remove(Object key) {
-            return null;
-        }
-
-        @Override
-        public void removeAll(Collection keys) {
-        }
-
-        @Override
-        public <V> V compute(Object key, BiFunction func) {
-            return null;
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public EzyObject duplicate() {
-            return null;
-        }
-
-        public Object clone() {
-            return null;
-        }
-
-    };
 
     private AbstractList newEmptyAbstractList() {
         return new AbstractList() {
@@ -382,8 +177,7 @@ public class MsgPackSimpleSerializerTest {
             }
 
             @Override
-            public void clear() {
-            }
+            public void clear() {}
 
             @Override
             public Object get(int index) {
@@ -396,8 +190,7 @@ public class MsgPackSimpleSerializerTest {
             }
 
             @Override
-            public void add(int index, Object element) {
-            }
+            public void add(int index, Object element) {}
 
             @Override
             public Object remove(int index) {
@@ -495,8 +288,7 @@ public class MsgPackSimpleSerializerTest {
             }
 
             @Override
-            public void clear() {
-            }
+            public void clear() {}
         };
     }
 
@@ -512,7 +304,6 @@ public class MsgPackSimpleSerializerTest {
             public int size() {
                 return 0;
             }
-
         };
     }
 
@@ -580,9 +371,7 @@ public class MsgPackSimpleSerializerTest {
             }
 
             @Override
-            public void clear() {
-            }
-
+            public void clear() {}
         };
     }
 
@@ -659,5 +448,192 @@ public class MsgPackSimpleSerializerTest {
                 return new HashSet<>();
             }
         };
+    }
+
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
+    public static class EmptyEzyArray implements EzyArray {
+        private static final long serialVersionUID = 7904063160934793640L;
+
+        @Override
+        public <T> T get(int index) {
+            return null;
+        }
+
+        @Override
+        public <T> T get(int index, Class<T> type) {
+            return null;
+        }
+
+        @Override
+        public Object getValue(int index, Class type) {
+            return null;
+        }
+
+        @Override
+        public boolean isNotNullValue(int index) {
+            return false;
+        }
+
+        @Override
+        public boolean contains(Object value) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(Collection values) {
+            return false;
+        }
+
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public <T> List<T> toList() {
+            return null;
+        }
+
+        @Override
+        public <T> List<T> toList(Class<T> type) {
+            return null;
+        }
+
+        @Override
+        public <T, A> A toArray(Class<T> type) {
+            return null;
+        }
+
+        @Override
+        public void add(Object item) {
+        }
+
+        @Override
+        public void add(Object... items) {
+        }
+
+        @Override
+        public void add(Collection items) {
+        }
+
+        @Override
+        public <T> T set(int index, Object item) {
+            return null;
+        }
+
+        @Override
+        public <T> T remove(int index) {
+            return null;
+        }
+
+        @Override
+        public EzyArray sub(int fromIndex, int toIndex) {
+            return null;
+        }
+
+        @Override
+        public void forEach(Consumer<Object> action) {
+        }
+
+        @Override
+        public Iterator<Object> iterator() {
+            return Lists.newArrayList().iterator();
+        }
+
+        @Override
+        public EzyArray duplicate() {
+            return null;
+        }
+
+        public Object clone() {
+            return null;
+        }
+    }
+
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
+    public static class EmptyEzyObject implements EzyObject {
+        private static final long serialVersionUID = 5658012267109087959L;
+
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean containsKey(Object key) {
+            return false;
+        }
+
+        @Override
+        public boolean isNotNullValue(Object key) {
+            return false;
+        }
+
+        public boolean containsKeys(Collection keys) {
+            return false;
+        }
+
+        @Override
+        public <V> V get(Object key) {
+            return null;
+        }
+
+        @Override
+        public <V> V get(Object key, Class<V> type) {
+            return null;
+        }
+
+        @Override
+        public Object getValue(Object key, Class type) {
+            return null;
+        }
+
+        @Override
+        public Set<Object> keySet() {
+            return new HashSet<>();
+        }
+
+        @Override
+        public Set<Entry<Object, Object>> entrySet() {
+            return new HashSet<>();
+        }
+
+        @Override
+        public Map toMap() {
+            return null;
+        }
+
+        @Override
+        public <V> V put(Object key, Object value) {
+            return null;
+        }
+
+        @Override
+        public void putAll(Map m) {}
+
+        @Override
+        public <V> V remove(Object key) {
+            return null;
+        }
+
+        @Override
+        public void removeAll(Collection keys) {}
+
+        @Override
+        public <V> V compute(Object key, BiFunction func) {
+            return null;
+        }
+
+        @Override
+        public void clear() {}
+
+        @Override
+        public EzyObject duplicate() {
+            return null;
+        }
+
+        public Object clone() {
+            return null;
+        }
     }
 }

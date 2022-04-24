@@ -1,9 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import java.nio.ByteBuffer;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.exception.EzyCodecException;
@@ -13,6 +9,10 @@ import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyInts;
 import com.tvd12.ezyfox.io.EzyLongs;
 import com.tvd12.ezyfox.io.EzyStrings;
+
+import java.nio.ByteBuffer;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
@@ -36,7 +36,7 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     }
 
     protected Object deserialize(ByteBuffer buffer, int type) {
-        updateBufferPosition(buffer);
+        buffer.position(buffer.position() - 1);
         return deserialize(buffer, getDataType(type));
     }
 
@@ -52,34 +52,34 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     }
 
     protected void addParsers(Map<MsgPackType, EzyParser<ByteBuffer, Object>> parsers) {
-        parsers.put(MsgPackType.POSITIVE_FIXINT, buffer -> parsePositiveFixInt(buffer)); //0K
-        parsers.put(MsgPackType.NEGATIVE_FIXINT, buffer -> parseNegativeFixInt(buffer)); //OK
-        parsers.put(MsgPackType.UINT8, buffer -> parseUInt8(buffer)); //OK
-        parsers.put(MsgPackType.UINT16, buffer -> parseUInt16(buffer)); //OK
-        parsers.put(MsgPackType.UINT32, buffer -> parseUInt32(buffer)); //OK
-        parsers.put(MsgPackType.UINT64, buffer -> parseUInt64(buffer)); //OK
-        parsers.put(MsgPackType.INT8, buffer -> parseInt8(buffer)); //OK
-        parsers.put(MsgPackType.INT16, buffer -> parseInt16(buffer)); //OK
-        parsers.put(MsgPackType.INT32, buffer -> parseInt32(buffer)); //OK
-        parsers.put(MsgPackType.INT64, buffer -> parseInt64(buffer)); //OK
-        parsers.put(MsgPackType.FIXMAP, buffer -> parseFixMap(buffer)); //OK
-        parsers.put(MsgPackType.MAP16, buffer -> parseMap16(buffer)); //OK
-        parsers.put(MsgPackType.MAP32, buffer -> parseMap32(buffer)); //OK
-        parsers.put(MsgPackType.FIXARRAY, buffer -> parseFixArray(buffer)); //OK
-        parsers.put(MsgPackType.ARRAY16, buffer -> parseArray16(buffer)); //OK
-        parsers.put(MsgPackType.ARRAY32, buffer -> parseArray32(buffer)); //OK
-        parsers.put(MsgPackType.FIXSTR, buffer -> parseFixStr(buffer));
-        parsers.put(MsgPackType.STR8, buffer -> parseStr8(buffer));
-        parsers.put(MsgPackType.STR16, buffer -> parseStr16(buffer));
-        parsers.put(MsgPackType.STR32, buffer -> parseStr32(buffer));
-        parsers.put(MsgPackType.NIL, buffer -> parseNil(buffer));
-        parsers.put(MsgPackType.FALSE, buffer -> parseFalse(buffer));
-        parsers.put(MsgPackType.TRUE, buffer -> parseTrue(buffer));
-        parsers.put(MsgPackType.BIN8, buffer -> parseBin8(buffer));
-        parsers.put(MsgPackType.BIN16, buffer -> parseBin16(buffer));
-        parsers.put(MsgPackType.BIN32, buffer -> parseBin32(buffer));
-        parsers.put(MsgPackType.FLOAT32, buffer -> parseFloat32(buffer));
-        parsers.put(MsgPackType.FLOAT64, buffer -> parseFloat64(buffer));
+        parsers.put(MsgPackType.POSITIVE_FIXINT, this::parsePositiveFixInt); //0K
+        parsers.put(MsgPackType.NEGATIVE_FIXINT, this::parseNegativeFixInt); //OK
+        parsers.put(MsgPackType.UINT8, this::parseUInt8); //OK
+        parsers.put(MsgPackType.UINT16, this::parseUInt16); //OK
+        parsers.put(MsgPackType.UINT32, this::parseUInt32); //OK
+        parsers.put(MsgPackType.UINT64, this::parseUInt64); //OK
+        parsers.put(MsgPackType.INT8, this::parseInt8); //OK
+        parsers.put(MsgPackType.INT16, this::parseInt16); //OK
+        parsers.put(MsgPackType.INT32, this::parseInt32); //OK
+        parsers.put(MsgPackType.INT64, this::parseInt64); //OK
+        parsers.put(MsgPackType.FIXMAP, this::parseFixMap); //OK
+        parsers.put(MsgPackType.MAP16, this::parseMap16); //OK
+        parsers.put(MsgPackType.MAP32, this::parseMap32); //OK
+        parsers.put(MsgPackType.FIXARRAY, this::parseFixArray); //OK
+        parsers.put(MsgPackType.ARRAY16, this::parseArray16); //OK
+        parsers.put(MsgPackType.ARRAY32, this::parseArray32); //OK
+        parsers.put(MsgPackType.FIXSTR, this::parseFixStr);
+        parsers.put(MsgPackType.STR8, this::parseStr8);
+        parsers.put(MsgPackType.STR16, this::parseStr16);
+        parsers.put(MsgPackType.STR32, this::parseStr32);
+        parsers.put(MsgPackType.NIL, this::parseNil);
+        parsers.put(MsgPackType.FALSE, this::parseFalse);
+        parsers.put(MsgPackType.TRUE, this::parseTrue);
+        parsers.put(MsgPackType.BIN8, this::parseBin8);
+        parsers.put(MsgPackType.BIN16, this::parseBin16);
+        parsers.put(MsgPackType.BIN32, this::parseBin32);
+        parsers.put(MsgPackType.FLOAT32, this::parseFloat32);
+        parsers.put(MsgPackType.FLOAT64, this::parseFloat64);
     }
 
     protected Object parseFloat32(ByteBuffer buffer) {
@@ -148,8 +148,9 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected EzyObject parseMap(ByteBuffer buffer, int size) {
         EzyObject object = EzyEntityFactory.newObject();
-        for(int i = 0 ; i < size ; ++i)
+        for (int i = 0; i < size; ++i) {
             object.put(deserialize(buffer), deserialize(buffer));
+        }
         return object;
     }
 
@@ -253,32 +254,27 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected EzyArray parseArray(ByteBuffer buffer, int size) {
         EzyArray array = EzyEntityFactory.newArray();
-        for(int i = 0 ; i < size ; ++i)
+        for (int i = 0; i < size; ++i) {
             array.add(deserialize(buffer));
+        }
         return array;
     }
 
     protected MsgPackType getDataType(int type) {
         MsgPackType answer = typeParser.parse(type);
-        if(answer != null)
+        if (answer != null) {
             return answer;
+        }
         throw new EzyCodecException("has no type with type = " + String.format("0x%x", type));
     }
-
-    protected void updateBufferPosition(ByteBuffer buffer) {
-        updateBufferPosition(buffer, -1);
-    }
-
-    protected void updateBufferPosition(ByteBuffer buffer, int offset) {
-        buffer.position(buffer.position() + offset);
-    }
 }
+
 abstract class AbstractSizeDeserializer {
 
     public int deserialize(ByteBuffer buffer, int nbytes) {
         return nbytes == 1
-                ? getFix(buffer)
-                : getOther(buffer, nbytes);
+            ? getFix(buffer)
+            : getOther(buffer, nbytes);
     }
 
     protected abstract int getFix(ByteBuffer buffer);
@@ -286,7 +282,9 @@ abstract class AbstractSizeDeserializer {
     protected int getOther(ByteBuffer buffer, int nbytes) {
         buffer.get();
         return EzyInts.bin2uint(buffer, nbytes - 1);
-    }}
+    }
+}
+
 class StringSizeDeserializer extends AbstractSizeDeserializer {
 
     @Override
@@ -294,6 +292,7 @@ class StringSizeDeserializer extends AbstractSizeDeserializer {
         return buffer.get() & 0x1F;
     }
 }
+
 class MapSizeDeserializer extends AbstractSizeDeserializer {
 
     @Override
@@ -301,6 +300,7 @@ class MapSizeDeserializer extends AbstractSizeDeserializer {
         return buffer.get() & 0xF;
     }
 }
+
 class ArraySizeDeserializer extends AbstractSizeDeserializer {
 
     @Override

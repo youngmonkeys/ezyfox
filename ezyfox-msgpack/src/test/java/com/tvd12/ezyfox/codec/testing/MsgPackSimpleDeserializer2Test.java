@@ -1,32 +1,32 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import java.io.IOException;
-import java.util.Arrays;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.io.EzyMath;
+import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 public class MsgPackSimpleDeserializer2Test extends MsgPackCodecTest {
 
     @Test
     public void test1() throws IOException {
         byte[] bin32 = new byte[EzyMath.bin2int(16)];
-        Arrays.fill(bin32, (byte)'c');
+        Arrays.fill(bin32, (byte) 'c');
         String str32 = new String(bin32);
         EzyObjectBuilder dataBuilder = newObjectBuilder()
-                .append("k", str32);
+            .append("k", str32);
         EzyArray request = newArrayBuilder()
-                .append(15)
-                .append(26)
-                .append("abcdef")
-                .append(dataBuilder)
-                .build();
+            .append(15)
+            .append(26)
+            .append("abcdef")
+            .append(dataBuilder)
+            .build();
         int arrsize = request.size();
-        byte first = (byte)(arrsize | 0x90);
+        byte first = (byte) (arrsize | 0x90);
         byte[] bytes = msgPack.write(request);
         MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
         EzyArray answer = deserializer.deserialize(bytes);
@@ -36,6 +36,6 @@ public class MsgPackSimpleDeserializer2Test extends MsgPackCodecTest {
         assert appId == 15 : "deserialize error " + first;
         assert command == 26 : "deserialize error";
         assert token.equals("abcdef") : "deserialize error";
-        assert token.equals("abcdef") : "deserialize error";
+        Asserts.assertEquals(token, "abcdef");
     }
 }

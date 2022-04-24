@@ -1,22 +1,5 @@
 package com.tvd12.ezyfox.codec;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.AbstractCollection;
-import java.util.AbstractList;
-import java.util.AbstractMap;
-import java.util.AbstractSet;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.UUID;
-
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
 import com.tvd12.ezyfox.entity.EzyHashMap;
@@ -26,18 +9,16 @@ import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyCastToByte;
 import com.tvd12.ezyfox.io.EzyDataConverter;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.util.EzyBoolsIterator;
-import com.tvd12.ezyfox.util.EzyDoublesIterator;
-import com.tvd12.ezyfox.util.EzyFloatsIterator;
-import com.tvd12.ezyfox.util.EzyIntsIterator;
-import com.tvd12.ezyfox.util.EzyLongsIterator;
-import com.tvd12.ezyfox.util.EzyShortsIterator;
-import com.tvd12.ezyfox.util.EzyStringsIterator;
-import com.tvd12.ezyfox.util.EzyWrapperIterator;
+import com.tvd12.ezyfox.util.*;
 
-public class MsgPackSimpleSerializer 
-        extends EzyAbstractToBytesSerializer
-        implements EzyCastToByte {
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.*;
+import java.util.Map.Entry;
+
+public class MsgPackSimpleSerializer
+    extends EzyAbstractToBytesSerializer
+    implements EzyCastToByte {
 
     protected final MsgPackIntSerializer intSerializer;
     protected final MsgPackFloatSerializer floatSerializer;
@@ -59,87 +40,87 @@ public class MsgPackSimpleSerializer
 
     @Override
     protected void addParsers(Map<Class<?>, EzyParser<Object, byte[]>> parsers) {
-        parsers.put(Boolean.class, value -> parseBoolean(value));
-        parsers.put(Byte.class, value -> parseByte(value));
-        parsers.put(Character.class, value -> parseChar(value));
-        parsers.put(Double.class, value -> parseDouble(value));
-        parsers.put(Float.class, value -> parseFloat(value));
-        parsers.put(Integer.class, value -> parseInt(value));
-        parsers.put(Long.class, value -> parseInt(value));
-        parsers.put(Short.class, value -> parseShort(value));
-        parsers.put(String.class, value -> parseString(value));
+        parsers.put(Boolean.class, this::parseBoolean);
+        parsers.put(Byte.class, this::parseByte);
+        parsers.put(Character.class, this::parseChar);
+        parsers.put(Double.class, this::parseDouble);
+        parsers.put(Float.class, this::parseFloat);
+        parsers.put(Integer.class, this::parseInt);
+        parsers.put(Long.class, this::parseInt);
+        parsers.put(Short.class, this::parseShort);
+        parsers.put(String.class, this::parseString);
 
-        parsers.put(boolean[].class, value -> parsePrimitiveBooleans(value));
-        parsers.put(byte[].class, value -> parseBin(value));
-        parsers.put(char[].class, value -> parsePrimitiveChars(value));
-        parsers.put(double[].class, value -> parsePrimitiveDoubles(value));
-        parsers.put(float[].class, value -> parsePrimitiveFloats(value));
-        parsers.put(int[].class, value -> parsePrimitiveInts(value));
-        parsers.put(long[].class, value -> parsePrimitiveLongs(value));
-        parsers.put(short[].class, value -> parsePrimitiveShorts(value));
-        parsers.put(String[].class, value -> parseStrings(value));
+        parsers.put(boolean[].class, this::parsePrimitiveBooleans);
+        parsers.put(byte[].class, this::parseBin);
+        parsers.put(char[].class, this::parsePrimitiveChars);
+        parsers.put(double[].class, this::parsePrimitiveDoubles);
+        parsers.put(float[].class, this::parsePrimitiveFloats);
+        parsers.put(int[].class, this::parsePrimitiveInts);
+        parsers.put(long[].class, this::parsePrimitiveLongs);
+        parsers.put(short[].class, this::parsePrimitiveShorts);
+        parsers.put(String[].class, this::parseStrings);
 
-        parsers.put(Byte[].class, value -> parseWrapperBytes(value));
-        parsers.put(Boolean[].class, value -> parseWrapperBooleans(value));
-        parsers.put(Character[].class, value -> parseWrapperChars(value));
-        parsers.put(Double[].class, value -> parseWrapperDoubles(value));
-        parsers.put(Float[].class, value -> parseWrapperFloats(value));
-        parsers.put(Integer[].class, value -> parseWrapperInts(value));
-        parsers.put(Long[].class, value -> parseWrapperLongs(value));
-        parsers.put(Short[].class, value -> parseWrapperShorts(value));
+        parsers.put(Byte[].class, this::parseWrapperBytes);
+        parsers.put(Boolean[].class, this::parseWrapperBooleans);
+        parsers.put(Character[].class, this::parseWrapperChars);
+        parsers.put(Double[].class, this::parseWrapperDoubles);
+        parsers.put(Float[].class, this::parseWrapperFloats);
+        parsers.put(Integer[].class, this::parseWrapperInts);
+        parsers.put(Long[].class, this::parseWrapperLongs);
+        parsers.put(Short[].class, this::parseWrapperShorts);
 
-        parsers.put(Map.class, value -> parseMap(value));
-        parsers.put(AbstractMap.class, value -> parseMap(value));
-        parsers.put(HashMap.class, value -> parseMap(value));
-        parsers.put(EzyObject.class, value -> parseObject(value));
-        parsers.put(EzyHashMap.class, value -> parseObject(value));
-        parsers.put(EzyArray.class, value -> parseArray(value));
-        parsers.put(EzyArrayList.class, value -> parseArray(value));
-        parsers.put(Collection.class, value -> parseCollection(value));
-        parsers.put(AbstractCollection.class, value -> parseCollection(value));
-        parsers.put(Set.class, value -> parseCollection(value));
-        parsers.put(AbstractSet.class, value -> parseCollection(value));
-        parsers.put(List.class, value -> parseCollection(value));
-        parsers.put(AbstractList.class, value -> parseCollection(value));
-        parsers.put(HashSet.class, value -> parseCollection(value));
-        parsers.put(ArrayList.class, value -> parseCollection(value));
+        parsers.put(Map.class, this::parseMap);
+        parsers.put(AbstractMap.class, this::parseMap);
+        parsers.put(HashMap.class, this::parseMap);
+        parsers.put(EzyObject.class, this::parseObject);
+        parsers.put(EzyHashMap.class, this::parseObject);
+        parsers.put(EzyArray.class, this::parseArray);
+        parsers.put(EzyArrayList.class, this::parseArray);
+        parsers.put(Collection.class, this::parseCollection);
+        parsers.put(AbstractCollection.class, this::parseCollection);
+        parsers.put(Set.class, this::parseCollection);
+        parsers.put(AbstractSet.class, this::parseCollection);
+        parsers.put(List.class, this::parseCollection);
+        parsers.put(AbstractList.class, this::parseCollection);
+        parsers.put(HashSet.class, this::parseCollection);
+        parsers.put(ArrayList.class, this::parseCollection);
 
-        parsers.put(BigInteger.class, value -> parseValueToString(value));
-        parsers.put(BigDecimal.class, value -> parseValueToString(value));
-        parsers.put(UUID.class, value -> parseValueToString(value));
+        parsers.put(BigInteger.class, this::parseValueToString);
+        parsers.put(BigDecimal.class, this::parseValueToString);
+        parsers.put(UUID.class, this::parseValueToString);
     }
 
     //
     protected byte[] parsePrimitiveBooleans(Object array) {
-        return parseBooleans((boolean[])array);
+        return parseBooleans((boolean[]) array);
     }
 
     protected byte[] parsePrimitiveChars(Object array) {
-        return parseChars((char[])array);
+        return parseChars((char[]) array);
     }
 
     protected byte[] parsePrimitiveDoubles(Object array) {
-        return parseDoubles((double[])array);
+        return parseDoubles((double[]) array);
     }
 
     protected byte[] parsePrimitiveFloats(Object array) {
-        return parseFloats((float[])array);
+        return parseFloats((float[]) array);
     }
 
     protected byte[] parsePrimitiveInts(Object array) {
-        return parseInts((int[])array);
+        return parseInts((int[]) array);
     }
 
     protected byte[] parsePrimitiveLongs(Object array) {
-        return parseLongs((long[])array);
+        return parseLongs((long[]) array);
     }
 
     protected byte[] parsePrimitiveShorts(Object array) {
-        return parseShorts((short[])array);
+        return parseShorts((short[]) array);
     }
 
     protected byte[] parseStrings(Object array) {
-        return parseStrings((String[])array);
+        return parseStrings((String[]) array);
     }
     //
 
@@ -177,35 +158,35 @@ public class MsgPackSimpleSerializer
 
     //=============
     protected byte[] parseWrapperBooleans(Object array) {
-        return parseBooleans((Boolean[])array);
+        return parseBooleans((Boolean[]) array);
     }
 
     protected byte[] parseWrapperBytes(Object array) {
-        return parseBytes((Byte[])array);
+        return parseBytes((Byte[]) array);
     }
 
     protected byte[] parseWrapperChars(Object array) {
-        return parseChars((Character[])array);
+        return parseChars((Character[]) array);
     }
 
     protected byte[] parseWrapperDoubles(Object array) {
-        return parseDoubles((Double[])array);
+        return parseDoubles((Double[]) array);
     }
 
     protected byte[] parseWrapperFloats(Object array) {
-        return parseFloats((Float[])array);
+        return parseFloats((Float[]) array);
     }
 
     protected byte[] parseWrapperInts(Object array) {
-        return parseInts((Integer[])array);
+        return parseInts((Integer[]) array);
     }
 
     protected byte[] parseWrapperLongs(Object array) {
-        return parseLongs((Long[])array);
+        return parseLongs((Long[]) array);
     }
 
     protected byte[] parseWrapperShorts(Object array) {
-        return parseShorts((Short[])array);
+        return parseShorts((Short[]) array);
     }
     //
     //=============
@@ -245,7 +226,7 @@ public class MsgPackSimpleSerializer
     //
 
     protected byte[] parseBoolean(Object value) {
-        return parseBoolean((Boolean)value);
+        return parseBoolean((Boolean) value);
     }
 
     protected byte[] parseBoolean(Boolean value) {
@@ -253,15 +234,15 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseFalse() {
-        return new byte[] {cast(0xc2)};
+        return new byte[]{cast(0xc2)};
     }
 
     protected byte[] parseTrue() {
-        return new byte[] {cast(0xc3)};
+        return new byte[]{cast(0xc3)};
     }
 
     protected byte[] parseByte(Object value) {
-        return parseByte((Byte)value);
+        return parseByte((Byte) value);
     }
 
     protected byte[] parseByte(Byte value) {
@@ -269,15 +250,15 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseChar(Object value) {
-        return parseChar((Character)value);
+        return parseChar((Character) value);
     }
 
     protected byte[] parseChar(Character value) {
-        return parseByte((byte)value.charValue());
+        return parseByte((byte) value.charValue());
     }
 
     protected byte[] parseDouble(Object value) {
-        return parseDouble((Double)value);
+        return parseDouble((Double) value);
     }
 
     protected byte[] parseDouble(Double value) {
@@ -285,7 +266,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseFloat(Object value) {
-        return parseFloat((Float)value);
+        return parseFloat((Float) value);
     }
 
     protected byte[] parseFloat(Float value) {
@@ -293,11 +274,11 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseInt(Object value) {
-        return intSerializer.serialize(((Number)value).longValue());
+        return intSerializer.serialize(((Number) value).longValue());
     }
 
     protected byte[] parseShort(Object value) {
-        return parseShort((Short)value);
+        return parseShort((Short) value);
     }
 
     protected byte[] parseShort(Short value) {
@@ -305,33 +286,33 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseString(Object string) {
-        return parseString((String)string);
+        return parseString((String) string);
     }
 
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     protected byte[] parseMap(Object map) {
-        return parseMap((Map)map);
+        return parseMap((Map) map);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     protected byte[] parseMap(Map map) {
         return parseEntries(map.entrySet());
     }
 
     protected byte[] parseObject(Object obj) {
-        return parseEntries(((EzyObject)obj).entrySet());
+        return parseEntries(((EzyObject) obj).entrySet());
     }
 
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     protected byte[] parseCollection(Object coll) {
-        return parseCollection((Collection)coll);
+        return parseCollection((Collection) coll);
     }
 
     protected byte[] parseArray(Object array) {
-        return parseArray((EzyArray)array);
+        return parseArray((EzyArray) array);
     }
 
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({"rawtypes"})
     protected byte[] parseCollection(Collection coll) {
         return parseIterable(coll, coll.size());
     }
@@ -341,18 +322,18 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseNil() {
-        return new byte[] {cast(0xc0)};
+        return new byte[]{cast(0xc0)};
     }
 
     protected byte[] parseBin(Object bin) {
-        return parseBin((byte[])bin);
+        return parseBin((byte[]) bin);
     }
 
     protected byte[] parseBin(byte[] bin) {
-        byte[][] bytess = new byte[2][];
-        bytess[0] = parseBinSize(bin.length);
-        bytess[1] = bin;
-        return EzyBytes.merge(bytess);
+        byte[][] byteArrays = new byte[2][];
+        byteArrays[0] = parseBinSize(bin.length);
+        byteArrays[1] = bin;
+        return EzyBytes.merge(byteArrays);
     }
 
     protected byte[] parseBinSize(int size) {
@@ -360,10 +341,10 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseString(String string) {
-        byte[][] bytess = new byte[2][];
-        bytess[1] = EzyStrings.getUtfBytes(string);
-        bytess[0] = parseStringSize(bytess[1].length);
-        return EzyBytes.merge(bytess);
+        byte[][] byteArrays = new byte[2][];
+        byteArrays[1] = EzyStrings.getUtfBytes(string);
+        byteArrays[0] = parseStringSize(byteArrays[1].length);
+        return EzyBytes.merge(byteArrays);
     }
 
     protected byte[] parseStringSize(int size) {
@@ -378,11 +359,12 @@ public class MsgPackSimpleSerializer
     @SuppressWarnings("rawtypes")
     protected byte[] parseArray(Iterator iterator, int size) {
         int index = 1;
-        byte[][] bytess = new byte[size + 1][];
-        bytess[0] = parseArraySize(size);
-        while(iterator.hasNext())
-            bytess[index ++] = serialize(iterator.next());
-        return EzyBytes.merge(bytess);
+        byte[][] byteArrays = new byte[size + 1][];
+        byteArrays[0] = parseArraySize(size);
+        while (iterator.hasNext()) {
+            byteArrays[index++] = serialize(iterator.next());
+        }
+        return EzyBytes.merge(byteArrays);
     }
 
     protected byte[] parseArraySize(int size) {
@@ -392,13 +374,13 @@ public class MsgPackSimpleSerializer
     protected byte[] parseEntries(Set<Entry<Object, Object>> entries) {
         int index = 1;
         int size = entries.size();
-        byte[][] bytess = new byte[size * 2 + 1][];
-        bytess[0] = parseMapSize(size);
-        for(Entry<Object, Object> e : entries) {
-            bytess[index++] = serialize(e.getKey());
-            bytess[index++] = serialize(e.getValue());
+        byte[][] byteArrays = new byte[size * 2 + 1][];
+        byteArrays[0] = parseMapSize(size);
+        for (Entry<Object, Object> e : entries) {
+            byteArrays[index++] = serialize(e.getKey());
+            byteArrays[index++] = serialize(e.getValue());
         }
-        return EzyBytes.merge(bytess);
+        return EzyBytes.merge(byteArrays);
     }
 
     protected byte[] parseMapSize(int size) {

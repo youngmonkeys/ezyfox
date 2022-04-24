@@ -9,14 +9,12 @@ public class MsgPackObjectToMessage implements EzyObjectToMessage {
     }
 
     protected EzyMessageSerializer newSerializer() {
-        EzyMessageSerializer serializer = new MsgPackSimpleSerializer();
-        return serializer;
+        return new MsgPackSimpleSerializer();
     }
 
     @Override
     public EzyMessage convert(Object object) {
-        EzyMessage message = packToMessage(convertToMessageContent(object), false);
-        return message;
+        return packToMessage(convertToMessageContent(object), false);
     }
 
     @Override
@@ -26,17 +24,25 @@ public class MsgPackObjectToMessage implements EzyObjectToMessage {
 
     @Override
     public EzyMessage packToMessage(byte[] content, boolean encrypted) {
-        EzyMessage message = new EzySimpleMessage(newHeader(content, encrypted), content, content.length);
-        return message;
+        return new EzySimpleMessage(
+            newHeader(content, encrypted),
+            content,
+            content.length
+        );
     }
 
     private EzyMessageHeader newHeader(byte[] content, boolean encrypted) {
-        EzyMessageHeader header = new EzySimpleMessageHeader(isBigMessage(content), encrypted, false, false, false, false);
-        return header;
+        return new EzySimpleMessageHeader(
+            isBigMessage(content),
+            encrypted,
+            false,
+            false,
+            false,
+            false
+        );
     }
 
     private boolean isBigMessage(byte[] content) {
-        boolean answer = content.length > MsgPackConstant.MAX_SMALL_MESSAGE_SIZE;
-        return answer;
+        return content.length > MsgPackConstant.MAX_SMALL_MESSAGE_SIZE;
     }
 }

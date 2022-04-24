@@ -1,58 +1,57 @@
 package com.tvd12.ezyfox.codec.testing.performance;
 
-import static org.testng.Assert.assertEquals;
-
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.builder.EzyArrayBuilder;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.codec.EzyMessageSerializer;
 import com.tvd12.ezyfox.codec.MsgPackBytesSerializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
 import com.tvd12.ezyfox.codec.MsgPackToByteBufferSerializer;
+import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class SerializeArrayTest extends BaseTest {
 
-    private EzyArray array;
+    private final EzyArray array;
 
     public SerializeArrayTest() {
         EzyEntityFactory.create(EzyArrayBuilder.class);
         EzyArrayBuilder builder = EzyEntityFactory.create(EzyArrayBuilder.class);
-        builder.append((Object)null);
+        builder.append((Object) null);
         builder.append("");
         builder.append(1);
         builder.append(EzyEntityFactory.create(EzyObjectBuilder.class)
-                .append("hello", "world")
-                .append("foo", "bar"));
+            .append("hello", "world")
+            .append("foo", "bar"));
         builder.append("i love you");
         builder.append(EzyEntityFactory.create(EzyObjectBuilder.class)
-                .append("hello", "world")
-                .append("foo", "bar"));
+            .append("hello", "world")
+            .append("foo", "bar"));
         builder.append("i love you");
         builder.append(EzyEntityFactory.create(EzyObjectBuilder.class)
-                .append("hello", "world")
-                .append("foo", "bar"));
+            .append("hello", "world")
+            .append("foo", "bar"));
         builder.append("i love you");
         builder.append(EzyEntityFactory.create(EzyObjectBuilder.class)
-                .append("hello", "world")
-                .append("foo", "bar"));
+            .append("hello", "world")
+            .append("foo", "bar"));
         builder.append("i love you");
         builder.append(EzyEntityFactory.create(EzyObjectBuilder.class)
-                .append("hello", "world")
-                .append("foo", "bar"));
+            .append("hello", "world")
+            .append("foo", "bar"));
         builder.append("i love you");
         builder.append(EzyEntityFactory.create(EzyObjectBuilder.class)
-                .append("hello", "world")
-                .append("foo", "bar"));
+            .append("hello", "world")
+            .append("foo", "bar"));
         builder.append("i love you");
         builder.append(EzyEntityFactory.create(EzyObjectBuilder.class)
-                .append("hello", "world")
-                .append("foo", "bar"));
+            .append("hello", "world")
+            .append("foo", "bar"));
         builder.append("i love you");
         builder.append(Lists.newArrayList(1, 2, 3, 4, 5));
         this.array = builder.build();
@@ -71,11 +70,11 @@ public class SerializeArrayTest extends BaseTest {
     public void test1() {
         EzyMessageSerializer serializer = new MsgPackBytesSerializer();
         long time = Performance.create()
-        .loop(1000000)
-        .test(()-> {
-            serializer.serialize(array);
-        })
-        .getTime();
+            .loop(1000000)
+            .test(() -> {
+                serializer.serialize(array);
+            })
+            .getTime();
         System.out.println("SerializeArrayTest:test1 elapsed time = " + time);
     }
 
@@ -83,11 +82,11 @@ public class SerializeArrayTest extends BaseTest {
     public void test2() {
         EzyMessageSerializer serializer = new MsgPackToByteBufferSerializer();
         long time = Performance.create()
-        .loop(1000000)
-        .test(()-> {
-            serializer.write(array);
-        })
-        .getTime();
+            .loop(1000000)
+            .test(() -> {
+                serializer.write(array);
+            })
+            .getTime();
         System.out.println("SerializeArrayTest:test2 elapsed time = " + time);
     }
 }

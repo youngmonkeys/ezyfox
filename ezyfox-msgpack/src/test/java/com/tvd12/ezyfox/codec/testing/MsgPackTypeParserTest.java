@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.MsgPackType;
 import com.tvd12.ezyfox.codec.MsgPackTypeParser;
+import org.testng.annotations.Test;
 
 public class MsgPackTypeParserTest {
 
-    private MsgPackTypeParser parser = new MsgPackTypeParser();
+    private final MsgPackTypeParser parser = new MsgPackTypeParser();
 
     @Test
     public void test0() {
@@ -17,7 +16,7 @@ public class MsgPackTypeParserTest {
     @Test
     public void test1() {
         assert parser.parse(0x00) == MsgPackType.POSITIVE_FIXINT;
-        assert parser.parse(0x00 + 1) == MsgPackType.POSITIVE_FIXINT;
+        assert parser.parse(1) == MsgPackType.POSITIVE_FIXINT;
         assert parser.parse(0x7f) == MsgPackType.POSITIVE_FIXINT;
         assert parser.parse(0x7f - 1) == MsgPackType.POSITIVE_FIXINT;
     }

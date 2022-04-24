@@ -25,7 +25,7 @@ public class EzyBytesCopyTest {
     @SuppressWarnings("ALL")
     @Test
     public void test2() {
-        byte[][] bytess = new byte[][]{
+        byte[][] byteArrays = new byte[][]{
             {1, 2}, {3, 4}, {3, 4}, {3, 4}, {3, 4}, {3, 4}, {3, 4},
             {1, 2}, {3, 4}, {3, 4}, {3, 4}, {3, 4}, {3, 4}, {3, 4},
             {1, 2}, {3, 4}, {3, 4}, {3, 4}, {3, 4}, {3, 4}, {3, 4},
@@ -36,8 +36,8 @@ public class EzyBytesCopyTest {
             .loop(1000000)
             .test(() -> {
                 int passed = 0;
-                byte[] bytes = new byte[EzyBytes.totalBytes(bytess)];
-                for (byte[] value : bytess) {
+                byte[] bytes = new byte[EzyBytes.totalBytes(byteArrays)];
+                for (byte[] value : byteArrays) {
                     System.arraycopy(value, 0, bytes, passed, value.length);
                     passed += value.length;
                 }

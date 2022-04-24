@@ -1,11 +1,9 @@
 package com.tvd12.ezyfox.codec;
 
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_FIXSTR_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_STR16_SIZE;
-import static com.tvd12.ezyfox.codec.MsgPackConstant.MAX_STR8_SIZE;
-
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyCastToByte;
+
+import static com.tvd12.ezyfox.codec.MsgPackConstant.*;
 
 public class MsgPackStringSizeSerializer implements EzyCastToByte {
 
@@ -18,17 +16,20 @@ public class MsgPackStringSizeSerializer implements EzyCastToByte {
     }
 
     public byte[] serialize(int size) {
-        if(size <= MAX_FIXSTR_SIZE)
+        if (size <= MAX_FIXSTR_SIZE) {
             return parseFix(size);
-        if(size <= MAX_STR8_SIZE)
+        }
+        if (size <= MAX_STR8_SIZE) {
             return parse8(size);
-        if(size <= MAX_STR16_SIZE)
+        }
+        if (size <= MAX_STR16_SIZE) {
             return parse16(size);
+        }
         return parse32(size);
     }
 
     private byte[] parseFix(int size) {
-        return new byte[] {
+        return new byte[]{
             cast(0xa0 | size)
         };
     }
