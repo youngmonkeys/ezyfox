@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.tvd12</groupId>
         <artifactId>ezyfox-versions</artifactId>
-        <version>1.2.2</version>
+        <version>1.2.3</version>
     </parent>
     <artifactId>ezyfox-security</artifactId>
     <name>ezyfox-security</name>
