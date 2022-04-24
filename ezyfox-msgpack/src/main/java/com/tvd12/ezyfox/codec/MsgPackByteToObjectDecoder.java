@@ -9,7 +9,9 @@ public class MsgPackByteToObjectDecoder implements EzyByteToObjectDecoder {
     protected final EzyMessageDeserializer deserializer;
 
     public MsgPackByteToObjectDecoder(
-        EzyMessageDeserializer deserializer, int maxSize) {
+        EzyMessageDeserializer deserializer,
+        int maxSize
+    ) {
         this.deserializer = deserializer;
         this.handlers = EzyDefaultDecodeHandlers.builder()
             .maxSize(maxSize)
@@ -30,14 +32,14 @@ public class MsgPackByteToObjectDecoder implements EzyByteToObjectDecoder {
         return deserializer.deserialize(encryptedContent);
     }
 
-    protected byte[] decryptMessageContent(
-        byte[] content, byte[] decryptionKey) throws Exception {
-        return content;
-    }
-
     @Override
     public void decode(ByteBuffer bytes, Queue<EzyMessage> out) {
         handlers.handle(bytes, out);
+    }
+
+    protected byte[] decryptMessageContent(
+        byte[] content, byte[] decryptionKey) throws Exception {
+        return content;
     }
 
     @Override
