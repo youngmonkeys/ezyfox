@@ -26,6 +26,19 @@ public interface EzyRoArray extends EzyData {
     <T> T get(int index, Class<T> type);
 
     /**
+     * Get and cast value by index.
+     *
+     * @param <T>   the value type
+     * @param index the index
+     * @param type  the value type
+     * @param def   the default value
+     * @return the value
+     */
+    default <T> T get(int index, Class<T> type, T def) {
+        return size() > index ? get(index, type) : def;
+    }
+
+    /**
      * Get value by index but not cast.
      *
      * @param index the index
@@ -34,6 +47,19 @@ public interface EzyRoArray extends EzyData {
      */
     @SuppressWarnings("rawtypes")
     Object getValue(int index, Class type);
+
+    /**
+     * Get value by index but not cast.
+     *
+     * @param index the index
+     * @param type  the value type
+     * @param def   the default value
+     * @return the object value
+     */
+    @SuppressWarnings("rawtypes")
+    default Object getValue(int index, Class type, Object def) {
+        return size() > index ? getValue(index, type) : def;
+    }
 
     /**
      * Check if value in the index is not null.
@@ -162,31 +188,5 @@ public interface EzyRoArray extends EzyData {
      */
     default <T> T getWithDefault(int index, T def) {
         return size() > index ? get(index) : def;
-    }
-
-    /**
-     * Get and cast value by index.
-     *
-     * @param <T>   the value type
-     * @param index the index
-     * @param type  the value type
-     * @param def   the default value
-     * @return the value
-     */
-    default <T> T get(int index, Class<T> type, T def) {
-        return size() > index ? get(index, type) : def;
-    }
-
-    /**
-     * Get value by index but not cast.
-     *
-     * @param index the index
-     * @param type  the value type
-     * @param def   the default value
-     * @return the object value
-     */
-    @SuppressWarnings("rawtypes")
-    default Object getValue(int index, Class type, Object def) {
-        return size() > index ? getValue(index, type) : def;
     }
 }
