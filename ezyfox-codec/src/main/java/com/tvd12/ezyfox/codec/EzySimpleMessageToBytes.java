@@ -4,7 +4,6 @@ import java.nio.ByteBuffer;
 
 public class EzySimpleMessageToBytes implements EzyMessageToBytes {
 
-    @SuppressWarnings("unchecked")
     @Override
     public byte[] convert(EzyMessage message) {
         ByteBuffer buffer = newByteBuffer(message);
@@ -23,7 +22,7 @@ public class EzySimpleMessageToBytes implements EzyMessageToBytes {
 
     private void writeHeader(ByteBuffer buffer, EzyMessageHeader header) {
         byte headerByte = 0;
-        headerByte |= header.isBigSize() ? 1 << 0 : 0;
+        headerByte |= header.isBigSize() ? 1 : 0;
         headerByte |= header.isEncrypted() ? 1 << 1 : 0;
         headerByte |= header.isCompressed() ? 1 << 2 : 0;
         headerByte |= header.isText() ? 1 << 3 : 0;
@@ -31,10 +30,11 @@ public class EzySimpleMessageToBytes implements EzyMessageToBytes {
     }
 
     private void writeSize(ByteBuffer buffer, EzyMessage message) {
-        if(message.hasBigSize())
+        if (message.hasBigSize()) {
             buffer.putInt(message.getSize());
-        else
-            buffer.putShort((short)message.getSize());
+        } else {
+            buffer.putShort((short) message.getSize());
+        }
     }
 
     private void writeContent(ByteBuffer buffer, EzyMessage message) {
@@ -46,8 +46,7 @@ public class EzySimpleMessageToBytes implements EzyMessageToBytes {
         return ByteBuffer.allocate(capacity);
     }
 
-    private int getCapacity(EzyMessage message){
+    private int getCapacity(EzyMessage message) {
         return message.getByteCount();
     }
-
 }

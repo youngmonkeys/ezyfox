@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.codec;
 
-import java.nio.ByteBuffer;
-
 import com.tvd12.ezyfox.io.EzyStrings;
+
+import java.nio.ByteBuffer;
 
 public interface EzyObjectDeserializer {
 

@@ -1,22 +1,22 @@
-package com.tvd12.ezyfox.codec; 
- 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+package com.tvd12.ezyfox.codec;
 
 import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.function.EzyParser;
-import com.tvd12.ezyfox.io.EzyMaps; 
- 
-public abstract class EzyAbstractSerializer<T> implements EzyMessageSerializer { 
- 
+import com.tvd12.ezyfox.io.EzyMaps;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public abstract class EzyAbstractSerializer<T> implements EzyMessageSerializer {
+
     protected Map<Class<?>, EzyParser<Object, T>> parsers = defaultParsers();
 
     protected T parseNotNull(Object value) {
         EzyParser<Object, T> parser = getParser(value.getClass());
-        if(parser != null)
+        if (parser != null) {
             return parseWithParser(parser, value);
+        }
         return parseWithNoParser(value);
-
     }
 
     protected T parseWithParser(EzyParser<Object, T> parser, Object value) {
@@ -40,5 +40,4 @@ public abstract class EzyAbstractSerializer<T> implements EzyMessageSerializer {
     }
 
     protected abstract void addParsers(Map<Class<?>, EzyParser<Object, T>> parsers);
-
-} 
+}

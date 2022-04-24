@@ -1,11 +1,11 @@
 package com.tvd12.ezyfox.codec;
 
 public final class EzyMessageHeaderReader {
-    
+
     private EzyMessageHeaderReader() {}
 
     public static boolean readBigSize(byte header) {
-        return (header & 1 << 0) != 0;
+        return (header & 1) != 0;
     }
 
     public static boolean readEncrypted(byte header) {
@@ -34,12 +34,12 @@ public final class EzyMessageHeaderReader {
 
     public static EzyMessageHeader read(byte header) {
         return new EzySimpleMessageHeader(
-                readBigSize(header),
-                readEncrypted(header),
-                readCompressed(header),
-                readText(header),
-                readRawBytes(header),
-                readUdpHandshake(header));
+            readBigSize(header),
+            readEncrypted(header),
+            readCompressed(header),
+            readText(header),
+            readRawBytes(header),
+            readUdpHandshake(header));
     }
 
 }

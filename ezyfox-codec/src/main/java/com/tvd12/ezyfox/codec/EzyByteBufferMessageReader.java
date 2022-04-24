@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.codec;
 
-import java.nio.ByteBuffer;
-
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyInts;
+
+import java.nio.ByteBuffer;
 
 public class EzyByteBufferMessageReader extends EzyMessageReader<ByteBuffer> {
 
@@ -18,7 +18,7 @@ public class EzyByteBufferMessageReader extends EzyMessageReader<ByteBuffer> {
     }
 
     @Override
-    protected int readMessgeSize(ByteBuffer buffer) {
+    protected int readMessageSize(ByteBuffer buffer) {
         sizeBytes = EzyBytes.copy(buffer, getSizeLength());
         return EzyInts.bin2uint(sizeBytes);
     }

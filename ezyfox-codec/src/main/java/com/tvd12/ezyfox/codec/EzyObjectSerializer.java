@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 public interface EzyObjectSerializer {
 
     /**
-     * serialize a value to byte array
+     * serialize a value to byte array.
      *
      * @param value the value
      * @return the byte array
@@ -13,7 +13,7 @@ public interface EzyObjectSerializer {
     byte[] serialize(Object value);
 
     /**
-     * serialize a value to byte buffer
+     * serialize a value to byte buffer.
      *
      * @param value the value
      * @return the byte buffer

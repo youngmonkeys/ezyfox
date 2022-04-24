@@ -1,13 +1,12 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.EzyMessage;
 import com.tvd12.ezyfox.codec.EzyMessageHeader;
 import com.tvd12.ezyfox.codec.EzySimpleMessageToBytes;
+import org.testng.annotations.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class EzySimpleMessageToBytesTest {
 

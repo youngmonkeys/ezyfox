@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.codec;
 
+import com.tvd12.ezyfox.util.EzyResettable;
+
 import java.nio.ByteBuffer;
 import java.util.Queue;
-
-import com.tvd12.ezyfox.util.EzyResettable;
 
 public interface EzyByteToObjectDecoder extends EzyResettable {
 

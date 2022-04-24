@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.testing.codec;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.codec.EzyMessageDataEncoder;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzyMessageDataEncoderTest {
 
@@ -19,9 +18,8 @@ public class EzyMessageDataEncoderTest {
     private static class A implements EzyMessageDataEncoder {
 
         @Override
-        public byte[] encode(Object msg) throws Exception {
+        public byte[] encode(Object msg) {
             return null;
         }
-
     }
 }

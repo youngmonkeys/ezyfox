@@ -1,12 +1,12 @@
 package com.tvd12.ezyfox.codec;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.util.EzyResettable;
+
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
-
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.util.EzyResettable;
 
 public abstract class EzyDecodeHandlers implements EzyResettable {
 
@@ -20,7 +20,7 @@ public abstract class EzyDecodeHandlers implements EzyResettable {
 
     public void handle(ByteBuffer in, Queue<EzyMessage> out) {
         EzyDecodeHandler handler = handlers.get(state);
-        while(handler != null && handler.handle(in, out)) {
+        while (handler != null && handler.handle(in, out)) {
             state = handler.nextState();
             handler = handler.nextHandler();
         }
