@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.codec;
 
 public class MsgPackTypeParser {
 
+    @SuppressWarnings("MethodLength")
     public MsgPackType parse(int type) {
         if (0x00 <= type && type <= 0x7f) {
             return MsgPackType.POSITIVE_FIXINT;

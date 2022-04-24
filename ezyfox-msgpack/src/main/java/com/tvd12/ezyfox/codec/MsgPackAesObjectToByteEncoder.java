@@ -8,13 +8,16 @@ public class MsgPackAesObjectToByteEncoder extends MsgPackObjectToByteEncoder {
 
     public MsgPackAesObjectToByteEncoder(
         EzyMessageToBytes messageToBytes,
-        EzyObjectToMessage objectToMessage) {
+        EzyObjectToMessage objectToMessage
+    ) {
         super(messageToBytes, objectToMessage);
     }
 
     @Override
     protected byte[] doEncrypt(
-        byte[] messageContent, byte[] encryptionKey) throws Exception {
+        byte[] messageContent,
+        byte[] encryptionKey
+    ) throws Exception {
         return cryptor.encrypt(messageContent, encryptionKey);
     }
 }

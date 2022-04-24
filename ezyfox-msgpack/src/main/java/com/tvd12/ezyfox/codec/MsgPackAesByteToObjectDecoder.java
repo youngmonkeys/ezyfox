@@ -7,13 +7,17 @@ public class MsgPackAesByteToObjectDecoder extends MsgPackByteToObjectDecoder {
     private final EzyAesCrypt cryptor = EzyAesCrypt.getDefault();
 
     public MsgPackAesByteToObjectDecoder(
-        EzyMessageDeserializer deserializer, int maxSize) {
+        EzyMessageDeserializer deserializer,
+        int maxSize
+    ) {
         super(deserializer, maxSize);
     }
 
     @Override
     protected byte[] decryptMessageContent(
-        byte[] content, byte[] decryptionKey) throws Exception {
+        byte[] content,
+        byte[] decryptionKey
+    ) throws Exception {
         if (decryptionKey == null) {
             return content;
         }

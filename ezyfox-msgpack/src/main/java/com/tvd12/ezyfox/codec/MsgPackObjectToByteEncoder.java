@@ -7,7 +7,8 @@ public class MsgPackObjectToByteEncoder implements EzyObjectToByteEncoder {
 
     public MsgPackObjectToByteEncoder(
         EzyMessageToBytes messageToBytes,
-        EzyObjectToMessage objectToMessage) {
+        EzyObjectToMessage objectToMessage
+    ) {
         this.messageToBytes = messageToBytes;
         this.objectToMessage = objectToMessage;
     }
@@ -24,7 +25,9 @@ public class MsgPackObjectToByteEncoder implements EzyObjectToByteEncoder {
 
     @Override
     public byte[] encryptMessageContent(
-        byte[] messageContent, byte[] encryptionKey) throws Exception {
+        byte[] messageContent,
+        byte[] encryptionKey
+    ) throws Exception {
         EzyMessage message;
         if (encryptionKey != null) {
             message = objectToMessage.packToMessage(
@@ -37,7 +40,9 @@ public class MsgPackObjectToByteEncoder implements EzyObjectToByteEncoder {
     }
 
     protected byte[] doEncrypt(
-        byte[] messageContent, byte[] encryptionKey) throws Exception {
+        byte[] messageContent,
+        byte[] encryptionKey
+    ) throws Exception {
         return messageContent;
     }
 

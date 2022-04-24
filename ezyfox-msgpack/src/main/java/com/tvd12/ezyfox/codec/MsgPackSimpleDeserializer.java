@@ -14,6 +14,7 @@ import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@SuppressWarnings("AbbreviationAsWordInName")
 public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected final MsgPackTypeParser typeParser;
@@ -267,45 +268,44 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
         }
         throw new EzyCodecException("has no type with type = " + String.format("0x%x", type));
     }
-}
 
-abstract class AbstractSizeDeserializer {
+    public abstract static class AbstractSizeDeserializer {
 
-    public int deserialize(ByteBuffer buffer, int nbytes) {
-        return nbytes == 1
-            ? getFix(buffer)
-            : getOther(buffer, nbytes);
+        public int deserialize(ByteBuffer buffer, int nbytes) {
+            return nbytes == 1
+                ? getFix(buffer)
+                : getOther(buffer, nbytes);
+        }
+
+        protected abstract int getFix(ByteBuffer buffer);
+
+        protected int getOther(ByteBuffer buffer, int nbytes) {
+            buffer.get();
+            return EzyInts.bin2uint(buffer, nbytes - 1);
+        }
     }
 
-    protected abstract int getFix(ByteBuffer buffer);
+    public static class StringSizeDeserializer extends AbstractSizeDeserializer {
 
-    protected int getOther(ByteBuffer buffer, int nbytes) {
-        buffer.get();
-        return EzyInts.bin2uint(buffer, nbytes - 1);
-    }
-}
-
-class StringSizeDeserializer extends AbstractSizeDeserializer {
-
-    @Override
-    protected int getFix(ByteBuffer buffer) {
-        return buffer.get() & 0x1F;
-    }
-}
-
-class MapSizeDeserializer extends AbstractSizeDeserializer {
-
-    @Override
-    protected int getFix(ByteBuffer buffer) {
-        return buffer.get() & 0xF;
-    }
-}
-
-class ArraySizeDeserializer extends AbstractSizeDeserializer {
-
-    @Override
-    protected int getFix(ByteBuffer buffer) {
-        return buffer.get() & 0xF;
+        @Override
+        protected int getFix(ByteBuffer buffer) {
+            return buffer.get() & 0x1F;
+        }
     }
 
+    public static class MapSizeDeserializer extends AbstractSizeDeserializer {
+
+        @Override
+        protected int getFix(ByteBuffer buffer) {
+            return buffer.get() & 0xF;
+        }
+    }
+
+    public static class ArraySizeDeserializer extends AbstractSizeDeserializer {
+
+        @Override
+        protected int getFix(ByteBuffer buffer) {
+            return buffer.get() & 0xF;
+        }
+    }
 }

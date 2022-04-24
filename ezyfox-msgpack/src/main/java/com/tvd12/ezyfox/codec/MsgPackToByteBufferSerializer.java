@@ -17,6 +17,7 @@ import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.Map.Entry;
 
+@SuppressWarnings({"MethodCount", "OverloadMethodsDeclarationOrder"})
 public class MsgPackToByteBufferSerializer
     extends EzyAbstractToByteBufferSerializer
     implements EzyCastToByte {
@@ -91,140 +92,135 @@ public class MsgPackToByteBufferSerializer
         parsers.put(UUID.class, this::parseValueToString);
     }
 
-    //
+    // ================= primitive array ==================
     protected ByteBuffer parsePrimitiveBooleans(Object array) {
         return parseBooleans((boolean[]) array);
+    }
+
+    protected ByteBuffer parseBooleans(boolean[] array) {
+        return parseArray(EzyBoolsIterator.wrap(array), array.length);
     }
 
     protected ByteBuffer parsePrimitiveChars(Object array) {
         return parseChars((char[]) array);
     }
 
-    protected ByteBuffer parsePrimitiveDoubles(Object array) {
-        return parseDoubles((double[]) array);
-    }
-
-    protected ByteBuffer parsePrimitiveFloats(Object array) {
-        return parseFloats((float[]) array);
-    }
-
-    protected ByteBuffer parsePrimitiveInts(Object array) {
-        return parseInts((int[]) array);
-    }
-
-    protected ByteBuffer parsePrimitiveLongs(Object array) {
-        return parseLongs((long[]) array);
-    }
-
-    protected ByteBuffer parsePrimitiveShorts(Object array) {
-        return parseShorts((short[]) array);
-    }
-
-    protected ByteBuffer parseStrings(Object array) {
-        return parseStrings((String[]) array);
-    }
-    //
-
-    protected ByteBuffer parseBooleans(boolean[] array) {
-        return parseArray(EzyBoolsIterator.wrap(array), array.length);
-    }
-
     protected ByteBuffer parseChars(char[] array) {
         return parseBin(EzyDataConverter.charArrayToByteArray(array));
+    }
+
+    protected ByteBuffer parsePrimitiveDoubles(Object array) {
+        return parseDoubles((double[]) array);
     }
 
     protected ByteBuffer parseDoubles(double[] array) {
         return parseArray(EzyDoublesIterator.wrap(array), array.length);
     }
 
+    protected ByteBuffer parsePrimitiveFloats(Object array) {
+        return parseFloats((float[]) array);
+    }
+
     protected ByteBuffer parseFloats(float[] array) {
         return parseArray(EzyFloatsIterator.wrap(array), array.length);
+    }
+
+    protected ByteBuffer parsePrimitiveInts(Object array) {
+        return parseInts((int[]) array);
     }
 
     protected ByteBuffer parseInts(int[] array) {
         return parseArray(EzyIntsIterator.wrap(array), array.length);
     }
 
+    protected ByteBuffer parsePrimitiveLongs(Object array) {
+        return parseLongs((long[]) array);
+    }
+
     protected ByteBuffer parseLongs(long[] array) {
         return parseArray(EzyLongsIterator.wrap(array), array.length);
+    }
+
+    protected ByteBuffer parsePrimitiveShorts(Object array) {
+        return parseShorts((short[]) array);
     }
 
     protected ByteBuffer parseShorts(short[] array) {
         return parseArray(EzyShortsIterator.wrap(array), array.length);
     }
 
+    protected ByteBuffer parseStrings(Object array) {
+        return parseStrings((String[]) array);
+    }
+
     protected ByteBuffer parseStrings(String[] array) {
         return parseArray(EzyStringsIterator.wrap(array), array.length);
     }
 
-    //=============
+    //===================== wrapper array ====================
     protected ByteBuffer parseWrapperBooleans(Object array) {
         return parseBooleans((Boolean[]) array);
+    }
+
+    protected ByteBuffer parseBooleans(Boolean[] array) {
+        return parseArray(EzyWrapperIterator.wrap(array), array.length);
     }
 
     protected ByteBuffer parseWrapperBytes(Object array) {
         return parseBytes((Byte[]) array);
     }
 
-    protected ByteBuffer parseWrapperChars(Object array) {
-        return parseChars((Character[]) array);
-    }
-
-    protected ByteBuffer parseWrapperDoubles(Object array) {
-        return parseDoubles((Double[]) array);
-    }
-
-    protected ByteBuffer parseWrapperFloats(Object array) {
-        return parseFloats((Float[]) array);
-    }
-
-    protected ByteBuffer parseWrapperInts(Object array) {
-        return parseInts((Integer[]) array);
-    }
-
-    protected ByteBuffer parseWrapperLongs(Object array) {
-        return parseLongs((Long[]) array);
-    }
-
-    protected ByteBuffer parseWrapperShorts(Object array) {
-        return parseShorts((Short[]) array);
-    }
-    //
-    //=============
-
-    //
-    protected ByteBuffer parseBooleans(Boolean[] array) {
-        return parseArray(EzyWrapperIterator.wrap(array), array.length);
-    }
-
     protected ByteBuffer parseBytes(Byte[] array) {
         return parseBin(EzyDataConverter.toPrimitiveByteArray(array));
+    }
+
+    protected ByteBuffer parseWrapperChars(Object array) {
+        return parseChars((Character[]) array);
     }
 
     protected ByteBuffer parseChars(Character[] array) {
         return parseBin(EzyDataConverter.charWrapperArrayToPrimitiveByteArray(array));
     }
 
+    protected ByteBuffer parseWrapperDoubles(Object array) {
+        return parseDoubles((Double[]) array);
+    }
+
     protected ByteBuffer parseDoubles(Double[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
+    }
+
+    protected ByteBuffer parseWrapperFloats(Object array) {
+        return parseFloats((Float[]) array);
     }
 
     protected ByteBuffer parseFloats(Float[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
     }
 
+    protected ByteBuffer parseWrapperInts(Object array) {
+        return parseInts((Integer[]) array);
+    }
+
     protected ByteBuffer parseInts(Integer[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
+    }
+
+    protected ByteBuffer parseWrapperLongs(Object array) {
+        return parseLongs((Long[]) array);
     }
 
     protected ByteBuffer parseLongs(Long[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
     }
 
+    protected ByteBuffer parseWrapperShorts(Object array) {
+        return parseShorts((Short[]) array);
+    }
+
     protected ByteBuffer parseShorts(Short[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
     }
-    //
 
     protected ByteBuffer parseBoolean(Object value) {
         return parseBoolean((Boolean) value);
@@ -290,6 +286,13 @@ public class MsgPackToByteBufferSerializer
         return parseString((String) string);
     }
 
+    protected ByteBuffer parseString(String string) {
+        ByteBuffer[] buffers = new ByteBuffer[2];
+        buffers[1] = ByteBuffer.wrap(EzyStrings.getUtfBytes(string));
+        buffers[0] = ByteBuffer.wrap(parseStringSize(buffers[1].remaining()));
+        return EzyByteBuffers.merge(buffers);
+    }
+
     @SuppressWarnings({"rawtypes"})
     protected ByteBuffer parseMap(Object map) {
         return parseMap((Map) map);
@@ -304,22 +307,33 @@ public class MsgPackToByteBufferSerializer
         return parseEntries(((EzyObject) obj).entrySet());
     }
 
+    protected ByteBuffer parseArray(Object array) {
+        return parseArray((EzyArray) array);
+    }
+
+    protected ByteBuffer parseArray(EzyArray array) {
+        return parseArray(array.iterator(), array.size());
+    }
+
+    @SuppressWarnings("rawtypes")
+    protected ByteBuffer parseArray(Iterator iterator, int size) {
+        int index = 1;
+        ByteBuffer[] buffers = new ByteBuffer[size + 1];
+        buffers[0] = ByteBuffer.wrap(parseArraySize(size));
+        while (iterator.hasNext()) {
+            buffers[index++] = write(iterator.next());
+        }
+        return EzyByteBuffers.merge(buffers);
+    }
+
     @SuppressWarnings({"rawtypes"})
     protected ByteBuffer parseCollection(Object coll) {
         return parseCollection((Collection) coll);
     }
 
-    protected ByteBuffer parseArray(Object array) {
-        return parseArray((EzyArray) array);
-    }
-
     @SuppressWarnings({"rawtypes"})
     protected ByteBuffer parseCollection(Collection coll) {
         return parseIterable(coll, coll.size());
-    }
-
-    protected ByteBuffer parseArray(EzyArray array) {
-        return parseArray(array.iterator(), array.size());
     }
 
     protected ByteBuffer parseNil() {
@@ -341,13 +355,6 @@ public class MsgPackToByteBufferSerializer
         return binSizeSerializer.serialize(size);
     }
 
-    protected ByteBuffer parseString(String string) {
-        ByteBuffer[] buffers = new ByteBuffer[2];
-        buffers[1] = ByteBuffer.wrap(EzyStrings.getUtfBytes(string));
-        buffers[0] = ByteBuffer.wrap(parseStringSize(buffers[1].remaining()));
-        return EzyByteBuffers.merge(buffers);
-    }
-
     protected byte[] parseStringSize(int size) {
         return stringSizeSerializer.serialize(size);
     }
@@ -355,17 +362,6 @@ public class MsgPackToByteBufferSerializer
     @SuppressWarnings("rawtypes")
     protected ByteBuffer parseIterable(Iterable iterable, int size) {
         return parseArray(iterable.iterator(), size);
-    }
-
-    @SuppressWarnings("rawtypes")
-    protected ByteBuffer parseArray(Iterator iterator, int size) {
-        int index = 1;
-        ByteBuffer[] buffers = new ByteBuffer[size + 1];
-        buffers[0] = ByteBuffer.wrap(parseArraySize(size));
-        while (iterator.hasNext()) {
-            buffers[index++] = write(iterator.next());
-        }
-        return EzyByteBuffers.merge(buffers);
     }
 
     protected byte[] parseArraySize(int size) {
@@ -391,5 +387,4 @@ public class MsgPackToByteBufferSerializer
     protected ByteBuffer parseValueToString(Object value) {
         return parseString(value.toString());
     }
-
 }

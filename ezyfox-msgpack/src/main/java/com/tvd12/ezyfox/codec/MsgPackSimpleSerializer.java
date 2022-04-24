@@ -16,6 +16,7 @@ import java.math.BigInteger;
 import java.util.*;
 import java.util.Map.Entry;
 
+@SuppressWarnings({"MethodCount", "OverloadMethodsDeclarationOrder"})
 public class MsgPackSimpleSerializer
     extends EzyAbstractToBytesSerializer
     implements EzyCastToByte {
@@ -90,141 +91,137 @@ public class MsgPackSimpleSerializer
         parsers.put(UUID.class, this::parseValueToString);
     }
 
-    //
+    // ============= primitive array ==============
     protected byte[] parsePrimitiveBooleans(Object array) {
         return parseBooleans((boolean[]) array);
+    }
+
+    protected byte[] parseBooleans(boolean[] array) {
+        return parseArray(EzyBoolsIterator.wrap(array), array.length);
     }
 
     protected byte[] parsePrimitiveChars(Object array) {
         return parseChars((char[]) array);
     }
 
-    protected byte[] parsePrimitiveDoubles(Object array) {
-        return parseDoubles((double[]) array);
-    }
-
-    protected byte[] parsePrimitiveFloats(Object array) {
-        return parseFloats((float[]) array);
-    }
-
-    protected byte[] parsePrimitiveInts(Object array) {
-        return parseInts((int[]) array);
-    }
-
-    protected byte[] parsePrimitiveLongs(Object array) {
-        return parseLongs((long[]) array);
-    }
-
-    protected byte[] parsePrimitiveShorts(Object array) {
-        return parseShorts((short[]) array);
-    }
-
-    protected byte[] parseStrings(Object array) {
-        return parseStrings((String[]) array);
-    }
-    //
-
-    protected byte[] parseBooleans(boolean[] array) {
-        return parseArray(EzyBoolsIterator.wrap(array), array.length);
-    }
-
     protected byte[] parseChars(char[] array) {
         return parseBin(EzyDataConverter.charArrayToByteArray(array));
+    }
+
+    protected byte[] parsePrimitiveDoubles(Object array) {
+        return parseDoubles((double[]) array);
     }
 
     protected byte[] parseDoubles(double[] array) {
         return parseArray(EzyDoublesIterator.wrap(array), array.length);
     }
 
+    protected byte[] parsePrimitiveFloats(Object array) {
+        return parseFloats((float[]) array);
+    }
+
     protected byte[] parseFloats(float[] array) {
         return parseArray(EzyFloatsIterator.wrap(array), array.length);
+    }
+
+    protected byte[] parsePrimitiveInts(Object array) {
+        return parseInts((int[]) array);
     }
 
     protected byte[] parseInts(int[] array) {
         return parseArray(EzyIntsIterator.wrap(array), array.length);
     }
 
+    protected byte[] parsePrimitiveLongs(Object array) {
+        return parseLongs((long[]) array);
+    }
+
     protected byte[] parseLongs(long[] array) {
         return parseArray(EzyLongsIterator.wrap(array), array.length);
+    }
+
+    protected byte[] parsePrimitiveShorts(Object array) {
+        return parseShorts((short[]) array);
     }
 
     protected byte[] parseShorts(short[] array) {
         return parseArray(EzyShortsIterator.wrap(array), array.length);
     }
 
+    protected byte[] parseStrings(Object array) {
+        return parseStrings((String[]) array);
+    }
+
     protected byte[] parseStrings(String[] array) {
         return parseArray(EzyStringsIterator.wrap(array), array.length);
     }
 
-    //=============
+    // ============== wrapper array ===============
     protected byte[] parseWrapperBooleans(Object array) {
         return parseBooleans((Boolean[]) array);
+    }
+
+    protected byte[] parseBooleans(Boolean[] array) {
+        return parseArray(EzyWrapperIterator.wrap(array), array.length);
     }
 
     protected byte[] parseWrapperBytes(Object array) {
         return parseBytes((Byte[]) array);
     }
 
-    protected byte[] parseWrapperChars(Object array) {
-        return parseChars((Character[]) array);
-    }
-
-    protected byte[] parseWrapperDoubles(Object array) {
-        return parseDoubles((Double[]) array);
-    }
-
-    protected byte[] parseWrapperFloats(Object array) {
-        return parseFloats((Float[]) array);
-    }
-
-    protected byte[] parseWrapperInts(Object array) {
-        return parseInts((Integer[]) array);
-    }
-
-    protected byte[] parseWrapperLongs(Object array) {
-        return parseLongs((Long[]) array);
-    }
-
-    protected byte[] parseWrapperShorts(Object array) {
-        return parseShorts((Short[]) array);
-    }
-    //
-    //=============
-
-    //
-    protected byte[] parseBooleans(Boolean[] array) {
-        return parseArray(EzyWrapperIterator.wrap(array), array.length);
-    }
-
     protected byte[] parseBytes(Byte[] array) {
         return parseBin(EzyDataConverter.toPrimitiveByteArray(array));
+    }
+
+    protected byte[] parseWrapperChars(Object array) {
+        return parseChars((Character[]) array);
     }
 
     protected byte[] parseChars(Character[] array) {
         return parseBin(EzyDataConverter.charWrapperArrayToPrimitiveByteArray(array));
     }
 
+    protected byte[] parseWrapperDoubles(Object array) {
+        return parseDoubles((Double[]) array);
+    }
+
     protected byte[] parseDoubles(Double[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
+    }
+
+    protected byte[] parseWrapperFloats(Object array) {
+        return parseFloats((Float[]) array);
     }
 
     protected byte[] parseFloats(Float[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
     }
 
+    protected byte[] parseWrapperInts(Object array) {
+        return parseInts((Integer[]) array);
+    }
+
     protected byte[] parseInts(Integer[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
+    }
+
+    protected byte[] parseWrapperLongs(Object array) {
+        return parseLongs((Long[]) array);
     }
 
     protected byte[] parseLongs(Long[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
     }
 
+    protected byte[] parseWrapperShorts(Object array) {
+        return parseShorts((Short[]) array);
+    }
+
     protected byte[] parseShorts(Short[] array) {
         return parseArray(EzyWrapperIterator.wrap(array), array.length);
     }
-    //
 
+    // ============= single value ==============
     protected byte[] parseBoolean(Object value) {
         return parseBoolean((Boolean) value);
     }
@@ -289,6 +286,7 @@ public class MsgPackSimpleSerializer
         return parseString((String) string);
     }
 
+    // ============ collection ============
     @SuppressWarnings({"rawtypes"})
     protected byte[] parseMap(Object map) {
         return parseMap((Map) map);
