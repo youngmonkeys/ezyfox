@@ -1,16 +1,15 @@
 package com.tvd12.ezyfox.bean.supplier;
 
-import java.util.ArrayList;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
+
+import java.util.ArrayList;
 
 public final class EzyArrayListSupplier implements EzyPrototypeSupplier {
 
     private static final EzyArrayListSupplier INSTANCE = new EzyArrayListSupplier();
 
-    private EzyArrayListSupplier() {
-    }
+    private EzyArrayListSupplier() {}
 
     public static EzyArrayListSupplier getInstance() {
         return INSTANCE;

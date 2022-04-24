@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.bean.v120.testing.packet01;
 
+import com.tvd12.ezyfox.bean.EzyPackagesToScanProvider;
+
 import java.util.Collections;
 import java.util.Set;
-
-import com.tvd12.ezyfox.bean.EzyPackagesToScanProvider;
 
 public class PackagesProvider implements EzyPackagesToScanProvider {
 

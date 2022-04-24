@@ -1,17 +1,16 @@
 package com.tvd12.ezyfox.bean.supplier;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public final class EzyQueueSupplier implements EzyPrototypeSupplier {
 
     private static final EzyQueueSupplier INSTANCE = new EzyQueueSupplier();
 
-    private EzyQueueSupplier() {
-    }
+    private EzyQueueSupplier() {}
 
     public static EzyQueueSupplier getInstance() {
         return INSTANCE;

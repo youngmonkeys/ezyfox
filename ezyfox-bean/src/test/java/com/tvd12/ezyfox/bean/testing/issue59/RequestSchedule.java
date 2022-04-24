@@ -7,7 +7,5 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 public class RequestSchedule {
 
     @EzyAutoBind("fetchAllRequestQueue")
-    public void setQueue(RequestQueue requestQueue) {
-        
-    }
+    public void setQueue(RequestQueue requestQueue) {}
 }

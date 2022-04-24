@@ -1,12 +1,12 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import java.lang.reflect.Constructor;
-
 import com.tvd12.ezyfox.reflect.EzyClass;
 
-public class EzyByConstructorPrototypeSupplierLoader 
-        extends EzySimplePrototypeSupplierLoader
-        implements EzyPrototypeSupplierLoader {
+import java.lang.reflect.Constructor;
+
+public class EzyByConstructorPrototypeSupplierLoader
+    extends EzySimplePrototypeSupplierLoader
+    implements EzyPrototypeSupplierLoader {
 
     protected final Constructor<?> constructor;
 

@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.bean.testing.configuration;
 
-public class Singleton0 {
-}
+public class Singleton0 {}

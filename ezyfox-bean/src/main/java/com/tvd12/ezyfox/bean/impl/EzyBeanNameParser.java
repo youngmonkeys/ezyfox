@@ -9,14 +9,15 @@ import com.tvd12.ezyfox.reflect.EzyMethod;
 
 public final class EzyBeanNameParser {
 
-    private EzyBeanNameParser() {
-    }
+    private EzyBeanNameParser() {}
 
     public static String getBeanName(Class<?> clazz) {
-        if(clazz.isAnnotationPresent(EzySingleton.class))
+        if (clazz.isAnnotationPresent(EzySingleton.class)) {
             return getSingletonName(clazz);
-        if(clazz.isAnnotationPresent(EzyPrototype.class))
+        }
+        if (clazz.isAnnotationPresent(EzyPrototype.class)) {
             return getPrototypeName(clazz);
+        }
         return EzyClasses.getVariableName(clazz);
     }
 
@@ -38,11 +39,13 @@ public final class EzyBeanNameParser {
     }
 
     public static String getSingletonName(EzySingleton annotation, String defaultName) {
-        if(annotation == null)
+        if (annotation == null) {
             return defaultName;
+        }
         String value = annotation.value();
-        if(EzyStrings.isNoContent(value))
+        if (EzyStrings.isNoContent(value)) {
             return defaultName;
+        }
         return value;
     }
 
@@ -64,11 +67,13 @@ public final class EzyBeanNameParser {
     }
 
     public static String getPrototypeName(EzyPrototype annotation, String defaultName) {
-        if(annotation == null)
+        if (annotation == null) {
             return defaultName;
+        }
         String value = annotation.value();
-        if(EzyStrings.isNoContent(value))
+        if (EzyStrings.isNoContent(value)) {
             return defaultName;
+        }
         return value;
     }
 }

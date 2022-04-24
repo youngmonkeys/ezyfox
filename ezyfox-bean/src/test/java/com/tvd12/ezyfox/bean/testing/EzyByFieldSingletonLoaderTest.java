@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.bean.testing;
 
-import java.util.HashMap;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.bean.impl.EzyByFieldSingletonLoader;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.util.HashMap;
 
 public class EzyByFieldSingletonLoaderTest extends BaseTest {
 
@@ -15,7 +14,7 @@ public class EzyByFieldSingletonLoaderTest extends BaseTest {
     @Test
     public void test() throws Exception {
         ExEzyByFieldSingletonLoader loader = new ExEzyByFieldSingletonLoader(
-                new EzyField(getClass().getDeclaredField("a")), this);
+            new EzyField(getClass().getDeclaredField("a")), this);
         loader.getConstructorArgumentNames();
         loader.getConstructorParameterTypes(getClass());
     }

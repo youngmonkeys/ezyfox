@@ -1,17 +1,16 @@
 package com.tvd12.ezyfox.bean.supplier;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class EzyMapSupplier implements EzyPrototypeSupplier {
 
     private static final EzyMapSupplier INSTANCE = new EzyMapSupplier();
 
-    private EzyMapSupplier() {
-    }
+    private EzyMapSupplier() {}
 
     public static EzyMapSupplier getInstance() {
         return INSTANCE;

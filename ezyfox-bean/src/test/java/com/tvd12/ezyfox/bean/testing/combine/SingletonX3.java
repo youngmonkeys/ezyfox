@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
-public class SingletonX3 {
-}
+public class SingletonX3 {}

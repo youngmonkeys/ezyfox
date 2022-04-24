@@ -1,14 +1,14 @@
 package com.tvd12.ezyfox.bean;
 
+import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.properties.EzyPropertiesReader;
+
 import java.io.File;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
-
-import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 
 @SuppressWarnings("rawtypes")
 public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
@@ -100,7 +100,7 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
     EzyBeanContextBuilder addProperties(String file, String activeProfiles);
 
     EzyBeanContextBuilder addProperties(Iterable<String> files);
-    
+
     EzyBeanContextBuilder addProperties(Iterable<String> files, String activeProfiles);
 
     EzyBeanContextBuilder addProperties(File file);
@@ -108,7 +108,7 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
     EzyBeanContextBuilder addProperties(File file, String activeProfiles);
 
     EzyBeanContextBuilder addProperties(Collection<File> files);
-    
+
     EzyBeanContextBuilder addProperties(Collection<File> files, String activeProfiles);
 
     EzyBeanContextBuilder addProperties(InputStream inputStream);

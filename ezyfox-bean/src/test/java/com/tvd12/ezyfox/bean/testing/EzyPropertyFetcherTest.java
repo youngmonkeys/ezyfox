@@ -1,12 +1,12 @@
 package com.tvd12.ezyfox.bean.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.bean.EzyPropertyFetcher;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.util.RandomUtil;
+import org.testng.annotations.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 public class EzyPropertyFetcherTest {
 

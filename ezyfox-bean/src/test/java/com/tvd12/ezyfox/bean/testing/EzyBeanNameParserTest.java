@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.bean.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.bean.impl.EzyBeanNameParser;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyBeanNameParserTest extends BaseTest {
 
@@ -22,16 +21,10 @@ public class EzyBeanNameParserTest extends BaseTest {
     }
 
     @EzyPrototype("x")
-    public static class A {
-
-    }
+    public static class A {}
 
     @EzySingleton("y")
-    public static class B {
+    public static class B {}
 
-    }
-
-    public static class C {
-
-    }
+    public static class C {}
 }

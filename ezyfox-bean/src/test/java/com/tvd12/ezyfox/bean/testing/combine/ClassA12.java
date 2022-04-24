@@ -3,7 +3,6 @@ package com.tvd12.ezyfox.bean.testing.combine;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.ClassA1;
 import com.tvd12.ezyfox.bean.testing.combine.pack2.ClassA2;
-
 import lombok.Getter;
 import lombok.Setter;
 

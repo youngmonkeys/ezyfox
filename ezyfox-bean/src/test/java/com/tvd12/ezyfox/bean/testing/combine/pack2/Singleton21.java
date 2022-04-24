@@ -1,12 +1,11 @@
 package com.tvd12.ezyfox.bean.testing.combine.pack2;
 
-import java.util.ArrayList;
-
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
 
 @Getter
 @EzySingleton

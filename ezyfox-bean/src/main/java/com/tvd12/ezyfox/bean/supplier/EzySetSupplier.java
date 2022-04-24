@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.bean.supplier;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public final class EzySetSupplier implements EzyPrototypeSupplier {
 

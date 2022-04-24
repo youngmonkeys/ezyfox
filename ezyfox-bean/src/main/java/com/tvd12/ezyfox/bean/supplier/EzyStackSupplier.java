@@ -1,16 +1,15 @@
 package com.tvd12.ezyfox.bean.supplier;
 
-import java.util.Stack;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
+
+import java.util.Stack;
 
 public final class EzyStackSupplier implements EzyPrototypeSupplier {
 
     private static final EzyStackSupplier INSTANCE = new EzyStackSupplier();
 
-    private EzyStackSupplier() {
-    }
+    private EzyStackSupplier() {}
 
     public static EzyStackSupplier getInstance() {
         return INSTANCE;

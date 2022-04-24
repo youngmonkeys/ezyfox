@@ -1,15 +1,18 @@
 package com.tvd12.ezyfox.bean.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.annotation.EzyKeyValue;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.bean.impl.EzySimplePrototypeFactory;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzySimplePrototypeFactoryTest extends BaseTest {
+
+    public static void main(String[] args) {
+        System.out.println(Object.class.getSuperclass());
+    }
 
     @Test
     public void test() {
@@ -55,20 +58,12 @@ public class EzySimplePrototypeFactoryTest extends BaseTest {
     }
 
     @EzyPrototype(properties = {
-            @EzyKeyValue(key = "hello", value = "world")
+        @EzyKeyValue(key = "hello", value = "world")
     })
-    public static class ClassA1 {
-
-    }
+    public static class ClassA1 {}
 
     @EzyPrototype(properties = {
-            @EzyKeyValue(key = "hello", value = "world")
+        @EzyKeyValue(key = "hello", value = "world")
     })
-    public static class ClassA2 {
-
-    }
-
-    public static void main(String[] args) {
-        System.out.println(Object.class.getSuperclass());
-    }
+    public static class ClassA2 {}
 }

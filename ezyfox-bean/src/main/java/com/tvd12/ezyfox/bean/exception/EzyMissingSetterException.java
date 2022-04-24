@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.bean.exception;
 
-import java.lang.reflect.Field;
-
 import com.tvd12.ezyfox.reflect.EzyField;
+
+import java.lang.reflect.Field;
 
 public class EzyMissingSetterException extends IllegalStateException {
     private static final long serialVersionUID = -9120694192282292802L;

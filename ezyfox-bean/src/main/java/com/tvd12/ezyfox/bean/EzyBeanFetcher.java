@@ -10,6 +10,6 @@ public interface EzyBeanFetcher {
 
     @SuppressWarnings("unchecked")
     default <T> T getBeanCast(Class<T> type) {
-        return (T)getBean(type);
+        return (T) getBean(type);
     }
 }

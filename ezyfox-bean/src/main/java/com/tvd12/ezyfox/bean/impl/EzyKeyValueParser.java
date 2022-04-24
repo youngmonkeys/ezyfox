@@ -1,17 +1,16 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import java.util.Map;
-
 import com.tvd12.ezyfox.annotation.EzyKeyValue;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.util.EzyKeyValueAnnotations;
 
-@SuppressWarnings({ "rawtypes" })
+import java.util.Map;
+
+@SuppressWarnings({"rawtypes"})
 public final class EzyKeyValueParser {
 
-    private EzyKeyValueParser() {
-    }
+    private EzyKeyValueParser() {}
 
     public static Map getSingletonProperties(Class<?> clazz) {
         return getSingletonProperties(clazz.getAnnotation(EzySingleton.class));

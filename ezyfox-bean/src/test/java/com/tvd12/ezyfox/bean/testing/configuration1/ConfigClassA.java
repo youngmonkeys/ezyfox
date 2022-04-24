@@ -1,33 +1,25 @@
 package com.tvd12.ezyfox.bean.testing.configuration1;
 
-import com.tvd12.ezyfox.bean.EzyBeanContext;
-import com.tvd12.ezyfox.bean.EzyBeanContextAware;
-import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
-import com.tvd12.ezyfox.bean.EzyPrototypeFactoryAware;
-import com.tvd12.ezyfox.bean.EzySingletonFactory;
-import com.tvd12.ezyfox.bean.EzySingletonFactoryAware;
+import com.tvd12.ezyfox.bean.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-
 import lombok.Setter;
 
-public class ConfigClassA 
-        implements
-        EzyBeanContextAware,
-        EzySingletonFactoryAware,
-        EzyPrototypeFactoryAware {
+public class ConfigClassA
+    implements
+    EzyBeanContextAware,
+    EzySingletonFactoryAware,
+    EzyPrototypeFactoryAware {
 
+    @EzySingleton
+    public Singleton1 singleton1 = new Singleton1();
+    @EzySingleton
+    public Singleton1 singleton1duplicate = new Singleton1();
     @Setter
     private EzyBeanContext context;
     @Setter
     private EzySingletonFactory singletonFactory;
     @Setter
     private EzyPrototypeFactory prototypeFactory;
-
-    @EzySingleton
-    public Singleton1 singleton1 = new Singleton1();
-
-    @EzySingleton
-    public Singleton1 singleton1duplicate = new Singleton1();
 
     @EzySingleton
     public Singleton2 getSingleton2() {
@@ -40,13 +32,12 @@ public class ConfigClassA
     }
 
     @EzySingleton
-    public Singleton3A2 newSignleton3A2() {
+    public Singleton3A2 newSingleton3A2() {
         return new Singleton3A2();
     }
 
     @EzySingleton
-    public void newInvalidSingleton() {
-    }
+    public void newInvalidSingleton() {}
 
     public Singleton1 newDuplicateSingleton1() {
         return new Singleton1();

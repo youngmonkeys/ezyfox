@@ -1,7 +1,6 @@
 package com.tvd12.ezyfox.bean.testing.combine1;
 
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
-
 import lombok.Getter;
 import lombok.Setter;
 

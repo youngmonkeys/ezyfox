@@ -4,7 +4,6 @@ import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.annotation.EzyPostInit;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.bean.testing.combine.EzyCombine0Ann;
-
 import lombok.Getter;
 
 @Getter

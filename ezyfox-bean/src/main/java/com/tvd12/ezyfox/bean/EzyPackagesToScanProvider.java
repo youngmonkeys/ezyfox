@@ -4,4 +4,5 @@ import java.util.Set;
 
 public interface EzyPackagesToScanProvider {
 
-    Set<String> provide();}
+    Set<String> provide();
+}

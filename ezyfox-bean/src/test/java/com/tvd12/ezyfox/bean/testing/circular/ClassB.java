@@ -7,7 +7,5 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 public class ClassB {
 
     @EzyAutoBind
-    public ClassB(ClassA classA) {
-
-    }
+    public ClassB(ClassA classA) {}
 }

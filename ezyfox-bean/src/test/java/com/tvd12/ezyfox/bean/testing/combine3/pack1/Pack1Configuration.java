@@ -4,23 +4,19 @@ import com.tvd12.ezyfox.bean.EzyBeanNameTranslator;
 import com.tvd12.ezyfox.bean.EzyBeanNameTranslatorAware;
 import com.tvd12.ezyfox.bean.annotation.EzyConfiguration;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-
 import lombok.Setter;
 
 @EzyConfiguration
 public class Pack1Configuration implements EzyBeanNameTranslatorAware {
 
-    @Setter
-    private EzyBeanNameTranslator beanNameTranslator;
-
     @EzySingleton
     public B b = new BImpl();
-
     @EzySingleton
     public C c = new CImpl();
-
     @EzySingleton
     public D d = new DImpl();
+    @Setter
+    private EzyBeanNameTranslator beanNameTranslator;
 
     @EzySingleton
     public ClassA newClassA(ClassB classB) {
@@ -33,11 +29,7 @@ public class Pack1Configuration implements EzyBeanNameTranslatorAware {
     }
 
 
-    public static class ClassA {
+    public static class ClassA {}
 
-    }
-
-    public static class ClassB {
-
-    }
+    public static class ClassB {}
 }

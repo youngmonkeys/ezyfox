@@ -25,7 +25,7 @@ public class ConfigClassA2 {
     }
 
     @EzySingleton
-    public Singleton3A2 newSignleton3A2() {
+    public Singleton3A2 newSingleton3A2() {
         return new Singleton3A2();
     }
 

@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
-public interface V112PrototypeBase {
-}
+public interface V112PrototypeBase {}

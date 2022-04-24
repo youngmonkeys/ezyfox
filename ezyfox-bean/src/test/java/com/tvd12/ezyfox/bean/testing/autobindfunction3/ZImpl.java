@@ -3,5 +3,4 @@ package com.tvd12.ezyfox.bean.testing.autobindfunction3;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 @EzySingleton("z")
-public class ZImpl implements Z {
-}
+public class ZImpl implements Z {}

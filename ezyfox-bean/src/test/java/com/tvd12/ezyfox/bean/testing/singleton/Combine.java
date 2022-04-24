@@ -3,47 +3,37 @@ package com.tvd12.ezyfox.bean.testing.singleton;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzyPostInit;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @EzySingleton
 public class Combine {
 
+    @EzyAutoBind
+    public XClassB xClassB;
+    public XClassB xClassB2;
+    @EzyAutoBind("xb")
+    public XClassB xClassB3;
+    @EzyAutoBind
+    protected XClassB xClassB1;
     @Setter
     @Getter
     private ClassA classA;
-
     @Getter
     private ClassA classA1;
-
     @Setter
     @Getter
     private ClassB classB;
-
     @Getter
     private ClassB classB1;
-
     @Setter
     @Getter
     @EzyAutoBind
     private ClassC classC;
-
     @Setter
     @Getter
     @EzyAutoBind("xa")
     private XClassA xClassA;
-
-    @EzyAutoBind
-    public XClassB xClassB;
-
-    @EzyAutoBind
-    protected XClassB xClassB1;
-
-    public XClassB xClassB2;
-
-    @EzyAutoBind("xb")
-    public XClassB xClassB3;
 
     @EzyAutoBind({"a", "b"})
     public Combine(ClassA classA, ClassB classB) {
