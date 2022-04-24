@@ -110,7 +110,12 @@ public class EzySimpleConfigurationLoader
         String beanName = getSingletonName(method);
         Object current = singletonFactory.getSingleton(beanName, method.getReturnType());
         if (current == null) {
-            EzySingletonLoader loader = new EzyByMethodSingletonLoader(beanName, method, configurator, singletonMethods);
+            EzySingletonLoader loader = new EzyByMethodSingletonLoader(
+                beanName,
+                method,
+                configurator,
+                singletonMethods
+            );
             loader.load(context);
         }
     }
@@ -174,8 +179,7 @@ public class EzySimpleConfigurationLoader
     @SuppressWarnings("unchecked")
     private Map<Class<?>, EzyMethod> mapBeanTypeMethods(Class<? extends Annotation> annClass) {
         List<EzyMethod> methods = clazz.getPublicMethods(m ->
-            m.isAnnotated(annClass) &&
-                m.getReturnType() != void.class
+            m.isAnnotated(annClass) && m.getReturnType() != void.class
         );
         return EzyMaps.newHashMap(methods, EzyMethod::getReturnType);
     }

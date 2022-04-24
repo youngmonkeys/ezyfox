@@ -11,9 +11,9 @@ public interface EzyPrototypeFactory {
 
     EzyPrototypeSupplier getSupplier(String objectName, Class objectType);
 
-    EzyPrototypeSupplier getAnnotatedSupplier(Class annotationClass);
-
     EzyPrototypeSupplier getSupplier(Map properties);
+
+    EzyPrototypeSupplier getAnnotatedSupplier(Class annotationClass);
 
     List<EzyPrototypeSupplier> getSuppliers();
 

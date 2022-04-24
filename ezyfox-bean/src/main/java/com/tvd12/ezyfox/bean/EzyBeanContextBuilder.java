@@ -61,21 +61,21 @@ public interface EzyBeanContextBuilder extends EzyBuilder<EzyBeanContext> {
 
     EzyBeanContextBuilder addSingletonClass(Class clazz);
 
+    EzyBeanContextBuilder addSingletonClass(String name, Class clazz);
+
     EzyBeanContextBuilder addSingletonClasses(Class... classes);
 
     EzyBeanContextBuilder addSingletonClasses(Iterable<Class> classes);
-
-    EzyBeanContextBuilder addSingletonClass(String name, Class clazz);
 
     EzyBeanContextBuilder addSingletonClasses(Map<String, Class> classes);
 
     EzyBeanContextBuilder addPrototypeClass(Class clazz);
 
+    EzyBeanContextBuilder addPrototypeClass(String name, Class clazz);
+
     EzyBeanContextBuilder addPrototypeClasses(Class... classes);
 
     EzyBeanContextBuilder addPrototypeClasses(Iterable<Class> classes);
-
-    EzyBeanContextBuilder addPrototypeClass(String name, Class clazz);
 
     EzyBeanContextBuilder addPrototypeClasses(Map<String, Class> classes);
 

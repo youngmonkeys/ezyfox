@@ -14,7 +14,12 @@ public interface EzyBeanAutoConfig extends EzyBeanConfig {
         try {
             autoConfig();
         } catch (Throwable e) {
-            LOGGER.debug("{} auto config failed due to: {} ({})", getClass().getName(), e.getClass().getName(), e.getMessage());
+            LOGGER.debug(
+                "{} auto config failed due to: {} ({})",
+                getClass().getName(),
+                e.getClass().getName(),
+                e.getMessage()
+            );
         }
     }
 }

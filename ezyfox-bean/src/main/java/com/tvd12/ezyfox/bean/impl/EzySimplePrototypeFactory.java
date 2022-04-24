@@ -47,20 +47,20 @@ public class EzySimplePrototypeFactory
     }
 
     @Override
-    public EzyPrototypeSupplier getAnnotatedSupplier(Class annotationClass) {
-        List<EzyPrototypeSupplier> list = getSuppliers(annotationClass);
-        if (list.size() > 0) {
-            return list.get(0);
-        }
-        return null;
-    }
-
-    @Override
     public EzyPrototypeSupplier getSupplier(Map properties) {
         for (Entry<EzyPrototypeSupplier, Map> entry : suppliersByProperties.entrySet()) {
             if (EzyMaps.containsAll(entry.getValue(), properties)) {
                 return entry.getKey();
             }
+        }
+        return null;
+    }
+
+    @Override
+    public EzyPrototypeSupplier getAnnotatedSupplier(Class annotationClass) {
+        List<EzyPrototypeSupplier> list = getSuppliers(annotationClass);
+        if (list.size() > 0) {
+            return list.get(0);
         }
         return null;
     }
@@ -125,7 +125,7 @@ public class EzySimplePrototypeFactory
     @Override
     public void addSupplier(String objectName, EzyPrototypeSupplier supplier) {
         Class<?> type = supplier.getObjectType();
-        addSupplier(objectName, supplier, getProperties(type));
+        addSupplier(objectName, supplier, getPropertiesByType(type));
     }
 
     @Override
@@ -164,7 +164,7 @@ public class EzySimplePrototypeFactory
         return EzyBeanNameParser.getPrototypeName(type);
     }
 
-    private Map getProperties(Class<?> type) {
+    private Map getPropertiesByType(Class<?> type) {
         EzyPrototype ann = type.getAnnotation(EzyPrototype.class);
         Map properties = new HashMap<>();
         EzyKeyValue[] keyValues = ann != null ? ann.properties() : new EzyKeyValue[0];

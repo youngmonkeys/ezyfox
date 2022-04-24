@@ -54,6 +54,12 @@ public class EzyByMethodSingletonLoader
     }
 
     @Override
+    protected Class[] getConstructorParameterTypes(Class clazz) {
+        EzyMethod method = methodsByType.get(clazz);
+        return method != null ? method.getParameterTypes() : new Class[0];
+    }
+
+    @Override
     protected Object newSingletonByConstructor(
         EzyBeanContext context,
         Class[] parameterTypes
@@ -62,11 +68,5 @@ public class EzyByMethodSingletonLoader
             return method.invoke(configurator);
         }
         return method.invoke(configurator, getArguments(parameterTypes, context));
-    }
-
-    @Override
-    protected Class[] getConstructorParameterTypes(Class clazz) {
-        EzyMethod method = methodsByType.get(clazz);
-        return method != null ? method.getParameterTypes() : new Class[0];
     }
 }

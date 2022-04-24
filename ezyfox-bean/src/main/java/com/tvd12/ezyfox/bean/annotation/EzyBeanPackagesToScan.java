@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 public @interface EzyBeanPackagesToScan {
 
     /**
-     * packages to load
+     * packages to load.
      *
      * @return array of package names
      */

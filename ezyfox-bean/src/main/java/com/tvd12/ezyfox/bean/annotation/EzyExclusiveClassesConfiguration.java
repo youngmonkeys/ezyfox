@@ -6,6 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Excludes the classes in this annotation.
+ *
  * @author tavandung12
  */
 @Retention(RetentionPolicy.RUNTIME)
