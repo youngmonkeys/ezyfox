@@ -1,14 +1,16 @@
 package com.tvd12.ezyfox.monitor;
 
-import java.lang.management.ManagementFactory;
 import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
 
 @SuppressWarnings("restriction")
 public class EzyCpuMonitor {
 
-    protected volatile long lastProcessCpuTime = 0L;
+    protected volatile long lastProcessCpuTime;
     protected volatile long lastSystemTime = System.nanoTime();
-    protected final OperatingSystemMXBean osMxBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+    protected final OperatingSystemMXBean osMxBean
+        = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 
     public EzyCpuMonitor() {
         this.lastProcessCpuTime = osMxBean.getProcessCpuTime();
@@ -22,12 +24,11 @@ public class EzyCpuMonitor {
         double cpuLoad = (1.0D * offsetProcessCpuTime) / offsetSystemTime;
         this.lastSystemTime = systemTime;
         this.lastProcessCpuTime = processCpuTime;
-        int nrocessors = osMxBean.getAvailableProcessors();
-        return cpuLoad / nrocessors;
+        int availableProcessors = osMxBean.getAvailableProcessors();
+        return cpuLoad / availableProcessors;
     }
 
     public double getSystemCpuLoad() {
-        double cpuLoad = this.osMxBean.getSystemCpuLoad();
-        return cpuLoad;
+        return this.osMxBean.getSystemCpuLoad();
     }
 }

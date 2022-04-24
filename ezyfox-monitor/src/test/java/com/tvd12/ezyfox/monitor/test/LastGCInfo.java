@@ -1,21 +1,23 @@
 package com.tvd12.ezyfox.monitor.test;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryUsage;
-import java.lang.management.MemoryPoolMXBean;
-import java.util.*;
-import com.sun.management.GcInfo;
 import com.sun.management.GarbageCollectorMXBean;
+import com.sun.management.GcInfo;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryPoolMXBean;
+import java.lang.management.MemoryUsage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings({"restriction", "rawtypes", "unchecked"})
 public class LastGCInfo {
-    public static void main(String[] argv) throws Exception {
+    public static void main(String[] argv) {
         boolean hasGcInfo = false;
 
         System.gc();
         List mgrs = ManagementFactory.getGarbageCollectorMXBeans();
-        for (ListIterator iter = mgrs.listIterator(); iter.hasNext(); ) {
-            Object mgr = iter.next();
+        for (Object mgr : mgrs) {
             if (mgr instanceof GarbageCollectorMXBean) {
                 GarbageCollectorMXBean gc = (GarbageCollectorMXBean) mgr;
                 GcInfo info = gc.getLastGcInfo();
@@ -26,13 +28,13 @@ public class LastGCInfo {
             }
         }
 
-        if (! hasGcInfo) {
+        if (!hasGcInfo) {
             throw new RuntimeException("No GcInfo returned");
         }
         System.out.println("Test passed.");
     }
 
-    private static void checkGcInfo(String name, GcInfo info) throws Exception {
+    private static void checkGcInfo(String name, GcInfo info) {
         System.out.println("GC statistic for : " + name);
         System.out.print("GC #" + info.getId());
         System.out.print(" start:" + info.getStartTime());
@@ -40,27 +42,27 @@ public class LastGCInfo {
         System.out.println(" (" + info.getDuration() + "ms)");
         Map usage = info.getMemoryUsageBeforeGc();
 
-        List pnames = new ArrayList();
-        for (Iterator iter = usage.entrySet().iterator(); iter.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String poolname = (String) entry.getKey();
-            pnames.add(poolname);
+        List paramNames = new ArrayList();
+        for (Object o : usage.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
+            String poolName = (String) entry.getKey();
+            paramNames.add(poolName);
             MemoryUsage busage = (MemoryUsage) entry.getValue();
-            MemoryUsage ausage = (MemoryUsage) info.getMemoryUsageAfterGc().get(poolname);
+            MemoryUsage ausage = info.getMemoryUsageAfterGc().get(poolName);
             if (ausage == null) {
                 throw new RuntimeException("After Gc Memory does not exist" +
-                    " for " + poolname);
+                    " for " + poolName);
             }
-            System.out.println("Usage for pool " + poolname);
+            System.out.println("Usage for pool " + poolName);
             System.out.println("   Before GC: " + busage);
             System.out.println("   After GC: " + ausage);
         }
 
         // check if memory usage for all memory pools are returned
         List pools = ManagementFactory.getMemoryPoolMXBeans();
-        for (Iterator iter = pools.iterator(); iter.hasNext(); ) {
-            MemoryPoolMXBean p = (MemoryPoolMXBean) iter.next();
-            if (!pnames.contains(p.getName())) {
+        for (Object pool : pools) {
+            MemoryPoolMXBean p = (MemoryPoolMXBean) pool;
+            if (!paramNames.contains(p.getName())) {
                 throw new RuntimeException("GcInfo does not contain " +
                     "memory usage for pool " + p.getName());
             }

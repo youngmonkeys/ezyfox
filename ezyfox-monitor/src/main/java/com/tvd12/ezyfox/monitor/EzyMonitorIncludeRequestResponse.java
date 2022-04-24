@@ -1,20 +1,20 @@
 package com.tvd12.ezyfox.monitor;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.tvd12.ezyfox.monitor.frame.EzyActionFrame;
 import com.tvd12.ezyfox.monitor.frame.EzyActionFrameSecond;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 public class EzyMonitorIncludeRequestResponse extends EzyMonitor {
 
     private final AtomicLong requestCount;
     private EzyActionFrame requestPerSecond;
-    private EzyActionFrame reponsePerSecond;
-    
+    private EzyActionFrame responsePerSecond;
+
     public EzyMonitorIncludeRequestResponse() {
         this.requestCount = new AtomicLong();
         this.requestPerSecond = new EzyActionFrameSecond();
-        this.reponsePerSecond = new EzyActionFrameSecond();
+        this.responsePerSecond = new EzyActionFrameSecond();
     }
 
     public void increaseRequestCount() {
@@ -34,13 +34,13 @@ public class EzyMonitorIncludeRequestResponse extends EzyMonitor {
     }
 
     public void increaseResponseCount() {
-        if (reponsePerSecond.isExpired()) {
-            reponsePerSecond = new EzyActionFrameSecond();
+        if (responsePerSecond.isExpired()) {
+            responsePerSecond = new EzyActionFrameSecond();
         }
-        reponsePerSecond.addActions(1);
+        responsePerSecond.addActions(1);
     }
 
     public long getResponsePerSecond() {
-        return reponsePerSecond.isExpired() ? 0L : reponsePerSecond.getActions();
+        return responsePerSecond.isExpired() ? 0L : responsePerSecond.getActions();
     }
 }

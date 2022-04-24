@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.monitor.test;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.monitor.EzyCpuMonitor;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyCpuMonitorTest extends BaseTest {
 

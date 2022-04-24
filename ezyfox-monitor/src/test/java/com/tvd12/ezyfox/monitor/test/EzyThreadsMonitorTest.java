@@ -1,18 +1,17 @@
 package com.tvd12.ezyfox.monitor.test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.lang.management.ThreadMXBean;
-import java.util.List;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.monitor.EzyThreadsMonitor;
 import com.tvd12.ezyfox.monitor.data.EzyThreadDetail;
 import com.tvd12.ezyfox.monitor.data.EzyThreadDetails;
 import com.tvd12.ezyfox.monitor.data.EzyThreadsDetail;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
+
+import java.lang.management.ThreadMXBean;
+import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class EzyThreadsMonitorTest extends BaseTest {
 
@@ -40,7 +39,7 @@ public class EzyThreadsMonitorTest extends BaseTest {
         EzyThreadsDetail threadsDetails = monitor.getThreadsDetails();
         System.out.println(threadsDetails.getTotalThreadsCpuTime());
         List<EzyThreadDetail> threads = threadsDetails.getThreads();
-        for(EzyThreadDetail thread : threads) {
+        for (EzyThreadDetail thread : threads) {
             System.out.println(thread.getId());
             System.out.println(thread.getName());
             System.out.println(thread.getCpuTime());
@@ -49,9 +48,9 @@ public class EzyThreadsMonitorTest extends BaseTest {
         monitor = new EzyThreadsMonitor() {
             protected ThreadMXBean getThreadMXBean() {
                 ThreadMXBean bean = mock(ThreadMXBean.class);
-                when(bean.getAllThreadIds()).thenReturn(new long[] {Thread.currentThread().getId()});
+                when(bean.getAllThreadIds()).thenReturn(new long[]{Thread.currentThread().getId()});
                 return bean;
-            };
+            }
         };
         System.out.println(monitor.getThreadsDetails());
         System.out.println(monitor.getThreadDetails(Thread.currentThread().getId()));

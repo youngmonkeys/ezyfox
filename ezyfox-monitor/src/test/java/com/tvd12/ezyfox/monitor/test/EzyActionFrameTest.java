@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.monitor.test;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.monitor.frame.EzyActionFrame;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzyActionFrameTest {
 
@@ -15,12 +14,13 @@ public class EzyActionFrameTest {
             public EzyActionFrame nextFrame() {
                 return null;
             }
+
             @Override
             protected int getExistsTime() {
                 return 0;
             }
         };
-        
+
         // when
         // then
         Asserts.assertTrue(sut.isExpired());

@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.monitor.data;
 
+import lombok.Getter;
+
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
-
-import lombok.Getter;
 
 @Getter
 public class EzyThreadDetail {
@@ -26,12 +26,13 @@ public class EzyThreadDetail {
         this.cpuTime = builder.cpuTime;
     }
 
-    protected ThreadMXBean getThreadMXBean() {
-        return ManagementFactory.getThreadMXBean();
-    }
-
     public static Builder builder() {
         return new Builder();
+    }
+
+    @SuppressWarnings("AbbreviationAsWordInName")
+    protected ThreadMXBean getThreadMXBean() {
+        return ManagementFactory.getThreadMXBean();
     }
 
     public static class Builder {

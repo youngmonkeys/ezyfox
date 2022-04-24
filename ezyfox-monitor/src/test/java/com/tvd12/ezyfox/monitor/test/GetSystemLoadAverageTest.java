@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.monitor.test;
 
-import java.lang.management.ManagementFactory;
-
 import com.sun.management.OperatingSystemMXBean;
+
+import java.lang.management.ManagementFactory;
 
 @SuppressWarnings("restriction")
 public class GetSystemLoadAverageTest {

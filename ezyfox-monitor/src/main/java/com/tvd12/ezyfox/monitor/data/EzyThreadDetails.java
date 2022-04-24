@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.monitor.data;
 
-import java.lang.management.ThreadInfo;
-
 import lombok.Getter;
+
+import java.lang.management.ThreadInfo;
 
 @Getter
 public class EzyThreadDetails extends EzyThreadDetail {
