@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.data.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.data.annotation.EzyCachedValue;
 import com.tvd12.ezyfox.data.util.EzyCachedValueAnnotations;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzyCachedValueAnnotationsTest {
 

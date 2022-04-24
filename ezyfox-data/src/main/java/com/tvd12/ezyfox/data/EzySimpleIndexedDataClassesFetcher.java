@@ -1,16 +1,16 @@
 package com.tvd12.ezyfox.data;
 
-import java.lang.annotation.Annotation;
-import java.util.Set;
-
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.data.annotation.EzyIndexedData;
 import com.tvd12.ezyfox.data.annotation.IndexedData;
 
+import java.lang.annotation.Annotation;
+import java.util.Set;
+
 @SuppressWarnings("rawtypes")
 public class EzySimpleIndexedDataClassesFetcher
-        extends EzyDataClassesFetcher<EzyIndexedDataClassesFetcher>
-        implements EzyIndexedDataClassesFetcher {
+    extends EzyDataClassesFetcher<EzyIndexedDataClassesFetcher>
+    implements EzyIndexedDataClassesFetcher {
 
     @Override
     public EzyIndexedDataClassesFetcher addIndexedDataClass(Class clazz) {

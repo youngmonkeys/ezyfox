@@ -1,13 +1,13 @@
 package com.tvd12.ezyfox.data;
 
+import com.tvd12.ezyfox.reflect.EzyReflection;
+import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
+import com.tvd12.ezyfox.util.EzyLoggable;
+
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.tvd12.ezyfox.reflect.EzyReflection;
-import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
-import com.tvd12.ezyfox.util.EzyLoggable;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public abstract class EzyDataClassesFetcher<T> extends EzyLoggable {
@@ -24,7 +24,7 @@ public abstract class EzyDataClassesFetcher<T> extends EzyLoggable {
 
     public T scan(String packageName) {
         packagesToScan.add(packageName);
-        return (T)this;
+        return (T) this;
     }
 
     public T scan(String... packageNames) {
@@ -32,14 +32,15 @@ public abstract class EzyDataClassesFetcher<T> extends EzyLoggable {
     }
 
     public T scan(Iterable<String> packageNames) {
-        for(String packageName : packageNames)
+        for (String packageName : packageNames) {
             this.scan(packageName);
-        return (T)this;
+        }
+        return (T) this;
     }
 
     public T addDataClass(Class clazz) {
         this.classes.add(clazz);
-        return (T)this;
+        return (T) this;
     }
 
     public T addDataClasses(Class... classes) {
@@ -47,18 +48,19 @@ public abstract class EzyDataClassesFetcher<T> extends EzyLoggable {
     }
 
     public T addDataClasses(Iterable<Class> classes) {
-        for(Class clazz : classes)
+        for (Class clazz : classes) {
             this.addDataClass(clazz);
-        return (T)this;
+        }
+        return (T) this;
     }
 
     public T addDataClasses(Object reflection) {
-        if(reflection instanceof EzyReflection) {
-            EzyReflection ref = (EzyReflection)reflection;
+        if (reflection instanceof EzyReflection) {
+            EzyReflection ref = (EzyReflection) reflection;
             Set<Class<?>> annClasses = ref.getAnnotatedClasses(annotationClasses);
             this.classes.addAll(annClasses);
         }
-        return (T)this;
+        return (T) this;
     }
 
     public Set<Class> getDataClasses() {
@@ -67,8 +69,9 @@ public abstract class EzyDataClassesFetcher<T> extends EzyLoggable {
     }
 
     private void addAnnotatedClasses() {
-        if(packagesToScan.isEmpty())
+        if (packagesToScan.isEmpty()) {
             return;
+        }
         EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
         addDataClasses(reflection);
     }
