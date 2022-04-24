@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.database.query;
 public interface EzyPushOptions {
 
     /**
-     * Sets the position for the update
+     * Sets the position for the update.
      *
      * @param position the position in the array for the update
      * @return this
@@ -11,7 +11,7 @@ public interface EzyPushOptions {
     EzyPushOptions position(int position);
 
     /**
-     * Sets the slice value for the update
+     * Sets the slice value for the update.
      *
      * @param slice the slice value for the update
      * @return this
@@ -19,7 +19,7 @@ public interface EzyPushOptions {
     EzyPushOptions slice(int slice);
 
     /**
-     * Sets the sort value for the update
+     * Sets the sort value for the update.
      *
      * @param sort the sort value for the update
      * @return this
@@ -27,7 +27,7 @@ public interface EzyPushOptions {
     EzyPushOptions sort(int sort);
 
     /**
-     * Sets the sort value for the update
+     * Sets the sort value for the update.
      *
      * @param field     the field to sort by
      * @param direction the direction of the sort

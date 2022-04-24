@@ -91,6 +91,8 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> isolated();
 
     /**
+     * Get isolated value.
+     *
      * @return true if this update is to be run in isolation.
      * @since 1.3
      */

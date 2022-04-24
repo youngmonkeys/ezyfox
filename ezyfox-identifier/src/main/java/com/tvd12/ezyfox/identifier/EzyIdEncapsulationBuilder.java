@@ -1,17 +1,20 @@
 package com.tvd12.ezyfox.identifier;
 
-import java.lang.annotation.Annotation;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.ezyfox.util.EzyHasIdEntity;
 
+import java.lang.annotation.Annotation;
+import java.util.HashSet;
+import java.util.Set;
+
 @SuppressWarnings({"rawtypes", "unchecked"})
-public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationBuilder<T, B>> implements EzyBuilder<T> {
+public abstract class EzyIdEncapsulationBuilder<
+    T, B extends EzyIdEncapsulationBuilder<T, B>
+    >
+    implements EzyBuilder<T> {
 
     protected final Set<Class> entityClasses;
     protected final Set<String> packagesToScan;
@@ -25,7 +28,7 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
 
     public B scan(String packageName) {
         packagesToScan.add(packageName);
-        return (B)this;
+        return (B) this;
     }
 
     public B scan(String... packageNames) {
@@ -33,15 +36,17 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
     }
 
     public B scan(Iterable<String> packageNames) {
-        for(String packageName : packageNames)
+        for (String packageName : packageNames) {
             this.scan(packageName);
-        return (B)this;
+        }
+        return (B) this;
     }
 
     public B addClass(Class clazz) {
-        if (isHasIdClass(clazz) || isAnnotatedClass(clazz))
+        if (isHasIdClass(clazz) || isAnnotatedClass(clazz)) {
             this.entityClasses.add(clazz);
-        return (B)this;
+        }
+        return (B) this;
     }
 
     public B addClasses(Class... classes) {
@@ -49,19 +54,21 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
     }
 
     public B addClasses(Iterable<Class> classes) {
-        for(Class clazz : classes)
+        for (Class clazz : classes) {
             this.addClass(clazz);
-        return (B)this;
+        }
+        return (B) this;
     }
 
     public B addClasses(EzyReflection reflection) {
-        EzyReflection ref = (EzyReflection)reflection;
-        Set<Class<?>> hasIdClasses = ref.getExtendsClasses(EzyHasIdEntity.class);
-        Set<Class<?>> annotatedClasses = new HashSet<>();
-        annotatedClasses.addAll(ref.getAnnotatedClasses(annotationClasses));
+        Set<Class<?>> hasIdClasses = reflection
+            .getExtendsClasses(EzyHasIdEntity.class);
+        Set<Class<?>> annotatedClasses = new HashSet<>(
+            reflection.getAnnotatedClasses(annotationClasses)
+        );
         this.entityClasses.addAll(hasIdClasses);
         this.entityClasses.addAll(annotatedClasses);
-        return (B)this;
+        return (B) this;
     }
 
     @Override
@@ -80,8 +87,9 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
     protected abstract void parseEntityClasses();
 
     protected void scanAllPackages() {
-        if(packagesToScan.isEmpty())
+        if (packagesToScan.isEmpty()) {
             return;
+        }
         EzyReflection reflection = new EzyReflectionProxy(packagesToScan);
         addClasses(reflection);
     }
@@ -91,9 +99,11 @@ public abstract class EzyIdEncapsulationBuilder<T, B extends EzyIdEncapsulationB
     }
 
     protected boolean isAnnotatedClass(Class<?> clazz) {
-        for (Class<? extends Annotation> annClass : annotationClasses)
-            if (clazz.isAnnotationPresent(annClass))
+        for (Class<? extends Annotation> annClass : annotationClasses) {
+            if (clazz.isAnnotationPresent(annClass)) {
                 return true;
+            }
+        }
         return false;
     }
 

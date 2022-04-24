@@ -1,23 +1,29 @@
 package com.tvd12.ezyfox.identifier;
 
+import com.tvd12.ezyfox.util.EzyLoggable;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.util.EzyLoggable;
-
 public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
 
-    protected Map<Class<?>, EzyIdFetcher> entityIdFetchers = new ConcurrentHashMap<>();
+    protected Map<Class<?>, EzyIdFetcher> entityIdFetchers
+        = new ConcurrentHashMap<>();
 
     protected EzySimpleIdFetchers(Builder builder) {
         this.entityIdFetchers.putAll(builder.entityIdFetchers);
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public EzyIdFetcher getIdFetcher(Class<?> clazz) {
-        if(entityIdFetchers.containsKey(clazz))
+        if (entityIdFetchers.containsKey(clazz)) {
             return entityIdFetchers.get(clazz);
+        }
         throw new IllegalArgumentException("has no id fetcher for " + clazz);
     }
 
@@ -26,13 +32,11 @@ public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
         return new HashMap<>(entityIdFetchers);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
+    public static class Builder
+        extends EzyIdEncapsulationBuilder<EzyIdFetchers, Builder> {
 
-    public static class Builder extends EzyIdEncapsulationBuilder<EzyIdFetchers, Builder> {
-
-        protected Map<Class<?>, EzyIdFetcher> entityIdFetchers = new HashMap<>();
+        protected Map<Class<?>, EzyIdFetcher> entityIdFetchers
+            = new HashMap<>();
 
         public Builder addIdFetcher(Class<?> clazz, EzyIdFetcher fetcher) {
             this.entityIdFetchers.put(clazz, fetcher);
@@ -40,8 +44,9 @@ public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
         }
 
         public Builder addIdFetchers(Map<Class<?>, EzyIdFetcher> fetchers) {
-            for (Class<?> key : fetchers.keySet())
+            for (Class<?> key : fetchers.keySet()) {
                 this.addIdFetcher(key, fetchers.get(key));
+            }
             return this;
         }
 
@@ -66,6 +71,5 @@ public class EzySimpleIdFetchers extends EzyLoggable implements EzyIdFetchers {
         protected EzyIdFetcherImplementer newIdFetcherImplementer(Class<?> clazz) {
             return new EzySimpleIdFetcherImplementer(clazz);
         }
-
     }
 }

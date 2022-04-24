@@ -1,36 +1,39 @@
 package com.tvd12.ezyfox.identifier;
 
+import com.tvd12.ezyfox.util.EzyLoggable;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.tvd12.ezyfox.util.EzyLoggable;
-
 public class EzySimpleIdSetters extends EzyLoggable implements EzyIdSetters {
 
-    protected Map<Class<?>, EzyIdSetter> entityIdSetters = new ConcurrentHashMap<>();
-    
+    protected Map<Class<?>, EzyIdSetter> entityIdSetters
+        = new ConcurrentHashMap<>();
+
     protected EzySimpleIdSetters(Builder builder) {
         this.entityIdSetters.putAll(builder.entityIdSetters);
     }
-    
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public EzyIdSetter getIdSetter(Class<?> clazz) {
-        if(entityIdSetters.containsKey(clazz))
+        if (entityIdSetters.containsKey(clazz)) {
             return entityIdSetters.get(clazz);
+        }
         throw new IllegalArgumentException("has no id setter for " + clazz);
     }
-    
+
     @Override
     public Map<Class<?>, EzyIdSetter> getIdSetters() {
         return new HashMap<>(entityIdSetters);
     }
-    
-    public static Builder builder() {
-        return new Builder();
-    }
-    
-    public static class Builder extends EzyIdEncapsulationBuilder<EzySimpleIdSetters, Builder> {
+
+    public static class Builder
+        extends EzyIdEncapsulationBuilder<EzySimpleIdSetters, Builder> {
 
         protected Map<Class<?>, EzyIdSetter> entityIdSetters = new HashMap<>();
 
@@ -40,8 +43,9 @@ public class EzySimpleIdSetters extends EzyLoggable implements EzyIdSetters {
         }
 
         public Builder addIdSetters(Map<Class<?>, EzyIdSetter> setters) {
-            for (Class<?> key : setters.keySet())
+            for (Class<?> key : setters.keySet()) {
                 this.addIdSetter(key, setters.get(key));
+            }
             return this;
         }
 
@@ -50,7 +54,7 @@ public class EzySimpleIdSetters extends EzyLoggable implements EzyIdSetters {
         protected EzySimpleIdSetters newProduct() {
             return new EzySimpleIdSetters(this);
         }
-        
+
         @Override
         protected void parseEntityClasses() {
             for (Class<?> entityClass : entityClasses) {
@@ -67,6 +71,5 @@ public class EzySimpleIdSetters extends EzyLoggable implements EzyIdSetters {
         protected EzyIdSetterImplementer newIdSetterImplementer(Class<?> clazz) {
             return new EzySimpleIdSetterImplementer(clazz);
         }
-
     }
 }
