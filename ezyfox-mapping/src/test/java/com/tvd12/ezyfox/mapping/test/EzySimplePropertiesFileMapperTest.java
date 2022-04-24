@@ -1,21 +1,19 @@
 package com.tvd12.ezyfox.mapping.test;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.mapping.properties.EzyPropertiesFileMapper;
 import com.tvd12.ezyfox.mapping.properties.EzySimplePropertiesFileMapper;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.testng.annotations.Test;
 
 public class EzySimplePropertiesFileMapperTest {
 
     @Test
     public void test() {
         EzyPropertiesFileMapper mapper = EzySimplePropertiesFileMapper.builder()
-                .context(getClass())
-                .build();
+            .context(getClass())
+            .build();
         System.out.println(mapper.read("test-data/person.properties", Person.class));
     }
 
@@ -28,6 +26,7 @@ public class EzySimplePropertiesFileMapperTest {
         protected Name name;
     }
 
+    @SuppressWarnings("unused")
     public static class Name {
         protected String first;
         protected String last;

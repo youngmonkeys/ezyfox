@@ -8,6 +8,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Person {
-
     protected String name;
 }

@@ -1,18 +1,21 @@
 package com.tvd12.ezyfox.mapping.jaxb;
 
-import java.io.File;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
+import java.io.File;
 
-public class EzySimplXmlMapper implements EzyXmlMapper {
+public class EzySimpleXmlMapper implements EzyXmlMapper {
 
-    private Unmarshaller unmarshaller;
+    private final Unmarshaller unmarshaller;
 
-    private  EzySimplXmlMapper(Builder builder) {
+    private EzySimpleXmlMapper(Builder builder) {
         this.unmarshaller = builder.newUnmarshaller();
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -20,12 +23,12 @@ public class EzySimplXmlMapper implements EzyXmlMapper {
         try {
             return unmarshaller.unmarshal(new StreamSource(xmlFile), outputType).getValue();
         } catch (JAXBException e) {
-            throw new IllegalArgumentException("Can not read xml file " + xmlFile.getAbsolutePath() + " with " + outputType, e);
+            throw new IllegalArgumentException(
+                "Can not read xml file "
+                    + xmlFile.getAbsolutePath() + " with " + outputType,
+                e
+            );
         }
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder {
@@ -51,17 +54,17 @@ public class EzySimplXmlMapper implements EzyXmlMapper {
         protected Unmarshaller newUnmarshaller() {
             try {
                 JAXBContext context = newJAXBContext();
-                Unmarshaller unmarshaller = context.createUnmarshaller();
-                return unmarshaller;
+                return context.createUnmarshaller();
             } catch (JAXBException e) {
                 throw new IllegalArgumentException(e);
             }
         }
 
-        public EzySimplXmlMapper build() {
-            return new EzySimplXmlMapper(this);
+        public EzySimpleXmlMapper build() {
+            return new EzySimpleXmlMapper(this);
         }
 
+        @SuppressWarnings("AbbreviationAsWordInName")
         protected JAXBContext newJAXBContext() throws JAXBException {
             return JAXBContext.newInstance(contextPath, classLoader);
         }

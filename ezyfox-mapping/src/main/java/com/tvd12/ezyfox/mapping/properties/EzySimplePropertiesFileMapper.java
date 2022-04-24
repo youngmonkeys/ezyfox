@@ -8,9 +8,9 @@ import com.tvd12.properties.file.annotation.PropertyAnnotation;
 import com.tvd12.properties.file.io.ValueConverter;
 import com.tvd12.properties.file.mapping.PropertiesMapper;
 
-public class EzySimplePropertiesFileMapper 
-        extends EzyLoggable
-        implements EzyPropertiesFileMapper {
+public class EzySimplePropertiesFileMapper
+    extends EzyLoggable
+    implements EzyPropertiesFileMapper {
 
     protected final ClassLoader classLoader;
 
@@ -21,21 +21,21 @@ public class EzySimplePropertiesFileMapper
     @Override
     public <T> T read(String filePath, Class<T> valueType) {
         return new PropertiesMapper()
-                .classLoader(classLoader)
-                .addPropertyAnnotation(new PropertyAnnotation(
-                        EzyProperty.class,
-                        a -> ((EzyProperty)a).value(),
-                        a -> ((EzyProperty)a).prefix()))
-                .valueConverter(new ValueConverter() {
-                    @Override
-                    public <R> R convert(Object value, Class<R> outType) {
-                        return EzySimpleValueConverter
-                                .getSingleton()
-                                .convert(value, outType);
-                    }
-                })
-                .file(filePath)
-                .map(valueType);
+            .classLoader(classLoader)
+            .addPropertyAnnotation(new PropertyAnnotation(
+                EzyProperty.class,
+                a -> ((EzyProperty) a).value(),
+                a -> ((EzyProperty) a).prefix()))
+            .valueConverter(new ValueConverter() {
+                @Override
+                public <R> R convert(Object value, Class<R> outType) {
+                    return EzySimpleValueConverter
+                        .getSingleton()
+                        .convert(value, outType);
+                }
+            })
+            .file(filePath)
+            .map(valueType);
     }
 
     public static Builder builder() {

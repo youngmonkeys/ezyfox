@@ -10,7 +10,7 @@ public class EzySimpleJsonMapper extends EzyLoggable implements EzyJsonMapper {
 
     private final ObjectMapper mapper;
 
-    public EzySimpleJsonMapper(Builder builder) {
+    public EzySimpleJsonMapper() {
         this.mapper = EzyObjectMapperBuilder.objectMapperBuilder().build();
         this.mapper.enable(SerializationFeature.INDENT_OUTPUT);
         this.mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
@@ -33,8 +33,7 @@ public class EzySimpleJsonMapper extends EzyLoggable implements EzyJsonMapper {
     public static class Builder {
 
         public EzySimpleJsonMapper build() {
-            return new EzySimpleJsonMapper(this);
+            return new EzySimpleJsonMapper();
         }
-
     }
 }

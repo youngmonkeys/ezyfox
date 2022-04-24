@@ -16,7 +16,7 @@ public class EzyObjectMapperBuilder implements EzyBuilder<ObjectMapper> {
     @Override
     public ObjectMapper build() {
         return new ObjectMapper()
-                .registerModule(newModule());
+            .registerModule(newModule());
     }
 
     protected Module newModule() {
