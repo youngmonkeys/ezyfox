@@ -15,10 +15,8 @@ public class ChangeAssemblyConfigTool {
         List<Path> paths = new ArrayList<>();
         Files.walk(path)
             .filter(p -> p.toString().endsWith("assembly.xml"))
-            .forEach(p -> {
-                paths.add(p);
-            });
-        for(Path p : paths) {
+            .forEach(paths::add);
+        for (Path p : paths) {
             byte[] bytes = Files.readAllBytes(p);
             String str = new String(bytes);
             String newStr = str.replace("<format>zip</format>", "<format>dir</format>");

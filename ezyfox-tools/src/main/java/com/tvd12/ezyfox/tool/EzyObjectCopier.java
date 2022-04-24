@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.tool;
 
-import java.util.List;
-import java.util.function.Consumer;
-
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 public class EzyObjectCopier {
 
@@ -16,16 +16,17 @@ public class EzyObjectCopier {
     }
 
     public String generateScript(Class<?> objectType) {
-        String script = generateScript(objectType, getter -> {});
-        return script;
+        return generateScript(objectType, getter -> {});
     }
 
     public String generateScript(
-            Class<?> objectType, Consumer<StringBuilder> getterWrapper) {
+        Class<?> objectType,
+        Consumer<StringBuilder> getterWrapper
+    ) {
         EzyClass originClazz = new EzyClass(objectType);
         List<EzyField> originFields = includeAllFields
-                ? originClazz.getFields()
-                : originClazz.getDeclaredFields();
+            ? originClazz.getFields()
+            : originClazz.getDeclaredFields();
         StringBuilder builder = new StringBuilder();
         builder.append(objectType.getSimpleName())
             .append(" copy")
@@ -34,21 +35,22 @@ public class EzyObjectCopier {
             .append(objectType.getSimpleName())
             .append("();\n");
         int index = 0;
-        for(EzyField field : originFields) {
+        for (EzyField field : originFields) {
             builder
                 .append("copy.")
                 .append(field.getSetterMethod())
                 .append("(");
             StringBuilder getter = new StringBuilder()
-                    .append("origin")
-                    .append(".")
-                    .append(field.getGetterMethod()).append("()");
+                .append("origin")
+                .append(".")
+                .append(field.getGetterMethod()).append("()");
             getterWrapper.accept(getter);
             builder.append(getter)
                 .append(")")
                 .append(";");
-            if((index ++) < (originFields.size() - 1))
+            if ((index++) < (originFields.size() - 1)) {
                 builder.append("\n");
+            }
         }
         return builder.toString();
     }

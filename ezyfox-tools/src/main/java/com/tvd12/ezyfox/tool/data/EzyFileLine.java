@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.tool.data;
 
-import java.nio.file.Path;
-
 import lombok.Getter;
+
+import java.nio.file.Path;
 
 public class EzyFileLine extends EzyPathProxy {
 

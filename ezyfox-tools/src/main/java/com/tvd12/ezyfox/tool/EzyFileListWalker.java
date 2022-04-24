@@ -1,14 +1,14 @@
 package com.tvd12.ezyfox.tool;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.function.EzyPredicates;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.function.EzyPredicates;
 
 public class EzyFileListWalker {
 
@@ -22,6 +22,10 @@ public class EzyFileListWalker {
         this.directoryWalkers = builder.newDirectoryWalkers();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @SuppressWarnings("unchecked")
     public void forEach(Consumer<Path> action) {
         Predicate<Path> andFileFilter = EzyPredicates.and(fileFilters);
@@ -29,15 +33,10 @@ public class EzyFileListWalker {
         directoryWalkers.forEach(walker -> walker.forEach(action));
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public static class Builder implements EzyBuilder<EzyFileListWalker> {
 
         protected List<Path> fileList;
         protected List<Predicate<Path>> fileFilters;
-        protected List<EzyDirectoryWalker> directoryWalkers;
         protected List<EzyDirectoryWalker.Builder> directoryWalkerBuilders;
 
         public Builder() {
@@ -58,8 +57,8 @@ public class EzyFileListWalker {
 
         public Builder addDirectory(String directory, int maxWalkDepth) {
             this.directoryWalkerBuilders.add(EzyDirectoryWalker.builder()
-                    .start(directory)
-                    .maxDepth(maxWalkDepth));
+                .start(directory)
+                .maxDepth(maxWalkDepth));
             return this;
         }
 
@@ -70,13 +69,12 @@ public class EzyFileListWalker {
 
         protected List<EzyDirectoryWalker> newDirectoryWalkers() {
             List<EzyDirectoryWalker> answer = new ArrayList<>();
-            for(EzyDirectoryWalker.Builder builder : directoryWalkerBuilders) {
+            for (EzyDirectoryWalker.Builder builder : directoryWalkerBuilders) {
                 answer.add(builder
-                        .fileFilters(fileFilters)
-                        .build());
+                    .fileFilters(fileFilters)
+                    .build());
             }
             return answer;
         }
-
     }
 }

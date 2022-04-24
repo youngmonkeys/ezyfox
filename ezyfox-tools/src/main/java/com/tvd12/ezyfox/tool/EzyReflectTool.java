@@ -7,8 +7,7 @@ public class EzyReflectTool {
     public static Constructor<?> getConstructor(Class<?> clazz) {
         try {
             return clazz.getConstructors()[0];
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException("has no constructor of: " + clazz, e);
         }
     }

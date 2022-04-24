@@ -1,19 +1,14 @@
 package com.tvd12.ezyfox.tool;
 
+import com.tvd12.ezyfox.tool.data.EzyKeywordsLine;
+import com.tvd12.ezyfox.util.EzyLoggable;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
-
-import com.tvd12.ezyfox.tool.data.EzyKeywordsLine;
-import com.tvd12.ezyfox.util.EzyLoggable;
 
 public class EzyKeywordsFinder extends EzyLoggable {
 
@@ -43,8 +38,9 @@ public class EzyKeywordsFinder extends EzyLoggable {
     }
 
     public EzyKeywordsFinder addKeywords(Collection<String> keywords) {
-        for(String keyword : keywords)
+        for (String keyword : keywords) {
             addKeyword(keyword);
+        }
         return this;
     }
 
@@ -62,14 +58,45 @@ public class EzyKeywordsFinder extends EzyLoggable {
         List<EzyKeywordsLine> lines = new ArrayList<>();
         AtomicInteger foundCount = new AtomicInteger();
         Files.walk(Paths.get(folderPath), Integer.MAX_VALUE)
-            .filter(p -> Files.isRegularFile(p))
+            .filter(Files::isRegularFile)
             .filter(fileFilters)
             .forEach(p -> {
                 try {
                     lines.addAll(find(p, foundCount));
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     logger.error("read file: {} error: {}", p, e.getMessage());
+                }
+            });
+        return lines;
+    }
+
+    protected List<EzyKeywordsLine> find(
+        Path path,
+        AtomicInteger foundCount
+    ) throws Exception {
+        AtomicInteger lineNumber = new AtomicInteger();
+        List<EzyKeywordsLine> lines = new ArrayList<>();
+        Files.lines(path)
+            .forEach(l -> {
+                lineNumber.incrementAndGet();
+                if (!lineFilters.test(l)) {
+                    return;
+                }
+                String lineLower = l.toLowerCase();
+                Set<String> foundKeywords = new HashSet<>();
+                for (String keyword : keywords) {
+                    if (lineLower.contains(keyword)) {
+                        foundKeywords.add(keyword);
+                    }
+                }
+                if (foundKeywords.size() > 0) {
+                    lines.add(EzyKeywordsLine.builder()
+                        .index(foundCount.incrementAndGet())
+                        .filePath(path.toString())
+                        .lineNumber(lineNumber.get())
+                        .keywords(foundKeywords)
+                        .line(l)
+                        .build());
                 }
             });
         return lines;
@@ -79,40 +106,14 @@ public class EzyKeywordsFinder extends EzyLoggable {
         List<String> lines = new ArrayList<>();
         lines.add("#,File Path,Line Number,Keywords,Line Content");
         List<EzyKeywordsLine> keywordsLines = find();
-        for(EzyKeywordsLine keywordsLine : keywordsLines)
+        for (EzyKeywordsLine keywordsLine : keywordsLines) {
             lines.add(keywordsLine.toString());
+        }
         Path path = Paths.get(csvFilePath);
-        if(path.getParent() != null && !Files.exists(path.getParent()))
+        if (path.getParent() != null && !Files.exists(path.getParent())) {
             Files.createDirectories(path.getParent());
+        }
         Files.write(path, lines);
         return path.toAbsolutePath().toString();
-    }
-
-    protected List<EzyKeywordsLine> find(
-            Path path, AtomicInteger foundCount) throws Exception {
-        AtomicInteger lineNumber = new AtomicInteger();
-        List<EzyKeywordsLine> lines = new ArrayList<>();
-        Files.lines(path)
-            .forEach(l -> {
-                lineNumber.incrementAndGet();
-                if(!lineFilters.test(l))
-                    return;
-                String lineLower = l.toLowerCase();
-                Set<String> foundKeywords = new HashSet<>();
-                for(String keyword : keywords) {
-                    if(lineLower.contains(keyword))
-                        foundKeywords.add(keyword);
-                }
-                if(foundKeywords.size() > 0) {
-                    lines.add(EzyKeywordsLine.builder()
-                                .index(foundCount.incrementAndGet())
-                                .filePath(path.toString())
-                                .lineNumber(lineNumber.get())
-                                .keywords(foundKeywords)
-                                .line(l)
-                                .build());
-                }
-            });
-        return lines;
     }
 }

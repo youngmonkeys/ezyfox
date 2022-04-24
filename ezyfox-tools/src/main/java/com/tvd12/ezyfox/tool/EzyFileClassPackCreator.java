@@ -62,16 +62,26 @@ public class EzyFileClassPackCreator {
         return this;
     }
 
-    public EzyFileClassPackCreator add(String classType, String packageName, String templateFile) {
-        this.packageNames.put(classType, basePackageName + "." + packageName);
-        this.templatePaths.put(classType, Paths.get(templateFolderPath, templateFile).toString());
+    public EzyFileClassPackCreator add(
+        String classType,
+        String packageName,
+        String templateFile
+    ) {
+        this.packageNames.put(
+            classType,
+            basePackageName + "." + packageName
+        );
+        this.templatePaths.put(
+            classType,
+            Paths.get(templateFolderPath, templateFile).toString()
+        );
         return this;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public Set<String> create() {
         Set<String> classFilePaths = new HashSet<>();
-        for(String classType : packageNames.keySet()) {
+        for (String classType : packageNames.keySet()) {
             String classFullName = baseClassName + classType;
             String classFilePath = new EzyFileCreator()
                 .projectPath(projectPath)
@@ -80,7 +90,7 @@ public class EzyFileClassPackCreator {
                 .className(classFullName)
                 .overrideExists(overrideExists)
                 .templatePath(templatePaths.get(classType))
-                .replace((Map)variableValues)
+                .replace((Map) variableValues)
                 .replace("base-class-name", baseClassName)
                 .replace("base-package-name", basePackageName)
                 .create();

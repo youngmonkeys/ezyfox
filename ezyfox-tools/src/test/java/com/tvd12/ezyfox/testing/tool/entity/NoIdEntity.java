@@ -1,16 +1,15 @@
 package com.tvd12.ezyfox.testing.tool.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter
@@ -51,6 +50,5 @@ public class NoIdEntity {
     }
 
     @Column
-    public void setBar(String bar) {
-    }
+    public void setBar(String bar) {}
 }

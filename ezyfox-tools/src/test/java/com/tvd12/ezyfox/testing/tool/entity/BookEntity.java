@@ -1,19 +1,14 @@
 package com.tvd12.ezyfox.testing.tool.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter
@@ -57,6 +52,5 @@ public class BookEntity {
     }
 
     @Column
-    public void setBar(String bar) {
-    }
+    public void setBar(String bar) {}
 }

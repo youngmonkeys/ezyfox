@@ -1,72 +1,78 @@
 package com.tvd12.ezyfox.tool;
 
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.file.EzySimpleFileWriter;
 import com.tvd12.ezyfox.io.EzyDates;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.EzyMethods;
-
 import lombok.Setter;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
 @Setter
-public class EzyUnitestCreator {
+public class EzyUnitTestCreator {
 
     protected String testPackage;
     protected String projectPath;
     protected String testSourceFolder;
+
     protected final Class<?> clazz;
     protected final EzyObjectInstanceRandom valueRandom;
-    protected final static Set<String> ALWAYS_IMPORT_PACKAGES = alwaysImportPackages();
 
-    public EzyUnitestCreator(Class<?> clazz) {
+    protected static final Set<String> ALWAYS_IMPORT_PACKAGES = alwaysImportPackages();
+
+    public EzyUnitTestCreator(Class<?> clazz) {
         this.clazz = clazz;
         this.testSourceFolder = "src/test/java";
         this.valueRandom = new EzyObjectInstanceRandom();
     }
 
+    private static Set<String> alwaysImportPackages() {
+        return Collections.unmodifiableSet(Sets.newHashSet(
+            "java.lang", "java.util", "java.math"));
+    }
+
     public String createToFile(String method) {
         List<Method> methods = EzyMethods.getMethods(clazz);
-        for(Method m : methods)
+        for (Method m : methods) {
             return createToFile(m);
+        }
         throw new IllegalArgumentException("not found method: " + method);
     }
 
     public String createToFile(String method, Class<?>... paramTypes) {
         Method m = EzyMethods.getMethod(clazz, method, paramTypes);
-        if(m == null)
-            throw new IllegalStateException("not found method: " + method + "(" + EzyStrings.join(paramTypes, ", ") + ")");
+        if (m == null) {
+            throw new IllegalStateException(
+                "not found method: " + method +
+                    "(" + EzyStrings.join(paramTypes, ", ") + ")"
+            );
+        }
         return createToFile(method);
     }
 
     public String createToFile(Method method) {
-        if(testPackage == null)
+        if (testPackage == null) {
             throw new IllegalStateException("must set testPackage name");
-        if(projectPath == null)
+        }
+        if (projectPath == null) {
             throw new IllegalStateException("must set projectPath name");
+        }
         String content = create(method);
-        String fullContent = new StringBuilder()
-                .append("// auto generated: " + EzyDates.format(new Date())).append("\n\n")
-                .append("package ").append(testPackage).append(";\n\n")
-                .append(content)
-                .toString();
-        String filePath = new StringBuilder()
-                .append(projectPath).append("/")
-                .append(testSourceFolder).append("/")
-                .append(testPackage.replace('.', '/')).append("/")
-                .append(getTestClassName(method))
-                .append(".java")
-                .toString();
+        String fullContent = "// auto generated: " +
+            EzyDates.format(new Date()) + "\n\n" +
+            "package " + testPackage + ";\n\n" +
+            content;
+        String filePath = projectPath + "/" +
+            testSourceFolder + "/" +
+            testPackage.replace('.', '/') + "/" +
+            getTestClassName(method) +
+            ".java";
         filePath = filePath.replace("//", "/");
         EzySimpleFileWriter.builder().build()
             .write(new File(filePath), fullContent, StandardCharsets.UTF_8);
@@ -75,15 +81,20 @@ public class EzyUnitestCreator {
 
     public String create(String method) {
         List<Method> methods = EzyMethods.getMethods(clazz);
-        for(Method m : methods)
+        for (Method m : methods) {
             return create(m);
+        }
         throw new IllegalArgumentException("not found method: " + method);
     }
 
     public String create(String method, Class<?>... paramTypes) {
         Method m = EzyMethods.getMethod(clazz, method, paramTypes);
-        if(m == null)
-            throw new IllegalStateException("not found method: " + method + "(" + EzyStrings.join(paramTypes, ", ") + ")");
+        if (m == null) {
+            throw new IllegalStateException(
+                "not found method: " + method +
+                    "(" + EzyStrings.join(paramTypes, ", ") + ")"
+            );
+        }
         return create(method);
     }
 
@@ -109,37 +120,38 @@ public class EzyUnitestCreator {
             .append("import org.testng.annotations.Test;\n");
 
         Parameter[] parameters = method.getParameters();
-        for(Parameter param : parameters) {
+        for (Parameter param : parameters) {
             Class<?> type = param.getType();
-            if(type.isPrimitive())
+            if (type.isPrimitive()) {
                 continue;
+            }
             boolean importable = true;
             String typeName = type.getName();
-            for(String alwayImportPage : ALWAYS_IMPORT_PACKAGES) {
-                if(typeName.startsWith(alwayImportPage)) {
+            for (String alwayImportPage : ALWAYS_IMPORT_PACKAGES) {
+                if (typeName.startsWith(alwayImportPage)) {
                     importable = false;
                     break;
                 }
             }
-            if(importable)
+            if (importable) {
                 builder.append("import ").append(typeName).append(";\n");
+            }
         }
         builder.append("import static org.mockito.Mockito.*;\n");
         builder.append("\n");
     }
 
     protected String getTestClassName(Method method) {
-        return new StringBuilder(clazz.getSimpleName())
-                .append("With")
-                .append(EzyStringTool.upperFistChar(method.getName()))
-                .append("Test")
-                .toString();
+        return clazz.getSimpleName() +
+            "With" +
+            EzyStringTool.upperFistChar(method.getName()) +
+            "Test";
     }
 
     protected String createTestMethod(Method method) {
         StringBuilder builder = new StringBuilder("@Test\n")
-                .append("public void ")
-                .append(method.getName()).append("Test() throws Exception {\n");
+            .append("public void ")
+            .append(method.getName()).append("Test() throws Exception {\n");
         String body = createTestMethodBody(method);
         builder.append(EzyStringTool.tabAll(body, 1));
         return builder.append("\n}").toString();
@@ -148,42 +160,46 @@ public class EzyUnitestCreator {
     protected String createTestMethodBody(Method method) {
         StringBuilder builder = new StringBuilder();
         Parameter[] parameters = method.getParameters();
-        for(int i = 0 ; i < parameters.length ; ++i) {
+        for (int i = 0; i < parameters.length; ++i) {
             Class<?> type = parameters[i].getType();
-            builder.append(type.getSimpleName()).append(" arg" + i)
+            builder.append(type.getSimpleName())
+                .append(" arg").append(i)
                 .append(" = ");
-            String valueString = "";
-            if(isCustomerClass(type))
+            String valueString;
+            if (isCustomerClass(type)) {
                 valueString = "new" + type.getSimpleName() + "()";
-            else
+            } else {
                 valueString = valueRandom.randomValueScript(type);
-            builder.append(valueString + ";\n");
+            }
+            builder.append(valueString).append(";\n");
         }
         builder.append(clazz.getSimpleName())
             .append(" instance = newInstance();\n");
         Class<?> returnType = method.getReturnType();
-        if(!returnType.equals(void.class))
+        if (!returnType.equals(void.class)) {
             builder.append(returnType.getSimpleName()).append(" result = ");
+        }
         builder.append("instance.").append(method.getName()).append("(");
-        for(int i = 0 ; i < parameters.length ; ++i) {
-            builder.append("arg" + i);
-            if(i < parameters.length - 1)
+        for (int i = 0; i < parameters.length; ++i) {
+            builder.append("arg").append(i);
+            if (i < parameters.length - 1) {
                 builder.append(", ");
+            }
         }
         builder.append(");\n");
-        if(!returnType.equals(void.class))
+        if (!returnType.equals(void.class)) {
             builder.append("System.out.println(\"test result: \" + result);");
+        }
         return builder.toString();
     }
 
     protected void addNewInstance(StringBuilder builder) {
         String body = createNewInstanceBody();
-        String newInstance = new StringBuilder("protected ")
-                .append(clazz.getSimpleName())
-                .append(" newInstance() {\n")
-                .append(EzyStringTool.tabAll(body, 1))
-                .append("\n}")
-                .toString();
+        String newInstance = "protected " +
+            clazz.getSimpleName() +
+            " newInstance() {\n" +
+            EzyStringTool.tabAll(body, 1) +
+            "\n}";
         builder.append(EzyStringTool.tabAll(newInstance, 1));
     }
 
@@ -191,24 +207,26 @@ public class EzyUnitestCreator {
         StringBuilder builder = new StringBuilder();
         Constructor<?> constructor = EzyReflectTool.getConstructor(clazz);
         Parameter[] parameters = constructor.getParameters();
-        for(int i = 0 ; i < parameters.length ; ++i) {
+        for (int i = 0; i < parameters.length; ++i) {
             Class<?> type = parameters[i].getType();
-            builder.append(type.getSimpleName()).append(" arg" + i)
+            builder.append(type.getSimpleName()).append(" arg").append(i)
                 .append(" = ");
-            String valueString = "";
-            if(isCustomerClass(type))
+            String valueString;
+            if (isCustomerClass(type)) {
                 valueString = "new" + type.getSimpleName() + "()";
-            else
+            } else {
                 valueString = valueRandom.randomValueScript(type);
-            builder.append(valueString + ";\n");
+            }
+            builder.append(valueString).append(";\n");
         }
         builder.append(clazz.getSimpleName())
-                .append(" instance = new ")
-                .append(clazz.getSimpleName()).append("(");
-        for(int i = 0 ; i < parameters.length ; ++i) {
-            builder.append("arg" + i);
-            if(i < parameters.length - 1)
+            .append(" instance = new ")
+            .append(clazz.getSimpleName()).append("(");
+        for (int i = 0; i < parameters.length; ++i) {
+            builder.append("arg").append(i);
+            if (i < parameters.length - 1) {
                 builder.append(", ");
+            }
         }
         return builder.append(");\n")
             .append("return instance;").toString();
@@ -217,22 +235,24 @@ public class EzyUnitestCreator {
     protected void addNewParamValues(Method method, StringBuilder builder) {
         Set<Class<?>> allCustomTypes = new HashSet<>();
         Constructor<?> constructor = EzyReflectTool.getConstructor(clazz);
-        for(Parameter param : constructor.getParameters()) {
-            if(isCustomerClass(param.getType()))
+        for (Parameter param : constructor.getParameters()) {
+            if (isCustomerClass(param.getType())) {
                 allCustomTypes.add(param.getType());
+            }
         }
-        for(Parameter param : method.getParameters()) {
-            if(isCustomerClass(param.getType()))
+        for (Parameter param : method.getParameters()) {
+            if (isCustomerClass(param.getType())) {
                 allCustomTypes.add(param.getType());
+            }
         }
         Set<Class<?>> remainCustomTypes = new HashSet<>(allCustomTypes);
-        while(remainCustomTypes.size() > 0) {
+        while (remainCustomTypes.size() > 0) {
             Set<Class<?>> createdCustomTypes = new HashSet<>(allCustomTypes);
-            for(Class<?> type : new HashSet<>(remainCustomTypes)) {
+            for (Class<?> type : new HashSet<>(remainCustomTypes)) {
                 StringBuilder methodBuilder = new StringBuilder()
-                        .append("protected ")
-                        .append(type.getSimpleName())
-                        .append(" new").append(type.getSimpleName()).append("() {\n");
+                    .append("protected ")
+                    .append(type.getSimpleName())
+                    .append(" new").append(type.getSimpleName()).append("() {\n");
                 String script = valueRandom.randomObjectScript(type, remainCustomTypes);
                 methodBuilder.append(EzyStringTool.tabAll(script, 1))
                     .append("\n}");
@@ -247,10 +267,5 @@ public class EzyUnitestCreator {
 
     protected boolean isCustomerClass(Class<?> clazz) {
         return EzyToolTypes.isCustomerClass(clazz);
-    }
-
-    private static Set<String> alwaysImportPackages() {
-        return Collections.unmodifiableSet(Sets.newHashSet(
-                "java.lang", "java.util", "java.math"));
     }
 }

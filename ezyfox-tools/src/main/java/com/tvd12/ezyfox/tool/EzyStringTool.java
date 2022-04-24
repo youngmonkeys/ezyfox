@@ -10,52 +10,56 @@ public final class EzyStringTool {
     private EzyStringTool() {}
 
     public static String tab(String origin, int ntabs) {
-        String answer = tab(origin, ntabs, false);
-        return answer;
+        return tab(origin, ntabs, false);
     }
 
     public static String tab(String origin, int ntabs, boolean tab4spaces) {
         StringBuilder builder = new StringBuilder();
-        for(int i = 0 ; i < ntabs ; ++i)
+        for (int i = 0; i < ntabs; ++i) {
             builder.append("\t");
+        }
         String after = builder.append(origin).toString();
         String answer = after;
-        if(tab4spaces)
+        if (tab4spaces) {
             answer = after.replace("\t", TAB_4_SPACES);
+        }
         return answer;
     }
 
     public static String tabAll(String origin, int ntabs) {
-        String answer = tabAll(origin, ntabs, false);
-        return answer;
+        return tabAll(origin, ntabs, false);
     }
 
     public static String tabAll(String origin, int ntabs, boolean tab4spaces) {
         String[] strs = origin.split("\n");
         StringBuilder builder = new StringBuilder();
         int lastIndex = strs.length - 1;
-        for(int i = 0 ; i < strs.length ; ++i) {
+        for (int i = 0; i < strs.length; ++i) {
             builder.append(tab(strs[i], ntabs, tab4spaces));
-            if(i < lastIndex)
+            if (i < lastIndex) {
                 builder.append("\n");
+            }
         }
-        String answer = builder.toString();
-        return answer;
+        return builder.toString();
     }
 
     public static String upperFistChar(String str) {
-        if(EzyStrings.isNoContent(str))
+        if (EzyStrings.isNoContent(str)) {
             throw new IllegalArgumentException("input string is null or empty");
-        if(str.length() == 1)
+        }
+        if (str.length() == 1) {
             return str.toUpperCase();
+        }
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 
     public static String lowerFistChar(String str) {
-        if(EzyStrings.isNoContent(str))
+        if (EzyStrings.isNoContent(str)) {
             throw new IllegalArgumentException("input string is null or empty");
-        if(str.length() == 1)
+        }
+        if (str.length() == 1) {
             return str.toLowerCase();
+        }
         return str.substring(0, 1).toLowerCase() + str.substring(1);
     }
 
@@ -68,16 +72,21 @@ public final class EzyStringTool {
     }
 
     public static String standardized(String str, EzyCaseType caseType) {
-        if(caseType == EzyCaseType.UPPERCASE)
+        if (caseType == EzyCaseType.UPPERCASE) {
             return EzyStringTool.toUnderscore(str).toUpperCase();
-        if(caseType == EzyCaseType.LOWERCASE)
+        }
+        if (caseType == EzyCaseType.LOWERCASE) {
             return str.toLowerCase();
-        if(caseType == EzyCaseType.CAMEL)
+        }
+        if (caseType == EzyCaseType.CAMEL) {
             return EzyStringTool.lowerFistChar(str);
-        if(caseType == EzyCaseType.DASH)
+        }
+        if (caseType == EzyCaseType.DASH) {
             return EzyStringTool.toUnderscore(str).replace('_', '-');
-        if(caseType == EzyCaseType.UNDERSCORE)
+        }
+        if (caseType == EzyCaseType.UNDERSCORE) {
             return EzyStringTool.toUnderscore(str);
+        }
         return str;
     }
 }

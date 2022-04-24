@@ -1,5 +1,8 @@
 package com.tvd12.ezyfox.tool.csv;
 
+import com.tvd12.ezyfox.io.EzyStrings;
+import com.tvd12.ezyfox.tool.EzyFileTool;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,9 +10,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.tool.EzyFileTool;
 
 public class EzyCsvFileWriter implements EzyCsvWriter {
 
@@ -31,20 +31,19 @@ public class EzyCsvFileWriter implements EzyCsvWriter {
 
     @Override
     public void flush() throws IOException {
-        List<Object[]> toWrite = new ArrayList<>();
+        List<Object[]> toWrite;
         synchronized (rows) {
-            for(Object[] row : rows)
-                toWrite.add(row);
+            toWrite = new ArrayList<>(rows);
             rows.clear();
         }
         List<String> lines = new ArrayList<>();
-        for(Object[] row : toWrite)
+        for (Object[] row : toWrite) {
             lines.add(rowToLine(row));
+        }
         Files.write(outputFilePath, lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     protected String rowToLine(Object[] row) {
-        String line = EzyStrings.join(row, ",");
-        return line;
+        return EzyStrings.join(row, ",");
     }
 }

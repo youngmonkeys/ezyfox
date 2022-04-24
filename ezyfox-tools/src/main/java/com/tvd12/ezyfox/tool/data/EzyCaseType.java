@@ -8,5 +8,4 @@ public enum EzyCaseType {
     CAMEL,
     DASH,
     UNDERSCORE
-
 }

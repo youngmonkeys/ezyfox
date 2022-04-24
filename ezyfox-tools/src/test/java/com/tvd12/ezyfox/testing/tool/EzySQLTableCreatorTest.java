@@ -1,15 +1,9 @@
 package com.tvd12.ezyfox.testing.tool;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.testing.tool.entity.AnimalEntity;
-import com.tvd12.ezyfox.testing.tool.entity.BookEntity;
-import com.tvd12.ezyfox.testing.tool.entity.CategoryEntity;
-import com.tvd12.ezyfox.testing.tool.entity.NoIdEntity;
-import com.tvd12.ezyfox.testing.tool.entity.PersonEntity;
-import com.tvd12.ezyfox.testing.tool.entity.UserEntity;
+import com.tvd12.ezyfox.testing.tool.entity.*;
 import com.tvd12.ezyfox.tool.EzySQLTableCreator;
 import com.tvd12.ezyfox.tool.data.EzyCaseType;
+import org.testng.annotations.Test;
 
 public class EzySQLTableCreatorTest {
 

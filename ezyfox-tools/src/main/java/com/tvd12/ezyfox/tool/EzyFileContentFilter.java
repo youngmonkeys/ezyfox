@@ -1,5 +1,10 @@
 package com.tvd12.ezyfox.tool;
 
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.tool.data.EzyFileLine;
+import com.tvd12.ezyfox.tool.io.EzyObjectOutputStream;
+import com.tvd12.reflections.util.Predicates;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,11 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
-
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.tool.data.EzyFileLine;
-import com.tvd12.ezyfox.tool.io.EzyObjectOutputStream;
-import com.tvd12.reflections.util.Predicates;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class EzyFileContentFilter {
@@ -29,17 +29,23 @@ public class EzyFileContentFilter {
         this.lineTransformer = builder.lineTransformer;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public <T> List<T> filter() throws IOException {
         List<T> output = new ArrayList<>();
         filter(t -> output.add((T) t));
         return output;
     }
 
-    public <T> void filter(EzyObjectOutputStream<T> outputStream) throws IOException {
+    public <T> void filter(
+        EzyObjectOutputStream<T> outputStream
+    ) throws IOException {
         Path start = Paths.get(rootDir);
         Predicate<Path> fileFilterPredicate = getFileFilterPredicate();
         Files.walk(start)
-            .filter(p -> Files.isRegularFile(p))
+            .filter(Files::isRegularFile)
             .filter(fileFilterPredicate)
             .forEach(path -> filterFile0(path, outputStream));
     }
@@ -47,40 +53,38 @@ public class EzyFileContentFilter {
     protected void filterFile0(Path path, EzyObjectOutputStream outputStream) {
         try {
             filterFile(path, outputStream);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
 
     protected void filterFile(
-            Path path, EzyObjectOutputStream outputStream) throws IOException {
+        Path path,
+        EzyObjectOutputStream outputStream
+    ) throws IOException {
         Predicate<String> lineFilterPredicate = getLineFilterPredicate();
         Files.lines(path)
             .filter(lineFilterPredicate)
             .forEach(line -> {
                 EzyFileLine fileLine = new EzyFileLine(path, line);
                 Object transformed = fileLine;
-                if(lineTransformer != null)
+                if (lineTransformer != null) {
                     transformed = lineTransformer.apply(fileLine);
+                }
                 outputStream.write(transformed);
             });
     }
 
     private Predicate<Path> getFileFilterPredicate() {
         Predicate<Path>[] array =
-                fileFilters.toArray(new Predicate[fileFilters.size()]);
+            fileFilters.toArray(new Predicate[0]);
         return Predicates.and(array);
     }
 
     private Predicate<String> getLineFilterPredicate() {
         Predicate<String>[] array =
-                lineFilters.toArray(new Predicate[lineFilters.size()]);
+            lineFilters.toArray(new Predicate[0]);
         return Predicates.and(array);
-    }
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder implements EzyBuilder<EzyFileContentFilter> {
@@ -119,6 +123,5 @@ public class EzyFileContentFilter {
         public EzyFileContentFilter build() {
             return new EzyFileContentFilter(this);
         }
-
     }
 }

@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.tool.data;
 
+import com.tvd12.ezyfox.util.EzyFileUtil;
+import lombok.Getter;
+
 import java.io.File;
 import java.nio.file.Path;
-
-import com.tvd12.ezyfox.util.EzyFileUtil;
-
-import lombok.Getter;
 
 public class EzyPathProxy {
 
@@ -23,25 +22,20 @@ public class EzyPathProxy {
         this.path = path;
     }
 
-
     public File toFile() {
-        File file = path.toFile();
-        return file;
+        return path.toFile();
     }
 
     public Path getRelativePath() {
-        Path answer = path.relativize(root);
-        return answer;
+        return path.relativize(root);
     }
 
     public String getFileName() {
-        String name = path.getFileName().toString();
-        return name;
+        return path.getFileName().toString();
     }
 
     public String getFileExtension() {
-        String extension = EzyFileUtil.getFileExtension(getFileName());
-        return extension;
+        return EzyFileUtil.getFileExtension(getFileName());
     }
 
     @Override

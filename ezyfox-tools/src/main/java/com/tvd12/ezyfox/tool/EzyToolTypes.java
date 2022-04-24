@@ -1,5 +1,7 @@
 package com.tvd12.ezyfox.tool;
 
+import com.tvd12.ezyfox.reflect.EzyTypes;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -7,8 +9,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.tvd12.ezyfox.reflect.EzyTypes;
 
 @SuppressWarnings("rawtypes")
 public final class EzyToolTypes {
@@ -18,15 +18,17 @@ public final class EzyToolTypes {
     private EzyToolTypes() {}
 
     public static boolean isCustomerClass(Class<?> clazz) {
-        if(clazz.isEnum())
+        if (clazz.isEnum()) {
             return false;
-        Set<Class> allTypes = ALL_TYPES;
-        if(allTypes.contains(clazz))
+        }
+        if (ALL_TYPES.contains(clazz)) {
             return false;
+        }
         Set<Class> genericsClassTypes = EzyTypes.COMMON_GENERIC_TYPES;
-        for(Class<?> type : genericsClassTypes) {
-            if(type.isAssignableFrom(clazz))
+        for (Class<?> type : genericsClassTypes) {
+            if (type.isAssignableFrom(clazz)) {
                 return false;
+            }
         }
         return true;
     }

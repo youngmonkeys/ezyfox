@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.tool.data;
 
-import java.util.Set;
-
 import com.tvd12.ezyfox.builder.EzyBuilder;
 import com.tvd12.ezyfox.io.EzyStrings;
-
 import lombok.AllArgsConstructor;
+
+import java.util.Set;
 
 @AllArgsConstructor
 public class EzyKeywordsLine {
@@ -24,19 +23,17 @@ public class EzyKeywordsLine {
         this.line = builder.line;
     }
 
-    @Override
-    public String toString() {
-        return new StringBuilder()
-                .append(index).append(",")
-                .append(filePath).append(",")
-                .append(lineNumber).append(",")
-                .append(EzyStrings.join(keywords, "|")).append(",")
-                .append(line)
-                .toString();
-    }
-
     public static Builder builder() {
         return new Builder();
+    }
+
+    @Override
+    public String toString() {
+        return index + "," +
+            filePath + "," +
+            lineNumber + "," +
+            EzyStrings.join(keywords, "|") + "," +
+            line;
     }
 
     public static class Builder implements EzyBuilder<EzyKeywordsLine> {
@@ -75,6 +72,5 @@ public class EzyKeywordsLine {
         public EzyKeywordsLine build() {
             return new EzyKeywordsLine(this);
         }
-
     }
 }

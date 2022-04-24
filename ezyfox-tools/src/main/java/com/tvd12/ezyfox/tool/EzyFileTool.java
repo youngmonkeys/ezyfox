@@ -8,10 +8,10 @@ public class EzyFileTool {
     public static void createParentDir(Path path) {
         try {
             Path parent = path.getParent();
-            if(parent != null)
+            if (parent != null) {
                 Files.createDirectories(parent);
-        }
-        catch (Exception e) {
+            }
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }

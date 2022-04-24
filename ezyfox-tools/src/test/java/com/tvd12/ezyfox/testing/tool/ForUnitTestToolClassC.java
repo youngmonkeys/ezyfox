@@ -1,4 +1,4 @@
 package com.tvd12.ezyfox.testing.tool;
 
-public class ForUnitestToolClassD {
+public class ForUnitTestToolClassC {
 }

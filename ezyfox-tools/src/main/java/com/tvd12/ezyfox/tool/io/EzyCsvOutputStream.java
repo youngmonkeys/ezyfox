@@ -24,8 +24,7 @@ public class EzyCsvOutputStream implements EzyObjectOutputStream<Object[]> {
     public void close() {
         try {
             writer.flush();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         }
     }

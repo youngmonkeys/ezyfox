@@ -1,22 +1,20 @@
 package com.tvd12.ezyfox.testing.tool.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
-import lombok.Getter;
-import lombok.Setter;
-
 @Getter
 @Setter
 public class UserEntity {
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     @Column(name = "bool-value-1")
@@ -45,4 +43,5 @@ public class UserEntity {
     protected LocalDateTime localDateTime;
     protected BigInteger bigInteger;
     protected BigDecimal bigDecimal;
-    protected byte[] byteArray;}
+    protected byte[] byteArray;
+}

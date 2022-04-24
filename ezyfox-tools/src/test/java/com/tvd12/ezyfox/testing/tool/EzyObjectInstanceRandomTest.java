@@ -1,5 +1,11 @@
 package com.tvd12.ezyfox.testing.tool;
 
+import com.tvd12.ezyfox.tool.EzyObjectInstanceRandom;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.testng.annotations.Test;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -7,15 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.testng.annotations.Test;
-
-import com.tvd12.ezyfox.tool.EzyObjectInstanceRandom;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 public class EzyObjectInstanceRandomTest {
+
+    public static void main(String[] args) {
+        EzyObjectInstanceRandomTest test = new EzyObjectInstanceRandomTest();
+        test.test6();
+    }
 
     @Test
     public void test() {
@@ -54,11 +57,6 @@ public class EzyObjectInstanceRandomTest {
     public void test6() {
         EzyObjectInstanceRandom random = new EzyObjectInstanceRandom();
         System.out.println(random.randomObjectFuncScript(ClassA.class));
-    }
-
-    public static void main(String[] args) {
-        EzyObjectInstanceRandomTest test = new EzyObjectInstanceRandomTest();
-        test.test6();
     }
 
     @Getter
