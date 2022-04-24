@@ -1,9 +1,9 @@
 package com.tvd12.ezyfox.database.util;
 
-import static com.tvd12.ezyfox.reflect.EzyClasses.getVariableName;
-
 import com.tvd12.ezyfox.database.annotation.EzyRepository;
 import com.tvd12.ezyfox.io.EzyStrings;
+
+import static com.tvd12.ezyfox.reflect.EzyClasses.getVariableName;
 
 public final class EzyRepositoryAnnotations {
 

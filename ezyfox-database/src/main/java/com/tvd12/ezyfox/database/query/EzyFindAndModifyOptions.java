@@ -5,29 +5,29 @@ import java.util.concurrent.TimeUnit;
 public interface EzyFindAndModifyOptions {
 
     /**
-     * Returns the remove
+     * Returns the remove.
      *
      * @return the remove
      */
     boolean isRemove();
 
     /**
-     * Indicates whether to remove the elements matching the query or not
+     * Indicates whether to remove the elements matching the query or not.
      *
      * @param remove true if the matching elements should be deleted
      * @return this
      */
-    EzyFindAndModifyOptions remove(boolean remove);;
+    EzyFindAndModifyOptions remove(boolean remove);
 
     /**
-     * Returns the upsert
+     * Returns the upsert.
      *
      * @return the upsert
      */
     boolean isUpsert();
 
     /**
-     * Indicates that an upsert should be performed
+     * Indicates that an upsert should be performed.
      *
      * @param upsert the upsert
      * @return this
@@ -35,13 +35,14 @@ public interface EzyFindAndModifyOptions {
     EzyFindAndModifyOptions upsert(boolean upsert);
 
     /**
-     * Returns the returnNew
+     * Returns the returnNew.
      *
      * @return the returnNew
      */
     boolean isReturnNew();
+
     /**
-     * Sets the returnNew
+     * Sets the returnNew.
      *
      * @param returnNew the returnNew
      * @return this
@@ -49,7 +50,8 @@ public interface EzyFindAndModifyOptions {
     EzyFindAndModifyOptions returnNew(boolean returnNew);
 
     /**
-     * Gets the maximum execution time on the server for this operation.  The default is 0, which places no limit on the execution time.
+     * Gets the maximum execution time on the server for this operation.
+     * The default is 0, which places no limit on the execution time.
      *
      * @param timeUnit the time unit to return the result in
      * @return the maximum execution time in the given time unit

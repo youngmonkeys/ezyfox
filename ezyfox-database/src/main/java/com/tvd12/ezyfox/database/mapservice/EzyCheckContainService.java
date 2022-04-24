@@ -1,6 +1,6 @@
 package com.tvd12.ezyfox.database.mapservice;
 
-public interface EzyCheckContainService<K,V> {
+public interface EzyCheckContainService<K, V> {
 
     boolean containsKey(K key);
 

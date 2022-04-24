@@ -1,20 +1,21 @@
 package com.tvd12.ezyfox.database.query;
 
-import java.util.List;
-
 import com.tvd12.ezyfox.function.EzyApply;
 
+import java.util.List;
+
 /**
- * <p> A nicer interface to the update operations in monogodb. All these operations happen at the server and can cause the server and
- * client
- * version of the Entity to be different </p>
+ * <p> A nicer interface to the update operations in mongodb.
+ * All these operations happen at the server and can cause the server and client
+ * version of the Entity to be different.
+ * </p>
  *
  * @param <T> The Java type used in the updates
  */
 public interface EzyUpdateOperations<T> {
 
     /**
-     * adds the value to an array field if it doesn't already exist in the array
+     * adds the value to an array field if it doesn't already exist in the array.
      *
      * @param field the field to update
      * @param value the value to add
@@ -23,7 +24,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> addToSet(String field, Object value);
 
     /**
-     * adds the values to an array field if they doesn't already exist in the array
+     * adds the values to an array field if they don't already exist in the array.
      *
      * @param field  the field to update
      * @param values the values to add
@@ -32,7 +33,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> addToSet(String field, List<?> values);
 
     /**
-     * Decrements the numeric field by 1
+     * Decrements the numeric field by 1.
      *
      * @param field the field to update
      * @return this
@@ -45,28 +46,28 @@ public interface EzyUpdateOperations<T> {
      *
      * @param field the field to update
      * @param value the value to decrement by
-     * @throws IllegalArgumentException of the value is not an instance of
-     *         Double, Float,Long, or Integer
      * @return this
+     * @throws IllegalArgumentException of the value is not an instance of
+     *                                  Double, Float,Long, or Integer
      */
     EzyUpdateOperations<T> dec(String field, Number value);
 
     /**
-     * Turns off validation (for all calls made after)
+     * Turns off validation (for all calls made after).
      *
      * @return this
      */
     EzyUpdateOperations<T> disableValidation();
 
     /**
-     * Turns on validation (for all calls made after); by default validation is on
+     * Turns on validation (for all calls made after); by default validation is on.
      *
      * @return this
      */
     EzyUpdateOperations<T> enableValidation();
 
     /**
-     * Increments the numeric field by 1
+     * Increments the numeric field by 1.
      *
      * @param field the field to update
      * @return this
@@ -74,7 +75,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> inc(String field);
 
     /**
-     * increments the numeric field by value (negatives are allowed)
+     * increments the numeric field by value (negatives are allowed).
      *
      * @param field the field to update
      * @param value the value to increment by
@@ -83,15 +84,14 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> inc(String field, Number value);
 
     /**
-     * Enables isolation (so this update happens in one shot, without yielding)
+     * Enables isolation (so this update happens in one shot, without yielding).
      *
      * @return this
      */
     EzyUpdateOperations<T> isolated();
 
     /**
-     * @return true if this update is to be run in isolation
-     *
+     * @return true if this update is to be run in isolation.
      * @since 1.3
      */
     boolean isIsolated();
@@ -124,7 +124,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> push(String field, Object value);
 
     /**
-     * Adds new values to an array field at the given position
+     * Adds new values to an array field at the given position.
      *
      * @param field   the field to updated
      * @param value   the value to add
@@ -143,7 +143,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> push(String field, List<?> values);
 
     /**
-     * Adds new values to an array field at the given position
+     * Adds new values to an array field at the given position.
      *
      * @param field   the field to updated
      * @param values  the values to add
@@ -153,7 +153,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> push(String field, List<?> values, EzyApply<EzyPushOptions> options);
 
     /**
-     * removes the value from the array field
+     * removes the value from the array field.
      *
      * @param field the field to update
      * @param value the value to use
@@ -162,7 +162,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> removeAll(String field, Object value);
 
     /**
-     * removes the values from the array field
+     * removes the values from the array field.
      *
      * @param field  the field to update
      * @param values the values to use
@@ -171,7 +171,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> removeAll(String field, List<?> values);
 
     /**
-     * removes the first value from the array
+     * removes the first value from the array.
      *
      * @param field the field to update
      * @return this
@@ -179,7 +179,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> removeFirst(String field);
 
     /**
-     * removes the last value from the array
+     * removes the last value from the array.
      *
      * @param field the field to update
      * @return this
@@ -187,7 +187,7 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> removeLast(String field);
 
     /**
-     * sets the field value
+     * sets the field value.
      *
      * @param field the field to update
      * @param value the value to use
@@ -205,9 +205,10 @@ public interface EzyUpdateOperations<T> {
     EzyUpdateOperations<T> setOnInsert(String field, Object value);
 
     /**
-     * removes the field
+     * removes the field.
      *
      * @param field the field to update
      * @return this
      */
-    EzyUpdateOperations<T> unset(String field);}
+    EzyUpdateOperations<T> unset(String field);
+}

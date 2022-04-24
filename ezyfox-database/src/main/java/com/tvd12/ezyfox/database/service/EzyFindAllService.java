@@ -6,4 +6,5 @@ public interface EzyFindAllService<E> {
 
     List<E> findAll();
 
-    List<E> findAll(int skip, int limit);}
+    List<E> findAll(int skip, int limit);
+}

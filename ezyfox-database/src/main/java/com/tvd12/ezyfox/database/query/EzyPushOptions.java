@@ -4,6 +4,7 @@ public interface EzyPushOptions {
 
     /**
      * Sets the position for the update
+     *
      * @param position the position in the array for the update
      * @return this
      */
@@ -11,6 +12,7 @@ public interface EzyPushOptions {
 
     /**
      * Sets the slice value for the update
+     *
      * @param slice the slice value for the update
      * @return this
      */
@@ -18,6 +20,7 @@ public interface EzyPushOptions {
 
     /**
      * Sets the sort value for the update
+     *
      * @param sort the sort value for the update
      * @return this
      */
@@ -30,4 +33,5 @@ public interface EzyPushOptions {
      * @param direction the direction of the sort
      * @return this
      */
-    EzyPushOptions sort(String field, int direction);}
+    EzyPushOptions sort(String field, int direction);
+}

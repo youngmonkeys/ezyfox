@@ -1,11 +1,10 @@
 package com.tvd12.ezyfox.database.testing;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.database.testing.mapstore.PersonMapstore;
 import com.tvd12.ezyfox.database.testing.mapstore.UserMapstore;
 import com.tvd12.ezyfox.database.util.EzyMapstoreAnnotations;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class EzyMapstoreAnnotationsTest extends BaseTest {
 
