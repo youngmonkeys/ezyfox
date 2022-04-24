@@ -11,12 +11,15 @@ public class EzySingletonException extends IllegalStateException {
         super(msg);
     }
 
-    public static EzySingletonException
-    implementationNotFound(EzyBeanKey key, Set<Class<?>> uncompleted) {
-        String message = "bean " +
-            key +
-            " implementation not found, uncompleted classes: " +
-            uncompleted;
-        return new EzySingletonException(message);
+    public static EzySingletonException implementationNotFound(
+        EzyBeanKey key,
+        Set<Class<?>> uncompleted
+    ) {
+        return new EzySingletonException(
+            "bean " +
+                key +
+                " implementation not found, uncompleted classes: " +
+                uncompleted
+        );
     }
 }

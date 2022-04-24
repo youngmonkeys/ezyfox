@@ -89,6 +89,16 @@ public abstract class EzySimpleSingletonLoader
         return singleton;
     }
 
+    private Object getOrCreateSingleton(
+        Class type, String beanName, EzyBeanContext context) {
+        EzySingletonFactory factory = context.getSingletonFactory();
+        Object singleton = factory.getSingleton(beanName, type);
+        if (singleton == null) {
+            singleton = createNewSingleton(type, beanName, context);
+        }
+        return singleton;
+    }
+
     protected Map getAnnotationProperties() {
         return EzyKeyValueParser.getSingletonProperties(getSingletonClass());
     }
@@ -198,16 +208,6 @@ public abstract class EzySimpleSingletonLoader
         return arguments;
     }
 
-    private Object getOrCreateSingleton(
-        Class type, String beanName, EzyBeanContext context) {
-        EzySingletonFactory factory = context.getSingletonFactory();
-        Object singleton = factory.getSingleton(beanName, type);
-        if (singleton == null) {
-            singleton = createNewSingleton(type, beanName, context);
-        }
-        return singleton;
-    }
-
     private Object createNewSingleton(
         Class paramType,
         String beanName,
@@ -216,7 +216,13 @@ public abstract class EzySimpleSingletonLoader
         EzyMethod method = methodsByType.remove(paramType);
         if (method != null) {
             logger.debug("add singleton of {} with method {}", paramType, method);
-            EzySingletonLoader loader = new EzyByMethodSingletonLoader(beanName, method, configurator, methodsByType, stackCallClasses);
+            EzySingletonLoader loader = new EzyByMethodSingletonLoader(
+                beanName,
+                method,
+                configurator,
+                methodsByType,
+                stackCallClasses
+            );
             return loader.load(context);
         }
         boolean cannotCreate = isAbstractClass(paramType);
@@ -228,7 +234,11 @@ public abstract class EzySimpleSingletonLoader
         if (cannotCreate) {
             throw new EzyNewSingletonException(getSingletonClass(), paramType, beanName);
         }
-        EzySingletonLoader loader = new EzyByConstructorSingletonLoader(beanName, new EzyClass(paramType), stackCallClasses);
+        EzySingletonLoader loader = new EzyByConstructorSingletonLoader(
+            beanName,
+            new EzyClass(paramType),
+            stackCallClasses
+        );
         return loader.load(context);
     }
 

@@ -55,16 +55,16 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 
     protected abstract Class<?>[] getConstructorParameterTypes();
 
-    protected String[] getConstructorArgumentNames() {
-        return getArgumentNames(getConstructorParameterTypes());
-    }
-
     protected final String[] getArgumentNames(Class<?>[] parameterTypes) {
         String[] names = new String[parameterTypes.length];
         for (int i = 0; i < parameterTypes.length; i++) {
             names[i] = EzyClasses.getVariableName(parameterTypes[i]);
         }
         return names;
+    }
+
+    protected String[] getConstructorArgumentNames() {
+        return getArgumentNames(getConstructorParameterTypes());
     }
 
     protected final String[] getConstructorArgumentNames(EzyAutoBind annotation) {
@@ -105,8 +105,8 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
 
     protected final List<EzyMethod> getPostInitMethods() {
         return clazz.getPublicMethods(m ->
-            m.isAnnotated(EzyPostInit.class) &&
-                m.getParameterCount() == 0
+            m.isAnnotated(EzyPostInit.class)
+                && m.getParameterCount() == 0
         );
     }
 
@@ -123,8 +123,10 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
         return clazz.getFields(f -> f.isPublic() && f.isAnnotated(ann));
     }
 
-    private List<EzySetterMethod>
-    getValidMethods(EzyClass clazz, Predicate<EzyMethod> predicate) {
+    private List<EzySetterMethod> getValidMethods(
+        EzyClass clazz,
+        Predicate<EzyMethod> predicate
+    ) {
         List<EzyMethod> methods = clazz.getMethods();
         List<EzyMethod> valid0 = EzyLists.filter(methods, predicate);
         List<EzyMethod> valid = EzyMethods.filterOverriddenMethods(valid0);
@@ -136,10 +138,9 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
             return false;
         }
         EzyField field = clazz.getField(method.getFieldName());
-        boolean answer =
-            field != null &&
-                !field.isPublic() &&
-                field.isAnnotated(ann);
+        boolean answer = field != null
+            && !field.isPublic()
+            && field.isAnnotated(ann);
         return answer || method.isAnnotated(ann);
     }
 

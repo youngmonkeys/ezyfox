@@ -10,9 +10,9 @@ public interface EzyPrototypeFetcher {
 
     <T> T getPrototype(String name, Class<T> type);
 
-    <T> T getAnnotatedPrototype(Class annotationClass);
-
     <T> T getPrototype(Map properties);
+
+    <T> T getAnnotatedPrototype(Class annotationClass);
 
     List getPrototypes(Map properties);
 

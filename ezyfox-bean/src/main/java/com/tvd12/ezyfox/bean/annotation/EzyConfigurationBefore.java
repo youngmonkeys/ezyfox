@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author tavandung12
+ * The annotated class will be run before the annotated @EzyConfiguration class.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})

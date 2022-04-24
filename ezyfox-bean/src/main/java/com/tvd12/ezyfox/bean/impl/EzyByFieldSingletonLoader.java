@@ -55,6 +55,11 @@ public class EzyByFieldSingletonLoader
     }
 
     @Override
+    protected Class[] getConstructorParameterTypes(Class clazz) {
+        return new Class[0];
+    }
+
+    @Override
     protected Object newSingletonByConstructor(
         EzyBeanContext context,
         Class[] parameterTypes
@@ -65,11 +70,6 @@ public class EzyByFieldSingletonLoader
     @Override
     protected String[] getConstructorArgumentNames() {
         return new String[0];
-    }
-
-    @Override
-    protected Class[] getConstructorParameterTypes(Class clazz) {
-        return new Class[0];
     }
 
     @Override

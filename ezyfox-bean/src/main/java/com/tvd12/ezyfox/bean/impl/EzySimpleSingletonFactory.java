@@ -36,7 +36,7 @@ public class EzySimpleSingletonFactory
     @Override
     public Object addSingleton(String name, Object singleton) {
         Class<?> type = singleton.getClass();
-        return addSingleton(name, singleton, getProperties(type));
+        return addSingleton(name, singleton, getPropertiesByType(type));
     }
 
     @Override
@@ -83,7 +83,7 @@ public class EzySimpleSingletonFactory
         for (EzyBeanKey key : singletons.keySet()) {
             Object singleton = singletons.get(key);
             Class<?> type = singleton.getClass();
-            Map properties = getProperties(type);
+            Map properties = getPropertiesByType(type);
             singletonClasses.add(type);
             singletonSet.add(singleton);
             singletonByKey.put(key, singleton);
@@ -113,20 +113,20 @@ public class EzySimpleSingletonFactory
     }
 
     @Override
-    public Object getAnnotatedSingleton(Class annotationClass) {
-        List list = getSingletons(annotationClass);
-        if (list.size() > 0) {
-            return list.get(0);
-        }
-        return null;
-    }
-
-    @Override
     public Object getSingleton(Map properties) {
         for (Entry<Object, Map> entry : propertiesBySingleton.entrySet()) {
             if (EzyMaps.containsAll(entry.getValue(), properties)) {
                 return entry.getKey();
             }
+        }
+        return null;
+    }
+
+    @Override
+    public Object getAnnotatedSingleton(Class annotationClass) {
+        List list = getSingletons(annotationClass);
+        if (list.size() > 0) {
+            return list.get(0);
         }
         return null;
     }
@@ -195,7 +195,7 @@ public class EzySimpleSingletonFactory
         return EzyBeanNameParser.getSingletonName(type);
     }
 
-    private Map getProperties(Class<?> type) {
+    private Map getPropertiesByType(Class<?> type) {
         return EzyKeyValueParser.getSingletonProperties(type);
     }
 }
