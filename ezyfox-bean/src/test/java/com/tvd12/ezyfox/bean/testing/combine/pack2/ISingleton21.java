@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.bean.testing.combine.pack2;
 
-public interface ISingleton21 {
-}
+public interface ISingleton21 {}

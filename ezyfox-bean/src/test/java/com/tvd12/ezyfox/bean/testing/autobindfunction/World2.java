@@ -4,7 +4,6 @@ import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.bean.testing.autobindfunction2.Hello;
 import com.tvd12.ezyfox.bean.testing.autobindfunction3.Greet;
-
 import lombok.Setter;
 
 @Setter

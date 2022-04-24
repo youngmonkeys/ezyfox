@@ -1,10 +1,5 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.tvd12.ezyfox.asm.EzyFunction;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
@@ -12,20 +7,24 @@ import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.reflect.*;
-
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtNewMethod;
 import lombok.Setter;
 
-@SuppressWarnings("rawtypes")
-public abstract class EzySimplePrototypeSupplierLoader 
-        extends EzySimpleObjectBuilder
-        implements EzyPrototypeSupplierLoader {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("rawtypes")
+public abstract class EzySimplePrototypeSupplierLoader
+    extends EzySimpleObjectBuilder
+    implements EzyPrototypeSupplierLoader {
+
+    private static final AtomicInteger COUNT = new AtomicInteger(0);
     @Setter
     private static boolean debug;
-    private static final AtomicInteger COUNT = new AtomicInteger(0);
 
     public EzySimplePrototypeSupplierLoader(String beanName, EzyClass clazz) {
         super(beanName, clazz);
@@ -35,8 +34,7 @@ public abstract class EzySimplePrototypeSupplierLoader
     public final EzyPrototypeSupplier load(EzyPrototypeFactory factory) {
         try {
             return process(factory);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw new IllegalStateException("can not create prototype supplier of class " + clazz, e);
         }
     }
@@ -67,7 +65,7 @@ public abstract class EzySimplePrototypeSupplierLoader
         printMethodContent(supplyImplMethodContent);
         printMethodContent(getObjectTypeMethodContent);
 
-        implClass.setInterfaces(new CtClass[] { pool.makeClass(EzyPrototypeSupplier.class.getName()) });
+        implClass.setInterfaces(new CtClass[]{pool.makeClass(EzyPrototypeSupplier.class.getName())});
         implClass.addMethod(CtNewMethod.make(supplyImplMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(supplyMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(getObjectTypeMethodContent, implClass));
@@ -81,40 +79,40 @@ public abstract class EzySimplePrototypeSupplierLoader
 
     private String makeGetObjectTypeMethodContent(EzyMethod method) {
         return new EzyFunction(method)
-                .body()
-                    .append(new EzyInstruction("\t", "\n")
-                            .answer()
-                            .clazz(clazz.getClazz(), true))
-                .function()
-                .toString();
+            .body()
+            .append(new EzyInstruction("\t", "\n")
+                .answer()
+                .clazz(clazz.getClazz(), true))
+            .function()
+            .toString();
     }
 
     private String makeSupplyMethodContent(EzyMethod method) {
         return new EzyFunction(method)
-                .body()
-                    .append(new EzyInstruction("\t", "\n", false)
-                            .append("try {"))
-                    .append(new EzyInstruction("\t\t", "\n")
-                            .append("return this.supply$impl(arg0)"))
-                    .append(new EzyInstruction("\t", "\n", false)
-                            .append("} catch(")
-                            .clazz(Exception.class)
-                            .append(" e) {"))
-                    .append(new EzyInstruction("\t\t", "\n\t}\n")
-                            .append("throw new ")
-                            .clazz(IllegalStateException.class)
-                            .bracketopen()
-                            .string("can't create bean of " + clazz.getClazz().getTypeName())
-                            .append(", e")
-                            .bracketclose())
-                .function()
-                .toString();
+            .body()
+            .append(new EzyInstruction("\t", "\n", false)
+                .append("try {"))
+            .append(new EzyInstruction("\t\t", "\n")
+                .append("return this.supply$impl(arg0)"))
+            .append(new EzyInstruction("\t", "\n", false)
+                .append("} catch(")
+                .clazz(Exception.class)
+                .append(" e) {"))
+            .append(new EzyInstruction("\t\t", "\n\t}\n")
+                .append("throw new ")
+                .clazz(IllegalStateException.class)
+                .bracketopen()
+                .string("can't create bean of " + clazz.getClazz().getTypeName())
+                .append(", e")
+                .bracketclose())
+            .function()
+            .toString();
     }
 
     private String makeSupplyImplMethodContent(EzyMethod method) {
         EzyFunction.EzyBody methodBody = new EzyFunction(method)
-                .modifier("protected")
-                .body();
+            .modifier("protected")
+            .body();
         addConstructInstruction(methodBody);
         addSetPropertiesInstructions(methodBody);
         addBindingValueInstructions(methodBody);
@@ -134,9 +132,9 @@ public abstract class EzySimplePrototypeSupplierLoader
         int index = 0;
         List<String> cparams = new ArrayList<>();
         String[] argumentNames = getConstructorArgumentNames();
-        for(Class type : getConstructorParameterTypes()) {
+        for (Class type : getConstructorParameterTypes()) {
             String variableName = "cparam" + index;
-            String beanName = EzyStrings.getString(argumentNames, index ++, variableName);
+            String beanName = EzyStrings.getString(argumentNames, index++, variableName);
             cparams.add(variableName);
             body.append(newVariableInstruction(type, variableName, beanName));
         }
@@ -145,49 +143,51 @@ public abstract class EzySimplePrototypeSupplierLoader
 
     protected EzyInstruction newConstructInstruction(EzyFunction.EzyBody body, List<String> cparams) {
         return new EzyInstruction("\t", "\n")
-                .variable(clazz.getClazz(), "object")
-                .equal()
-                .append("new ")
-                .clazz(clazz.getClazz())
-                .bracketopen()
-                .append(EzyStrings.join(cparams, ", "))
-                .bracketclose();
+            .variable(clazz.getClazz(), "object")
+            .equal()
+            .append("new ")
+            .clazz(clazz.getClazz())
+            .bracketopen()
+            .append(EzyStrings.join(cparams, ", "))
+            .bracketclose();
     }
 
     protected final EzyInstruction newVariableInstruction(Class varType, String varName, String beanName) {
         return new EzyInstruction("\t", "\n")
-                .variable(varType, varName)
-                .equal()
-                .bracketopen()
-                .clazz(varType)
-                .bracketclose()
-                .append("arg0.getBean")
-                .bracketopen()
-                .string(beanName)
-                .comma()
-                .clazz(varType, true)
-                .bracketclose();
+            .variable(varType, varName)
+            .equal()
+            .bracketopen()
+            .clazz(varType)
+            .bracketclose()
+            .append("arg0.getBean")
+            .bracketopen()
+            .string(beanName)
+            .comma()
+            .clazz(varType, true)
+            .bracketclose();
     }
 
     private void addReturnInstruction(EzyFunction.EzyBody body) {
         EzyInstruction instruction = new EzyInstruction("\t", "\n")
-                .answer()
-                .append("object");
+            .answer()
+            .append("object");
         body.append(instruction);
     }
 
     private void addSetPropertiesInstructions(EzyFunction.EzyBody body) {
-        for(EzyField field : propertyFields)
+        for (EzyField field : propertyFields) {
             addSetPropertyInstruction(body, field);
-        for(EzySetterMethod method : propertyMethods)
+        }
+        for (EzySetterMethod method : propertyMethods) {
             addSetPropertyInstruction(body, method);
+        }
     }
 
     private void addSetPropertyInstruction(EzyFunction.EzyBody body, EzyField field) {
         Class propertyType = field.getType();
         String propertyName = getPropertyName(field);
         body.append(new EzyInstruction("\t", "\n", false)
-                .append("if(arg0.containsProperty(\"" + propertyName + "\"))"));
+            .append("if(arg0.containsProperty(\"" + propertyName + "\"))"));
         EzyInstruction instruction = new EzyInstruction("\t\t", "\n")
             .append("object.")
             .append(field.getName())
@@ -202,7 +202,7 @@ public abstract class EzySimplePrototypeSupplierLoader
         Class propertyType = method.getType();
         String propertyName = getPropertyName(method);
         body.append(new EzyInstruction("\t", "\n", false)
-                .append("if(arg0.containsProperty(\"" + propertyName + "\"))"));
+            .append("if(arg0.containsProperty(\"" + propertyName + "\"))"));
         EzyInstruction instruction = new EzyInstruction("\t\t", "\n")
             .append("object.")
             .append(method.getName())
@@ -216,43 +216,45 @@ public abstract class EzySimplePrototypeSupplierLoader
 
     private EzyInstruction newGetPropertyInstruction(Class<?> propertyType, String propertyName) {
         return new EzyInstruction("", "", false)
-                .append("arg0.getProperty")
-                .bracketopen()
-                .string(propertyName)
-                .comma()
-                .clazz(propertyType, true)
-                .bracketclose();
+            .append("arg0.getProperty")
+            .bracketopen()
+            .string(propertyName)
+            .comma()
+            .clazz(propertyType, true)
+            .bracketclose();
     }
 
     private void addBindingValueInstructions(EzyFunction.EzyBody body) {
-        for(EzyField field : bindingFields)
+        for (EzyField field : bindingFields) {
             addBindingValueInstruction(body, field);
-        for(EzySetterMethod method : bindingMethods)
+        }
+        for (EzySetterMethod method : bindingMethods) {
             addBindingValueInstruction(body, method);
+        }
     }
 
     private void addBindingValueInstruction(
-            EzyFunction.EzyBody body, EzyField field) {
+        EzyFunction.EzyBody body, EzyField field) {
         String variableName = field.getName() + variableCount.incrementAndGet();
         Class propertyType = field.getType();
         body.append(newVariableInstruction(propertyType, variableName, getBeanName(field)));
         EzyInstruction instruction = new EzyInstruction("\t", "\n")
-                .append("object.")
-                .append(field.getName())
-                .equal()
-                .append(variableName);
+            .append("object.")
+            .append(field.getName())
+            .equal()
+            .append(variableName);
         body.append(instruction);
     }
 
     private void addBindingValueInstruction(
-            EzyFunction.EzyBody body, EzySetterMethod method) {
+        EzyFunction.EzyBody body, EzySetterMethod method) {
         String variableName = method.getFieldName() + variableCount.incrementAndGet();
         Class propertyType = method.getType();
         body.append(newVariableInstruction(propertyType, variableName, getBeanName(method)));
         EzyInstruction instruction = new EzyInstruction("\t", "\n")
-                .append("object.")
-                .append(method.getName())
-                .brackets(variableName);
+            .append("object.")
+            .append(method.getName())
+            .brackets(variableName);
         body.append(instruction);
     }
 
@@ -263,9 +265,9 @@ public abstract class EzySimplePrototypeSupplierLoader
 
     private void addCallPostInitInstruction(EzyFunction.EzyBody body, EzyMethod method) {
         EzyInstruction instruction = new EzyInstruction("\t", "\n")
-                .append("object.")
-                .append(method.getName())
-                .brackets("");
+            .append("object.")
+            .append(method.getName())
+            .brackets("");
         body.append(instruction);
     }
 
@@ -275,17 +277,17 @@ public abstract class EzySimplePrototypeSupplierLoader
 
     private EzyMethod getSupplyMethod() {
         return EzyMethod.builder()
-                .clazz(EzyPrototypeSupplier.class)
-                .methodName("supply")
-                .parameterTypes(EzyBeanContext.class)
-                .build();
+            .clazz(EzyPrototypeSupplier.class)
+            .methodName("supply")
+            .parameterTypes(EzyBeanContext.class)
+            .build();
     }
 
     private EzyMethod getGetObjectTypeMethod() {
         return EzyMethod.builder()
-                .clazz(EzyPrototypeSupplier.class)
-                .methodName("getObjectType")
-                .build();
+            .clazz(EzyPrototypeSupplier.class)
+            .methodName("getObjectType")
+            .build();
     }
 
     @Override
@@ -294,7 +296,8 @@ public abstract class EzySimplePrototypeSupplierLoader
     }
 
     private void printMethodContent(String methodContent) {
-        if(debug)
+        if (debug) {
             logger.debug("reader: method content \n{}", methodContent);
+        }
     }
 }

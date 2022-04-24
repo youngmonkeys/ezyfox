@@ -1,8 +1,8 @@
 package com.tvd12.ezyfox.bean.exception;
 
-import java.util.Set;
-
 import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
+
+import java.util.Set;
 
 public class EzySingletonException extends IllegalStateException {
     private static final long serialVersionUID = 814337130118800149L;
@@ -12,11 +12,11 @@ public class EzySingletonException extends IllegalStateException {
     }
 
     public static EzySingletonException
-            implementationNotFound(EzyBeanKey key, Set<Class<?>> uncompleted) {
-        StringBuilder message = new StringBuilder("bean ")
-                .append(key)
-                .append(" implementation not found, uncompleted classes: ")
-                .append(uncompleted);
-        return new EzySingletonException(message.toString());
+    implementationNotFound(EzyBeanKey key, Set<Class<?>> uncompleted) {
+        String message = "bean " +
+            key +
+            " implementation not found, uncompleted classes: " +
+            uncompleted;
+        return new EzySingletonException(message);
     }
 }

@@ -1,21 +1,7 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.annotation.EzyProperty;
-import com.tvd12.ezyfox.bean.EzyBeanContext;
-import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
-import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
-import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
-import com.tvd12.ezyfox.bean.EzySingletonFactory;
+import com.tvd12.ezyfox.bean.*;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.testing.combine.pack0.ApplicationProperties0;
@@ -29,6 +15,12 @@ import com.tvd12.ezyfox.collect.Lists;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
+import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.*;
 
 public class CombineTest {
 
@@ -37,70 +29,65 @@ public class CombineTest {
     public void test() throws Exception {
         EzyByConstructorPrototypeSupplierLoader.setDebug(true);
         EzyBeanContextBuilder builder = EzyBeanContext.builder()
-                .scan(
-                        "com.tvd12.ezyfox.bean.testing.combine.pack0",
-                        "com.tvd12.ezyfox.bean.testing.combine.pack1",
-                        "com.tvd12.ezyfox.bean.testing.combine.pack2"
-                )
-                .scan(new ArrayList<>())
-                .scan(new Iterable<String>() {
+            .scan(
+                "com.tvd12.ezyfox.bean.testing.combine.pack0",
+                "com.tvd12.ezyfox.bean.testing.combine.pack1",
+                "com.tvd12.ezyfox.bean.testing.combine.pack2"
+            )
+            .scan(new ArrayList<>())
+            .scan(() -> Lists.newArrayList("com.tvd12.ezyfox.bean.testing.combine.pack2").iterator())
+            .addAllClasses(new Object())
+            .addAllClasses(new EzyReflectionProxy("com.tvd12.ezyfox.bean.testing.combine.pack2"))
+            .addProperty("hello", "world")
+            .addProperty("foo", "bar")
+            .addProperty("array", "1,2,3,4,5")
+            .addProperty("ints", Lists.newArrayList(1, 2, 3))
+            .addSingleton("list", new ArrayList<>())
+            .addSingleton("map", new HashMap<>())
+            .addSingletonClasses(
+                SingletonX1.class,
+                SingletonX2.class,
+                Singleton12.class,
+                SingletonX4.class
+            )
+            .addPrototypeClasses(
+                ClassA12.class,
+                PrototypeX1.class
+            )
+            .addSingleton("singleton2", new SingletonX3())
+            .addConfigurationBeforeClasses(V111ConfigurationBefore01.class, V111ConfigurationBefore01.class)
+            .addConfigurationBeforeClasses(Sets.newHashSet(V111ConfigurationBefore01.class, V111ConfigurationBefore01.class))
+            .addConfigurationClasses(V111Configuration01.class, V111Configuration01.class)
+            .addConfigurationClasses(Sets.newHashSet(V111Configuration01.class, V111Configuration01.class))
+            .addSingletonClass("v111Singleton03New", V111Singleton03.class)
+            .addSingletonClasses(EzyMaps.newHashMap("v111Singleton04New", V111Singleton04.class))
+            .addPrototypeClass("v111Prototype02New", V111Prototype02.class)
+            .addPrototypeClasses(EzyMaps.newHashMap("v111Prototype03New", V111Prototype03.class))
+            .addSingletons(EzyMaps.newHashMap("v111Singleton05", new V111Singleton05()))
+            .addPrototypeSuppliers(EzyMaps.newHashMap("v111Prototype04", new EzyPrototypeSupplier() {
+                @Override
+                public Object supply(EzyBeanContext context) {
+                    return new V111Prototype04();
+                }
 
-                    @Override
-                    public Iterator<String> iterator() {
-                        return Lists.newArrayList("com.tvd12.ezyfox.bean.testing.combine.pack2").iterator();
-                    }
-                })
-                .addAllClasses(new Object())
-                .addAllClasses(new EzyReflectionProxy("com.tvd12.ezyfox.bean.testing.combine.pack2"))
-                .addProperty("hello", "world")
-                .addProperty("foo", "bar")
-                .addProperty("array", "1,2,3,4,5")
-                .addProperty("ints", Lists.newArrayList(1, 2, 3))
-                .addSingleton("list", new ArrayList<>())
-                .addSingleton("map", new HashMap<>())
-                .addSingletonClasses(new Class[] {
-                        SingletonX1.class,
-                        SingletonX2.class,
-                        Singleton12.class,
-                        SingletonX4.class,
-                })
-                .addPrototypeClasses(new Class[] {
-                        ClassA12.class,
-                        PrototypeX1.class
-                })
-                .addSingleton("singleton2", new SingletonX3())
-                .addConfigurationBeforeClasses(V111ConfigurationBefore01.class, V111ConfigurationBefore01.class)
-                .addConfigurationBeforeClasses(Sets.newHashSet(V111ConfigurationBefore01.class, V111ConfigurationBefore01.class))
-                .addConfigurationClasses(V111Configuration01.class, V111Configuration01.class)
-                .addConfigurationClasses(Sets.newHashSet(V111Configuration01.class, V111Configuration01.class))
-                .addSingletonClass("v111Singleton03New", V111Singleton03.class)
-                .addSingletonClasses(EzyMaps.newHashMap("v111Singleton04New", V111Singleton04.class))
-                .addPrototypeClass("v111Prototype02New", V111Prototype02.class)
-                .addPrototypeClasses(EzyMaps.newHashMap("v111Prototype03New", V111Prototype03.class))
-                .addSingletons(EzyMaps.newHashMap("v111Singleton05", new V111Singleton05()))
-                .addPrototypeSuppliers(EzyMaps.newHashMap("v111Prototype04", new EzyPrototypeSupplier() {
-                    @Override
-                    public Object supply(EzyBeanContext context) {
-                        return new V111Prototype04();
-                    }
-                    @Override
-                    public Class<?> getObjectType() {
-                        return V111Prototype04.class;
-                    }
-                }))
-                .addProperty(EzyBeanContext.ACTIVE_PROFILES_KEY, "alpha")
-                .addProperties("v111_props3.properties")
-                .addProperties(new File("test-data/v111_props1.properties"))
-                .addProperties(new FileInputStream(new File("test-data/v111_props2.properties")))
-                .addProperty("hello", "world")
-                .addProperty("pack1.hello1", "world1")
-                .addPrototypeClass(V111Prototype05.class)
-                .propertiesMap(() -> {
-                    Map<String, String> m = new HashMap<>();
-                    m.put("v111_c", "hellococo");
-                    return m;
-                })
-                .propertiesBeanClass("", PropertiesCombine.class);
+                @Override
+                public Class<?> getObjectType() {
+                    return V111Prototype04.class;
+                }
+            }))
+            .addProperty(EzyBeanContext.ACTIVE_PROFILES_KEY, "alpha")
+            .addProperties("v111_props3.properties")
+            .addProperties(new File("test-data/v111_props1.properties"))
+            .addProperties(new FileInputStream("test-data/v111_props2.properties"))
+            .addProperty("hello", "world")
+            .addProperty("pack1.hello1", "world1")
+            .addPrototypeClass(V111Prototype05.class)
+            .propertiesMap(() -> {
+                Map<String, String> m = new HashMap<>();
+                m.put("v111_c", "hellococo");
+                return m;
+            })
+            .propertiesBeanClass("", PropertiesCombine.class);
         EzyBeanContext context = builder.build();
         SingletonX1 x1 = (SingletonX1) context.getBean("singletonX1", SingletonX1.class);
         SingletonX2 x2 = (SingletonX2) context.getBean("singletonX2", SingletonX2.class);
@@ -108,8 +95,7 @@ public class CombineTest {
         assert context.getAnnotatedBean(V111Combine0Ann1.class) != null;
         try {
             context.getAnnotatedBean(V111Combine0Ann2.class);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assert e instanceof IllegalArgumentException;
         }
         assert context.getProperties().get("v111_a").equals("hello");
@@ -118,7 +104,6 @@ public class CombineTest {
         assert context.getProperties().get("hellococo").equals("helloworld");
         assert context.getBean(V111Singleton05.class) != null;
         assert context.getBean(V111Prototype04.class) != null;
-        assert V111ISingleton01.class.isAssignableFrom(V111ISingleton01.class);
         assert !V111Singleton01Impl01.class.isAssignableFrom(V111ISingleton01.class);
 
         assert x1.getSingletonX1() == x1;
@@ -137,8 +122,7 @@ public class CombineTest {
         assert context.getBean(V111IPrototype01.class) != null;
         try {
             assert context.getBean(V111Prototype01Impl01.class) == null;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             assert e instanceof IllegalArgumentException;
         }
 
@@ -180,12 +164,14 @@ public class CombineTest {
         assert applicationProperties0.getFoo().equals("bar");
         assert applicationProperties0.getPort() == 3006;
 
-        Singleton20 singleton20 = context.getSingleton(Singleton20.class);
-        singleton20 = context.getBeanCast(Singleton20.class);
-        singleton20 = context.getSingletonFactory().getSingletonCast(Singleton20.class);
-        assert singleton20.getSgt10() != null;
-        assert singleton20.getList() != null;
-        assert singleton20.getHello() != null;
+        Singleton20 singleton201 = context.getSingleton(Singleton20.class);
+        Singleton20 singleton202 = context.getBeanCast(Singleton20.class);
+        Singleton20 singleton203 = context.getSingletonFactory().getSingletonCast(Singleton20.class);
+        assert singleton201 == singleton202;
+        assert singleton201 == singleton203;
+        assert singleton203.getSgt10() != null;
+        assert singleton203.getList() != null;
+        assert singleton203.getHello() != null;
 
         ClassB1 classB1 = context.getPrototype(ClassB1.class);
         assert classB1.getHello() == null;
@@ -203,10 +189,10 @@ public class CombineTest {
     public void bindingToFinalFieldTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .addProperty("property1", "value2")
-                .addSingletonClass(InternalSingleton1.class)
-                .addSingletonClass(InternalSingleton2.class)
-                .build();
+            .addProperty("property1", "value2")
+            .addSingletonClass(InternalSingleton1.class)
+            .addSingletonClass(InternalSingleton2.class)
+            .build();
 
         // when
         InternalSingleton2 internalSingleton2 = beanContext.getSingleton(InternalSingleton2.class);
@@ -214,7 +200,7 @@ public class CombineTest {
         // then
         InternalSingleton1 internalSingleton1 = beanContext.getSingleton(InternalSingleton1.class);
         assert internalSingleton1.internalSingleton2 != internalSingleton2;
-        assert internalSingleton1.property1.equals("value1");
+        Asserts.assertEquals(internalSingleton1.property1, "value1");
     }
 
     public static class InternalSingleton1 {

@@ -1,12 +1,5 @@
 package com.tvd12.ezyfox.bean.v120.testing;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
@@ -14,13 +7,7 @@ import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigAfter11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigurationBefore11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.LastSingleton11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.Singleton11;
-import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter21;
-import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter22;
-import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter23;
-import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton21;
-import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton22;
-import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton23;
-import com.tvd12.ezyfox.bean.v120.testing.packet02.Singleton21;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.*;
 import com.tvd12.ezyfox.bean.v120.testing.packet03.Config33;
 import com.tvd12.ezyfox.bean.v120.testing.packet03.ConfigFailed31;
 import com.tvd12.ezyfox.bean.v120.testing.packet03.Singleton31;
@@ -29,6 +16,9 @@ import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
+
+import java.util.*;
 
 public class EzySimpleBeanContextTest {
 
@@ -37,8 +27,8 @@ public class EzySimpleBeanContextTest {
         // given
         EzyReflection reflection = new EzyReflectionProxy("com.tvd12.ezyfox.bean.v120.testing");
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .addAllClasses(reflection)
-                .build();
+            .addAllClasses(reflection)
+            .build();
 
         // when
         Set<String> packagesToScan = beanContext.getPackagesToScan();
@@ -55,11 +45,11 @@ public class EzySimpleBeanContextTest {
     public void configAfterTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v120.testing")
-                .addConfigurationAfterClass(ConfigAfter21.class)
-                .addConfigurationAfterClasses(ConfigAfter22.class, ConfigAfter22.class)
-                .addConfigurationAfterClasses(Arrays.asList(ConfigAfter23.class))
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v120.testing")
+            .addConfigurationAfterClass(ConfigAfter21.class)
+            .addConfigurationAfterClasses(ConfigAfter22.class, ConfigAfter22.class)
+            .addConfigurationAfterClasses(Collections.singletonList(ConfigAfter23.class))
+            .build();
 
         // when
         LastSingleton11 lastSingleton11 = beanContext.getSingleton(LastSingleton11.class);
@@ -78,12 +68,12 @@ public class EzySimpleBeanContextTest {
     public void addSingletonTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v120.testing")
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v120.testing")
+            .build();
         EzyBeanContext sut = EzyBeanContext.builder()
-                .addSingleton(beanContext.getBean(Singleton11.class))
-                .addSingleton(beanContext.getBean(Singleton21.class))
-                .build();
+            .addSingleton(beanContext.getBean(Singleton11.class))
+            .addSingleton(beanContext.getBean(Singleton21.class))
+            .build();
 
         // when
         Map<EzyBeanKey, Object> singletonMapByKey = sut.getSingletonMapByKey();
@@ -99,11 +89,11 @@ public class EzySimpleBeanContextTest {
     public void addSingletonsByKeyTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v120.testing")
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v120.testing")
+            .build();
         EzyBeanContext sut = EzyBeanContext.builder()
-                .addSingletonsByKey(beanContext.getSingletonMapByKey())
-                .build();
+            .addSingletonsByKey(beanContext.getSingletonMapByKey())
+            .build();
 
         // when
         Map<EzyBeanKey, Object> singletonMapByKey = sut.getSingletonMapByKey();
@@ -121,9 +111,9 @@ public class EzySimpleBeanContextTest {
         System.setProperty(EzyBeanContext.ACTIVE_PROFILES_KEY, "alpha");
         System.setProperty("v120.hello", "World");
         EzyBeanContext sut = EzyBeanContext.builder()
-                .addProperty("hi", "${v120.hello}")
-                .addProperties("v120_application.properties")
-                .build();
+            .addProperty("hi", "${v120.hello}")
+            .addProperties("v120_application.properties")
+            .build();
 
         // when
         Properties properties = sut.getProperties();
@@ -138,11 +128,11 @@ public class EzySimpleBeanContextTest {
     public void excludePackagesTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v120.testing.packet01")
-                .scan("com.tvd12.ezyfox.bean.v120.testing.packet02")
-                .excludePackages("com.tvd12.ezyfox.bean.v120.testing.packet01")
-                .excludePackages(Arrays.asList("com.tvd12.ezyfox.bean.v120.testing.packet02"))
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v120.testing.packet01")
+            .scan("com.tvd12.ezyfox.bean.v120.testing.packet02")
+            .excludePackages("com.tvd12.ezyfox.bean.v120.testing.packet01")
+            .excludePackages(Collections.singletonList("com.tvd12.ezyfox.bean.v120.testing.packet02"))
+            .build();
 
         // when
         Set<String> packagesToScan = beanContext.getPackagesToScan();
@@ -155,17 +145,17 @@ public class EzySimpleBeanContextTest {
     public void excludePackages2Test() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .addAllClasses(
-                    new EzyReflectionProxy(
-                        Arrays.asList(
-                            "com.tvd12.ezyfox.bean.v120.testing.packet01",
-                            "com.tvd12.ezyfox.bean.v120.testing.packet02"
-                        )
+            .addAllClasses(
+                new EzyReflectionProxy(
+                    Arrays.asList(
+                        "com.tvd12.ezyfox.bean.v120.testing.packet01",
+                        "com.tvd12.ezyfox.bean.v120.testing.packet02"
                     )
                 )
-                .excludePackages("com.tvd12.ezyfox.bean.v120.testing.packet01")
-                .excludePackages(Arrays.asList("com.tvd12.ezyfox.bean.v120.testing.packet02"))
-                .build();
+            )
+            .excludePackages("com.tvd12.ezyfox.bean.v120.testing.packet01")
+            .excludePackages(Collections.singletonList("com.tvd12.ezyfox.bean.v120.testing.packet02"))
+            .build();
 
         // when
         Set<String> packagesToScan = beanContext.getPackagesToScan();
@@ -178,14 +168,14 @@ public class EzySimpleBeanContextTest {
     public void excludeConfigurationClassesTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v120.testing")
-                .addConfigurationAfterClass(ConfigAfter21.class)
-                .addConfigurationAfterClasses(ConfigAfter22.class, ConfigAfter22.class)
-                .addConfigurationAfterClasses(Arrays.asList(ConfigAfter23.class))
-                .excludeConfigurationClass(ConfigAfter11.class)
-                .excludeConfigurationClasses(ConfigAfter21.class, ConfigAfter22.class)
-                .excludeConfigurationClasses(Arrays.asList(ConfigAfter22.class, ConfigAfter23.class))
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v120.testing")
+            .addConfigurationAfterClass(ConfigAfter21.class)
+            .addConfigurationAfterClasses(ConfigAfter22.class, ConfigAfter22.class)
+            .addConfigurationAfterClasses(Collections.singletonList(ConfigAfter23.class))
+            .excludeConfigurationClass(ConfigAfter11.class)
+            .excludeConfigurationClasses(ConfigAfter21.class, ConfigAfter22.class)
+            .excludeConfigurationClasses(Arrays.asList(ConfigAfter22.class, ConfigAfter23.class))
+            .build();
 
         // when
         LastSingleton11 lastSingleton11 = beanContext.getSingleton(LastSingleton11.class);
@@ -204,8 +194,8 @@ public class EzySimpleBeanContextTest {
     public void addConfigurationBeforeClassTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .addConfigurationClass(ConfigurationBefore11.class)
-                .build();
+            .addConfigurationClass(ConfigurationBefore11.class)
+            .build();
 
         // when
         ConfigurationBefore11 configurationBefore11 = beanContext.getSingleton(ConfigurationBefore11.class);
@@ -218,9 +208,9 @@ public class EzySimpleBeanContextTest {
     public void addConfigurationAfterClassesTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .addSingletonClass(Singleton11.class)
-                .addConfigurationClass(ConfigAfter11.class)
-                .build();
+            .addSingletonClass(Singleton11.class)
+            .addConfigurationClass(ConfigAfter11.class)
+            .build();
 
         // when
         LastSingleton11 lastSingleton11 = beanContext.getSingleton(LastSingleton11.class);
@@ -233,8 +223,8 @@ public class EzySimpleBeanContextTest {
     public void exclusiveClassConfigTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v120.testing.packet03")
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v120.testing.packet03")
+            .build();
 
         // when
         Singleton31 singleton31 = beanContext.getSingleton(Singleton31.class);
@@ -249,8 +239,8 @@ public class EzySimpleBeanContextTest {
     public void autoConfigurationFailed() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .addConfigurationBeforeClass(Config33.class)
-                .build();
+            .addConfigurationBeforeClass(Config33.class)
+            .build();
 
         // when
         Config33 config33 = beanContext.getSingleton(Config33.class);
@@ -263,10 +253,10 @@ public class EzySimpleBeanContextTest {
     public void configurationFailed() {
         // given
         EzyBeanContextBuilder builder = EzyBeanContext.builder()
-                .addConfigurationBeforeClass(ConfigFailed31.class);
+            .addConfigurationBeforeClass(ConfigFailed31.class);
 
         // when
-        Throwable e = Asserts.assertThrows(() -> builder.build());
+        Throwable e = Asserts.assertThrows(builder::build);
 
         // then
         Asserts.assertEquals(RuntimeException.class, e.getClass());

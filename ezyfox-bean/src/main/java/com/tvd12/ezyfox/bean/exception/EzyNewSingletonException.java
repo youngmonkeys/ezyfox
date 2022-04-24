@@ -1,7 +1,6 @@
 package com.tvd12.ezyfox.bean.exception;
 
 import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
-
 import lombok.Getter;
 
 @Getter
@@ -13,11 +12,11 @@ public class EzyNewSingletonException extends IllegalStateException {
     private final Class<?> singletonClass;
 
     public EzyNewSingletonException(
-            Class<?> singletonClass, Class<?> errorClass, String errorBeanName) {
+        Class<?> singletonClass, Class<?> errorClass, String errorBeanName) {
         super(
             "can't load singleton of class " +
-            singletonClass.getSimpleName() +
-            ", can't set (" + errorBeanName + ", " + errorClass.getSimpleName() + ")"
+                singletonClass.getSimpleName() +
+                ", can't set (" + errorBeanName + ", " + errorClass.getSimpleName() + ")"
         );
         this.errorClass = errorClass;
         this.singletonClass = singletonClass;

@@ -5,6 +5,5 @@ import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 public class ClassFImpl implements ClassF {
 
     @EzyAutoBind
-    public ClassFImpl(ClassG classG) {
-    }
+    public ClassFImpl(ClassG classG) {}
 }

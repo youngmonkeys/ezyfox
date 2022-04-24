@@ -1,44 +1,51 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @SuppressWarnings("rawtypes")
 public class EzyByMethodSingletonLoader
-        extends EzySimpleSingletonLoader
-        implements EzySingletonLoader {
+    extends EzySimpleSingletonLoader
+    implements EzySingletonLoader {
 
     protected final EzyMethod method;
 
     public EzyByMethodSingletonLoader(
-            String beanName,
-            EzyMethod method,
-            Object configurator,
-            Map<Class<?>, EzyMethod> methodsByType) {
+        String beanName,
+        EzyMethod method,
+        Object configurator,
+        Map<Class<?>, EzyMethod> methodsByType
+    ) {
         this(beanName, method, configurator, methodsByType, new ArrayList<>());
     }
 
     public EzyByMethodSingletonLoader(
-            String beanName,
-            EzyMethod method,
-            Object configurator,
-            Map<Class<?>, EzyMethod> methodsByType, List<Class<?>> stackCallClasses) {
+        String beanName,
+        EzyMethod method,
+        Object configurator,
+        Map<Class<?>, EzyMethod> methodsByType,
+        List<Class<?>> stackCallClasses
+    ) {
         super(beanName,
-                new EzyClass(method.getReturnType()),
-                configurator, methodsByType, stackCallClasses);
+            new EzyClass(method.getReturnType()),
+            configurator,
+            methodsByType,
+            stackCallClasses
+        );
         this.method = method;
     }
 
     @Override
     protected Map getAnnotationProperties() {
         return EzyKeyValueParser.getSingletonProperties(
-                method.getAnnotation(EzySingleton.class));
+            method.getAnnotation(EzySingleton.class)
+        );
     }
 
     @Override
@@ -48,9 +55,12 @@ public class EzyByMethodSingletonLoader
 
     @Override
     protected Object newSingletonByConstructor(
-            EzyBeanContext context, Class[] parameterTypes) throws Exception {
-        if(parameterTypes.length == 0)
+        EzyBeanContext context,
+        Class[] parameterTypes
+    ) {
+        if (parameterTypes.length == 0) {
             return method.invoke(configurator);
+        }
         return method.invoke(configurator, getArguments(parameterTypes, context));
     }
 

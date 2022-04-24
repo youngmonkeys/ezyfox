@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
-public class V111Singleton04 {
-}
+public class V111Singleton04 {}

@@ -1,9 +1,8 @@
 package com.tvd12.ezyfox.bean.testing.supplier;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.test.base.BaseTest;
+import org.testng.annotations.Test;
 
 public class SuppliersTest extends BaseTest {
 
@@ -12,7 +11,7 @@ public class SuppliersTest extends BaseTest {
         EzyBeanContext context = EzyBeanContext.builder()
             .scan("com.tvd12.ezyfox.bean.testing.supplier")
             .build();
-        ClassA classA = (ClassA)context.getBean(ClassA.class);
+        ClassA classA = (ClassA) context.getBean(ClassA.class);
         assert classA.getHashSet() != null;
     }
 }

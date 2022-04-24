@@ -2,7 +2,6 @@ package com.tvd12.ezyfox.bean.testing.combine;
 
 import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.testing.combine.pack0.PropertiesPack1;
-
 import lombok.Getter;
 
 @Getter

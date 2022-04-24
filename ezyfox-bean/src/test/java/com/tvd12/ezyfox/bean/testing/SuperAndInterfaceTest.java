@@ -8,11 +8,7 @@ public class SuperAndInterfaceTest {
         System.out.println(Arrays.toString(B.class.getInterfaces()));
     }
 
-    public static interface A {
+    public interface A {}
 
-    }
-
-    public static interface B extends A {
-
-    }
+    public interface B extends A {}
 }

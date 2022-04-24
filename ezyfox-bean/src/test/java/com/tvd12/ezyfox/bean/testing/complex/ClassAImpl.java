@@ -5,6 +5,5 @@ import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 public class ClassAImpl implements ClassA {
 
     @EzyAutoBind
-    public ClassAImpl(ClassB classB) {
-    }
+    public ClassAImpl(ClassB classB) {}
 }

@@ -1,16 +1,16 @@
 package com.tvd12.ezyfox.bean.impl;
 
+import com.tvd12.ezyfox.bean.EzyBeanContext;
+import com.tvd12.ezyfox.reflect.EzyClass;
+
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tvd12.ezyfox.bean.EzyBeanContext;
-import com.tvd12.ezyfox.reflect.EzyClass;
-
 @SuppressWarnings("rawtypes")
 public class EzyByConstructorSingletonLoader
-        extends EzySimpleSingletonLoader
-        implements EzySingletonLoader {
+    extends EzySimpleSingletonLoader
+    implements EzySingletonLoader {
 
     protected final Constructor<?> constructor;
 
@@ -19,7 +19,7 @@ public class EzyByConstructorSingletonLoader
     }
 
     protected EzyByConstructorSingletonLoader(
-            String beanName, EzyClass clazz, List<Class<?>> stackCallClasses) {
+        String beanName, EzyClass clazz, List<Class<?>> stackCallClasses) {
         super(beanName, clazz, stackCallClasses);
         this.constructor = getConstructor(clazz);
     }
@@ -36,9 +36,10 @@ public class EzyByConstructorSingletonLoader
 
     @Override
     protected Object newSingletonByConstructor(
-            EzyBeanContext context, Class[] parameterTypes) throws Exception {
-        if(parameterTypes.length == 0)
+        EzyBeanContext context, Class[] parameterTypes) throws Exception {
+        if (parameterTypes.length == 0) {
             return clazz.newInstance();
+        }
         return constructor.newInstance(getArguments(parameterTypes, context));
     }
 }

@@ -7,6 +7,5 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 public class ConfigurationPack2 {
 
     @EzySingleton
-    public ISingleton10 sgt10 = new ISingleton10() {
-    };
+    public ISingleton10 sgt10 = new ISingleton10() {};
 }

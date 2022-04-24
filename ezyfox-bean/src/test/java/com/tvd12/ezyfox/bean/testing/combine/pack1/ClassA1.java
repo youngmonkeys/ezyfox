@@ -4,7 +4,6 @@ import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.annotation.EzyPostInit;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.bean.testing.combine.EzyCombine0Ann;
-
 import lombok.Setter;
 
 @Setter
@@ -12,11 +11,10 @@ import lombok.Setter;
 @EzyPrototype("a1")
 public class ClassA1 {
 
-    @EzyProperty("hello")
-    private String hello;
-
     @EzyProperty
     public String foo;
+    @EzyProperty("hello")
+    private String hello;
 
     @EzyPostInit
     public void post() {

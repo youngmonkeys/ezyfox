@@ -1,11 +1,11 @@
 package com.tvd12.ezyfox.bean;
 
+import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
-
-import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
 
 @SuppressWarnings("rawtypes")
 public interface EzySingletonFactory {
@@ -46,6 +46,6 @@ public interface EzySingletonFactory {
 
     @SuppressWarnings("unchecked")
     default <T> T getSingletonCast(Class<T> type) {
-        return (T)getSingleton(type);
+        return (T) getSingleton(type);
     }
 }

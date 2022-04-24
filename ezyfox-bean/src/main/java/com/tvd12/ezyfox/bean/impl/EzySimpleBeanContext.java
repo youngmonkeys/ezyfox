@@ -1,62 +1,13 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
-import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
-import static com.tvd12.properties.file.util.PropertiesUtil.setVariableValues;
-
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
-import java.util.function.Predicate;
-
 import com.tvd12.ezyfox.annotation.EzyImport;
 import com.tvd12.ezyfox.annotation.EzyPackagesToScan;
 import com.tvd12.ezyfox.annotation.EzyProperty;
-import com.tvd12.ezyfox.bean.EzyBeanAutoConfig;
-import com.tvd12.ezyfox.bean.EzyBeanContext;
-import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
-import com.tvd12.ezyfox.bean.EzyBeanNameTranslator;
-import com.tvd12.ezyfox.bean.EzyErrorHandler;
-import com.tvd12.ezyfox.bean.EzyPropertiesMap;
-import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
-import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
-import com.tvd12.ezyfox.bean.EzySingletonFactory;
-import com.tvd12.ezyfox.bean.annotation.EzyBeanPackagesToScan;
-import com.tvd12.ezyfox.bean.annotation.EzyConfiguration;
-import com.tvd12.ezyfox.bean.annotation.EzyConfigurationAfter;
-import com.tvd12.ezyfox.bean.annotation.EzyConfigurationBefore;
-import com.tvd12.ezyfox.bean.annotation.EzyDisableAutoConfiguration;
-import com.tvd12.ezyfox.bean.annotation.EzyExclusiveClassesConfiguration;
-import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBean;
-import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBeans;
-import com.tvd12.ezyfox.bean.annotation.EzyPropertiesSources;
-import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
-import com.tvd12.ezyfox.bean.annotation.EzySingleton;
+import com.tvd12.ezyfox.bean.*;
+import com.tvd12.ezyfox.bean.annotation.*;
 import com.tvd12.ezyfox.bean.exception.EzyNewSingletonException;
 import com.tvd12.ezyfox.bean.exception.EzySingletonException;
-import com.tvd12.ezyfox.bean.supplier.EzyArrayListSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyCollectionSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyConcurrentHashMapSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyCopyOnWriteArrayListSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyCopyOnWriteArraySetSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyHashMapSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyHashSetSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyLinkedListSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyListSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyMapSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyQueueSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzySetSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyStackSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyTreeMapSupplier;
+import com.tvd12.ezyfox.bean.supplier.*;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.io.EzyStrings;
@@ -75,13 +26,22 @@ import com.tvd12.properties.file.mapping.PropertiesMapper;
 import com.tvd12.properties.file.reader.BaseFileReader;
 import com.tvd12.properties.file.reader.FileReader;
 import com.tvd12.properties.file.reader.MultiFileReader;
-
 import lombok.Getter;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
+import java.io.File;
+import java.io.InputStream;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.Predicate;
+
+import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
+import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
+import static com.tvd12.properties.file.util.PropertiesUtil.setVariableValues;
+
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class EzySimpleBeanContext
-        extends EzyLoggable
-        implements EzyBeanContext {
+    extends EzyLoggable
+    implements EzyBeanContext {
 
     @Getter
     protected Properties properties;
@@ -96,27 +56,34 @@ public class EzySimpleBeanContext
 
     protected EzyPropertiesReader propertiesReader;
 
+    public static EzyBeanContextBuilder builder() {
+        return new Builder();
+    }
+
     @Override
     public Object getBean(String name, Class type) {
         Object object = getSingleton(name, type);
-        if(object != null)
+        if (object != null) {
             return object;
+        }
         return getPrototype(name, type);
     }
 
     @Override
     public Object getBean(Class<?> type) {
         Object object = getSingleton(type);
-        if(object != null)
+        if (object != null) {
             return object;
+        }
         return getPrototype(type);
     }
 
     @Override
     public Object getAnnotatedBean(Class<?> annotationClass) {
         Object object = getAnnotatedSingleton(annotationClass);
-        if(object != null)
+        if (object != null) {
             return object;
+        }
         return getAnnotatedPrototype(annotationClass);
     }
 
@@ -173,39 +140,43 @@ public class EzySimpleBeanContext
     @Override
     public <T> T getPrototype(Class<T> type) {
         EzyPrototypeSupplier supplier = prototypeFactory.getSupplier(type);
-        if(supplier == null)
+        if (supplier == null) {
             throw new IllegalArgumentException("has no bean with type " + type.getName());
+        }
         return (T) supplier.supply(this);
     }
 
     @Override
     public <T> T getPrototype(String name, Class<T> type) {
         EzyPrototypeSupplier supplier = prototypeFactory.getSupplier(name, type);
-        if(supplier == null)
+        if (supplier == null) {
             throw new IllegalArgumentException("has no bean with name = " + name + ", and type " + type.getName());
+        }
         return (T) supplier.supply(this);
     }
 
     @Override
     public <T> T getAnnotatedPrototype(Class annotationClass) {
         EzyPrototypeSupplier supplier = prototypeFactory.getAnnotatedSupplier(annotationClass);
-        if(supplier == null)
+        if (supplier == null) {
             throw new IllegalArgumentException("can't create a bean, has no class annotated with: " + annotationClass.getName());
+        }
         return (T) supplier.supply(this);
     }
 
     @Override
     public <T> T getPrototype(Map properties) {
         EzyPrototypeSupplier supplier = getPrototypeSupplier(properties);
-        return supplier != null ? (T)supplier.supply(this) : null;
+        return supplier != null ? (T) supplier.supply(this) : null;
     }
 
     @Override
     public List getPrototypes(Map properties) {
         List list = new ArrayList<>();
         List<EzyPrototypeSupplier> suppliers = getPrototypeSuppliers(properties);
-        for(EzyPrototypeSupplier supplier : suppliers)
+        for (EzyPrototypeSupplier supplier : suppliers) {
             list.add(supplier.supply(this));
+        }
         return list;
     }
 
@@ -234,11 +205,8 @@ public class EzySimpleBeanContext
         return propertiesReader.get(properties, key, outType);
     }
 
-    public static EzyBeanContextBuilder builder() {
-        return new Builder();
-    }
-
     public static class Builder extends EzyLoggable implements EzyBeanContextBuilder {
+        protected static final String AUTO_CONFIGURATION_PACKAGE = "com.tvd12.ezyfox.boot";
         @Getter
         protected Properties properties;
         protected Set<String> packagesToScan;
@@ -264,11 +232,8 @@ public class EzySimpleBeanContext
         protected EzySimpleSingletonFactory singletonFactory;
         protected EzySimplePrototypeFactory prototypeFactory;
         protected EzyBeanNameTranslator beanNameTranslator;
-
         protected EzyErrorHandler errorHandler;
         protected EzyMapSet<EzyBeanKey, Class<?>> unloadedSingletons;
-
-        protected static final String AUTO_CONFIGURATION_PACKAGE = "com.tvd12.ezyfox.boot";
 
         public Builder() {
             this.enableAutoConfiguration = true;
@@ -317,8 +282,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder scan(String packageName) {
-            if(packageName != null)
+            if (packageName != null) {
                 packagesToScan.add(packageName);
+            }
             return this;
         }
 
@@ -352,9 +318,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder activeProfiles(String activeProfiles) {
-            if(activeProfiles != null) {
+            if (activeProfiles != null) {
                 String[] strs = activeProfiles.split(",");
-                for(String str : strs) {
+                for (String str : strs) {
                     this.activeProfileSet.add(str.trim());
                 }
             }
@@ -383,8 +349,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder excludePackages(Iterable<String> packageNames) {
-            for(String packageName : packageNames)
+            for (String packageName : packageNames) {
                 excludePackage(packageName);
+            }
             return this;
         }
 
@@ -394,13 +361,11 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addConfigurationClass(Class clazz) {
-            if(clazz.isAnnotationPresent(EzyConfigurationBefore.class)) {
+            if (clazz.isAnnotationPresent(EzyConfigurationBefore.class)) {
                 configurationBeforeClasses.add(clazz);
-            }
-            else if(clazz.isAnnotationPresent(EzyConfigurationAfter.class)) {
+            } else if (clazz.isAnnotationPresent(EzyConfigurationAfter.class)) {
                 configurationAfterClasses.add(clazz);
-            }
-            else {
+            } else {
                 configurationClasses.add(clazz);
             }
             return this;
@@ -411,8 +376,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addConfigurationClasses(Class... classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 addConfigurationClass(clazz);
+            }
             return this;
         }
 
@@ -421,8 +387,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addConfigurationClasses(Iterable<Class> classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 addConfigurationClass(clazz);
+            }
             return this;
         }
 
@@ -440,8 +407,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addConfigurationBeforeClasses(Class... classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 addConfigurationBeforeClass(clazz);
+            }
             return this;
         }
 
@@ -450,8 +418,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addConfigurationBeforeClasses(Iterable<Class> classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 addConfigurationBeforeClass(clazz);
+            }
             return this;
         }
 
@@ -469,8 +438,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addConfigurationAfterClasses(Class... classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 addConfigurationAfterClass(clazz);
+            }
             return this;
         }
 
@@ -479,8 +449,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addConfigurationAfterClasses(Iterable<Class> classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 addConfigurationAfterClass(clazz);
+            }
             return this;
         }
 
@@ -507,8 +478,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addSingletons(Map<String, Object> singletons) {
-            for(Entry<String, Object> e : singletons.entrySet())
+            for (Entry<String, Object> e : singletons.entrySet()) {
                 singletonFactory.addSingleton(e.getKey(), e.getValue());
+            }
             return this;
         }
 
@@ -536,8 +508,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addPrototypeSuppliers(Map<String, EzyPrototypeSupplier> suppliers) {
-            for(Entry<String, EzyPrototypeSupplier> e : suppliers.entrySet())
+            for (Entry<String, EzyPrototypeSupplier> e : suppliers.entrySet()) {
                 prototypeFactory.addSupplier(e.getKey(), e.getValue());
+            }
             return this;
         }
 
@@ -563,8 +536,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addSingletonClasses(Iterable<Class> classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 this.addSingletonClass(clazz);
+            }
             return this;
         }
 
@@ -583,7 +557,7 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addSingletonClasses(Map<String, Class> classes) {
-            for(Entry<String, Class> e : classes.entrySet()) {
+            for (Entry<String, Class> e : classes.entrySet()) {
                 this.singletonClasses.add(e.getValue());
                 this.namedSingletonClasses.put(e.getValue(), e.getKey());
             }
@@ -612,8 +586,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addPrototypeClasses(Iterable<Class> classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 this.addPrototypeClass(clazz);
+            }
             return this;
         }
 
@@ -632,7 +607,7 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addPrototypeClasses(Map<String, Class> classes) {
-            for(Entry<String, Class> e : classes.entrySet()) {
+            for (Entry<String, Class> e : classes.entrySet()) {
                 this.prototypeClasses.add(e.getValue());
                 this.namedPrototypeClasses.put(e.getValue(), e.getKey());
             }
@@ -645,8 +620,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addAllClasses(Object reflection) {
-            if(reflection instanceof EzyReflection)
-                addAllClasses((EzyReflection)reflection);
+            if (reflection instanceof EzyReflection) {
+                addAllClasses((EzyReflection) reflection);
+            }
             return this;
         }
 
@@ -664,8 +640,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder excludeConfigurationClasses(Class... classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 excludeConfigurationClass(clazz);
+            }
             return this;
         }
 
@@ -674,8 +651,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder excludeConfigurationClasses(Iterable<Class> classes) {
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 excludeConfigurationClass(clazz);
+            }
             return this;
         }
 
@@ -724,8 +702,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addProperties(Iterable<String> files) {
-            for(String file : files)
+            for (String file : files) {
                 addProperties(file);
+            }
             return this;
         }
 
@@ -735,8 +714,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addProperties(Iterable<String> files, String activeProfiles) {
-            for(String file : files)
+            for (String file : files) {
                 addProperties(file, activeProfiles);
+            }
             return this;
         }
 
@@ -765,8 +745,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addProperties(Collection<File> files) {
-            for(File file : files)
+            for (File file : files) {
                 addProperties(file);
+            }
             return this;
         }
 
@@ -776,8 +757,9 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzyBeanContextBuilder addProperties(Collection<File> files, String activeProfiles) {
-            for(File file : files)
+            for (File file : files) {
                 addProperties(file, activeProfiles);
+            }
             return this;
         }
 
@@ -821,7 +803,8 @@ public class EzySimpleBeanContext
         }
 
         /*
-         * (non-Javadoc)
+         * (non-Javadoc).
+         *
          * @see com.tvd12.ezyfox.bean.EzyBeanContextBuilder#propertiesBeanClass(java.lang.String, java.lang.Class)
          */
         @Override
@@ -885,22 +868,23 @@ public class EzySimpleBeanContext
             props.putAll(fileReader.read("application.properties"));
             props.putAll(fileReader.read("application.yaml"));
             props.putAll(fileReader.read("application.yml"));
-            for(Object key : props.keySet())
+            for (Object key : props.keySet()) {
                 properties.put(key, props.get(key));
+            }
         }
 
         private String getActiveProfiles() {
             String activeProfiles = properties.getProperty(ACTIVE_PROFILES_KEY);
-            if(EzyStrings.isNoContent(activeProfiles))
+            if (EzyStrings.isNoContent(activeProfiles)) {
                 activeProfiles = properties.getProperty(EZYFOX_ACTIVE_PROFILES_KEY);
-            if(activeProfiles == null) {
-                if(activeProfileSet.size() > 0) {
+            }
+            if (activeProfiles == null) {
+                if (activeProfileSet.size() > 0) {
                     return String.join(",", activeProfileSet);
                 }
                 return null;
-            }
-            else {
-                if(activeProfileSet.size() > 0) {
+            } else {
+                if (activeProfileSet.size() > 0) {
                     return activeProfiles + "," + String.join(",", activeProfileSet);
                 }
                 return activeProfiles;
@@ -918,27 +902,28 @@ public class EzySimpleBeanContext
         }
 
         private void doScanPackages(Set<String> packages) {
-            if(packages.size() > 0) {
+            if (packages.size() > 0) {
                 EzyReflection reflection = EzyPackages.scanPackages(packages);
                 addAllClasses(reflection);
             }
         }
 
         private void scanAutoConfigurationPackage() {
-            if(enableAutoConfiguration) {
+            if (enableAutoConfiguration) {
                 addAllClasses(EzyPackages.scanPackage(AUTO_CONFIGURATION_PACKAGE));
             }
         }
 
         private void readImportClasses() {
-            addAllClasses(new EzyImportReflection((Set)importClasses));
+            addAllClasses(new EzyImportReflection((Set) importClasses));
         }
 
         private void mapProperties() {
-            if(propertiesMap == null)
+            if (propertiesMap == null) {
                 return;
+            }
             Map<String, String> keyMap = propertiesMap.keyMap();
-            for(String originKey : keyMap.keySet()) {
+            for (String originKey : keyMap.keySet()) {
                 String mapKey = keyMap.get(originKey);
                 Object value = properties.get(originKey);
                 properties.put(mapKey, value);
@@ -946,54 +931,61 @@ public class EzySimpleBeanContext
         }
 
         private void addScannedSingletonsToFactory(EzyBeanContext context) {
-            for(Class type : singletonClasses)
+            for (Class type : singletonClasses) {
                 createAndLoadSingleton(context, type);
+            }
         }
 
         private void addScannedPrototypeSuppliersToFactory() {
-            for(Class type : prototypeClasses)
+            for (Class type : prototypeClasses) {
                 createAndLoadPrototypeSupplier(type);
+            }
         }
 
-        private Object createAndLoadSingleton(EzyBeanContext context, Class type) {
-            return createAndLoadSingleton(context, type, false);
+        private void createAndLoadSingleton(EzyBeanContext context, Class type) {
+            createAndLoadSingleton(context, type, false);
         }
 
         private Object createAndLoadSingleton(EzyBeanContext context, Class type, boolean reload) {
             String beanName = getSingletonBeanName(type);
             Object current = singletonFactory.getSingleton(beanName, type);
-            if(current != null && !reload) return current;
+            if (current != null && !reload) {
+                return current;
+            }
             List<Class<?>> stackCallClasses = new ArrayList<>();
             try {
                 EzySingletonLoader loader =
-                        new EzyByConstructorSingletonLoader(beanName, new EzyClass(type), stackCallClasses);
+                    new EzyByConstructorSingletonLoader(beanName, new EzyClass(type), stackCallClasses);
                 return loader.load(context);
-            }
-            catch(EzyNewSingletonException e) {
-                for(Class<?> clazz : stackCallClasses)
+            } catch (EzyNewSingletonException e) {
+                for (Class<?> clazz : stackCallClasses) {
                     unloadedSingletons.addItems(e.getErrorKey(), clazz);
+                }
                 return null;
             }
         }
 
         private String getSingletonBeanName(Class type) {
             String beanName = namedSingletonClasses.get(type);
-            if(beanName == null)
+            if (beanName == null) {
                 beanName = getSingletonName(type);
+            }
             return beanName;
         }
 
         private void createAndLoadPrototypeSupplier(Class type) {
             String beanName = getPrototypeBeanName(type);
             Object current = prototypeFactory.getSupplier(beanName, type);
-            if(current == null)
+            if (current == null) {
                 new EzyByConstructorPrototypeSupplierLoader(beanName, new EzyClass(type)).load(prototypeFactory);
+            }
         }
 
         private String getPrototypeBeanName(Class type) {
             String beanName = namedPrototypeClasses.get(type);
-            if(beanName == null)
+            if (beanName == null) {
                 beanName = getPrototypeName(type);
+            }
             return beanName;
         }
 
@@ -1002,46 +994,49 @@ public class EzySimpleBeanContext
             classes.addAll(configurationBeforeClasses);
             classes.addAll(configurationAfterClasses);
             classes.addAll(configurationClasses);
-            for(Class<?> clazz : classes) {
+            for (Class<?> clazz : classes) {
                 EzyPackagesToScan packagesScanAnn = clazz.getAnnotation(EzyPackagesToScan.class);
-                if(packagesScanAnn != null)
+                if (packagesScanAnn != null) {
                     packagesScanClasses.add(clazz);
+                }
                 EzyBeanPackagesToScan beanPackagesScanAnn = clazz.getAnnotation(EzyBeanPackagesToScan.class);
-                if(beanPackagesScanAnn != null)
+                if (beanPackagesScanAnn != null) {
                     packagesScanClasses.add(clazz);
+                }
                 EzyPropertiesBean propertiesBeanAnn = clazz.getAnnotation(EzyPropertiesBean.class);
-                if(propertiesBeanAnn != null)
+                if (propertiesBeanAnn != null) {
                     propertiesBeanAnnotatedClasses.add(clazz);
+                }
                 EzyPropertiesBeans propertiesBeansAnn = clazz.getAnnotation(EzyPropertiesBeans.class);
-                if(propertiesBeansAnn != null)
+                if (propertiesBeansAnn != null) {
                     propertiesBeansAnnotatedClasses.add(clazz);
+                }
             }
         }
 
         private void scanPackagesScanClasses() {
-            for(Class clazz : packagesScanClasses)
+            for (Class clazz : packagesScanClasses) {
                 this.scanPackagesScanClass(clazz);
+            }
         }
 
         private void scanPackagesScanClass(Class<?> clazz) {
             Set<String> packets = new HashSet<>();
             EzyPackagesToScan packagesScanAnn = clazz.getAnnotation(EzyPackagesToScan.class);
-            if(packagesScanAnn != null) {
+            if (packagesScanAnn != null) {
                 String[] value = packagesScanAnn.value();
-                if(value.length == 0) {
+                if (value.length == 0) {
                     packets.add(clazz.getPackage().getName());
-                }
-                else {
+                } else {
                     packets.addAll(Arrays.asList(value));
                 }
             }
             EzyBeanPackagesToScan beanPackagesScanAnn = clazz.getAnnotation(EzyBeanPackagesToScan.class);
-            if(beanPackagesScanAnn != null) {
+            if (beanPackagesScanAnn != null) {
                 String[] value = beanPackagesScanAnn.value();
-                if(value.length == 0) {
+                if (value.length == 0) {
                     packets.add(clazz.getPackage().getName());
-                }
-                else {
+                } else {
                     packets.addAll(Arrays.asList(value));
                 }
             }
@@ -1050,37 +1045,40 @@ public class EzySimpleBeanContext
         }
 
         private void loadPropertiesSources() {
-            for(Class<?> clazz : propertiesSourceClasses) {
+            for (Class<?> clazz : propertiesSourceClasses) {
                 EzyPropertiesSources ann = clazz.getAnnotation(EzyPropertiesSources.class);
-                for(String file : ann.value())
+                for (String file : ann.value()) {
                     addProperties(file);
+                }
             }
         }
 
         private void loadPropertiesBeanClasses() {
-            for(Class<?> clazz : propertiesBeanAnnotatedClasses) {
+            for (Class<?> clazz : propertiesBeanAnnotatedClasses) {
                 EzyPropertiesBean ann = clazz.getAnnotation(EzyPropertiesBean.class);
                 Class<?> beanClass = ann.value();
-                if(beanClass == Object.class)
+                if (beanClass == Object.class) {
                     beanClass = clazz;
+                }
                 propertiesBeanClass(ann.prefix(), beanClass);
             }
 
-            for(Class<?> clazz : propertiesBeansAnnotatedClasses) {
+            for (Class<?> clazz : propertiesBeansAnnotatedClasses) {
                 EzyPropertiesBeans anns = clazz.getAnnotation(EzyPropertiesBeans.class);
-                for(EzyPropertiesBean ann : anns.value())
+                for (EzyPropertiesBean ann : anns.value()) {
                     propertiesBeanClass(ann.prefix(), ann.value());
+                }
             }
         }
 
         private void addPropertiesBeans() {
-            for(String prefix : propertiesBeanClasses.keySet()) {
+            for (String prefix : propertiesBeanClasses.keySet()) {
                 Set<Class<?>> propertiesBeanClassSet = propertiesBeanClasses.get(prefix);
-                for(Class<?> propertiesBeanClass : propertiesBeanClassSet) {
+                for (Class<?> propertiesBeanClass : propertiesBeanClassSet) {
                     Object propertiesBean = newPropertiesMapper()
-                            .propertyPrefix(prefix)
-                            .clazz(propertiesBeanClass)
-                            .map();
+                        .propertyPrefix(prefix)
+                        .clazz(propertiesBeanClass)
+                        .map();
                     addSingleton(EzyBeanNameParser.getBeanName(propertiesBeanClass), propertiesBean);
                 }
             }
@@ -1088,31 +1086,32 @@ public class EzySimpleBeanContext
 
         private void loadConfigurationBeforeClasses(EzyBeanContext context) {
             List<Class> classes = EzyConfigurationBeforeClassSorter.sort(configurationBeforeClasses);
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 loadConfigurationClass(clazz, context);
+            }
         }
 
         private void loadConfigurationClasses(EzyBeanContext context) {
             List<Class> classes = EzyConfigurationClassSorter.sort(configurationClasses);
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 loadConfigurationClass(clazz, context);
+            }
         }
 
         private void loadConfigurationAfterClasses(EzyBeanContext context) {
             List<Class> classes = EzyConfigurationAfterClassSorter.sort(configurationAfterClasses);
-            for(Class clazz : classes)
+            for (Class clazz : classes) {
                 loadConfigurationClass(clazz, context);
+            }
         }
 
         private void loadConfigurationClass(Class<?> clazz, EzyBeanContext context) {
             try {
                 new EzySimpleConfigurationLoader().context(context).clazz(clazz).load();
-            }
-            catch (Throwable e) {
-                if(EzyBeanAutoConfig.class.isAssignableFrom(clazz)) {
+            } catch (Throwable e) {
+                if (EzyBeanAutoConfig.class.isAssignableFrom(clazz)) {
                     EzyBeanAutoConfig.LOGGER.debug("{} auto config failed due to: {} ({})", clazz.getName(), e.getClass().getName(), e.getMessage());
-                }
-                else {
+                } else {
                     throw e;
                 }
             }
@@ -1120,24 +1119,27 @@ public class EzySimpleBeanContext
 
         private void tryLoadUncompletedSingletonsAgain(EzyBeanContext context, boolean finish) {
             Set<EzyBeanKey> keySet = new HashSet<>(unloadedSingletons.keySet());
-            for(EzyBeanKey key : keySet) {
+            for (EzyBeanKey key : keySet) {
                 Set<Class<?>> uncompleted = unloadedSingletons.get(key);
                 logger.debug("unload bean: {}, uncompleted: {}", key, uncompleted);
                 logger.debug("try load bean {} again", key);
                 loadUncompletedSingletons(context, key, uncompleted, finish);
             }
-            if(finish) {
-                while(!unloadedSingletons.isEmpty())
-                    tryLoadUncompletedSingletonsAgain(context, finish);
+            if (finish) {
+                while (!unloadedSingletons.isEmpty()) {
+                    tryLoadUncompletedSingletonsAgain(context, true);
+                }
             }
         }
 
         private void loadUncompletedSingletons(
-                EzyBeanContext context, EzyBeanKey key, Set<Class<?>> uncompleted, boolean finish) {
+            EzyBeanContext context, EzyBeanKey key, Set<Class<?>> uncompleted, boolean finish) {
             Object singleton = getSingletonOfErrorBeanKey0(context, key, finish);
-            if(singleton == null) return;
+            if (singleton == null) {
+                return;
+            }
             logger.debug("found singleton {} with key {}", singleton, key);
-            for(Class<?> clazz : uncompleted) {
+            for (Class<?> clazz : uncompleted) {
                 createAndLoadSingleton(context, clazz, true);
             }
         }
@@ -1146,14 +1148,13 @@ public class EzySimpleBeanContext
             Object singleton = null;
             try {
                 singleton = getSingletonOfErrorBeanKey(context, key);
-            }
-            catch(EzySingletonException e) {
-                if(finish) {
+            } catch (EzySingletonException e) {
+                if (finish) {
                     errorHandler.handle(e);
                     unloadedSingletons.remove(key);
                 }
             }
-            if(singleton != null) {
+            if (singleton != null) {
                 unloadedSingletons.remove(key);
             }
             return singleton;
@@ -1161,15 +1162,17 @@ public class EzySimpleBeanContext
 
         private Object getSingletonOfErrorBeanKey(EzyBeanContext context, EzyBeanKey key) {
             Object singleton = singletonFactory.getSingleton(key.getName(), key.getType());
-            if(singleton != null) return singleton;
+            if (singleton != null) {
+                return singleton;
+            }
             return loadSingletonOfBeanKey(context, key);
         }
 
         private Object loadSingletonOfBeanKey(EzyBeanContext context, EzyBeanKey key) {
-            for(EzyBeanKey i : unloadedSingletons.keySet()) {
+            for (EzyBeanKey i : unloadedSingletons.keySet()) {
                 Set<Class<?>> classes = unloadedSingletons.get(i);
-                for(Class<?> implClass : classes) {
-                    if(key.getType().isAssignableFrom(implClass)) {
+                for (Class<?> implClass : classes) {
+                    if (key.getType().isAssignableFrom(implClass)) {
                         return createAndLoadSingleton(context, implClass, true);
                     }
                 }
@@ -1196,7 +1199,7 @@ public class EzySimpleBeanContext
         private Set<Class<?>> getExcludeConfigurationClasses(EzyReflection reflection) {
             Set<Class<?>> answer = new HashSet<>();
             Set<Class<?>> classes = reflection.getAnnotatedClasses(EzyExclusiveClassesConfiguration.class);
-            for(Class<?> clazz : classes) {
+            for (Class<?> clazz : classes) {
                 EzyExclusiveClassesConfiguration ann = clazz.getAnnotation(EzyExclusiveClassesConfiguration.class);
                 answer.addAll(Arrays.asList(ann.value()));
             }
@@ -1226,20 +1229,19 @@ public class EzySimpleBeanContext
 
         private PropertiesMapper newPropertiesMapper() {
             return new PropertiesMapper()
-                    .addPropertyAnnotation(new PropertyAnnotation(
-                            EzyProperty.class,
-                            a -> ((EzyProperty)a).value(),
-                            a -> ((EzyProperty)a).prefix()))
-                    .data(properties)
-                    .valueConverter(new ValueConverter() {
-                        @Override
-                        public <T> T convert(Object value, Class<T> outType) {
-                            return EzySimpleValueConverter
-                                    .getSingleton()
-                                    .convert(value, outType);
-                        }
-                    });
+                .addPropertyAnnotation(new PropertyAnnotation(
+                    EzyProperty.class,
+                    a -> ((EzyProperty) a).value(),
+                    a -> ((EzyProperty) a).prefix()))
+                .data(properties)
+                .valueConverter(new ValueConverter() {
+                    @Override
+                    public <T> T convert(Object value, Class<T> outType) {
+                        return EzySimpleValueConverter
+                            .getSingleton()
+                            .convert(value, outType);
+                    }
+                });
         }
-
     }
 }

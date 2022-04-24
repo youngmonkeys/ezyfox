@@ -1,24 +1,31 @@
 package com.tvd12.ezyfox.bean.v117.testing;
 
-import java.util.Properties;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.boot.DatabaseContext;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
+
+import java.util.Properties;
 
 public class EzySimpleBindingTest {
+
+    public static void main(String[] args) {
+        EzyBeanContext beanContext = EzyBeanContext.builder()
+            .scan("com.tvd12.ezyfox.bean.v117.testing")
+            .build();
+        Properties properties = beanContext.getProperties();
+        System.out.println(properties);
+    }
 
     @Test
     public void defaultTest() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .build();
+            .build();
 
         // when
         DatabaseContext databaseContext =
-                (DatabaseContext) beanContext.getBean(DatabaseContext.class);
+            (DatabaseContext) beanContext.getBean(DatabaseContext.class);
 
         // then
         Asserts.assertEquals(0, beanContext.getPackagesToScan().size());
@@ -29,12 +36,12 @@ public class EzySimpleBindingTest {
     public void scanPackages() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v117.testing")
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v117.testing")
+            .build();
 
         // when
         DatabaseContext databaseContext =
-                (DatabaseContext) beanContext.getBean(DatabaseContext.class);
+            (DatabaseContext) beanContext.getBean(DatabaseContext.class);
 
         // then
         Asserts.assertEquals(3, beanContext.getPackagesToScan().size());
@@ -45,12 +52,12 @@ public class EzySimpleBindingTest {
     public void disableAutoConfig() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .disableAutoConfiguration()
-                .build();
+            .disableAutoConfiguration()
+            .build();
 
         // when
         DatabaseContext databaseContext =
-                (DatabaseContext) beanContext.getSingleton(DatabaseContext.class);
+            beanContext.getSingleton(DatabaseContext.class);
 
         // then
         Asserts.assertEquals(0, beanContext.getPackagesToScan().size());
@@ -61,12 +68,12 @@ public class EzySimpleBindingTest {
     public void disableAutoConfigByAnnotation() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v117x.testing.packet3")
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v117x.testing.packet3")
+            .build();
 
         // when
         DatabaseContext databaseContext =
-                (DatabaseContext) beanContext.getSingleton(DatabaseContext.class);
+            beanContext.getSingleton(DatabaseContext.class);
 
         // then
         Asserts.assertEquals(1, beanContext.getPackagesToScan().size());
@@ -77,13 +84,13 @@ public class EzySimpleBindingTest {
     public void importConfigs() {
         // given
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v117.testing")
-                .scan("com.tvd12.ezyfox.bean.v117x.testing.packet3")
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v117.testing")
+            .scan("com.tvd12.ezyfox.bean.v117x.testing.packet3")
+            .build();
 
         // when
         DatabaseContext databaseContext =
-                (DatabaseContext) beanContext.getSingleton(DatabaseContext.class);
+            beanContext.getSingleton(DatabaseContext.class);
 
         // then
         Asserts.assertEquals(4, beanContext.getPackagesToScan().size());
@@ -95,8 +102,8 @@ public class EzySimpleBindingTest {
         // given
         System.setProperty(EzyBeanContext.ACTIVE_PROFILES_KEY, "alpha");
         EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v117.testing")
-                .build();
+            .scan("com.tvd12.ezyfox.bean.v117.testing")
+            .build();
 
         // when
         Properties properties = beanContext.getProperties();
@@ -104,13 +111,5 @@ public class EzySimpleBindingTest {
         // then
         Asserts.assertEquals(properties.get("version"), "v1.1.7");
         Asserts.assertEquals(properties.get("env"), "Alpha");
-    }
-
-    public static void main(String[] args) {
-        EzyBeanContext beanContext = EzyBeanContext.builder()
-                .scan("com.tvd12.ezyfox.bean.v117.testing")
-                .build();
-        Properties properties = beanContext.getProperties();
-        System.out.println(properties);
     }
 }

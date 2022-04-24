@@ -10,11 +10,11 @@
     </appender>
 
     <logger name="com.tvd12" level="debug" additivity="false">
-        <appender-ref ref="stdout" />
+        <appender-ref ref="stdout"/>
     </logger>
 
     <root level="debug">
-        <appender-ref ref="stdout" />
+        <appender-ref ref="stdout"/>
     </root>
 
 </configuration>

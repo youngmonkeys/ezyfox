@@ -1,12 +1,5 @@
 package com.tvd12.ezyfox.bean.testing.combine;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
@@ -15,6 +8,12 @@ import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.impl.EzySimpleBeanContext;
 import com.tvd12.ezyfox.bean.testing.combine.pack1.Singleton1;
 import com.tvd12.ezyfox.properties.EzySimplePropertiesReader;
+import org.testng.annotations.Test;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Combine2Test {
 
@@ -23,25 +22,25 @@ public class Combine2Test {
     public void test() throws Exception {
         EzyByConstructorPrototypeSupplierLoader.setDebug(true);
         EzyBeanContextBuilder builder = EzyBeanContext.builder()
-                .scan(
-                        "com.tvd12.ezyfox.bean.testing.combine"
-                )
-                .addProperties(new HashMap<>())
-                .propertiesReader(new EzySimplePropertiesReader())
-                .addSingletonClasses(new Class[] {
-                        SingletonX1.class,
-                        SingletonX2.class,
-                        Singleton12.class
-                })
-                .addPrototypeClasses(new Class[] {
-                        ClassA12.class
-                })
-                .addSingleton("list", new ArrayList<>())
-                .addSingleton("map", new HashMap<>())
-                .addSingleton("singleton2", new SingletonX3());
+            .scan(
+                "com.tvd12.ezyfox.bean.testing.combine"
+            )
+            .addProperties(new HashMap<>())
+            .propertiesReader(new EzySimplePropertiesReader())
+            .addSingletonClasses(
+                SingletonX1.class,
+                SingletonX2.class,
+                Singleton12.class)
+            .addPrototypeClasses(
+                ClassA12.class,
+                ClassA12.class
+            )
+            .addSingleton("list", new ArrayList<>())
+            .addSingleton("map", new HashMap<>())
+            .addSingleton("singleton2", new SingletonX3());
 
         Field prototypeFactoryField = EzySimpleBeanContext.Builder.class
-                .getDeclaredField("prototypeFactory");
+            .getDeclaredField("prototypeFactory");
         prototypeFactoryField.setAccessible(true);
         EzyPrototypeFactory prototypeFactory = (EzyPrototypeFactory) prototypeFactoryField.get(builder);
         prototypeFactory.addSupplier(new EzyPrototypeSupplier() {

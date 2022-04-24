@@ -2,7 +2,6 @@ package com.tvd12.ezyfox.bean.testing.configuration1;
 
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzyPostInit;
-
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,4 +1,3 @@
 package com.tvd12.ezyfox.bean.testing.complex;
 
-public interface ClassF {
-}
+public interface ClassF {}

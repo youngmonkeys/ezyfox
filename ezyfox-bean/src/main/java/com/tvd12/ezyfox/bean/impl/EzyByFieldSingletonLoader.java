@@ -1,45 +1,52 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @SuppressWarnings("rawtypes")
 public class EzyByFieldSingletonLoader
-        extends EzySimpleSingletonLoader
-        implements EzySingletonLoader {
+    extends EzySimpleSingletonLoader
+    implements EzySingletonLoader {
 
     protected final EzyField field;
 
     public EzyByFieldSingletonLoader(
-            String beanName,
-            EzyField field,
-            Object configurator,
-            Map<Class<?>, EzyMethod> methodsByType) {
+        String beanName,
+        EzyField field,
+        Object configurator,
+        Map<Class<?>, EzyMethod> methodsByType
+    ) {
         this(beanName, field, configurator, methodsByType, new ArrayList<>());
     }
 
     public EzyByFieldSingletonLoader(
-            String beanName,
-            EzyField field,
-            Object configurator,
-            Map<Class<?>, EzyMethod> methodsByType, List<Class<?>> stackCallClasses) {
+        String beanName,
+        EzyField field,
+        Object configurator,
+        Map<Class<?>, EzyMethod> methodsByType,
+        List<Class<?>> stackCallClasses
+    ) {
         super(beanName,
-                new EzyClass(field.getType()),
-                configurator, methodsByType, stackCallClasses);
+            new EzyClass(field.getType()),
+            configurator,
+            methodsByType,
+            stackCallClasses
+        );
         this.field = field;
     }
 
     @Override
     protected Map getAnnotationProperties() {
         return EzyKeyValueParser.getSingletonProperties(
-                field.getAnnotation(EzySingleton.class));
+            field.getAnnotation(EzySingleton.class)
+        );
     }
 
     @Override
@@ -49,7 +56,9 @@ public class EzyByFieldSingletonLoader
 
     @Override
     protected Object newSingletonByConstructor(
-            EzyBeanContext context, Class[] parameterTypes) throws Exception {
+        EzyBeanContext context,
+        Class[] parameterTypes
+    ) {
         return field.get(configurator);
     }
 
@@ -64,6 +73,5 @@ public class EzyByFieldSingletonLoader
     }
 
     @Override
-    protected void detectCircularDependency(Class[] parameterTypes, StringBuilder log) {
-    }
+    protected void detectCircularDependency(Class[] parameterTypes, StringBuilder log) {}
 }

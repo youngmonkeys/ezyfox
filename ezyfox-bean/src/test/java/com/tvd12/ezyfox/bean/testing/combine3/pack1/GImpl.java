@@ -7,6 +7,5 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 public class GImpl implements G {
 
     @EzyAutoBind
-    public GImpl(A a, E e, F f) {
-    }
+    public GImpl(A a, E e, F f) {}
 }

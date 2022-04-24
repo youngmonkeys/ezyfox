@@ -4,7 +4,6 @@ import com.tvd12.ezyfox.bean.EzyBeanAutoConfig;
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.bean.EzySingletonFactoryAware;
 import com.tvd12.ezyfox.bean.annotation.EzyConfigurationBefore;
-
 import lombok.Setter;
 
 @EzyConfigurationBefore

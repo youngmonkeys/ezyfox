@@ -7,6 +7,5 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 public class HImpl implements H {
 
     @EzyAutoBind
-    public HImpl(A a, B b, C c, D d, E e, G g) {
-    }
+    public HImpl(A a, B b, C c, D d, E e, G g) {}
 }
