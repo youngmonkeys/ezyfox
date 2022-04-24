@@ -9,14 +9,12 @@ public class JacksonByteToMessageDecoder implements EzyStringToObjectDecoder {
     }
 
     @Override
-    public Object decode(String bytes) throws Exception {
-        Object answer = deserializer.deserialize(bytes);
-        return answer;
+    public Object decode(String bytes) {
+        return deserializer.deserialize(bytes);
     }
 
     @Override
-    public Object decode(byte[] bytes) throws Exception {
-        Object answer = deserializer.deserialize(bytes);
-        return answer;
+    public Object decode(byte[] bytes) {
+        return deserializer.deserialize(bytes);
     }
 }

@@ -1,21 +1,16 @@
 package com.tvd12.ezyfox.jackson;
 
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.tvd12.ezyfox.builder.EzyBuilder;
+import com.tvd12.ezyfox.entity.*;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
-
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.entity.EzyArray;
-import com.tvd12.ezyfox.entity.EzyArrayList;
-import com.tvd12.ezyfox.entity.EzyHashMap;
-import com.tvd12.ezyfox.entity.EzyObject;
-import com.tvd12.ezyfox.entity.EzyRoArray;
-import com.tvd12.ezyfox.entity.EzyRoObject;
 
 public class JacksonObjectMapperBuilder implements EzyBuilder<ObjectMapper> {
 
@@ -26,7 +21,7 @@ public class JacksonObjectMapperBuilder implements EzyBuilder<ObjectMapper> {
     @Override
     public ObjectMapper build() {
         return new ObjectMapper()
-                .registerModule(newModule());
+            .registerModule(newModule());
     }
 
     protected Module newModule() {

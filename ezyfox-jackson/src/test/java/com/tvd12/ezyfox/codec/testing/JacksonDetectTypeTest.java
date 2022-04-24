@@ -1,10 +1,10 @@
 package com.tvd12.ezyfox.codec.testing;
 
-import java.util.Arrays;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tvd12.test.base.BaseTest;
+
+import java.util.Arrays;
 
 public class JacksonDetectTypeTest extends BaseTest {
 

@@ -9,14 +9,12 @@ public class JacksonMessageToByteEncoder implements EzyObjectToStringEncoder {
     }
 
     @Override
-    public byte[] encode(Object msg) throws Exception {
-        byte[] bytes = serializer.serialize(msg);
-        return bytes;
+    public byte[] encode(Object msg) {
+        return serializer.serialize(msg);
     }
 
     @Override
-    public <T> T encode(Object msg, Class<T> outType) throws Exception {
-        T answer = serializer.serialize(msg, outType);
-        return answer;
+    public <T> T encode(Object msg, Class<T> outType) {
+        return serializer.serialize(msg, outType);
     }
 }
