@@ -25,7 +25,10 @@ public abstract class EzySimpleSingletonLoader
     protected final List<Class<?>> stackCallClasses;
 
     protected EzySimpleSingletonLoader(
-        String beanName, EzyClass clazz, List<Class<?>> stackCallClasses) {
+        String beanName,
+        EzyClass clazz,
+        List<Class<?>> stackCallClasses
+    ) {
         this(beanName, clazz, null, new HashMap<>(), stackCallClasses);
     }
 
@@ -74,7 +77,9 @@ public abstract class EzySimpleSingletonLoader
 
     private Object getOrCreateSingleton(
         EzyBeanContext context,
-        String name, Class[] parameterTypes) throws Exception {
+        String name,
+        Class[] parameterTypes
+    ) throws Exception {
         EzySingletonFactory factory = context.getSingletonFactory();
         Object singleton = factory.getSingleton(name, getSingletonClass());
         if (singleton == null) {
@@ -98,7 +103,11 @@ public abstract class EzySimpleSingletonLoader
     }
 
     @SuppressWarnings("unchecked")
-    private void setValueToPropertyField(EzyField field, Object singleton, EzyPropertyFetcher fetcher) {
+    private void setValueToPropertyField(
+        EzyField field,
+        Object singleton,
+        EzyPropertyFetcher fetcher
+    ) {
         if (!field.isWritable()) {
             return;
         }
@@ -118,20 +127,31 @@ public abstract class EzySimpleSingletonLoader
     }
 
     @SuppressWarnings("unchecked")
-    private void setValueToPropertyMethod(EzySetterMethod method, Object singleton, EzyPropertyFetcher fetcher) {
+    private void setValueToPropertyMethod(
+        EzySetterMethod method,
+        Object singleton,
+        EzyPropertyFetcher fetcher
+    ) {
         String propertyName = getPropertyName(method);
         if (fetcher.containsProperty(propertyName)) {
             method.invoke(singleton, fetcher.getProperty(propertyName, method.getType()));
         }
     }
 
-    private void setValueToBindingFields(Object singleton, EzyBeanContext context) {
+    private void setValueToBindingFields(
+        Object singleton,
+        EzyBeanContext context
+    ) {
         for (EzyField field : bindingFields) {
             setValueToBindingField(field, singleton, context);
         }
     }
 
-    private void setValueToBindingField(EzyField field, Object singleton, EzyBeanContext context) {
+    private void setValueToBindingField(
+        EzyField field,
+        Object singleton,
+        EzyBeanContext context
+    ) {
         if (!field.isWritable()) {
             return;
         }
@@ -151,7 +171,10 @@ public abstract class EzySimpleSingletonLoader
     }
 
     private void setValueToBindingMethod(
-        EzySetterMethod method, Object singleton, EzyBeanContext context) {
+        EzySetterMethod method,
+        Object singleton,
+        EzyBeanContext context
+    ) {
         Object value = getOrCreateSingleton(
             method.getType(), getBeanName(method), context);
         if (!method.isPublic()) {
@@ -186,7 +209,10 @@ public abstract class EzySimpleSingletonLoader
     }
 
     private Object createNewSingleton(
-        Class paramType, String beanName, EzyBeanContext context) {
+        Class paramType,
+        String beanName,
+        EzyBeanContext context
+    ) {
         EzyMethod method = methodsByType.remove(paramType);
         if (method != null) {
             logger.debug("add singleton of {} with method {}", paramType, method);

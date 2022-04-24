@@ -1064,8 +1064,8 @@ public class EzySimpleBeanContext
             }
 
             for (Class<?> clazz : propertiesBeansAnnotatedClasses) {
-                EzyPropertiesBeans anns = clazz.getAnnotation(EzyPropertiesBeans.class);
-                for (EzyPropertiesBean ann : anns.value()) {
+                EzyPropertiesBeans annotation = clazz.getAnnotation(EzyPropertiesBeans.class);
+                for (EzyPropertiesBean ann : annotation.value()) {
                     propertiesBeanClass(ann.prefix(), ann.value());
                 }
             }

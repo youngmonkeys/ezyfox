@@ -19,7 +19,9 @@ public class EzyByConstructorSingletonLoader
     }
 
     protected EzyByConstructorSingletonLoader(
-        String beanName, EzyClass clazz, List<Class<?>> stackCallClasses) {
+        String beanName, EzyClass clazz,
+        List<Class<?>> stackCallClasses
+    ) {
         super(beanName, clazz, stackCallClasses);
         this.constructor = getConstructor(clazz);
     }

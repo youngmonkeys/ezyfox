@@ -18,7 +18,10 @@ public class EzyByFieldPrototypeSupplierLoader
     protected final Object configurator;
 
     public EzyByFieldPrototypeSupplierLoader(
-        String beanName, EzyField field, Object configurator) {
+        String beanName,
+        EzyField field,
+        Object configurator
+    ) {
         super(beanName, new EzyClass(field.getType()));
         this.field = field;
         this.configurator = configurator;
@@ -38,11 +41,15 @@ public class EzyByFieldPrototypeSupplierLoader
     @Override
     protected Map getAnnotationProperties() {
         return EzyKeyValueParser.getPrototypeProperties(
-            field.getAnnotation(EzyPrototype.class));
+            field.getAnnotation(EzyPrototype.class)
+        );
     }
 
     @Override
-    protected EzyInstruction newConstructInstruction(EzyBody body, List<String> cparams) {
+    protected EzyInstruction newConstructInstruction(
+        EzyBody body,
+        List<String> cparams
+    ) {
         Class<?> configClass = configurator.getClass();
         EzyInstruction prepare = newVariableInstruction(
             configClass, "configurator", EzyClasses.getVariableName(configClass));
