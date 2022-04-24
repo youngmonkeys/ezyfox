@@ -9,15 +9,17 @@ public final class EzyMessageAnnotations {
 
     public static String getChannelName(Class<?> messageClass) {
         String channel = getChannelName(messageClass.getAnnotation(EzyMessage.class));
-        if(EzyStrings.isNoContent(channel))
+        if (EzyStrings.isNoContent(channel)) {
             channel = messageClass.getSimpleName();
+        }
         return channel;
     }
 
     public static String getChannelName(EzyMessage anno) {
         String channelName = anno.value();
-        if(EzyStrings.isNoContent(channelName))
+        if (EzyStrings.isNoContent(channelName)) {
             channelName = anno.channel();
+        }
         return channelName;
     }
 }

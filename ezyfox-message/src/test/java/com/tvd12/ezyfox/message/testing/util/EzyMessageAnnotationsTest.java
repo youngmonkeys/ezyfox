@@ -1,10 +1,9 @@
 package com.tvd12.ezyfox.message.testing.util;
 
-import org.testng.annotations.Test;
-
 import com.tvd12.ezyfox.message.annotation.EzyMessage;
 import com.tvd12.ezyfox.message.util.EzyMessageAnnotations;
 import com.tvd12.test.assertion.Asserts;
+import org.testng.annotations.Test;
 
 public class EzyMessageAnnotationsTest {
 
