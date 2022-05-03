@@ -268,6 +268,40 @@ public class EzyProcessorTest extends BaseTest {
         verify(logger, times(1)).error(any(String.class), any(Exception.class));
     }
 
+    @Test
+    public void processWithWarnLogTrue() {
+        // given
+        Logger logger = mock(Logger.class);
+        FieldUtil.setStaticFieldValue(EzyProcessor.class, "LOGGER", logger);
+
+        // when
+        Exception e = new IllegalStateException("just test");
+        EzyProcessor.processWithLogException(
+            () -> { throw e; },
+            true
+        );
+
+        // then
+        verify(logger, times(1)).warn(any(String.class), any(Exception.class));
+    }
+
+    @Test
+    public void processWithWarnLogFalse() {
+        // given
+        Logger logger = mock(Logger.class);
+        FieldUtil.setStaticFieldValue(EzyProcessor.class, "LOGGER", logger);
+
+        // when
+        Exception e = new IllegalStateException("just test");
+        EzyProcessor.processWithLogException(
+            () -> { throw e; },
+            false
+        );
+
+        // then
+        verify(logger, times(1)).info(any(String.class), any(Exception.class));
+    }
+
     @Override
     public Class<?> getTestClass() {
         return EzyProcessor.class;
