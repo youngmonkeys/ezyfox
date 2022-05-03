@@ -12,10 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
+import static com.tvd12.ezyfox.io.EzyStrings.traceStackToString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.assertEquals;
@@ -65,6 +64,7 @@ public class EzyStringsTest extends BaseTest {
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Test
     public void test5() {
+        //noinspection ConstantConditions
         assert EzyStrings.isEmpty(null);
         assert EzyStrings.isEmpty("");
         assert !EzyStrings.isEmpty(" ");
@@ -72,6 +72,7 @@ public class EzyStringsTest extends BaseTest {
         assert !EzyStrings.isEmpty("\n");
         assert !EzyStrings.isEmpty("a");
 
+        //noinspection ConstantConditions
         assert EzyStrings.isNoContent(null);
         assert EzyStrings.isNoContent("");
         assert EzyStrings.isNoContent(" ");
@@ -243,7 +244,7 @@ public class EzyStringsTest extends BaseTest {
         Exception e = new Exception("test");
 
         // when
-        String actual = EzyStrings.traceStackToString(e);
+        String actual = traceStackToString(e);
 
         // then
         Asserts.assertNotNull(actual);
@@ -258,7 +259,7 @@ public class EzyStringsTest extends BaseTest {
             .printStackTrace(any(PrintWriter.class));
 
         // when
-        String actual = EzyStrings.traceStackToString(e);
+        String actual = traceStackToString(e);
 
         // then
         Asserts.assertNotNull(actual);
@@ -283,5 +284,50 @@ public class EzyStringsTest extends BaseTest {
                 "\"value\":" + "\"" + value + "\"" +
                 "}";
         }
+    }
+
+    @Test
+    public void exceptionsToStringTest() {
+        // given
+        Exception e1 = new Exception("hello");
+        Exception e2 = new Exception("world");
+        List<Exception> exceptions = Arrays.asList(e1, e2);
+
+        // when
+        String actual = EzyStrings.exceptionsToString(
+            exceptions
+        );
+
+        // then
+        Asserts.assertEquals(
+            actual,
+            traceStackToString(e1) + traceStackToString(e2)
+        );
+    }
+
+    @Test
+    public void exceptionToSimpleStringWithNull() {
+        // given
+        // when
+        // then
+        Asserts.assertEquals(
+            EzyStrings.exceptionToSimpleString(null),
+            ""
+        );
+    }
+
+    @Test
+    public void exceptionToSimpleStringTest() {
+        // given
+        Exception exception = new Exception("just test");
+
+        // when
+        String actual = EzyStrings.exceptionToSimpleString(exception);
+
+        // then
+        Asserts.assertEquals(
+            actual,
+            "java.lang.Exception: just test"
+        );
     }
 }

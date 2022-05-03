@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -343,6 +344,24 @@ public final class EzyStrings {
             }
         } catch (IOException ex) {
             return throwable.getClass().getName() + '(' + throwable.getMessage() + ')';
+        }
+    }
+
+    public static String exceptionsToString(
+        List<? extends Exception> exceptions
+    ) {
+        StringBuilder builder = new StringBuilder();
+        for (Exception exception : exceptions) {
+            builder.append(traceStackToString(exception));
+        }
+        return builder.toString();
+    }
+
+    public static String exceptionToSimpleString(Exception exception) {
+        if (exception == null) {
+            return "";
+        } else {
+            return exception.getClass().getName() + ": " + exception.getMessage();
         }
     }
 }
