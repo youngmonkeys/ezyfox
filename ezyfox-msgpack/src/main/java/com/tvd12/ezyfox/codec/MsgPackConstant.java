@@ -9,9 +9,9 @@ public final class MsgPackConstant {
     public static final long MAX_UINT16 = EzyMath.bin2int(16);
     public static final long MAX_UINT32 = EzyMath.bin2long(32);
     public static final long MIN_NEGATIVE_FIXINT = -EzyMath.bin2int(5) - 1;
-    public static final long MIN_INT8 = -EzyMath.bin2int(7);
-    public static final long MIN_INT16 = -EzyMath.bin2int(15);
-    public static final long MIN_INT32 = -EzyMath.bin2int(31);
+    public static final long MIN_INT8 = -EzyMath.bin2int(7) - 1;
+    public static final long MIN_INT16 = -EzyMath.bin2int(15) - 1;
+    public static final long MIN_INT32 = -EzyMath.bin2int(31) - 1;
     public static final int MAX_FIXMAP_SIZE = EzyMath.bin2int(4);
     public static final int MAX_FIXARRAY_SIZE = EzyMath.bin2int(4);
     public static final int MAX_ARRAY16_SIZE = EzyMath.bin2int(16);

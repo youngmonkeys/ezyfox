@@ -361,4 +361,167 @@ public class MsgPackSimpleDerSerTest {
         Asserts.assertEquals((byte) 0xc6, bytes[0]);
         Asserts.assertEquals(actual, array);
     }
+
+    @Test
+    public void deserializeFixNegateByteMiddle() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) (0xe0 | -15)
+        };
+
+        // when
+        int actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, -15, false);
+    }
+
+    @Test
+    public void deserializeFixNegateByteBoundary() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) (0xe0 | MsgPackConstant.MIN_NEGATIVE_FIXINT)
+        };
+
+        // when
+
+        int actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, MsgPackConstant.MIN_NEGATIVE_FIXINT, false);
+    }
+
+    @Test
+    public void deserializeNegateByteBoundary() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xd0,
+            Byte.MIN_VALUE
+        };
+
+        // when
+
+        int actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, Byte.MIN_VALUE, false);
+    }
+
+    @Test
+    public void deserializeNegateByteBoundaryOld() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xd1,
+            (byte) -1,
+            Byte.MIN_VALUE
+        };
+
+        // when
+
+        int actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, Byte.MIN_VALUE, false);
+    }
+
+    @Test
+    public void deserializeNegateShortBoundary() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xd1,
+            (byte) 128,
+            (byte) 0
+        };
+
+        // when
+
+        int actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, Short.MIN_VALUE, false);
+    }
+
+    @Test
+    public void deserializeNegateShortBoundaryOld() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xd2,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 128,
+            (byte) 0
+        };
+
+        // when
+
+        int actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, Short.MIN_VALUE, false);
+    }
+
+    @Test
+    public void deserializeNegateIntBoundary() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xd2,
+            (byte) 128,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0
+        };
+
+        // when
+
+        int actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, Integer.MIN_VALUE, false);
+    }
+
+    @Test
+    public void deserializeNegateIntBoundaryOld() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xd3,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 128,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0
+        };
+
+        // when
+
+        long actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, Integer.MIN_VALUE, false);
+    }
+
+    @Test
+    public void deserializeNegateLongBoundary() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xd3,
+            (byte) 128,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0
+        };
+
+        // when
+
+        long actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, Long.MIN_VALUE, false);
+    }
 }
