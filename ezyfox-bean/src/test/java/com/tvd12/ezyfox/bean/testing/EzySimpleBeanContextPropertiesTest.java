@@ -1,8 +1,14 @@
 package com.tvd12.ezyfox.bean.testing;
 
+import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
+import com.tvd12.ezyfox.sercurity.EzyAesCrypt;
+import com.tvd12.ezyfox.sercurity.EzyBase64;
+import com.tvd12.properties.file.constant.Constants;
 import com.tvd12.test.assertion.Asserts;
+import com.tvd12.test.util.RandomUtil;
+import lombok.ToString;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -51,5 +57,49 @@ public class EzySimpleBeanContextPropertiesTest {
         Asserts.assertEquals("world", properties.getProperty("hello"));
         Asserts.assertEquals("bar", properties.getProperty("foo"));
         Asserts.assertEquals("3006", properties.getProperty("port"));
+    }
+
+    @Test
+    public void setDecryptedPropertiesTest() throws Exception {
+        // given
+        String decryptionKey = "KSYzjcc8nqrBk8jXtW4QaMpr2suBU9vY";
+        String value = RandomUtil.randomShortAlphabetString();
+        Properties properties = new Properties();
+        properties.put(
+            "value",
+            "ENC(" + EzyBase64.encode2utf(
+                EzyAesCrypt.getDefault().encrypt(
+                    value.getBytes(),
+                    decryptionKey.getBytes()
+                )
+            ) + ")"
+        );
+
+        System.setProperty(
+            Constants.PROPERTIES_KEY_DECRYPTION_KEY,
+            decryptionKey
+        );
+
+        // when
+        EzyBeanContext beanContext = EzyBeanContext.builder()
+            .addProperties(properties)
+            .addSingletonClass(InternalBean.class)
+            .build();
+
+        // then
+        InternalBean bean = beanContext.getBeanCast(InternalBean.class);
+
+        System.out.println(bean);
+        Asserts.assertEquals(bean.value, value);
+        Asserts.assertEquals(bean.path, System.getenv("PATH"));
+    }
+
+    @ToString
+    public static class InternalBean {
+        @EzyProperty
+        public String value;
+
+        @EzyProperty("PATH")
+        public String path;
     }
 }

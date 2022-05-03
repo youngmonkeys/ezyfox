@@ -122,11 +122,12 @@ public abstract class EzySimpleSingletonLoader
             return;
         }
         String propertyName = getPropertyName(field);
-        if (fetcher.containsProperty(propertyName)) {
+        Object propertyValue = fetcher.getProperty(propertyName, field.getType());
+        if (propertyValue != null) {
             if (!field.isPublic()) {
                 field.setAccessible(true);
             }
-            field.set(singleton, fetcher.getProperty(propertyName, field.getType()));
+            field.set(singleton, propertyValue);
         }
     }
 
@@ -143,8 +144,9 @@ public abstract class EzySimpleSingletonLoader
         EzyPropertyFetcher fetcher
     ) {
         String propertyName = getPropertyName(method);
-        if (fetcher.containsProperty(propertyName)) {
-            method.invoke(singleton, fetcher.getProperty(propertyName, method.getType()));
+        Object propertyValue = fetcher.getProperty(propertyName, method.getType());
+        if (propertyValue != null) {
+            method.invoke(singleton, propertyValue);
         }
     }
 

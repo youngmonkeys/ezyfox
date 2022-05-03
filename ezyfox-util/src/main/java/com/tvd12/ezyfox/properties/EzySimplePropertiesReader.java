@@ -6,7 +6,7 @@ import com.tvd12.ezyfox.util.EzyLoggable;
 
 import java.util.Map;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
+@SuppressWarnings({"rawtypes"})
 public class EzySimplePropertiesReader
     extends EzyLoggable
     implements EzyPropertiesReader {
@@ -23,7 +23,15 @@ public class EzySimplePropertiesReader
 
     @Override
     public <T> T get(Map properties, Object key) {
-        return (T) properties.get(key);
+        Object value = properties.get(key);
+        if (value == null) {
+            value = System.getProperty(key.toString());
+        }
+        if (value == null) {
+            value = System.getenv(key.toString());
+        }
+        //noinspection unchecked
+        return (T) value;
     }
 
     @Override
