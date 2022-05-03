@@ -1,12 +1,17 @@
 package com.tvd12.ezyfox.testing.util;
 
+import com.tvd12.ezyfox.constant.EzyLogLevel;
 import com.tvd12.ezyfox.util.EzyProcessor;
 import com.tvd12.test.base.BaseTest;
+import com.tvd12.test.reflect.FieldUtil;
+import org.slf4j.Logger;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import static org.mockito.Mockito.*;
 
 public class EzyProcessorTest extends BaseTest {
 
@@ -159,6 +164,108 @@ public class EzyProcessorTest extends BaseTest {
     public void processSilentlyTest() {
         EzyProcessor.processSilently(() -> {});
         EzyProcessor.processSilently(() -> {throw new Exception("just test");});
+    }
+
+    @Test
+    public void processWithTraceLog() {
+        // given
+        Logger logger = mock(Logger.class);
+        FieldUtil.setStaticFieldValue(EzyProcessor.class, "LOGGER", logger);
+
+        // when
+        Exception e = new IllegalStateException("just test");
+        EzyProcessor.processWithLogException(
+            () -> { throw e; },
+            EzyLogLevel.TRACE
+        );
+
+        // then
+        verify(logger, times(1)).trace(any(String.class), any(Exception.class));
+    }
+
+    @Test
+    public void processWithDebugLog() {
+        // given
+        Logger logger = mock(Logger.class);
+        FieldUtil.setStaticFieldValue(EzyProcessor.class, "LOGGER", logger);
+
+        // when
+        Exception e = new IllegalStateException("just test");
+        EzyProcessor.processWithLogException(
+            () -> { throw e; },
+            EzyLogLevel.DEBUG
+        );
+
+        // then
+        verify(logger, times(1)).debug(any(String.class), any(Exception.class));
+    }
+
+    @Test
+    public void processWithInfoLog() {
+        // given
+        Logger logger = mock(Logger.class);
+        FieldUtil.setStaticFieldValue(EzyProcessor.class, "LOGGER", logger);
+
+        // when
+        Exception e = new IllegalStateException("just test");
+        EzyProcessor.processWithLogException(
+            () -> { throw e; },
+            EzyLogLevel.INFO
+        );
+
+        // then
+        verify(logger, times(1)).info(any(String.class), any(Exception.class));
+    }
+
+    @Test
+    public void processWithWarnLog() {
+        // given
+        Logger logger = mock(Logger.class);
+        FieldUtil.setStaticFieldValue(EzyProcessor.class, "LOGGER", logger);
+
+        // when
+        Exception e = new IllegalStateException("just test");
+        EzyProcessor.processWithLogException(
+            () -> { throw e; },
+            EzyLogLevel.WARN
+        );
+
+        // then
+        verify(logger, times(1)).warn(any(String.class), any(Exception.class));
+    }
+
+    @Test
+    public void processWithErrorLog() {
+        // given
+        Logger logger = mock(Logger.class);
+        FieldUtil.setStaticFieldValue(EzyProcessor.class, "LOGGER", logger);
+
+        // when
+        Exception e = new IllegalStateException("just test");
+        EzyProcessor.processWithLogException(
+            () -> { throw e; },
+            EzyLogLevel.ERROR
+        );
+
+        // then
+        verify(logger, times(1)).error(any(String.class), any(Exception.class));
+    }
+
+    @Test
+    public void processWithFatalLog() {
+        // given
+        Logger logger = mock(Logger.class);
+        FieldUtil.setStaticFieldValue(EzyProcessor.class, "LOGGER", logger);
+
+        // when
+        Exception e = new IllegalStateException("just test");
+        EzyProcessor.processWithLogException(
+            () -> { throw e; },
+            EzyLogLevel.FATAL
+        );
+
+        // then
+        verify(logger, times(1)).error(any(String.class), any(Exception.class));
     }
 
     @Override
