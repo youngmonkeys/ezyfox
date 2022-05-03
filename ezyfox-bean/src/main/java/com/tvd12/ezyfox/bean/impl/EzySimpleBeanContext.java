@@ -200,11 +200,6 @@ public class EzySimpleBeanContext
     }
 
     @Override
-    public boolean containsProperty(Object key) {
-        return properties.containsKey(key);
-    }
-
-    @Override
     public <T> T getProperty(Object key, Class<T> outType) {
         return propertiesReader.get(properties, key, outType);
     }

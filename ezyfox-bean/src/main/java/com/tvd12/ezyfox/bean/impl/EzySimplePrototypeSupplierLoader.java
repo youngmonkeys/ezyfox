@@ -186,36 +186,42 @@ public abstract class EzySimplePrototypeSupplierLoader
     private void addSetPropertyInstruction(EzyFunction.EzyBody body, EzyField field) {
         Class propertyType = field.getType();
         String propertyName = getPropertyName(field);
+        String propertyVariableName = field.getName() + "PropertyValue";
+        body.append(newGetPropertyInstruction(propertyVariableName, propertyType, propertyName));
         body.append(new EzyInstruction("\t", "\n", false)
-            .append("if(arg0.containsProperty(\"" + propertyName + "\"))"));
+            .append("if(" + propertyVariableName + " != null)"));
         EzyInstruction instruction = new EzyInstruction("\t\t", "\n")
             .append("object.")
             .append(field.getName())
-            .equal();
-        EzyInstruction getPropertyInstruction = newGetPropertyInstruction(propertyType, propertyName);
-        instruction
-            .cast(propertyType, getPropertyInstruction.toString());
+            .equal()
+            .cast(propertyType, propertyVariableName);
         body.append(instruction);
     }
 
     private void addSetPropertyInstruction(EzyFunction.EzyBody body, EzySetterMethod method) {
         Class propertyType = method.getType();
         String propertyName = getPropertyName(method);
+        String propertyVariableName = method.getFieldName() + "PropertyValue";
+        body.append(newGetPropertyInstruction(propertyVariableName, propertyType, propertyName));
         body.append(new EzyInstruction("\t", "\n", false)
-            .append("if(arg0.containsProperty(\"" + propertyName + "\"))"));
+            .append("if(" + propertyVariableName + " != null)"));
         EzyInstruction instruction = new EzyInstruction("\t\t", "\n")
             .append("object.")
             .append(method.getName())
-            .bracketopen();
-        EzyInstruction getPropertyInstruction = newGetPropertyInstruction(propertyType, propertyName);
-        instruction
-            .cast(propertyType, getPropertyInstruction.toString())
+            .bracketopen()
+            .cast(propertyType, propertyVariableName)
             .bracketclose();
         body.append(instruction);
     }
 
-    private EzyInstruction newGetPropertyInstruction(Class<?> propertyType, String propertyName) {
-        return new EzyInstruction("", "", false)
+    private EzyInstruction newGetPropertyInstruction(
+        String propertyVariableName,
+        Class<?> propertyType,
+        String propertyName
+    ) {
+        return new EzyInstruction("\t", "\n")
+            .variable(Object.class, propertyVariableName)
+            .equal()
             .append("arg0.getProperty")
             .bracketopen()
             .string(propertyName)
