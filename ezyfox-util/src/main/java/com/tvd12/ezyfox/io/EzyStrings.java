@@ -5,10 +5,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -363,5 +360,23 @@ public final class EzyStrings {
         } else {
             return exception.getClass().getName() + ": " + exception.getMessage();
         }
+    }
+
+    public static List<String> splitString(String str) {
+        List<String> answer = new ArrayList<>();
+        StringBuilder buffer = new StringBuilder();
+        for (int i = 0; i < str.length(); ++i) {
+            char ch = str.charAt(i);
+            if (isWordSeparator(ch)) {
+                if (buffer.length() == 0) {
+                    continue;
+                }
+                answer.add(buffer.toString());
+                buffer.delete(0, buffer.length());
+            } else {
+                buffer.append(ch);
+            }
+        }
+        return answer;
     }
 }

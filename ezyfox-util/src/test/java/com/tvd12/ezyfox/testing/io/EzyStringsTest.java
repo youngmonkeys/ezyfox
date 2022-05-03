@@ -330,4 +330,20 @@ public class EzyStringsTest extends BaseTest {
             "java.lang.Exception: just test"
         );
     }
+
+    @Test
+    public void splitStringTest() {
+        // given
+        String str = "  hello,galaxy-foo\tbar love  ";
+
+        // when
+        List<String> actual = EzyStrings.splitString(str);
+
+        // then
+        Asserts.assertEquals(
+            actual,
+            Arrays.asList("hello", "galaxy", "foo", "bar", "love"),
+            false
+        );
+    }
 }
