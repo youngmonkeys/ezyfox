@@ -19,4 +19,28 @@ public class EzyFindByFieldTest {
         // then
         Asserts.assertEquals(actual, Optional.of("hello"));
     }
+
+    @Test
+    public void containsByFieldReturnTrueFalse() {
+        // given
+        EzyFindByField<String> sut = (field, value) -> "hello";
+
+        // when
+        boolean actual = sut.containsByField("field", "value");
+
+        // then
+        Asserts.assertTrue(actual);
+    }
+
+    @Test
+    public void containsByFieldReturnFalseFalse() {
+        // given
+        EzyFindByField<String> sut = (field, value) -> null;
+
+        // when
+        boolean actual = sut.containsByField("field", "value");
+
+        // then
+        Asserts.assertFalse(actual);
+    }
 }

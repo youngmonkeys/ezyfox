@@ -9,7 +9,7 @@ import java.util.Optional;
 public class EzyFindByIdTest {
 
     @Test
-    public void findByFieldOptionalTest() {
+    public void findByIdOptionalTest() {
         // given
         EzyFindById<String, String> sut = id -> "hello";
 
@@ -18,5 +18,29 @@ public class EzyFindByIdTest {
 
         // then
         Asserts.assertEquals(actual, Optional.of("hello"));
+    }
+
+    @Test
+    public void containsByIdReturnTrueTest() {
+        // given
+        EzyFindById<String, String> sut = id -> "hello";
+
+        // when
+        boolean actual = sut.containsById("id");
+
+        // then
+        Asserts.assertTrue(actual);
+    }
+
+    @Test
+    public void containsByIdReturnFalseTest() {
+        // given
+        EzyFindById<String, String> sut = id -> null;
+
+        // when
+        boolean actual = sut.containsById("id");
+
+        // then
+        Asserts.assertFalse(actual);
     }
 }
