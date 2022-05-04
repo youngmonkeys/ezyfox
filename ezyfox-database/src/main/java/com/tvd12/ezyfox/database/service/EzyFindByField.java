@@ -10,7 +10,7 @@ public interface EzyFindByField<E> {
         return Optional.ofNullable(findByField(field, value));
     }
 
-    default boolean containsByField(String field, String value) {
+    default boolean containsByField(String field, Object value) {
         return findByField(field, value) != null;
     }
 }
