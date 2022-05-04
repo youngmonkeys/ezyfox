@@ -10,6 +10,11 @@ public class EzyListExceptionHandlers
     protected List<EzyExceptionHandler> handlers = new ArrayList<>();
 
     @Override
+    public boolean isEmpty() {
+        return handlers.isEmpty();
+    }
+
+    @Override
     public void addExceptionHandler(EzyExceptionHandler handler) {
         handlers.add(handler);
     }
