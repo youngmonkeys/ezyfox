@@ -345,16 +345,16 @@ public final class EzyStrings {
     }
 
     public static String exceptionsToString(
-        List<? extends Exception> exceptions
+        List<? extends Throwable> exceptions
     ) {
         StringBuilder builder = new StringBuilder();
-        for (Exception exception : exceptions) {
+        for (Throwable exception : exceptions) {
             builder.append(traceStackToString(exception));
         }
         return builder.toString();
     }
 
-    public static String exceptionToSimpleString(Exception exception) {
+    public static String exceptionToSimpleString(Throwable exception) {
         if (exception == null) {
             return "";
         } else {
