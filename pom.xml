@@ -15,7 +15,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <jackson.version>2.12.4</jackson.version>
+        <jackson.version>2.13.2.2</jackson.version>
     </properties>
 
     <build>
