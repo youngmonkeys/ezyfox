@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tvd12</groupId>
+    <artifactId>ezyfox-dependencies</artifactId>
+    <version>${ezyfox.version}</version>
+    <packaging>pom</packaging>
+
+    <name>ezyfox-dependencies</name>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <description>
+        Ezyfox dependencies
+    </description>
+
+    <organization>
+        <name>Young Monkeys</name>
+        <url>https://youngmonkeys.org/</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:youngmonkeys/ezyfox.git</connection>
+        <developerConnection>scm:git:git@github.com:youngmonkeys/ezyfox.git</developerConnection>
+        <url>https://github.com/youngmonkeys/ezyfox</url>
+    </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/youngmonkeys/ezyfox/issues</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>travis</system>
+        <url>https://travis-ci.org/youngmonkeys/ezyfox</url>
+    </ciManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>oss.sonatype.org</id>
+            <url>https://oss.sonatype.org/content/groups/public</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <developers>
+        <developer>
+            <name>Ta Van Dung</name>
+            <email>itprono3@gmail.com</email>
+            <organization>Young Monkeys</organization>
+            <organizationUrl>http://www.tvd12.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Le Van Thanh</name>
+            <email>lethanh9398@gmail.com</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <ezyfox.version>1.2.3</ezyfox.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <lombok.version>1.18.24</lombok.version>
+    </properties>
+
+    <dependencyManagement>
+        <!--    ezyfox.version  -->
+        <dependencies>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-versions</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-util</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-tools</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-security</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-msgpack</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-monitor</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-message</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-mapping</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-json</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-jackson</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-io</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-identifier</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-database</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-data</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-concurrent</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-common</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-codec</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-binding-codec</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-binding</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tvd12</groupId>
+                <artifactId>ezyfox-bean</artifactId>
+                <version>${ezyfox.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
