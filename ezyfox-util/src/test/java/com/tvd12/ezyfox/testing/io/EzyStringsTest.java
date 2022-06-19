@@ -332,7 +332,23 @@ public class EzyStringsTest extends BaseTest {
     }
 
     @Test
-    public void splitStringTest() {
+    public void splitNormalStringTest() {
+        // given
+        String str = "  hello,galaxy-foo\tbar love";
+
+        // when
+        List<String> actual = EzyStrings.splitString(str);
+
+        // then
+        Asserts.assertEquals(
+            actual,
+            Arrays.asList("hello", "galaxy", "foo", "bar", "love"),
+            false
+        );
+    }
+
+    @Test
+    public void splitStringWithSpaceEndTest() {
         // given
         String str = "  hello,galaxy-foo\tbar love  ";
 
