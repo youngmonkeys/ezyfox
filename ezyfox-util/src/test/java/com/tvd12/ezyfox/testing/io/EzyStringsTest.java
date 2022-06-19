@@ -334,7 +334,7 @@ public class EzyStringsTest extends BaseTest {
     @Test
     public void splitNormalStringTest() {
         // given
-        String str = "  hello,galaxy-foo\tbar love";
+        String str = "  hello,,galaxy--foo\t\tbar  love";
 
         // when
         List<String> actual = EzyStrings.splitString(str);
