@@ -377,6 +377,9 @@ public final class EzyStrings {
                 buffer.append(ch);
             }
         }
+        if (buffer.length() > 0) {
+            answer.add(buffer.toString());
+        }
         return answer;
     }
 }
