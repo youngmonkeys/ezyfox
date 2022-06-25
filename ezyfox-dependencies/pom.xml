@@ -402,21 +402,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka-streams-scala_2.12</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka-streams-scala_2.13</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka-streams-test-utils</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-tools</artifactId>
                 <version>${kafka.version}</version>
             </dependency>
