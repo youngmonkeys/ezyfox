@@ -71,8 +71,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.24</lombok.version>
         <flyway.version>8.0.5</flyway.version>
-        <kotlin.version>1.6.10</kotlin.version>
-        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <assertj.version>3.21.0</assertj.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
@@ -88,15 +86,11 @@
         <mariadb.version>2.7.5</mariadb.version>
         <mockito.version>4.0.0</mockito.version>
         <mongodb.version>4.4.1</mongodb.version>
-        <mssql-jdbc.version>9.4.1.jre8</mssql-jdbc.version>
         <mysql.version>8.0.28</mysql.version>
         <rabbit-amqp-client.version>5.13.1</rabbit-amqp-client.version>
         <rabbit-stream-client.version>0.4.0</rabbit-stream-client.version>
         <reactive-streams.version>1.0.3</reactive-streams.version>
         <thymeleaf.version>3.0.14.RELEASE</thymeleaf.version>
-        <thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
-        <thymeleaf-extras-java8time.version>3.0.4.RELEASE</thymeleaf-extras-java8time.version>
-        <thymeleaf-extras-springsecurity.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity.version>
         <thymeleaf-layout-dialect.version>3.0.0</thymeleaf-layout-dialect.version>
     </properties>
 
@@ -458,28 +452,8 @@
             </dependency>
             <dependency>
                 <groupId>org.mongodb</groupId>
-                <artifactId>mongodb-driver-core</artifactId>
+                <artifactId>mongo-java-driver</artifactId>
                 <version>${mongodb.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongodb-driver-legacy</artifactId>
-                <version>${mongodb.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongodb-driver-reactivestreams</artifactId>
-                <version>${mongodb.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongodb-driver-sync</artifactId>
-                <version>${mongodb.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.microsoft.sqlserver</groupId>
-                <artifactId>mssql-jdbc</artifactId>
-                <version>${mssql-jdbc.version}</version>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
@@ -507,21 +481,6 @@
                 <version>${thymeleaf.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.mxab.thymeleaf.extras</groupId>
-                <artifactId>thymeleaf-extras-data-attribute</artifactId>
-                <version>${thymeleaf-extras-data-attribute.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.thymeleaf.extras</groupId>
-                <artifactId>thymeleaf-extras-java8time</artifactId>
-                <version>${thymeleaf-extras-java8time.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.thymeleaf.extras</groupId>
-                <artifactId>thymeleaf-extras-springsecurity5</artifactId>
-                <version>${thymeleaf-extras-springsecurity.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>nz.net.ultraq.thymeleaf</groupId>
                 <artifactId>thymeleaf-layout-dialect</artifactId>
                 <version>${thymeleaf-layout-dialect.version}</version>
@@ -536,16 +495,6 @@
                     <groupId>org.flywaydb</groupId>
                     <artifactId>flyway-maven-plugin</artifactId>
                     <version>${flyway.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-maven-plugin</artifactId>
-                    <version>${kotlin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>${maven-clean-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
