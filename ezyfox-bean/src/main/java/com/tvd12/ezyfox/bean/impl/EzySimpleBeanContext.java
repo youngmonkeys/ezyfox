@@ -942,19 +942,11 @@ public class EzySimpleBeanContext
             }
         }
 
-        private void createAndLoadSingleton(EzyBeanContext context, Class type) {
-            createAndLoadSingleton(context, type, false);
-        }
-
-        private Object createAndLoadSingleton(
-            EzyBeanContext context,
-            Class type,
-            boolean reload
-        ) {
+        private Object createAndLoadSingleton(EzyBeanContext context, Class type) {
             String beanName = getSingletonBeanName(type);
             Object current = singletonFactory.getSingleton(beanName, type);
-            if (current != null && (
-                singletonFactory.isCompletedSingleton(current) || !reload)
+            if (current != null
+                && singletonFactory.isCompletedSingleton(current)
             ) {
                 return current;
             }
@@ -1161,7 +1153,7 @@ public class EzySimpleBeanContext
             }
             logger.debug("found singleton {} with key {}", singleton, key);
             for (Class<?> clazz : uncompleted) {
-                createAndLoadSingleton(context, clazz, true);
+                createAndLoadSingleton(context, clazz);
             }
         }
 
@@ -1198,7 +1190,7 @@ public class EzySimpleBeanContext
                 Set<Class<?>> classes = unloadedSingletons.get(i);
                 for (Class<?> implClass : classes) {
                     if (key.getType().isAssignableFrom(implClass)) {
-                        return createAndLoadSingleton(context, implClass, true);
+                        return createAndLoadSingleton(context, implClass);
                     }
                 }
             }
