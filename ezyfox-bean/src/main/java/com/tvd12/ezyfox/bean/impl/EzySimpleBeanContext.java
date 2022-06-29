@@ -946,16 +946,25 @@ public class EzySimpleBeanContext
             createAndLoadSingleton(context, type, false);
         }
 
-        private Object createAndLoadSingleton(EzyBeanContext context, Class type, boolean reload) {
+        private Object createAndLoadSingleton(
+            EzyBeanContext context,
+            Class type,
+            boolean reload
+        ) {
             String beanName = getSingletonBeanName(type);
             Object current = singletonFactory.getSingleton(beanName, type);
-            if (current != null && !reload) {
+            if (current != null && (
+                singletonFactory.isCompletedSingleton(current) || !reload)
+            ) {
                 return current;
             }
             List<Class<?>> stackCallClasses = new ArrayList<>();
             try {
-                EzySingletonLoader loader =
-                    new EzyByConstructorSingletonLoader(beanName, new EzyClass(type), stackCallClasses);
+                EzySingletonLoader loader = new EzyByConstructorSingletonLoader(
+                    beanName,
+                    new EzyClass(type),
+                    stackCallClasses
+                );
                 return loader.load(context);
             } catch (EzyNewSingletonException e) {
                 for (Class<?> clazz : stackCallClasses) {
@@ -1122,7 +1131,10 @@ public class EzySimpleBeanContext
             }
         }
 
-        private void tryLoadUncompletedSingletonsAgain(EzyBeanContext context, boolean finish) {
+        private void tryLoadUncompletedSingletonsAgain(
+            EzyBeanContext context,
+            boolean finish
+        ) {
             Set<EzyBeanKey> keySet = new HashSet<>(unloadedSingletons.keySet());
             for (EzyBeanKey key : keySet) {
                 Set<Class<?>> uncompleted = unloadedSingletons.get(key);
@@ -1138,7 +1150,11 @@ public class EzySimpleBeanContext
         }
 
         private void loadUncompletedSingletons(
-            EzyBeanContext context, EzyBeanKey key, Set<Class<?>> uncompleted, boolean finish) {
+            EzyBeanContext context,
+            EzyBeanKey key,
+            Set<Class<?>> uncompleted,
+            boolean finish
+        ) {
             Object singleton = getSingletonOfErrorBeanKey0(context, key, finish);
             if (singleton == null) {
                 return;
@@ -1149,7 +1165,11 @@ public class EzySimpleBeanContext
             }
         }
 
-        private Object getSingletonOfErrorBeanKey0(EzyBeanContext context, EzyBeanKey key, boolean finish) {
+        private Object getSingletonOfErrorBeanKey0(
+            EzyBeanContext context,
+            EzyBeanKey key,
+            boolean finish
+        ) {
             Object singleton = null;
             try {
                 singleton = getSingletonOfErrorBeanKey(context, key);
