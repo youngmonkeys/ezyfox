@@ -22,10 +22,20 @@ public class EzySimpleSingletonFactory
         = new HashSet<>();
     protected final Set<Object> singletonSet
         = new HashSet<>();
+    protected final Set<Object> completedSingletons
+        = new HashSet<>();
     protected final Map<EzyBeanKey, Object> singletonByKey
         = new ConcurrentHashMap<>();
     protected final Map<Object, Map> propertiesBySingleton
         = new ConcurrentHashMap<>();
+
+    void addCompletedSingleton(Object singleton) {
+        this.completedSingletons.add(singleton);
+    }
+
+    boolean isCompletedSingleton(Object singleton) {
+        return this.completedSingletons.contains(singleton);
+    }
 
     @Override
     public Object addSingleton(Object singleton) {
