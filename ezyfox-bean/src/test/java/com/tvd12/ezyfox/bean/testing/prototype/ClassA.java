@@ -4,6 +4,7 @@ import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzyPostInit;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
+import com.tvd12.properties.file.annotation.Property;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +16,7 @@ public class ClassA {
 
     private final ClassB classB;
     private final ClassD classD;
-    @EzyProperty("game.auto_start")
+    @Property("game.auto_start")
     public boolean autoStartField;
     @EzyProperty("game.byte")
     public byte byteValueField;

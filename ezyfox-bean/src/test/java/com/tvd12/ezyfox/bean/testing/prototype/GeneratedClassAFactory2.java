@@ -4,6 +4,7 @@ import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
 import com.tvd12.ezyfox.bean.impl.*;
 import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 
 public class GeneratedClassAFactory2 {
@@ -36,5 +37,7 @@ public class GeneratedClassAFactory2 {
         System.out.println(classA.getClassB());
         classA = (ClassA) supplier.supply(context);
         System.out.println(classA.getClassB());
+
+        Asserts.assertTrue(classA.isAutoStartField());
     }
 }

@@ -8,10 +8,13 @@ import com.tvd12.ezyfox.io.EzyLists;
 import com.tvd12.ezyfox.reflect.*;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyPropertyAnnotations;
+import com.tvd12.properties.file.annotation.Property;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -35,8 +38,14 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
         this.bindingMethods = getBindingMethods(clazz);
         this.propertyFields = getPropertyFields(clazz);
         this.propertyMethods = getPropertyMethods(clazz);
-        this.checkMissingSetterMethodFields(bindingFields, EzyAutoBind.class);
-        this.checkMissingSetterMethodFields(propertyFields, EzyProperty.class);
+        this.checkMissingSetterMethodFields(
+            bindingFields,
+            Collections.singletonList(EzyAutoBind.class)
+        );
+        this.checkMissingSetterMethodFields(
+            propertyFields,
+            Arrays.asList(Property.class, EzyProperty.class)
+        );
     }
 
     protected Constructor getConstructor(EzyClass clazz) {
@@ -67,7 +76,9 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
         return getArgumentNames(getConstructorParameterTypes());
     }
 
-    protected final String[] getConstructorArgumentNames(EzyAutoBind annotation) {
+    protected final String[] getConstructorArgumentNames(
+        EzyAutoBind annotation
+    ) {
         Class<?>[] parameterTypes = getConstructorParameterTypes();
         String[] names = getArgumentNames(parameterTypes);
         if (annotation == null) {
@@ -82,13 +93,19 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
         return names;
     }
 
-    protected final String[] getConstructorArgumentNames(Constructor<?> constructor) {
+    protected final String[] getConstructorArgumentNames(
+        Constructor<?> constructor
+    ) {
         return getConstructorArgumentNames(
-            constructor.getAnnotation(EzyAutoBind.class));
+            constructor.getAnnotation(EzyAutoBind.class)
+        );
     }
 
     protected final List<EzyField> getBindingFields(EzyClass clazz) {
-        return getValidFields(clazz, EzyAutoBind.class);
+        return getValidFields(
+            clazz,
+            Collections.singletonList(EzyAutoBind.class)
+        );
     }
 
     protected final List<EzySetterMethod> getBindingMethods(EzyClass clazz) {
@@ -96,7 +113,10 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
     }
 
     protected final List<EzyField> getPropertyFields(EzyClass clazz) {
-        return getValidFields(clazz, EzyProperty.class);
+        return getValidFields(
+            clazz,
+            Arrays.asList(Property.class, EzyProperty.class)
+        );
     }
 
     protected final List<EzySetterMethod> getPropertyMethods(EzyClass clazz) {
@@ -111,16 +131,26 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
     }
 
     private boolean isBindingMethod(EzyMethod method) {
-        return isValidMethod(method, EzyAutoBind.class);
+        return isValidMethod(
+            method,
+            Collections.singletonList(EzyAutoBind.class)
+        );
     }
 
     private boolean isPropertyMethod(EzyMethod method) {
-        return isValidMethod(method, EzyProperty.class);
+        return isValidMethod(
+            method,
+            Arrays.asList(Property.class, EzyProperty.class)
+        );
     }
 
     private List<EzyField> getValidFields(
-        EzyClass clazz, Class<? extends Annotation> ann) {
-        return clazz.getFields(f -> f.isPublic() && f.isAnnotated(ann));
+        EzyClass clazz,
+        List<Class<? extends Annotation>> annotations
+    ) {
+        return clazz.getFields(f ->
+            f.isPublic() && isAnnotated(f, annotations)
+        );
     }
 
     private List<EzySetterMethod> getValidMethods(
@@ -133,15 +163,42 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
         return EzyLists.newArrayList(valid, EzySetterMethod::new);
     }
 
-    private boolean isValidMethod(EzyMethod method, Class<? extends Annotation> ann) {
+    private boolean isValidMethod(
+        EzyMethod method,
+        List<Class<? extends Annotation>> annotations
+    ) {
         if (method.getParameterCount() != 1) {
             return false;
         }
         EzyField field = clazz.getField(method.getFieldName());
         boolean answer = field != null
             && !field.isPublic()
-            && field.isAnnotated(ann);
-        return answer || method.isAnnotated(ann);
+            && isAnnotated(field, annotations);
+        return answer || isAnnotated(method, annotations);
+    }
+
+    private boolean isAnnotated(
+        EzyField field,
+        List<Class<? extends Annotation>> annotations
+    ) {
+        for (Class<? extends Annotation> ann : annotations) {
+            if (field.isAnnotated(ann)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isAnnotated(
+        EzyMethod method,
+        List<Class<? extends Annotation>> annotations
+    ) {
+        for (Class<? extends Annotation> ann : annotations) {
+            if (method.isAnnotated(ann)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected final boolean isAbstractClass(Class<?> clazz) {
@@ -181,9 +238,11 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
     }
 
     private void checkMissingSetterMethodFields(
-        List<EzyField> fields, Class<? extends Annotation> annClass) {
+        List<EzyField> fields,
+        List<Class<? extends Annotation>> annotationClasses
+    ) {
         List<EzyField> missingSetterFields = clazz.getFields(f -> {
-            if (!f.isAnnotated(annClass)) {
+            if (!isAnnotated(f, annotationClasses)) {
                 return false;
             }
             if (f.isPublic()) {
@@ -197,7 +256,11 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
             if (addMissingSetterFields) {
                 fields.add(field);
             } else {
-                logger.warn("field: {} maybe null", field.getName(), new EzyMissingSetterException(field));
+                logger.warn(
+                    "field: {} maybe null",
+                    field.getName(),
+                    new EzyMissingSetterException(field)
+                );
             }
         }
     }
