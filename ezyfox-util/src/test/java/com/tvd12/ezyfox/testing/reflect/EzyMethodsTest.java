@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.testing.reflect;
 import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 import com.tvd12.ezyfox.reflect.EzyMethods;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -35,7 +36,7 @@ public class EzyMethodsTest extends BaseTest {
     public void test2() {
         List<Method> methods = EzyMethods.getPublicMethods(ClassC.class);
         System.out.println("public methods: " + methods);
-        assertEquals(methods.size(), 5);
+        assertEquals(methods.size(), 7);
     }
 
     @Test
@@ -76,6 +77,21 @@ public class EzyMethodsTest extends BaseTest {
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void test6() throws Exception {
         EzyMethods.isOverriddenMethod((Method) null, null);
+    }
+
+    @Test
+    public void isOverriddenMethodWithOverloadMethods() throws Exception {
+        // given
+        Method m1 = ClassC.class
+            .getDeclaredMethod("c1", String.class);
+        Method m2 = ClassC.class
+            .getDeclaredMethod("c1", String.class, String.class);
+
+        // when
+        boolean actual = EzyMethods.isOverriddenMethod(m1, m2);
+
+        // then
+        Asserts.assertFalse(actual);
     }
 
     @Test
@@ -152,6 +168,10 @@ public class EzyMethodsTest extends BaseTest {
     public static class ClassC extends ClassB {
 
         public static void c1() {}
+
+        public static void c1(String value) {}
+
+        public static void c1(String name, String value) {}
 
         public static final void c2() {}
 
