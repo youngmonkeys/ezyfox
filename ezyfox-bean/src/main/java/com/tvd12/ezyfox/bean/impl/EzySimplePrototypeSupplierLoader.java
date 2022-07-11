@@ -34,7 +34,7 @@ public abstract class EzySimplePrototypeSupplierLoader
     public final EzyPrototypeSupplier load(EzyPrototypeFactory factory) {
         try {
             return process(factory);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new IllegalStateException("can not create prototype supplier of class " + clazz, e);
         }
     }

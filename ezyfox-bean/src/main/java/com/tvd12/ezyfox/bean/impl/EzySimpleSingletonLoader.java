@@ -29,14 +29,22 @@ public abstract class EzySimpleSingletonLoader
         EzyClass clazz,
         List<Class<?>> stackCallClasses
     ) {
-        this(beanName, clazz, null, new HashMap<>(), stackCallClasses);
+        this(
+            beanName,
+            clazz,
+            null,
+            new HashMap<>(),
+            stackCallClasses
+        );
     }
 
     protected EzySimpleSingletonLoader(
         String beanName,
         EzyClass clazz,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType, List<Class<?>> stackCallClasses) {
+        Map<Class<?>, EzyMethod> methodsByType,
+        List<Class<?>> stackCallClasses
+    ) {
         super(beanName, clazz);
         this.configurator = configurator;
         this.methodsByType = methodsByType;
@@ -46,11 +54,18 @@ public abstract class EzySimpleSingletonLoader
     @Override
     public final Object load(EzyBeanContext context) {
         try {
-            return process(context);
+            Object singleton = process(context);
+            EzySimpleSingletonFactory singletonFactory =
+                (EzySimpleSingletonFactory) context.getSingletonFactory();
+            singletonFactory.addCompletedSingleton(singleton);
+            return singleton;
         } catch (EzyNewSingletonException e) {
             throw e;
-        } catch (Exception e) {
-            throw new IllegalStateException("can not create singleton of class " + clazz, e);
+        } catch (Throwable e) {
+            throw new IllegalStateException(
+                "can not create singleton of class " + clazz,
+                e
+            );
         }
     }
 
@@ -84,13 +99,20 @@ public abstract class EzySimpleSingletonLoader
         Object singleton = factory.getSingleton(name, getSingletonClass());
         if (singleton == null) {
             singleton = newSingletonByConstructor(context, parameterTypes);
-            logger.debug("add singleton with name {} of {}, object = {}", name, singleton.getClass(), singleton);
+            logger.debug(
+                "add singleton with name {} of {}, object = {}",
+                name,
+                singleton.getClass(),
+                singleton
+            );
         }
         return singleton;
     }
 
     private Object getOrCreateSingleton(
-        Class type, String beanName, EzyBeanContext context) {
+        Class type, String beanName,
+        EzyBeanContext context
+    ) {
         EzySingletonFactory factory = context.getSingletonFactory();
         Object singleton = factory.getSingleton(beanName, type);
         if (singleton == null) {
@@ -104,9 +126,14 @@ public abstract class EzySimpleSingletonLoader
     }
 
     protected abstract Object newSingletonByConstructor(
-        EzyBeanContext context, Class[] parameterTypes) throws Exception;
+        EzyBeanContext context,
+        Class[] parameterTypes
+    ) throws Exception;
 
-    private void setPropertiesToFields(Object singleton, EzyPropertyFetcher fetcher) {
+    private void setPropertiesToFields(
+        Object singleton,
+        EzyPropertyFetcher fetcher
+    ) {
         for (EzyField field : propertyFields) {
             setValueToPropertyField(field, singleton, fetcher);
         }
@@ -131,7 +158,10 @@ public abstract class EzySimpleSingletonLoader
         }
     }
 
-    private void setPropertiesToMethods(Object singleton, EzyPropertyFetcher fetcher) {
+    private void setPropertiesToMethods(
+        Object singleton,
+        EzyPropertyFetcher fetcher
+    ) {
         for (EzySetterMethod method : propertyMethods) {
             setValueToPropertyMethod(method, singleton, fetcher);
         }
@@ -144,7 +174,10 @@ public abstract class EzySimpleSingletonLoader
         EzyPropertyFetcher fetcher
     ) {
         String propertyName = getPropertyName(method);
-        Object propertyValue = fetcher.getProperty(propertyName, method.getType());
+        Object propertyValue = fetcher.getProperty(
+            propertyName,
+            method.getType()
+        );
         if (propertyValue != null) {
             method.invoke(singleton, propertyValue);
         }
@@ -259,7 +292,7 @@ public abstract class EzySimpleSingletonLoader
         try {
             Constructor constructor = getConstructor(new EzyClass(clazz));
             return constructor.getParameterTypes();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             return new Class[0];
         }
     }
