@@ -182,6 +182,9 @@ public final class EzyMethods {
                 boolean answer = false;
                 Class<?> dca = a.getDeclaringClass();
                 Class<?> dcb = b.getDeclaringClass();
+                if (dca.equals(dcb)) {
+                    return false;
+                }
                 if (dca.isAssignableFrom(dcb)) {
                     try {
                         dcb.getDeclaredMethod(a.getName(), a.getParameterTypes());
