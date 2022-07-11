@@ -22,6 +22,11 @@
             <version>${jackson.version}</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
