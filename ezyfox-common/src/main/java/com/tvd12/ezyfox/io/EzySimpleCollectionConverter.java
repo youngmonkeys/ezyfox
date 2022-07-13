@@ -3,7 +3,7 @@ package com.tvd12.ezyfox.io;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.function.EzyToObject;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
+import com.tvd12.ezyfox.security.EzyBase64;
 
 import java.util.Collection;
 import java.util.Map;

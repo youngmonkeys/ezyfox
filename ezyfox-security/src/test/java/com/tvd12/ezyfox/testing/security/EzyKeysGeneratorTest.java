@@ -1,6 +1,6 @@
-package com.tvd12.ezyfox.testing.sercurity;
+package com.tvd12.ezyfox.testing.security;
 
-import com.tvd12.ezyfox.sercurity.EzyKeysGenerator;
+import com.tvd12.ezyfox.security.EzyKeysGenerator;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 

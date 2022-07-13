@@ -1,7 +1,7 @@
-package com.tvd12.ezyfox.testing.sercurity;
+package com.tvd12.ezyfox.testing.security;
 
-import com.tvd12.ezyfox.sercurity.EzyMessageDigests;
-import com.tvd12.ezyfox.sercurity.EzySHA256;
+import com.tvd12.ezyfox.security.EzyMessageDigests;
+import com.tvd12.ezyfox.security.EzySHA256;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;

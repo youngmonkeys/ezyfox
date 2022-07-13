@@ -1,17 +1,16 @@
-package com.tvd12.ezyfox.testing.sercurity;
+package com.tvd12.ezyfox.testing.security;
 
 import com.tvd12.ezyfox.file.EzyFileReader;
 import com.tvd12.ezyfox.file.EzyFileWriter;
 import com.tvd12.ezyfox.file.EzySimpleFileReader;
 import com.tvd12.ezyfox.file.EzySimpleFileWriter;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
-import com.tvd12.ezyfox.sercurity.EzyFileAsyCrypt;
-import com.tvd12.ezyfox.sercurity.EzyFileKeysGenerator;
+import com.tvd12.ezyfox.security.EzyBase64;
+import com.tvd12.ezyfox.security.EzyFileAsyCrypt;
+import com.tvd12.ezyfox.security.EzyFileKeysGenerator;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.util.Arrays;

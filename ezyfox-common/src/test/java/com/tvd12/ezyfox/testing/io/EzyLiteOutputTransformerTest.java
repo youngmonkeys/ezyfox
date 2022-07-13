@@ -8,7 +8,7 @@ import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyOutputTransformer;
 import com.tvd12.ezyfox.io.EzySingletonOutputTransformer;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
+import com.tvd12.ezyfox.security.EzyBase64;
 import com.tvd12.ezyfox.testing.entity.EzyEntityTest;
 import org.testng.annotations.Test;
 

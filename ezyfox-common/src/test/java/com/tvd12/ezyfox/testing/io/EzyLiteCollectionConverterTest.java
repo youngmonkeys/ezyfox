@@ -7,7 +7,7 @@ import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyCollectionConverter;
 import com.tvd12.ezyfox.io.EzySimpleCollectionConverter;
 import com.tvd12.ezyfox.io.EzySingletonCollectionConverter;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
+import com.tvd12.ezyfox.security.EzyBase64;
 import com.tvd12.ezyfox.testing.CommonBaseTest;
 import org.testng.annotations.Test;
 

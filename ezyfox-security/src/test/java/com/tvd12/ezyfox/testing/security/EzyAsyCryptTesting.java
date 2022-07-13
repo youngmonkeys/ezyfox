@@ -1,10 +1,10 @@
-package com.tvd12.ezyfox.testing.sercurity;
+package com.tvd12.ezyfox.testing.security;
 
 import com.tvd12.ezyfox.file.EzySimpleFileWriter;
-import com.tvd12.ezyfox.sercurity.EzyAesCrypt;
-import com.tvd12.ezyfox.sercurity.EzyAsyCrypt;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
-import com.tvd12.ezyfox.sercurity.EzyFileKeysGenerator;
+import com.tvd12.ezyfox.security.EzyAesCrypt;
+import com.tvd12.ezyfox.security.EzyAsyCrypt;
+import com.tvd12.ezyfox.security.EzyBase64;
+import com.tvd12.ezyfox.security.EzyFileKeysGenerator;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;

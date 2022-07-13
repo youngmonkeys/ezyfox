@@ -1,6 +1,6 @@
 package com.tvd12.ezyfox.codec;
 
-import com.tvd12.ezyfox.sercurity.EzyAesCrypt;
+import com.tvd12.ezyfox.security.EzyAesCrypt;
 
 public class MsgPackAesObjectToByteEncoder extends MsgPackObjectToByteEncoder {
 

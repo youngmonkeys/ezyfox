@@ -1,7 +1,7 @@
-package com.tvd12.ezyfox.testing.sercurity;
+package com.tvd12.ezyfox.testing.security;
 
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
+import com.tvd12.ezyfox.security.EzyBase64;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 

@@ -3,7 +3,7 @@
 <suite name="AllTests">
     <test name="Sercurity">
         <packages>
-            <package name="com.tvd12.ezyfox.testing.sercurity"></package>
+            <package name="com.tvd12.ezyfox.testing.security" />
         </packages>
     </test>
 </suite>

@@ -4,7 +4,7 @@ import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.function.EzyToObject;
 import com.tvd12.ezyfox.reflect.EzyClasses;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
+import com.tvd12.ezyfox.security.EzyBase64;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 import java.math.BigDecimal;

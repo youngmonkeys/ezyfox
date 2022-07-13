@@ -1,12 +1,13 @@
-package com.tvd12.ezyfox.testing.sercurity;
+package com.tvd12.ezyfox.testing.security;
 
 import com.tvd12.ezyfox.file.EzyFileReader;
 import com.tvd12.ezyfox.file.EzyFileWriter;
 import com.tvd12.ezyfox.file.EzySimpleFileReader;
 import com.tvd12.ezyfox.file.EzySimpleFileWriter;
-import com.tvd12.ezyfox.sercurity.EzyBase64;
-import com.tvd12.ezyfox.sercurity.EzyFileAsyCrypt;
-import com.tvd12.ezyfox.sercurity.EzyFileKeysGenerator;
+import com.tvd12.ezyfox.io.EzyStrings;
+import com.tvd12.ezyfox.security.EzyBase64;
+import com.tvd12.ezyfox.security.EzyFileAsyCrypt;
+import com.tvd12.ezyfox.security.EzyFileKeysGenerator;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 
@@ -16,10 +17,15 @@ import java.util.Arrays;
 
 import static org.testng.Assert.assertEquals;
 
-public class EzyFileAsyCrypt2Testing extends BaseTest {
+public class EzyFileAsyCrypt3Testing extends BaseTest {
 
     private final EzyFileReader fileReader = new EzySimpleFileReader();
     private final EzyFileWriter fileWriter = new EzySimpleFileWriter();
+
+    private final File outEncryptedFile
+        = new File("output/EzyFileAsyCrypt3Testing_outEncryptedFile.txt");
+    private final File outDecryptedFile
+        = new File("output/EzyFileAsyCrypt3Testing_outDecryptedFile.txt");
 
     @Test
     public void test() throws Exception {
@@ -41,6 +47,8 @@ public class EzyFileAsyCrypt2Testing extends BaseTest {
             .publicKeyFile(new File("output/publickey.txt"))
             .fileReader(fileReader)
             .fileWriter(fileWriter)
+            .outDecryptedFile(outDecryptedFile)
+            .outEncryptedFile(outEncryptedFile)
             .build();
 
         assertEquals(keyPair.getPublic().getEncoded(),
@@ -56,5 +64,9 @@ public class EzyFileAsyCrypt2Testing extends BaseTest {
         String decryptedText = asyCrypt.decrypt(EzyBase64.decode(encryptedText), String.class);
 
         System.out.println("decryptedText = " + decryptedText);
+
+        byte[] encrypt = asyCrypt.encrypt(EzyStrings.getUtfBytes("dungtv"));
+        String decrypt = asyCrypt.decrypt(encrypt, String.class);
+        assert decrypt.equals(EzyBase64.encodeUtf("dungtv"));
     }
 }

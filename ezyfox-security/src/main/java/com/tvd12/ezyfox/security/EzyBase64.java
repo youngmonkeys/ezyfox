@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.sercurity;
+package com.tvd12.ezyfox.security;
 
 import com.tvd12.ezyfox.io.EzyStrings;
 

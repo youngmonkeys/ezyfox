@@ -1,6 +1,6 @@
-package com.tvd12.ezyfox.testing.sercurity;
+package com.tvd12.ezyfox.testing.security;
 
-import com.tvd12.ezyfox.sercurity.EzyUuid;
+import com.tvd12.ezyfox.security.EzyUuid;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 

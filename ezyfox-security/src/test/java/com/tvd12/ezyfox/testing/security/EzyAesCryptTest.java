@@ -1,6 +1,6 @@
-package com.tvd12.ezyfox.testing.sercurity;
+package com.tvd12.ezyfox.testing.security;
 
-import com.tvd12.ezyfox.sercurity.EzyAesCrypt;
+import com.tvd12.ezyfox.security.EzyAesCrypt;
 import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 

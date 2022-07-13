@@ -1,4 +1,4 @@
-package com.tvd12.ezyfox.sercurity;
+package com.tvd12.ezyfox.security;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
