@@ -277,6 +277,5 @@ public class EzySimpleCollectionConverter implements EzyCollectionConverter {
             Short[].class,
             (EzyToObject<Collection>) input -> toArray(input, new Short[input.size()][])
         );
-
     }
 }

@@ -48,7 +48,9 @@ public class EzySimpleOutputTransformer
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     protected Object transformNonNullValue(
-        Object value, Class type, Map<Class, EzyToObject> transformers) {
+        Object value, Class type,
+        Map<Class, EzyToObject> transformers
+    ) {
         EzyToObject trans = transformers.get(type);
         if (trans != null) {
             return trans.transform(value);

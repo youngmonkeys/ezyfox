@@ -37,13 +37,17 @@ public class EzySimpleInputTransformer
 
     @SuppressWarnings("rawtypes")
     protected Object transformNonNullValue(
-        Object value, Map<Class, EzyToObject> transformers) {
+        Object value,
+        Map<Class, EzyToObject> transformers
+    ) {
         return transformNonNullValue(value, value.getClass(), transformers);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     protected Object transformNonNullValue(
-        Object value, Class type, Map<Class, EzyToObject> transformers) {
+        Object value, Class type,
+        Map<Class, EzyToObject> transformers
+    ) {
         EzyToObject trans = transformers.get(type);
         if (trans != null) {
             return trans.transform(value);
@@ -169,6 +173,5 @@ public class EzySimpleInputTransformer
         answer.put(LocalDateTime.class, (EzyToObject<LocalDateTime>) EzyDates::format);
 
         answer.put(Class.class, (EzyToObject<Class>) Class::getName);
-
     }
 }
