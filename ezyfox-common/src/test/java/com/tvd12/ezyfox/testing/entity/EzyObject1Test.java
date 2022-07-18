@@ -21,9 +21,6 @@ import static org.testng.Assert.*;
 public class EzyObject1Test extends EzyEntityTest {
 
     @Test
-    public void test() {}
-
-    @Test
     public void test1() {
         Map<String, Object> map = new HashMap<>();
         EzyObjectBuilder firstBuilder

@@ -7,6 +7,7 @@ import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.io.EzyDates;
+import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -127,7 +128,7 @@ public class EzyArray1Test extends EzyEntityTest {
         assertEquals(array.toList(String.class).size(), 2);
         assertEquals(array.toArray(String.class), new String[]{"a", "c"});
         EzyArray dup = array.duplicate();
-        assertNotSame(array, dup);
+        Asserts.assertEquals(array, dup);
         assertTrue(dup.toList().containsAll(Sets.newHashSet("a", "c")));
         EzyArray sub = array.sub(0, 1);
         assertEquals(sub.size(), 1);

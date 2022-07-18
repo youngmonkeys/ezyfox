@@ -54,7 +54,8 @@ public class EzyArrayListTest extends BaseTest {
         public EzyEzyArrayList(
             EzyInputTransformer inputTransformer,
             EzyOutputTransformer outputTransformer,
-            EzyCollectionConverter collectionConverter) {
+            EzyCollectionConverter collectionConverter
+        ) {
             super(inputTransformer, outputTransformer, collectionConverter);
         }
 
@@ -62,6 +63,5 @@ public class EzyArrayListTest extends BaseTest {
         public void add(Object item) {
             list.add(item);
         }
-
     }
 }
