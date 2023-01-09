@@ -53,7 +53,9 @@ public class EzySQLTableCreator {
     public EzySQLTableCreator(
         Class<?> entityType,
         EzyCaseType caseType,
-        boolean customizedId, boolean overrideExists) {
+        boolean customizedId,
+        boolean overrideExists
+    ) {
         this.caseType = caseType;
         this.customizedId = customizedId;
         this.overrideExists = overrideExists;
