@@ -177,7 +177,7 @@ public class EzySQLTableCreator {
         addPrimaryKeyDeclare(columnsDeclare);
         return builder
             .append(String.join(",\n", columnsDeclare))
-            .append("\n) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;")
+            .append("\n) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;")
             .toString();
     }
 
