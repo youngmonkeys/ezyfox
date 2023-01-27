@@ -67,7 +67,8 @@ public class EzySQLTableToEntityClassGenerator {
 
     private static final Pattern SQL_WRAP_COMPILE = Pattern.compile(
         "`",
-        Pattern.LITERAL    );
+        Pattern.LITERAL
+    );
 
     public String generate(
         String createTableScript
@@ -107,9 +108,14 @@ public class EzySQLTableToEntityClassGenerator {
             boolean isFieldLine = false;
             final String fieldTypeRaw = components[1];
             String fieldJavaType = fieldTypeRaw;
+            boolean found = false;
             for (Entry<String, String> entry : JAVA_TYPE_BY_SQL_TYPE.entrySet()) {
                 if (fieldTypeRaw.startsWith(entry.getKey())) {
                     isFieldLine = true;
+                    fieldJavaType = entry.getValue();
+                    found = true;
+                }
+                if (found && fieldTypeRaw.equals(entry.getKey())) {
                     fieldJavaType = entry.getValue();
                     break;
                 }
