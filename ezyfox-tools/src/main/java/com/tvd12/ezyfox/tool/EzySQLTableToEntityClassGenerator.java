@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("AbbreviationAsWordInName")
 public class EzySQLTableToEntityClassGenerator {
 
     private static final Map<String, String> JAVA_IMPORT_BY_TYPE =
@@ -70,6 +71,7 @@ public class EzySQLTableToEntityClassGenerator {
         Pattern.LITERAL
     );
 
+    @SuppressWarnings("MethodLength")
     public String generate(
         String createTableScript
     ) {
@@ -92,11 +94,11 @@ public class EzySQLTableToEntityClassGenerator {
             }
             if (line.toLowerCase().contains("create table")) {
                 final String last = components[components.length - 1];
-                tableName = SQL_WRAP_COMPILE                    .matcher(
-                        "(".equals(last)
-                            ? components[components.length - 2]
-                            : last.substring(0, last.length() - 1)
-                    )
+                tableName = SQL_WRAP_COMPILE.matcher(
+                    "(".equals(last)
+                        ? components[components.length - 2]
+                        : last.substring(0, last.length() - 1)
+                )
                     .replaceAll(Matcher.quoteReplacement(""));
                 className = EzyStrings.toDisplayName(
                     EzyStrings.underscoreToCamelCase(
