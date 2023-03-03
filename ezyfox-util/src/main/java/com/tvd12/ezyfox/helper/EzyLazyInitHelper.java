@@ -10,19 +10,24 @@ public final class EzyLazyInitHelper {
     private EzyLazyInitHelper() {}
 
     public static <T> T init(
-        Object context, EzyInitialize<T> initer) {
+        Object context,
+        EzyInitialize<T> initer
+    ) {
         return init(context, () -> null, initer);
     }
 
     public static <T> T init(
-        Object context, Supplier<T> current, EzyInitialize<T> initer) {
+        Object context, Supplier<T> current,
+        EzyInitialize<T> initer
+    ) {
         T value = current.get();
         return value != null ? value : syncInit(context, current, initer);
     }
 
     private static <T> T syncInit(
         Object context,
-        Supplier<T> current, EzyInitialize<T> initializer
+        Supplier<T> current,
+        EzyInitialize<T> initializer
     ) {
         synchronized (context) {
             T value = current.get();
@@ -31,7 +36,8 @@ public final class EzyLazyInitHelper {
     }
 
     public static void voidInit(
-        Object context, Supplier<Boolean> condition,
+        Object context,
+        Supplier<Boolean> condition,
         EzyVoid applier
     ) {
         if (condition.get()) {
@@ -41,7 +47,8 @@ public final class EzyLazyInitHelper {
 
     private static void syncVoidInit(
         Object context,
-        Supplier<Boolean> condition, EzyVoid applier
+        Supplier<Boolean> condition,
+        EzyVoid applier
     ) {
         synchronized (context) {
             if (condition.get()) {
