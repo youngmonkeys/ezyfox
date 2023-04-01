@@ -12,26 +12,35 @@ public class EzySimpleMessageDataDecoder
 
     private final Queue<EzyMessage> queue;
 
-    public EzySimpleMessageDataDecoder(EzyByteToObjectDecoder decoder) {
+    public EzySimpleMessageDataDecoder(
+        EzyByteToObjectDecoder decoder
+    ) {
         super(decoder);
         this.queue = new LinkedList<>();
     }
 
     @Override
-    public Object decode(EzyMessage message, byte[] decryptionKey) throws Exception {
+    public Object decode(
+        EzyMessage message,
+        byte[] decryptionKey
+    ) throws Exception {
         return decoder.decode(message, decryptionKey);
     }
 
     @Override
     public void decode(
-        byte[] bytes, EzyCallback<EzyMessage> callback) throws Exception {
+        byte[] bytes,
+        EzyCallback<EzyMessage> callback
+    ) throws Exception {
         preDecode(bytes);
         decoder.decode(buffer, queue);
         handleQueue(callback);
         postDecode();
     }
 
-    private void handleQueue(EzyCallback<EzyMessage> callback) throws Exception {
+    private void handleQueue(
+        EzyCallback<EzyMessage> callback
+    ) throws Exception {
         while (queue.size() > 0 && active) {
             do {
                 EzyMessage message = queue.poll();

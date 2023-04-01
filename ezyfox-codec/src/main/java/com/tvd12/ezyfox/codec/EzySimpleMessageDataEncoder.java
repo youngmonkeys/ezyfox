@@ -20,7 +20,12 @@ public class EzySimpleMessageDataEncoder implements EzyMessageDataEncoder {
 
     @Override
     public byte[] encryptMessageContent(
-        byte[] messageContent, byte[] encryptionKey) throws Exception {
-        return encoder.encryptMessageContent(messageContent, encryptionKey);
+        byte[] messageContent,
+        byte[] encryptionKey
+    ) throws Exception {
+        return encoder.encryptMessageContent(
+            messageContent,
+            encryptionKey
+        );
     }
 }
