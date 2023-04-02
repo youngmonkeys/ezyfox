@@ -24,10 +24,16 @@ public class MsgPackByteToObjectDecoder implements EzyByteToObjectDecoder {
     }
 
     @Override
-    public Object decode(EzyMessage message, byte[] decryptionKey) throws Exception {
+    public Object decode(
+        EzyMessage message,
+        byte[] decryptionKey
+    ) throws Exception {
         byte[] encryptedContent = message.getContent();
         if (message.getHeader().isEncrypted()) {
-            encryptedContent = decryptMessageContent(encryptedContent, decryptionKey);
+            encryptedContent = decryptMessageContent(
+                encryptedContent,
+                decryptionKey
+            );
         }
         return deserializer.deserialize(encryptedContent);
     }
@@ -38,7 +44,9 @@ public class MsgPackByteToObjectDecoder implements EzyByteToObjectDecoder {
     }
 
     protected byte[] decryptMessageContent(
-        byte[] content, byte[] decryptionKey) throws Exception {
+        byte[] content,
+        byte[] decryptionKey
+    ) throws Exception {
         return content;
     }
 
