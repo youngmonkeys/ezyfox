@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.codec;
 
 import com.tvd12.ezyfox.exception.EzyMaxRequestSizeException;
+import com.tvd12.ezyfox.exception.EzyZeroRequestSizeException;
 
 public abstract class EzyMessageReader<B> {
 
@@ -43,6 +44,9 @@ public abstract class EzyMessageReader<B> {
             return false;
         }
         this.size = readMessageSize(buffer);
+        if (size <= 0) {
+            throw new EzyZeroRequestSizeException();
+        }
         if (size > maxSize) {
             throw new EzyMaxRequestSizeException(size, maxSize);
         }
