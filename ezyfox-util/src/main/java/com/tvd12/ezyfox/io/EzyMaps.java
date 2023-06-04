@@ -70,7 +70,9 @@ public final class EzyMaps {
 
     // =============================================
     public static <K, V> Map<K, V> newHashMap(
-        Collection<V> coll, Function<V, K> keyGenerator) {
+        Collection<V> coll,
+        Function<V, K> keyGenerator
+    ) {
         Map<K, V> map = new HashMap<>();
         for (V v : coll) {
             map.put(keyGenerator.apply(v), v);
@@ -80,7 +82,8 @@ public final class EzyMaps {
 
     public static <K, V, K1, V1> Map<K1, V1> newHashMap(
         Map<K, V> origin,
-        Function<K, K1> keyGenerator, Function<V, V1> valueGenerator
+        Function<K, K1> keyGenerator,
+        Function<V, V1> valueGenerator
     ) {
         Map<K1, V1> map = new HashMap<>();
         for (K k : origin.keySet()) {
@@ -94,12 +97,16 @@ public final class EzyMaps {
     }
 
     public static <K, V, K1> Map<K1, V> newHashMapNewKeys(
-        Map<K, V> origin, Function<K, K1> keyGenerator) {
+        Map<K, V> origin,
+        Function<K, K1> keyGenerator
+    ) {
         return newHashMap(origin, keyGenerator, (v) -> v);
     }
 
     public static <K, V, V1> Map<K, V1> newHashMapNewValues(
-        Map<K, V> origin, Function<V, V1> valueGenerator) {
+        Map<K, V> origin,
+        Function<V, V1> valueGenerator
+    ) {
         return newHashMap(origin, (k) -> k, valueGenerator);
     }
 

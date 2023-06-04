@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 
 import java.lang.reflect.Constructor;
 
+import static com.tvd12.ezyfox.reflect.EzyClasses.isAnnotationPresentIncludeSuper;
+
 public class EzyClassesTest extends BaseTest {
 
     @Test
@@ -67,11 +69,25 @@ public class EzyClassesTest extends BaseTest {
             new Object[]{true}));
     }
 
+    @Test
+    public void isAnnotationPresentIncludeSuperTest() {
+        // given
+        // when
+        boolean actual = isAnnotationPresentIncludeSuper(
+            ClassC.class,
+            ExampleAnnotation.class
+        );
+
+        // then
+        Asserts.assertTrue(actual);
+    }
+
     @Override
     public Class<?> getTestClass() {
         return EzyClasses.class;
     }
 
+    @ExampleAnnotation
     @SuppressWarnings("unused")
     public static class ClassA {
         public ClassA() {}
@@ -85,4 +101,6 @@ public class EzyClassesTest extends BaseTest {
 
         public ClassB(String s) {}
     }
+
+    public static class ClassC extends ClassA {}
 }

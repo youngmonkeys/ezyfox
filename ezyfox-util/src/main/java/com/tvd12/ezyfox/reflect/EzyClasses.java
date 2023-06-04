@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.reflect;
 
 import com.tvd12.ezyfox.collect.Sets;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.HashSet;
 import java.util.Set;
@@ -167,5 +168,18 @@ public final class EzyClasses {
             classes.addAll(superAndInterfaceClasses);
         }
         return classes;
+    }
+
+    public static boolean isAnnotationPresentIncludeSuper(
+        Class<?> clazz,
+        Class<? extends Annotation> annotationClass
+    ) {
+        while (clazz != Object.class) {
+            if (clazz.isAnnotationPresent(annotationClass)) {
+                return true;
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return false;
     }
 }

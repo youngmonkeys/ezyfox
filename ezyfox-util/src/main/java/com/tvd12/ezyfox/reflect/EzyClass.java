@@ -11,6 +11,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.tvd12.ezyfox.reflect.EzyClasses.isAnnotationPresentIncludeSuper;
+
 @SuppressWarnings("rawtypes")
 @Getter
 public class EzyClass implements EzyReflectElement {
@@ -67,6 +69,12 @@ public class EzyClass implements EzyReflectElement {
     @Override
     public boolean isAnnotated(Class<? extends Annotation> annClass) {
         return clazz.isAnnotationPresent(annClass);
+    }
+
+    public boolean isAnnotatedIncludeSuper(
+        Class<? extends Annotation> annClass
+    ) {
+        return isAnnotationPresentIncludeSuper(clazz, annClass);
     }
 
     @SuppressWarnings("unchecked")

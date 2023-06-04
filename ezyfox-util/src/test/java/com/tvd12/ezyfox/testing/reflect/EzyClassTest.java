@@ -164,7 +164,30 @@ public class EzyClassTest extends BaseTest {
             "getName", "getValue", "getSomething"
         );
         Asserts.assertEquals(new HashSet<>(actual), expectation);
+    }
 
+    @Test
+    public void isAnnotatedIncludeSuperReturnTrue() {
+        // given
+        EzyClass sut = new EzyClass(A.class);
+
+        // when
+        boolean actual = sut.isAnnotatedIncludeSuper(ExampleAnnotation.class);
+
+        // then
+        Asserts.assertTrue(actual);
+    }
+
+    @Test
+    public void isAnnotatedIncludeSuperReturnFalse() {
+        // given
+        EzyClass sut = new EzyClass(A.class);
+
+        // when
+        boolean actual = sut.isAnnotatedIncludeSuper(ExampleAnnotation2.class);
+
+        // then
+        Asserts.assertFalse(actual);
     }
 
     @SuppressWarnings("unused")
