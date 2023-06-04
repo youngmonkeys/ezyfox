@@ -23,9 +23,10 @@ import static org.mockito.Mockito.*;
 public class EzyEventLoopGroupTest {
 
     @Test
-    public void addEventTest() {
+    public void addEventTest() throws Exception {
         // given
         EzyEventLoopGroup underTest = new EzyEventLoopGroup(2);
+        EzyThreads.sleep(100);
 
         EzyEventLoopEvent event1 = mock(EzyEventLoopEvent.class);
         when(event1.call()).thenReturn(true);
@@ -76,12 +77,81 @@ public class EzyEventLoopGroupTest {
             false
         );
         verify(event1, atLeast(1)).call();
+        verifyNoMoreInteractions(event1);
+
         verify(event2, atLeast(1)).call();
+        verifyNoMoreInteractions(event2);
+
         List<EzyEventLoopEvent> unfinishedEvents = underTest.shutdownAndGet();
         Asserts.assertEquals(
             new HashSet<>(unfinishedEvents),
             Sets.newHashSet(event1, event2)
         );
+        underTest.shutdown();
+
+        EzyEventLoopEvent event = mock(EzyEventLoopEvent.class);
+        underTest.removeEvent(event);
+
+        Throwable e = Asserts.assertThrows(() -> underTest.addEvent(event));
+        Asserts.assertEqualsType(e, IllegalStateException.class);
+    }
+
+
+    @Test
+    public void addEventReturnFalseTest() {
+        // given
+        EzyEventLoopGroup underTest = new EzyEventLoopGroup(2);
+
+        EzyEventLoopEvent event1 = mock(EzyEventLoopEvent.class);
+        EzyEventLoopEvent event2 = mock(EzyEventLoopEvent.class);
+
+        // when
+        underTest.addEvent(event1);
+        underTest.addEvent(event2);
+
+        // then
+        System.out.println(underTest);
+        EzyThreads.sleep(100);
+
+        EzyRoundRobin<Object> eventLoops = FieldUtil.getFieldValue(
+            underTest,
+            "eventLoops"
+        );
+        Map<EzyEventLoopEvent, EzyEventLoopEvent> events1 = FieldUtil.getFieldValue(
+            eventLoops.get(),
+            "events"
+        );
+        Asserts.assertEmpty(events1);
+        Map<EzyEventLoopEvent, EzyEventLoopEvent> events2 = FieldUtil.getFieldValue(
+            eventLoops.get(),
+            "events"
+        );
+        Asserts.assertEmpty(events2);
+        Map<EzyEventLoopEvent, Object> eventLoopByEvent = FieldUtil.getFieldValue(
+            underTest,
+            "eventLoopByEvent"
+        );
+        Asserts.assertEquals(
+            eventLoopByEvent,
+            EzyMapBuilder
+                .mapBuilder()
+                .put(event1, eventLoops.get())
+                .put(event2, eventLoops.get())
+                .build(),
+            false
+        );
+        verify(event1, atLeast(1)).call();
+        verify(event1, atLeast(1)).onRemoved();
+        verify(event1, atLeast(1)).onFinished();
+        verifyNoMoreInteractions(event1);
+
+        verify(event2, atLeast(1)).call();
+        verify(event2, atLeast(1)).onFinished();
+        verify(event2, atLeast(1)).onRemoved();
+        verifyNoMoreInteractions(event2);
+
+        List<EzyEventLoopEvent> unfinishedEvents = underTest.shutdownAndGet();
+        Asserts.assertEmpty(unfinishedEvents);
         underTest.shutdown();
 
         EzyEventLoopEvent event = mock(EzyEventLoopEvent.class);
@@ -110,13 +180,14 @@ public class EzyEventLoopGroupTest {
     }
 
     @Test
-    public void interruptTest() {
+    public void interruptTest() throws Exception {
         // given
         EzyEventLoopGroup underTest = new EzyEventLoopGroup(
             1000,
             1,
             EzyThreadFactory.builder().build()
         );
+        Thread.sleep(100);
 
         EzyEventLoopEvent event = mock(EzyEventLoopEvent.class);
         AtomicReference<Thread> threadRef = new AtomicReference<>();
@@ -140,9 +211,10 @@ public class EzyEventLoopGroupTest {
     }
 
     @Test
-    public void addScheduleEventTest() {
+    public void addScheduleEventTest() throws Exception {
         // given
         EzyEventLoopGroup underTest = new EzyEventLoopGroup(2);
+        Thread.sleep(100);
 
         EzyEventLoopEvent event1 = mock(EzyEventLoopEvent.class);
         when(event1.call()).thenReturn(true);
@@ -202,9 +274,10 @@ public class EzyEventLoopGroupTest {
     }
 
     @Test
-    public void addOneTimeEventTest() {
+    public void addOneTimeEventTest() throws Exception {
         // given
         EzyEventLoopGroup underTest = new EzyEventLoopGroup(2);
+        Thread.sleep(100);
 
         Runnable event1 = mock(Runnable.class);
         Runnable event2 = mock(Runnable.class);
@@ -257,9 +330,10 @@ public class EzyEventLoopGroupTest {
     }
 
     @Test
-    public void addRemoveEventTest() {
+    public void addRemoveEventTest() throws Exception {
         // given
         EzyEventLoopGroup underTest = new EzyEventLoopGroup(2);
+        Thread.sleep(100);
 
         EzyEventLoopEvent event1 = mock(EzyEventLoopEvent.class);
         when(event1.call()).thenReturn(true);
