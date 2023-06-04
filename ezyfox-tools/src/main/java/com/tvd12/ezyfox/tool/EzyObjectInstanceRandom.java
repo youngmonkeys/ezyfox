@@ -100,11 +100,42 @@ public class EzyObjectInstanceRandom {
         EzyParamsFunction<Object> randomValueFunc,
         EzyVoidParamsFunction setValueFunc
     ) {
+        return randomObjectValues(
+            clazz,
+            newInstanceFunc.apply(new EzyClass(clazz)),
+            includeAllFields,
+            randomValueFunc,
+            setValueFunc
+        );
+    }
+
+    public <T> T randomObjectValues(
+        T object,
+        boolean includeAllFields
+    ) {
+        return randomObjectValues(
+            object.getClass(),
+            object,
+            includeAllFields,
+            params -> randomObjectValue((Class<?>) params[0]),
+            params -> {
+                EzyField field = (EzyField) params[1];
+                field.getField().setAccessible(true);
+                field.set(params[0], params[2]);
+            });
+    }
+
+    public <T> T randomObjectValues(
+        Class<?> clazz,
+        T object,
+        boolean includeAllFields,
+        EzyParamsFunction<Object> randomValueFunc,
+        EzyVoidParamsFunction setValueFunc
+    ) {
         EzyClass classProxy = new EzyClass(clazz);
         List<EzyField> fields = includeAllFields
             ? classProxy.getFields()
             : classProxy.getDeclaredFields();
-        Object instance = newInstanceFunc.apply(classProxy);
         for (EzyField field : fields) {
             Field javaField = field.getField();
             if (Modifier.isStatic(javaField.getModifiers())) {
@@ -123,9 +154,9 @@ public class EzyObjectInstanceRandom {
             } else {
                 randomValue = randomValueFunc.apply(fieldType);
             }
-            setValueFunc.apply(instance, field, randomValue);
+            setValueFunc.apply(object, field, randomValue);
         }
-        return instance;
+        return object;
     }
 
     public <T> List<T> randomObjectList(

@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.testing.tool;
 
 import com.tvd12.ezyfox.tool.EzyObjectInstanceRandom;
+import com.tvd12.test.assertion.Asserts;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -57,6 +58,20 @@ public class EzyObjectInstanceRandomTest {
     public void test6() {
         EzyObjectInstanceRandom random = new EzyObjectInstanceRandom();
         System.out.println(random.randomObjectFuncScript(ClassA.class));
+    }
+
+    @Test
+    public void randomObjectValuesTest() {
+        // given
+        EzyObjectInstanceRandom random = new EzyObjectInstanceRandom();
+
+        // when
+        ClassA classA = new ClassA();
+        ClassA actual = random.randomObjectValues(classA, false);
+
+        // then
+        Asserts.assertEquals(actual, classA);
+        System.out.println(classA);
     }
 
     @Getter
