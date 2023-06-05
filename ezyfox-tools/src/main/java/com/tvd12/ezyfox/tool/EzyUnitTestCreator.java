@@ -82,7 +82,9 @@ public class EzyUnitTestCreator {
     public String create(String method) {
         List<Method> methods = EzyMethods.getMethods(clazz);
         for (Method m : methods) {
-            return create(m);
+            if (m.getName().equals(method)) {
+                return create(m);
+            }
         }
         throw new IllegalArgumentException("not found method: " + method);
     }
