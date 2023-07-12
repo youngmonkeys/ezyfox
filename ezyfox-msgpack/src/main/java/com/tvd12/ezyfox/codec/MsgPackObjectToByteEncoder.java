@@ -32,7 +32,8 @@ public class MsgPackObjectToByteEncoder implements EzyObjectToByteEncoder {
         if (encryptionKey != null) {
             message = objectToMessage.packToMessage(
                 doEncrypt(messageContent, encryptionKey),
-                true);
+                true
+            );
         } else {
             message = objectToMessage.packToMessage(messageContent, false);
         }
