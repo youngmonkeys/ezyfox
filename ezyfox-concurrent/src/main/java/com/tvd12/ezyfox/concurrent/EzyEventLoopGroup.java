@@ -89,14 +89,14 @@ public class EzyEventLoopGroup extends EzyLoggable {
     }
 
     public void addOneTimeEvent(
-        Runnable event,
+        Runnable task,
         long delayTime
     ) {
         final EzyEventLoopEvent wrapper = new EzyEventLoopEvent() {
             @Override
             public boolean call() {
                 try {
-                    event.run();
+                    task.run();
                 } catch (Throwable e) {
                     logger.warn("call one time event error", e);
                 }
