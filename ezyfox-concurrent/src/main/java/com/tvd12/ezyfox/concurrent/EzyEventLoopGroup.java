@@ -287,7 +287,7 @@ public class EzyEventLoopGroup extends EzyLoggable {
             this.period = period;
             this.event = event;
             this.nextFireTime.set(
-                System.currentTimeMillis() + (delayTime <= 0 ? 0 : period)
+                System.currentTimeMillis() + (delayTime <= 0 ? 0 : delayTime)
             );
         }
 
