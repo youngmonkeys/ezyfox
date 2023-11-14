@@ -77,7 +77,7 @@
         <mongodb.version>3.12.11</mongodb.version>
         <mysql.version>8.0.28</mysql.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <rabbitmq.version>5.14.2</rabbitmq.version>
+        <rabbitmq.version>5.18.0</rabbitmq.version>
         <test.util.version>1.1.8</test.util.version>
         <properties.file.version>1.1.8</properties.file.version>
         <thymeleaf.version>3.1.1.RELEASE</thymeleaf.version>
