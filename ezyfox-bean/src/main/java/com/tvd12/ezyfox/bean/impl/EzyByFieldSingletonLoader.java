@@ -23,7 +23,13 @@ public class EzyByFieldSingletonLoader
         Object configurator,
         Map<Class<?>, EzyMethod> methodsByType
     ) {
-        this(beanName, field, configurator, methodsByType, new ArrayList<>());
+        this(
+            beanName,
+            field,
+            configurator,
+            methodsByType,
+            new ArrayList<>()
+        );
     }
 
     public EzyByFieldSingletonLoader(
@@ -33,7 +39,8 @@ public class EzyByFieldSingletonLoader
         Map<Class<?>, EzyMethod> methodsByType,
         List<Class<?>> stackCallClasses
     ) {
-        super(beanName,
+        super(
+            beanName,
             new EzyClass(field.getType()),
             configurator,
             methodsByType,

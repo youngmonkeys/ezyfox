@@ -40,6 +40,6 @@ public class EzyBeanKey implements Serializable {
 
     @Override
     public String toString() {
-        return "(" + name + "," + type.getSimpleName() + ")";
+        return "(" + name + "," + type.getName() + ")";
     }
 }

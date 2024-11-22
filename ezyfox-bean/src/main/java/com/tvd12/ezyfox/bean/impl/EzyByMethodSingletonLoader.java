@@ -22,7 +22,13 @@ public class EzyByMethodSingletonLoader
         Object configurator,
         Map<Class<?>, EzyMethod> methodsByType
     ) {
-        this(beanName, method, configurator, methodsByType, new ArrayList<>());
+        this(
+            beanName,
+            method,
+            configurator,
+            methodsByType,
+            new ArrayList<>()
+        );
     }
 
     public EzyByMethodSingletonLoader(

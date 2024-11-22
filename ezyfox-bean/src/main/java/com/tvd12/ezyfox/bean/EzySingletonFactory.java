@@ -14,6 +14,8 @@ public interface EzySingletonFactory {
 
     Object getSingleton(String name, Class type);
 
+    Object getSingleton(EzyBeanKey key);
+
     Object getSingleton(Map properties);
 
     Object getAnnotatedSingleton(Class annotationClass);

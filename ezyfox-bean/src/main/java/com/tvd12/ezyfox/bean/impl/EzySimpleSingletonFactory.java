@@ -123,6 +123,11 @@ public class EzySimpleSingletonFactory
     }
 
     @Override
+    public Object getSingleton(EzyBeanKey key) {
+        return singletonByKey.get(key);
+    }
+
+    @Override
     public Object getSingleton(Map properties) {
         for (Entry<Object, Map> entry : propertiesBySingleton.entrySet()) {
             if (EzyMaps.containsAll(entry.getValue(), properties)) {

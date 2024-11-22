@@ -6,6 +6,7 @@
             <package name="com.tvd12.ezyfox.bean.testing"></package>
             <package name="com.tvd12.ezyfox.bean.v117.testing"></package>
             <package name="com.tvd12.ezyfox.bean.v120.testing"></package>
+            <package name="com.tvd12.ezyfox.bean.v129.testing"></package>
         </packages>
     </test>
     <test name="Annotation">

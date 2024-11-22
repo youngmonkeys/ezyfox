@@ -15,6 +15,7 @@ import java.util.*;
 
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
+import static com.tvd12.ezyfox.io.EzyMaps.newHashMapNewKeys;
 
 public class EzySimpleConfigurationLoader
     extends EzyLoggable
@@ -27,11 +28,16 @@ public class EzySimpleConfigurationLoader
     protected EzySingletonFactory singletonFactory;
     protected EzyBeanNameTranslator beanNameTranslator;
     protected Map<Class<?>, EzyMethod> singletonMethods;
+    protected Map<EzyBeanKey, EzyMethod> singletonMethodByKey;
 
     @Override
     public EzyConfigurationLoader clazz(Class<?> configClass) {
         this.clazz = new EzyClass(configClass);
-        this.singletonMethods = mapSingletonTypeMethods();
+        this.singletonMethodByKey = mapSingletonKeyMethods();
+        this.singletonMethods = newHashMapNewKeys(
+            singletonMethodByKey,
+            EzyBeanKey::getType
+        );
         return this;
     }
 
@@ -88,19 +94,26 @@ public class EzySimpleConfigurationLoader
 
     private void addSingletonByField(EzyField field, Object configurator) {
         String beanName = getSingletonName(field);
-        Object current = singletonFactory.getSingleton(beanName, field.getType());
+        Object current = singletonFactory.getSingleton(
+            EzyBeanKey.of(beanName, field.getType())
+        );
         if (current == null) {
-            EzySingletonLoader loader = new EzyByFieldSingletonLoader(beanName, field, configurator, singletonMethods);
+            EzySingletonLoader loader = new EzyConfigurationFieldSingletonLoader(
+                beanName,
+                field,
+                configurator,
+                singletonMethods
+            );
             loader.load(context);
         }
     }
 
     private void addSingletonByMethods(Object configurator) {
-        Set<Class<?>> types = new HashSet<>(singletonMethods.keySet());
-        for (Class<?> type : types) {
-            EzyMethod method = singletonMethods.remove(type);
+        Set<EzyBeanKey> keys = new HashSet<>(singletonMethodByKey.keySet());
+        for (EzyBeanKey key : keys) {
+            EzyMethod method = singletonMethodByKey.remove(key);
             if (method != null) {
-                logger.debug("add singleton of {} with method {}", type, method);
+                logger.debug("add singleton of {} with method {}", key, method);
                 addSingletonByMethod(method, configurator);
             }
         }
@@ -108,9 +121,11 @@ public class EzySimpleConfigurationLoader
 
     private void addSingletonByMethod(EzyMethod method, Object configurator) {
         String beanName = getSingletonName(method);
-        Object current = singletonFactory.getSingleton(beanName, method.getReturnType());
+        Object current = singletonFactory.getSingleton(
+            EzyBeanKey.of(beanName, method.getReturnType())
+        );
         if (current == null) {
-            EzySingletonLoader loader = new EzyByMethodSingletonLoader(
+            EzySingletonLoader loader = new EzyConfigurationMethodSingletonLoader(
                 beanName,
                 method,
                 configurator,
@@ -135,10 +150,12 @@ public class EzySimpleConfigurationLoader
     }
 
     private void addPrototypeByMethods(Object configurator) {
-        Map<Class<?>, EzyMethod> methods = mapPrototypeTypeMethods();
-        Set<Class<?>> types = new HashSet<>(methods.keySet());
-        for (Class<?> type : types) {
-            addPrototypeByMethod(methods.remove(type), configurator);
+        Map<EzyBeanKey, EzyMethod> methods = mapPrototypeKeyMethods();
+        Set<EzyBeanKey> keys = new HashSet<>(methods.keySet());
+        for (EzyBeanKey key : keys) {
+            EzyMethod method = methods.remove(key);
+            logger.debug("add prototype of {} with method {}", key, method);
+            addPrototypeByMethod(method, configurator);
         }
     }
 
@@ -160,27 +177,32 @@ public class EzySimpleConfigurationLoader
         return getBeanFields(EzySingleton.class);
     }
 
-    private Map<Class<?>, EzyMethod> mapSingletonTypeMethods() {
-        return mapBeanTypeMethods(EzySingleton.class);
+    private Map<EzyBeanKey, EzyMethod> mapSingletonKeyMethods() {
+        return mapBeanKeyMethods(EzySingleton.class);
     }
 
     private List<EzyField> getPrototypeFields() {
         return getBeanFields(EzyPrototype.class);
     }
 
-    private Map<Class<?>, EzyMethod> mapPrototypeTypeMethods() {
-        return mapBeanTypeMethods(EzyPrototype.class);
+    private Map<EzyBeanKey, EzyMethod> mapPrototypeKeyMethods() {
+        return mapBeanKeyMethods(EzyPrototype.class);
     }
 
     private List<EzyField> getBeanFields(Class<? extends Annotation> annClass) {
         return clazz.getPublicFields(f -> f.isAnnotated(annClass));
     }
 
-    @SuppressWarnings("unchecked")
-    private Map<Class<?>, EzyMethod> mapBeanTypeMethods(Class<? extends Annotation> annClass) {
+    private Map<EzyBeanKey, EzyMethod> mapBeanKeyMethods(Class<? extends Annotation> annClass) {
         List<EzyMethod> methods = clazz.getPublicMethods(m ->
             m.isAnnotated(annClass) && m.getReturnType() != void.class
         );
-        return EzyMaps.newHashMap(methods, EzyMethod::getReturnType);
+        return EzyMaps.newHashMap(
+            methods,
+            it -> EzyBeanKey.of(
+                getSingletonName(it),
+                it.getReturnType()
+            )
+        );
     }
 }
