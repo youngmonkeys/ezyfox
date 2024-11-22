@@ -28,7 +28,9 @@ public class EzyByMethodSingletonLoaderTest extends BaseTest {
         EzyMethod methodB = new EzyMethod(getClass().getDeclaredMethod("newB"));
         EzyByMethodSingletonLoader loader = new EzyByMethodSingletonLoader(
             "a",
-            methodA, this, EzyMaps.newHashMap(B.class, methodB));
+            methodA,
+            this,
+            EzyMaps.newHashMap(B.class, methodB));
 
         Method getConstructorParameterTypes = EzyByMethodSingletonLoader.class
             .getDeclaredMethod("getConstructorParameterTypes", Class.class);

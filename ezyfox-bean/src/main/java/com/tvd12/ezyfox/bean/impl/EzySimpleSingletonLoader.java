@@ -90,7 +90,7 @@ public abstract class EzySimpleSingletonLoader
         return answer;
     }
 
-    private Object getOrCreateSingleton(
+    protected Object getOrCreateSingleton(
         EzyBeanContext context,
         String name,
         Class[] parameterTypes

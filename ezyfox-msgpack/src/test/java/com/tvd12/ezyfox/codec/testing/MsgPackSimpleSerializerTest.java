@@ -28,7 +28,7 @@ public class MsgPackSimpleSerializerTest {
 
     public static void main(String[] args) {
         MsgPackSimpleSerializer serializer = new MsgPackSimpleSerializer();
-        System.out.println((EzyPrints.printBytesToInts(serializer.serialize(-1))));
+        System.out.println((EzyPrints.printBytesToInts(serializer.serialize("Hello World"))));
     }
 
     @Test
