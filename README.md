@@ -6,9 +6,10 @@
 
 # Contact us
 
-- Touch us on [Facebook](https://www.facebook.com/youngmonkeys.org)
+- Get in touch with us on [Facebook](https://www.facebook.com/youngmonkeys.org)
 - Ask us on [stackask.com](https://stackask.com)
-- Email to me [Dzung](mailto:itprono3@gmail.com)
+- Email us at [contact@youngmonkeys.org](mailto:contact@youngmonkeys.org)
+- Chat with us on [Discord](https://discord.gg/hKV2cbaT5h)
 
 # License
 
