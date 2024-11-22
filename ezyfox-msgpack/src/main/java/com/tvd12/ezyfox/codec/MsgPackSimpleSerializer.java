@@ -87,7 +87,7 @@ public class MsgPackSimpleSerializer
         parsers.put(ArrayList.class, this::parseCollection);
 
         parsers.put(BigInteger.class, this::parseValueToString);
-        parsers.put(BigDecimal.class, this::parseValueToString);
+        parsers.put(BigDecimal.class, this::parseBigDecimalToString);
         parsers.put(UUID.class, this::parseValueToString);
     }
 
@@ -383,6 +383,10 @@ public class MsgPackSimpleSerializer
 
     protected byte[] parseMapSize(int size) {
         return mapSizeSerializer.serialize(size);
+    }
+
+    protected byte[] parseBigDecimalToString(Object value) {
+        return parseString(((BigDecimal) value).toPlainString());
     }
 
     protected byte[] parseValueToString(Object value) {

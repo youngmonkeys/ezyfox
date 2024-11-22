@@ -17,6 +17,4 @@ public final class EzyDefaultWriter implements EzyWriter<Object, Object> {
     public Object write(EzyMarshaller marshaller, Object object) {
         return object;
     }
-
-
 }
