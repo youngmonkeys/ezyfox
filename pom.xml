@@ -19,7 +19,7 @@
         <jaxb.version>2.3.8</jaxb.version>
         <logback.version>1.2.13</logback.version>
         <properties.file.version>1.1.8</properties.file.version>
-        <reflections.version>1.0.2</reflections.version>
+        <reflections.version>1.0.3</reflections.version>
     </properties>
 
     <build>
