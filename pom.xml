@@ -17,7 +17,7 @@
     <properties>
         <jackson.version>2.14.2</jackson.version>
         <jaxb.version>2.3.8</jaxb.version>
-        <logback.version>1.2.11</logback.version>
+        <logback.version>1.2.13</logback.version>
         <properties.file.version>1.1.8</properties.file.version>
         <reflections.version>1.0.2</reflections.version>
     </properties>
