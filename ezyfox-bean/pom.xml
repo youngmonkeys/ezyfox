@@ -8,6 +8,10 @@
     </parent>
     <artifactId>ezyfox-bean</artifactId>
     <name>ezyfox-bean</name>
+    <description>
+        Lightweight bean container and dependency wiring utilities for EzyFox.
+    </description>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

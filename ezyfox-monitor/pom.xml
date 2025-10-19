@@ -8,5 +8,9 @@
     </parent>
     <artifactId>ezyfox-monitor</artifactId>
     <name>ezyfox-monitor</name>
+    <description>
+        Monitoring facilities and metrics collectors for observing EzyFox services.
+    </description>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
 </project>

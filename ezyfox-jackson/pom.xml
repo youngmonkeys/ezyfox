@@ -10,7 +10,10 @@
     </parent>
     <artifactId>ezyfox-jackson</artifactId>
     <name>ezyfox-jackson</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Jackson integration modules and serializers tailored for the EzyFox stack.
+    </description>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

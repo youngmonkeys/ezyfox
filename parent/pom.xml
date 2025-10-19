@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <name>ezyfox</name>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
     <description>
         Common maven project configuration 
     </description>
@@ -43,19 +43,12 @@
         <url>https://travis-ci.org/youngmonkeys/ezyfox</url>
     </ciManagement>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>oss.sonatype.org</id>
-            <url>https://oss.sonatype.org/content/groups/public</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <developers>
         <developer>
             <name>Ta Van Dung</name>
-            <email>itprono3@gmail.com</email>
+            <email>ta.van.dung@youngmonkeys.org</email>
             <organization>Young Monkeys</organization>
-            <organizationUrl>http://www.tvd12.com</organizationUrl>
+            <organizationUrl>https://youngmonkeys.org/</organizationUrl>
         </developer>
     </developers>
 

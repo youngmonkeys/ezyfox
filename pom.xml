@@ -11,8 +11,34 @@
     <version>1.3.0</version>
     <packaging>pom</packaging>
 
-    <name>ezyfox-versions</name>
-    <url>http://maven.apache.org</url>
+    <name>EzyFox Versions</name>
+    <description>
+        Bill of materials and shared configuration for the EzyFox Java modules.
+    </description>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:youngmonkeys/ezyfox.git</connection>
+        <developerConnection>scm:git:git@github.com:youngmonkeys/ezyfox.git</developerConnection>
+        <url>https://github.com/youngmonkeys/ezyfox</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Ta Van Dung</name>
+            <email>ta.van.dung@youngmonkeys.org</email>
+            <organization>Young Monkeys</organization>
+            <organizationUrl>https://youngmonkeys.org/</organizationUrl>
+        </developer>
+    </developers>
 
     <properties>
         <jackson.version>2.20.0</jackson.version>

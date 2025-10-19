@@ -10,7 +10,10 @@
     </parent>
     <artifactId>ezyfox-concurrent</artifactId>
     <name>ezyfox-concurrent</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Concurrency primitives, executors, and scheduling utilities for EzyFox applications.
+    </description>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

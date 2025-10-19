@@ -8,6 +8,10 @@
     </parent>
     <artifactId>ezyfox-binding-codec</artifactId>
     <name>ezyfox-binding-codec</name>
+    <description>
+        Codecs built on the EzyFox binding layer for effortless object serialization.
+    </description>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

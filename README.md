@@ -2,7 +2,7 @@
 
 # Documentation
 
-[https://youngmonkeys.org/project/ezyfox](https://youngmonkeys.org/project/ezyfox-library/)
+[https://youngmonkeys.org/projects/ezyfox-library](https://youngmonkeys.org/projects/ezyfox-library)
 
 # Contact us
 

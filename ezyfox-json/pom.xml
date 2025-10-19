@@ -9,7 +9,10 @@
     </parent>
     <artifactId>ezyfox-json</artifactId>
     <name>ezyfox-json</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        JSON serialization support built on the EzyFox binding and codec layers.
+    </description>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>
