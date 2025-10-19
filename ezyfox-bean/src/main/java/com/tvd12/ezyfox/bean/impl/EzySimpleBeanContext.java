@@ -879,12 +879,12 @@ public class EzySimpleBeanContext
                 activeProfiles = properties.getProperty(EZYFOX_ACTIVE_PROFILES_KEY);
             }
             if (activeProfiles == null) {
-                if (activeProfileSet.size() > 0) {
+                if (!activeProfileSet.isEmpty()) {
                     return String.join(",", activeProfileSet);
                 }
                 return null;
             } else {
-                if (activeProfileSet.size() > 0) {
+                if (!activeProfileSet.isEmpty()) {
                     return activeProfiles + "," + String.join(",", activeProfileSet);
                 }
                 return activeProfiles;
@@ -902,7 +902,7 @@ public class EzySimpleBeanContext
         }
 
         private void doScanPackages(Set<String> packages) {
-            if (packages.size() > 0) {
+            if (!packages.isEmpty()) {
                 EzyReflection reflection = EzyPackages.scanPackages(packages);
                 addAllClassesByReflection(reflection);
             }
@@ -1108,7 +1108,11 @@ public class EzySimpleBeanContext
 
         private void loadConfigurationClass(Class<?> clazz, EzyBeanContext context) {
             try {
-                new EzySimpleConfigurationLoader().context(context).clazz(clazz).load();
+                new EzySimpleConfigurationLoader()
+                    .context(context)
+                    .contextBuilder(this)
+                    .clazz(clazz)
+                    .load();
             } catch (Throwable e) {
                 if (EzyBeanAutoConfig.class.isAssignableFrom(clazz)) {
                     EzyBeanAutoConfig.LOGGER.debug(

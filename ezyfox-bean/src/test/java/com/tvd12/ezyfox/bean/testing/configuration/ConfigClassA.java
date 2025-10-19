@@ -1,8 +1,10 @@
 package com.tvd12.ezyfox.bean.testing.configuration;
 
+import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
+import com.tvd12.ezyfox.bean.EzyBeanContextBuilderAware;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
-public class ConfigClassA {
+public class ConfigClassA implements EzyBeanContextBuilderAware{
 
     @EzySingleton
     public Singleton1 singleton1 = new Singleton1();
@@ -37,4 +39,15 @@ public class ConfigClassA {
     public AvailableSingleton1 newAvailableSingleton1() {
         return new AvailableSingleton1();
     }
+
+    @Override
+    public void setContextBuilder(
+        EzyBeanContextBuilder contextBuilder
+    ) {
+        contextBuilder.addSingletonClasses(
+            SingletonBySetContextBuilder.class
+        );
+    }
+
+    public static class SingletonBySetContextBuilder {}
 }

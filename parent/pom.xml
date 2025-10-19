@@ -5,7 +5,7 @@
 
     <groupId>com.tvd12</groupId>
     <artifactId>ezyfox</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <packaging>pom</packaging>
 
     <name>ezyfox</name>
@@ -62,8 +62,21 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
         <test.util.version>1.1.8</test.util.version>
+        <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
+        <jacoco.maven.plugin.version>0.8.14</jacoco.maven.plugin.version>
+        <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
+        <maven.assembly.plugin.version>3.7.1</maven.assembly.plugin.version>
+        <maven.antrun.plugin.version>3.1.0</maven.antrun.plugin.version>
+        <maven.deploy.plugin.version>3.1.4</maven.deploy.plugin.version>
+        <maven.release.plugin.version>3.1.1</maven.release.plugin.version>
+        <maven.install.plugin.version>3.1.4</maven.install.plugin.version>
+        <maven.jar.plugin.version>3.4.2</maven.jar.plugin.version>
+        <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+        <maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
+        <maven.gpg.plugin.version>3.2.8</maven.gpg.plugin.version>
+        <central.publishing.maven.plugin.version>0.9.0</central.publishing.maven.plugin.version>
         <directory.lib>lib</directory.lib>
         <deploy.path>${env.EZYFOX_SERVER_HOME}</deploy.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -89,7 +102,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
@@ -98,7 +111,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>${jacoco.maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -121,7 +134,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.2</version>
+                    <version>${maven.surefire.plugin.version}</version>
                     <configuration>
                         <suiteXmlFiles>
                             <suiteXmlFile>src/test/resources/AllTests.tng.xml</suiteXmlFile>
@@ -139,7 +152,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>${maven.assembly.plugin.version}</version>
                         <configuration>
                             <descriptors>
                                 <descriptor>assembly.xml</descriptor>
@@ -158,18 +171,18 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.8</version>
+                        <version>${maven.antrun.plugin.version}</version>
                         <executions>
                             <execution>
                                 <phase>install</phase>
                                 <configuration>
-                                    <tasks>
+                                    <target>
                                         <mkdir dir="${deploy.path}/${directory.lib}" />
                                         <copy todir="${deploy.path}/${directory.lib}">
                                             <fileset dir="target/${project.name}-${project.version}-bin/lib" />
                                         </copy>
                                         <delete dir="${deploy.path}/${directory.lib}/classes" />
-                                    </tasks>
+                                    </target>
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>
@@ -187,7 +200,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
-                        <version>2.8.2</version>
+                        <version>${maven.deploy.plugin.version}</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>
@@ -195,12 +208,12 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-release-plugin</artifactId>
-                        <version>2.5.3</version>
+                        <version>${maven.release.plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-install-plugin</artifactId>
-                        <version>2.5.2</version>
+                        <version>${maven.install.plugin.version}</version>
                         <configuration>
                             <createChecksum>true</createChecksum>
                         </configuration>
@@ -208,12 +221,12 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
-                        <version>3.2.0</version>
+                        <version>${maven.jar.plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.2.1</version>
+                        <version>${maven.source.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>esa-sources</id>
@@ -226,122 +239,13 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>${maven.javadoc.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>esa-javadoc</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>sonatype</id>
-            <distributionManagement>
-                <downloadUrl>https://oss.sonatype.org/content/groups/public</downloadUrl>
-                <repository>
-                    <id>oss.sonatype.org</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-                </repository>
-                <snapshotRepository>
-                    <id>oss.sonatype.org</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-                <site>
-                    <id>youngmonkeys.org</id>
-                    <url>https://youngmonkeys.org/</url>
-                </site>
-            </distributionManagement>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <version>2.8.2</version>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>2.5.3</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-install-plugin</artifactId>
-                        <version>2.5.2</version>
-                        <configuration>
-                            <createChecksum>true</createChecksum>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <version>3.2.0</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.2.1</version>
-                        <executions>
-                            <execution>
-                                <id>esa-sources</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.3.0</version>
-                        <executions>
-                            <execution>
-                                <id>esa-javadoc</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.8</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>oss.sonatype.org</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>deploy-to-sonatype</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>deploy</goal>
-                                    <goal>release</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -367,7 +271,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
-                        <version>2.8.2</version>
+                        <version>${maven.deploy.plugin.version}</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>
@@ -375,12 +279,12 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-release-plugin</artifactId>
-                        <version>2.5.3</version>
+                        <version>${maven.release.plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-install-plugin</artifactId>
-                        <version>2.5.2</version>
+                        <version>${maven.install.plugin.version}</version>
                         <configuration>
                             <createChecksum>true</createChecksum>
                         </configuration>
@@ -388,12 +292,12 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
-                        <version>3.2.0</version>
+                        <version>${maven.jar.plugin.version}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.2.1</version>
+                        <version>${maven.source.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>esa-sources</id>
@@ -406,7 +310,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>${maven.javadoc.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>esa-javadoc</id>
@@ -420,7 +324,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>${maven.gpg.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -434,7 +338,7 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.8.0</version>
+                        <version>${central.publishing.maven.plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central</publishingServerId>

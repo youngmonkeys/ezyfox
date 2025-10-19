@@ -24,6 +24,7 @@ public class EzySimpleConfigurationLoader
     protected EzyClass clazz;
     protected Properties properties;
     protected EzyBeanContext context;
+    protected EzyBeanContextBuilder contextBuilder;
     protected EzyPrototypeFactory prototypeFactory;
     protected EzySingletonFactory singletonFactory;
     protected EzyBeanNameTranslator beanNameTranslator;
@@ -52,6 +53,14 @@ public class EzySimpleConfigurationLoader
     }
 
     @Override
+    public EzyConfigurationLoader contextBuilder(
+        EzyBeanContextBuilder contextBuilder
+    ) {
+        this.contextBuilder = contextBuilder;
+        return this;
+    }
+
+    @Override
     public void load() {
         Object configurator = newConfigurator();
         addSingletonByFields(configurator);
@@ -66,6 +75,11 @@ public class EzySimpleConfigurationLoader
             .load(context);
         if (object instanceof EzyBeanContextAware) {
             ((EzyBeanContextAware) object).setContext(context);
+        }
+        if (object instanceof EzyBeanContextBuilderAware) {
+            ((EzyBeanContextBuilderAware) object).setContextBuilder(
+                contextBuilder
+            );
         }
         if (object instanceof EzyPropertiesAware) {
             ((EzyPropertiesAware) object).setProperties(properties);
