@@ -13,7 +13,7 @@
     <description>
         Foundational utilities and shared abstractions used across the EzyFox libraries.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

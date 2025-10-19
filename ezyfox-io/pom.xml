@@ -12,7 +12,7 @@
     <description>
         Input and output helpers, byte buffers, and stream utilities for EzyFox.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

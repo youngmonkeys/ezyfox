@@ -13,7 +13,7 @@
     <description>
         Core encoding and decoding infrastructure powering EzyFox serialization.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

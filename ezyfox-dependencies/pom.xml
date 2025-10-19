@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <name>ezyfox-dependencies</name>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
     <description>
         Ezyfox dependencies
     </description>

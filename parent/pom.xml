@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <name>ezyfox</name>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
     <description>
         Common maven project configuration 
     </description>

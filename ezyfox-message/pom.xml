@@ -12,7 +12,7 @@
     <description>
         Messaging abstractions, envelopes, and builders for EzyFox applications.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

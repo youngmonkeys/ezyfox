@@ -11,7 +11,7 @@
     <description>
         Lightweight bean container and dependency wiring utilities for EzyFox.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

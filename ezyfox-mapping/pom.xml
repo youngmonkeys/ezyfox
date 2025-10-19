@@ -11,7 +11,7 @@
     <description>
         Annotation-driven object mapping utilities for converting between data formats in EzyFox.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

@@ -13,7 +13,7 @@
     <description>
         MessagePack codec implementations for compact binary serialization in EzyFox.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
     <properties>
         <msgpack.version>0.6.12</msgpack.version>
     </properties>

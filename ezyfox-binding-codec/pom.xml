@@ -11,7 +11,7 @@
     <description>
         Codecs built on the EzyFox binding layer for effortless object serialization.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

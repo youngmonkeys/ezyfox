@@ -13,7 +13,7 @@
     <description>
         Security helpers including hashing, encryption, and credential utilities for EzyFox.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

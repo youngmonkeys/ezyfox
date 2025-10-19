@@ -12,7 +12,7 @@
     <description>
         Data structures and transformation helpers shared across EzyFox components.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>

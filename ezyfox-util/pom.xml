@@ -14,7 +14,7 @@
     <description>
         Core utilities and helper functions shared by the EzyFox modules.
     </description>
-    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
+    <url>https://youngmonkeys.org/projects/ezyfox-library</url>
 
     <dependencies>
         <dependency>
