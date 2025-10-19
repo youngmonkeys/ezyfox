@@ -10,7 +10,10 @@
     </parent>
     <artifactId>ezyfox-msgpack</artifactId>
     <name>ezyfox-msgpack</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        MessagePack codec implementations for compact binary serialization in EzyFox.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
     <properties>
         <msgpack.version>0.6.12</msgpack.version>
     </properties>

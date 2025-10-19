@@ -11,7 +11,10 @@
     </parent>
     <artifactId>ezyfox-util</artifactId>
     <name>ezyfox-util</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Core utilities and helper functions shared by the EzyFox modules.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

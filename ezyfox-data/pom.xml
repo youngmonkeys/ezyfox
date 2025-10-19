@@ -9,7 +9,10 @@
     </parent>
     <artifactId>ezyfox-data</artifactId>
     <name>ezyfox-data</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Data structures and transformation helpers shared across EzyFox components.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

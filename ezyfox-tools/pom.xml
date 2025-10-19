@@ -8,6 +8,10 @@
     </parent>
     <artifactId>ezyfox-tools</artifactId>
     <name>ezyfox-tools</name>
+    <description>
+        Command-line helpers and ancillary utilities for working with EzyFox projects.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <properties>
         <javax.persistence.version>2.2</javax.persistence.version>

@@ -10,7 +10,10 @@
     </parent>
     <artifactId>ezyfox-common</artifactId>
     <name>ezyfox-common</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Foundational utilities and shared abstractions used across the EzyFox libraries.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

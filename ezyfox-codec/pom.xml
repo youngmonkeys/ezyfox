@@ -10,7 +10,10 @@
     </parent>
     <artifactId>ezyfox-codec</artifactId>
     <name>ezyfox-codec</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Core encoding and decoding infrastructure powering EzyFox serialization.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

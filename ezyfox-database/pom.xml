@@ -9,7 +9,10 @@
     </parent>
     <artifactId>ezyfox-database</artifactId>
     <name>ezyfox-database</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Database integration helpers and persistence utilities for EzyFox solutions.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

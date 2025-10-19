@@ -8,7 +8,10 @@
     </parent>
     <artifactId>ezyfox-mapping</artifactId>
     <name>ezyfox-mapping</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Annotation-driven object mapping utilities for converting between data formats in EzyFox.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

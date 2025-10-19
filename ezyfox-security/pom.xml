@@ -10,7 +10,10 @@
     </parent>
     <artifactId>ezyfox-security</artifactId>
     <name>ezyfox-security</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Security helpers including hashing, encryption, and credential utilities for EzyFox.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

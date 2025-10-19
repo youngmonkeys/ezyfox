@@ -9,7 +9,10 @@
     </parent>
     <artifactId>ezyfox-identifier</artifactId>
     <name>ezyfox-identifier</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Identifier and sequence generation utilities for EzyFox-based services.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

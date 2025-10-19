@@ -8,6 +8,10 @@
     </parent>
     <artifactId>ezyfox-binding</artifactId>
     <name>ezyfox-binding</name>
+    <description>
+        Object binding framework that maps Java types to structured data for EzyFox.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>

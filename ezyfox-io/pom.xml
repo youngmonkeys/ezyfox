@@ -9,7 +9,10 @@
     </parent>
     <artifactId>ezyfox-io</artifactId>
     <name>ezyfox-io</name>
-    <url>http://maven.apache.org</url>
+    <description>
+        Input and output helpers, byte buffers, and stream utilities for EzyFox.
+    </description>
+    <url>https://youngmonkeys.org/project/ezyfox-library/</url>
 
     <dependencies>
         <dependency>
