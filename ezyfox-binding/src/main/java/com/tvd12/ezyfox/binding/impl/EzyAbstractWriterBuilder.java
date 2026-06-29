@@ -6,10 +6,18 @@ import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyWriter;
 import com.tvd12.ezyfox.binding.exception.EzyWriteValueException;
 import com.tvd12.ezyfox.builder.EzyBuilder;
-import com.tvd12.ezyfox.reflect.*;
+import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.reflect.EzyClasses;
+import com.tvd12.ezyfox.reflect.EzyField;
+import com.tvd12.ezyfox.reflect.EzyGetterMethod;
+import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyReflectElement;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtNewMethod;
+
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("rawtypes")
 public abstract class EzyAbstractWriterBuilder
@@ -18,6 +26,14 @@ public abstract class EzyAbstractWriterBuilder
 
     protected EzyAbstractWriterBuilder(EzyClass clazz) {
         super(clazz);
+    }
+
+    @Override
+    public EzyAbstractWriterBuilder setElementsByClassCache(
+        Map<Class<?>, Map<Class<?>, List<Object>>> elementsByClassCache
+    ) {
+        return (EzyAbstractWriterBuilder)
+            super.setElementsByClassCache(elementsByClassCache);
     }
 
     @Override
@@ -40,7 +56,7 @@ public abstract class EzyAbstractWriterBuilder
         String methodContent = makeMethodContent(writeMethod);
         printMethodContent(methodContent);
         printMethodContent(implMethodContent);
-        implClass.setInterfaces(new CtClass[]{pool.makeClass(EzyWriter.class.getName())});
+        implClass.setInterfaces(new CtClass[]{pool.get(EzyWriter.class.getName())});
         implClass.addMethod(CtNewMethod.make(implMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(methodContent, implClass));
         Class answerClass = implClass.toClass();

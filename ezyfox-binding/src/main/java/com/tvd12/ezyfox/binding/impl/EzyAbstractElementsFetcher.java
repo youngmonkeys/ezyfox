@@ -3,15 +3,23 @@ package com.tvd12.ezyfox.binding.impl;
 import com.tvd12.ezyfox.binding.annotation.EzyIgnore;
 import com.tvd12.ezyfox.io.EzyLists;
 import com.tvd12.ezyfox.io.EzyMaps;
-import com.tvd12.ezyfox.reflect.*;
+import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.reflect.EzyField;
+import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyMethods;
 import com.tvd12.ezyfox.util.EzyLoggable;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.tvd12.ezyfox.binding.EzyAccessType.*;
+import static com.tvd12.ezyfox.binding.EzyAccessType.DECLARED_FIELDS;
+import static com.tvd12.ezyfox.binding.EzyAccessType.DECLARED_METHODS;
+import static com.tvd12.ezyfox.binding.EzyAccessType.FIELDS;
+import static com.tvd12.ezyfox.binding.EzyAccessType.METHODS;
 
 public abstract class EzyAbstractElementsFetcher
     extends EzyLoggable
@@ -20,13 +28,30 @@ public abstract class EzyAbstractElementsFetcher
     protected List<? extends EzyMethod> methodList;
     protected List<? extends EzyMethod> unoverriddenMethodList;
     protected Map<String, ? extends EzyMethod> methodsByFieldName;
+    @Setter
+    protected Map<Class<?>, Map<Class<?>, List<Object>>> elementsByClassCache;
 
     @Override
     public final List<Object> getElements(EzyClass clazz, int accessType) {
+        Class<?> targetClass = clazz.getClazz();
+        Map<Class<?>, List<Object>> byTarget = null;
+        if (elementsByClassCache != null) {
+            byTarget = elementsByClassCache.computeIfAbsent(
+                this.getClass(),
+                k -> new HashMap<>()
+            );
+            List<Object> cached = byTarget.get(targetClass);
+            if (cached != null) {
+                return cached;
+            }
+        }
         logger.debug("start scan {}", clazz);
         init(clazz);
         List<Object> elements = doGetElements(clazz, accessType);
         logger.debug("finish scan {}", clazz);
+        if (byTarget != null) {
+            byTarget.put(targetClass, elements);
+        }
         return elements;
     }
 

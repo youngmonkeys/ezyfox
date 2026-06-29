@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public interface EzyBeanAutoConfig extends EzyBeanConfig {
 
-    Logger LOGGER = LoggerFactory.getLogger(EzyBeanContext.class);
+    Logger LOGGER = LoggerFactory.getLogger(EzyBeanAutoConfig.class);
 
     void autoConfig();
 

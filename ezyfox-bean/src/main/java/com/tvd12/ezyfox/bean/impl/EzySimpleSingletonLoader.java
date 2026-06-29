@@ -59,7 +59,7 @@ public abstract class EzySimpleSingletonLoader
                 (EzySimpleSingletonFactory) context.getSingletonFactory();
             singletonFactory.addCompletedSingleton(singleton);
             return singleton;
-        } catch (EzyNewSingletonException e) {
+        } catch (EzyNewSingletonException | LinkageError e) {
             throw e;
         } catch (Throwable e) {
             throw new IllegalStateException(

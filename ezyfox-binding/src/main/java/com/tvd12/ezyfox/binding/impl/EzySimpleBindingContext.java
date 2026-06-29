@@ -1,10 +1,20 @@
 package com.tvd12.ezyfox.binding.impl;
 
 import com.tvd12.ezyfox.annotation.EzyPackagesToScan;
+import com.tvd12.ezyfox.binding.EzyBindingContext;
+import com.tvd12.ezyfox.binding.EzyBindingContextBuilder;
+import com.tvd12.ezyfox.binding.EzyMarshaller;
 import com.tvd12.ezyfox.binding.EzyReader;
+import com.tvd12.ezyfox.binding.EzyUnmarshaller;
+import com.tvd12.ezyfox.binding.EzyUnwrapper;
 import com.tvd12.ezyfox.binding.EzyWriter;
-import com.tvd12.ezyfox.binding.*;
-import com.tvd12.ezyfox.binding.annotation.*;
+import com.tvd12.ezyfox.binding.annotation.EzyArrayBinding;
+import com.tvd12.ezyfox.binding.annotation.EzyBindingPackagesToScan;
+import com.tvd12.ezyfox.binding.annotation.EzyConfiguration;
+import com.tvd12.ezyfox.binding.annotation.EzyObjectBinding;
+import com.tvd12.ezyfox.binding.annotation.EzyReaderImpl;
+import com.tvd12.ezyfox.binding.annotation.EzyTemplateImpl;
+import com.tvd12.ezyfox.binding.annotation.EzyWriterImpl;
 import com.tvd12.ezyfox.binding.writer.EzyMapArrayWriter;
 import com.tvd12.ezyfox.binding.writer.EzyMapObjectWriter;
 import com.tvd12.ezyfox.collect.Sets;
@@ -15,7 +25,13 @@ import com.tvd12.ezyfox.reflect.EzyReflection;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings({"rawtypes"})
@@ -97,20 +113,21 @@ public class EzySimpleBindingContext
         unwrappersByObjectType.put(clazz, unwrapper);
     }
 
-    public static class Builder implements EzyBindingContextBuilder {
+    public static class Builder extends EzyLoggable implements EzyBindingContextBuilder {
 
         protected Set<EzyWriter> writers = new HashSet<>();
         protected Set<EzyReader> readers = new HashSet<>();
         protected Map<Class, EzyWriter> writersByObjectType = new HashMap<>();
         protected Map<Class, EzyReader> readersByObjectType = new HashMap<>();
         protected Map<Class, EzyUnwrapper> unwrappersByObjectType = new HashMap<>();
-
         protected Set<Class> writerImplClasses = new HashSet<>();
         protected Set<Class> readerImplClasses = new HashSet<>();
         protected Set<Class> objectBindingClasses = new HashSet<>();
         protected Set<Class> arrayBindingClasses = new HashSet<>();
         protected Set<Class> packagesScanClasses = new HashSet<>();
         protected Set<Class> configurationClasses = new HashSet<>();
+        protected Map<Class<?>, Map<Class<?>, List<Object>>> elementsByClassCache
+            = new HashMap<>();
 
         /* (non-Javadoc)
          * @see com.tvd12.ezyfox.binding.impl.EzyBindingContextBuilder#scan(java.lang.String)
@@ -144,7 +161,7 @@ public class EzySimpleBindingContext
 
         @Override
         public EzyBindingContextBuilder scan(Collection<String> packageNames) {
-            if (packageNames.size() > 0) {
+            if (!packageNames.isEmpty()) {
                 EzyReflection reflection = EzyPackages.scanPackages(packageNames);
                 addAllClassesFromReflection(reflection);
             }
@@ -300,35 +317,85 @@ public class EzySimpleBindingContext
 
         private void parseObjectBindingClasses() {
             for (Class clazz : objectBindingClasses) {
-                this.parseObjectBindingClass(clazz);
+                try {
+                    parseObjectBindingClass(clazz);
+                } catch (Throwable e) {
+                    logger.error(
+                        "skip object binding class {} " +
+                            "due to missing class dependency or error",
+                        clazz.getName(),
+                        e
+                    );
+                }
             }
         }
 
         private void parseArrayBindingClasses() {
             for (Class clazz : arrayBindingClasses) {
-                this.parseArrayBindingClass(clazz);
+                try {
+                    parseArrayBindingClass(clazz);
+                } catch (Throwable e) {
+                    logger.warn(
+                        "skip array binding class {} " +
+                            "due to missing class dependency or error",
+                        clazz.getName(),
+                        e
+                    );
+                }
             }
         }
 
         private void parseObjectBindingClass(Class<?> clazz) {
+            EzyClass ezyClass = new EzyClass(clazz);
             EzyObjectBinding anno = clazz.getAnnotation(EzyObjectBinding.class);
             if (anno == null || anno.write()) {
-                addTemplate(clazz, new EzyObjectWriterBuilder(new EzyClass(clazz)).build());
+                addTemplate(
+                    clazz,
+                    new EzyObjectWriterBuilder(ezyClass)
+                        .setElementsByClassCache(elementsByClassCache)
+                        .build()
+                );
             }
             if (anno == null || anno.read()) {
-                addTemplate(clazz, new EzyObjectReaderBuilder(new EzyClass(clazz)).build());
-                addTemplate(clazz, new EzyObjectUnwrapperBuilder(new EzyClass(clazz)).build());
+                addTemplate(
+                    clazz,
+                    new EzyObjectReaderBuilder(ezyClass)
+                        .setElementsByClassCache(elementsByClassCache)
+                        .build()
+                );
+                addTemplate(
+                    clazz,
+                    new EzyObjectUnwrapperBuilder(ezyClass)
+                        .setElementsByClassCache(elementsByClassCache)
+                        .build()
+                );
             }
         }
 
         private void parseArrayBindingClass(Class<?> clazz) {
+            EzyClass ezyClass = new EzyClass(clazz);
             EzyArrayBinding anno = clazz.getAnnotation(EzyArrayBinding.class);
             if (anno == null || anno.write()) {
-                addTemplate(clazz, new EzyArrayWriterBuilder(new EzyClass(clazz)).build());
+                addTemplate(
+                    clazz,
+                    new EzyArrayWriterBuilder(ezyClass)
+                        .setElementsByClassCache(elementsByClassCache)
+                        .build()
+                );
             }
             if (anno == null || anno.read()) {
-                addTemplate(clazz, new EzyArrayReaderBuilder(new EzyClass(clazz)).build());
-                addTemplate(clazz, new EzyArrayUnwrapperBuilder(new EzyClass(clazz)).build());
+                addTemplate(
+                    clazz,
+                    new EzyArrayReaderBuilder(ezyClass)
+                        .setElementsByClassCache(elementsByClassCache)
+                        .build()
+                );
+                addTemplate(
+                    clazz,
+                    new EzyArrayUnwrapperBuilder(ezyClass)
+                        .setElementsByClassCache(elementsByClassCache)
+                        .build()
+                );
             }
         }
 
@@ -341,7 +408,6 @@ public class EzySimpleBindingContext
             }
         }
 
-        @SuppressWarnings("unchecked")
         private void parseTemplateClass(Class templateClass) {
             addTemplate(EzyClasses.newInstance(templateClass));
         }
@@ -404,22 +470,28 @@ public class EzySimpleBindingContext
         }
 
         private Set<Class> getSubTypes(Class<?> clazz) {
-            boolean includeSubTypes = false;
-            Set<Class> answer = new HashSet<>();
-            if (clazz.isAnnotationPresent(EzyObjectBinding.class)) {
-                EzyObjectBinding anno = clazz.getAnnotation(EzyObjectBinding.class);
-                includeSubTypes = anno.subTypes();
-                answer.addAll(Sets.newHashSet(anno.subTypeClasses()));
-            } else if (clazz.isAnnotationPresent(EzyArrayBinding.class)) {
-                EzyArrayBinding anno = clazz.getAnnotation(EzyArrayBinding.class);
-                includeSubTypes = anno.subTypes();
-                answer.addAll(Sets.newHashSet(anno.subTypeClasses()));
+            EzyObjectBinding objectAnno = clazz.getAnnotation(EzyObjectBinding.class);
+            if (objectAnno != null) {
+                return resolveSubTypes(objectAnno.subTypes(), objectAnno.subTypeClasses(), clazz);
             }
+            EzyArrayBinding arrayAnno = clazz.getAnnotation(EzyArrayBinding.class);
+            if (arrayAnno != null) {
+                return resolveSubTypes(arrayAnno.subTypes(), arrayAnno.subTypeClasses(), clazz);
+            }
+            return Collections.emptySet();
+        }
+
+        @SuppressWarnings("rawtypes")
+        private Set<Class> resolveSubTypes(
+            boolean includeSubTypes,
+            Class[] subTypeClasses,
+            Class<?> clazz
+        ) {
             if (!includeSubTypes) {
-                return new HashSet<>();
+                return Collections.emptySet();
             }
-            if (!answer.isEmpty()) {
-                return answer;
+            if (subTypeClasses.length > 0) {
+                return Sets.newHashSet(subTypeClasses);
             }
             return EzyClasses.flatSuperAndInterfaceClasses(clazz);
         }

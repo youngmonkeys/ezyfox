@@ -8,7 +8,13 @@ import com.tvd12.ezyfox.binding.EzyUnmarshaller;
 import com.tvd12.ezyfox.binding.annotation.EzyPostRead;
 import com.tvd12.ezyfox.binding.exception.EzyReadValueException;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.reflect.*;
+import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.reflect.EzyClasses;
+import com.tvd12.ezyfox.reflect.EzyField;
+import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyReflectElement;
+import com.tvd12.ezyfox.reflect.EzySetterMethod;
+import com.tvd12.ezyfox.reflect.EzyTypes;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtNewMethod;
@@ -18,6 +24,7 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings("rawtypes")
@@ -33,6 +40,14 @@ public abstract class EzyAbstractReaderBuilder
 
     private List<EzyMethod> getPostReadMethods() {
         return clazz.getPublicMethods(m -> m.isAnnotated(EzyPostRead.class));
+    }
+
+    @Override
+    public EzyAbstractReaderBuilder setElementsByClassCache(
+        Map<Class<?>, Map<Class<?>, List<Object>>> elementsByClassCache
+    ) {
+        return (EzyAbstractReaderBuilder)
+            super.setElementsByClassCache(elementsByClassCache);
     }
 
     @SuppressWarnings("unchecked")
@@ -55,7 +70,7 @@ public abstract class EzyAbstractReaderBuilder
         String methodContent = makeMethodContent(readMethod);
         printMethodContent(methodContent);
         printMethodContent(implMethodContent);
-        implClass.setInterfaces(new CtClass[]{pool.makeClass(getReaderInterface().getName())});
+        implClass.setInterfaces(new CtClass[]{pool.get(getReaderInterface().getName())});
         implClass.addMethod(CtNewMethod.make(implMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(methodContent, implClass));
         Class answerClass = implClass.toClass();
