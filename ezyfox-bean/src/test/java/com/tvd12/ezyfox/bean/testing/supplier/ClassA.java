@@ -41,7 +41,7 @@ public class ClassA {
     @EzyAutoBind
     private ArrayList arrayList;
     @EzyAutoBind
-    private Stack stack;
+    private Deque deque;
     @EzyAutoBind
     private Collection collection;
 }

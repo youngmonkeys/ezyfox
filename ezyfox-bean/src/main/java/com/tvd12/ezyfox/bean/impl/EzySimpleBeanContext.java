@@ -30,6 +30,7 @@ import com.tvd12.ezyfox.bean.supplier.EzyCollectionSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyConcurrentHashMapSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyCopyOnWriteArrayListSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyCopyOnWriteArraySetSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyDequeSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyHashMapSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyHashSetSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyLinkedListSupplier;
@@ -37,7 +38,6 @@ import com.tvd12.ezyfox.bean.supplier.EzyListSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyMapSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyQueueSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzySetSupplier;
-import com.tvd12.ezyfox.bean.supplier.EzyStackSupplier;
 import com.tvd12.ezyfox.bean.supplier.EzyTreeMapSupplier;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
@@ -1318,9 +1318,9 @@ public class EzySimpleBeanContext
             prototypeFactory.addSupplier(EzyLinkedListSupplier.getInstance());
             prototypeFactory.addSupplier(EzyListSupplier.getInstance());
             prototypeFactory.addSupplier(EzyMapSupplier.getInstance());
+            prototypeFactory.addSupplier(EzyDequeSupplier.getInstance());
             prototypeFactory.addSupplier(EzyQueueSupplier.getInstance());
             prototypeFactory.addSupplier(EzySetSupplier.getInstance());
-            prototypeFactory.addSupplier(EzyStackSupplier.getInstance());
             prototypeFactory.addSupplier(EzyTreeMapSupplier.getInstance());
         }
 

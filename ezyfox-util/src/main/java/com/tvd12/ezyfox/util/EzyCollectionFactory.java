@@ -33,7 +33,7 @@ public class EzyCollectionFactory {
         map.put(CopyOnWriteArraySet.class, CopyOnWriteArraySet::new);
         map.put(Vector.class, Vector::new);
         map.put(Queue.class, LinkedList::new);
-        map.put(Stack.class, Stack::new);
+        map.put(Deque.class, ArrayDeque::new);
         return map;
     }
 }

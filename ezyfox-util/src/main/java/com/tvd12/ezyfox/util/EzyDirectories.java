@@ -6,8 +6,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayDeque;
 import java.util.Collection;
-import java.util.Stack;
+import java.util.Deque;
 import java.util.function.Consumer;
 
 /**
@@ -29,7 +30,7 @@ public class EzyDirectories {
         File folder,
         Consumer<File> callback
     ) throws IOException {
-        Stack<File> stack = new Stack<>();
+        Deque<File> stack = new ArrayDeque<>();
         stack.push(folder);
         while (stack.size() > 0) {
             File parent = stack.pop();
@@ -62,7 +63,7 @@ public class EzyDirectories {
         if (!from.exists()) {
             return;
         }
-        Stack<File> stack = new Stack<>();
+        Deque<File> stack = new ArrayDeque<>();
         stack.push(from);
         while (stack.size() > 0) {
             File parent = stack.pop();
