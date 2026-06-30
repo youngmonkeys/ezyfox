@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.bean.testing.prototype;
 
 import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
 import com.tvd12.ezyfox.asm.EzyInstruction;
+import com.tvd12.ezyfox.bean.impl.EzyBeanMetadataCache;
 import com.tvd12.ezyfox.bean.impl.EzyBeanNameParser;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.impl.EzySimplePrototypeFactory;
@@ -22,7 +23,11 @@ public class EzySimplePrototypeSupplierBuilderTest extends BaseTest {
     public static class ExSimplePrototypeSupplierBuilder extends EzyByConstructorPrototypeSupplierLoader {
 
         public ExSimplePrototypeSupplierBuilder(EzyClass clazz) {
-            super(EzyBeanNameParser.getBeanName(clazz.getClazz()), clazz);
+            super(
+                EzyBeanNameParser.getBeanName(clazz.getClazz()),
+                clazz,
+                new EzyBeanMetadataCache()
+            );
         }
 
         @Override

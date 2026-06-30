@@ -22,13 +22,9 @@ public abstract class EzySimplePrototypeSupplierLoader
     extends EzySimpleObjectBuilder
     implements EzyPrototypeSupplierLoader {
 
-    private static final AtomicInteger COUNT = new AtomicInteger(0);
     @Setter
     private static boolean debug;
-
-    public EzySimplePrototypeSupplierLoader(String beanName, EzyClass clazz) {
-        this(beanName, clazz, new EzyBeanMetadataCache());
-    }
+    private static final AtomicInteger COUNT = new AtomicInteger();
 
     public EzySimplePrototypeSupplierLoader(
         String beanName,

@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.bean.testing.prototype;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
+import com.tvd12.ezyfox.bean.impl.EzyBeanMetadataCache;
 import com.tvd12.ezyfox.bean.impl.EzyByConstructorPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.impl.EzyPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.impl.EzySimpleBeanContext;
@@ -15,8 +16,13 @@ public class GeneratedClassAFactory3 {
     public void test() throws Exception {
         EzyByConstructorPrototypeSupplierLoader.setDebug(false);
 
+        EzyBeanMetadataCache metadataCache = new EzyBeanMetadataCache();
         EzyPrototypeSupplierLoader builder =
-            new EzyByConstructorPrototypeSupplierLoader("classA", new EzyClass(ClassA.class));
+            new EzyByConstructorPrototypeSupplierLoader(
+                "classA",
+                new EzyClass(ClassA.class),
+                metadataCache
+            );
 
         EzyPrototypeSupplier supplier = builder.load(new EzySimplePrototypeFactory());
 

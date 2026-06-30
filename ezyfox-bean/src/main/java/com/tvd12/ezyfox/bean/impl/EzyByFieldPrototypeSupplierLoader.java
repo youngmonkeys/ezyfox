@@ -19,14 +19,6 @@ public class EzyByFieldPrototypeSupplierLoader
     public EzyByFieldPrototypeSupplierLoader(
         String beanName,
         EzyField field,
-        Object configurator
-    ) {
-        this(beanName, field, configurator, new EzyBeanMetadataCache());
-    }
-
-    public EzyByFieldPrototypeSupplierLoader(
-        String beanName,
-        EzyField field,
         Object configurator,
         EzyBeanMetadataCache metadataCache
     ) {

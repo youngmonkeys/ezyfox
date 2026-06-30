@@ -26,19 +26,6 @@ public abstract class EzySimpleSingletonLoader
     protected EzySimpleSingletonLoader(
         String beanName,
         EzyClass clazz,
-        List<Class<?>> stackCallClasses
-    ) {
-        this(
-            beanName,
-            clazz,
-            stackCallClasses,
-            new EzyBeanMetadataCache()
-        );
-    }
-
-    protected EzySimpleSingletonLoader(
-        String beanName,
-        EzyClass clazz,
         List<Class<?>> stackCallClasses,
         EzyBeanMetadataCache metadataCache
     ) {
@@ -49,23 +36,6 @@ public abstract class EzySimpleSingletonLoader
             new HashMap<>(),
             stackCallClasses,
             metadataCache
-        );
-    }
-
-    protected EzySimpleSingletonLoader(
-        String beanName,
-        EzyClass clazz,
-        Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType,
-        List<Class<?>> stackCallClasses
-    ) {
-        this(
-            beanName,
-            clazz,
-            configurator,
-            methodsByType,
-            stackCallClasses,
-            new EzyBeanMetadataCache()
         );
     }
 

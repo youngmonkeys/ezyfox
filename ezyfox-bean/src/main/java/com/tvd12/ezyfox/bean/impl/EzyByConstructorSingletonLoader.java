@@ -4,7 +4,6 @@ import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.reflect.EzyClass;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("rawtypes")
@@ -15,24 +14,18 @@ public class EzyByConstructorSingletonLoader
     protected final EzyConstructorMetadata metadata;
     protected final Constructor<?> constructor;
 
-    protected EzyByConstructorSingletonLoader(String beanName, EzyClass clazz) {
-        this(beanName, clazz, new ArrayList<>(), new EzyBeanMetadataCache());
-    }
-
-    protected EzyByConstructorSingletonLoader(
-        String beanName, EzyClass clazz,
-        List<Class<?>> stackCallClasses
-    ) {
-        this(beanName, clazz, stackCallClasses, new EzyBeanMetadataCache());
-    }
-
     protected EzyByConstructorSingletonLoader(
         String beanName, EzyClass clazz,
         List<Class<?>> stackCallClasses,
         EzyBeanMetadataCache metadataCache
     ) {
-        super(beanName, clazz, stackCallClasses, metadataCache);
-        this.metadata = metadataCache.getConstructor(clazz.getClazz());
+        super(
+            beanName,
+            clazz,
+            stackCallClasses, metadataCache
+        );
+        this.metadata = metadataCache
+            .getConstructor(clazz.getClazz());
         this.constructor = metadata.getConstructor();
     }
 

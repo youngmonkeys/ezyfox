@@ -2,8 +2,8 @@ package com.tvd12.ezyfox.bean.impl;
 
 import com.tvd12.ezyfox.reflect.EzyClass;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("rawtypes")
 public class EzyBeanMetadataCache {
@@ -14,10 +14,10 @@ public class EzyBeanMetadataCache {
     private final Map<Class, EzyObjectBuilderMetadata> prototypeObjectBuilders;
 
     public EzyBeanMetadataCache() {
-        this.classes = new ConcurrentHashMap<>();
-        this.constructors = new ConcurrentHashMap<>();
-        this.singletonObjectBuilders = new ConcurrentHashMap<>();
-        this.prototypeObjectBuilders = new ConcurrentHashMap<>();
+        this.classes = new HashMap<>();
+        this.constructors = new HashMap<>();
+        this.singletonObjectBuilders = new HashMap<>();
+        this.prototypeObjectBuilders = new HashMap<>();
     }
 
     public EzyClass getClass(Class type) {

@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.bean.testing;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
+import com.tvd12.ezyfox.bean.impl.EzyBeanMetadataCache;
 import com.tvd12.ezyfox.bean.impl.EzyByMethodSingletonLoader;
 import com.tvd12.ezyfox.io.EzyMaps;
 import com.tvd12.ezyfox.reflect.EzyMethod;
@@ -30,7 +31,9 @@ public class EzyByMethodSingletonLoaderTest extends BaseTest {
             "a",
             methodA,
             this,
-            EzyMaps.newHashMap(B.class, methodB));
+            EzyMaps.newHashMap(B.class, methodB),
+            new EzyBeanMetadataCache()
+        );
 
         Method getConstructorParameterTypes = EzyByMethodSingletonLoader.class
             .getDeclaredMethod("getConstructorParameterTypes", Class.class);

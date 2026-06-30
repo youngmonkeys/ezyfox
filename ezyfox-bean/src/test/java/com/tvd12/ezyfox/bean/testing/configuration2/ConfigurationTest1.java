@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.bean.testing.configuration2;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
+import com.tvd12.ezyfox.bean.impl.EzyBeanMetadataCache;
 import com.tvd12.ezyfox.bean.impl.EzySimpleConfigurationLoader;
 import com.tvd12.ezyfox.bean.impl.EzySimplePrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.testing.configuration.Singleton1;
@@ -22,7 +23,7 @@ public class ConfigurationTest1 extends BaseTest {
             .scan("com.tvd12.ezyfox.bean.testing.configuration2")
             .build();
 
-        new EzySimpleConfigurationLoader()
+        new EzySimpleConfigurationLoader(new EzyBeanMetadataCache())
             .clazz(ConfigClass1.class)
             .context(context)
             .load();

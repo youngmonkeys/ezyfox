@@ -32,11 +32,9 @@ public class EzySimpleConfigurationLoader
     protected Map<Class<?>, EzyMethod> singletonMethods;
     protected Map<EzyBeanKey, EzyMethod> singletonMethodByKey;
 
-    public EzySimpleConfigurationLoader() {
-        this(new EzyBeanMetadataCache());
-    }
-
-    public EzySimpleConfigurationLoader(EzyBeanMetadataCache metadataCache) {
+    public EzySimpleConfigurationLoader(
+        EzyBeanMetadataCache metadataCache
+    ) {
         this.metadataCache = metadataCache;
     }
 

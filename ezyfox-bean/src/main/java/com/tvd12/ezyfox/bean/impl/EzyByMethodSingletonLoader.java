@@ -19,21 +19,6 @@ public class EzyByMethodSingletonLoader
         String beanName,
         EzyMethod method,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType
-    ) {
-        this(
-            beanName,
-            method,
-            configurator,
-            methodsByType,
-            new ArrayList<>()
-        );
-    }
-
-    public EzyByMethodSingletonLoader(
-        String beanName,
-        EzyMethod method,
-        Object configurator,
         Map<Class<?>, EzyMethod> methodsByType,
         EzyBeanMetadataCache metadataCache
     ) {
@@ -44,23 +29,6 @@ public class EzyByMethodSingletonLoader
             methodsByType,
             new ArrayList<>(),
             metadataCache
-        );
-    }
-
-    public EzyByMethodSingletonLoader(
-        String beanName,
-        EzyMethod method,
-        Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType,
-        List<Class<?>> stackCallClasses
-    ) {
-        this(
-            beanName,
-            method,
-            configurator,
-            methodsByType,
-            stackCallClasses,
-            new EzyBeanMetadataCache()
         );
     }
 

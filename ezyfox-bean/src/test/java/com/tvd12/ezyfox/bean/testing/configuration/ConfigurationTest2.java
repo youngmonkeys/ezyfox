@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.bean.testing.configuration;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
+import com.tvd12.ezyfox.bean.impl.EzyBeanMetadataCache;
 import com.tvd12.ezyfox.bean.impl.EzySimpleConfigurationLoader;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
@@ -41,7 +42,7 @@ public class ConfigurationTest2 extends BaseTest {
             }
         });
 
-        new EzySimpleConfigurationLoader()
+        new EzySimpleConfigurationLoader(new EzyBeanMetadataCache())
             .clazz(ConfigClassA2.class)
             .context(context)
             .load();

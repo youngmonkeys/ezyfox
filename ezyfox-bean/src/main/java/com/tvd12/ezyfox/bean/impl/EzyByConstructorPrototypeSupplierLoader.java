@@ -13,13 +13,6 @@ public class EzyByConstructorPrototypeSupplierLoader
 
     public EzyByConstructorPrototypeSupplierLoader(
         String beanName,
-        EzyClass clazz
-    ) {
-        this(beanName, clazz, new EzyBeanMetadataCache());
-    }
-
-    public EzyByConstructorPrototypeSupplierLoader(
-        String beanName,
         EzyClass clazz,
         EzyBeanMetadataCache metadataCache
     ) {

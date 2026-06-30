@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.bean.testing;
 
+import com.tvd12.ezyfox.bean.impl.EzyBeanMetadataCache;
 import com.tvd12.ezyfox.bean.impl.EzyByFieldPrototypeSupplierLoader;
 import com.tvd12.ezyfox.bean.impl.EzySimplePrototypeFactory;
 import com.tvd12.ezyfox.reflect.EzyField;
@@ -16,7 +17,11 @@ public class EzyByFieldPrototypeSupplierBuilderTest {
 
         EzyField field = new EzyField(EzyFields.getField(getClass(), "classA"));
         EzyByFieldPrototypeSupplierLoader builder = new EzyByFieldPrototypeSupplierLoader(
-            "classA", field, this);
+            "classA",
+            field,
+            this,
+            new EzyBeanMetadataCache()
+        );
         builder.load(new EzySimplePrototypeFactory());
     }
 

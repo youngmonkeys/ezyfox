@@ -20,18 +20,14 @@ public class EzyByMethodPrototypeSupplierLoader
     public EzyByMethodPrototypeSupplierLoader(
         String beanName,
         EzyMethod method,
-        Object configurator
-    ) {
-        this(beanName, method, configurator, new EzyBeanMetadataCache());
-    }
-
-    public EzyByMethodPrototypeSupplierLoader(
-        String beanName,
-        EzyMethod method,
         Object configurator,
         EzyBeanMetadataCache metadataCache
     ) {
-        super(beanName, metadataCache.getClass(method.getReturnType()), metadataCache);
+        super(
+            beanName,
+            metadataCache.getClass(method.getReturnType()),
+            metadataCache
+        );
         this.method = method;
         this.configurator = configurator;
     }
