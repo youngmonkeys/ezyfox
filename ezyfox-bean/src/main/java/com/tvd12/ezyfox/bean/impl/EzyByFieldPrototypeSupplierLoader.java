@@ -3,7 +3,6 @@ package com.tvd12.ezyfox.bean.impl;
 import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
-import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyField;
 
@@ -22,7 +21,16 @@ public class EzyByFieldPrototypeSupplierLoader
         EzyField field,
         Object configurator
     ) {
-        super(beanName, new EzyClass(field.getType()));
+        this(beanName, field, configurator, new EzyBeanMetadataCache());
+    }
+
+    public EzyByFieldPrototypeSupplierLoader(
+        String beanName,
+        EzyField field,
+        Object configurator,
+        EzyBeanMetadataCache metadataCache
+    ) {
+        super(beanName, metadataCache.getClass(field.getType()), metadataCache);
         this.field = field;
         this.configurator = configurator;
     }

@@ -27,7 +27,15 @@ public abstract class EzySimplePrototypeSupplierLoader
     private static boolean debug;
 
     public EzySimplePrototypeSupplierLoader(String beanName, EzyClass clazz) {
-        super(beanName, clazz);
+        this(beanName, clazz, new EzyBeanMetadataCache());
+    }
+
+    public EzySimplePrototypeSupplierLoader(
+        String beanName,
+        EzyClass clazz,
+        EzyBeanMetadataCache metadataCache
+    ) {
+        super(beanName, clazz, metadataCache);
     }
 
     @Override

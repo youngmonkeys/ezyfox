@@ -8,20 +8,33 @@ public class EzyByConstructorPrototypeSupplierLoader
     extends EzySimplePrototypeSupplierLoader
     implements EzyPrototypeSupplierLoader {
 
+    protected final EzyConstructorMetadata metadata;
     protected final Constructor<?> constructor;
 
-    public EzyByConstructorPrototypeSupplierLoader(String beanName, EzyClass clazz) {
-        super(beanName, clazz);
-        this.constructor = getConstructor(clazz);
+    public EzyByConstructorPrototypeSupplierLoader(
+        String beanName,
+        EzyClass clazz
+    ) {
+        this(beanName, clazz, new EzyBeanMetadataCache());
+    }
+
+    public EzyByConstructorPrototypeSupplierLoader(
+        String beanName,
+        EzyClass clazz,
+        EzyBeanMetadataCache metadataCache
+    ) {
+        super(beanName, clazz, metadataCache);
+        this.metadata = metadataCache.getConstructor(clazz.getClazz());
+        this.constructor = metadata.getConstructor();
     }
 
     @Override
     protected String[] getConstructorArgumentNames() {
-        return getConstructorArgumentNames(constructor);
+        return metadata.getArgumentNames();
     }
 
     @Override
     protected Class<?>[] getConstructorParameterTypes() {
-        return constructor.getParameterTypes();
+        return metadata.getParameterTypes();
     }
 }

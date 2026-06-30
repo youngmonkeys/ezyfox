@@ -12,28 +12,38 @@ public class EzyByConstructorSingletonLoader
     extends EzySimpleSingletonLoader
     implements EzySingletonLoader {
 
+    protected final EzyConstructorMetadata metadata;
     protected final Constructor<?> constructor;
 
     protected EzyByConstructorSingletonLoader(String beanName, EzyClass clazz) {
-        this(beanName, clazz, new ArrayList<>());
+        this(beanName, clazz, new ArrayList<>(), new EzyBeanMetadataCache());
     }
 
     protected EzyByConstructorSingletonLoader(
         String beanName, EzyClass clazz,
         List<Class<?>> stackCallClasses
     ) {
-        super(beanName, clazz, stackCallClasses);
-        this.constructor = getConstructor(clazz);
+        this(beanName, clazz, stackCallClasses, new EzyBeanMetadataCache());
+    }
+
+    protected EzyByConstructorSingletonLoader(
+        String beanName, EzyClass clazz,
+        List<Class<?>> stackCallClasses,
+        EzyBeanMetadataCache metadataCache
+    ) {
+        super(beanName, clazz, stackCallClasses, metadataCache);
+        this.metadata = metadataCache.getConstructor(clazz.getClazz());
+        this.constructor = metadata.getConstructor();
     }
 
     @Override
     protected String[] getConstructorArgumentNames() {
-        return getConstructorArgumentNames(constructor);
+        return metadata.getArgumentNames();
     }
 
     @Override
     protected Class<?>[] getConstructorParameterTypes() {
-        return constructor.getParameterTypes();
+        return metadata.getParameterTypes();
     }
 
     @Override

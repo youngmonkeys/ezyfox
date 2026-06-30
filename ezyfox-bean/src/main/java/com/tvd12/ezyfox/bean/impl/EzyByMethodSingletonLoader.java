@@ -2,7 +2,6 @@ package com.tvd12.ezyfox.bean.impl;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 
 import java.util.ArrayList;
@@ -36,13 +35,49 @@ public class EzyByMethodSingletonLoader
         EzyMethod method,
         Object configurator,
         Map<Class<?>, EzyMethod> methodsByType,
-        List<Class<?>> stackCallClasses
+        EzyBeanMetadataCache metadataCache
     ) {
-        super(beanName,
-            new EzyClass(method.getReturnType()),
+        this(
+            beanName,
+            method,
             configurator,
             methodsByType,
-            stackCallClasses
+            new ArrayList<>(),
+            metadataCache
+        );
+    }
+
+    public EzyByMethodSingletonLoader(
+        String beanName,
+        EzyMethod method,
+        Object configurator,
+        Map<Class<?>, EzyMethod> methodsByType,
+        List<Class<?>> stackCallClasses
+    ) {
+        this(
+            beanName,
+            method,
+            configurator,
+            methodsByType,
+            stackCallClasses,
+            new EzyBeanMetadataCache()
+        );
+    }
+
+    public EzyByMethodSingletonLoader(
+        String beanName,
+        EzyMethod method,
+        Object configurator,
+        Map<Class<?>, EzyMethod> methodsByType,
+        List<Class<?>> stackCallClasses,
+        EzyBeanMetadataCache metadataCache
+    ) {
+        super(beanName,
+            metadataCache.getClass(method.getReturnType()),
+            configurator,
+            methodsByType,
+            stackCallClasses,
+            metadataCache
         );
         this.method = method;
     }

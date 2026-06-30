@@ -44,7 +44,6 @@ import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 import com.tvd12.ezyfox.properties.EzySimplePropertiesReader;
-import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyImportReflection;
 import com.tvd12.ezyfox.reflect.EzyPackages;
 import com.tvd12.ezyfox.reflect.EzyReflection;
@@ -273,6 +272,7 @@ public class EzySimpleBeanContext
         protected EzyBeanNameTranslator beanNameTranslator;
         protected EzyErrorHandler errorHandler;
         protected EzyMapSet<EzyBeanKey, Class<?>> unloadedSingletons;
+        protected EzyBeanMetadataCache metadataCache;
 
         public Builder() {
             this.enableAutoConfiguration = true;
@@ -297,6 +297,7 @@ public class EzySimpleBeanContext
             this.excludeConfigurationClasses = new HashSet<>();
             this.errorHandler = new EzySimpleErrorHandler();
             this.unloadedSingletons = new EzyHashMapSet<>();
+            this.metadataCache = new EzyBeanMetadataCache();
             this.beanNameTranslator = new EzySimpleBeanNameTranslator();
             this.singletonFactory = newBeanFactory(new EzySimpleSingletonFactory());
             this.prototypeFactory = newBeanFactory(new EzySimplePrototypeFactory());
@@ -993,8 +994,9 @@ public class EzySimpleBeanContext
             try {
                 EzySingletonLoader loader = new EzyByConstructorSingletonLoader(
                     beanName,
-                    new EzyClass(type),
-                    stackCallClasses
+                    metadataCache.getClass(type),
+                    stackCallClasses,
+                    metadataCache
                 );
                 return loader.load(context);
             } catch (EzyNewSingletonException e) {
@@ -1027,7 +1029,8 @@ public class EzySimpleBeanContext
                 try {
                     new EzyByConstructorPrototypeSupplierLoader(
                         beanName,
-                        new EzyClass(type)
+                        metadataCache.getClass(type),
+                        metadataCache
                     ).load(prototypeFactory);
                 } catch (Throwable e) {
                     logger.warn(
@@ -1171,7 +1174,7 @@ public class EzySimpleBeanContext
 
         private void loadConfigurationClass(Class<?> clazz, EzyBeanContext context) {
             try {
-                new EzySimpleConfigurationLoader()
+                new EzySimpleConfigurationLoader(metadataCache)
                     .context(context)
                     .contextBuilder(this)
                     .clazz(clazz)
