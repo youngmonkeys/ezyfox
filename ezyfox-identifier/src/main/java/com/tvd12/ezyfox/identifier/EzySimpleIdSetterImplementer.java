@@ -14,6 +14,8 @@ import lombok.Setter;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.tvd12.reflections.ReflectionUtils.toClass;
+
 public class EzySimpleIdSetterImplementer
     extends EzyLoggable
     implements EzyIdSetterImplementer {
@@ -53,7 +55,7 @@ public class EzySimpleIdSetterImplementer
         printMethodContent(implMethodContent);
         implClass.setInterfaces(new CtClass[]{pool.get(EzyIdSetter.class.getName())});
         implClass.addMethod(CtNewMethod.make(implMethodContent, implClass));
-        Class<?> answerClass = implClass.toClass();
+        Class<?> answerClass = toClass(implClass, clazz.getClazz());
         implClass.detach();
         return EzyClasses.newInstance(answerClass);
     }

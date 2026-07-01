@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.tvd12.reflections.ReflectionUtils.toClass;
+
 @SuppressWarnings("rawtypes")
 public abstract class EzySimplePrototypeSupplierLoader
     extends EzySimpleObjectBuilder
@@ -73,7 +75,7 @@ public abstract class EzySimplePrototypeSupplierLoader
         implClass.addMethod(CtNewMethod.make(supplyImplMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(supplyMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(getObjectTypeMethodContent, implClass));
-        Class<?> answerClass = implClass.toClass();
+        Class<?> answerClass = toClass(implClass, getPrototypeClass());
         implClass.detach();
         EzyPrototypeSupplier supplier = EzyClasses.newInstance(answerClass);
         factory.addSupplier(beanName, supplier, getAnnotationProperties());

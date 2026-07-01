@@ -5,7 +5,7 @@
 
     <groupId>com.tvd12</groupId>
     <artifactId>ezyfox</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <packaging>pom</packaging>
 
     <name>ezyfox</name>
@@ -55,21 +55,22 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <lombok.version>1.18.42</lombok.version>
+        <lombok.version>1.18.46</lombok.version>
         <test.util.version>1.1.8</test.util.version>
-        <maven.compiler.plugin.version>3.14.1</maven.compiler.plugin.version>
-        <jacoco.maven.plugin.version>0.8.14</jacoco.maven.plugin.version>
-        <maven.surefire.plugin.version>3.5.4</maven.surefire.plugin.version>
-        <maven.assembly.plugin.version>3.7.1</maven.assembly.plugin.version>
-        <maven.antrun.plugin.version>3.1.0</maven.antrun.plugin.version>
+        <maven.compiler.plugin.version>3.15.0</maven.compiler.plugin.version>
+        <jacoco.maven.plugin.version>0.8.15</jacoco.maven.plugin.version>
+        <maven.surefire.plugin.version>3.5.6</maven.surefire.plugin.version>
+        <maven.assembly.plugin.version>3.8.0</maven.assembly.plugin.version>
+        <maven.antrun.plugin.version>3.2.0</maven.antrun.plugin.version>
+        <maven.checkstyle.plugin.version>3.6.0</maven.checkstyle.plugin.version>
         <maven.deploy.plugin.version>3.1.4</maven.deploy.plugin.version>
-        <maven.release.plugin.version>3.1.1</maven.release.plugin.version>
+        <maven.release.plugin.version>3.3.1</maven.release.plugin.version>
         <maven.install.plugin.version>3.1.4</maven.install.plugin.version>
         <maven.jar.plugin.version>3.4.2</maven.jar.plugin.version>
-        <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+        <maven.source.plugin.version>3.4.0</maven.source.plugin.version>
         <maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
         <maven.gpg.plugin.version>3.2.8</maven.gpg.plugin.version>
-        <central.publishing.maven.plugin.version>0.9.0</central.publishing.maven.plugin.version>
+        <central.publishing.maven.plugin.version>0.11.0</central.publishing.maven.plugin.version>
         <directory.lib>lib</directory.lib>
         <deploy.path>${env.EZYFOX_SERVER_HOME}</deploy.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

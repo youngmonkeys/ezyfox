@@ -13,6 +13,8 @@ import java.lang.reflect.Method;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 
+import static com.tvd12.reflections.ReflectionUtils.toClass;
+
 @SuppressWarnings("rawtypes")
 public class EzySetterBuilder extends EzyLoggable implements EzyBuilder<BiConsumer> {
 
@@ -52,7 +54,7 @@ public class EzySetterBuilder extends EzyLoggable implements EzyBuilder<BiConsum
         printMethodContent(acceptMethodContent);
         implClass.addMethod(CtNewMethod.make(acceptMethodContent, implClass));
         implClass.setInterfaces(new CtClass[]{pool.get(BiConsumer.class.getName())});
-        Class answerClass = implClass.toClass();
+        Class answerClass = toClass(implClass, declaringClass);
         implClass.detach();
         return EzyClasses.newInstance(answerClass);
     }

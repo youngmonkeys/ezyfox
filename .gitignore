@@ -11,3 +11,4 @@ test-output/
 .iml
 logs/
 */logs/
+.history/
