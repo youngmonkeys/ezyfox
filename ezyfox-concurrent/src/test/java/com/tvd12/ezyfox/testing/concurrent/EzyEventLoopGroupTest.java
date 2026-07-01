@@ -76,13 +76,14 @@ public class EzyEventLoopGroupTest {
                 .build(),
             false
         );
+        List<EzyEventLoopEvent> unfinishedEvents = underTest.shutdownAndGet();
+
         verify(event1, atLeast(1)).call();
         verifyNoMoreInteractions(event1);
 
         verify(event2, atLeast(1)).call();
         verifyNoMoreInteractions(event2);
 
-        List<EzyEventLoopEvent> unfinishedEvents = underTest.shutdownAndGet();
         Asserts.assertEquals(
             new HashSet<>(unfinishedEvents),
             Sets.newHashSet(event1, event2)
