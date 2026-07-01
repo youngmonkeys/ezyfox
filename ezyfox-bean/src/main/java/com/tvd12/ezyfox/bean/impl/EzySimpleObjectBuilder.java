@@ -2,7 +2,12 @@ package com.tvd12.ezyfox.bean.impl;
 
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.exception.EzyMissingSetterException;
-import com.tvd12.ezyfox.reflect.*;
+import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.reflect.EzyClasses;
+import com.tvd12.ezyfox.reflect.EzyField;
+import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyReflectElement;
+import com.tvd12.ezyfox.reflect.EzySetterMethod;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyPropertyAnnotations;
 
@@ -22,10 +27,6 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
     protected final List<EzyField> propertyFields;
     protected final List<EzySetterMethod> propertyMethods;
     protected final EzyBeanMetadataCache metadataCache;
-
-    public EzySimpleObjectBuilder(String beanName, EzyClass clazz) {
-        this(beanName, clazz, new EzyBeanMetadataCache());
-    }
 
     public EzySimpleObjectBuilder(
         String beanName,

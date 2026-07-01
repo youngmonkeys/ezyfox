@@ -297,7 +297,6 @@ public class EzySimpleBeanContext
             this.excludeConfigurationClasses = new HashSet<>();
             this.errorHandler = new EzySimpleErrorHandler();
             this.unloadedSingletons = new EzyHashMapSet<>();
-            this.metadataCache = new EzyBeanMetadataCache();
             this.beanNameTranslator = new EzySimpleBeanNameTranslator();
             this.singletonFactory = newBeanFactory(new EzySimpleSingletonFactory());
             this.prototypeFactory = newBeanFactory(new EzySimplePrototypeFactory());
@@ -860,6 +859,7 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzySimpleBeanContext build() {
+            metadataCache = new EzyBeanMetadataCache();
             EzySimpleBeanContext context = new EzySimpleBeanContext();
             readDefaultPropertiesFiles();
             setVariableValues(properties);
@@ -897,6 +897,7 @@ public class EzySimpleBeanContext
             loadConfigurationClasses(context);
             tryLoadUncompletedSingletonsAgain(context, true);
             loadConfigurationAfterClasses(context);
+            metadataCache = null;
             return context;
         }
 
