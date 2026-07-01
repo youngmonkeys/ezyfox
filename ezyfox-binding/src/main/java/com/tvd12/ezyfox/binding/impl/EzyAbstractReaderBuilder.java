@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static com.tvd12.reflections.ReflectionUtils.toClass;
+
 @SuppressWarnings("rawtypes")
 public abstract class EzyAbstractReaderBuilder
     extends EzyAbstractBuilder<EzySetterMethod> {
@@ -73,7 +75,8 @@ public abstract class EzyAbstractReaderBuilder
         implClass.setInterfaces(new CtClass[]{pool.get(getReaderInterface().getName())});
         implClass.addMethod(CtNewMethod.make(implMethodContent, implClass));
         implClass.addMethod(CtNewMethod.make(methodContent, implClass));
-        Class answerClass = implClass.toClass();
+        Class javaClass = clazz.getClazz();
+        Class answerClass = toClass(implClass, javaClass);
         implClass.detach();
         logger.debug("class {} has generated", implClassName);
         return EzyClasses.newInstance(answerClass);
