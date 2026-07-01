@@ -126,8 +126,7 @@ public class EzySimpleBindingContext
         protected Set<Class> arrayBindingClasses = new HashSet<>();
         protected Set<Class> packagesScanClasses = new HashSet<>();
         protected Set<Class> configurationClasses = new HashSet<>();
-        protected Map<Class<?>, Map<Class<?>, List<Object>>> elementsByClassCache
-            = new HashMap<>();
+        protected Map<Class<?>, Map<Class<?>, List<Object>>> elementsByClassCache;
 
         /* (non-Javadoc)
          * @see com.tvd12.ezyfox.binding.impl.EzyBindingContextBuilder#scan(java.lang.String)
@@ -297,6 +296,7 @@ public class EzySimpleBindingContext
          */
         @Override
         public EzySimpleBindingContext build() {
+            elementsByClassCache = new HashMap<>();
             EzySimpleBindingContext context = new EzySimpleBindingContext();
             scanPackagesScanClasses();
             parseObjectBindingClasses();
@@ -312,6 +312,7 @@ public class EzySimpleBindingContext
             context.readersByObjectType.putAll(readersByObjectType);
             context.unwrappersByObjectType.putAll(unwrappersByObjectType);
             loadConfigurationClasses(context);
+            elementsByClassCache = null;
             return context;
         }
 

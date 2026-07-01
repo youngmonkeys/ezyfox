@@ -22,7 +22,11 @@ public class EzyByFieldPrototypeSupplierLoader
         Object configurator,
         EzyBeanMetadataCache metadataCache
     ) {
-        super(beanName, metadataCache.getClass(field.getType()), metadataCache);
+        super(
+            beanName,
+            metadataCache.getClass(field.getType()),
+            metadataCache
+        );
         this.field = field;
         this.configurator = configurator;
     }
