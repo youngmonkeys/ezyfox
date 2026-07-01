@@ -25,6 +25,7 @@ public class EzyCollectionFactoryTest extends BaseTest {
         CopyOnWriteArraySet copyOnWriteArraySet = factory.newCollection(CopyOnWriteArraySet.class);
         Vector vector = factory.newCollection(Vector.class);
         Queue queue = factory.newCollection(Queue.class);
+        Stack stack = factory.newCollection(Stack.class);
         Deque deque = factory.newCollection(Deque.class);
     }
 
