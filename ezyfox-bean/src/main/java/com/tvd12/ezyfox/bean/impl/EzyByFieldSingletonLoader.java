@@ -2,7 +2,6 @@ package com.tvd12.ezyfox.bean.impl;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 
@@ -21,14 +20,16 @@ public class EzyByFieldSingletonLoader
         String beanName,
         EzyField field,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType
+        Map<Class<?>, EzyMethod> methodsByType,
+        EzyBeanMetadataCache metadataCache
     ) {
         this(
             beanName,
             field,
             configurator,
             methodsByType,
-            new ArrayList<>()
+            new ArrayList<>(),
+            metadataCache
         );
     }
 
@@ -37,14 +38,16 @@ public class EzyByFieldSingletonLoader
         EzyField field,
         Object configurator,
         Map<Class<?>, EzyMethod> methodsByType,
-        List<Class<?>> stackCallClasses
+        List<Class<?>> stackCallClasses,
+        EzyBeanMetadataCache metadataCache
     ) {
         super(
             beanName,
-            new EzyClass(field.getType()),
+            metadataCache.getClass(field.getType()),
             configurator,
             methodsByType,
-            stackCallClasses
+            stackCallClasses,
+            metadataCache
         );
         this.field = field;
     }

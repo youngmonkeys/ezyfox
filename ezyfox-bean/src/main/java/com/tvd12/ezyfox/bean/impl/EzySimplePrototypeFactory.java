@@ -59,7 +59,7 @@ public class EzySimplePrototypeFactory
     @Override
     public EzyPrototypeSupplier getAnnotatedSupplier(Class annotationClass) {
         List<EzyPrototypeSupplier> list = getSuppliers(annotationClass);
-        if (list.size() > 0) {
+        if (!list.isEmpty()) {
             return list.get(0);
         }
         return null;

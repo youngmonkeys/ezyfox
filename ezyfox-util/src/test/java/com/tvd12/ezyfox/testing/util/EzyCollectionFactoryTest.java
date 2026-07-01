@@ -26,6 +26,7 @@ public class EzyCollectionFactoryTest extends BaseTest {
         Vector vector = factory.newCollection(Vector.class);
         Queue queue = factory.newCollection(Queue.class);
         Stack stack = factory.newCollection(Stack.class);
+        Deque deque = factory.newCollection(Deque.class);
     }
 
     @Test(expectedExceptions = {IllegalArgumentException.class})

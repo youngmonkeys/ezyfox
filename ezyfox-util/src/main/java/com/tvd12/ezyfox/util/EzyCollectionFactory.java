@@ -1,6 +1,18 @@
 package com.tvd12.ezyfox.util;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
+import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -34,6 +46,7 @@ public class EzyCollectionFactory {
         map.put(Vector.class, Vector::new);
         map.put(Queue.class, LinkedList::new);
         map.put(Stack.class, Stack::new);
+        map.put(Deque.class, ArrayDeque::new);
         return map;
     }
 }

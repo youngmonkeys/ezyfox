@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.bean.v129.testing;
 
 import com.tvd12.ezyfox.bean.EzySingletonFactory;
+import com.tvd12.ezyfox.bean.impl.EzyBeanMetadataCache;
 import com.tvd12.ezyfox.bean.impl.EzyBeanKey;
 import com.tvd12.ezyfox.bean.impl.EzySimpleConfigurationLoader;
 import com.tvd12.ezyfox.bean.v129.testing.config.V129BeanConfig;
@@ -17,7 +18,9 @@ public class V129EzySimpleConfigurationLoaderTest {
     @Test
     public void addSingletonByMethodsMethodIsNullTest() throws Exception {
         // given
-        EzySimpleConfigurationLoader instance = new EzySimpleConfigurationLoader();
+        EzySimpleConfigurationLoader instance = new EzySimpleConfigurationLoader(
+            new EzyBeanMetadataCache()
+        );
         EzySingletonFactory singletonFactory = mock(EzySingletonFactory.class);
         when(
             singletonFactory.getSingleton(any(EzyBeanKey.class))

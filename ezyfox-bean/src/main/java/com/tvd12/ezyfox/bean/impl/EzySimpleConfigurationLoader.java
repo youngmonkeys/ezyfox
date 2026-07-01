@@ -28,12 +28,19 @@ public class EzySimpleConfigurationLoader
     protected EzyPrototypeFactory prototypeFactory;
     protected EzySingletonFactory singletonFactory;
     protected EzyBeanNameTranslator beanNameTranslator;
+    protected EzyBeanMetadataCache metadataCache;
     protected Map<Class<?>, EzyMethod> singletonMethods;
     protected Map<EzyBeanKey, EzyMethod> singletonMethodByKey;
 
+    public EzySimpleConfigurationLoader(
+        EzyBeanMetadataCache metadataCache
+    ) {
+        this.metadataCache = metadataCache;
+    }
+
     @Override
     public EzyConfigurationLoader clazz(Class<?> configClass) {
-        this.clazz = new EzyClass(configClass);
+        this.clazz = metadataCache.getClass(configClass);
         this.singletonMethodByKey = mapSingletonKeyMethods();
         this.singletonMethods = newHashMapNewKeys(
             singletonMethodByKey,
@@ -71,7 +78,12 @@ public class EzySimpleConfigurationLoader
 
     private Object newConfigurator() {
         String beanName = getSingletonName(clazz.getClazz());
-        Object object = new EzyByConstructorSingletonLoader(beanName, clazz)
+        Object object = new EzyByConstructorSingletonLoader(
+            beanName,
+            clazz,
+            new ArrayList<>(),
+            metadataCache
+        )
             .load(context);
         if (object instanceof EzyBeanContextAware) {
             ((EzyBeanContextAware) object).setContext(context);
@@ -116,7 +128,8 @@ public class EzySimpleConfigurationLoader
                 beanName,
                 field,
                 configurator,
-                singletonMethods
+                singletonMethods,
+                metadataCache
             );
             loader.load(context);
         }
@@ -143,7 +156,8 @@ public class EzySimpleConfigurationLoader
                 beanName,
                 method,
                 configurator,
-                singletonMethods
+                singletonMethods,
+                metadataCache
             );
             loader.load(context);
         }
@@ -158,7 +172,12 @@ public class EzySimpleConfigurationLoader
         String beanName = getPrototypeName(field);
         Object current = prototypeFactory.getSupplier(beanName, field.getType());
         if (current == null) {
-            EzyPrototypeSupplierLoader loader = new EzyByFieldPrototypeSupplierLoader(beanName, field, configurator);
+            EzyPrototypeSupplierLoader loader = new EzyByFieldPrototypeSupplierLoader(
+                beanName,
+                field,
+                configurator,
+                metadataCache
+            );
             loader.load(prototypeFactory);
         }
     }
@@ -180,7 +199,12 @@ public class EzySimpleConfigurationLoader
         String beanName = getPrototypeName(method);
         Object current = prototypeFactory.getSupplier(beanName, method.getReturnType());
         if (current == null) {
-            EzyPrototypeSupplierLoader loader = new EzyByMethodPrototypeSupplierLoader(beanName, method, configurator);
+            EzyPrototypeSupplierLoader loader = new EzyByMethodPrototypeSupplierLoader(
+                beanName,
+                method,
+                configurator,
+                metadataCache
+            );
             loader.load(prototypeFactory);
         }
     }

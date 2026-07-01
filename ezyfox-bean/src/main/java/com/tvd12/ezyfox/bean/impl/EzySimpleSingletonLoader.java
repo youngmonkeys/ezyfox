@@ -9,7 +9,6 @@ import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 import com.tvd12.ezyfox.reflect.EzySetterMethod;
 
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,14 +26,16 @@ public abstract class EzySimpleSingletonLoader
     protected EzySimpleSingletonLoader(
         String beanName,
         EzyClass clazz,
-        List<Class<?>> stackCallClasses
+        List<Class<?>> stackCallClasses,
+        EzyBeanMetadataCache metadataCache
     ) {
         this(
             beanName,
             clazz,
             null,
             new HashMap<>(),
-            stackCallClasses
+            stackCallClasses,
+            metadataCache
         );
     }
 
@@ -43,9 +44,10 @@ public abstract class EzySimpleSingletonLoader
         EzyClass clazz,
         Object configurator,
         Map<Class<?>, EzyMethod> methodsByType,
-        List<Class<?>> stackCallClasses
+        List<Class<?>> stackCallClasses,
+        EzyBeanMetadataCache metadataCache
     ) {
-        super(beanName, clazz);
+        super(beanName, clazz, metadataCache);
         this.configurator = configurator;
         this.methodsByType = methodsByType;
         this.stackCallClasses = stackCallClasses;
@@ -59,7 +61,7 @@ public abstract class EzySimpleSingletonLoader
                 (EzySimpleSingletonFactory) context.getSingletonFactory();
             singletonFactory.addCompletedSingleton(singleton);
             return singleton;
-        } catch (EzyNewSingletonException e) {
+        } catch (EzyNewSingletonException | LinkageError e) {
             throw e;
         } catch (Throwable e) {
             throw new IllegalStateException(
@@ -256,7 +258,8 @@ public abstract class EzySimpleSingletonLoader
                 method,
                 configurator,
                 methodsByType,
-                stackCallClasses
+                stackCallClasses,
+                metadataCache
             );
             return loader.load(context);
         }
@@ -271,8 +274,9 @@ public abstract class EzySimpleSingletonLoader
         }
         EzySingletonLoader loader = new EzyByConstructorSingletonLoader(
             beanName,
-            new EzyClass(paramType),
-            stackCallClasses
+            metadataCache.getClass(paramType),
+            stackCallClasses,
+            metadataCache
         );
         return loader.load(context);
     }
@@ -290,8 +294,7 @@ public abstract class EzySimpleSingletonLoader
 
     protected Class[] getConstructorParameterTypes(Class clazz) {
         try {
-            Constructor constructor = getConstructor(new EzyClass(clazz));
-            return constructor.getParameterTypes();
+            return metadataCache.getConstructor(clazz).getParameterTypes();
         } catch (Throwable e) {
             return new Class[0];
         }

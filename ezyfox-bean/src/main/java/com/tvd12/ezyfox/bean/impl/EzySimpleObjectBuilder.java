@@ -1,23 +1,20 @@
 package com.tvd12.ezyfox.bean.impl;
 
-import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
-import com.tvd12.ezyfox.bean.annotation.EzyPostInit;
 import com.tvd12.ezyfox.bean.exception.EzyMissingSetterException;
-import com.tvd12.ezyfox.io.EzyLists;
-import com.tvd12.ezyfox.reflect.*;
+import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.reflect.EzyClasses;
+import com.tvd12.ezyfox.reflect.EzyField;
+import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyReflectElement;
+import com.tvd12.ezyfox.reflect.EzySetterMethod;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyfox.util.EzyPropertyAnnotations;
-import com.tvd12.properties.file.annotation.Property;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Predicate;
 
 @SuppressWarnings("rawtypes")
 public abstract class EzySimpleObjectBuilder extends EzyLoggable {
@@ -29,22 +26,30 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
     protected final List<EzySetterMethod> bindingMethods;
     protected final List<EzyField> propertyFields;
     protected final List<EzySetterMethod> propertyMethods;
+    protected final EzyBeanMetadataCache metadataCache;
 
-    public EzySimpleObjectBuilder(String beanName, EzyClass clazz) {
+    public EzySimpleObjectBuilder(
+        String beanName,
+        EzyClass clazz,
+        EzyBeanMetadataCache metadataCache
+    ) {
         this.clazz = clazz;
         this.beanName = beanName;
+        this.metadataCache = metadataCache;
         this.variableCount = new AtomicInteger(0);
-        this.bindingFields = getBindingFields(clazz);
-        this.bindingMethods = getBindingMethods(clazz);
-        this.propertyFields = getPropertyFields(clazz);
-        this.propertyMethods = getPropertyMethods(clazz);
-        this.checkMissingSetterMethodFields(
-            bindingFields,
-            Collections.singletonList(EzyAutoBind.class)
+        EzyObjectBuilderMetadata metadata = metadataCache.getObjectBuilder(
+            clazz.getClazz(),
+            addMissingSetterFields()
         );
-        this.checkMissingSetterMethodFields(
-            propertyFields,
-            Arrays.asList(Property.class, EzyProperty.class)
+        this.bindingFields = metadata.getBindingFields();
+        this.bindingMethods = metadata.getBindingMethods();
+        this.propertyFields = metadata.getPropertyFields();
+        this.propertyMethods = metadata.getPropertyMethods();
+        this.logMissingSetterMethodFields(
+            metadata.getMissingBindingSetterFields()
+        );
+        this.logMissingSetterMethodFields(
+            metadata.getMissingPropertySetterFields()
         );
     }
 
@@ -101,104 +106,11 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
         );
     }
 
-    protected final List<EzyField> getBindingFields(EzyClass clazz) {
-        return getValidFields(
-            clazz,
-            Collections.singletonList(EzyAutoBind.class)
-        );
-    }
-
-    protected final List<EzySetterMethod> getBindingMethods(EzyClass clazz) {
-        return getValidMethods(clazz, this::isBindingMethod);
-    }
-
-    protected final List<EzyField> getPropertyFields(EzyClass clazz) {
-        return getValidFields(
-            clazz,
-            Arrays.asList(Property.class, EzyProperty.class)
-        );
-    }
-
-    protected final List<EzySetterMethod> getPropertyMethods(EzyClass clazz) {
-        return getValidMethods(clazz, this::isPropertyMethod);
-    }
-
     protected final List<EzyMethod> getPostInitMethods() {
-        return clazz.getPublicMethods(m ->
-            m.isAnnotated(EzyPostInit.class)
-                && m.getParameterCount() == 0
-        );
-    }
-
-    private boolean isBindingMethod(EzyMethod method) {
-        return isValidMethod(
-            method,
-            Collections.singletonList(EzyAutoBind.class)
-        );
-    }
-
-    private boolean isPropertyMethod(EzyMethod method) {
-        return isValidMethod(
-            method,
-            Arrays.asList(Property.class, EzyProperty.class)
-        );
-    }
-
-    private List<EzyField> getValidFields(
-        EzyClass clazz,
-        List<Class<? extends Annotation>> annotations
-    ) {
-        return clazz.getFields(f ->
-            f.isPublic() && isAnnotated(f, annotations)
-        );
-    }
-
-    private List<EzySetterMethod> getValidMethods(
-        EzyClass clazz,
-        Predicate<EzyMethod> predicate
-    ) {
-        List<EzyMethod> methods = clazz.getMethods();
-        List<EzyMethod> valid0 = EzyLists.filter(methods, predicate);
-        List<EzyMethod> valid = EzyMethods.filterOverriddenMethods(valid0);
-        return EzyLists.newArrayList(valid, EzySetterMethod::new);
-    }
-
-    private boolean isValidMethod(
-        EzyMethod method,
-        List<Class<? extends Annotation>> annotations
-    ) {
-        if (method.getParameterCount() != 1) {
-            return false;
-        }
-        EzyField field = clazz.getField(method.getFieldName());
-        boolean answer = field != null
-            && !field.isPublic()
-            && isAnnotated(field, annotations);
-        return answer || isAnnotated(method, annotations);
-    }
-
-    private boolean isAnnotated(
-        EzyField field,
-        List<Class<? extends Annotation>> annotations
-    ) {
-        for (Class<? extends Annotation> ann : annotations) {
-            if (field.isAnnotated(ann)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isAnnotated(
-        EzyMethod method,
-        List<Class<? extends Annotation>> annotations
-    ) {
-        for (Class<? extends Annotation> ann : annotations) {
-            if (method.isAnnotated(ann)) {
-                return true;
-            }
-        }
-        return false;
+        return metadataCache.getObjectBuilder(
+            clazz.getClazz(),
+            addMissingSetterFields()
+        ).getPostInitMethods();
     }
 
     protected final boolean isAbstractClass(Class<?> clazz) {
@@ -217,7 +129,7 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
         if (annotation == null) {
             return field.getName();
         }
-        if (annotation.value().length > 0 && annotation.value()[0].length() > 0) {
+        if (annotation.value().length > 0 && !annotation.value()[0].isEmpty()) {
             return annotation.value()[0];
         }
         return field.getName();
@@ -237,31 +149,16 @@ public abstract class EzySimpleObjectBuilder extends EzyLoggable {
         return EzyPropertyAnnotations.getPropertyName(clazz, element);
     }
 
-    private void checkMissingSetterMethodFields(
-        List<EzyField> fields,
-        List<Class<? extends Annotation>> annotationClasses
-    ) {
-        List<EzyField> missingSetterFields = clazz.getFields(f -> {
-            if (!isAnnotated(f, annotationClasses)) {
-                return false;
-            }
-            if (f.isPublic()) {
-                return false;
-            }
-            EzyMethod setter = clazz.getSetterMethod(f.getSetterMethod());
-            return setter == null;
-        });
-        boolean addMissingSetterFields = addMissingSetterFields();
-        for (EzyField field : missingSetterFields) {
-            if (addMissingSetterFields) {
-                fields.add(field);
-            } else {
-                logger.warn(
-                    "field: {} maybe null",
-                    field.getName(),
-                    new EzyMissingSetterException(field)
-                );
-            }
+    private void logMissingSetterMethodFields(List<EzyField> fields) {
+        if (addMissingSetterFields()) {
+            return;
+        }
+        for (EzyField field : fields) {
+            logger.warn(
+                "field: {} maybe null",
+                field.getName(),
+                new EzyMissingSetterException(field)
+            );
         }
     }
 

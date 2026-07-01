@@ -4,7 +4,6 @@ import com.tvd12.ezyfox.asm.EzyFunction.EzyBody;
 import com.tvd12.ezyfox.asm.EzyInstruction;
 import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyClasses;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 
@@ -21,9 +20,14 @@ public class EzyByMethodPrototypeSupplierLoader
     public EzyByMethodPrototypeSupplierLoader(
         String beanName,
         EzyMethod method,
-        Object configurator
+        Object configurator,
+        EzyBeanMetadataCache metadataCache
     ) {
-        super(beanName, new EzyClass(method.getReturnType()));
+        super(
+            beanName,
+            metadataCache.getClass(method.getReturnType()),
+            metadataCache
+        );
         this.method = method;
         this.configurator = configurator;
     }

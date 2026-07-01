@@ -1,5 +1,6 @@
 package com.tvd12.ezyfox.bean.testing;
 
+import com.tvd12.ezyfox.bean.impl.EzyBeanMetadataCache;
 import com.tvd12.ezyfox.bean.impl.EzyByFieldSingletonLoader;
 import com.tvd12.ezyfox.reflect.EzyField;
 import com.tvd12.test.base.BaseTest;
@@ -21,7 +22,13 @@ public class EzyByFieldSingletonLoaderTest extends BaseTest {
 
     public static class ExEzyByFieldSingletonLoader extends EzyByFieldSingletonLoader {
         public ExEzyByFieldSingletonLoader(EzyField field, Object configurator) {
-            super("a", field, configurator, new HashMap<>());
+            super(
+                "a",
+                field,
+                configurator,
+                new HashMap<>(),
+                new EzyBeanMetadataCache()
+            );
         }
 
         @Override

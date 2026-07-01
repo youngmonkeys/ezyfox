@@ -3,17 +3,47 @@ package com.tvd12.ezyfox.bean.impl;
 import com.tvd12.ezyfox.annotation.EzyImport;
 import com.tvd12.ezyfox.annotation.EzyPackagesToScan;
 import com.tvd12.ezyfox.annotation.EzyProperty;
-import com.tvd12.ezyfox.bean.*;
-import com.tvd12.ezyfox.bean.annotation.*;
+import com.tvd12.ezyfox.bean.EzyBeanAutoConfig;
+import com.tvd12.ezyfox.bean.EzyBeanContext;
+import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
+import com.tvd12.ezyfox.bean.EzyBeanNameTranslator;
+import com.tvd12.ezyfox.bean.EzyErrorHandler;
+import com.tvd12.ezyfox.bean.EzyPropertiesMap;
+import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
+import com.tvd12.ezyfox.bean.EzyPrototypeSupplier;
+import com.tvd12.ezyfox.bean.EzySingletonFactory;
+import com.tvd12.ezyfox.bean.annotation.EzyBeanPackagesToScan;
+import com.tvd12.ezyfox.bean.annotation.EzyConfiguration;
+import com.tvd12.ezyfox.bean.annotation.EzyConfigurationAfter;
+import com.tvd12.ezyfox.bean.annotation.EzyConfigurationBefore;
+import com.tvd12.ezyfox.bean.annotation.EzyDisableAutoConfiguration;
+import com.tvd12.ezyfox.bean.annotation.EzyExclusiveClassesConfiguration;
+import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBean;
+import com.tvd12.ezyfox.bean.annotation.EzyPropertiesBeans;
+import com.tvd12.ezyfox.bean.annotation.EzyPropertiesSources;
+import com.tvd12.ezyfox.bean.annotation.EzyPrototype;
+import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.bean.exception.EzyNewSingletonException;
 import com.tvd12.ezyfox.bean.exception.EzySingletonException;
-import com.tvd12.ezyfox.bean.supplier.*;
+import com.tvd12.ezyfox.bean.supplier.EzyArrayListSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyCollectionSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyConcurrentHashMapSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyCopyOnWriteArrayListSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyCopyOnWriteArraySetSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyDequeSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyHashMapSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyHashSetSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyLinkedListSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyListSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyMapSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyQueueSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzySetSupplier;
+import com.tvd12.ezyfox.bean.supplier.EzyTreeMapSupplier;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.io.EzySimpleValueConverter;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.properties.EzyPropertiesReader;
 import com.tvd12.ezyfox.properties.EzySimplePropertiesReader;
-import com.tvd12.ezyfox.reflect.EzyClass;
 import com.tvd12.ezyfox.reflect.EzyImportReflection;
 import com.tvd12.ezyfox.reflect.EzyPackages;
 import com.tvd12.ezyfox.reflect.EzyReflection;
@@ -30,8 +60,16 @@ import lombok.Getter;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
@@ -234,6 +272,7 @@ public class EzySimpleBeanContext
         protected EzyBeanNameTranslator beanNameTranslator;
         protected EzyErrorHandler errorHandler;
         protected EzyMapSet<EzyBeanKey, Class<?>> unloadedSingletons;
+        protected EzyBeanMetadataCache metadataCache;
 
         public Builder() {
             this.enableAutoConfiguration = true;
@@ -820,6 +859,7 @@ public class EzySimpleBeanContext
          */
         @Override
         public EzySimpleBeanContext build() {
+            metadataCache = new EzyBeanMetadataCache();
             EzySimpleBeanContext context = new EzySimpleBeanContext();
             readDefaultPropertiesFiles();
             setVariableValues(properties);
@@ -857,6 +897,7 @@ public class EzySimpleBeanContext
             loadConfigurationClasses(context);
             tryLoadUncompletedSingletonsAgain(context, true);
             loadConfigurationAfterClasses(context);
+            metadataCache = null;
             return context;
         }
 
@@ -954,14 +995,22 @@ public class EzySimpleBeanContext
             try {
                 EzySingletonLoader loader = new EzyByConstructorSingletonLoader(
                     beanName,
-                    new EzyClass(type),
-                    stackCallClasses
+                    metadataCache.getClass(type),
+                    stackCallClasses,
+                    metadataCache
                 );
                 return loader.load(context);
             } catch (EzyNewSingletonException e) {
                 for (Class<?> clazz : stackCallClasses) {
                     unloadedSingletons.addItems(e.getErrorKey(), clazz);
                 }
+                return null;
+            } catch (Throwable e) {
+                logger.warn(
+                    "skip bean {} due to missing class dependency or error",
+                    type.getName(),
+                    e
+                );
                 return null;
             }
         }
@@ -978,7 +1027,20 @@ public class EzySimpleBeanContext
             String beanName = getPrototypeBeanName(type);
             Object current = prototypeFactory.getSupplier(beanName, type);
             if (current == null) {
-                new EzyByConstructorPrototypeSupplierLoader(beanName, new EzyClass(type)).load(prototypeFactory);
+                try {
+                    new EzyByConstructorPrototypeSupplierLoader(
+                        beanName,
+                        metadataCache.getClass(type),
+                        metadataCache
+                    ).load(prototypeFactory);
+                } catch (Throwable e) {
+                    logger.warn(
+                        "skip prototype {} " +
+                            "due to missing class dependency or error",
+                        type.getName(),
+                        e
+                    );
+                }
             }
         }
 
@@ -1016,12 +1078,18 @@ public class EzySimpleBeanContext
         }
 
         private void scanPackagesScanClasses() {
+            Set<String> allNewPackets = new HashSet<>();
             for (Class clazz : packagesScanClasses) {
-                this.scanPackagesScanClass(clazz);
+                allNewPackets.addAll(collectPackagesFromScanClass(clazz));
+            }
+            allNewPackets.removeAll(packagesToScan);
+            if (!allNewPackets.isEmpty()) {
+                packagesToScan.addAll(allNewPackets);
+                doScanPackages(allNewPackets);
             }
         }
 
-        private void scanPackagesScanClass(Class<?> clazz) {
+        private Set<String> collectPackagesFromScanClass(Class<?> clazz) {
             Set<String> packets = new HashSet<>();
             EzyPackagesToScan packagesScanAnn = clazz.getAnnotation(EzyPackagesToScan.class);
             if (packagesScanAnn != null) {
@@ -1041,8 +1109,7 @@ public class EzySimpleBeanContext
                     packets.addAll(Arrays.asList(value));
                 }
             }
-            packagesToScan.addAll(packets);
-            doScanPackages(packets);
+            return packets;
         }
 
         private void loadPropertiesSources() {
@@ -1108,7 +1175,7 @@ public class EzySimpleBeanContext
 
         private void loadConfigurationClass(Class<?> clazz, EzyBeanContext context) {
             try {
-                new EzySimpleConfigurationLoader()
+                new EzySimpleConfigurationLoader(metadataCache)
                     .context(context)
                     .contextBuilder(this)
                     .clazz(clazz)
@@ -1119,6 +1186,18 @@ public class EzySimpleBeanContext
                         "{} auto config failed due to: {} ({})",
                         clazz.getName(),
                         e.getClass().getName(),
+                        e.getMessage()
+                    );
+                } else if (e instanceof EzyNewSingletonException) {
+                    logger.warn(
+                        "skip configuration class {} due to missing bean dependency: {}",
+                        clazz.getName(),
+                        e.getMessage()
+                    );
+                } else if (e instanceof LinkageError) {
+                    logger.warn(
+                        "skip configuration class {} due to missing class dependency: {}",
+                        clazz.getName(),
                         e.getMessage()
                     );
                 } else {
@@ -1243,9 +1322,9 @@ public class EzySimpleBeanContext
             prototypeFactory.addSupplier(EzyLinkedListSupplier.getInstance());
             prototypeFactory.addSupplier(EzyListSupplier.getInstance());
             prototypeFactory.addSupplier(EzyMapSupplier.getInstance());
+            prototypeFactory.addSupplier(EzyDequeSupplier.getInstance());
             prototypeFactory.addSupplier(EzyQueueSupplier.getInstance());
             prototypeFactory.addSupplier(EzySetSupplier.getInstance());
-            prototypeFactory.addSupplier(EzyStackSupplier.getInstance());
             prototypeFactory.addSupplier(EzyTreeMapSupplier.getInstance());
         }
 

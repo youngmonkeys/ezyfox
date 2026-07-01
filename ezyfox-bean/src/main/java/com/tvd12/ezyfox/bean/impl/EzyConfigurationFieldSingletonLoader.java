@@ -13,13 +13,15 @@ public class EzyConfigurationFieldSingletonLoader
         String beanName,
         EzyField field,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType
+        Map<Class<?>, EzyMethod> methodsByType,
+        EzyBeanMetadataCache metadataCache
     ) {
         super(
             beanName,
             field,
             configurator,
-            methodsByType
+            methodsByType,
+            metadataCache
         );
     }
 

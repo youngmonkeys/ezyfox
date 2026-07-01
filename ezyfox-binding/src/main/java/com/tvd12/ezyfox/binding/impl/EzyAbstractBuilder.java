@@ -2,11 +2,19 @@ package com.tvd12.ezyfox.binding.impl;
 
 import com.tvd12.ezyfox.binding.annotation.EzyValue;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.reflect.*;
+import com.tvd12.ezyfox.reflect.EzyAnnotatedElement;
+import com.tvd12.ezyfox.reflect.EzyByFieldMethod;
+import com.tvd12.ezyfox.reflect.EzyClass;
+import com.tvd12.ezyfox.reflect.EzyField;
+import com.tvd12.ezyfox.reflect.EzyGenericElement;
+import com.tvd12.ezyfox.reflect.EzyKnownTypeElement;
+import com.tvd12.ezyfox.reflect.EzyMethod;
+import com.tvd12.ezyfox.reflect.EzyReflectElement;
 import com.tvd12.ezyfox.util.EzyLoggable;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 public abstract class EzyAbstractBuilder<M extends EzyMethod> extends EzyLoggable {
 
@@ -18,6 +26,16 @@ public abstract class EzyAbstractBuilder<M extends EzyMethod> extends EzyLoggabl
         this.clazz = clazz;
         this.elementsFetcher = newElementsFetcher();
         this.accessType = getAccessType(clazz);
+    }
+
+    public EzyAbstractBuilder<M> setElementsByClassCache(
+        Map<Class<?>, Map<Class<?>, List<Object>>> elementsByClassCache
+    ) {
+        if (elementsFetcher instanceof EzyAbstractElementsFetcher) {
+            ((EzyAbstractElementsFetcher) elementsFetcher)
+                .setElementsByClassCache(elementsByClassCache);
+        }
+        return this;
     }
 
     protected abstract int getAccessType(EzyClass clazz);

@@ -15,8 +15,13 @@ public class GeneratedClassAFactory2 {
         EzyByFieldPrototypeSupplierLoader.setDebug(true);
         EzyByMethodPrototypeSupplierLoader.setDebug(true);
 
+        EzyBeanMetadataCache metadataCache = new EzyBeanMetadataCache();
         EzyPrototypeSupplierLoader builder =
-            new EzyByConstructorPrototypeSupplierLoader("classA", new EzyClass(ClassA.class));
+            new EzyByConstructorPrototypeSupplierLoader(
+                "classA",
+                new EzyClass(ClassA.class),
+                metadataCache
+            );
 
         EzyPrototypeSupplier supplier = builder.load(new EzySimplePrototypeFactory());
 
