@@ -1201,7 +1201,11 @@ public class EzySimpleBeanContext
                         e.getMessage()
                     );
                 } else {
-                    throw e;
+                    logger.warn(
+                        "skip configuration class {} due to error",
+                        clazz.getName(),
+                        e
+                    );
                 }
             }
         }

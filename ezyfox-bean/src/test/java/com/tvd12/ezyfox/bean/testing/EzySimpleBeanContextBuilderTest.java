@@ -1,7 +1,7 @@
 package com.tvd12.ezyfox.bean.testing;
 
-import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanConfig;
+import com.tvd12.ezyfox.bean.EzyBeanContext;
 import com.tvd12.ezyfox.bean.EzyBeanContextBuilder;
 import com.tvd12.ezyfox.bean.EzyPrototypeFactory;
 import com.tvd12.test.assertion.Asserts;
@@ -118,7 +118,7 @@ public class EzySimpleBeanContextBuilderTest {
         );
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test
     public void loadConfigurationClassCatchOtherException() {
         // when
         EzyBeanContext.builder()

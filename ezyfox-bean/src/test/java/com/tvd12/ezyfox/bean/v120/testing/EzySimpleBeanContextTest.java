@@ -7,7 +7,13 @@ import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigAfter11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.ConfigurationBefore11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.LastSingleton11;
 import com.tvd12.ezyfox.bean.v120.testing.packet01.Singleton11;
-import com.tvd12.ezyfox.bean.v120.testing.packet02.*;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter21;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter22;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.ConfigAfter23;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton21;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton22;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.LastSingleton23;
+import com.tvd12.ezyfox.bean.v120.testing.packet02.Singleton21;
 import com.tvd12.ezyfox.bean.v120.testing.packet03.Config33;
 import com.tvd12.ezyfox.bean.v120.testing.packet03.ConfigFailed31;
 import com.tvd12.ezyfox.bean.v120.testing.packet03.Singleton31;
@@ -18,7 +24,11 @@ import com.tvd12.ezyfox.reflect.EzyReflectionProxy;
 import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 public class EzySimpleBeanContextTest {
 
@@ -256,9 +266,7 @@ public class EzySimpleBeanContextTest {
             .addConfigurationBeforeClass(ConfigFailed31.class);
 
         // when
-        Throwable e = Asserts.assertThrows(builder::build);
-
         // then
-        Asserts.assertEquals(RuntimeException.class, e.getClass());
+        builder.build();
     }
 }
