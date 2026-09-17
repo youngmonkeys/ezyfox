@@ -1201,7 +1201,7 @@ public class EzySimpleBeanContext
                         e.getMessage()
                     );
                 } else {
-                    logger.warn(
+                    logger.error(
                         "skip configuration class {} due to error",
                         clazz.getName(),
                         e
