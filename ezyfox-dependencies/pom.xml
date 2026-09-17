@@ -80,7 +80,7 @@
         <rabbitmq.version>5.18.0</rabbitmq.version>
         <test.util.version>1.1.8</test.util.version>
         <properties.file.version>1.1.8</properties.file.version>
-        <thymeleaf.version>3.1.1.RELEASE</thymeleaf.version>
+        <thymeleaf.version>3.1.5.RELEASE</thymeleaf.version>
         <thymeleaf-layout-dialect.version>3.2.0</thymeleaf-layout-dialect.version>
     </properties>
 
