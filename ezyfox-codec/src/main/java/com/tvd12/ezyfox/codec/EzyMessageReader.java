@@ -3,11 +3,16 @@ package com.tvd12.ezyfox.codec;
 import com.tvd12.ezyfox.exception.EzyMaxRequestSizeException;
 import com.tvd12.ezyfox.exception.EzyZeroRequestSizeException;
 
+import java.util.Arrays;
+
 public abstract class EzyMessageReader<B> {
 
     private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+    private static final int MIN_CONTENT_CAPACITY = 1024;
     protected int size;
     protected byte[] content;
+    protected int contentOffset;
+    protected int contentLength;
     protected byte headerByte;
     protected byte[] sizeBytes;
     protected EzyMessageHeader header;
@@ -43,41 +48,68 @@ public abstract class EzyMessageReader<B> {
         if (remaining < getSizeLength()) {
             return false;
         }
-        this.size = readMessageSize(buffer);
-        if (size <= 0) {
+        long unsignedSize = readMessageSize(buffer) & 0xFFFFFFFFL;
+        if (unsignedSize == 0) {
             throw new EzyZeroRequestSizeException();
         }
-        if (size > maxSize) {
-            throw new EzyMaxRequestSizeException(size, maxSize);
+        if (unsignedSize > maxSize) {
+            throw new EzyMaxRequestSizeException(unsignedSize, maxSize);
         }
+        this.size = (int) unsignedSize;
         return true;
     }
 
     public boolean readContent(B buffer) {
         int remaining = remaining(buffer);
-        if (remaining < size) {
+        if (remaining <= 0) {
             return false;
         }
-        boolean rawBytes = isRawBytes();
-        if (rawBytes) {
-            int offset = getHeaderLength() + sizeBytes.length;
-            int rawSize = size + offset;
-            this.content = new byte[rawSize];
-            this.content[0] = headerByte;
-            System.arraycopy(sizeBytes, 0, content, 1, sizeBytes.length);
-            readMessageContent(buffer, content, offset, size);
-        } else {
-            this.content = new byte[size];
-            readMessageContent(buffer, content, 0, size);
+        if (content == EMPTY_BYTE_ARRAY) {
+            prepareContent(remaining);
         }
-        return true;
+        int length = Math.min(remaining, contentLength - contentOffset);
+        ensureContentCapacity(contentOffset + length);
+        readMessageContent(buffer, content, contentOffset, length);
+        contentOffset += length;
+        return contentOffset == contentLength;
+    }
+
+    private void prepareContent(int remaining) {
+        int prefixLength = 0;
+        if (isRawBytes()) {
+            int headerLength = getHeaderLength();
+            prefixLength = headerLength + sizeBytes.length;
+        }
+        this.contentLength = prefixLength + size;
+        int capacity = Math.min(
+            contentLength,
+            prefixLength + Math.max(remaining, MIN_CONTENT_CAPACITY)
+        );
+        this.content = new byte[capacity];
+        if (prefixLength > 0) {
+            int headerLength = getHeaderLength();
+            this.content[0] = headerByte;
+            System.arraycopy(sizeBytes, 0, content, headerLength, sizeBytes.length);
+        }
+        this.contentOffset = prefixLength;
+    }
+
+    private void ensureContentCapacity(int required) {
+        if (required <= content.length) {
+            return;
+        }
+        long newCapacity = Math.max(required, (long) content.length << 1);
+        this.content = Arrays.copyOf(content, (int) Math.min(newCapacity, contentLength));
     }
 
     public void clear() {
         this.size = 0;
         this.headerByte = 0;
+        this.header = null;
         this.sizeBytes = EMPTY_BYTE_ARRAY;
         this.content = EMPTY_BYTE_ARRAY;
+        this.contentOffset = 0;
+        this.contentLength = 0;
     }
 
     public EzyMessage get() {

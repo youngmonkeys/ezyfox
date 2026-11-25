@@ -45,6 +45,7 @@ public class EzySimpleMessageTest {
             3
         );
         assert message.getContentStartIndex() == 0;
+        assert message.getByteCount() == 3;
         System.out.println(message);
     }
 }

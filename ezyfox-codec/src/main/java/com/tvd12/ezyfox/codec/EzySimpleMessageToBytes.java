@@ -1,19 +1,24 @@
 package com.tvd12.ezyfox.codec;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public class EzySimpleMessageToBytes implements EzyMessageToBytes {
 
     @Override
     public byte[] convert(EzyMessage message) {
+        if (message.getHeader().isRawBytes()) {
+            return message.getContent().clone();
+        }
         ByteBuffer buffer = newByteBuffer(message);
         writeHeader(buffer, message);
         writeSize(buffer, message);
         writeContent(buffer, message);
-        byte[] answer = new byte[buffer.position()];
-        buffer.flip();
-        buffer.get(answer);
-        return answer;
+        byte[] array = buffer.array();
+        int length = buffer.position();
+        return length == array.length
+            ? array
+            : Arrays.copyOf(array, length);
     }
 
     private void writeHeader(ByteBuffer buffer, EzyMessage message) {

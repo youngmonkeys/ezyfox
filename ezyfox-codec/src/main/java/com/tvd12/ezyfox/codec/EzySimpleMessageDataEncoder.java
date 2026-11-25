@@ -19,6 +19,13 @@ public class EzySimpleMessageDataEncoder implements EzyMessageDataEncoder {
     }
 
     @Override
+    public byte[] compressMessageContent(
+        byte[] messageContent
+    ) throws Exception {
+        return encoder.compressMessageContent(messageContent);
+    }
+
+    @Override
     public byte[] encryptMessageContent(
         byte[] messageContent,
         byte[] encryptionKey
@@ -26,6 +33,19 @@ public class EzySimpleMessageDataEncoder implements EzyMessageDataEncoder {
         return encoder.encryptMessageContent(
             messageContent,
             encryptionKey
+        );
+    }
+
+    @Override
+    public byte[] encryptMessageContent(
+        byte[] messageContent,
+        byte[] encryptionKey,
+        boolean compressed
+    ) throws Exception {
+        return encoder.encryptMessageContent(
+            messageContent,
+            encryptionKey,
+            compressed
         );
     }
 }

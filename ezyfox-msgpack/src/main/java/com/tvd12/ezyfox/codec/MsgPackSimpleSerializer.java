@@ -4,22 +4,25 @@ import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyArrayList;
 import com.tvd12.ezyfox.entity.EzyHashMap;
 import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.function.EzyParser;
-import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyCastToByte;
-import com.tvd12.ezyfox.io.EzyDataConverter;
-import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.util.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
+
+import static com.tvd12.ezyfox.codec.MsgPackConstant.*;
 
 @SuppressWarnings({"MethodCount", "OverloadMethodsDeclarationOrder"})
 public class MsgPackSimpleSerializer
     extends EzyAbstractToBytesSerializer
     implements EzyCastToByte {
+
+    private static final int INITIAL_CAPACITY = 256;
 
     protected final MsgPackIntSerializer intSerializer;
     protected final MsgPackFloatSerializer floatSerializer;
@@ -40,55 +43,69 @@ public class MsgPackSimpleSerializer
     }
 
     @Override
+    public byte[] serialize(Object value) {
+        Output out = new Output(INITIAL_CAPACITY);
+        writeValue(value, out);
+        return out.toByteArray();
+    }
+
+    @Override
     protected void addParsers(Map<Class<?>, EzyParser<Object, byte[]>> parsers) {
-        parsers.put(Boolean.class, this::parseBoolean);
-        parsers.put(Byte.class, this::parseByte);
-        parsers.put(Character.class, this::parseChar);
-        parsers.put(Double.class, this::parseDouble);
-        parsers.put(Float.class, this::parseFloat);
-        parsers.put(Integer.class, this::parseInt);
-        parsers.put(Long.class, this::parseInt);
-        parsers.put(Short.class, this::parseShort);
-        parsers.put(String.class, this::parseString);
+        parsers.put(Boolean.class, writer((v, o) -> writeBoolean((Boolean) v, o)));
+        parsers.put(Byte.class, writer((v, o) -> writeInt(((Byte) v).intValue(), o)));
+        parsers.put(Character.class, writer((v, o) -> writeChar((Character) v, o)));
+        parsers.put(Double.class, writer((v, o) -> writeDouble((Double) v, o)));
+        parsers.put(Float.class, writer((v, o) -> writeFloat((Float) v, o)));
+        parsers.put(Integer.class, writer((v, o) -> writeInt(((Number) v).longValue(), o)));
+        parsers.put(Long.class, writer((v, o) -> writeInt(((Number) v).longValue(), o)));
+        parsers.put(Short.class, writer((v, o) -> writeInt(((Short) v).intValue(), o)));
+        parsers.put(String.class, writer((v, o) -> writeString((String) v, o)));
 
-        parsers.put(boolean[].class, this::parsePrimitiveBooleans);
-        parsers.put(byte[].class, this::parseBin);
-        parsers.put(char[].class, this::parsePrimitiveChars);
-        parsers.put(double[].class, this::parsePrimitiveDoubles);
-        parsers.put(float[].class, this::parsePrimitiveFloats);
-        parsers.put(int[].class, this::parsePrimitiveInts);
-        parsers.put(long[].class, this::parsePrimitiveLongs);
-        parsers.put(short[].class, this::parsePrimitiveShorts);
-        parsers.put(String[].class, this::parseStrings);
+        parsers.put(boolean[].class, writer((v, o) -> writeBooleans((boolean[]) v, o)));
+        parsers.put(byte[].class, writer((v, o) -> writeBin((byte[]) v, o)));
+        parsers.put(char[].class, writer((v, o) -> writeChars((char[]) v, o)));
+        parsers.put(double[].class, writer((v, o) -> writeDoubles((double[]) v, o)));
+        parsers.put(float[].class, writer((v, o) -> writeFloats((float[]) v, o)));
+        parsers.put(int[].class, writer((v, o) -> writeInts((int[]) v, o)));
+        parsers.put(long[].class, writer((v, o) -> writeLongs((long[]) v, o)));
+        parsers.put(short[].class, writer((v, o) -> writeShorts((short[]) v, o)));
+        parsers.put(String[].class, writer((v, o) -> writeValues((Object[]) v, o)));
 
-        parsers.put(Byte[].class, this::parseWrapperBytes);
-        parsers.put(Boolean[].class, this::parseWrapperBooleans);
-        parsers.put(Character[].class, this::parseWrapperChars);
-        parsers.put(Double[].class, this::parseWrapperDoubles);
-        parsers.put(Float[].class, this::parseWrapperFloats);
-        parsers.put(Integer[].class, this::parseWrapperInts);
-        parsers.put(Long[].class, this::parseWrapperLongs);
-        parsers.put(Short[].class, this::parseWrapperShorts);
+        parsers.put(Byte[].class, writer((v, o) -> writeBytes((Byte[]) v, o)));
+        parsers.put(Boolean[].class, writer((v, o) -> writeValues((Object[]) v, o)));
+        parsers.put(Character[].class, writer((v, o) -> writeChars((Character[]) v, o)));
+        parsers.put(Double[].class, writer((v, o) -> writeValues((Object[]) v, o)));
+        parsers.put(Float[].class, writer((v, o) -> writeValues((Object[]) v, o)));
+        parsers.put(Integer[].class, writer((v, o) -> writeValues((Object[]) v, o)));
+        parsers.put(Long[].class, writer((v, o) -> writeValues((Object[]) v, o)));
+        parsers.put(Short[].class, writer((v, o) -> writeValues((Object[]) v, o)));
 
-        parsers.put(Map.class, this::parseMap);
-        parsers.put(AbstractMap.class, this::parseMap);
-        parsers.put(HashMap.class, this::parseMap);
-        parsers.put(EzyObject.class, this::parseObject);
-        parsers.put(EzyHashMap.class, this::parseObject);
-        parsers.put(EzyArray.class, this::parseArray);
-        parsers.put(EzyArrayList.class, this::parseArray);
-        parsers.put(Collection.class, this::parseCollection);
-        parsers.put(AbstractCollection.class, this::parseCollection);
-        parsers.put(Set.class, this::parseCollection);
-        parsers.put(AbstractSet.class, this::parseCollection);
-        parsers.put(List.class, this::parseCollection);
-        parsers.put(AbstractList.class, this::parseCollection);
-        parsers.put(HashSet.class, this::parseCollection);
-        parsers.put(ArrayList.class, this::parseCollection);
+        EzyParser<Object, byte[]> mapWriter = writer((v, o) -> writeMap((Map<?, ?>) v, o));
+        EzyParser<Object, byte[]> objectWriter = writer((v, o) -> writeObject((EzyObject) v, o));
+        EzyParser<Object, byte[]> arrayWriter = writer((v, o) -> writeArray((EzyArray) v, o));
+        EzyParser<Object, byte[]> collectionWriter =
+            writer((v, o) -> writeCollection((Collection<?>) v, o));
+        parsers.put(Map.class, mapWriter);
+        parsers.put(AbstractMap.class, mapWriter);
+        parsers.put(HashMap.class, mapWriter);
+        parsers.put(EzyObject.class, objectWriter);
+        parsers.put(EzyHashMap.class, objectWriter);
+        parsers.put(EzyArray.class, arrayWriter);
+        parsers.put(EzyArrayList.class, arrayWriter);
+        parsers.put(Collection.class, collectionWriter);
+        parsers.put(AbstractCollection.class, collectionWriter);
+        parsers.put(Set.class, collectionWriter);
+        parsers.put(AbstractSet.class, collectionWriter);
+        parsers.put(List.class, collectionWriter);
+        parsers.put(AbstractList.class, collectionWriter);
+        parsers.put(HashSet.class, collectionWriter);
+        parsers.put(ArrayList.class, collectionWriter);
 
-        parsers.put(BigInteger.class, this::parseValueToString);
-        parsers.put(BigDecimal.class, this::parseBigDecimalToString);
-        parsers.put(UUID.class, this::parseValueToString);
+        EzyParser<Object, byte[]> toStringWriter =
+            writer((v, o) -> writeString(v.toString(), o));
+        parsers.put(BigInteger.class, toStringWriter);
+        parsers.put(BigDecimal.class, writer((v, o) -> writeString(((BigDecimal) v).toPlainString(), o)));
+        parsers.put(UUID.class, toStringWriter);
     }
 
     // ============= primitive array ==============
@@ -97,7 +114,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseBooleans(boolean[] array) {
-        return parseArray(EzyBoolsIterator.wrap(array), array.length);
+        return toBytes(out -> writeBooleans(array, out));
     }
 
     protected byte[] parsePrimitiveChars(Object array) {
@@ -105,7 +122,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseChars(char[] array) {
-        return parseBin(EzyDataConverter.charArrayToByteArray(array));
+        return toBytes(out -> writeChars(array, out));
     }
 
     protected byte[] parsePrimitiveDoubles(Object array) {
@@ -113,7 +130,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseDoubles(double[] array) {
-        return parseArray(EzyDoublesIterator.wrap(array), array.length);
+        return toBytes(out -> writeDoubles(array, out));
     }
 
     protected byte[] parsePrimitiveFloats(Object array) {
@@ -121,7 +138,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseFloats(float[] array) {
-        return parseArray(EzyFloatsIterator.wrap(array), array.length);
+        return toBytes(out -> writeFloats(array, out));
     }
 
     protected byte[] parsePrimitiveInts(Object array) {
@@ -129,7 +146,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseInts(int[] array) {
-        return parseArray(EzyIntsIterator.wrap(array), array.length);
+        return toBytes(out -> writeInts(array, out));
     }
 
     protected byte[] parsePrimitiveLongs(Object array) {
@@ -137,7 +154,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseLongs(long[] array) {
-        return parseArray(EzyLongsIterator.wrap(array), array.length);
+        return toBytes(out -> writeLongs(array, out));
     }
 
     protected byte[] parsePrimitiveShorts(Object array) {
@@ -145,7 +162,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseShorts(short[] array) {
-        return parseArray(EzyShortsIterator.wrap(array), array.length);
+        return toBytes(out -> writeShorts(array, out));
     }
 
     protected byte[] parseStrings(Object array) {
@@ -153,7 +170,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseStrings(String[] array) {
-        return parseArray(EzyStringsIterator.wrap(array), array.length);
+        return toBytes(out -> writeValues(array, out));
     }
 
     // ============== wrapper array ===============
@@ -162,7 +179,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseBooleans(Boolean[] array) {
-        return parseArray(EzyWrapperIterator.wrap(array), array.length);
+        return toBytes(out -> writeValues(array, out));
     }
 
     protected byte[] parseWrapperBytes(Object array) {
@@ -170,7 +187,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseBytes(Byte[] array) {
-        return parseBin(EzyDataConverter.toPrimitiveByteArray(array));
+        return toBytes(out -> writeBytes(array, out));
     }
 
     protected byte[] parseWrapperChars(Object array) {
@@ -178,7 +195,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseChars(Character[] array) {
-        return parseBin(EzyDataConverter.charWrapperArrayToPrimitiveByteArray(array));
+        return toBytes(out -> writeChars(array, out));
     }
 
     protected byte[] parseWrapperDoubles(Object array) {
@@ -186,7 +203,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseDoubles(Double[] array) {
-        return parseArray(EzyWrapperIterator.wrap(array), array.length);
+        return toBytes(out -> writeValues(array, out));
     }
 
     protected byte[] parseWrapperFloats(Object array) {
@@ -194,7 +211,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseFloats(Float[] array) {
-        return parseArray(EzyWrapperIterator.wrap(array), array.length);
+        return toBytes(out -> writeValues(array, out));
     }
 
     protected byte[] parseWrapperInts(Object array) {
@@ -202,7 +219,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseInts(Integer[] array) {
-        return parseArray(EzyWrapperIterator.wrap(array), array.length);
+        return toBytes(out -> writeValues(array, out));
     }
 
     protected byte[] parseWrapperLongs(Object array) {
@@ -210,7 +227,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseLongs(Long[] array) {
-        return parseArray(EzyWrapperIterator.wrap(array), array.length);
+        return toBytes(out -> writeValues(array, out));
     }
 
     protected byte[] parseWrapperShorts(Object array) {
@@ -218,7 +235,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseShorts(Short[] array) {
-        return parseArray(EzyWrapperIterator.wrap(array), array.length);
+        return toBytes(out -> writeValues(array, out));
     }
 
     // ============= single value ==============
@@ -292,9 +309,9 @@ public class MsgPackSimpleSerializer
         return parseMap((Map) map);
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({"rawtypes"})
     protected byte[] parseMap(Map map) {
-        return parseEntries(map.entrySet());
+        return toBytes(out -> writeMap(map, out));
     }
 
     protected byte[] parseObject(Object obj) {
@@ -328,10 +345,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseBin(byte[] bin) {
-        byte[][] byteArrays = new byte[2][];
-        byteArrays[0] = parseBinSize(bin.length);
-        byteArrays[1] = bin;
-        return EzyBytes.merge(byteArrays);
+        return toBytes(out -> writeBin(bin, out));
     }
 
     protected byte[] parseBinSize(int size) {
@@ -339,10 +353,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseString(String string) {
-        byte[][] byteArrays = new byte[2][];
-        byteArrays[1] = EzyStrings.getUtfBytes(string);
-        byteArrays[0] = parseStringSize(byteArrays[1].length);
-        return EzyBytes.merge(byteArrays);
+        return toBytes(out -> writeString(string, out));
     }
 
     protected byte[] parseStringSize(int size) {
@@ -356,13 +367,7 @@ public class MsgPackSimpleSerializer
 
     @SuppressWarnings("rawtypes")
     protected byte[] parseArray(Iterator iterator, int size) {
-        int index = 1;
-        byte[][] byteArrays = new byte[size + 1][];
-        byteArrays[0] = parseArraySize(size);
-        while (iterator.hasNext()) {
-            byteArrays[index++] = serialize(iterator.next());
-        }
-        return EzyBytes.merge(byteArrays);
+        return toBytes(out -> writeIterator(iterator, size, out));
     }
 
     protected byte[] parseArraySize(int size) {
@@ -370,15 +375,7 @@ public class MsgPackSimpleSerializer
     }
 
     protected byte[] parseEntries(Set<Entry<Object, Object>> entries) {
-        int index = 1;
-        int size = entries.size();
-        byte[][] byteArrays = new byte[size * 2 + 1][];
-        byteArrays[0] = parseMapSize(size);
-        for (Entry<Object, Object> e : entries) {
-            byteArrays[index++] = serialize(e.getKey());
-            byteArrays[index++] = serialize(e.getValue());
-        }
-        return EzyBytes.merge(byteArrays);
+        return toBytes(out -> writeEntries(entries, entries.size(), out));
     }
 
     protected byte[] parseMapSize(int size) {
@@ -391,5 +388,373 @@ public class MsgPackSimpleSerializer
 
     protected byte[] parseValueToString(Object value) {
         return parseString(value.toString());
+    }
+
+    // ============ writer ============
+    private EzyParser<Object, byte[]> writer(ValueWriter writer) {
+        return new WriterParser(writer);
+    }
+
+    private byte[] toBytes(Consumer<Output> writer) {
+        Output out = new Output(INITIAL_CAPACITY);
+        writer.accept(out);
+        return out.toByteArray();
+    }
+
+    private void writeValue(Object value, Output out) {
+        if (value == null) {
+            out.write(0xc0);
+            return;
+        }
+        EzyParser<Object, byte[]> parser = getParser(value.getClass());
+        if (parser instanceof WriterParser) {
+            ((WriterParser) parser).writer.write(value, out);
+        } else if (parser != null) {
+            out.write(parseWithParser(parser, value));
+        } else {
+            out.write(parseWithNoParser(value));
+        }
+    }
+
+    private void writeBoolean(boolean value, Output out) {
+        out.write(value ? 0xc3 : 0xc2);
+    }
+
+    private void writeChar(char value, Output out) {
+        writeInt((byte) value, out);
+    }
+
+    private void writeInt(long value, Output out) {
+        if (value >= 0) {
+            if (value <= MAX_POSITIVE_FIXINT) {
+                out.write((int) value);
+            } else if (value <= MAX_UINT8) {
+                out.write(0xcc);
+                out.write((int) value);
+            } else if (value <= MAX_UINT16) {
+                out.write(0xcd);
+                out.writeShort((int) value);
+            } else if (value <= MAX_UINT32) {
+                out.write(0xce);
+                out.writeInt((int) value);
+            } else {
+                out.write(0xcf);
+                out.writeLong(value);
+            }
+        } else {
+            if (value >= MIN_NEGATIVE_FIXINT) {
+                out.write((int) value);
+            } else if (value >= MIN_INT8) {
+                out.write(0xd0);
+                out.write((int) value);
+            } else if (value >= MIN_INT16) {
+                out.write(0xd1);
+                out.writeShort((int) value);
+            } else if (value >= MIN_INT32) {
+                out.write(0xd2);
+                out.writeInt((int) value);
+            } else {
+                out.write(0xd3);
+                out.writeLong(value);
+            }
+        }
+    }
+
+    private void writeFloat(float value, Output out) {
+        out.write(0xca);
+        out.writeInt(Float.floatToIntBits(value));
+    }
+
+    private void writeDouble(double value, Output out) {
+        out.write(0xcb);
+        out.writeLong(Double.doubleToLongBits(value));
+    }
+
+    private void writeString(String value, Output out) {
+        int length = value.length();
+        if (isAscii(value, length)) {
+            writeStringSize(length, out);
+            out.writeAscii(value, length);
+        } else {
+            byte[] bytes = value.getBytes(StandardCharsets.UTF_8);
+            writeStringSize(bytes.length, out);
+            out.write(bytes);
+        }
+    }
+
+    private static boolean isAscii(String value, int length) {
+        for (int i = 0; i < length; ++i) {
+            if (value.charAt(i) >= 0x80) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void writeStringSize(int size, Output out) {
+        if (size <= MAX_FIXSTR_SIZE) {
+            out.write(0xa0 | size);
+        } else if (size <= MAX_STR8_SIZE) {
+            out.write(0xd9);
+            out.write(size);
+        } else if (size <= MAX_STR16_SIZE) {
+            out.write(0xda);
+            out.writeShort(size);
+        } else {
+            out.write(0xdb);
+            out.writeInt(size);
+        }
+    }
+
+    private void writeBinSize(int size, Output out) {
+        if (size <= MAX_BIN8_SIZE) {
+            out.write(0xc4);
+            out.write(size);
+        } else if (size <= MAX_BIN16_SIZE) {
+            out.write(0xc5);
+            out.writeShort(size);
+        } else {
+            out.write(0xc6);
+            out.writeInt(size);
+        }
+    }
+
+    private void writeArraySize(int size, Output out) {
+        if (size <= MAX_FIXARRAY_SIZE) {
+            out.write(0x90 | size);
+        } else if (size <= MAX_ARRAY16_SIZE) {
+            out.write(0xdc);
+            out.writeShort(size);
+        } else {
+            out.write(0xdd);
+            out.writeInt(size);
+        }
+    }
+
+    private void writeMapSize(int size, Output out) {
+        if (size <= MAX_FIXMAP_SIZE) {
+            out.write(0x80 | size);
+        } else if (size <= MAX_MAP16_SIZE) {
+            out.write(0xde);
+            out.writeShort(size);
+        } else {
+            out.write(0xdf);
+            out.writeInt(size);
+        }
+    }
+
+    private void writeBin(byte[] value, Output out) {
+        writeBinSize(value.length, out);
+        out.write(value);
+    }
+
+    private void writeChars(char[] value, Output out) {
+        writeBinSize(value.length, out);
+        out.ensureCapacity(value.length);
+        for (char ch : value) {
+            out.write(ch);
+        }
+    }
+
+    private void writeChars(Character[] value, Output out) {
+        writeBinSize(value.length, out);
+        out.ensureCapacity(value.length);
+        for (Character ch : value) {
+            out.write(ch);
+        }
+    }
+
+    private void writeBytes(Byte[] value, Output out) {
+        writeBinSize(value.length, out);
+        out.ensureCapacity(value.length);
+        for (Byte b : value) {
+            out.write(b);
+        }
+    }
+
+    private void writeBooleans(boolean[] value, Output out) {
+        writeArraySize(value.length, out);
+        for (boolean item : value) {
+            writeBoolean(item, out);
+        }
+    }
+
+    private void writeDoubles(double[] value, Output out) {
+        writeArraySize(value.length, out);
+        for (double item : value) {
+            writeDouble(item, out);
+        }
+    }
+
+    private void writeFloats(float[] value, Output out) {
+        writeArraySize(value.length, out);
+        for (float item : value) {
+            writeFloat(item, out);
+        }
+    }
+
+    private void writeInts(int[] value, Output out) {
+        writeArraySize(value.length, out);
+        for (int item : value) {
+            writeInt(item, out);
+        }
+    }
+
+    private void writeLongs(long[] value, Output out) {
+        writeArraySize(value.length, out);
+        for (long item : value) {
+            writeInt(item, out);
+        }
+    }
+
+    private void writeShorts(short[] value, Output out) {
+        writeArraySize(value.length, out);
+        for (short item : value) {
+            writeInt(item, out);
+        }
+    }
+
+    private void writeValues(Object[] value, Output out) {
+        writeArraySize(value.length, out);
+        for (Object item : value) {
+            writeValue(item, out);
+        }
+    }
+
+    private void writeMap(Map<?, ?> map, Output out) {
+        writeEntries(map.entrySet(), map.size(), out);
+    }
+
+    private void writeObject(EzyObject object, Output out) {
+        Set<Entry<Object, Object>> entries = object.entrySet();
+        writeEntries(entries, entries.size(), out);
+    }
+
+    private void writeEntries(
+        Collection<? extends Entry<?, ?>> entries,
+        int size,
+        Output out
+    ) {
+        writeMapSize(size, out);
+        int count = 0;
+        for (Entry<?, ?> entry : entries) {
+            writeValue(entry.getKey(), out);
+            writeValue(entry.getValue(), out);
+            ++count;
+        }
+        checkSize(size, count);
+    }
+
+    private void writeArray(EzyArray array, Output out) {
+        writeIterator(array.iterator(), array.size(), out);
+    }
+
+    private void writeCollection(Collection<?> collection, Output out) {
+        writeIterator(collection.iterator(), collection.size(), out);
+    }
+
+    private void writeIterator(Iterator<?> iterator, int size, Output out) {
+        writeArraySize(size, out);
+        int count = 0;
+        while (iterator.hasNext()) {
+            writeValue(iterator.next(), out);
+            ++count;
+        }
+        checkSize(size, count);
+    }
+
+    private static void checkSize(int expected, int actual) {
+        if (expected != actual) {
+            throw new EzyCodecException(
+                "size changed while serializing, expected: " + expected + ", actual: " + actual
+            );
+        }
+    }
+
+    @FunctionalInterface
+    private interface ValueWriter {
+        void write(Object value, Output out);
+    }
+
+    private final class WriterParser implements EzyParser<Object, byte[]> {
+
+        private final ValueWriter writer;
+
+        private WriterParser(ValueWriter writer) {
+            this.writer = writer;
+        }
+
+        @Override
+        public byte[] parse(Object value) {
+            return toBytes(out -> writer.write(value, out));
+        }
+    }
+
+    private static final class Output {
+
+        private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+
+        private byte[] buffer;
+        private int count;
+
+        private Output(int capacity) {
+            this.buffer = new byte[capacity];
+        }
+
+        private void ensureCapacity(int length) {
+            int required = count + length;
+            if (required < 0 || required > MAX_ARRAY_SIZE) {
+                throw new EzyCodecException("serialized data is too large");
+            }
+            if (required > buffer.length) {
+                long newCapacity = Math.max((long) buffer.length << 1, required);
+                buffer = Arrays.copyOf(buffer, (int) Math.min(newCapacity, MAX_ARRAY_SIZE));
+            }
+        }
+
+        private void write(int value) {
+            ensureCapacity(1);
+            buffer[count++] = (byte) value;
+        }
+
+        private void write(byte[] value) {
+            ensureCapacity(value.length);
+            System.arraycopy(value, 0, buffer, count, value.length);
+            count += value.length;
+        }
+
+        private void writeShort(int value) {
+            ensureCapacity(2);
+            buffer[count++] = (byte) (value >>> 8);
+            buffer[count++] = (byte) value;
+        }
+
+        private void writeInt(int value) {
+            ensureCapacity(4);
+            buffer[count++] = (byte) (value >>> 24);
+            buffer[count++] = (byte) (value >>> 16);
+            buffer[count++] = (byte) (value >>> 8);
+            buffer[count++] = (byte) value;
+        }
+
+        private void writeLong(long value) {
+            ensureCapacity(8);
+            for (int shift = 56; shift >= 0; shift -= 8) {
+                buffer[count++] = (byte) (value >>> shift);
+            }
+        }
+
+        private void writeAscii(String value, int length) {
+            ensureCapacity(length);
+            for (int i = 0; i < length; ++i) {
+                buffer[count++] = (byte) value.charAt(i);
+            }
+        }
+
+        private byte[] toByteArray() {
+            return count == buffer.length
+                ? buffer
+                : Arrays.copyOf(buffer, count);
+        }
     }
 }

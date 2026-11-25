@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -22,15 +25,15 @@ public final class EzyStrings {
     private EzyStrings() {}
 
     public static String newUtf(byte[] bytes) {
-        return newString(bytes, UTF_8);
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
     public static String newUtf(ByteBuffer buffer, int size) {
-        return newString(buffer, size, UTF_8);
+        return newString(buffer, size, StandardCharsets.UTF_8);
     }
 
     public static byte[] getUtfBytes(String str) {
-        return getBytes(str, UTF_8);
+        return str.getBytes(StandardCharsets.UTF_8);
     }
 
     public static String newString(byte[] bytes, String charset) {
@@ -42,9 +45,43 @@ public final class EzyStrings {
     }
 
     public static String newString(ByteBuffer buffer, int size, String charset) {
+        checkReadableSize(buffer, size);
+        try {
+            if (buffer.hasArray()) {
+                int position = buffer.position();
+                String answer = new String(
+                    buffer.array(),
+                    buffer.arrayOffset() + position,
+                    size,
+                    charset
+                );
+                buffer.position(position + size);
+                return answer;
+            }
+            byte[] bytes = new byte[size];
+            buffer.get(bytes);
+            return new String(bytes, charset);
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public static String newString(ByteBuffer buffer, int size, Charset charset) {
+        checkReadableSize(buffer, size);
+        if (buffer.hasArray()) {
+            int position = buffer.position();
+            String answer = new String(
+                buffer.array(),
+                buffer.arrayOffset() + position,
+                size,
+                charset
+            );
+            buffer.position(position + size);
+            return answer;
+        }
         byte[] bytes = new byte[size];
         buffer.get(bytes);
-        return newString(bytes, charset);
+        return new String(bytes, charset);
     }
 
     public static String newString(char ch, int count) {
@@ -53,6 +90,15 @@ public final class EzyStrings {
             builder.append(ch);
         }
         return builder.toString();
+    }
+
+    private static void checkReadableSize(ByteBuffer buffer, int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("size must not be negative, but was: " + size);
+        }
+        if (size > buffer.remaining()) {
+            throw new BufferUnderflowException();
+        }
     }
 
     public static byte[] getBytes(String str, String charset) {

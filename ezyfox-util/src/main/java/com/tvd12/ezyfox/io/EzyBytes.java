@@ -16,10 +16,6 @@ public final class EzyBytes {
         return answer;
     }
 
-    public static byte[] getBytes(ByteBuffer buffer) {
-        return EzyByteBuffers.getBytes(buffer);
-    }
-
     public static byte[] getBytes(int first, int value, int size) {
         return getBytes(first, (long) value, size);
     }
@@ -63,7 +59,8 @@ public final class EzyBytes {
     public static byte[] getBytes(long value, int size) {
         byte[] bytes = new byte[size];
         for (int i = 0; i < size; ++i) {
-            bytes[i] = (byte) ((value >> ((size - i - 1) * 8) & 0xff));
+            int shift = (size - i - 1) * 8;
+            bytes[i] = (byte) (shift < 64 ? value >> shift : value >> 63);
         }
         return bytes;
     }

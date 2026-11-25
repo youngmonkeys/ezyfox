@@ -5,12 +5,14 @@ import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.codec.MsgPackSimpleSerializer;
 import com.tvd12.ezyfox.entity.EzyArray;
 import com.tvd12.ezyfox.entity.EzyObject;
+import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.util.RandomUtil;
 import org.testng.annotations.Test;
 
 import java.nio.ByteBuffer;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MsgPackSimpleDerSerTest {
 
@@ -523,5 +525,236 @@ public class MsgPackSimpleDerSerTest {
 
         //then
         Asserts.assertEquals(actual, Long.MIN_VALUE, false);
+    }
+
+    @Test
+    public void serializeUInt32MinBoundary() {
+        // given
+        long number = MsgPackConstant.MAX_UINT16 + 1;
+
+        // when
+        byte[] bytes = ser.serialize(number);
+        Object actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(bytes.length, 5);
+        Asserts.assertEquals(bytes[0], (byte) 0xce);
+        Asserts.assertEquals(actual, (int) number);
+    }
+
+    @Test
+    public void serializeUInt32IntMax() {
+        // given
+        int number = Integer.MAX_VALUE;
+
+        // when
+        byte[] bytes = ser.serialize(number);
+        Object actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(bytes[0], (byte) 0xce);
+        Asserts.assertEquals(actual, number);
+    }
+
+    @Test
+    public void serializeUInt32GreaterThanIntMax() {
+        // given
+        long number = Integer.MAX_VALUE + 1L;
+
+        // when
+        byte[] bytes = ser.serialize(number);
+        long actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(bytes.length, 5);
+        Asserts.assertEquals(bytes[0], (byte) 0xce);
+        Asserts.assertEquals(actual, number);
+    }
+
+    @Test
+    public void serializeUInt32MaxBoundary() {
+        // given
+        long number = MsgPackConstant.MAX_UINT32;
+
+        // when
+        byte[] bytes = ser.serialize(number);
+        long actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(bytes.length, 5);
+        Asserts.assertEquals(bytes[0], (byte) 0xce);
+        Asserts.assertEquals(actual, 4294967295L);
+    }
+
+    @Test
+    public void serializeUInt32Random() {
+        // given
+        long number = ThreadLocalRandom.current().nextLong(
+            Integer.MAX_VALUE + 1L,
+            MsgPackConstant.MAX_UINT32 + 1
+        );
+
+        // when
+        byte[] bytes = ser.serialize(number);
+        long actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(bytes.length, 5);
+        Asserts.assertEquals(bytes[0], (byte) 0xce);
+        Asserts.assertEquals(actual, number);
+    }
+
+    @Test
+    public void deserializeUInt32Boundary() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xce,
+            (byte) 128,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0
+        };
+
+        // when
+        long actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual, 2147483648L);
+    }
+
+    @Test
+    public void deserializeStr32LengthGreaterThanIntMax() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xdb,
+            (byte) 128,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0,
+            (byte) 'a'
+        };
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> der.deserialize(bytes));
+
+        //then
+        Asserts.assertEqualsType(e, EzyCodecException.class);
+        Asserts.assertEquals(e.getMessage(), "invalid length: 2147483648, remaining: 1");
+    }
+
+    @Test
+    public void deserializeStr16LengthGreaterThanRemaining() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xda,
+            (byte) 0,
+            (byte) 5,
+            (byte) 'a',
+            (byte) 'b'
+        };
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> der.deserialize(bytes));
+
+        //then
+        Asserts.assertEqualsType(e, EzyCodecException.class);
+        Asserts.assertEquals(e.getMessage(), "invalid length: 5, remaining: 2");
+    }
+
+    @Test
+    public void deserializeBin32LengthGreaterThanIntMax() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xc6,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 0xff
+        };
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> der.deserialize(bytes));
+
+        //then
+        Asserts.assertEqualsType(e, EzyCodecException.class);
+        Asserts.assertEquals(e.getMessage(), "invalid length: 4294967295, remaining: 0");
+    }
+
+    @Test
+    public void deserializeBin8LengthGreaterThanRemaining() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xc4,
+            (byte) 3,
+            (byte) 1
+        };
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> der.deserialize(bytes));
+
+        //then
+        Asserts.assertEqualsType(e, EzyCodecException.class);
+        Asserts.assertEquals(e.getMessage(), "invalid length: 3, remaining: 1");
+    }
+
+    @Test
+    public void deserializeArray32SizeGreaterThanIntMax() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xdd,
+            (byte) 128,
+            (byte) 0,
+            (byte) 0,
+            (byte) 0,
+            (byte) 1
+        };
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> der.deserialize(bytes));
+
+        //then
+        Asserts.assertEqualsType(e, EzyCodecException.class);
+        Asserts.assertEquals(e.getMessage(), "invalid length: 2147483648, remaining: 1");
+    }
+
+    @Test
+    public void deserializeMap32SizeGreaterThanIntMax() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xdf,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 0xff,
+            (byte) 1,
+            (byte) 2
+        };
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> der.deserialize(bytes));
+
+        //then
+        Asserts.assertEqualsType(e, EzyCodecException.class);
+        Asserts.assertEquals(e.getMessage(), "invalid length: 4294967295, remaining: 2");
+    }
+
+    @Test
+    public void deserializeArray16SizeEqualsRemaining() {
+        // given
+        byte[] bytes = new byte[] {
+            (byte) 0xdc,
+            (byte) 0,
+            (byte) 2,
+            (byte) 1,
+            (byte) 2
+        };
+
+        // when
+        EzyArray actual = der.deserialize(bytes);
+
+        //then
+        Asserts.assertEquals(actual.size(), 2);
+        Asserts.assertEquals(actual.get(0, Integer.class), 1);
+        Asserts.assertEquals(actual.get(1, Integer.class), 2);
     }
 }

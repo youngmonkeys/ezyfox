@@ -362,4 +362,124 @@ public class EzyStringsTest extends BaseTest {
             false
         );
     }
+
+    @Test
+    public void newUtfFromBufferWithOffsetTest() {
+        // given
+        byte[] bytes = "xxhello việtyy".getBytes(StandardCharsets.UTF_8);
+        ByteBuffer buffer = ByteBuffer.wrap(bytes, 1, bytes.length - 1).slice();
+        buffer.get();
+        int size = "hello việt".getBytes(StandardCharsets.UTF_8).length;
+
+        // when
+        String actual = EzyStrings.newUtf(buffer, size);
+
+        // then
+        Asserts.assertEquals(actual, "hello việt");
+        Asserts.assertEquals(buffer.remaining(), 2);
+    }
+
+    @Test
+    public void newUtfFromDirectBufferTest() {
+        // given
+        byte[] bytes = "abcde".getBytes(StandardCharsets.UTF_8);
+        ByteBuffer buffer = ByteBuffer.allocateDirect(bytes.length).put(bytes);
+        buffer.flip();
+
+        // when
+        String actual = EzyStrings.newUtf(buffer, 3);
+
+        // then
+        Asserts.assertEquals(actual, "abc");
+        Asserts.assertEquals(buffer.remaining(), 2);
+    }
+
+    @Test
+    public void newUtfSizeGreaterThanRemainingTest() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap("abcdef".getBytes(StandardCharsets.UTF_8));
+        buffer.limit(3);
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> EzyStrings.newUtf(buffer, 4));
+
+        // then
+        Asserts.assertEqualsType(e, java.nio.BufferUnderflowException.class);
+        Asserts.assertEquals(buffer.position(), 0);
+    }
+
+    @Test
+    public void newStringWithCharsetNameFromBufferTest() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap("abcdef".getBytes(StandardCharsets.UTF_8));
+        buffer.position(2);
+
+        // when
+        String actual = EzyStrings.newString(buffer, 3, "UTF-8");
+
+        // then
+        Asserts.assertEquals(actual, "cde");
+        Asserts.assertEquals(buffer.position(), 5);
+    }
+
+    @Test
+    public void newStringAndGetBytesWithCharsetNameTest() {
+        // given
+        byte[] bytes = "việt".getBytes(StandardCharsets.UTF_8);
+
+        // when
+        String actual = EzyStrings.newString(bytes, "UTF-8");
+        byte[] actualBytes = EzyStrings.getBytes("việt", "UTF-8");
+
+        // then
+        Asserts.assertEquals(actual, "việt");
+        Asserts.assertEquals(actualBytes, bytes);
+    }
+
+    @Test
+    public void newStringWithCharsetNameFromDirectBufferTest() {
+        // given
+        byte[] bytes = "abcde".getBytes(StandardCharsets.UTF_8);
+        ByteBuffer buffer = ByteBuffer.allocateDirect(bytes.length).put(bytes);
+        buffer.flip();
+
+        // when
+        String actual = EzyStrings.newString(buffer, 3, "UTF-8");
+
+        // then
+        Asserts.assertEquals(actual, "abc");
+        Asserts.assertEquals(buffer.remaining(), 2);
+    }
+
+    @Test
+    public void newStringWithUnsupportedCharsetNameFromBufferTest() {
+        // given
+        ByteBuffer heapBuffer = ByteBuffer.wrap("abc".getBytes(StandardCharsets.UTF_8));
+        ByteBuffer directBuffer = ByteBuffer.allocateDirect(3);
+
+        // when
+        Throwable e1 = Asserts.assertThrows(() ->
+            EzyStrings.newString(heapBuffer, 3, "unknown-charset")
+        );
+        Throwable e2 = Asserts.assertThrows(() ->
+            EzyStrings.newString(directBuffer, 3, "unknown-charset")
+        );
+
+        // then
+        Asserts.assertEqualsType(e1, IllegalArgumentException.class);
+        Asserts.assertEqualsType(e2, IllegalArgumentException.class);
+    }
+
+    @Test
+    public void newUtfNegativeSizeTest() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap("abc".getBytes(StandardCharsets.UTF_8));
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> EzyStrings.newUtf(buffer, -1));
+
+        // then
+        Asserts.assertEqualsType(e, IllegalArgumentException.class);
+        Asserts.assertEquals(buffer.position(), 0);
+    }
 }

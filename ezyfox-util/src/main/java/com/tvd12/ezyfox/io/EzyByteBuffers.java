@@ -6,10 +6,7 @@ public final class EzyByteBuffers {
 
     private EzyByteBuffers() {}
 
-    public static byte[] getBytes(ByteBuffer buffer) {
-        if (!buffer.hasRemaining()) {
-            buffer.flip();
-        }
+    public static byte[] getRemainingBytes(ByteBuffer buffer) {
         return getBytes(buffer, buffer.remaining());
     }
 
@@ -22,7 +19,7 @@ public final class EzyByteBuffers {
     public static ByteBuffer merge(ByteBuffer[] buffers) {
         ByteBuffer answer = ByteBuffer.allocate(totalBytes(buffers));
         for (ByteBuffer buffer : buffers) {
-            answer.put(buffer);
+            answer.put(buffer.duplicate());
         }
         answer.flip();
         return answer;

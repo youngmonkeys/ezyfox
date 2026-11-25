@@ -6,7 +6,6 @@ import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.function.EzyParser;
 import com.tvd12.ezyfox.io.EzyBytes;
-import com.tvd12.ezyfox.io.EzyInts;
 import com.tvd12.ezyfox.io.EzyLongs;
 import com.tvd12.ezyfox.io.EzyStrings;
 
@@ -33,7 +32,7 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     @SuppressWarnings("unchecked")
     public Object deserialize(ByteBuffer buffer) {
-        return deserialize(buffer, buffer.get() & 0xff);
+        return read(buffer, null);
     }
 
     protected Object deserialize(ByteBuffer buffer, int type) {
@@ -43,7 +42,70 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected Object deserialize(ByteBuffer buffer, MsgPackType type) {
         EzyParser<ByteBuffer, Object> parser = parsers.get(type);
+        if (parser == null) {
+            throw new EzyCodecException("unsupported type: " + type);
+        }
         return parser.parse(buffer);
+    }
+
+    private Object read(ByteBuffer buffer, Frame frame) {
+        while (true) {
+            if (!buffer.hasRemaining()) {
+                throw new EzyCodecException("unexpected end of data");
+            }
+            MsgPackType type = getDataType(buffer.get(buffer.position()) & 0xff);
+            Object value;
+            switch (type) {
+                case FIXMAP:
+                case MAP16:
+                case MAP32:
+                    EzyObject object = EzyEntityFactory.newObject();
+                    int mapSize = getMapSize(buffer, sizeBytes(type));
+                    if (mapSize > 0) {
+                        frame = new Frame(frame, object, null, mapSize);
+                        continue;
+                    }
+                    value = object;
+                    break;
+                case FIXARRAY:
+                case ARRAY16:
+                case ARRAY32:
+                    EzyArray array = EzyEntityFactory.newArray();
+                    int arraySize = parseArraySize(buffer, sizeBytes(type));
+                    if (arraySize > 0) {
+                        frame = new Frame(frame, null, array, arraySize);
+                        continue;
+                    }
+                    value = array;
+                    break;
+                default:
+                    value = deserialize(buffer, type);
+                    break;
+            }
+            while (true) {
+                if (frame == null) {
+                    return value;
+                }
+                if (!frame.add(value)) {
+                    break;
+                }
+                value = frame.value();
+                frame = frame.parent;
+            }
+        }
+    }
+
+    private static int sizeBytes(MsgPackType type) {
+        switch (type) {
+            case FIXMAP:
+            case FIXARRAY:
+                return 1;
+            case MAP16:
+            case ARRAY16:
+                return 3;
+            default:
+                return 5;
+        }
     }
 
     protected Map<MsgPackType, EzyParser<ByteBuffer, Object>> defaultParsers() {
@@ -107,7 +169,7 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected int getBinLength(ByteBuffer buffer, int size) {
         buffer.get();
-        return EzyInts.bin2uint(buffer, size);
+        return readLength(buffer, size);
     }
 
     protected Object parseBin(ByteBuffer buffer, int length) {
@@ -149,8 +211,8 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected EzyObject parseMap(ByteBuffer buffer, int size) {
         EzyObject object = EzyEntityFactory.newObject();
-        for (int i = 0; i < size; ++i) {
-            object.put(deserialize(buffer), deserialize(buffer));
+        if (size > 0) {
+            read(buffer, new Frame(null, object, null, size));
         }
         return object;
     }
@@ -195,8 +257,11 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
         return parseUInt(buffer, 2);
     }
 
-    protected int parseUInt32(ByteBuffer buffer) {
-        return parseUInt(buffer, 4);
+    protected Object parseUInt32(ByteBuffer buffer) {
+        long value = parseULong(buffer, 4);
+        return value <= Integer.MAX_VALUE
+            ? (Object) (int) value
+            : (Object) value;
     }
 
     protected long parseUInt64(ByteBuffer buffer) {
@@ -255,8 +320,8 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected EzyArray parseArray(ByteBuffer buffer, int size) {
         EzyArray array = EzyEntityFactory.newArray();
-        for (int i = 0; i < size; ++i) {
-            array.add(deserialize(buffer));
+        if (size > 0) {
+            read(buffer, new Frame(null, null, array, size));
         }
         return array;
     }
@@ -267,6 +332,52 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
             return answer;
         }
         throw new EzyCodecException("has no type with type = " + String.format("0x%x", type));
+    }
+
+    protected static int readLength(ByteBuffer buffer, int size) {
+        long length = EzyLongs.bin2ulong(buffer, size);
+        if (length > buffer.remaining()) {
+            throw new EzyCodecException(
+                "invalid length: " + length + ", remaining: " + buffer.remaining()
+            );
+        }
+        return (int) length;
+    }
+
+    private static final class Frame {
+        private final Frame parent;
+        private final EzyObject object;
+        private final EzyArray array;
+        private int remaining;
+        private Object key;
+        private boolean hasKey;
+
+        private Frame(Frame parent, EzyObject object, EzyArray array, int remaining) {
+            this.parent = parent;
+            this.object = object;
+            this.array = array;
+            this.remaining = remaining;
+        }
+
+        private boolean add(Object value) {
+            if (object != null) {
+                if (!hasKey) {
+                    key = value;
+                    hasKey = true;
+                    return false;
+                }
+                object.put(key, value);
+                key = null;
+                hasKey = false;
+            } else {
+                array.add(value);
+            }
+            return --remaining == 0;
+        }
+
+        private Object value() {
+            return object != null ? object : array;
+        }
     }
 
     public abstract static class AbstractSizeDeserializer {
@@ -281,7 +392,7 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
         protected int getOther(ByteBuffer buffer, int nbytes) {
             buffer.get();
-            return EzyInts.bin2uint(buffer, nbytes - 1);
+            return readLength(buffer, nbytes - 1);
         }
     }
 

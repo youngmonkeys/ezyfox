@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tvd12.ezyfox.codec.EzyMessageDeserializer;
 import com.tvd12.ezyfox.codec.JacksonSimpleDeserializer;
 import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class JacksonSimpleDeserializerTest extends BaseTest {
@@ -41,5 +43,21 @@ public class JacksonSimpleDeserializerTest extends BaseTest {
     public void test3() {
         EzyArray a1 = deserializer.deserialize("1, 2, 3");
         System.out.println(a1);
+    }
+
+    @Test
+    public void deserializeOnlyRemainingBytes() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap("x[1,2]".getBytes(StandardCharsets.UTF_8));
+        buffer.get();
+
+        // when
+        EzyArray actual = deserializer.deserialize(buffer);
+
+        // then
+        Asserts.assertEquals(actual.size(), 2);
+        Asserts.assertEquals(actual.get(0, Integer.class), 1);
+        Asserts.assertEquals(actual.get(1, Integer.class), 2);
+        Asserts.assertEquals(buffer.remaining(), 0);
     }
 }

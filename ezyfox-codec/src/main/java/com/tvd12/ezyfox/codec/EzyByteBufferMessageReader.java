@@ -19,8 +19,16 @@ public class EzyByteBufferMessageReader extends EzyMessageReader<ByteBuffer> {
 
     @Override
     protected int readMessageSize(ByteBuffer buffer) {
-        sizeBytes = EzyBytes.copy(buffer, getSizeLength());
-        return EzyInts.bin2uint(sizeBytes);
+        int sizeLength = getSizeLength();
+        if (isRawBytes()) {
+            sizeBytes = EzyBytes.copy(buffer, sizeLength);
+            return EzyInts.bin2uint(sizeBytes);
+        }
+        int answer = 0;
+        for (int i = 0; i < sizeLength; ++i) {
+            answer = (answer << 8) | (buffer.get() & 0xFF);
+        }
+        return answer;
     }
 
     @Override
