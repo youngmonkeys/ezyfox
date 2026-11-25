@@ -4,6 +4,7 @@ import com.tvd12.ezyfox.codec.EzyByteToObjectDecoder;
 import com.tvd12.ezyfox.codec.EzyDefaultDecodeHandlers;
 import com.tvd12.ezyfox.codec.EzyMessage;
 import com.tvd12.ezyfox.codec.EzySimpleMessageDataDecoder;
+import com.tvd12.ezyfox.exception.EzyZeroRequestSizeException;
 import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.util.RandomUtil;
@@ -132,6 +133,60 @@ public class EzySimpleMessageDataDecoderTest {
     }
 
     @Test
+    public void decodeAfterErrorTest() throws Exception {
+        // given
+        EzySimpleMessageDataDecoder decoder = new EzySimpleMessageDataDecoder(
+            new ResettableByteToObjectDecoder()
+        );
+        ByteBuffer invalid = ByteBuffer.allocate(5);
+        invalid.put((byte) 0);
+        invalid.putShort((short) 0);
+        invalid.put((byte) 1);
+        invalid.put((byte) 2);
+        invalid.flip();
+        List<EzyMessage> messages = new ArrayList<>();
+
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            decoder.decode(EzyBytes.getBytes(invalid), messages::add)
+        );
+        decoder.decode(newMessageBytes("012345678"), messages::add);
+
+        // then
+        Asserts.assertEqualsType(e, EzyZeroRequestSizeException.class);
+        Asserts.assertEquals(messages.size(), 1);
+        Asserts.assertEquals(messages.get(0).getContent(), "012345678".getBytes());
+    }
+
+    @Test
+    public void resetDropsPendingBytesTest() throws Exception {
+        // given
+        EzySimpleMessageDataDecoder decoder = new EzySimpleMessageDataDecoder(
+            new ResettableByteToObjectDecoder()
+        );
+        byte[] bytes = newMessageBytes("012345678");
+        List<EzyMessage> messages = new ArrayList<>();
+        decoder.decode(Arrays.copyOfRange(bytes, 0, 7), messages::add);
+
+        // when
+        decoder.reset();
+        decoder.decode(newMessageBytes("abc"), messages::add);
+
+        // then
+        Asserts.assertEquals(messages.size(), 1);
+        Asserts.assertEquals(messages.get(0).getContent(), "abc".getBytes());
+    }
+
+    private static byte[] newMessageBytes(String content) {
+        byte[] body = content.getBytes();
+        ByteBuffer buffer = ByteBuffer.allocate(3 + body.length);
+        buffer.put((byte) 0);
+        buffer.putShort((short) body.length);
+        buffer.put(body);
+        return buffer.array();
+    }
+
+    @Test
     public void decodeWithKeyTest() throws Exception {
         // given
         EzyMessage message = mock(EzyMessage.class);
@@ -175,6 +230,14 @@ public class EzySimpleMessageDataDecoderTest {
         public void reset() {
         }
 
+    }
+
+    public static class ResettableByteToObjectDecoder extends ExByteToObjectDecoder {
+
+        @Override
+        public void reset() {
+            handlers.reset();
+        }
     }
 
     public static class ExByteToObjectDecoder2 implements EzyByteToObjectDecoder {

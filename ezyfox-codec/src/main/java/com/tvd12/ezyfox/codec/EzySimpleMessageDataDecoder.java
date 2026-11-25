@@ -33,9 +33,18 @@ public class EzySimpleMessageDataDecoder
         EzyCallback<EzyMessage> callback
     ) throws Exception {
         preDecode(bytes);
-        decoder.decode(buffer, queue);
+        decodeBuffer();
         handleQueue(callback);
         postDecode();
+    }
+
+    private void decodeBuffer() throws Exception {
+        try {
+            decoder.decode(buffer, queue);
+        } catch (Exception e) {
+            reset();
+            throw e;
+        }
     }
 
     private void handleQueue(
@@ -48,7 +57,7 @@ public class EzySimpleMessageDataDecoder
             } while (queue.size() > 0);
 
             if (buffer.hasRemaining()) {
-                decoder.decode(buffer, queue);
+                decodeBuffer();
             }
         }
     }
@@ -88,5 +97,7 @@ public class EzySimpleMessageDataDecoder
     @Override
     public void reset() {
         queue.clear();
+        buffer = null;
+        decoder.reset();
     }
 }

@@ -20,9 +20,14 @@ public abstract class EzyDecodeHandlers implements EzyResettable {
 
     public void handle(ByteBuffer in, Queue<EzyMessage> out) {
         EzyDecodeHandler handler = handlers.get(state);
-        while (handler != null && handler.handle(in, out)) {
-            state = handler.nextState();
-            handler = handler.nextHandler();
+        try {
+            while (handler != null && handler.handle(in, out)) {
+                state = handler.nextState();
+                handler = handler.nextHandler();
+            }
+        } catch (RuntimeException e) {
+            reset();
+            throw e;
         }
     }
 
