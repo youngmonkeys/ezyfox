@@ -12,14 +12,14 @@ public class EzyConfigurationMethodSingletonLoader
         String beanName,
         EzyMethod method,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType,
+        Map<EzyBeanKey, EzyMethod> methodsByKey,
         EzyBeanMetadataCache metadataCache
     ) {
         super(
             beanName,
             method,
             configurator,
-            methodsByType,
+            methodsByKey,
             metadataCache
         );
     }

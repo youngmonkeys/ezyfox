@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.bean.impl;
 
 import com.tvd12.ezyfox.bean.EzyBeanContext;
+import com.tvd12.ezyfox.bean.EzySingletonFactory;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.reflect.EzyMethod;
 
@@ -19,14 +20,14 @@ public class EzyByMethodSingletonLoader
         String beanName,
         EzyMethod method,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType,
+        Map<EzyBeanKey, EzyMethod> methodsByKey,
         EzyBeanMetadataCache metadataCache
     ) {
         this(
             beanName,
             method,
             configurator,
-            methodsByType,
+            methodsByKey,
             new ArrayList<>(),
             metadataCache
         );
@@ -36,14 +37,14 @@ public class EzyByMethodSingletonLoader
         String beanName,
         EzyMethod method,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType,
+        Map<EzyBeanKey, EzyMethod> methodsByKey,
         List<Class<?>> stackCallClasses,
         EzyBeanMetadataCache metadataCache
     ) {
         super(beanName,
             metadataCache.getClass(method.getReturnType()),
             configurator,
-            methodsByType,
+            methodsByKey,
             stackCallClasses,
             metadataCache
         );
@@ -64,8 +65,30 @@ public class EzyByMethodSingletonLoader
 
     @Override
     protected Class[] getConstructorParameterTypes(Class clazz) {
-        EzyMethod method = methodsByType.get(clazz);
+        EzyMethod method = getSingletonMethod(clazz);
         return method != null ? method.getParameterTypes() : new Class[0];
+    }
+
+    @Override
+    protected Object getOrCreateSingleton(
+        EzyBeanContext context,
+        String name,
+        Class[] parameterTypes
+    ) {
+        EzySingletonFactory factory = context.getSingletonFactory();
+        Object singleton = factory.getSingleton(
+            EzyBeanKey.of(name, getSingletonClass())
+        );
+        if (singleton == null) {
+            singleton = newSingletonByConstructor(context, parameterTypes);
+            logger.debug(
+                "add singleton with name {} of {}, object = {}",
+                name,
+                singleton.getClass(),
+                singleton
+            );
+        }
+        return singleton;
     }
 
     @Override

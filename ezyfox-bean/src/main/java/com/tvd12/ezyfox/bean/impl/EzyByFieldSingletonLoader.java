@@ -20,14 +20,14 @@ public class EzyByFieldSingletonLoader
         String beanName,
         EzyField field,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType,
+        Map<EzyBeanKey, EzyMethod> methodsByKey,
         EzyBeanMetadataCache metadataCache
     ) {
         this(
             beanName,
             field,
             configurator,
-            methodsByType,
+            methodsByKey,
             new ArrayList<>(),
             metadataCache
         );
@@ -37,7 +37,7 @@ public class EzyByFieldSingletonLoader
         String beanName,
         EzyField field,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType,
+        Map<EzyBeanKey, EzyMethod> methodsByKey,
         List<Class<?>> stackCallClasses,
         EzyBeanMetadataCache metadataCache
     ) {
@@ -45,7 +45,7 @@ public class EzyByFieldSingletonLoader
             beanName,
             metadataCache.getClass(field.getType()),
             configurator,
-            methodsByType,
+            methodsByKey,
             stackCallClasses,
             metadataCache
         );
