@@ -3,14 +3,21 @@ package com.tvd12.ezyfox.codec;
 import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.exception.EzyMaxRequestSizeException;
 
-import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public final class EzyDeflateCompressor {
 
-    private static final int BUFFER_SIZE = 1024;
+    private static final byte[] EMPTY_BYTES = new byte[0];
+    private static final int MIN_BUFFER_SIZE = 64;
+    private static final int MIN_DECOMPRESS_BUFFER_SIZE = 1024;
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+    private static final ThreadLocal<Deflater> DEFLATERS =
+        ThreadLocal.withInitial(() -> new Deflater(Deflater.DEFAULT_COMPRESSION, true));
+    private static final ThreadLocal<Inflater> INFLATERS =
+        ThreadLocal.withInitial(() -> new Inflater(true));
 
     private EzyDeflateCompressor() {}
 
@@ -19,52 +26,73 @@ public final class EzyDeflateCompressor {
     }
 
     public static byte[] compress(byte[] data, int level) {
-        Deflater deflater = new Deflater(level, true);
+        Deflater deflater = DEFLATERS.get();
         try {
+            deflater.setLevel(level);
             deflater.setInput(data);
             deflater.finish();
-            ByteArrayOutputStream output = new ByteArrayOutputStream(
-                Math.max(BUFFER_SIZE, data.length / 2)
-            );
-            byte[] buffer = new byte[BUFFER_SIZE];
+            byte[] output = new byte[Math.max(MIN_BUFFER_SIZE, data.length / 2)];
+            int length = 0;
             while (!deflater.finished()) {
-                int count = deflater.deflate(buffer);
-                output.write(buffer, 0, count);
+                if (length == output.length) {
+                    output = grow(output, MAX_ARRAY_SIZE);
+                }
+                length += deflater.deflate(output, length, output.length - length);
             }
-            return output.toByteArray();
+            return length == output.length
+                ? output
+                : Arrays.copyOf(output, length);
         } finally {
-            deflater.end();
+            deflater.reset();
+            deflater.setInput(EMPTY_BYTES);
         }
     }
 
     public static byte[] decompress(byte[] data, int maxSize) {
-        Inflater inflater = new Inflater(true);
+        Inflater inflater = INFLATERS.get();
         try {
             inflater.setInput(data);
-            ByteArrayOutputStream output = new ByteArrayOutputStream(
-                Math.max(BUFFER_SIZE, data.length * 2)
+            int maxCapacity = maxSize > 0
+                ? (int) Math.min((long) maxSize + 1, MAX_ARRAY_SIZE)
+                : MAX_ARRAY_SIZE;
+            int initialCapacity = (int) Math.min(
+                Math.max(MIN_DECOMPRESS_BUFFER_SIZE, (long) data.length * 4),
+                maxCapacity
             );
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int totalSize = 0;
+            byte[] output = new byte[initialCapacity];
+            int length = 0;
             while (!inflater.finished()) {
-                int count = inflater.inflate(buffer);
+                if (length == output.length) {
+                    output = grow(output, maxCapacity);
+                }
+                int count = inflater.inflate(output, length, output.length - length);
                 if (count == 0
                     && !inflater.finished()
                     && (inflater.needsInput() || inflater.needsDictionary())
                 ) {
                     throw new EzyCodecException("invalid or truncated compressed data");
                 }
-                totalSize += count;
-                if (maxSize > 0 && totalSize > maxSize) {
-                    throw new EzyMaxRequestSizeException(totalSize, maxSize);
+                length += count;
+                if (maxSize > 0 && length > maxSize) {
+                    throw new EzyMaxRequestSizeException(length, maxSize);
                 }
-                output.write(buffer, 0, count);
             }
-            return output.toByteArray();
+            return length == output.length
+                ? output
+                : Arrays.copyOf(output, length);
         } catch (DataFormatException e) {
             throw new EzyCodecException("invalid compressed data", e);
         } finally {
-            inflater.end();
+            inflater.reset();
+            inflater.setInput(EMPTY_BYTES);
         }
+    }
+
+    private static byte[] grow(byte[] array, int maxCapacity) {
+        if (array.length >= maxCapacity) {
+            throw new EzyCodecException("data size exceeds max capacity: " + maxCapacity);
+        }
+        int newCapacity = (int) Math.min((long) array.length << 1, maxCapacity);
+        return Arrays.copyOf(array, newCapacity);
     }
 }
