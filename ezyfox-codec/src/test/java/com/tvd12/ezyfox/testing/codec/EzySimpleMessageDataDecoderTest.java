@@ -10,6 +10,9 @@ import com.tvd12.test.util.RandomUtil;
 import org.testng.annotations.Test;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -89,6 +92,43 @@ public class EzySimpleMessageDataDecoderTest {
         decoder.destroy();
         decoder.decode(bytes, data -> called.set(true));
         assert !called.get();
+    }
+
+    @Test
+    public void decodeByChunksTest() throws Exception {
+        // given
+        EzyByteToObjectDecoder d = new ExByteToObjectDecoder();
+        EzySimpleMessageDataDecoder decoder = new EzySimpleMessageDataDecoder(d);
+        int size = 5000;
+        byte[] body = new byte[size];
+        for (int i = 0; i < size; ++i) {
+            body[i] = (byte) i;
+        }
+        ByteBuffer buffer = ByteBuffer.allocate((5 + size) * 2);
+        for (int i = 0; i < 2; ++i) {
+            buffer.put((byte) 1);
+            buffer.putInt(size);
+            buffer.put(body);
+        }
+        byte[] bytes = buffer.array();
+        List<EzyMessage> messages = new ArrayList<>();
+
+        // when
+        int chunkSize = 7;
+        for (int offset = 0; offset < bytes.length; offset += chunkSize) {
+            int length = Math.min(chunkSize, bytes.length - offset);
+            decoder.decode(
+                Arrays.copyOfRange(bytes, offset, offset + length),
+                messages::add
+            );
+        }
+
+        // then
+        Asserts.assertEquals(messages.size(), 2);
+        for (EzyMessage message : messages) {
+            Asserts.assertEquals(message.getSize(), size);
+            Asserts.assertEquals(message.getContent(), body);
+        }
     }
 
     @Test

@@ -69,4 +69,72 @@ public class EzyByteBufferMessageReaderTest {
         reader.readSize(buffer, 128);
         reader.readContent(buffer);
     }
+
+    @Test
+    public void readContentByChunksTest() {
+        // given
+        int size = 10000;
+        byte[] body = newBody(size);
+        ByteBuffer buffer = ByteBuffer.allocate(5);
+        buffer.put((byte) 1);
+        buffer.putInt(size);
+        buffer.flip();
+
+        EzyByteBufferMessageReader reader = new EzyByteBufferMessageReader();
+        reader.readHeader(buffer);
+        reader.readSize(buffer, size);
+
+        // when
+        int offset = 0;
+        int chunkSize = 333;
+        boolean done = false;
+        while (offset < size) {
+            int length = Math.min(chunkSize, size - offset);
+            Asserts.assertFalse(done);
+            done = reader.readContent(ByteBuffer.wrap(body, offset, length));
+            offset += length;
+        }
+
+        // then
+        Asserts.assertTrue(done);
+        Asserts.assertEquals(reader.get().getSize(), size);
+        Asserts.assertEquals(reader.get().getContent(), body);
+    }
+
+    @Test
+    public void readRawBytesContentByChunksTest() {
+        // given
+        int size = 3000;
+        byte[] body = newBody(size);
+        byte header = (byte) (1 | (1 << 4));
+        ByteBuffer buffer = ByteBuffer.allocate(5);
+        buffer.put(header);
+        buffer.putInt(size);
+        buffer.flip();
+
+        EzyByteBufferMessageReader reader = new EzyByteBufferMessageReader();
+        reader.readHeader(buffer);
+        reader.readSize(buffer, size);
+
+        // when
+        Asserts.assertFalse(reader.readContent(ByteBuffer.wrap(body, 0, 100)));
+        Asserts.assertFalse(reader.readContent(ByteBuffer.wrap(body, 100, 2000)));
+        Asserts.assertTrue(reader.readContent(ByteBuffer.wrap(body, 2100, 900)));
+
+        // then
+        ByteBuffer expected = ByteBuffer.allocate(5 + size);
+        expected.put(header);
+        expected.putInt(size);
+        expected.put(body);
+        Asserts.assertEquals(reader.get().getContent(), expected.array());
+        Asserts.assertEquals(reader.get().getSize(), size);
+    }
+
+    private static byte[] newBody(int size) {
+        byte[] body = new byte[size];
+        for (int i = 0; i < size; ++i) {
+            body[i] = (byte) i;
+        }
+        return body;
+    }
 }
