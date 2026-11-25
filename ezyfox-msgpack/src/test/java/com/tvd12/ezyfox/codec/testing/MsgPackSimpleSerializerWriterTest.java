@@ -17,6 +17,10 @@ import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -219,6 +223,49 @@ public class MsgPackSimpleSerializerWriterTest {
         byte[] actual = custom.serialize(list);
 
         assertEquals(actual, serializer.serialize(Arrays.asList("custom", 1)));
+    }
+
+    @Test
+    public void noParserOverrideTest() {
+        // given
+        MsgPackSimpleSerializer custom = new MsgPackSimpleSerializer() {
+            @Override
+            protected byte[] parseWithNoParser(Object value) {
+                return serialize("none");
+            }
+        };
+        List<Object> list = Arrays.asList(new Custom(), 1);
+
+        // when
+        byte[] actual = custom.serialize(list);
+
+        // then
+        assertEquals(actual, serializer.serialize(Arrays.asList("none", 1)));
+    }
+
+    @Test
+    public void outputTooLargeTest() throws Exception {
+        // given
+        Class<?> outputClass = Class.forName(MsgPackSimpleSerializer.class.getName() + "$Output");
+        Constructor<?> constructor = outputClass.getDeclaredConstructor(int.class);
+        constructor.setAccessible(true);
+        Object output = constructor.newInstance(0);
+        Field countField = outputClass.getDeclaredField("count");
+        countField.setAccessible(true);
+        Method ensureCapacity = outputClass.getDeclaredMethod("ensureCapacity", int.class);
+        ensureCapacity.setAccessible(true);
+
+        // when
+        countField.setInt(output, Integer.MAX_VALUE - 8);
+        Throwable overMax = Asserts.assertThrows(() -> ensureCapacity.invoke(output, 1));
+        countField.setInt(output, Integer.MAX_VALUE);
+        Throwable overflow = Asserts.assertThrows(() -> ensureCapacity.invoke(output, 1));
+
+        // then
+        Asserts.assertEqualsType(overMax, InvocationTargetException.class);
+        Asserts.assertEqualsType(overMax.getCause(), EzyCodecException.class);
+        Asserts.assertEqualsType(overflow, InvocationTargetException.class);
+        Asserts.assertEqualsType(overflow.getCause(), EzyCodecException.class);
     }
 
     private byte[] serializeEntries(Map<Object, Object> map) {

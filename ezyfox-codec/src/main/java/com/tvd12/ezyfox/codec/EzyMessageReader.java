@@ -98,11 +98,8 @@ public abstract class EzyMessageReader<B> {
         if (required <= content.length) {
             return;
         }
-        int newCapacity = Math.max(required, content.length << 1);
-        if (newCapacity < 0 || newCapacity > contentLength) {
-            newCapacity = contentLength;
-        }
-        this.content = Arrays.copyOf(content, newCapacity);
+        long newCapacity = Math.max(required, (long) content.length << 1);
+        this.content = Arrays.copyOf(content, (int) Math.min(newCapacity, contentLength));
     }
 
     public void clear() {

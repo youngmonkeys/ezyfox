@@ -66,10 +66,7 @@ public final class EzyDeflateCompressor {
                     output = grow(output, maxCapacity);
                 }
                 int count = inflater.inflate(output, length, output.length - length);
-                if (count == 0
-                    && !inflater.finished()
-                    && (inflater.needsInput() || inflater.needsDictionary())
-                ) {
+                if (count == 0 && !inflater.finished()) {
                     throw new EzyCodecException("invalid or truncated compressed data");
                 }
                 length += count;

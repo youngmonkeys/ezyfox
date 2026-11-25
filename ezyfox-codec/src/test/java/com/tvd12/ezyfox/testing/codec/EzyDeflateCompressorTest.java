@@ -6,6 +6,8 @@ import com.tvd12.ezyfox.exception.EzyMaxRequestSizeException;
 import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Random;
@@ -192,5 +194,19 @@ public class EzyDeflateCompressorTest {
         // then
         Asserts.assertTrue(compressed.length * 4 <= 1024);
         Asserts.assertTrue(Arrays.equals(data, decompressed));
+    }
+
+    @Test
+    public void growOverMaxCapacityTest() throws Exception {
+        // given
+        Method grow = EzyDeflateCompressor.class.getDeclaredMethod("grow", byte[].class, int.class);
+        grow.setAccessible(true);
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> grow.invoke(null, new byte[10], 10));
+
+        // then
+        Asserts.assertEqualsType(e, InvocationTargetException.class);
+        Asserts.assertEqualsType(e.getCause(), EzyCodecException.class);
     }
 }
