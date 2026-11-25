@@ -108,6 +108,7 @@ public abstract class EzyMessageReader<B> {
     public void clear() {
         this.size = 0;
         this.headerByte = 0;
+        this.header = null;
         this.sizeBytes = EMPTY_BYTE_ARRAY;
         this.content = EMPTY_BYTE_ARRAY;
         this.contentOffset = 0;

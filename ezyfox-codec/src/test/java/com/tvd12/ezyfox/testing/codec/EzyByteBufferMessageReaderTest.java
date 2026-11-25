@@ -1,11 +1,13 @@
 package com.tvd12.ezyfox.testing.codec;
 
 import com.tvd12.ezyfox.codec.EzyByteBufferMessageReader;
+import com.tvd12.ezyfox.codec.EzyMessageHeader;
 import com.tvd12.ezyfox.exception.EzyMaxRequestSizeException;
 import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class EzyByteBufferMessageReaderTest {
 
@@ -68,6 +70,81 @@ public class EzyByteBufferMessageReaderTest {
         reader.readHeader(buffer);
         reader.readSize(buffer, 128);
         reader.readContent(buffer);
+    }
+
+    @Test
+    public void readUnsignedShortSizeTest() {
+        // given
+        int size = 40000;
+        byte[] body = newBody(size);
+        ByteBuffer buffer = ByteBuffer.allocate(3 + size);
+        buffer.put((byte) 0);
+        buffer.putShort((short) size);
+        buffer.put(body);
+        buffer.flip();
+
+        EzyByteBufferMessageReader reader = new EzyByteBufferMessageReader();
+
+        // when
+        reader.readHeader(buffer);
+        reader.readSize(buffer, size);
+        boolean done = reader.readContent(buffer);
+
+        // then
+        Asserts.assertTrue(done);
+        Asserts.assertEquals(reader.get().getSize(), size);
+        Asserts.assertEquals(reader.get().getContent(), body);
+    }
+
+    @Test
+    public void readIntSizeLittleEndianBufferTest() {
+        // given
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.put((byte) 1);
+        buffer.putInt(3);
+        buffer.put(new byte[]{7, 8, 9});
+        buffer.flip();
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+
+        EzyByteBufferMessageReader reader = new EzyByteBufferMessageReader();
+
+        // when
+        reader.readHeader(buffer);
+        reader.readSize(buffer, 128);
+        reader.readContent(buffer);
+
+        // then
+        Asserts.assertEquals(reader.get().getSize(), 3);
+        Asserts.assertEquals(reader.get().getContent(), new byte[]{7, 8, 9});
+    }
+
+    @Test
+    public void clearResetsHeaderTest() {
+        // given
+        ByteBuffer buffer = ByteBuffer.allocate(4);
+        buffer.put((byte) 0);
+        buffer.putShort((short) 1);
+        buffer.put((byte) 1);
+        buffer.flip();
+
+        HeaderExposedMessageReader reader = new HeaderExposedMessageReader();
+        reader.readHeader(buffer);
+        reader.readSize(buffer, 128);
+        reader.readContent(buffer);
+        Asserts.assertNotNull(reader.getHeader());
+
+        // when
+        reader.clear();
+
+        // then
+        Asserts.assertNull(reader.getHeader());
+    }
+
+    private static class HeaderExposedMessageReader extends EzyByteBufferMessageReader {
+
+        EzyMessageHeader getHeader() {
+            return header;
+        }
     }
 
     @Test
