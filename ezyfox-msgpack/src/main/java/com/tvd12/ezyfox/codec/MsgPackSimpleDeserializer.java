@@ -16,6 +16,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings("AbbreviationAsWordInName")
 public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
+    public static final int DEFAULT_MAX_DEPTH = 256;
+
+    protected final int maxDepth;
+    private final ThreadLocal<int[]> depth;
     protected final MsgPackTypeParser typeParser;
     protected final MapSizeDeserializer mapSizeDeserializer;
     protected final ArraySizeDeserializer arraySizeDeserializer;
@@ -23,6 +27,17 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     protected final Map<MsgPackType, EzyParser<ByteBuffer, Object>> parsers;
 
     public MsgPackSimpleDeserializer() {
+        this(DEFAULT_MAX_DEPTH);
+    }
+
+    public MsgPackSimpleDeserializer(int maxDepth) {
+        if (maxDepth <= 0) {
+            throw new IllegalArgumentException(
+                "maxDepth must be positive, but was: " + maxDepth
+            );
+        }
+        this.maxDepth = maxDepth;
+        this.depth = ThreadLocal.withInitial(() -> new int[1]);
         this.typeParser = new MsgPackTypeParser();
         this.mapSizeDeserializer = new MapSizeDeserializer();
         this.arraySizeDeserializer = new ArraySizeDeserializer();
@@ -42,7 +57,24 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected Object deserialize(ByteBuffer buffer, MsgPackType type) {
         EzyParser<ByteBuffer, Object> parser = parsers.get(type);
+        if (parser == null) {
+            throw new EzyCodecException("unsupported type: " + type);
+        }
         return parser.parse(buffer);
+    }
+
+    protected void enterNested() {
+        int[] current = depth.get();
+        if (current[0] >= maxDepth) {
+            throw new EzyCodecException(
+                "nesting depth exceeds max depth: " + maxDepth
+            );
+        }
+        ++current[0];
+    }
+
+    protected void exitNested() {
+        --depth.get()[0];
     }
 
     protected Map<MsgPackType, EzyParser<ByteBuffer, Object>> defaultParsers() {
@@ -147,11 +179,16 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     }
 
     protected EzyObject parseMap(ByteBuffer buffer, int size) {
-        EzyObject object = EzyEntityFactory.newObject();
-        for (int i = 0; i < size; ++i) {
-            object.put(deserialize(buffer), deserialize(buffer));
+        enterNested();
+        try {
+            EzyObject object = EzyEntityFactory.newObject();
+            for (int i = 0; i < size; ++i) {
+                object.put(deserialize(buffer), deserialize(buffer));
+            }
+            return object;
+        } finally {
+            exitNested();
         }
-        return object;
     }
 
     protected String parseStr32(ByteBuffer buffer) {
@@ -253,11 +290,16 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     }
 
     protected EzyArray parseArray(ByteBuffer buffer, int size) {
-        EzyArray array = EzyEntityFactory.newArray();
-        for (int i = 0; i < size; ++i) {
-            array.add(deserialize(buffer));
+        enterNested();
+        try {
+            EzyArray array = EzyEntityFactory.newArray();
+            for (int i = 0; i < size; ++i) {
+                array.add(deserialize(buffer));
+            }
+            return array;
+        } finally {
+            exitNested();
         }
-        return array;
     }
 
     protected MsgPackType getDataType(int type) {

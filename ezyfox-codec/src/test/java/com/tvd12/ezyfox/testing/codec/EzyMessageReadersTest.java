@@ -75,4 +75,24 @@ public class EzyMessageReadersTest extends BaseTest {
         Asserts.assertEquals(message.getContent(), new byte[]{7, 8, 9});
         Asserts.assertTrue(message.getHeader().isBigSize());
     }
+
+    @Test
+    public void readRawBytesMessageTest() {
+        // given
+        byte header = (byte) (1 | (1 << 4));
+        byte[] bytes = new byte[]{header, 0, 0, 0, 3, 7, 8, 9, 10};
+
+        // when
+        EzyMessage message = EzyMessageReaders.bytesToMessage(bytes);
+
+        // then
+        Asserts.assertEquals(message.getSize(), 3);
+        Asserts.assertEquals(
+            message.getContent(),
+            new byte[]{header, 0, 0, 0, 3, 7, 8, 9}
+        );
+        Asserts.assertEquals(message.getContentStartIndex(), 0);
+        Asserts.assertEquals(message.getByteCount(), 8);
+        Asserts.assertTrue(message.getHeader().isRawBytes());
+    }
 }

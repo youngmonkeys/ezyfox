@@ -23,7 +23,9 @@ public final class EzyMessageReaders {
             return null;
         }
         int size = (int) messageSize;
-        byte[] messageContent = EzyBytes.copy(bytes, contentStart, size);
+        byte[] messageContent = header.isRawBytes()
+            ? EzyBytes.copy(bytes, 0, contentStart + size)
+            : EzyBytes.copy(bytes, contentStart, size);
         return new EzySimpleMessage(header, messageContent, size);
     }
 }

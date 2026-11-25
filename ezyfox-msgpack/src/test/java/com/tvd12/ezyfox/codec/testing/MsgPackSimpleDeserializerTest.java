@@ -3,14 +3,70 @@ package com.tvd12.ezyfox.codec.testing;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.io.EzyInts;
 import com.tvd12.ezyfox.io.EzyLongs;
 import com.tvd12.test.assertion.Asserts;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class MsgPackSimpleDeserializerTest extends MsgPackCodecTest {
+
+    @Test
+    public void unsupportedTypeTest() {
+        // given
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
+        byte[] neverUsed = new byte[]{(byte) 0xc1};
+        byte[] fixExt1 = new byte[]{(byte) 0xd4, 1, 1};
+
+        // when
+        Throwable e1 = Asserts.assertThrows(() -> deserializer.deserialize(neverUsed));
+        Throwable e2 = Asserts.assertThrows(() -> deserializer.deserialize(fixExt1));
+
+        // then
+        Asserts.assertEqualsType(e1, EzyCodecException.class);
+        Asserts.assertEqualsType(e2, EzyCodecException.class);
+    }
+
+    @Test
+    public void maxDepthExceededTest() {
+        // given
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer(3);
+        byte[] bytes = new byte[]{(byte) 0x91, (byte) 0x91, (byte) 0x81, 1, (byte) 0x90};
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> deserializer.deserialize(bytes));
+
+        // then
+        Asserts.assertEqualsType(e, EzyCodecException.class);
+        EzyArray array = deserializer.deserialize(new byte[]{(byte) 0x91, (byte) 0x91, (byte) 0x90});
+        Asserts.assertEquals(array.size(), 1);
+    }
+
+    @Test
+    public void deepNestedDefaultMaxDepthTest() {
+        // given
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
+        byte[] bytes = new byte[100_000];
+        Arrays.fill(bytes, (byte) 0x91);
+
+        // when
+        Throwable e = Asserts.assertThrows(() -> deserializer.deserialize(bytes));
+
+        // then
+        Asserts.assertEqualsType(e, EzyCodecException.class);
+    }
+
+    @Test
+    public void invalidMaxDepthTest() {
+        // when
+        Throwable e = Asserts.assertThrows(() -> new MsgPackSimpleDeserializer(0));
+
+        // then
+        Asserts.assertEqualsType(e, IllegalArgumentException.class);
+    }
 
     @Test
     public void test1() throws IOException {

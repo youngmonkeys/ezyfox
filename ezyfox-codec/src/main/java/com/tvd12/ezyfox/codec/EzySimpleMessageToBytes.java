@@ -6,6 +6,9 @@ public class EzySimpleMessageToBytes implements EzyMessageToBytes {
 
     @Override
     public byte[] convert(EzyMessage message) {
+        if (message.getHeader().isRawBytes()) {
+            return message.getContent().clone();
+        }
         ByteBuffer buffer = newByteBuffer(message);
         writeHeader(buffer, message);
         writeSize(buffer, message);

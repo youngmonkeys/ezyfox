@@ -16,7 +16,9 @@ public class EzySimpleMessage implements EzyMessage {
         this.header = header;
         this.content = content;
         this.size = size;
-        this.byteCount = 1 + getSizeLength() + content.length;
+        this.byteCount = header.isRawBytes()
+            ? content.length
+            : 1 + getSizeLength() + content.length;
     }
 
     @Override
