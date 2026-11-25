@@ -560,7 +560,7 @@ public class MsgPackSimpleSerializer
         writeBinSize(value.length, out);
         out.ensureCapacity(value.length);
         for (Character ch : value) {
-            out.write(ch.charValue());
+            out.write(ch);
         }
     }
 
@@ -568,7 +568,7 @@ public class MsgPackSimpleSerializer
         writeBinSize(value.length, out);
         out.ensureCapacity(value.length);
         for (Byte b : value) {
-            out.write(b.byteValue());
+            out.write(b);
         }
     }
 
