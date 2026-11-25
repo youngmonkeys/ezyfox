@@ -16,6 +16,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.mockito.Mockito.*;
@@ -373,6 +376,70 @@ public class EzyEventLoopGroupTest {
         verify(event1, times(1)).onRemoved();
         verify(event2, atLeast(1)).call();
         verify(event2, times(1)).onRemoved();
+        underTest.shutdown();
+    }
+
+    @Test
+    public void addEventBeforeEventLoopThreadRunTest() throws Exception {
+        // given
+        CountDownLatch threadRunLatch = new CountDownLatch(1);
+        ThreadFactory threadFactory = runnable -> new Thread(() -> {
+            try {
+                threadRunLatch.await();
+            } catch (InterruptedException e) {
+                return;
+            }
+            runnable.run();
+        });
+        EzyEventLoopGroup underTest = new EzyEventLoopGroup(
+            3,
+            1,
+            threadFactory
+        );
+        CountDownLatch eventCalledLatch = new CountDownLatch(1);
+        EzyEventLoopEvent event = mock(EzyEventLoopEvent.class);
+        when(event.call()).thenAnswer(it -> {
+            eventCalledLatch.countDown();
+            return true;
+        });
+
+        // when
+        underTest.addEvent(event);
+        threadRunLatch.countDown();
+
+        // then
+        Asserts.assertTrue(eventCalledLatch.await(3, TimeUnit.SECONDS));
+        underTest.shutdown();
+    }
+
+    @Test
+    public void addEventAfterEventLoopInterruptedTest() throws Exception {
+        // given
+        EzyEventLoopGroup underTest = new EzyEventLoopGroup(
+            1000,
+            1,
+            EzyThreadFactory.builder().build()
+        );
+        AtomicReference<Thread> threadRef = new AtomicReference<>();
+        EzyEventLoopEvent event = mock(EzyEventLoopEvent.class);
+        when(event.call()).thenAnswer(it -> {
+            threadRef.set(Thread.currentThread());
+            return true;
+        });
+        underTest.addEvent(event);
+        while (threadRef.get() == null) {
+            EzyThreads.sleep(3);
+        }
+
+        // when
+        threadRef.get().interrupt();
+        threadRef.get().join(3000);
+
+        // then
+        Throwable e = Asserts.assertThrows(() ->
+            underTest.addEvent(mock(EzyEventLoopEvent.class))
+        );
+        Asserts.assertEqualsType(e, IllegalStateException.class);
         underTest.shutdown();
     }
 }

@@ -202,12 +202,12 @@ public class EzyEventLoopGroup extends EzyLoggable {
         }
 
         public void start() {
+            active.set(true);
             threadFactory.newThread(this::doStart)
                 .start();
         }
 
         private void doStart() {
-            active.set(true);
             final List<EzyEventLoopEvent> eventBuffers = new ArrayList<>();
             while (active.get()) {
                 final long startTime = System.currentTimeMillis();
@@ -249,6 +249,7 @@ public class EzyEventLoopGroup extends EzyLoggable {
                 }
             }
             synchronized (this) {
+                active.set(false);
                 stopped.set(true);
                 shutdownFuture.setResult(true);
             }
