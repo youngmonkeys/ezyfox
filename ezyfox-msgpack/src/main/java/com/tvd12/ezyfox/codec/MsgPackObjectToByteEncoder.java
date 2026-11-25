@@ -24,18 +24,39 @@ public class MsgPackObjectToByteEncoder implements EzyObjectToByteEncoder {
     }
 
     @Override
+    public byte[] compressMessageContent(
+        byte[] messageContent
+    ) {
+        return EzyDeflateCompressor.compress(messageContent);
+    }
+
+    @Override
     public byte[] encryptMessageContent(
         byte[] messageContent,
         byte[] encryptionKey
+    ) throws Exception {
+        return encryptMessageContent(messageContent, encryptionKey, false);
+    }
+
+    @Override
+    public byte[] encryptMessageContent(
+        byte[] messageContent,
+        byte[] encryptionKey,
+        boolean compressed
     ) throws Exception {
         EzyMessage message;
         if (encryptionKey != null) {
             message = objectToMessage.packToMessage(
                 doEncrypt(messageContent, encryptionKey),
-                true
+                true,
+                compressed
             );
         } else {
-            message = objectToMessage.packToMessage(messageContent, false);
+            message = objectToMessage.packToMessage(
+                messageContent,
+                false,
+                compressed
+            );
         }
         return convertMessageToBytes(message);
     }

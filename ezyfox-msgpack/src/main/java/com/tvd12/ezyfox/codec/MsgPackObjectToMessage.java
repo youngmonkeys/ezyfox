@@ -24,18 +24,31 @@ public class MsgPackObjectToMessage implements EzyObjectToMessage {
 
     @Override
     public EzyMessage packToMessage(byte[] content, boolean encrypted) {
+        return packToMessage(content, encrypted, false);
+    }
+
+    @Override
+    public EzyMessage packToMessage(
+        byte[] content,
+        boolean encrypted,
+        boolean compressed
+    ) {
         return new EzySimpleMessage(
-            newHeader(content, encrypted),
+            newHeader(content, encrypted, compressed),
             content,
             content.length
         );
     }
 
-    private EzyMessageHeader newHeader(byte[] content, boolean encrypted) {
+    private EzyMessageHeader newHeader(
+        byte[] content,
+        boolean encrypted,
+        boolean compressed
+    ) {
         return new EzySimpleMessageHeader(
             isBigMessage(content),
             encrypted,
-            false,
+            compressed,
             false,
             false,
             false
