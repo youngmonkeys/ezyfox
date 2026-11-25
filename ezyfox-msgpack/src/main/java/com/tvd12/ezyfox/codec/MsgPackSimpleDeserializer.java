@@ -16,10 +16,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings("AbbreviationAsWordInName")
 public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
-    public static final int DEFAULT_MAX_DEPTH = 256;
-
-    protected final int maxDepth;
-    private final ThreadLocal<int[]> depth;
     protected final MsgPackTypeParser typeParser;
     protected final MapSizeDeserializer mapSizeDeserializer;
     protected final ArraySizeDeserializer arraySizeDeserializer;
@@ -27,17 +23,6 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     protected final Map<MsgPackType, EzyParser<ByteBuffer, Object>> parsers;
 
     public MsgPackSimpleDeserializer() {
-        this(DEFAULT_MAX_DEPTH);
-    }
-
-    public MsgPackSimpleDeserializer(int maxDepth) {
-        if (maxDepth <= 0) {
-            throw new IllegalArgumentException(
-                "maxDepth must be positive, but was: " + maxDepth
-            );
-        }
-        this.maxDepth = maxDepth;
-        this.depth = ThreadLocal.withInitial(() -> new int[1]);
         this.typeParser = new MsgPackTypeParser();
         this.mapSizeDeserializer = new MapSizeDeserializer();
         this.arraySizeDeserializer = new ArraySizeDeserializer();
@@ -47,7 +32,7 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     @SuppressWarnings("unchecked")
     public Object deserialize(ByteBuffer buffer) {
-        return deserialize(buffer, buffer.get() & 0xff);
+        return read(buffer, null);
     }
 
     protected Object deserialize(ByteBuffer buffer, int type) {
@@ -63,18 +48,64 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
         return parser.parse(buffer);
     }
 
-    protected void enterNested() {
-        int[] current = depth.get();
-        if (current[0] >= maxDepth) {
-            throw new EzyCodecException(
-                "nesting depth exceeds max depth: " + maxDepth
-            );
+    private Object read(ByteBuffer buffer, Frame frame) {
+        while (true) {
+            if (!buffer.hasRemaining()) {
+                throw new EzyCodecException("unexpected end of data");
+            }
+            MsgPackType type = getDataType(buffer.get(buffer.position()) & 0xff);
+            Object value;
+            switch (type) {
+                case FIXMAP:
+                case MAP16:
+                case MAP32:
+                    EzyObject object = EzyEntityFactory.newObject();
+                    int mapSize = getMapSize(buffer, sizeBytes(type));
+                    if (mapSize > 0) {
+                        frame = new Frame(frame, object, null, mapSize);
+                        continue;
+                    }
+                    value = object;
+                    break;
+                case FIXARRAY:
+                case ARRAY16:
+                case ARRAY32:
+                    EzyArray array = EzyEntityFactory.newArray();
+                    int arraySize = parseArraySize(buffer, sizeBytes(type));
+                    if (arraySize > 0) {
+                        frame = new Frame(frame, null, array, arraySize);
+                        continue;
+                    }
+                    value = array;
+                    break;
+                default:
+                    value = deserialize(buffer, type);
+                    break;
+            }
+            while (true) {
+                if (frame == null) {
+                    return value;
+                }
+                if (!frame.add(value)) {
+                    break;
+                }
+                value = frame.value();
+                frame = frame.parent;
+            }
         }
-        ++current[0];
     }
 
-    protected void exitNested() {
-        --depth.get()[0];
+    private static int sizeBytes(MsgPackType type) {
+        switch (type) {
+            case FIXMAP:
+            case FIXARRAY:
+                return 1;
+            case MAP16:
+            case ARRAY16:
+                return 3;
+            default:
+                return 5;
+        }
     }
 
     protected Map<MsgPackType, EzyParser<ByteBuffer, Object>> defaultParsers() {
@@ -179,16 +210,11 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     }
 
     protected EzyObject parseMap(ByteBuffer buffer, int size) {
-        enterNested();
-        try {
-            EzyObject object = EzyEntityFactory.newObject();
-            for (int i = 0; i < size; ++i) {
-                object.put(deserialize(buffer), deserialize(buffer));
-            }
-            return object;
-        } finally {
-            exitNested();
+        EzyObject object = EzyEntityFactory.newObject();
+        if (size > 0) {
+            read(buffer, new Frame(null, object, null, size));
         }
+        return object;
     }
 
     protected String parseStr32(ByteBuffer buffer) {
@@ -293,16 +319,11 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
     }
 
     protected EzyArray parseArray(ByteBuffer buffer, int size) {
-        enterNested();
-        try {
-            EzyArray array = EzyEntityFactory.newArray();
-            for (int i = 0; i < size; ++i) {
-                array.add(deserialize(buffer));
-            }
-            return array;
-        } finally {
-            exitNested();
+        EzyArray array = EzyEntityFactory.newArray();
+        if (size > 0) {
+            read(buffer, new Frame(null, null, array, size));
         }
+        return array;
     }
 
     protected MsgPackType getDataType(int type) {
@@ -321,6 +342,42 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
             );
         }
         return (int) length;
+    }
+
+    private static final class Frame {
+        private final Frame parent;
+        private final EzyObject object;
+        private final EzyArray array;
+        private int remaining;
+        private Object key;
+        private boolean hasKey;
+
+        private Frame(Frame parent, EzyObject object, EzyArray array, int remaining) {
+            this.parent = parent;
+            this.object = object;
+            this.array = array;
+            this.remaining = remaining;
+        }
+
+        private boolean add(Object value) {
+            if (object != null) {
+                if (!hasKey) {
+                    key = value;
+                    hasKey = true;
+                    return false;
+                }
+                object.put(key, value);
+                key = null;
+                hasKey = false;
+            } else {
+                array.add(value);
+            }
+            return --remaining == 0;
+        }
+
+        private Object value() {
+            return object != null ? object : array;
+        }
     }
 
     public abstract static class AbstractSizeDeserializer {

@@ -3,6 +3,7 @@ package com.tvd12.ezyfox.codec.testing;
 import com.tvd12.ezyfox.builder.EzyObjectBuilder;
 import com.tvd12.ezyfox.codec.MsgPackSimpleDeserializer;
 import com.tvd12.ezyfox.entity.EzyArray;
+import com.tvd12.ezyfox.entity.EzyObject;
 import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.io.EzyInts;
 import com.tvd12.ezyfox.io.EzyLongs;
@@ -31,22 +32,52 @@ public class MsgPackSimpleDeserializerTest extends MsgPackCodecTest {
     }
 
     @Test
-    public void maxDepthExceededTest() {
+    public void deepNestedArrayTest() {
         // given
-        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer(3);
-        byte[] bytes = new byte[]{(byte) 0x91, (byte) 0x91, (byte) 0x81, 1, (byte) 0x90};
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
+        int depth = 100_000;
+        byte[] bytes = new byte[depth + 1];
+        Arrays.fill(bytes, (byte) 0x91);
+        bytes[depth] = (byte) 0x90;
 
         // when
-        Throwable e = Asserts.assertThrows(() -> deserializer.deserialize(bytes));
+        EzyArray actual = deserializer.deserialize(bytes);
 
         // then
-        Asserts.assertEqualsType(e, EzyCodecException.class);
-        EzyArray array = deserializer.deserialize(new byte[]{(byte) 0x91, (byte) 0x91, (byte) 0x90});
-        Asserts.assertEquals(array.size(), 1);
+        EzyArray current = actual;
+        for (int i = 0; i < depth; ++i) {
+            Asserts.assertEquals(current.size(), 1);
+            current = current.get(0);
+        }
+        Asserts.assertEquals(current.size(), 0);
     }
 
     @Test
-    public void deepNestedDefaultMaxDepthTest() {
+    public void deepNestedMapTest() {
+        // given
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
+        int depth = 50_000;
+        byte[] bytes = new byte[depth * 2 + 1];
+        for (int i = 0; i < depth; ++i) {
+            bytes[i * 2] = (byte) 0x81;
+            bytes[i * 2 + 1] = 1;
+        }
+        bytes[depth * 2] = (byte) 0x80;
+
+        // when
+        EzyObject actual = deserializer.deserialize(bytes);
+
+        // then
+        EzyObject current = actual;
+        for (int i = 0; i < depth; ++i) {
+            Asserts.assertEquals(current.size(), 1);
+            current = current.get(1);
+        }
+        Asserts.assertEquals(current.size(), 0);
+    }
+
+    @Test
+    public void truncatedNestedDataTest() {
         // given
         MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
         byte[] bytes = new byte[100_000];
@@ -60,12 +91,24 @@ public class MsgPackSimpleDeserializerTest extends MsgPackCodecTest {
     }
 
     @Test
-    public void invalidMaxDepthTest() {
+    public void mixedNestedTest() {
+        // given
+        MsgPackSimpleDeserializer deserializer = new MsgPackSimpleDeserializer();
+        byte[] bytes = new byte[]{
+            (byte) 0x92,
+            (byte) 0x82, 1, (byte) 0x91, 2, 3, (byte) 0x80,
+            (byte) 0xa1, 'x'
+        };
+
         // when
-        Throwable e = Asserts.assertThrows(() -> new MsgPackSimpleDeserializer(0));
+        EzyArray actual = deserializer.deserialize(bytes);
 
         // then
-        Asserts.assertEqualsType(e, IllegalArgumentException.class);
+        Asserts.assertEquals(actual.size(), 2);
+        EzyObject first = actual.get(0);
+        Asserts.assertEquals(((EzyArray) first.get(1)).size(), 1);
+        Asserts.assertEquals(((EzyObject) first.get(3)).size(), 0);
+        Asserts.assertEquals(actual.get(1, String.class), "x");
     }
 
     @Test
