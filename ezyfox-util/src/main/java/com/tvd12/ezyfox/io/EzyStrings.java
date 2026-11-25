@@ -84,6 +84,14 @@ public final class EzyStrings {
         return new String(bytes, charset);
     }
 
+    public static String newString(char ch, int count) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < count; ++i) {
+            builder.append(ch);
+        }
+        return builder.toString();
+    }
+
     private static void checkReadableSize(ByteBuffer buffer, int size) {
         if (size < 0) {
             throw new IllegalArgumentException("size must not be negative, but was: " + size);
@@ -91,14 +99,6 @@ public final class EzyStrings {
         if (size > buffer.remaining()) {
             throw new BufferUnderflowException();
         }
-    }
-
-    public static String newString(char ch, int count) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < count; ++i) {
-            builder.append(ch);
-        }
-        return builder.toString();
     }
 
     public static byte[] getBytes(String str, String charset) {
