@@ -7,6 +7,7 @@ import com.tvd12.test.base.BaseTest;
 import org.testng.annotations.Test;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 import static org.testng.Assert.assertEquals;
 
@@ -74,6 +75,99 @@ public class EzyLongsTest extends BaseTest {
 
         // then
         Asserts.assertEquals(100L, actual);
+    }
+
+    @Test
+    public void bin2longLittleEndianBufferReadsBigEndian() {
+        // given
+        ByteBuffer buffer8 = ByteBuffer.wrap(new byte[]{0, 0, 0, 0, 0, 0, 1, 0})
+            .order(ByteOrder.LITTLE_ENDIAN);
+        ByteBuffer buffer4 = ByteBuffer.wrap(new byte[]{0, 0, 1, 0})
+            .order(ByteOrder.LITTLE_ENDIAN);
+        ByteBuffer buffer2 = ByteBuffer.wrap(new byte[]{(byte) 0xff, (byte) 0xfe})
+            .order(ByteOrder.LITTLE_ENDIAN);
+
+        // when
+        long actual8 = EzyLongs.bin2long(buffer8, 8);
+        long actual4 = EzyLongs.bin2long(buffer4, 4);
+        long actual2 = EzyLongs.bin2long(buffer2, 2);
+
+        // then
+        Asserts.assertEquals(actual8, 256L);
+        Asserts.assertEquals(actual4, 256L);
+        Asserts.assertEquals(actual2, -2L);
+        Asserts.assertEquals(buffer8.remaining(), 0);
+        Asserts.assertEquals(buffer4.remaining(), 0);
+        Asserts.assertEquals(buffer2.remaining(), 0);
+    }
+
+    @Test
+    public void bin2longNegativeWith3Bytes() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap(new byte[]{(byte) 0xff, (byte) 0xff, (byte) 0xfe});
+
+        // when
+        long actual = EzyLongs.bin2long(buffer, 3);
+
+        // then
+        Asserts.assertEquals(actual, -2L);
+    }
+
+    @Test
+    public void bin2ulongBigAndLittleEndianSameResult() {
+        // given
+        byte[] bytes4 = new byte[]{(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xfe};
+        byte[] bytes2 = new byte[]{(byte) 0xff, (byte) 0xfe};
+        byte[] bytes1 = new byte[]{(byte) 0xfe};
+
+        // when
+        // then
+        for (ByteOrder order : new ByteOrder[]{ByteOrder.BIG_ENDIAN, ByteOrder.LITTLE_ENDIAN}) {
+            Asserts.assertEquals(
+                EzyLongs.bin2ulong(ByteBuffer.wrap(bytes4).order(order), 4),
+                4294967294L
+            );
+            Asserts.assertEquals(
+                EzyLongs.bin2ulong(ByteBuffer.wrap(bytes4).order(order), 3),
+                16777215L
+            );
+            Asserts.assertEquals(
+                EzyLongs.bin2ulong(ByteBuffer.wrap(bytes2).order(order), 2),
+                65534L
+            );
+            Asserts.assertEquals(
+                EzyLongs.bin2ulong(ByteBuffer.wrap(bytes1).order(order), 1),
+                254L
+            );
+        }
+    }
+
+    @Test
+    public void bin2ulongWith8Bytes() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap(new byte[]{0, 0, 0, 0, (byte) 0x80, 0, 0, 0})
+            .order(ByteOrder.LITTLE_ENDIAN);
+
+        // when
+        long actual = EzyLongs.bin2ulong(buffer);
+
+        // then
+        Asserts.assertEquals(actual, 2147483648L);
+    }
+
+    @Test
+    public void bin2longWithZeroSize() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap(new byte[]{1});
+
+        // when
+        Throwable e1 = Asserts.assertThrows(() -> EzyLongs.bin2long(buffer, 0));
+        Throwable e2 = Asserts.assertThrows(() -> EzyLongs.bin2ulong(buffer, 0));
+
+        // then
+        Asserts.assertEqualsType(e1, IllegalArgumentException.class);
+        Asserts.assertEqualsType(e2, IllegalArgumentException.class);
+        Asserts.assertEquals(buffer.position(), 0);
     }
 
     @Override

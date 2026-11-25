@@ -6,7 +6,6 @@ import com.tvd12.ezyfox.exception.EzyCodecException;
 import com.tvd12.ezyfox.factory.EzyEntityFactory;
 import com.tvd12.ezyfox.function.EzyParser;
 import com.tvd12.ezyfox.io.EzyBytes;
-import com.tvd12.ezyfox.io.EzyInts;
 import com.tvd12.ezyfox.io.EzyLongs;
 import com.tvd12.ezyfox.io.EzyStrings;
 
@@ -107,7 +106,7 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
     protected int getBinLength(ByteBuffer buffer, int size) {
         buffer.get();
-        return EzyInts.bin2uint(buffer, size);
+        return readLength(buffer, size);
     }
 
     protected Object parseBin(ByteBuffer buffer, int length) {
@@ -195,8 +194,8 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
         return parseUInt(buffer, 2);
     }
 
-    protected int parseUInt32(ByteBuffer buffer) {
-        return parseUInt(buffer, 4);
+    protected long parseUInt32(ByteBuffer buffer) {
+        return parseULong(buffer, 4);
     }
 
     protected long parseUInt64(ByteBuffer buffer) {
@@ -269,6 +268,16 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
         throw new EzyCodecException("has no type with type = " + String.format("0x%x", type));
     }
 
+    protected static int readLength(ByteBuffer buffer, int size) {
+        long length = EzyLongs.bin2ulong(buffer, size);
+        if (length > buffer.remaining()) {
+            throw new EzyCodecException(
+                "invalid length: " + length + ", remaining: " + buffer.remaining()
+            );
+        }
+        return (int) length;
+    }
+
     public abstract static class AbstractSizeDeserializer {
 
         public int deserialize(ByteBuffer buffer, int nbytes) {
@@ -281,7 +290,7 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
 
         protected int getOther(ByteBuffer buffer, int nbytes) {
             buffer.get();
-            return EzyInts.bin2uint(buffer, nbytes - 1);
+            return readLength(buffer, nbytes - 1);
         }
     }
 

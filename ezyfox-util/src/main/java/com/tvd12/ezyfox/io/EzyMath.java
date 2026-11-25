@@ -33,12 +33,15 @@ public final class EzyMath {
     }
 
     private static long bin2long(byte[] bytes, boolean unsigned) {
-        int len = bytes.length - 1;
+        if (bytes.length == 0) {
+            throw new IllegalArgumentException("bytes must not be empty");
+        }
         long result = bytes[0];
-        result = unsigned ? result & 0xff : result;
-        result = result << (len * 8);
-        for (int i = 1; i <= len; ++i) {
-            result |= ((long) bytes[i] & 0xff) << ((len - i) * 8);
+        if (unsigned) {
+            result &= 0xFFL;
+        }
+        for (int i = 1; i < bytes.length; ++i) {
+            result = (result << 8) | (bytes[i] & 0xFFL);
         }
         return result;
     }

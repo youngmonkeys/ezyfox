@@ -1,6 +1,7 @@
 package com.tvd12.ezyfox.testing.io;
 
 import com.tvd12.ezyfox.io.EzyBytes;
+import com.tvd12.ezyfox.io.EzyMath;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
 import com.tvd12.test.performance.Performance;
@@ -90,6 +91,38 @@ public class EzyBytesTest extends BaseTest {
             .isEqualsTo(EzyBytes.numberToBytes((long) Integer.MIN_VALUE - 1L));
         Asserts.assertThat(ByteBuffer.allocate(8).putLong(Long.MIN_VALUE).array())
             .isEqualsTo(EzyBytes.numberToBytes(Long.MIN_VALUE));
+    }
+
+    @Test
+    public void getBytesSizeGreaterThan8SignExtends() {
+        // given
+        long negative = -2L;
+        long positive = 5L;
+
+        // when
+        byte[] negativeBytes = EzyBytes.getBytes(negative, 10);
+        byte[] positiveBytes = EzyBytes.getBytes(positive, 9);
+
+        // then
+        assertEquals(negativeBytes, new byte[]{
+            (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
+            (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xfe
+        });
+        assertEquals(positiveBytes, new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 5});
+        Asserts.assertEquals(EzyMath.bin2long(negativeBytes), negative);
+        Asserts.assertEquals(EzyMath.bin2long(positiveBytes), positive);
+    }
+
+    @Test
+    public void getBytesSizeLessThan8Truncates() {
+        // given
+        long value = 0x0102030405L;
+
+        // when
+        byte[] actual = EzyBytes.getBytes(value, 3);
+
+        // then
+        assertEquals(actual, new byte[]{3, 4, 5});
     }
 
     @Override

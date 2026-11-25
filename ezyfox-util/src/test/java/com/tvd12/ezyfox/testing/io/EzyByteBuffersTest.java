@@ -53,6 +53,53 @@ public class EzyByteBuffersTest extends BaseTest {
         System.out.println("mergePerformanceTest.time2 = " + time2);
     }
 
+    @Test
+    public void getRemainingBytesTest() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap(new byte[]{1, 2, 3, 4});
+        buffer.get();
+
+        // when
+        byte[] actual = EzyByteBuffers.getRemainingBytes(buffer);
+
+        // then
+        Asserts.assertEquals(ByteBuffer.wrap(actual), ByteBuffer.wrap(new byte[]{2, 3, 4}));
+        Asserts.assertEquals(buffer.remaining(), 0);
+    }
+
+    @Test
+    public void getRemainingBytesDoesNotFlipConsumedBuffer() {
+        // given
+        ByteBuffer buffer = ByteBuffer.wrap(new byte[]{1, 2, 3});
+        buffer.get(new byte[3]);
+
+        // when
+        byte[] actual = EzyByteBuffers.getRemainingBytes(buffer);
+
+        // then
+        Asserts.assertEquals(actual.length, 0);
+        Asserts.assertEquals(buffer.position(), 3);
+        Asserts.assertEquals(buffer.limit(), 3);
+    }
+
+    @Test
+    public void mergeDoesNotConsumeSourceBuffers() {
+        // given
+        ByteBuffer buffer1 = ByteBuffer.wrap(new byte[]{1, 2, 3});
+        buffer1.get();
+        ByteBuffer buffer2 = ByteBuffer.wrap(new byte[]{4, 5});
+
+        // when
+        ByteBuffer actual = EzyByteBuffers.merge(new ByteBuffer[]{buffer1, buffer2});
+
+        // then
+        Asserts.assertEquals(actual, ByteBuffer.wrap(new byte[]{2, 3, 4, 5}));
+        Asserts.assertEquals(buffer1.position(), 1);
+        Asserts.assertEquals(buffer1.remaining(), 2);
+        Asserts.assertEquals(buffer2.position(), 0);
+        Asserts.assertEquals(buffer2.remaining(), 2);
+    }
+
     @Override
     public Class<?> getTestClass() {
         return EzyByteBuffers.class;

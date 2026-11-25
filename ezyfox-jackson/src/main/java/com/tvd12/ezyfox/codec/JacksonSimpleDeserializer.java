@@ -22,7 +22,7 @@ public class JacksonSimpleDeserializer implements EzyMessageDeserializer {
 
     @Override
     public <T> T deserialize(ByteBuffer buffer) {
-        return deserialize(EzyByteBuffers.getBytes(buffer));
+        return deserialize(EzyByteBuffers.getRemainingBytes(buffer));
     }
 
     @SuppressWarnings("unchecked")
