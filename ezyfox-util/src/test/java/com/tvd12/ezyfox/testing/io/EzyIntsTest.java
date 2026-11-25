@@ -1,6 +1,5 @@
 package com.tvd12.ezyfox.testing.io;
 
-import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyInts;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.base.BaseTest;
@@ -17,9 +16,9 @@ public class EzyIntsTest extends BaseTest {
     public void test() {
         assertEquals(EzyInts.bin2int(31), Integer.MAX_VALUE);
         assertEquals(EzyInts.bin2int(
-            EzyBytes.getBytes(ByteBuffer.allocate(4).putInt(-100))), -100);
+            ByteBuffer.allocate(4).putInt(-100).array()), -100);
         assertEquals(EzyInts.bin2uint(
-            EzyBytes.getBytes(ByteBuffer.allocate(4).putInt(100))), 100);
+            ByteBuffer.allocate(4).putInt(100).array()), 100);
         ByteBuffer buffer1 = ByteBuffer.allocate(4).putInt(-1000);
         buffer1.flip();
         assertEquals(EzyInts.bin2int(buffer1), -1000);

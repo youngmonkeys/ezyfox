@@ -5,7 +5,7 @@ import com.tvd12.ezyfox.codec.EzyDefaultDecodeHandlers;
 import com.tvd12.ezyfox.codec.EzyMessage;
 import com.tvd12.ezyfox.codec.EzySimpleMessageDataDecoder;
 import com.tvd12.ezyfox.exception.EzyZeroRequestSizeException;
-import com.tvd12.ezyfox.io.EzyBytes;
+import com.tvd12.ezyfox.io.EzyByteBuffers;
 import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.util.RandomUtil;
 import org.testng.annotations.Test;
@@ -31,7 +31,7 @@ public class EzySimpleMessageDataDecoderTest {
         buffer.putShort((short) 9);
         buffer.put("012345678".getBytes());
         buffer.flip();
-        byte[] bytes = EzyBytes.getBytes(buffer);
+        byte[] bytes = EzyByteBuffers.getRemainingBytes(buffer);
         AtomicBoolean called = new AtomicBoolean(false);
         decoder.decode(bytes, data -> called.set(true));
         assert called.get();
@@ -46,7 +46,7 @@ public class EzySimpleMessageDataDecoderTest {
         buffer.putShort((short) 9);
         buffer.put("012345678012345".getBytes());
         buffer.flip();
-        byte[] bytes = EzyBytes.getBytes(buffer);
+        byte[] bytes = EzyByteBuffers.getRemainingBytes(buffer);
         AtomicBoolean called = new AtomicBoolean(false);
         decoder.decode(bytes, data -> {
             called.set(true);
@@ -73,7 +73,7 @@ public class EzySimpleMessageDataDecoderTest {
         buffer.putShort((short) 9);
         buffer.put("012345678".getBytes());
         buffer.flip();
-        byte[] bytes = EzyBytes.getBytes(buffer);
+        byte[] bytes = EzyByteBuffers.getRemainingBytes(buffer);
         AtomicInteger count = new AtomicInteger();
         decoder.decode(bytes, data -> count.incrementAndGet());
         assert count.get() == 2;
@@ -88,7 +88,7 @@ public class EzySimpleMessageDataDecoderTest {
         buffer.putShort((short) 9);
         buffer.put("012345678".getBytes());
         buffer.flip();
-        byte[] bytes = EzyBytes.getBytes(buffer);
+        byte[] bytes = EzyByteBuffers.getRemainingBytes(buffer);
         AtomicBoolean called = new AtomicBoolean(false);
         decoder.destroy();
         decoder.decode(bytes, data -> called.set(true));
@@ -148,7 +148,7 @@ public class EzySimpleMessageDataDecoderTest {
 
         // when
         Throwable e = Asserts.assertThrows(() ->
-            decoder.decode(EzyBytes.getBytes(invalid), messages::add)
+            decoder.decode(EzyByteBuffers.getRemainingBytes(invalid), messages::add)
         );
         decoder.decode(newMessageBytes("012345678"), messages::add);
 

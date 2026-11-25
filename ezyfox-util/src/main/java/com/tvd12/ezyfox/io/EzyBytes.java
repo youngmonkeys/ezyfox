@@ -16,10 +16,6 @@ public final class EzyBytes {
         return answer;
     }
 
-    public static byte[] getBytes(ByteBuffer buffer) {
-        return EzyByteBuffers.getBytes(buffer);
-    }
-
     public static byte[] getBytes(int first, int value, int size) {
         return getBytes(first, (long) value, size);
     }

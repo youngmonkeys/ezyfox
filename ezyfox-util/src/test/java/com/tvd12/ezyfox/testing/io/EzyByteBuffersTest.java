@@ -15,7 +15,7 @@ public class EzyByteBuffersTest extends BaseTest {
     public void test() {
         ByteBuffer buffer = ByteBuffer.allocate(8).putLong(1000L);
         buffer.flip();
-        EzyByteBuffers.getBytes(buffer);
+        EzyByteBuffers.getRemainingBytes(buffer);
 
         ByteBuffer buffer1 = ByteBuffer.allocate(4).putInt(2);
         buffer1.flip();

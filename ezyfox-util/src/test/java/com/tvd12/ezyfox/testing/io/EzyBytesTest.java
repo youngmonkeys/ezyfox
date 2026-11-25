@@ -21,15 +21,15 @@ public class EzyBytesTest extends BaseTest {
         assertEquals(EzyBytes.getBytes(1, 255 + 1, 2),
             new byte[]{1, 1, 0});
         assertEquals(EzyBytes.getBytes((byte) 1, 100.5D),
-            EzyBytes.merge((byte) 1, EzyBytes.getBytes(ByteBuffer.allocate(8).putDouble(100.5D))));
+            EzyBytes.merge((byte) 1, ByteBuffer.allocate(8).putDouble(100.5D).array()));
         assertEquals(EzyBytes.getBytes((byte) 1, 100.5F),
-            EzyBytes.merge((byte) 1, EzyBytes.getBytes(ByteBuffer.allocate(4).putFloat(100.5F))));
+            EzyBytes.merge((byte) 1, ByteBuffer.allocate(4).putFloat(100.5F).array()));
         assertEquals(EzyBytes.getBytes(100L),
-            EzyBytes.getBytes(ByteBuffer.allocate(8).putLong(100L)));
+            ByteBuffer.allocate(8).putLong(100L).array());
         assertEquals(EzyBytes.getBytes(100),
-            EzyBytes.getBytes(ByteBuffer.allocate(4).putInt(100)));
+            ByteBuffer.allocate(4).putInt(100).array());
         assertEquals(EzyBytes.getBytes((short) 100),
-            EzyBytes.getBytes(ByteBuffer.allocate(2).putShort((short) 100)));
+            ByteBuffer.allocate(2).putShort((short) 100).array());
     }
 
     @Test

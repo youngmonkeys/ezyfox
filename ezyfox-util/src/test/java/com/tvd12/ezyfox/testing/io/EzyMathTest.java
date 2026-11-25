@@ -1,6 +1,5 @@
 package com.tvd12.ezyfox.testing.io;
 
-import com.tvd12.ezyfox.io.EzyBytes;
 import com.tvd12.ezyfox.io.EzyLongs;
 import com.tvd12.ezyfox.io.EzyMath;
 import com.tvd12.test.assertion.Asserts;
@@ -27,19 +26,15 @@ public class EzyMathTest extends BaseTest {
         assertEquals(EzyMath.bin2long(40), 1099511627775L);
 
         assertEquals(EzyMath.bin2int(
-                getBytes(ByteBuffer.allocate(4).putInt(-100))),
+                ByteBuffer.allocate(4).putInt(-100).array()),
             -100);
 
         assertEquals(EzyMath.bin2long(
-                getBytes(ByteBuffer.allocate(8).putLong(-100000))),
+                ByteBuffer.allocate(8).putLong(-100000).array()),
             -100000L);
         byte[] xor = new byte[]{(byte) 255, (byte) 255, (byte) 255};
         EzyMath.xor(xor);
         assertEquals(xor, new byte[]{0, 0, 0});
-    }
-
-    protected byte[] getBytes(ByteBuffer buffer) {
-        return EzyBytes.getBytes(buffer);
     }
 
     @Test

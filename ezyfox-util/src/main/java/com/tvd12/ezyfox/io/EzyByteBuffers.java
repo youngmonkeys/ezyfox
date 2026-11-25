@@ -6,13 +6,6 @@ public final class EzyByteBuffers {
 
     private EzyByteBuffers() {}
 
-    public static byte[] getBytes(ByteBuffer buffer) {
-        if (!buffer.hasRemaining()) {
-            buffer.flip();
-        }
-        return getBytes(buffer, buffer.remaining());
-    }
-
     public static byte[] getRemainingBytes(ByteBuffer buffer) {
         return getBytes(buffer, buffer.remaining());
     }
