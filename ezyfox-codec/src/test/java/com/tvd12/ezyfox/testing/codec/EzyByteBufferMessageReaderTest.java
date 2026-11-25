@@ -71,6 +71,54 @@ public class EzyByteBufferMessageReaderTest {
     }
 
     @Test
+    public void readSizeWithHighestBitTest() {
+        // given
+        ByteBuffer buffer = ByteBuffer.allocate(5);
+        buffer.put((byte) 1);
+        buffer.putInt(0x80000000);
+        buffer.flip();
+
+        EzyByteBufferMessageReader reader = new EzyByteBufferMessageReader();
+        reader.readHeader(buffer);
+
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            reader.readSize(buffer, Integer.MAX_VALUE)
+        );
+
+        // then
+        Asserts.assertEqualsType(e, EzyMaxRequestSizeException.class);
+        Asserts.assertEquals(
+            e.getMessage(),
+            "size = 2147483648 when max size = 2147483647"
+        );
+    }
+
+    @Test
+    public void readSizeWithAllBitsTest() {
+        // given
+        ByteBuffer buffer = ByteBuffer.allocate(5);
+        buffer.put((byte) 1);
+        buffer.putInt(-1);
+        buffer.flip();
+
+        EzyByteBufferMessageReader reader = new EzyByteBufferMessageReader();
+        reader.readHeader(buffer);
+
+        // when
+        Throwable e = Asserts.assertThrows(() ->
+            reader.readSize(buffer, 1024)
+        );
+
+        // then
+        Asserts.assertEqualsType(e, EzyMaxRequestSizeException.class);
+        Asserts.assertEquals(
+            e.getMessage(),
+            "size = 4294967295 when max size = 1024"
+        );
+    }
+
+    @Test
     public void readContentByChunksTest() {
         // given
         int size = 10000;

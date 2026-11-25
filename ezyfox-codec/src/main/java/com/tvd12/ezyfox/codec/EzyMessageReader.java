@@ -48,13 +48,14 @@ public abstract class EzyMessageReader<B> {
         if (remaining < getSizeLength()) {
             return false;
         }
-        this.size = readMessageSize(buffer);
-        if (size <= 0) {
+        long unsignedSize = readMessageSize(buffer) & 0xFFFFFFFFL;
+        if (unsignedSize == 0) {
             throw new EzyZeroRequestSizeException();
         }
-        if (size > maxSize) {
-            throw new EzyMaxRequestSizeException(size, maxSize);
+        if (unsignedSize > maxSize) {
+            throw new EzyMaxRequestSizeException(unsignedSize, maxSize);
         }
+        this.size = (int) unsignedSize;
         return true;
     }
 

@@ -10,4 +10,8 @@ public class EzyMaxRequestSizeException extends IllegalArgumentException {
     public EzyMaxRequestSizeException(int size, int maxSize) {
         this("size = " + size + " when max size = " + maxSize);
     }
+
+    public EzyMaxRequestSizeException(long size, int maxSize) {
+        this("size = " + size + " when max size = " + maxSize);
+    }
 }
