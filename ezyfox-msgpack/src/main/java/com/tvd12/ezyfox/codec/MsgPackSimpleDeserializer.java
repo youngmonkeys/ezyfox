@@ -231,8 +231,11 @@ public class MsgPackSimpleDeserializer implements EzyMessageDeserializer {
         return parseUInt(buffer, 2);
     }
 
-    protected long parseUInt32(ByteBuffer buffer) {
-        return parseULong(buffer, 4);
+    protected Object parseUInt32(ByteBuffer buffer) {
+        long value = parseULong(buffer, 4);
+        return value <= Integer.MAX_VALUE
+            ? (Object) (int) value
+            : (Object) value;
     }
 
     protected long parseUInt64(ByteBuffer buffer) {

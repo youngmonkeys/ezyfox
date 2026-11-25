@@ -534,10 +534,24 @@ public class MsgPackSimpleDerSerTest {
 
         // when
         byte[] bytes = ser.serialize(number);
-        long actual = der.deserialize(bytes);
+        Object actual = der.deserialize(bytes);
 
         //then
         Asserts.assertEquals(bytes.length, 5);
+        Asserts.assertEquals(bytes[0], (byte) 0xce);
+        Asserts.assertEquals(actual, (int) number);
+    }
+
+    @Test
+    public void serializeUInt32IntMax() {
+        // given
+        int number = Integer.MAX_VALUE;
+
+        // when
+        byte[] bytes = ser.serialize(number);
+        Object actual = der.deserialize(bytes);
+
+        //then
         Asserts.assertEquals(bytes[0], (byte) 0xce);
         Asserts.assertEquals(actual, number);
     }
