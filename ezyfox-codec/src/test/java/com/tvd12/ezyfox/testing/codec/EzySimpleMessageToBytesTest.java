@@ -69,4 +69,22 @@ public class EzySimpleMessageToBytesTest {
         Asserts.assertTrue(bytes != frame);
         Asserts.assertEquals(message.getByteCount(), frame.length);
     }
+
+    @Test
+    public void byteCountGreaterThanWrittenBytesTest() {
+        // given
+        EzySimpleMessageToBytes instance = new EzySimpleMessageToBytes();
+        EzyMessage message = mock(EzyMessage.class);
+        EzyMessageHeader header = mock(EzyMessageHeader.class);
+        when(message.getHeader()).thenReturn(header);
+        when(message.getSize()).thenReturn(3);
+        when(message.getContent()).thenReturn("abc".getBytes());
+        when(message.getByteCount()).thenReturn(1 + 2 + 3 + 4);
+
+        // when
+        byte[] bytes = instance.convert(message);
+
+        // then
+        Asserts.assertEquals(bytes, new byte[]{0, 0, 3, 'a', 'b', 'c'});
+    }
 }

@@ -2,6 +2,7 @@ package com.tvd12.ezyfox.testing.codec;
 
 import com.tvd12.ezyfox.codec.EzyObjectToByteEncoder;
 import com.tvd12.ezyfox.codec.EzySimpleMessageDataEncoder;
+import com.tvd12.test.assertion.Asserts;
 import com.tvd12.test.util.RandomUtil;
 import org.testng.annotations.Test;
 
@@ -49,5 +50,37 @@ public class EzySimpleMessageDataEncoderTest {
 
         // then
         verify(encoder, times(1)).encryptMessageContent(messageContent, encryptionKey);
+    }
+
+    @Test
+    public void compressMessageContentTest() throws Exception {
+        // given
+        EzyObjectToByteEncoder encoder = mock(EzyObjectToByteEncoder.class);
+        byte[] messageContent = RandomUtil.randomShortByteArray();
+        byte[] compressed = RandomUtil.randomShortByteArray();
+        when(encoder.compressMessageContent(messageContent)).thenReturn(compressed);
+        EzySimpleMessageDataEncoder sut = new EzySimpleMessageDataEncoder(encoder);
+
+        // when
+        byte[] actual = sut.compressMessageContent(messageContent);
+
+        // then
+        Asserts.assertEquals(actual, compressed);
+        verify(encoder, times(1)).compressMessageContent(messageContent);
+    }
+
+    @Test
+    public void encryptMessageContentWithCompressedFlagTest() throws Exception {
+        // given
+        EzyObjectToByteEncoder encoder = mock(EzyObjectToByteEncoder.class);
+        EzySimpleMessageDataEncoder sut = new EzySimpleMessageDataEncoder(encoder);
+        byte[] messageContent = RandomUtil.randomShortByteArray();
+        byte[] encryptionKey = RandomUtil.randomShortByteArray();
+
+        // when
+        sut.encryptMessageContent(messageContent, encryptionKey, true);
+
+        // then
+        verify(encoder, times(1)).encryptMessageContent(messageContent, encryptionKey, true);
     }
 }

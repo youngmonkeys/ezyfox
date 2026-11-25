@@ -3,6 +3,8 @@ package com.tvd12.ezyfox.testing.codec;
 import com.tvd12.ezyfox.codec.EzyByteToObjectDecoder;
 import com.tvd12.ezyfox.codec.EzyDefaultDecodeHandlers;
 import com.tvd12.ezyfox.codec.EzyMessage;
+import com.tvd12.ezyfox.codec.EzyMessageHeaderReader;
+import com.tvd12.ezyfox.codec.EzySimpleMessage;
 import com.tvd12.ezyfox.codec.EzySimpleMessageDataDecoder;
 import com.tvd12.ezyfox.exception.EzyZeroRequestSizeException;
 import com.tvd12.ezyfox.io.EzyByteBuffers;
@@ -265,5 +267,67 @@ public class EzySimpleMessageDataDecoderTest {
         public void reset() {
         }
 
+    }
+
+    @Test
+    public void decodeWithPendingBytesTest() throws Exception {
+        // given
+        EzySimpleMessageDataDecoder decoder = new EzySimpleMessageDataDecoder(
+            new WholeFrameByteToObjectDecoder()
+        );
+        byte[] bytes1 = newMessageBytes("012345678");
+        byte[] bytes2 = newMessageBytes("abc");
+        byte[] bytes = new byte[bytes1.length + bytes2.length];
+        System.arraycopy(bytes1, 0, bytes, 0, bytes1.length);
+        System.arraycopy(bytes2, 0, bytes, bytes1.length, bytes2.length);
+        List<EzyMessage> messages = new ArrayList<>();
+
+        // when
+        decoder.decode(Arrays.copyOfRange(bytes, 0, 5), messages::add);
+        int sizeAfterFirstChunk = messages.size();
+        decoder.decode(Arrays.copyOfRange(bytes, 5, bytes1.length + 2), messages::add);
+        int sizeAfterSecondChunk = messages.size();
+        decoder.decode(Arrays.copyOfRange(bytes, bytes1.length + 2, bytes.length), messages::add);
+
+        // then
+        Asserts.assertEquals(sizeAfterFirstChunk, 0);
+        Asserts.assertEquals(sizeAfterSecondChunk, 1);
+        Asserts.assertEquals(messages.size(), 2);
+        Asserts.assertEquals(messages.get(0).getContent(), "012345678".getBytes());
+        Asserts.assertEquals(messages.get(1).getContent(), "abc".getBytes());
+    }
+
+    public static class WholeFrameByteToObjectDecoder implements EzyByteToObjectDecoder {
+
+        @Override
+        public Object decode(EzyMessage message) {
+            return message;
+        }
+
+        @Override
+        public void decode(ByteBuffer bytes, Queue<EzyMessage> queue) {
+            while (bytes.remaining() >= 3) {
+                int position = bytes.position();
+                byte headerByte = bytes.get(position);
+                int size = bytes.getShort(position + 1);
+                if (bytes.remaining() < 3 + size) {
+                    return;
+                }
+                bytes.position(position + 3);
+                byte[] content = new byte[size];
+                bytes.get(content);
+                queue.add(
+                    new EzySimpleMessage(
+                        EzyMessageHeaderReader.read(headerByte),
+                        content,
+                        size
+                    )
+                );
+            }
+        }
+
+        @Override
+        public void reset() {
+        }
     }
 }

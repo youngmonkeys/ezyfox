@@ -164,4 +164,33 @@ public class EzyDeflateCompressorTest {
         }
         return builder.substring(0, length).getBytes(StandardCharsets.UTF_8);
     }
+
+    @Test
+    public void compressOutputExactlyFitsBufferTest() {
+        // given
+        byte[] data = new byte[59];
+        new Random(1).nextBytes(data);
+
+        // when
+        byte[] compressed = EzyDeflateCompressor.compress(data, 0);
+        byte[] decompressed = EzyDeflateCompressor.decompress(compressed, 0);
+
+        // then
+        Asserts.assertEquals(compressed.length, 64);
+        Asserts.assertTrue(Arrays.equals(data, decompressed));
+    }
+
+    @Test
+    public void decompressOutputExactlyFitsBufferTest() {
+        // given
+        byte[] data = newRepeatedData(1024);
+        byte[] compressed = EzyDeflateCompressor.compress(data);
+
+        // when
+        byte[] decompressed = EzyDeflateCompressor.decompress(compressed, 0);
+
+        // then
+        Asserts.assertTrue(compressed.length * 4 <= 1024);
+        Asserts.assertTrue(Arrays.equals(data, decompressed));
+    }
 }
