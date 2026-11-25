@@ -15,7 +15,6 @@ import java.util.*;
 
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getPrototypeName;
 import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
-import static com.tvd12.ezyfox.io.EzyMaps.newHashMapNewKeys;
 
 public class EzySimpleConfigurationLoader
     extends EzyLoggable
@@ -29,7 +28,7 @@ public class EzySimpleConfigurationLoader
     protected EzySingletonFactory singletonFactory;
     protected EzyBeanNameTranslator beanNameTranslator;
     protected EzyBeanMetadataCache metadataCache;
-    protected Map<Class<?>, EzyMethod> singletonMethods;
+    protected Map<EzyBeanKey, EzyMethod> singletonMethods;
     protected Map<EzyBeanKey, EzyMethod> singletonMethodByKey;
 
     public EzySimpleConfigurationLoader(
@@ -42,10 +41,7 @@ public class EzySimpleConfigurationLoader
     public EzyConfigurationLoader clazz(Class<?> configClass) {
         this.clazz = metadataCache.getClass(configClass);
         this.singletonMethodByKey = mapSingletonKeyMethods();
-        this.singletonMethods = newHashMapNewKeys(
-            singletonMethodByKey,
-            EzyBeanKey::getType
-        );
+        this.singletonMethods = new HashMap<>(singletonMethodByKey);
         return this;
     }
 

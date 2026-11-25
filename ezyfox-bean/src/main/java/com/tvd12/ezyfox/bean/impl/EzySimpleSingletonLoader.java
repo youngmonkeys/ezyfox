@@ -14,13 +14,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static com.tvd12.ezyfox.bean.impl.EzyBeanNameParser.getSingletonName;
+
 @SuppressWarnings("rawtypes")
 public abstract class EzySimpleSingletonLoader
     extends EzySimpleObjectBuilder
     implements EzySingletonLoader {
 
     protected final Object configurator;
-    protected final Map<Class<?>, EzyMethod> methodsByType;
+    protected final Map<EzyBeanKey, EzyMethod> methodsByKey;
     protected final List<Class<?>> stackCallClasses;
 
     protected EzySimpleSingletonLoader(
@@ -43,13 +45,13 @@ public abstract class EzySimpleSingletonLoader
         String beanName,
         EzyClass clazz,
         Object configurator,
-        Map<Class<?>, EzyMethod> methodsByType,
+        Map<EzyBeanKey, EzyMethod> methodsByKey,
         List<Class<?>> stackCallClasses,
         EzyBeanMetadataCache metadataCache
     ) {
         super(beanName, clazz, metadataCache);
         this.configurator = configurator;
-        this.methodsByType = methodsByType;
+        this.methodsByKey = methodsByKey;
         this.stackCallClasses = stackCallClasses;
     }
 
@@ -115,12 +117,31 @@ public abstract class EzySimpleSingletonLoader
         Class type, String beanName,
         EzyBeanContext context
     ) {
-        EzySingletonFactory factory = context.getSingletonFactory();
-        Object singleton = factory.getSingleton(beanName, type);
+        Object singleton = getOrCreateSingletonByNamedMethod(type, beanName, context);
+        if (singleton == null) {
+            EzySingletonFactory factory = context.getSingletonFactory();
+            singleton = factory.getSingleton(beanName, type);
+        }
         if (singleton == null) {
             singleton = createNewSingleton(type, beanName, context);
         }
         return singleton;
+    }
+
+    private Object getOrCreateSingletonByNamedMethod(
+        Class<?> type,
+        String beanName,
+        EzyBeanContext context
+    ) {
+        EzyBeanKey key = getSingletonMethodKey(type, beanName);
+        if (key == null) {
+            return null;
+        }
+        Object singleton = context.getSingletonFactory().getSingleton(key);
+        if (singleton != null) {
+            return singleton;
+        }
+        return loadSingletonByMethod(methodsByKey.remove(key), context);
     }
 
     protected Map getAnnotationProperties() {
@@ -250,18 +271,9 @@ public abstract class EzySimpleSingletonLoader
         String beanName,
         EzyBeanContext context
     ) {
-        EzyMethod method = methodsByType.remove(paramType);
-        if (method != null) {
-            logger.debug("add singleton of {} with method {}", paramType, method);
-            EzySingletonLoader loader = new EzyByMethodSingletonLoader(
-                beanName,
-                method,
-                configurator,
-                methodsByType,
-                stackCallClasses,
-                metadataCache
-            );
-            return loader.load(context);
+        EzyBeanKey methodKey = getSingletonMethodKey(paramType);
+        if (methodKey != null) {
+            return loadSingletonByMethod(methodsByKey.remove(methodKey), context);
         }
         boolean cannotCreate = isAbstractClass(paramType);
         if (!cannotCreate) {
@@ -279,6 +291,48 @@ public abstract class EzySimpleSingletonLoader
             metadataCache
         );
         return loader.load(context);
+    }
+
+    private Object loadSingletonByMethod(
+        EzyMethod method,
+        EzyBeanContext context
+    ) {
+        String methodBeanName = getSingletonName(method);
+        logger.debug("add singleton {} with method {}", methodBeanName, method);
+        EzySingletonLoader loader = new EzyByMethodSingletonLoader(
+            methodBeanName,
+            method,
+            configurator,
+            methodsByKey,
+            stackCallClasses,
+            metadataCache
+        );
+        return loader.load(context);
+    }
+
+    protected final EzyMethod getSingletonMethod(Class<?> type) {
+        EzyBeanKey key = getSingletonMethodKey(type);
+        return key != null ? methodsByKey.get(key) : null;
+    }
+
+    private EzyBeanKey getSingletonMethodKey(Class<?> type, String beanName) {
+        for (EzyBeanKey key : methodsByKey.keySet()) {
+            if (key.getName().equals(beanName)
+                && type.isAssignableFrom(key.getType())
+            ) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    private EzyBeanKey getSingletonMethodKey(Class<?> type) {
+        for (EzyBeanKey key : methodsByKey.keySet()) {
+            if (key.getType() == type) {
+                return key;
+            }
+        }
+        return null;
     }
 
     protected void detectCircularDependency(Class[] parameterTypes, StringBuilder log) {
